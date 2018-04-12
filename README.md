@@ -1,6 +1,7 @@
-# dhis2-java-client
+# DHIS 2 Java Client
 
-DHIS 2 API client for Java and Spring.
+DHIS 2 API client for Java and Spring. The client allows you to create, update and
+retrieve information from DHIS 2.
 
 ### Getting started
 
