@@ -36,13 +36,13 @@ An externalized configuration in a Spring Boot 2 setting could look like this:
 @PropertySource("file:/opt/conf.properties")
 public class MyApp
 {  
-    @Value( "${dhis.instance.url}" )
+    @Value("${dhis.instance.url}")
     private String dhisInstanceUrl;
 
-    @Value( "${dhis.instance.username}" )
+    @Value("${dhis.instance.username}")
     private String dhisInstanceUsername;
     
-    @Value( "${dhis.instance.password}" )
+    @Value("${dhis.instance.password}")
     private String dhisInstancePassword;
 
     @Bean
@@ -82,7 +82,7 @@ To retrieve all org units ordered descending on the name property:
 
 ```java
 List<OrgUnit> orgUnits = dhis2.getOrgUnits( Query.instance()
-    withOrder( Order.desc( "name" );
+    withOrder( Order.desc( "name" ) );
 ```
 
 To retrive a single org unit by identifier:
@@ -94,7 +94,7 @@ OrgUnit orgUnit = dhis2.getOrgUnit( "j7gkH3hf83k" );
 To retrieve your own, arbitrary domain objects:
 
 ```java
-DataElement dataElement = dhis2.getObject( "/dataElements/khG6T32uJ71", DataElement.class );
+DataElement dataElement = dhis2.getObject( "dataElements/khG6T32uJ71", DataElement.class );
 ```
 
 #### Create objects
@@ -125,4 +125,12 @@ To save your own, arbitrary domain objects:
 DataElement dataElement = new DataElement( "Staff ");
 
 dhis2.saveObject( "dataElements", dataElement );
+```
+
+To update your own, arbitrary domain objects:
+
+```java
+DataElement dataElement = new DataElement( "k7jF98KfJ2k", "Staff ");
+
+dhis2.updateObject( "dataElements/" + dataElement.getId(), dataElement );
 ```
