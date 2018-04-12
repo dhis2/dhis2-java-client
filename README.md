@@ -60,7 +60,7 @@ public class MyApp
 
 This section explains the basic usage of the client.
 
-### Retrieve objects
+#### Retrieve objects
 
 To retrieve all org unit groups:
 
@@ -95,7 +95,7 @@ To retrieve your own, arbitrary domain objects:
 DataElement dataElement = dhis2.getObject( "/dataElements/khG6T32uJ71", DataElement.class );
 ```
 
-### Create objects
+#### Create objects
 
 To create an org unit:
 
