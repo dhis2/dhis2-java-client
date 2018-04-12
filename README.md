@@ -72,6 +72,13 @@ List<OrgUnit> orgUnits = dhis2.getOrgUnits( Query.instance()
     .withPaging( 1, 200 ) );
 ```
 
+To retrieve all org units ordered descending on the name property:
+
+```java
+List<OrgUnit> orgUnits = dhis2.getOrgUnits( Query.instance()
+    withOrder( Order.desc( "name" );
+```
+
 To create an org unit:
 
 ```java
