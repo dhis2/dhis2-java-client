@@ -91,7 +91,7 @@ To retrive a single org unit by identifier:
 OrgUnit orgUnit = dhis2.getOrgUnit( "j7gkH3hf83k" );
 ```
 
-To retrieve your own, arbitrary domain objects:
+To retrieve your own, arbitrary domain object:
 
 ```java
 DataElement dataElement = dhis2.getObject( "dataElements/khG6T32uJ71", DataElement.class );
