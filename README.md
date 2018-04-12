@@ -130,7 +130,5 @@ dhis2.saveObject( "dataElements", dataElement );
 To update your own, arbitrary domain object:
 
 ```java
-DataElement dataElement = new DataElement( "k7jF98KfJ2k", "Staff ");
-
 dhis2.updateObject( "dataElements/" + dataElement.getId(), dataElement );
 ```
