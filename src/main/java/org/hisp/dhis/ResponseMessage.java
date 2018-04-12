@@ -97,10 +97,10 @@ public class ResponseMessage
     public String toString()
     {
         return new StringBuilder( "[")
-            .append( "status: " ).append( status )
-            .append( "code: " ).append( code )
-            .append( "httpStatus: " ).append( httpStatus )
-            .append( "httpStatusCode: " ).append( httpStatusCode )
+            .append( "status: " ).append( status ).append( ", " )
+            .append( "code: " ).append( code ).append( ", " )
+            .append( "httpStatus: " ).append( httpStatus ).append( ", " )
+            .append( "httpStatusCode: " ).append( httpStatusCode ).append( ", " )
             .append( "devMessage: " ).append( devMessage ).append( "]" ).toString();
     }
 }
