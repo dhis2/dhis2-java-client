@@ -57,7 +57,7 @@ public class MyApp
     }
 }
 ```
-This requires a corresponding properties file:
+This requires a corresponding properties file `https://play.dhis2.org/2.29/api`:
 
 ```properties
 dhis.instance.url = https://play.dhis2.org/2.29/api
