@@ -3,6 +3,8 @@
 DHIS 2 API client for Java and Spring. The client allows you to create, update and
 retrieve information from DHIS 2.
 
+The client depends on `spring-webmvc` and `jackson-annotations` and is suited for use with Spring Boot 2.
+
 ## Getting started
 
 To use `dhis2-java-client` with Maven you can specify the following dependency:
