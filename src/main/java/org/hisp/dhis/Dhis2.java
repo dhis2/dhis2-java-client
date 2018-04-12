@@ -176,8 +176,6 @@ public class Dhis2
         
         String url = uriBuilder.build().toUriString();
         
-        System.out.println( String.format( "URL: %s", url ) );
-        
         return getObjectFromUrl( url , klass );        
     }
     

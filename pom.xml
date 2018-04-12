@@ -6,10 +6,10 @@
   
   <groupId>org.hisp</groupId>
   <artifactId>dhis2-java-client</artifactId>
-  <version>1.0.0</version>
+  <version>0.2.0</version>
   <packaging>jar</packaging>
-  <name>DHIS 2 API client for Java and Spring Boot 2</name>
-  <description>DHIS 2 API client for Java and Spring Boot 2.</description>
+  <name>DHIS 2 API client for Java and Spring</name>
+  <description>DHIS 2 API client for Java and Spring.</description>
   <url>https://github.com/dhis2/dhis2-java-client</url>
   
   <organization>
