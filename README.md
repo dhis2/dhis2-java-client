@@ -58,7 +58,11 @@ public class MyApp
 
 ## Usage
 
-This section explains the basic usage of the client. To retrieve all org unit groups:
+This section explains the basic usage of the client.
+
+### Retrieve objects
+
+To retrieve all org unit groups:
 
 ```java
 List<OrgUnitGroup> orgUnitGroups = dhis2.getOrgUnitGroups();
@@ -79,6 +83,20 @@ List<OrgUnit> orgUnits = dhis2.getOrgUnits( Query.instance()
     withOrder( Order.desc( "name" );
 ```
 
+To retrive a single org unit by identifier:
+
+```java
+OrgUnit orgUnit = dhis2.getOrgUnit( "j7gkH3hf83k" );
+```
+
+To retrieve your own, arbitrary domain objects:
+
+```java
+DataElement dataElement = dhis2.getObject( "/dataElements/khG6T32uJ71", DataElement.class );
+```
+
+### Create objects
+
 To create an org unit:
 
 ```java
@@ -97,18 +115,6 @@ orgUnit.setName( "Ngelehun" );
 orgUnit.setCode( "NGLH" );
 
 dhis2.updateOrgUnit( orgUnit );
-```
-
-To retrive a single org unit by identifier:
-
-```java
-OrgUnit orgUnit = dhis2.getOrgUnit( "j7gkH3hf83k" );
-```
-
-To retrieve your own, arbitrary domain objects:
-
-```java
-DataElement dataElement = dhis2.getObject( "/dataElements/khG6T32uJ71", DataElement.class );
 ```
 
 To save your own, arbitrary domain objects:
