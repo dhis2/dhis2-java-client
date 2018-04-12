@@ -57,6 +57,13 @@ public class MyApp
     }
 }
 ```
+This requires a corresponding properties file:
+
+```properties
+dhis.instance.url = https://play.dhis2.org/2.29/api
+dhis.instance.username = admin
+dhis.instance.password = district
+```
 
 ## Usage
 
