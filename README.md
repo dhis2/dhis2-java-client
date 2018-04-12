@@ -3,7 +3,7 @@
 DHIS 2 API client for Java and Spring. The client allows you to create, update and
 retrieve information from DHIS 2.
 
-### Getting started
+## Getting started
 
 To use `dhis2-java-client` with Maven you can specify the following dependency:
 
@@ -15,7 +15,7 @@ To use `dhis2-java-client` with Maven you can specify the following dependency:
 </dependency>
 ```
 
-### Configuration
+## Configuration
 
 A minimal configuration of `dhis2-java-client` looks like this:
 
@@ -54,3 +54,60 @@ public class MyApp
         return new Dhis2( config );
     }
 }
+```
+
+## Usage
+
+This section explains the basic usage of the client. To retrieve all org unit groups:
+
+```java
+List<OrgUnitGroup> orgUnitGroups = dhis2.getOrgUnitGroups();
+```
+
+To retrieve org units with a filter on the level in a paged way:
+
+```java
+List<OrgUnit> orgUnits = dhis2.getOrgUnits( Query.instance()
+    .addFilter( Filter.eq( "level", 4 ) )
+    .withPaging( 1, 200 ) );
+```
+
+To create an org unit:
+
+```java
+OrgUnit orgUnit = new OrgUnit();
+orgUnit.setName( "Ngelehun" );
+orgUnit.setCode( "NGLH" );
+
+dhis2.saveOrgUnit( orgUnit );
+```
+
+To update an org unit:
+
+```java
+OrgUnit orgUnit = new OrgUnit();
+orgUnit.setName( "Ngelehun" );
+orgUnit.setCode( "NGLH" );
+
+dhis2.updateOrgUnit( orgUnit );
+```
+
+To retrive a single org unit by identifier:
+
+```java
+OrgUnit orgUnit = dhis2.getOrgUnit( "j7gkH3hf83k" );
+```
+
+To retrieve your own, arbitrary domain objects:
+
+```java
+DataElement dataElement = dhis2.getObject( "/dataElements/khG6T32uJ71", DataElement.class );
+```
+
+To save your own, arbitrary domain objects:
+
+```java
+DataElement dataElement = new DataElement( "Staff ");
+
+dhis2.saveObject( "dataElements", dataElement );
+```
