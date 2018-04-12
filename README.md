@@ -89,7 +89,7 @@ To retrieve all org units ordered descending on the name property:
 
 ```java
 List<OrgUnit> orgUnits = dhis2.getOrgUnits( Query.instance()
-    .withOrder( Order.desc( "name" ) );
+    .withOrder( Order.desc( "name" ) ) );
 ```
 
 To retrive a single org unit by identifier:
