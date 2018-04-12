@@ -119,7 +119,7 @@ orgUnit.setCode( "NGLH" );
 dhis2.updateOrgUnit( orgUnit );
 ```
 
-To save your own, arbitrary domain objects:
+To save your own, arbitrary domain object:
 
 ```java
 DataElement dataElement = new DataElement( "Staff ");
@@ -127,7 +127,7 @@ DataElement dataElement = new DataElement( "Staff ");
 dhis2.saveObject( "dataElements", dataElement );
 ```
 
-To update your own, arbitrary domain objects:
+To update your own, arbitrary domain object:
 
 ```java
 DataElement dataElement = new DataElement( "k7jF98KfJ2k", "Staff ");
