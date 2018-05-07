@@ -265,7 +265,10 @@ public class Dhis2
      */
     public OrgUnit getOrgUnit( String id )
     {        
-        return getObject( "organisationUnits", id, OrgUnit.class );
+        return getObject( dhis2Config.getResolvedUriBuilder()
+            .pathSegment( "organisationUnits" )
+            .pathSegment( id )
+            .queryParam( "fields", "*,parent[id,code,name,shortName,description]" ), Query.instance(), OrgUnit.class );
     }
 
     /**
@@ -288,7 +291,7 @@ public class Dhis2
     {
         return getObject( dhis2Config.getResolvedUriBuilder()
             .pathSegment( "organisationUnits" )
-            .queryParam( "fields", "id,code,name,parent[id,code,name]" ), query, Objects.class )
+            .queryParam( "fields", "id,code,name,shortName,description,parent[id,code,name,shortName,description]" ), query, Objects.class )
             .getOrganisationUnits();
     }
 
@@ -326,7 +329,10 @@ public class Dhis2
      */
     public OrgUnitGroup getOrgUnitGroup( String id )
     {
-        return getObject( "organisationUnitGroups", id, OrgUnitGroup.class );
+        return getObject( dhis2Config.getResolvedUriBuilder()
+            .pathSegment( "organisationUnitGroups" )
+            .pathSegment( id )
+            .queryParam( "fields", "id,code,name,shortName,description" ), Query.instance(), OrgUnitGroup.class );
     }
     
     /**
@@ -349,7 +355,7 @@ public class Dhis2
     {   
         return getObject( dhis2Config.getResolvedUriBuilder()
             .pathSegment( "organisationUnitGroups" )
-            .queryParam( "fields", "id,code,name" ), query, Objects.class )
+            .queryParam( "fields", "id,code,name,shortName,description" ), query, Objects.class )
             .getOrganisationUnitGroups();
     }
 
@@ -386,8 +392,11 @@ public class Dhis2
      * @return the {@link OrgUnitGroupSet}.
      */
     public OrgUnitGroupSet getOrgUnitGroupSet( String id )
-    {           
-        return getObject( "organisationUnitGroupSets", id, OrgUnitGroupSet.class );
+    {
+        return getObject( dhis2Config.getResolvedUriBuilder()
+            .pathSegment( "organisationUnitGroupSets" )
+            .pathSegment( id )
+            .queryParam( "fields", "*,organisationUnitGroups[id,code,name,shortName,description]" ), Query.instance(), OrgUnitGroupSet.class );
     }
 
     /**
@@ -410,7 +419,7 @@ public class Dhis2
     {             
         return getObject( dhis2Config.getResolvedUriBuilder()
             .pathSegment( "organisationUnitGroupSets" )
-            .queryParam( "fields", "id,code,name,organisationUnitGroups[id,code,name]" ), query, Objects.class )
+            .queryParam( "fields", "id,code,name,shortName,description,organisationUnitGroups[id,code,name,shortName,description]" ), query, Objects.class )
             .getOrganisationUnitGroupSets();
     }
 
