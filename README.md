@@ -57,6 +57,13 @@ public class MyApp
     }
 }
 ```
+This requires a corresponding properties file `/opt/conf.properties`:
+
+```properties
+dhis.instance.url = https://play.dhis2.org/2.29/api
+dhis.instance.username = admin
+dhis.instance.password = district
+```
 
 ## Usage
 
@@ -83,7 +90,7 @@ To retrieve all org units ordered descending on the name property:
 
 ```java
 List<OrgUnit> orgUnits = dhis2.getOrgUnits( Query.instance()
-    withOrder( Order.desc( "name" ) ) );
+    .withOrder( Order.desc( "name" ) ) );
 ```
 
 To retrive a single org unit by identifier:
