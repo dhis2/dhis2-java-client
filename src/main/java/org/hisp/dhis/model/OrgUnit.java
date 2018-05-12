@@ -17,6 +17,13 @@ public class OrgUnit
         this.id = id;
         this.name = name;
     }
+
+    public OrgUnit( String id, String name, String shortName )
+    {
+        this.id = id;
+        this.name = name;
+        this.shortName = shortName;
+    }
     
     public OrgUnit getParent()
     {

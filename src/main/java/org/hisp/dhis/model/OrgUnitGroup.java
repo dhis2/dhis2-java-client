@@ -12,4 +12,11 @@ public class OrgUnitGroup
         this.id = id;
         this.name = name;
     }
+
+    public OrgUnitGroup( String id, String name, String shortName )
+    {
+        this.id = id;
+        this.name = name;
+        this.shortName = shortName;
+    }
 }

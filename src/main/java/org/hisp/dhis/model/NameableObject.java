@@ -6,10 +6,10 @@ public class NameableObject
     extends IdentifiableObject
 {
     @JsonProperty
-    private String shortName;
+    protected String shortName;
     
     @JsonProperty
-    private String description;
+    protected String description;
 
     public String getShortName()
     {

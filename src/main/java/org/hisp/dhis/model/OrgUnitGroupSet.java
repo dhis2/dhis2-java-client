@@ -20,6 +20,13 @@ public class OrgUnitGroupSet
         this.id = id;
         this.name = name;
     }
+
+    public OrgUnitGroupSet( String id, String name, String shortName )
+    {
+        this.id = id;
+        this.name = name;
+        this.shortName = shortName;
+    }
     
     public Set<OrgUnitGroup> getOrganisationUnitGroups()
     {
