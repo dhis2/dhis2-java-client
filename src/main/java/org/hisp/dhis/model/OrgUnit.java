@@ -8,10 +8,16 @@ public class OrgUnit
     @JsonProperty
     private OrgUnit parent;
 
+    @JsonProperty
+    private String path;
+
+    @JsonProperty
+    private Integer level;
+
     public OrgUnit()
     {
     }
-    
+
     public OrgUnit( String id, String name )
     {
         this.id = id;
@@ -24,7 +30,7 @@ public class OrgUnit
         this.name = name;
         this.shortName = shortName;
     }
-    
+
     public OrgUnit getParent()
     {
         return parent;
@@ -33,5 +39,25 @@ public class OrgUnit
     public void setParent( OrgUnit parent )
     {
         this.parent = parent;
+    }
+
+    public String getPath()
+    {
+        return path;
+    }
+
+    public void setPath( String path )
+    {
+        this.path = path;
+    }
+
+    public Integer getLevel()
+    {
+        return level;
+    }
+
+    public void setLevel( Integer level )
+    {
+        this.level = level;
     }
 }
