@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * Message providing information about a DHIS 2 web 
+ * Message providing information about a DHIS 2 web
  * API response.
  */
 public class ResponseMessage
@@ -16,7 +16,7 @@ public class ResponseMessage
 
     @JsonProperty
     private String httpStatus;
-    
+
     @JsonProperty
     private Integer httpStatusCode;
 
@@ -25,14 +25,14 @@ public class ResponseMessage
 
     @JsonProperty
     private String devMessage;
-    
+
     @JsonIgnore
     private HttpHeaders headers;
-    
+
     public ResponseMessage()
     {
     }
-    
+
     public Status getStatus()
     {
         return status;

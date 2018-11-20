@@ -7,7 +7,7 @@ public class NameableObject
 {
     @JsonProperty
     protected String shortName;
-    
+
     @JsonProperty
     protected String description;
 

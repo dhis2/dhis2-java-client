@@ -6,7 +6,7 @@ public class OrgUnitGroup
     public OrgUnitGroup()
     {
     }
-    
+
     public OrgUnitGroup( String id, String name )
     {
         this.id = id;

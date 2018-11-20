@@ -10,11 +10,11 @@ public class OrgUnitGroupSet
 {
     @JsonProperty
     private Set<OrgUnitGroup> organisationUnitGroups = new HashSet<>();
-    
+
     public OrgUnitGroupSet()
     {
     }
-    
+
     public OrgUnitGroupSet( String id, String name )
     {
         this.id = id;
@@ -27,7 +27,7 @@ public class OrgUnitGroupSet
         this.name = name;
         this.shortName = shortName;
     }
-    
+
     public Set<OrgUnitGroup> getOrganisationUnitGroups()
     {
         return organisationUnitGroups;

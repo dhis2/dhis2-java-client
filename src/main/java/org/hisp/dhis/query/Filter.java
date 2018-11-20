@@ -6,22 +6,22 @@ package org.hisp.dhis.query;
 public class Filter
 {
     private String property;
-    
+
     private Operator operator;
-    
+
     private Object value;
-    
+
     private Filter()
     {
     }
-    
+
     private Filter( String property, Operator operator, Object value )
     {
         this.property = property;
         this.operator = operator;
         this.value = value;
     }
-    
+
     public static Filter eq( String property, Object value )
     {
         return new Filter( property, Operator.EQ, value );
@@ -41,12 +41,12 @@ public class Filter
     {
         return new Filter( property, Operator.LE, value );
     }
-    
+
     public static Filter lt( String property, Object value )
     {
         return new Filter( property, Operator.LT, value );
     }
-    
+
     public static Filter isTrue( String property )
     {
         return new Filter( property, Operator.EQ, "true" );
@@ -61,7 +61,7 @@ public class Filter
     {
         return new Filter( property, Operator.LIKE, value );
     }
-    
+
     public String getProperty()
     {
         return property;

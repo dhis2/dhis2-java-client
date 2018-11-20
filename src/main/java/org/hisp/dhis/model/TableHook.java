@@ -6,26 +6,26 @@ public class TableHook
 {
     @JsonProperty
     private String id;
-    
+
     @JsonProperty
     private String name;
-    
+
     @JsonProperty
     private TablePhase phase;
-    
+
     @JsonProperty
     private ResourceTableType resourceTableType;
-    
+
     @JsonProperty
     private AnalyticsTableType analyticsTableType;
-    
+
     @JsonProperty
     private String sql;
-    
+
     public TableHook()
     {
     }
-        
+
     public String getId()
     {
         return id;
@@ -85,13 +85,13 @@ public class TableHook
     {
         this.sql = sql;
     }
-    
+
     public enum TablePhase
     {
         RESOURCE_TABLE_POPULATED,
-        ANALYTICS_TABLE_POPULATED    
+        ANALYTICS_TABLE_POPULATED
     }
-    
+
     public enum ResourceTableType
     {
         ORG_UNIT_STRUCTURE,

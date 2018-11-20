@@ -6,13 +6,13 @@ package org.hisp.dhis.query;
 public class Order
 {
     private String property;
-    
+
     private Direction direction;
-    
+
     public Order()
     {
     }
-    
+
     private Order( String property, Direction direction )
     {
         this.property = property;
@@ -23,12 +23,12 @@ public class Order
     {
         return new Order( property, Direction.ASC );
     }
-    
+
     public static Order desc( String property )
     {
         return new Order( property, Direction.DESC );
     }
-    
+
     public String getProperty()
     {
         return property;
@@ -38,7 +38,7 @@ public class Order
     {
         return direction;
     }
-    
+
     public boolean hasOrder()
     {
         return property != null && direction != null;

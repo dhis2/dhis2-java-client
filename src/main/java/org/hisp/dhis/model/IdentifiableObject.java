@@ -6,7 +6,7 @@ public class IdentifiableObject
 {
     @JsonProperty
     protected String id;
-    
+
     @JsonProperty
     protected String code;
 
@@ -75,7 +75,7 @@ public class IdentifiableObject
 
         return getId().equals( other.getId() );
     }
-    
+
     @Override
     public String toString()
     {

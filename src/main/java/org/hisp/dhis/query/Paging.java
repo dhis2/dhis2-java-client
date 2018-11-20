@@ -6,13 +6,13 @@ package org.hisp.dhis.query;
 public class Paging
 {
     private Integer page;
-    
+
     private Integer pageSize;
-    
+
     public Paging()
     {
     }
-    
+
     public Paging( Integer page, Integer pageSize )
     {
         this.page = page;
@@ -28,17 +28,17 @@ public class Paging
     {
         return pageSize;
     }
-    
+
     public boolean hasPage()
     {
         return page != null && page >= 0;
     }
-    
+
     public boolean hasPageSize()
     {
         return pageSize != null && pageSize >= 0;
     }
-    
+
     public boolean hasPaging()
     {
         return hasPage() || hasPageSize();
