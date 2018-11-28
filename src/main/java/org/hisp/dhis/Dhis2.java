@@ -3,6 +3,7 @@ package org.hisp.dhis;
 import java.util.Base64;
 import java.util.List;
 
+import org.hisp.dhis.model.Dimension;
 import org.hisp.dhis.model.Objects;
 import org.hisp.dhis.model.OrgUnit;
 import org.hisp.dhis.model.OrgUnitGroup;
@@ -29,6 +30,9 @@ import org.springframework.web.util.UriComponentsBuilder;
  */
 public class Dhis2
 {
+    private static final String ID_FIELDS = "id,code,name,created,lastUpdated";
+    private static final String NAME_FIELDS = ID_FIELDS + ",shortName,description";
+
     private Dhis2Config dhis2Config;
 
     private RestTemplate restTemplate;
@@ -266,10 +270,12 @@ public class Dhis2
      */
     public OrgUnit getOrgUnit( String id )
     {
+        String fields = NAME_FIELDS + ",path,level";
+
         return getObject( dhis2Config.getResolvedUriBuilder()
             .pathSegment( "organisationUnits" )
             .pathSegment( id )
-            .queryParam( "fields", "*,parent[id,code,name,shortName,description]" ), Query.instance(), OrgUnit.class );
+            .queryParam( "fields", String.format( "%s,parent[%s]", fields, fields ) ), Query.instance(), OrgUnit.class );
     }
 
     /**
@@ -290,9 +296,11 @@ public class Dhis2
      */
     public List<OrgUnit> getOrgUnits( Query query )
     {
+        String fields = NAME_FIELDS + ",path,level";
+
         return getObject( dhis2Config.getResolvedUriBuilder()
             .pathSegment( "organisationUnits" )
-            .queryParam( "fields", "id,code,name,shortName,description,parent[id,code,name,shortName,description,path,level],path,level" ), query, Objects.class )
+            .queryParam( "fields", String.format( "%s,parent[%s]", fields, fields ) ), query, Objects.class )
             .getOrganisationUnits();
     }
 
@@ -333,7 +341,7 @@ public class Dhis2
         return getObject( dhis2Config.getResolvedUriBuilder()
             .pathSegment( "organisationUnitGroups" )
             .pathSegment( id )
-            .queryParam( "fields", "id,code,name,shortName,description" ), Query.instance(), OrgUnitGroup.class );
+            .queryParam( "fields", NAME_FIELDS ), Query.instance(), OrgUnitGroup.class );
     }
 
     /**
@@ -356,7 +364,7 @@ public class Dhis2
     {
         return getObject( dhis2Config.getResolvedUriBuilder()
             .pathSegment( "organisationUnitGroups" )
-            .queryParam( "fields", "id,code,name,shortName,description" ), query, Objects.class )
+            .queryParam( "fields", NAME_FIELDS ), query, Objects.class )
             .getOrganisationUnitGroups();
     }
 
@@ -397,7 +405,7 @@ public class Dhis2
         return getObject( dhis2Config.getResolvedUriBuilder()
             .pathSegment( "organisationUnitGroupSets" )
             .pathSegment( id )
-            .queryParam( "fields", "*,organisationUnitGroups[id,code,name,shortName,description]" ), Query.instance(), OrgUnitGroupSet.class );
+            .queryParam( "fields", String.format( "%s,organisationUnitGroups[%s]", NAME_FIELDS, NAME_FIELDS ) ), Query.instance(), OrgUnitGroupSet.class );
     }
 
     /**
@@ -420,7 +428,7 @@ public class Dhis2
     {
         return getObject( dhis2Config.getResolvedUriBuilder()
             .pathSegment( "organisationUnitGroupSets" )
-            .queryParam( "fields", "id,code,name,shortName,description,organisationUnitGroups[id,code,name,shortName,description]" ), query, Objects.class )
+            .queryParam( "fields", String.format( "%s,organisationUnitGroups[%s]", NAME_FIELDS, NAME_FIELDS ) ), query, Objects.class )
             .getOrganisationUnitGroupSets();
     }
 
@@ -461,7 +469,7 @@ public class Dhis2
         return getObject( dhis2Config.getResolvedUriBuilder()
             .pathSegment( "organisationUnitLevels" )
             .pathSegment( id )
-            .queryParam( "fields", "id,code,name,level" ), Query.instance(), OrgUnitLevel.class );
+            .queryParam( "fields", String.format( "%s,level", ID_FIELDS ) ), Query.instance(), OrgUnitLevel.class );
     }
 
     /**
@@ -484,7 +492,7 @@ public class Dhis2
     {
         return getObject( dhis2Config.getResolvedUriBuilder()
             .pathSegment( "organisationUnitLevels" )
-            .queryParam( "fields", "id,code,name,level" ), query, Objects.class )
+            .queryParam( "fields", String.format( "%s,level", ID_FIELDS ) ), query, Objects.class )
             .getOrganisationUnitLevels();
     }
 
@@ -545,8 +553,50 @@ public class Dhis2
     {
         return getObject( dhis2Config.getResolvedUriBuilder()
             .pathSegment( "analyticsTableHooks" )
-            .queryParam( "fields", "id,code,name" ), query, Objects.class )
+            .queryParam( "fields", ID_FIELDS ), query, Objects.class )
             .getAnalyticsTableHooks();
+    }
+
+    // -------------------------------------------------------------------------
+    // Dimensional object
+    // -------------------------------------------------------------------------
+
+    /**
+     * Retrieves a {@link Dimension}.
+     *
+     * @param id the identifier of the dimension.
+     * @return the {@link Dimension}.
+     */
+    public Dimension getDimension( String id )
+    {
+        return getObject( dhis2Config.getResolvedUriBuilder()
+            .pathSegment( "dimensions" )
+            .pathSegment( id )
+            .queryParam( "fields", ID_FIELDS ), Query.instance(), Dimension.class );
+    }
+
+    /**
+     * Retrieves a list of {@link Dimension}.
+     *
+     * @return a list of {@link Dimension}.
+     */
+    public List<Dimension> getDimensions()
+    {
+        return getDimensions( Query.instance() );
+    }
+
+    /**
+     * Retrieves a list of {@link Dimension}.
+     *
+     * @param query the {@link Query}.
+     * @return a list of {@link Dimension}.
+     */
+    public List<Dimension> getDimensions( Query query )
+    {
+        return getObject( dhis2Config.getResolvedUriBuilder()
+            .pathSegment( "dimensions" )
+            .queryParam( "fields", String.format( "%s,dimensionType", ID_FIELDS ) ), query, Objects.class )
+            .getDimensions();
     }
 
     // -------------------------------------------------------------------------

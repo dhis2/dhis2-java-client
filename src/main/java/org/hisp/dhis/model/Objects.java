@@ -22,6 +22,9 @@ public class Objects
     @JsonProperty
     private List<TableHook> analyticsTableHooks = new ArrayList<>();
 
+    @JsonProperty
+    private List<Dimension> dimensions = new ArrayList<>();
+
     public List<OrgUnit> getOrganisationUnits()
     {
         return organisationUnits;
@@ -70,5 +73,15 @@ public class Objects
     public void setAnalyticsTableHooks( List<TableHook> analyticsTableHooks )
     {
         this.analyticsTableHooks = analyticsTableHooks;
+    }
+
+    public List<Dimension> getDimensions()
+    {
+        return dimensions;
+    }
+
+    public void setDimensions( List<Dimension> dimensions )
+    {
+        this.dimensions = dimensions;
     }
 }

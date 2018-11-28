@@ -1,5 +1,8 @@
 package org.hisp.dhis.model;
 
+import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class IdentifiableObject
@@ -12,6 +15,14 @@ public class IdentifiableObject
 
     @JsonProperty
     protected String name;
+
+    @JsonProperty
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-ddThh:mm:ss")
+    protected Date created;
+
+    @JsonProperty
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-ddThh:mm:ss")
+    protected Date lastUpdated;
 
     public String getId()
     {
@@ -41,6 +52,26 @@ public class IdentifiableObject
     public void setName( String name )
     {
         this.name = name;
+    }
+
+    public Date getCreated()
+    {
+        return created;
+    }
+
+    public void setCreated( Date created )
+    {
+        this.created = created;
+    }
+
+    public Date getLastUpdated()
+    {
+        return lastUpdated;
+    }
+
+    public void setLastUpdated( Date lastUpdated )
+    {
+        this.lastUpdated = lastUpdated;
     }
 
     // -------------------------------------------------------------------------
