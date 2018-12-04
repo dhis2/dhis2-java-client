@@ -20,10 +20,22 @@ public class Objects
     private List<OrgUnitLevel> organisationUnitLevels = new ArrayList<>();
 
     @JsonProperty
+    private List<Category> categories = new ArrayList<>();
+
+    @JsonProperty
+    private List<DataElementGroupSet> dataElementGroupSets = new ArrayList<>();
+
+    @JsonProperty
+    private List<CategoryOptionGroupSet> categoryOptionGroupSets = new ArrayList<>();
+
+    @JsonProperty
     private List<TableHook> analyticsTableHooks = new ArrayList<>();
 
     @JsonProperty
     private List<Dimension> dimensions = new ArrayList<>();
+
+    @JsonProperty
+    private List<PeriodType> periodTypes = new ArrayList<>();
 
     public List<OrgUnit> getOrganisationUnits()
     {
@@ -55,6 +67,16 @@ public class Objects
         this.organisationUnitGroupSets = organisationUnitGroupSets;
     }
 
+    public List<Category> getCategories()
+    {
+        return categories;
+    }
+
+    public void setCategories( List<Category> categories )
+    {
+        this.categories = categories;
+    }
+
     public List<OrgUnitLevel> getOrganisationUnitLevels()
     {
         return organisationUnitLevels;
@@ -63,6 +85,26 @@ public class Objects
     public void setOrganisationUnitLevels( List<OrgUnitLevel> organisationUnitLevels )
     {
         this.organisationUnitLevels = organisationUnitLevels;
+    }
+
+    public List<DataElementGroupSet> getDataElementGroupSets()
+    {
+        return dataElementGroupSets;
+    }
+
+    public void setDataElementGroupSets( List<DataElementGroupSet> dataElementGroupSets )
+    {
+        this.dataElementGroupSets = dataElementGroupSets;
+    }
+
+    public List<CategoryOptionGroupSet> getCategoryOptionGroupSets()
+    {
+        return categoryOptionGroupSets;
+    }
+
+    public void setCategoryOptionGroupSets( List<CategoryOptionGroupSet> categoryOptionGroupSets )
+    {
+        this.categoryOptionGroupSets = categoryOptionGroupSets;
     }
 
     public List<TableHook> getAnalyticsTableHooks()
@@ -83,5 +125,15 @@ public class Objects
     public void setDimensions( List<Dimension> dimensions )
     {
         this.dimensions = dimensions;
+    }
+
+    public List<PeriodType> getPeriodTypes()
+    {
+        return periodTypes;
+    }
+
+    public void setPeriodTypes( List<PeriodType> periodTypes )
+    {
+        this.periodTypes = periodTypes;
     }
 }

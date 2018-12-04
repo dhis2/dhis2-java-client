@@ -3,12 +3,16 @@ package org.hisp.dhis;
 import java.util.Base64;
 import java.util.List;
 
+import org.hisp.dhis.model.Category;
+import org.hisp.dhis.model.CategoryOptionGroupSet;
+import org.hisp.dhis.model.DataElementGroupSet;
 import org.hisp.dhis.model.Dimension;
 import org.hisp.dhis.model.Objects;
 import org.hisp.dhis.model.OrgUnit;
 import org.hisp.dhis.model.OrgUnitGroup;
 import org.hisp.dhis.model.OrgUnitGroupSet;
 import org.hisp.dhis.model.OrgUnitLevel;
+import org.hisp.dhis.model.PeriodType;
 import org.hisp.dhis.model.TableHook;
 import org.hisp.dhis.query.Filter;
 import org.hisp.dhis.query.Order;
@@ -265,7 +269,7 @@ public class Dhis2
     /**
      * Retrieves an {@link OrgUnit}.
      *
-     * @param id the identifier of the org unit.
+     * @param id the object identifier.
      * @return the {@link OrgUnit}.
      */
     public OrgUnit getOrgUnit( String id )
@@ -276,16 +280,6 @@ public class Dhis2
             .pathSegment( "organisationUnits" )
             .pathSegment( id )
             .queryParam( "fields", String.format( "%s,parent[%s]", fields, fields ) ), Query.instance(), OrgUnit.class );
-    }
-
-    /**
-     * Retrieves a list of {@link OrgUnit}.
-     *
-     * @return a list of {@link OrgUnit}.
-     */
-    public List<OrgUnit> getOrgUnits()
-    {
-        return getOrgUnits( Query.instance() );
     }
 
     /**
@@ -333,7 +327,7 @@ public class Dhis2
     /**
      * Retrieves an {@link OrgUnitGroup}.
      *
-     * @param id the identifier of the org unit group.
+     * @param id the object identifier.
      * @return the {@link OrgUnitGroup}.
      */
     public OrgUnitGroup getOrgUnitGroup( String id )
@@ -342,16 +336,6 @@ public class Dhis2
             .pathSegment( "organisationUnitGroups" )
             .pathSegment( id )
             .queryParam( "fields", NAME_FIELDS ), Query.instance(), OrgUnitGroup.class );
-    }
-
-    /**
-     * Retrieves a list of {@link OrgUnitGroup}.
-     *
-     * @return a list of {@link OrgUnitGroup}.
-     */
-    public List<OrgUnitGroup> getOrgUnitGroups()
-    {
-        return getOrgUnitGroups( Query.instance() );
     }
 
     /**
@@ -397,7 +381,7 @@ public class Dhis2
     /**
      * Retrieves an {@link OrgUnitGroupSet}.
      *
-     * @param id the identifier of the org unit group set.
+     * @param id the object identifier.
      * @return the {@link OrgUnitGroupSet}.
      */
     public OrgUnitGroupSet getOrgUnitGroupSet( String id )
@@ -406,16 +390,6 @@ public class Dhis2
             .pathSegment( "organisationUnitGroupSets" )
             .pathSegment( id )
             .queryParam( "fields", String.format( "%s,organisationUnitGroups[%s]", NAME_FIELDS, NAME_FIELDS ) ), Query.instance(), OrgUnitGroupSet.class );
-    }
-
-    /**
-     * Retrieves a list of {@link OrgUnitGroupSet}.
-     *
-     * @return a list of {@link OrgUnitGroupSet}.
-     */
-    public List<OrgUnitGroupSet> getOrgUnitGroupSets()
-    {
-        return getOrgUnitGroupSets( Query.instance() );
     }
 
     /**
@@ -437,31 +411,9 @@ public class Dhis2
     // -------------------------------------------------------------------------
 
     /**
-     * Saves a {@link OrgUnitLevel}.
-     *
-     * @param orgUnitLevel the object to save.
-     * @return a {@link ResponseMessage} holding information about the operation.
-     */
-    public ResponseMessage saveOrgUnitLevel( OrgUnitLevel orgUnitLevel )
-    {
-        return saveObject( "organisationUnitLevels", orgUnitLevel );
-    }
-
-    /**
-     * Updates a {@link OrgUnitLevel}.
-     *
-     * @param orgUnitLevel the object to update.
-     * @return a {@link ResponseMessage} holding information about the operation.
-     */
-    public ResponseMessage updateOrgUnitLevel( OrgUnitLevel orgUnitLevel )
-    {
-        return updateObject( String.format( "organisationUnitLevels/%s", orgUnitLevel.getId() ), orgUnitLevel );
-    }
-
-    /**
      * Retrieves an {@link OrgUnitLevel}.
      *
-     * @param id the identifier of the org unit level.
+     * @param id the object identifier.
      * @return the {@link OrgUnitLevel}.
      */
     public OrgUnitLevel getOrgUnitLevel( String id )
@@ -470,16 +422,6 @@ public class Dhis2
             .pathSegment( "organisationUnitLevels" )
             .pathSegment( id )
             .queryParam( "fields", String.format( "%s,level", ID_FIELDS ) ), Query.instance(), OrgUnitLevel.class );
-    }
-
-    /**
-     * Retrieves a list of {@link OrgUnitLevel}.
-     *
-     * @return a list of {@link OrgUnitLevel}.
-     */
-    public List<OrgUnitLevel> getOrgUnitLevels()
-    {
-        return getOrgUnitLevels( Query.instance() );
     }
 
     /**
@@ -494,6 +436,103 @@ public class Dhis2
             .pathSegment( "organisationUnitLevels" )
             .queryParam( "fields", String.format( "%s,level", ID_FIELDS ) ), query, Objects.class )
             .getOrganisationUnitLevels();
+    }
+
+    // -------------------------------------------------------------------------
+    // Category
+    // -------------------------------------------------------------------------
+
+    /**
+     * Retrieves an {@link Category}.
+     *
+     * @param id the object identifier.
+     * @return the {@link Category}.
+     */
+    public Category getCategory( String id )
+    {
+        return getObject( dhis2Config.getResolvedUriBuilder()
+            .pathSegment( "categories" )
+            .pathSegment( id )
+            .queryParam( "fields", String.format( "%s,level", NAME_FIELDS ) ), Query.instance(), Category.class );
+    }
+
+    /**
+     * Retrieves a list of {@link Category}.
+     *
+     * @param query the {@link Query}.
+     * @return a list of {@link Category}.
+     */
+    public List<Category> getCategories( Query query )
+    {
+        return getObject( dhis2Config.getResolvedUriBuilder()
+            .pathSegment( "categories" )
+            .queryParam( "fields", NAME_FIELDS ), query, Objects.class )
+            .getCategories();
+    }
+
+
+    // -------------------------------------------------------------------------
+    // Data element group set
+    // -------------------------------------------------------------------------
+
+    /**
+     * Retrieves an {@link DataElementGroupSet}.
+     *
+     * @param id the object identifier.
+     * @return the {@link DataElementGroupSet}.
+     */
+    public DataElementGroupSet getDataElementGroupSet( String id )
+    {
+        return getObject( dhis2Config.getResolvedUriBuilder()
+            .pathSegment( "dataElementGroupSets" )
+            .pathSegment( id )
+            .queryParam( "fields", String.format( "%s,level", NAME_FIELDS ) ), Query.instance(), DataElementGroupSet.class );
+    }
+
+    /**
+     * Retrieves a list of {@link DataElementGroupSet}.
+     *
+     * @param query the {@link Query}.
+     * @return a list of {@link DataElementGroupSet}.
+     */
+    public List<DataElementGroupSet> getDataElementGroupSets( Query query )
+    {
+        return getObject( dhis2Config.getResolvedUriBuilder()
+            .pathSegment( "dataElementGroupSets" )
+            .queryParam( "fields", NAME_FIELDS ), query, Objects.class )
+            .getDataElementGroupSets();
+    }
+
+    // -------------------------------------------------------------------------
+    // Category option group set
+    // -------------------------------------------------------------------------
+
+    /**
+     * Retrieves an {@link CategoryOptionGroupSet}.
+     *
+     * @param id the object identifier.
+     * @return the {@link CategoryOptionGroupSet}.
+     */
+    public CategoryOptionGroupSet getCategoryOptionGroupSet( String id )
+    {
+        return getObject( dhis2Config.getResolvedUriBuilder()
+            .pathSegment( "categoryOptionGroupSets" )
+            .pathSegment( id )
+            .queryParam( "fields", String.format( "%s,level", NAME_FIELDS ) ), Query.instance(), CategoryOptionGroupSet.class );
+    }
+
+    /**
+     * Retrieves a list of {@link CategoryOptionGroupSet}.
+     *
+     * @param query the {@link Query}.
+     * @return a list of {@link CategoryOptionGroupSet}.
+     */
+    public List<CategoryOptionGroupSet> getCategoryOptionGroupSets( Query query )
+    {
+        return getObject( dhis2Config.getResolvedUriBuilder()
+            .pathSegment( "categoryOptionGroupSets" )
+            .queryParam( "fields", NAME_FIELDS ), query, Objects.class )
+            .getCategoryOptionGroupSets();
     }
 
     // -------------------------------------------------------------------------
@@ -536,16 +575,6 @@ public class Dhis2
     /**
      * Retrieves a list of {@link TableHook}.
      *
-     * @return a list of {@link TableHook}.
-     */
-    public List<TableHook> getTableHooks()
-    {
-        return getTableHooks( Query.instance() );
-    }
-
-    /**
-     * Retrieves a list of {@link TableHook}.
-     *
      * @param query the {@link Query}.
      * @return a list of {@link TableHook}.
      */
@@ -558,7 +587,7 @@ public class Dhis2
     }
 
     // -------------------------------------------------------------------------
-    // Dimensional object
+    // Dimension
     // -------------------------------------------------------------------------
 
     /**
@@ -578,16 +607,6 @@ public class Dhis2
     /**
      * Retrieves a list of {@link Dimension}.
      *
-     * @return a list of {@link Dimension}.
-     */
-    public List<Dimension> getDimensions()
-    {
-        return getDimensions( Query.instance() );
-    }
-
-    /**
-     * Retrieves a list of {@link Dimension}.
-     *
      * @param query the {@link Query}.
      * @return a list of {@link Dimension}.
      */
@@ -597,6 +616,24 @@ public class Dhis2
             .pathSegment( "dimensions" )
             .queryParam( "fields", String.format( "%s,dimensionType", ID_FIELDS ) ), query, Objects.class )
             .getDimensions();
+    }
+
+    // -------------------------------------------------------------------------
+    // Period type
+    // -------------------------------------------------------------------------
+
+    /**
+     * Retrieves a list of {@link PeriodType}.
+     *
+     * @param query the {@link Query}.
+     * @return a list of {@link PeriodType}.
+     */
+    public List<PeriodType> getPeriodTypes( Query query )
+    {
+        return getObject( dhis2Config.getResolvedUriBuilder()
+            .pathSegment( "periodTypes" )
+            .queryParam( "fields", "frequencyOrder,name,isoDuration,isoFormat" ), query, Objects.class )
+            .getPeriodTypes();
     }
 
     // -------------------------------------------------------------------------
