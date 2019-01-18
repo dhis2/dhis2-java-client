@@ -5,7 +5,7 @@ package org.hisp.dhis.query;
  */
 public enum Operator
 {
-    EQ( "eq" ), GE( "ge" ), GT( "gt" ), LE( "le" ), LT( "lt" ), LIKE( "like" );
+    EQ( "eq" ), GE( "ge" ), GT( "gt" ), LE( "le" ), LT( "lt" ), LIKE( "like" ), IN( "in" );
 
     private String value;
 

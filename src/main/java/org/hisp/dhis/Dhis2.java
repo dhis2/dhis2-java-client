@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.hisp.dhis.model.Category;
 import org.hisp.dhis.model.CategoryOptionGroupSet;
+import org.hisp.dhis.model.DataElement;
 import org.hisp.dhis.model.DataElementGroupSet;
 import org.hisp.dhis.model.Dimension;
 import org.hisp.dhis.model.Objects;
@@ -453,7 +454,7 @@ public class Dhis2
         return getObject( dhis2Config.getResolvedUriBuilder()
             .pathSegment( "categories" )
             .pathSegment( id )
-            .queryParam( "fields", String.format( "%s,level", NAME_FIELDS ) ), Query.instance(), Category.class );
+            .queryParam( "fields", NAME_FIELDS ), Query.instance(), Category.class );
     }
 
     /**
@@ -470,6 +471,37 @@ public class Dhis2
             .getCategories();
     }
 
+    // -------------------------------------------------------------------------
+    // Data element group set
+    // -------------------------------------------------------------------------
+
+    /**
+     * Retrieves an {@link DataElement}.
+     *
+     * @param id the object identifier.
+     * @return the {@link DataElement}.
+     */
+    public DataElement getDataElement( String id )
+    {
+        return getObject( dhis2Config.getResolvedUriBuilder()
+            .pathSegment( "dataElements" )
+            .pathSegment( id )
+            .queryParam( "fields", String.format( "%s,valueType,domainType", NAME_FIELDS ) ), Query.instance(), DataElement.class );
+    }
+
+    /**
+     * Retrieves a list of {@link DataElement}.
+     *
+     * @param query the {@link Query}.
+     * @return a list of {@link DataElement}.
+     */
+    public List<DataElement> getDataElements( Query query )
+    {
+        return getObject( dhis2Config.getResolvedUriBuilder()
+            .pathSegment( "dataElements" )
+            .queryParam( "fields", String.format( "%s,valueType,domainType", NAME_FIELDS ) ), query, Objects.class )
+            .getDataElements();
+    }
 
     // -------------------------------------------------------------------------
     // Data element group set
@@ -486,7 +518,7 @@ public class Dhis2
         return getObject( dhis2Config.getResolvedUriBuilder()
             .pathSegment( "dataElementGroupSets" )
             .pathSegment( id )
-            .queryParam( "fields", String.format( "%s,level", NAME_FIELDS ) ), Query.instance(), DataElementGroupSet.class );
+            .queryParam( "fields", NAME_FIELDS ), Query.instance(), DataElementGroupSet.class );
     }
 
     /**
@@ -518,7 +550,7 @@ public class Dhis2
         return getObject( dhis2Config.getResolvedUriBuilder()
             .pathSegment( "categoryOptionGroupSets" )
             .pathSegment( id )
-            .queryParam( "fields", String.format( "%s,level", NAME_FIELDS ) ), Query.instance(), CategoryOptionGroupSet.class );
+            .queryParam( "fields", NAME_FIELDS ), Query.instance(), CategoryOptionGroupSet.class );
     }
 
     /**
@@ -601,7 +633,7 @@ public class Dhis2
         return getObject( dhis2Config.getResolvedUriBuilder()
             .pathSegment( "dimensions" )
             .pathSegment( id )
-            .queryParam( "fields", ID_FIELDS ), Query.instance(), Dimension.class );
+            .queryParam( "fields", String.format( "%s,dimensionType", ID_FIELDS ) ), Query.instance(), Dimension.class );
     }
 
     /**

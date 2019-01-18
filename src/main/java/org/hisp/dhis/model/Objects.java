@@ -8,6 +8,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Objects
 {
     @JsonProperty
+    private List<DataElement> dataElements = new ArrayList<>();
+
+    @JsonProperty
     private List<OrgUnit> organisationUnits = new ArrayList<>();
 
     @JsonProperty
@@ -36,6 +39,16 @@ public class Objects
 
     @JsonProperty
     private List<PeriodType> periodTypes = new ArrayList<>();
+
+    public List<DataElement> getDataElements()
+    {
+        return dataElements;
+    }
+
+    public void setDataElements( List<DataElement> dataElements )
+    {
+        this.dataElements = dataElements;
+    }
 
     public List<OrgUnit> getOrganisationUnits()
     {

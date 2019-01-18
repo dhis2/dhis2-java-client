@@ -1,5 +1,9 @@
 package org.hisp.dhis.query;
 
+import java.util.List;
+
+import org.springframework.util.StringUtils;
+
 /**
  * Query filter.
  */
@@ -62,6 +66,11 @@ public class Filter
         return new Filter( property, Operator.LIKE, value );
     }
 
+    public static Filter in( String property, List<Object> values )
+    {
+        return new Filter( property, Operator.IN, values );
+    }
+
     public String getProperty()
     {
         return property;
@@ -72,8 +81,16 @@ public class Filter
         return operator;
     }
 
+    @SuppressWarnings("unchecked")
     public Object getValue()
     {
+        if ( Operator.IN == operator && value != null )
+        {
+            return new StringBuilder( "[" )
+                .append( StringUtils.collectionToCommaDelimitedString( (List<Object>) value ) )
+                .append( "]" ).toString();
+        }
+
         return value;
     }
 }
