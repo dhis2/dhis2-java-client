@@ -14,6 +14,7 @@ import org.hisp.dhis.model.OrgUnitGroup;
 import org.hisp.dhis.model.OrgUnitGroupSet;
 import org.hisp.dhis.model.OrgUnitLevel;
 import org.hisp.dhis.model.PeriodType;
+import org.hisp.dhis.model.SystemInfo;
 import org.hisp.dhis.model.TableHook;
 import org.hisp.dhis.query.Filter;
 import org.hisp.dhis.query.Order;
@@ -26,6 +27,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -37,6 +39,7 @@ public class Dhis2
 {
     private static final String ID_FIELDS = "id,code,name,created,lastUpdated";
     private static final String NAME_FIELDS = ID_FIELDS + ",shortName,description";
+    private static final String RESOURCE_SYSTEM_INFO = "system/info";
 
     private Dhis2Config dhis2Config;
 
@@ -59,6 +62,29 @@ public class Dhis2
     // -------------------------------------------------------------------------
 
     /**
+     * Checks the status of the DHIS 2 instance. Returns {@link HttpStatus#OK}
+     * if available and everything is okay. Returns {@link HttpStatus#NOT_FOUND} if the
+     * URL to the DHIS 2 instance is invalid or the DHIS 2 instance is not available. Returns
+     * a 500 series error if the DHIS 2 instance had an internal error.
+     *
+     * @return the {@link HttpStatus} of the response from the DHIS 2 instance.
+     */
+    public HttpStatus getStatus()
+    {
+        try
+        {
+            HttpHeaders headers =  getBasicAuthAcceptJsonHeaders();
+            String url = dhis2Config.getResolvedUrl( RESOURCE_SYSTEM_INFO );
+            ResponseEntity<SystemInfo> response = restTemplate.exchange( url, HttpMethod.GET, new HttpEntity<>( headers ), SystemInfo.class );
+            return response.getStatusCode();
+        }
+        catch ( HttpClientErrorException | HttpServerErrorException ex )
+        {
+            return ex.getStatusCode();
+        }
+    }
+
+    /**
      * Saves an object using HTTP POST.
      *
      * @param path the URL path relative to the API end point.
@@ -70,9 +96,7 @@ public class Dhis2
     {
         String url = dhis2Config.getResolvedUrl( path );
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.set( HttpHeaders.AUTHORIZATION, getBasicAuthString( dhis2Config.getUsername(), dhis2Config.getPassword() ) );
-        headers.set( HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE );
+        HttpHeaders headers =  getBasicAuthAcceptJsonHeaders();
 
         HttpEntity<T> requestEntity = new HttpEntity<>( object, headers );
 
@@ -95,9 +119,7 @@ public class Dhis2
     {
         String url = dhis2Config.getResolvedUrl( path );
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.set( HttpHeaders.AUTHORIZATION, getBasicAuthString( dhis2Config.getUsername(), dhis2Config.getPassword() ) );
-        headers.set( HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE );
+        HttpHeaders headers =  getBasicAuthAcceptJsonHeaders();
 
         HttpEntity<T> requestEntity = new HttpEntity<>( object, headers );
 
@@ -199,9 +221,7 @@ public class Dhis2
      */
     private <T> T getObjectFromUrl( String url, Class<T> klass )
     {
-        HttpHeaders headers = new HttpHeaders();
-        headers.set( HttpHeaders.AUTHORIZATION, getBasicAuthString( dhis2Config.getUsername(), dhis2Config.getPassword() ) );
-        headers.set( HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE );
+        HttpHeaders headers =  getBasicAuthAcceptJsonHeaders();
 
         ResponseEntity<T> response = restTemplate.exchange( url, HttpMethod.GET, new HttpEntity<>( headers ), klass );
 
@@ -219,8 +239,7 @@ public class Dhis2
     {
         String url = dhis2Config.getResolvedUrl( path );
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.set( HttpHeaders.AUTHORIZATION, getBasicAuthString( dhis2Config.getUsername(), dhis2Config.getPassword() ) );
+        HttpHeaders headers =  getBasicAuthAcceptJsonHeaders();
 
         try
         {
@@ -671,6 +690,20 @@ public class Dhis2
     // -------------------------------------------------------------------------
     // Supportive methods
     // -------------------------------------------------------------------------
+
+    /**
+     * Returns a HTTP headers instance with basic authentication and Accept
+     * {@value application/json} headers.
+     *
+     * @return a HTTP headers instance.
+     */
+    private HttpHeaders getBasicAuthAcceptJsonHeaders()
+    {
+        HttpHeaders headers = new HttpHeaders();
+        headers.set( HttpHeaders.AUTHORIZATION, getBasicAuthString( dhis2Config.getUsername(), dhis2Config.getPassword() ) );
+        headers.set( HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE );
+        return headers;
+    }
 
     /**
      * Returns a basic authentication string which is generated by prepending
