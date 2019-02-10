@@ -13,7 +13,7 @@ To use `dhis2-java-client` with Maven you can specify the following dependency:
 <dependency>
   <groupId>org.hisp</groupId>
   <artifactId>dhis2-java-client</artifactId>
-  <version>1.0.3</version>
+  <version>1.0.7</version>
 </dependency>
 ```
 
@@ -117,10 +117,11 @@ orgUnit.setCode( "NGLH" );
 dhis2.saveOrgUnit( orgUnit );
 ```
 
-To update an org unit:
+To update an org unit (note that the ID property must be set):
 
 ```java
 OrgUnit orgUnit = new OrgUnit();
+orgUnit.setId( "cDw53Ej8rjT" );
 orgUnit.setName( "Ngelehun" );
 orgUnit.setCode( "NGLH" );
 
