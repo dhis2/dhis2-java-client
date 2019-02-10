@@ -6,6 +6,9 @@ public class DataElement
     extends NameableObject
 {
     @JsonProperty
+    private AggregationType aggregationType;
+
+    @JsonProperty
     private ValueType valueType;
 
     @JsonProperty
@@ -13,6 +16,16 @@ public class DataElement
 
     public DataElement()
     {
+    }
+
+    public AggregationType getAggregationType()
+    {
+        return aggregationType;
+    }
+
+    public void setAggregationType( AggregationType aggregationType )
+    {
+        this.aggregationType = aggregationType;
     }
 
     public ValueType getValueType()

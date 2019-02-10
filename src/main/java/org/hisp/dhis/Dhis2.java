@@ -491,7 +491,7 @@ public class Dhis2
     }
 
     // -------------------------------------------------------------------------
-    // Data element group set
+    // Data element
     // -------------------------------------------------------------------------
 
     /**
@@ -505,7 +505,7 @@ public class Dhis2
         return getObject( dhis2Config.getResolvedUriBuilder()
             .pathSegment( "dataElements" )
             .pathSegment( id )
-            .queryParam( "fields", String.format( "%s,valueType,domainType", NAME_FIELDS ) ), Query.instance(), DataElement.class );
+            .queryParam( "fields", String.format( "%s,aggregationType,valueType,domainType", NAME_FIELDS ) ), Query.instance(), DataElement.class );
     }
 
     /**
@@ -518,7 +518,7 @@ public class Dhis2
     {
         return getObject( dhis2Config.getResolvedUriBuilder()
             .pathSegment( "dataElements" )
-            .queryParam( "fields", String.format( "%s,valueType,domainType", NAME_FIELDS ) ), query, Objects.class )
+            .queryParam( "fields", String.format( "%s,aggregationType,valueType,domainType", NAME_FIELDS ) ), query, Objects.class )
             .getDataElements();
     }
 
