@@ -29,6 +29,9 @@ public class Objects
     private List<DataElementGroupSet> dataElementGroupSets = new ArrayList<>();
 
     @JsonProperty
+    private List<Program> programs = new ArrayList<>();
+
+    @JsonProperty
     private List<CategoryOptionGroupSet> categoryOptionGroupSets = new ArrayList<>();
 
     @JsonProperty
@@ -108,6 +111,16 @@ public class Objects
     public void setDataElementGroupSets( List<DataElementGroupSet> dataElementGroupSets )
     {
         this.dataElementGroupSets = dataElementGroupSets;
+    }
+
+    public List<Program> getPrograms()
+    {
+        return programs;
+    }
+
+    public void setPrograms( List<Program> programs )
+    {
+        this.programs = programs;
     }
 
     public List<CategoryOptionGroupSet> getCategoryOptionGroupSets()

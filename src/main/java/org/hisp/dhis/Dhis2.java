@@ -14,6 +14,7 @@ import org.hisp.dhis.model.OrgUnitGroup;
 import org.hisp.dhis.model.OrgUnitGroupSet;
 import org.hisp.dhis.model.OrgUnitLevel;
 import org.hisp.dhis.model.PeriodType;
+import org.hisp.dhis.model.Program;
 import org.hisp.dhis.model.SystemInfo;
 import org.hisp.dhis.model.TableHook;
 import org.hisp.dhis.query.Filter;
@@ -552,6 +553,38 @@ public class Dhis2
             .pathSegment( "dataElementGroupSets" )
             .queryParam( "fields", NAME_FIELDS ), query, Objects.class )
             .getDataElementGroupSets();
+    }
+
+    // -------------------------------------------------------------------------
+    // Program
+    // -------------------------------------------------------------------------
+
+    /**
+     * Retrieves a {@link Program}.
+     *
+     * @param id the object identifier.
+     * @return the {@link Program}.
+     */
+    public Program getProgram( String id )
+    {
+        return getObject( dhis2Config.getResolvedUriBuilder()
+            .pathSegment( "programs" )
+            .pathSegment( id )
+            .queryParam( "fields", String.format( "%s,programType", NAME_FIELDS ) ), Query.instance(), Program.class );
+    }
+
+    /**
+     * Retrieves a list of {@link Program}.
+     *
+     * @param query the {@link Query}.
+     * @return a list of {@link Program}.
+     */
+    public List<Program> getPrograms( Query query )
+    {
+        return getObject( dhis2Config.getResolvedUriBuilder()
+            .pathSegment( "programs" )
+            .queryParam( "fields", String.format( "%s,programType", NAME_FIELDS ) ), query, Objects.class )
+            .getPrograms();
     }
 
     // -------------------------------------------------------------------------
