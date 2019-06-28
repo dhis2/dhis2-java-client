@@ -570,7 +570,8 @@ public class Dhis2
         return getObject( dhis2Config.getResolvedUriBuilder()
             .pathSegment( "programs" )
             .pathSegment( id )
-            .queryParam( "fields", String.format( "%s,programType", NAME_FIELDS ) ), Query.instance(), Program.class );
+            .queryParam( "fields", String.format( "%1$s,programType,programStages[%1$s,programStageDataElements[%1$s,dataElement[%1$s]]]",
+                NAME_FIELDS ) ), Query.instance(), Program.class );
     }
 
     /**
@@ -583,9 +584,12 @@ public class Dhis2
     {
         return getObject( dhis2Config.getResolvedUriBuilder()
             .pathSegment( "programs" )
-            .queryParam( "fields", String.format( "%s,programType", NAME_FIELDS ) ), query, Objects.class )
+            .queryParam( "fields", String.format( "%1$s,programType,programStages[%1$s,programStageDataElements[%1$s,dataElement[%1$s]]]",
+                NAME_FIELDS ) ), query, Objects.class )
             .getPrograms();
     }
+
+    //fields=id,name,code,programStages[id,name,code,programStageDataElements[id,name,code,dataElement[id,name,code]]
 
     // -------------------------------------------------------------------------
     // Category option group set

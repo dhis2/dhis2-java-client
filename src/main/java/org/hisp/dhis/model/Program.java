@@ -1,5 +1,8 @@
 package org.hisp.dhis.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Program
@@ -7,6 +10,9 @@ public class Program
 {
     @JsonProperty
     private ProgramType programType;
+
+    @JsonProperty
+    private List<ProgramStage> programStages = new ArrayList<>();
 
     public Program()
     {
@@ -26,5 +32,15 @@ public class Program
     public void setProgramType( ProgramType programType )
     {
         this.programType = programType;
+    }
+
+    public List<ProgramStage> getProgramStages()
+    {
+        return programStages;
+    }
+
+    public void setProgramStages( List<ProgramStage> programStages )
+    {
+        this.programStages = programStages;
     }
 }
