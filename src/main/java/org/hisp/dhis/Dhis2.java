@@ -589,8 +589,6 @@ public class Dhis2
             .getPrograms();
     }
 
-    //fields=id,name,code,programStages[id,name,code,programStageDataElements[id,name,code,dataElement[id,name,code]]
-
     // -------------------------------------------------------------------------
     // Category option group set
     // -------------------------------------------------------------------------
