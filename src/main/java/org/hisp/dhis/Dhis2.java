@@ -39,7 +39,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 public class Dhis2
 {
     private static final String ID_FIELDS = "id,code,name,created,lastUpdated";
-    private static final String NAME_FIELDS = ID_FIELDS + ",shortName,description";
+    private static final String NAME_FIELDS = String.format( "%s,shortName,description", ID_FIELDS );
+    private static final String DATA_ELEMENT_FIELDS = String.format( "%1$s,aggregationType,valueType,domainType,legendSets[%1$s]", NAME_FIELDS );
     private static final String RESOURCE_SYSTEM_INFO = "system/info";
 
     private Dhis2Config dhis2Config;
@@ -506,7 +507,7 @@ public class Dhis2
         return getObject( dhis2Config.getResolvedUriBuilder()
             .pathSegment( "dataElements" )
             .pathSegment( id )
-            .queryParam( "fields", String.format( "%s,aggregationType,valueType,domainType", NAME_FIELDS ) ), Query.instance(), DataElement.class );
+            .queryParam( "fields", DATA_ELEMENT_FIELDS ), Query.instance(), DataElement.class );
     }
 
     /**
@@ -519,7 +520,7 @@ public class Dhis2
     {
         return getObject( dhis2Config.getResolvedUriBuilder()
             .pathSegment( "dataElements" )
-            .queryParam( "fields", String.format( "%s,aggregationType,valueType,domainType", NAME_FIELDS ) ), query, Objects.class )
+            .queryParam( "fields", DATA_ELEMENT_FIELDS ), query, Objects.class )
             .getDataElements();
     }
 
@@ -570,8 +571,8 @@ public class Dhis2
         return getObject( dhis2Config.getResolvedUriBuilder()
             .pathSegment( "programs" )
             .pathSegment( id )
-            .queryParam( "fields", String.format( "%1$s,programType,programStages[%1$s,programStageDataElements[%1$s,dataElement[%1$s]]]",
-                NAME_FIELDS ) ), Query.instance(), Program.class );
+            .queryParam( "fields", String.format( "%1$s,programType,programStages[%1$s,programStageDataElements[%1$s,dataElement[%2$s]]]",
+                NAME_FIELDS, DATA_ELEMENT_FIELDS ) ), Query.instance(), Program.class );
     }
 
     /**
@@ -584,8 +585,8 @@ public class Dhis2
     {
         return getObject( dhis2Config.getResolvedUriBuilder()
             .pathSegment( "programs" )
-            .queryParam( "fields", String.format( "%1$s,programType,programStages[%1$s,programStageDataElements[%1$s,dataElement[%1$s]]]",
-                NAME_FIELDS ) ), query, Objects.class )
+            .queryParam( "fields", String.format( "%1$s,programType,programStages[%1$s,programStageDataElements[%1$s,dataElement[%2$s]]]",
+                NAME_FIELDS, DATA_ELEMENT_FIELDS ) ), query, Objects.class )
             .getPrograms();
     }
 

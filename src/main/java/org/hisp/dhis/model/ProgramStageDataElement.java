@@ -17,5 +17,4 @@ public class ProgramStageDataElement
     {
         this.dataElement = dataElement;
     }
-
 }
