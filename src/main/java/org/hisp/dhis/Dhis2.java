@@ -4,6 +4,7 @@ import java.util.Base64;
 import java.util.List;
 
 import org.hisp.dhis.model.Category;
+import org.hisp.dhis.model.CategoryCombo;
 import org.hisp.dhis.model.CategoryOptionGroupSet;
 import org.hisp.dhis.model.DataElement;
 import org.hisp.dhis.model.DataElementGroupSet;
@@ -41,6 +42,7 @@ public class Dhis2
     private static final String ID_FIELDS = "id,code,name,created,lastUpdated";
     private static final String NAME_FIELDS = String.format( "%s,shortName,description", ID_FIELDS );
     private static final String DATA_ELEMENT_FIELDS = String.format( "%1$s,aggregationType,valueType,domainType,legendSets[%1$s]", NAME_FIELDS );
+    private static final String CATEGORY_FIELDS = String.format( "%s,dataDimensionType,dataDimension", NAME_FIELDS );
     private static final String RESOURCE_SYSTEM_INFO = "system/info";
 
     private Dhis2Config dhis2Config;
@@ -475,7 +477,7 @@ public class Dhis2
         return getObject( dhis2Config.getResolvedUriBuilder()
             .pathSegment( "categories" )
             .pathSegment( id )
-            .queryParam( "fields", NAME_FIELDS ), Query.instance(), Category.class );
+            .queryParam( "fields", CATEGORY_FIELDS ), Query.instance(), Category.class );
     }
 
     /**
@@ -488,8 +490,40 @@ public class Dhis2
     {
         return getObject( dhis2Config.getResolvedUriBuilder()
             .pathSegment( "categories" )
-            .queryParam( "fields", NAME_FIELDS ), query, Objects.class )
+            .queryParam( "fields", CATEGORY_FIELDS ), query, Objects.class )
             .getCategories();
+    }
+
+    // -------------------------------------------------------------------------
+    // Category combo
+    // -------------------------------------------------------------------------
+
+    /**
+     * Retrieves an {@link CategoryCombo}.
+     *
+     * @param id the object identifier.
+     * @return the {@link CategoryCombo}.
+     */
+    public CategoryCombo getCategoryCombo( String id )
+    {
+        return getObject( dhis2Config.getResolvedUriBuilder()
+            .pathSegment( "categoryCombos" )
+            .pathSegment( id )
+            .queryParam( "fields", NAME_FIELDS ), Query.instance(), CategoryCombo.class );
+    }
+
+    /**
+     * Retrieves a list of {@link CategoryCombo}.
+     *
+     * @param query the {@link Query}.
+     * @return a list of {@link CategoryCombo}.
+     */
+    public List<CategoryCombo> getCategoryCombos( Query query )
+    {
+        return getObject( dhis2Config.getResolvedUriBuilder()
+            .pathSegment( "categoryCombos" )
+            .queryParam( "fields", NAME_FIELDS ), query, Objects.class )
+            .getCategoryCombos();
     }
 
     // -------------------------------------------------------------------------
@@ -571,8 +605,8 @@ public class Dhis2
         return getObject( dhis2Config.getResolvedUriBuilder()
             .pathSegment( "programs" )
             .pathSegment( id )
-            .queryParam( "fields", String.format( "%1$s,programType,programStages[%1$s,programStageDataElements[%1$s,dataElement[%2$s]]]",
-                NAME_FIELDS, DATA_ELEMENT_FIELDS ) ), Query.instance(), Program.class );
+            .queryParam( "fields", String.format( "%1$s,programType,categoryCombo[%1$s,categories[%2$s]],programStages[%1$s,programStageDataElements[%1$s,dataElement[%3$s]]]",
+                NAME_FIELDS, CATEGORY_FIELDS, DATA_ELEMENT_FIELDS ) ), Query.instance(), Program.class );
     }
 
     /**
@@ -585,8 +619,8 @@ public class Dhis2
     {
         return getObject( dhis2Config.getResolvedUriBuilder()
             .pathSegment( "programs" )
-            .queryParam( "fields", String.format( "%1$s,programType,programStages[%1$s,programStageDataElements[%1$s,dataElement[%2$s]]]",
-                NAME_FIELDS, DATA_ELEMENT_FIELDS ) ), query, Objects.class )
+            .queryParam( "fields", String.format( "%1$s,programType,categoryCombo[%1$s,categories[%2$s]],programStages[%1$s,programStageDataElements[%1$s,dataElement[%3$s]]]",
+                NAME_FIELDS, CATEGORY_FIELDS, DATA_ELEMENT_FIELDS ) ), query, Objects.class )
             .getPrograms();
     }
 

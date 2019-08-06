@@ -26,6 +26,9 @@ public class Objects
     private List<Category> categories = new ArrayList<>();
 
     @JsonProperty
+    private List<CategoryCombo> categoryCombos = new ArrayList<>();
+
+    @JsonProperty
     private List<DataElementGroupSet> dataElementGroupSets = new ArrayList<>();
 
     @JsonProperty
@@ -91,6 +94,16 @@ public class Objects
     public void setCategories( List<Category> categories )
     {
         this.categories = categories;
+    }
+
+    public List<CategoryCombo> getCategoryCombos()
+    {
+        return categoryCombos;
+    }
+
+    public void setCategoryCombos( List<CategoryCombo> categoryCombos )
+    {
+        this.categoryCombos = categoryCombos;
     }
 
     public List<OrgUnitLevel> getOrganisationUnitLevels()

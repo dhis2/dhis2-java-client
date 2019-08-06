@@ -1,22 +1,17 @@
 package org.hisp.dhis.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class Category
+public class CategoryCombo
     extends NameableObject
 {
     @JsonProperty
     private DataDimensionType dataDimensionType;
 
     @JsonProperty
-    private Boolean dataDimension;
-
-    @JsonIgnore
-    public boolean isDataDimension()
-    {
-        return dataDimension;
-    }
+    private List<Category> categories;
 
     public DataDimensionType getDataDimensionType()
     {
@@ -28,13 +23,13 @@ public class Category
         this.dataDimensionType = dataDimensionType;
     }
 
-    public Boolean getDataDimension()
+    public List<Category> getCategories()
     {
-        return dataDimension;
+        return categories;
     }
 
-    public void setDataDimension( Boolean dataDimension )
+    public void setCategories( List<Category> categories )
     {
-        this.dataDimension = dataDimension;
+        this.categories = categories;
     }
 }

@@ -15,6 +15,9 @@ public class Program
     private ProgramType programType;
 
     @JsonProperty
+    private CategoryCombo categoryCombo;
+
+    @JsonProperty
     private List<ProgramStage> programStages = new ArrayList<>();
 
     public Program()
@@ -50,6 +53,14 @@ public class Program
             .collect( Collectors.toSet() );
     }
 
+    /**
+     * Indicates whether this program has a category combination.
+     */
+    public boolean hasCategoryCombo()
+    {
+        return categoryCombo != null;
+    }
+
     public ProgramType getProgramType()
     {
         return programType;
@@ -58,6 +69,16 @@ public class Program
     public void setProgramType( ProgramType programType )
     {
         this.programType = programType;
+    }
+
+    public CategoryCombo getCategoryCombo()
+    {
+        return categoryCombo;
+    }
+
+    public void setCategoryCombo( CategoryCombo categoryCombo )
+    {
+        this.categoryCombo = categoryCombo;
     }
 
     public List<ProgramStage> getProgramStages()
