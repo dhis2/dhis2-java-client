@@ -8,6 +8,7 @@ import org.hisp.dhis.model.CategoryCombo;
 import org.hisp.dhis.model.CategoryOptionGroupSet;
 import org.hisp.dhis.model.DataElement;
 import org.hisp.dhis.model.DataElementGroupSet;
+import org.hisp.dhis.model.DataValueSet;
 import org.hisp.dhis.model.Dimension;
 import org.hisp.dhis.model.Objects;
 import org.hisp.dhis.model.OrgUnit;
@@ -71,7 +72,7 @@ public class Dhis2
      * URL to the DHIS 2 instance is invalid or the DHIS 2 instance is not available. Returns
      * a 500 series error if the DHIS 2 instance had an internal error.
      *
-     * @return the {@link HttpStatus} of the response from the DHIS 2 instance.
+     * @return the {@link HttpStatus} of the response from DHIS 2.
      */
     public HttpStatus getStatus()
     {
@@ -100,7 +101,7 @@ public class Dhis2
     {
         String url = dhis2Config.getResolvedUrl( path );
 
-        HttpHeaders headers =  getBasicAuthAcceptJsonHeaders();
+        HttpHeaders headers = getBasicAuthAcceptJsonHeaders();
 
         HttpEntity<T> requestEntity = new HttpEntity<>( object, headers );
 
@@ -123,7 +124,7 @@ public class Dhis2
     {
         String url = dhis2Config.getResolvedUrl( path );
 
-        HttpHeaders headers =  getBasicAuthAcceptJsonHeaders();
+        HttpHeaders headers = getBasicAuthAcceptJsonHeaders();
 
         HttpEntity<T> requestEntity = new HttpEntity<>( object, headers );
 
@@ -755,6 +756,21 @@ public class Dhis2
             .pathSegment( "periodTypes" )
             .queryParam( "fields", "frequencyOrder,name,isoDuration,isoFormat" ), query, Objects.class )
             .getPeriodTypes();
+    }
+
+    // -------------------------------------------------------------------------
+    // Data value set
+    // -------------------------------------------------------------------------
+
+    /**
+     * Saves a {@link DataValueSet}.
+     *
+     * @param dataValueSet the object to save.
+     * @return a {@link ResponseMessage} holding information about the operation.
+     */
+    public ResponseMessage saveDataValueSet( DataValueSet dataValueSet )
+    {
+        return saveObject( "dataValueSets", dataValueSet );
     }
 
     // -------------------------------------------------------------------------
