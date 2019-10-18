@@ -32,6 +32,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.Assert;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
@@ -53,8 +54,15 @@ public class Dhis2
 
     private RestTemplate restTemplate;
 
+    public Dhis2( Dhis2Config dhis2Config )
+    {
+        this( dhis2Config, new RestTemplate() );
+    }
+
     public Dhis2( Dhis2Config dhis2Config, RestTemplate restTemplate )
     {
+        Assert.notNull( dhis2Config, "dhis2Config must be specified" );
+        Assert.notNull( restTemplate, "restTemplate must be specified" );
         this.dhis2Config = dhis2Config;
         this.restTemplate = restTemplate;
     }
