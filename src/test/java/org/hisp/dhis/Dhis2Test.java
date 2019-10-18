@@ -24,6 +24,7 @@ import static org.mockito.Mockito.*;
 
 public class Dhis2Test
 {
+
     private static final String BASE_URL = "http://localhost/dhis";
 
     private Dhis2Config dhis2Config;
@@ -42,6 +43,11 @@ public class Dhis2Test
     {
         dhis2Config = new Dhis2Config( BASE_URL, "admin", "district" );
 
+        applyMocks();
+    }
+
+    private void applyMocks()
+    {
         ResponseMessage responseMessage = new ResponseMessage();
         DataValueSetResponseMessage dataValueSetResponseMessage = new DataValueSetResponseMessage();
 
@@ -54,7 +60,6 @@ public class Dhis2Test
         when( restTemplate.exchange( Mockito.anyString(),
             Mockito.eq( HttpMethod.POST ), Mockito.any( HttpEntity.class ), Mockito.eq( DataValueSetResponseMessage.class ) ) )
             .thenReturn( new ResponseEntity<DataValueSetResponseMessage>( dataValueSetResponseMessage, HttpStatus.OK ) );
-
     }
 
     public void testDhis2()

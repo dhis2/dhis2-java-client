@@ -13,7 +13,7 @@ To use `dhis2-java-client` with Maven you can specify the following dependency:
 <dependency>
   <groupId>org.hisp</groupId>
   <artifactId>dhis2-java-client</artifactId>
-  <version>1.0.9</version>
+  <version>1.1.0</version>
 </dependency>
 ```
 
