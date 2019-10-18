@@ -32,6 +32,8 @@ public class Program
 
     /**
      * Returns all data elements which are part of the stages of this program.
+     *
+     * @return a set of {@link DataElement}.
      */
     @JsonIgnore
     public Set<DataElement> getDataElements()
@@ -44,6 +46,8 @@ public class Program
     /**
      * Returns data elements which are part of the stages of this program which
      * have a legend set and is of numeric value type.
+     *
+     * @return a set of {@link DataElement}.
      */
     @JsonIgnore
     public Set<DataElement> getDataElementsWithLegendSet()
@@ -53,9 +57,6 @@ public class Program
             .collect( Collectors.toSet() );
     }
 
-    /**
-     * Indicates whether this program has a category combination.
-     */
     public boolean hasCategoryCombo()
     {
         return categoryCombo != null;

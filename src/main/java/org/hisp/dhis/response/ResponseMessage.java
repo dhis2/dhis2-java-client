@@ -1,4 +1,4 @@
-package org.hisp.dhis;
+package org.hisp.dhis.response;
 
 import org.springframework.http.HttpHeaders;
 

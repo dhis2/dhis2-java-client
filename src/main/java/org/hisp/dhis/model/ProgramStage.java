@@ -16,6 +16,8 @@ public class ProgramStage
 
     /**
      * Returns all data elements part of this program stage.
+     *
+     * @return a set of {@link DataElement}.
      */
     @JsonIgnore
     public Set<DataElement> getDataElements()
