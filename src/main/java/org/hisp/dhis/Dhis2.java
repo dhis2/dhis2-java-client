@@ -8,6 +8,7 @@ import org.hisp.dhis.model.CategoryCombo;
 import org.hisp.dhis.model.CategoryOptionGroupSet;
 import org.hisp.dhis.model.DataElement;
 import org.hisp.dhis.model.DataElementGroupSet;
+import org.hisp.dhis.model.DataValueSet;
 import org.hisp.dhis.model.Dimension;
 import org.hisp.dhis.model.Objects;
 import org.hisp.dhis.model.OrgUnit;
@@ -22,6 +23,9 @@ import org.hisp.dhis.query.Filter;
 import org.hisp.dhis.query.Order;
 import org.hisp.dhis.query.Paging;
 import org.hisp.dhis.query.Query;
+import org.hisp.dhis.response.Dhis2ClientException;
+import org.hisp.dhis.response.ResponseMessage;
+import org.hisp.dhis.response.datavalueset.DataValueSetResponseMessage;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -49,12 +53,6 @@ public class Dhis2
 
     private RestTemplate restTemplate;
 
-    public Dhis2( Dhis2Config dhis2Config )
-    {
-        this.dhis2Config = dhis2Config;
-        this.restTemplate = new RestTemplate();
-    }
-
     public Dhis2( Dhis2Config dhis2Config, RestTemplate restTemplate )
     {
         this.dhis2Config = dhis2Config;
@@ -71,7 +69,7 @@ public class Dhis2
      * URL to the DHIS 2 instance is invalid or the DHIS 2 instance is not available. Returns
      * a 500 series error if the DHIS 2 instance had an internal error.
      *
-     * @return the {@link HttpStatus} of the response from the DHIS 2 instance.
+     * @return the {@link HttpStatus} of the response from DHIS 2.
      */
     public HttpStatus getStatus()
     {
@@ -93,22 +91,32 @@ public class Dhis2
      *
      * @param path the URL path relative to the API end point.
      * @param object the object to save.
-     * @param <T> type.
      * @return a {@link ResponseMessage} holding information about the operation.
+     * @param <T> type.
+     * @throws Dhis2ClientException if the save operation failed due to client side error.
      */
-    public <T> ResponseMessage saveObject( String path, T object )
+    public <T> ResponseMessage saveMetadataObject( String path, T object )
     {
         String url = dhis2Config.getResolvedUrl( path );
 
-        HttpHeaders headers =  getBasicAuthAcceptJsonHeaders();
+        HttpHeaders headers = getBasicAuthAcceptJsonHeaders();
 
         HttpEntity<T> requestEntity = new HttpEntity<>( object, headers );
 
-        ResponseEntity<ResponseMessage> response = restTemplate.exchange( url, HttpMethod.POST, requestEntity, ResponseMessage.class );
+        try
+        {
+            ResponseEntity<ResponseMessage> response = restTemplate.exchange( url, HttpMethod.POST, requestEntity, ResponseMessage.class );
 
-        ResponseMessage message = response.getBody();
-        message.setHeaders( headers );
-        return message;
+            ResponseMessage message = response.getBody();
+            message.setHeaders( headers );
+            return message;
+        }
+        catch ( HttpClientErrorException ex )
+        {
+            String message = String.format( "Saving metadata object failed with status code: %s", ex.getStatusCode() );
+
+            throw new Dhis2ClientException( message, ex.getCause(), ex.getStatusCode(), ex.getResponseHeaders(), ex.getResponseBodyAsString() );
+        }
     }
 
     /**
@@ -123,7 +131,7 @@ public class Dhis2
     {
         String url = dhis2Config.getResolvedUrl( path );
 
-        HttpHeaders headers =  getBasicAuthAcceptJsonHeaders();
+        HttpHeaders headers = getBasicAuthAcceptJsonHeaders();
 
         HttpEntity<T> requestEntity = new HttpEntity<>( object, headers );
 
@@ -276,7 +284,7 @@ public class Dhis2
      */
     public ResponseMessage saveOrgUnit( OrgUnit orgUnit )
     {
-        return saveObject( "organisationUnits", orgUnit );
+        return saveMetadataObject( "organisationUnits", orgUnit );
     }
 
     /**
@@ -334,7 +342,7 @@ public class Dhis2
      */
     public ResponseMessage saveOrgUnitGroup( OrgUnitGroup orgUnitGroup )
     {
-        return saveObject( "organisationUnitGroups", orgUnitGroup );
+        return saveMetadataObject( "organisationUnitGroups", orgUnitGroup );
     }
 
     /**
@@ -388,7 +396,7 @@ public class Dhis2
      */
     public ResponseMessage saveOrgUnitGroupSet( OrgUnitGroupSet orgUnitGroupSet )
     {
-        return saveObject( "organisationUnitGroupSets", orgUnitGroupSet );
+        return saveMetadataObject( "organisationUnitGroupSets", orgUnitGroupSet );
     }
 
     /**
@@ -668,7 +676,7 @@ public class Dhis2
      */
     public ResponseMessage saveTableHook( TableHook tableHook )
     {
-        return saveObject( "analyticsTableHooks", tableHook );
+        return saveMetadataObject( "analyticsTableHooks", tableHook );
     }
 
     /**
@@ -755,6 +763,42 @@ public class Dhis2
             .pathSegment( "periodTypes" )
             .queryParam( "fields", "frequencyOrder,name,isoDuration,isoFormat" ), query, Objects.class )
             .getPeriodTypes();
+    }
+
+    // -------------------------------------------------------------------------
+    // Data value set
+    // -------------------------------------------------------------------------
+
+    /**
+     * Saves a {@link DataValueSet}.
+     *
+     * @param dataValueSet the {@link DataValueSet} to save.
+     * @return a {@link DataValueSetResponseMessage} holding information about the operation.
+     * @throws Dhis2ClientException if the save operation failed due to a client side error.
+     */
+    public DataValueSetResponseMessage saveDataValueSet( DataValueSet dataValueSet )
+    {
+        String url = dhis2Config.getResolvedUrl( "dataValueSets" );
+
+        HttpHeaders headers = getBasicAuthAcceptJsonHeaders();
+
+        HttpEntity<DataValueSet> requestEntity = new HttpEntity<>( dataValueSet, headers );
+
+        try
+        {
+            ResponseEntity<DataValueSetResponseMessage> response = restTemplate.exchange( url, HttpMethod.POST, requestEntity, DataValueSetResponseMessage.class );
+
+            DataValueSetResponseMessage message = response.getBody();
+            message.setHttpStatusCode( response.getStatusCodeValue() );
+            message.setHeaders( response.getHeaders() );
+            return message;
+        }
+        catch ( HttpClientErrorException ex )
+        {
+            String message = String.format( "Saving data value set failed with status code: %s", ex.getStatusCode() );
+
+            throw new Dhis2ClientException( message, ex.getCause(), ex.getStatusCode(), ex.getResponseHeaders(), ex.getResponseBodyAsString() );
+        }
     }
 
     // -------------------------------------------------------------------------

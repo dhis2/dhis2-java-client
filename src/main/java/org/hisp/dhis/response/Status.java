@@ -1,4 +1,4 @@
-package org.hisp.dhis;
+package org.hisp.dhis.response;
 
 /**
  * Enumeration of HTTP status.

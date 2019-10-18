@@ -16,7 +16,7 @@ public class Dhis2Config
     /**
      * Main constructor.
      *
-     * @param url the URL to the DHIS 2 instance including the {@code /api} part.
+     * @param url the URL to the DHIS 2 instance, do not include the {@code /api} part.
      * @param username the DHIS 2 account username.
      * @param password the DHIS 2 account password.
      */
