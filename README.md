@@ -19,7 +19,7 @@ To use `dhis2-java-client` with Maven you can specify the following dependency:
 
 ## Configuration
 
-A minimal, local configuration of `dhis2-java-client` looks like this:
+A minimal, local configuration of `dhis2-java-client` looks like this, where the configuration parameters refer to the base URL, username and password for the DHIS 2 instance to connect to. Note that you should not include the `api` part of the base URL:
 
 ```java
 Dhis2Config config = new Dhis2Config( 
