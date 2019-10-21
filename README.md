@@ -13,17 +13,17 @@ To use `dhis2-java-client` with Maven you can specify the following dependency:
 <dependency>
   <groupId>org.hisp</groupId>
   <artifactId>dhis2-java-client</artifactId>
-  <version>1.1.0</version>
+  <version>1.1.1</version>
 </dependency>
 ```
 
 ## Configuration
 
-A minimal configuration of `dhis2-java-client` looks like this:
+A minimal, local configuration of `dhis2-java-client` looks like this:
 
 ```java
 Dhis2Config config = new Dhis2Config( 
-    "https://play.dhis2.org/2.29/api", 
+    "https://play.dhis2.org/2.32.2", 
     "admin", 
     "district" );
 
@@ -60,7 +60,7 @@ public class MyApp
 This requires a corresponding properties file `/opt/conf.properties`:
 
 ```properties
-dhis.instance.url = https://play.dhis2.org/2.29/api
+dhis.instance.url = https://play.dhis2.org/2.32.2
 dhis.instance.username = admin
 dhis.instance.password = district
 ```
