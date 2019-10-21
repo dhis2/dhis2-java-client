@@ -5,6 +5,8 @@ import java.util.List;
 
 /**
  * Query.
+ *
+ * @author Lars Helge Overland
  */
 public class Query
 {

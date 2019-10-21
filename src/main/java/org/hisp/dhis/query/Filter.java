@@ -6,6 +6,8 @@ import org.springframework.util.StringUtils;
 
 /**
  * Query filter.
+ *
+ * @author Lars Helge Overland
  */
 public class Filter
 {

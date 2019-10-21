@@ -3,6 +3,11 @@ package org.hisp.dhis.response;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 
+/**
+ * Exception caused by client side errors.
+ *
+ * @author Lars Helge Overland
+ */
 public class Dhis2ClientException
     extends RuntimeException
 {

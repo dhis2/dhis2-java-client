@@ -2,6 +2,8 @@ package org.hisp.dhis.query;
 
 /**
  * Enumeration of query filter operators.
+ *
+ * @author Lars Helge Overland
  */
 public enum Operator
 {

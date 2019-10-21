@@ -41,6 +41,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 /**
  * DHIS 2 API client for HTTP requests and responses. Request and
  * response bodies are in JSON format.
+ *
+ * @author Lars Helge Overland
  */
 public class Dhis2
 {

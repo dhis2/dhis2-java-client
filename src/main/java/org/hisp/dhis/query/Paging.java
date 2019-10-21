@@ -2,6 +2,8 @@ package org.hisp.dhis.query;
 
 /**
  * Query paging.
+ *
+ * @author Lars Helge Overland
  */
 public class Paging
 {

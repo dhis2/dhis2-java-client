@@ -6,8 +6,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * Message providing information about a DHIS 2 web
- * API response.
+ * Message providing information about a DHIS 2 web API response.
+ *
+ * @author Lars Helge Overland
  */
 public class ResponseMessage
 {

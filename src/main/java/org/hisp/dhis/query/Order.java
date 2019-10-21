@@ -2,6 +2,8 @@ package org.hisp.dhis.query;
 
 /**
  * Query response ordering.
+ *
+ * @author Lars Helge Overland
  */
 public class Order
 {

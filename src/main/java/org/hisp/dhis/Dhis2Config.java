@@ -4,6 +4,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 /**
  * Configuration information about a DHIS 2 instance.
+ *
+ * @author Lars Helge Overland
  */
 public class Dhis2Config
 {
