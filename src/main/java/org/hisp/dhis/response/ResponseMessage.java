@@ -16,13 +16,16 @@ public class ResponseMessage
     private Status status;
 
     @JsonProperty
-    private String httpStatus;
+    private HttpStatus httpStatus;
 
     @JsonProperty
     private Integer httpStatusCode;
 
     @JsonProperty
     private Integer code;
+
+    @JsonProperty
+    private String message;
 
     @JsonProperty
     private String devMessage;
@@ -44,12 +47,12 @@ public class ResponseMessage
         this.status = status;
     }
 
-    public String getHttpStatus()
+    public HttpStatus getHttpStatus()
     {
         return httpStatus;
     }
 
-    public void setHttpStatus( String httpStatus )
+    public void setHttpStatus( HttpStatus httpStatus )
     {
         this.httpStatus = httpStatus;
     }
@@ -72,6 +75,16 @@ public class ResponseMessage
     public void setCode( Integer code )
     {
         this.code = code;
+    }
+
+    public String getMessage()
+    {
+        return message;
+    }
+
+    public void setMessage( String message )
+    {
+        this.message = message;
     }
 
     public String getDevMessage()

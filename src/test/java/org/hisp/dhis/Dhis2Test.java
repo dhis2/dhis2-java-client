@@ -5,8 +5,11 @@ import static org.junit.Assert.assertNotNull;
 import org.hisp.dhis.model.DataValue;
 import org.hisp.dhis.model.DataValueSet;
 import org.hisp.dhis.model.OrgUnitGroup;
+import org.hisp.dhis.response.NotificationLevel;
 import org.hisp.dhis.response.ResponseMessage;
 import org.hisp.dhis.response.datavalueset.DataValueSetResponseMessage;
+import org.hisp.dhis.response.job.JobCategory;
+import org.hisp.dhis.response.job.JobNotification;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -49,7 +52,12 @@ public class Dhis2Test
     private void applyMocks()
     {
         ResponseMessage responseMessage = new ResponseMessage();
+
         DataValueSetResponseMessage dataValueSetResponseMessage = new DataValueSetResponseMessage();
+
+        JobNotification[] jobNotifications = new JobNotification[2];
+        jobNotifications[0] = new JobNotification( "a4j2J2k84jG", NotificationLevel.INFO, JobCategory.DATAVALUE_IMPORT, "Data value import started" );
+        jobNotifications[0] = new JobNotification( "bi8jHf2fGDg", NotificationLevel.DEBUG, JobCategory.DATAVALUE_IMPORT, "Pre-heating cache" );
 
         when( responseEntity.getBody() ).thenReturn( responseMessage );
 
@@ -60,6 +68,10 @@ public class Dhis2Test
         when( restTemplate.exchange( Mockito.anyString(),
             Mockito.eq( HttpMethod.POST ), Mockito.any( HttpEntity.class ), Mockito.eq( DataValueSetResponseMessage.class ) ) )
             .thenReturn( new ResponseEntity<DataValueSetResponseMessage>( dataValueSetResponseMessage, HttpStatus.OK ) );
+
+        when( restTemplate.exchange( Mockito.anyString(),
+            Mockito.eq( HttpMethod.POST ), Mockito.any( HttpEntity.class ), Mockito.eq( JobNotification[].class ) ) )
+            .thenReturn( new ResponseEntity<JobNotification[]>( jobNotifications, HttpStatus.OK ) );
     }
 
     public void testDhis2()

@@ -7,5 +7,7 @@ package org.hisp.dhis.response;
  */
 public enum Status
 {
-    OK, WARNING, ERROR;
+    OK,
+    WARNING,
+    ERROR;
 }
