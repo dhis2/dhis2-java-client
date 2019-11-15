@@ -1,5 +1,7 @@
 package org.hisp.dhis;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Base64;
 import java.util.List;
 
@@ -26,6 +28,8 @@ import org.hisp.dhis.query.Query;
 import org.hisp.dhis.response.Dhis2ClientException;
 import org.hisp.dhis.response.ResponseMessage;
 import org.hisp.dhis.response.datavalueset.DataValueSetResponseMessage;
+import org.hisp.dhis.response.job.JobCategory;
+import org.hisp.dhis.response.job.JobNotification;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -809,6 +813,28 @@ public class Dhis2
 
             throw new Dhis2ClientException( message, ex.getCause(), ex.getStatusCode(), ex.getResponseHeaders(), ex.getResponseBodyAsString() );
         }
+    }
+
+    // -------------------------------------------------------------------------
+    // Job notifications
+    // -------------------------------------------------------------------------
+
+    /**
+     * Retrieves a list of {@link JobNotification}.
+     *
+     * @param category the {@link JobCategory}.
+     * @param id the job identifier.
+     * @return a list of {@link JobNotification}.
+     */
+    public List<JobNotification> getJobNotifications( JobCategory category, String id )
+    {
+        JobNotification[] response = getObject( dhis2Config.getResolvedUriBuilder()
+            .pathSegment( "system" )
+            .pathSegment( "tasks" )
+            .pathSegment( category.name() )
+            .pathSegment( id ), Query.instance(), JobNotification[].class );
+
+        return new ArrayList<>( Arrays.asList( response ) );
     }
 
     // -------------------------------------------------------------------------
