@@ -13,9 +13,11 @@ To use `dhis2-java-client` with Maven you can specify the following dependency:
 <dependency>
   <groupId>org.hisp</groupId>
   <artifactId>dhis2-java-client</artifactId>
-  <version>1.1.1</version>
+  <version>LATEST</version>
 </dependency>
 ```
+
+You can find `dhis2-java-client` and the available versions in Maven central repository at [mvnrepository.com/artifact/org.hisp/dhis2-java-client](https://mvnrepository.com/artifact/org.hisp/dhis2-java-client).
 
 ## Configuration
 
