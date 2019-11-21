@@ -116,7 +116,7 @@ OrgUnit orgUnit = new OrgUnit();
 orgUnit.setName( "Ngelehun" );
 orgUnit.setCode( "NGLH" );
 
-dhis2.saveOrgUnit( orgUnit );
+ResponseMessage msg = dhis2.saveOrgUnit( orgUnit );
 ```
 
 To save your own, arbitrary metadata object:
@@ -124,7 +124,7 @@ To save your own, arbitrary metadata object:
 ```java
 DataElement dataElement = new DataElement( "Staff ");
 
-dhis2.saveMetadataObject( "dataElements", dataElement );
+ResponseMessage msg = dhis2.saveMetadataObject( "dataElements", dataElement );
 ```
 
 ### Update objects
@@ -137,16 +137,42 @@ orgUnit.setId( "cDw53Ej8rjT" );
 orgUnit.setName( "Ngelehun" );
 orgUnit.setCode( "NGLH" );
 
-dhis2.updateOrgUnit( orgUnit );
+ResponseMessage msg = dhis2.updateOrgUnit( orgUnit );
 ```
 
 To update your own, arbitrary metadata object:
 
 ```java
-dhis2.updateMetadataObject( "dataElements/" + dataElement.getId(), dataElement );
+ResponseMessage msg = dhis2.updateMetadataObject( "dataElements/" + dataElement.getId(), dataElement );
 ```
 
 ### Get response message
 
 The various save and update methods returns an instance of `ResponseMessage`, which holds information about the operation, such as status, HTTP status, HTTP status code and a message descibing the outcome.
 
+### Save data value set
+
+To save a data value set:
+
+```java
+Dhis2 dhis2 = new Dhis2( dhis2Config, restTemplate );
+
+DataValue dataValue1 = new DataValue();
+dataValue1.setDataElement( "f7n9E0hX8qk" );
+dataValue1.setValue( "12" );
+
+DataValue dataValue2 = new DataValue();
+dataValue2.setDataElement( "Ix2HsbDMLea" );
+dataValue2.setValue( "13" );
+
+DataValueSet dataValueSet = new DataValueSet();
+dataValueSet.setDataSet( "pBOMPrpg1QX" );
+dataValueSet.setCompleteDate( "2014-02-03" );
+dataValueSet.setPeriod( "201910" );
+dataValueSet.setOrgUnit( "DiszpKrYNg8" );
+
+dataValueSet.addDataValue( dataValue1 );
+dataValueSet.addDataValue( dataValue2 );
+
+DataValueSetResponseMessage response = dhis2.saveDataValueSet( dataValueSet );
+```
