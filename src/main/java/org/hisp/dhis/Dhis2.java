@@ -2,7 +2,6 @@ package org.hisp.dhis;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Base64;
 import java.util.List;
 
 import org.hisp.dhis.model.Category;
@@ -21,9 +20,6 @@ import org.hisp.dhis.model.PeriodType;
 import org.hisp.dhis.model.Program;
 import org.hisp.dhis.model.SystemInfo;
 import org.hisp.dhis.model.TableHook;
-import org.hisp.dhis.query.Filter;
-import org.hisp.dhis.query.Order;
-import org.hisp.dhis.query.Paging;
 import org.hisp.dhis.query.Query;
 import org.hisp.dhis.response.Dhis2ClientException;
 import org.hisp.dhis.response.ResponseMessage;
@@ -34,13 +30,10 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.Assert;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.UriComponentsBuilder;
 
 /**
  * DHIS 2 API client for HTTP requests and responses. Request and
@@ -49,17 +42,8 @@ import org.springframework.web.util.UriComponentsBuilder;
  * @author Lars Helge Overland
  */
 public class Dhis2
+    extends BaseDhis2
 {
-    private static final String ID_FIELDS = "id,code,name,created,lastUpdated";
-    private static final String NAME_FIELDS = String.format( "%s,shortName,description", ID_FIELDS );
-    private static final String DATA_ELEMENT_FIELDS = String.format( "%1$s,aggregationType,valueType,domainType,legendSets[%1$s]", NAME_FIELDS );
-    private static final String CATEGORY_FIELDS = String.format( "%s,dataDimensionType,dataDimension", NAME_FIELDS );
-    private static final String RESOURCE_SYSTEM_INFO = "system/info";
-
-    private Dhis2Config dhis2Config;
-
-    private RestTemplate restTemplate;
-
     public Dhis2( Dhis2Config dhis2Config )
     {
         this( dhis2Config, new RestTemplate() );
@@ -67,10 +51,7 @@ public class Dhis2
 
     public Dhis2( Dhis2Config dhis2Config, RestTemplate restTemplate )
     {
-        Assert.notNull( dhis2Config, "dhis2Config must be specified" );
-        Assert.notNull( restTemplate, "restTemplate must be specified" );
-        this.dhis2Config = dhis2Config;
-        this.restTemplate = restTemplate;
+        super( dhis2Config, restTemplate );
     }
 
     // -------------------------------------------------------------------------
@@ -141,7 +122,7 @@ public class Dhis2
      * @param <T> type.
      * @return a {@link ResponseMessage} holding information about the operation.
      */
-    public <T> ResponseMessage updateObject( String path, T object )
+    public <T> ResponseMessage updateMetadataObject( String path, T object )
     {
         String url = dhis2Config.getResolvedUrl( path );
 
@@ -167,91 +148,6 @@ public class Dhis2
     public <T> T getObject( String path, Class<T> klass )
     {
         return getObjectFromUrl( dhis2Config.getResolvedUrl( path ), klass );
-    }
-
-    /**
-     * Retrieves an object.
-     *
-     * @param path the URL path.
-     * @param id the object identifier.
-     * @param klass the class type of the object.
-     * @return the object.
-     */
-    private <T> T getObject( String path, String id, Class<T> klass )
-    {
-        String url = dhis2Config.getResolvedUriBuilder()
-            .pathSegment( path )
-            .pathSegment( id ).build().toUriString();
-
-        return getObjectFromUrl( url, klass );
-    }
-
-    /**
-     * Retrieves an object using HTTP GET.
-     *
-     * @param uriBuilder the URI builder.
-     * @param filters the filters to apply to the query.
-     * @param klass the class type of the object.
-     * @param <T> type.
-     * @return the object.
-     */
-    private <T> T getObject( UriComponentsBuilder uriBuilder, Query filters, Class<T> klass )
-    {
-        for ( Filter filter : filters.getFilters() )
-        {
-            String filterValue = filter.getProperty() + ":" + filter.getOperator().value() + ":" + filter.getValue();
-
-            uriBuilder.queryParam( "filter", filterValue );
-        }
-
-        Paging paging = filters.getPaging();
-
-        if ( paging.hasPaging() )
-        {
-            if ( paging.hasPage() )
-            {
-                uriBuilder.queryParam( "page", paging.getPage() );
-            }
-
-            if ( paging.hasPageSize() )
-            {
-                uriBuilder.queryParam( "pageSize", paging.getPageSize() );
-            }
-        }
-        else
-        {
-            uriBuilder.queryParam( "paging", "false" );
-        }
-
-        Order order = filters.getOrder();
-
-        if ( order.hasOrder() )
-        {
-            String orderValue = order.getProperty() + ":" + order.getDirection().name().toLowerCase();
-
-            uriBuilder.queryParam( "order", orderValue );
-        }
-
-        String url = uriBuilder.build().toUriString();
-
-        return getObjectFromUrl( url , klass );
-    }
-
-    /**
-     * Retrieves an object using HTTP GET.
-     *
-     * @param url the fully qualified URL.
-     * @param klass the class type of the object.
-     * @param <T> type.
-     * @return the object.
-     */
-    private <T> T getObjectFromUrl( String url, Class<T> klass )
-    {
-        HttpHeaders headers =  getBasicAuthAcceptJsonHeaders();
-
-        ResponseEntity<T> response = restTemplate.exchange( url, HttpMethod.GET, new HttpEntity<>( headers ), klass );
-
-        return response.getBody();
     }
 
     /**
@@ -309,7 +205,7 @@ public class Dhis2
      */
     public ResponseMessage updateOrgUnit( OrgUnit orgUnit )
     {
-        return updateObject( String.format( "organisationUnits/%s", orgUnit.getId() ), orgUnit );
+        return updateMetadataObject( String.format( "organisationUnits/%s", orgUnit.getId() ), orgUnit );
     }
 
     /**
@@ -367,7 +263,7 @@ public class Dhis2
      */
     public ResponseMessage updateOrgUnitGroup( OrgUnitGroup orgUnitGroup )
     {
-        return updateObject( String.format( "organisationUnitGroups/%s", orgUnitGroup.getId() ), orgUnitGroup );
+        return updateMetadataObject( String.format( "organisationUnitGroups/%s", orgUnitGroup.getId() ), orgUnitGroup );
     }
 
     /**
@@ -421,7 +317,7 @@ public class Dhis2
      */
     public ResponseMessage updateOrgUnitGroupSet( OrgUnitGroupSet orgUnitGroupSet )
     {
-        return updateObject( String.format( "organisationUnitGroupSets/%s", orgUnitGroupSet.getId() ), orgUnitGroupSet );
+        return updateMetadataObject( String.format( "organisationUnitGroupSets/%s", orgUnitGroupSet.getId() ), orgUnitGroupSet );
     }
 
     /**
@@ -701,7 +597,7 @@ public class Dhis2
      */
     public ResponseMessage updateTableHook( TableHook tableHook )
     {
-        return updateObject( String.format( "analyticsTableHooks/%s", tableHook.getId() ), tableHook );
+        return updateMetadataObject( String.format( "analyticsTableHooks/%s", tableHook.getId() ), tableHook );
     }
 
     /**
@@ -835,38 +731,5 @@ public class Dhis2
             .pathSegment( id ), Query.instance(), JobNotification[].class );
 
         return new ArrayList<>( Arrays.asList( response ) );
-    }
-
-    // -------------------------------------------------------------------------
-    // Supportive methods
-    // -------------------------------------------------------------------------
-
-    /**
-     * Returns a HTTP headers instance with basic authentication and Accept
-     * {@value application/json} headers.
-     *
-     * @return a HTTP headers instance.
-     */
-    private HttpHeaders getBasicAuthAcceptJsonHeaders()
-    {
-        HttpHeaders headers = new HttpHeaders();
-        headers.set( HttpHeaders.AUTHORIZATION, getBasicAuthString( dhis2Config.getUsername(), dhis2Config.getPassword() ) );
-        headers.set( HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE );
-        return headers;
-    }
-
-    /**
-     * Returns a basic authentication string which is generated by prepending
-     * "Basic " and base64-encoding username:password.
-     *
-     * @param username the username to use for authentication.
-     * @param password the password to use for authentication.
-     * @return the encoded string.
-     */
-    private static String getBasicAuthString( String username, String password )
-    {
-        String string = username + ":" + password;
-
-        return "Basic " + Base64.getEncoder().encodeToString( string.getBytes() );
     }
 }

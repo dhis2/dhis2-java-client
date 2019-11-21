@@ -7,5 +7,6 @@ package org.hisp.dhis.query;
  */
 public enum Direction
 {
-    ASC, DESC;
+    ASC,
+    DESC;
 }
