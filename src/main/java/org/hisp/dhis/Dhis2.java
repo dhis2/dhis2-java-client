@@ -122,7 +122,7 @@ public class Dhis2
      * @param <T> type.
      * @return a {@link ResponseMessage} holding information about the operation.
      */
-    public <T> ResponseMessage updateObject( String path, T object )
+    public <T> ResponseMessage updateMetadataObject( String path, T object )
     {
         String url = dhis2Config.getResolvedUrl( path );
 
@@ -205,7 +205,7 @@ public class Dhis2
      */
     public ResponseMessage updateOrgUnit( OrgUnit orgUnit )
     {
-        return updateObject( String.format( "organisationUnits/%s", orgUnit.getId() ), orgUnit );
+        return updateMetadataObject( String.format( "organisationUnits/%s", orgUnit.getId() ), orgUnit );
     }
 
     /**
@@ -263,7 +263,7 @@ public class Dhis2
      */
     public ResponseMessage updateOrgUnitGroup( OrgUnitGroup orgUnitGroup )
     {
-        return updateObject( String.format( "organisationUnitGroups/%s", orgUnitGroup.getId() ), orgUnitGroup );
+        return updateMetadataObject( String.format( "organisationUnitGroups/%s", orgUnitGroup.getId() ), orgUnitGroup );
     }
 
     /**
@@ -317,7 +317,7 @@ public class Dhis2
      */
     public ResponseMessage updateOrgUnitGroupSet( OrgUnitGroupSet orgUnitGroupSet )
     {
-        return updateObject( String.format( "organisationUnitGroupSets/%s", orgUnitGroupSet.getId() ), orgUnitGroupSet );
+        return updateMetadataObject( String.format( "organisationUnitGroupSets/%s", orgUnitGroupSet.getId() ), orgUnitGroupSet );
     }
 
     /**
@@ -597,7 +597,7 @@ public class Dhis2
      */
     public ResponseMessage updateTableHook( TableHook tableHook )
     {
-        return updateObject( String.format( "analyticsTableHooks/%s", tableHook.getId() ), tableHook );
+        return updateMetadataObject( String.format( "analyticsTableHooks/%s", tableHook.getId() ), tableHook );
     }
 
     /**

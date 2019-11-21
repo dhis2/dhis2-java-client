@@ -71,7 +71,7 @@ dhis.instance.password = district
 
 This section explains the basic usage of the client.
 
-#### Retrieve objects
+### Retrieve objects
 
 To retrieve all org unit groups:
 
@@ -107,7 +107,7 @@ To retrieve your own, arbitrary domain object:
 DataElement dataElement = dhis2.getObject( "dataElements/khG6T32uJ71", DataElement.class );
 ```
 
-#### Create objects
+### Create objects
 
 To create an org unit:
 
@@ -118,6 +118,16 @@ orgUnit.setCode( "NGLH" );
 
 dhis2.saveOrgUnit( orgUnit );
 ```
+
+To save your own, arbitrary metadata object:
+
+```java
+DataElement dataElement = new DataElement( "Staff ");
+
+dhis2.saveMetadataObject( "dataElements", dataElement );
+```
+
+### Update objects
 
 To update an org unit (note that the ID property must be set):
 
@@ -130,16 +140,13 @@ orgUnit.setCode( "NGLH" );
 dhis2.updateOrgUnit( orgUnit );
 ```
 
-To save your own, arbitrary domain object:
+To update your own, arbitrary metadata object:
 
 ```java
-DataElement dataElement = new DataElement( "Staff ");
-
-dhis2.saveObject( "dataElements", dataElement );
+dhis2.updateMetadataObject( "dataElements/" + dataElement.getId(), dataElement );
 ```
 
-To update your own, arbitrary domain object:
+### Get response message
 
-```java
-dhis2.updateObject( "dataElements/" + dataElement.getId(), dataElement );
-```
+The various save and update methods returns an instance of `ResponseMessage`, which holds information about the operation, such as status, HTTP status, HTTP status code and a message descibing the outcome.
+

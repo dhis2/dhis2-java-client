@@ -97,7 +97,7 @@ public class Dhis2Test
     }
 
     @Test
-    public void testDataValueSetImport()
+    public void testSaveDataValueSet()
     {
         Dhis2 dhis2 = new Dhis2( dhis2Config, restTemplate );
 
