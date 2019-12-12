@@ -82,6 +82,26 @@ public class Dhis2
     }
 
     /**
+     * Returns the URL of the DHIS 2 configuration.
+     *
+     * @return the URL of the DHIS 2 configuration.
+     */
+    public String getDhis2Url()
+    {
+        return dhis2Config.getUrl();
+    }
+
+    /**
+     * Returns the username of the DHIS 2 configuration.
+     *
+     * @return the username of the DHIS 2 configuration.
+     */
+    public String getDhis2Username()
+    {
+        return dhis2Config.getUsername();
+    }
+
+    /**
      * Saves an object using HTTP POST.
      *
      * @param path the URL path relative to the API end point.
