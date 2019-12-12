@@ -74,7 +74,9 @@ public enum HttpStatus
     }
 
     /**
-     * Return the integer value of this status code.
+     * Returns the integer value of this status code.
+     *
+     * @return the integer value of this status code.
      */
     public int value()
     {
@@ -82,7 +84,9 @@ public enum HttpStatus
     }
 
     /**
-     * Return the reason phrase of this status code.
+     * Returns the reason phrase of this status code.
+     *
+     * @return the reason phrase of this status code.
      */
     public String getReasonPhrase()
     {
@@ -90,9 +94,9 @@ public enum HttpStatus
     }
 
     /**
-     * Return the HTTP status series of this status code.
+     * Returns the HTTP status series of this status code.
      *
-     * @see HttpStatus.Series
+     * @return the HTTP status series of this status code.
      */
     public Series series()
     {
@@ -101,6 +105,8 @@ public enum HttpStatus
 
     /**
      * Whether this status code is in the HTTP series Informational.
+     *
+     * @return true or false.
      */
     public boolean is1xxInformational()
     {
@@ -109,6 +115,8 @@ public enum HttpStatus
 
     /**
      * Whether this status code is in the HTTP series Successful.
+     *
+     * @return true or false.
      */
     public boolean is2xxSuccessful()
     {
@@ -117,6 +125,8 @@ public enum HttpStatus
 
     /**
      * Whether this status code is in the HTTP series Redirection.
+     *
+     * @return true or false.
      */
     public boolean is3xxRedirection()
     {
@@ -125,6 +135,8 @@ public enum HttpStatus
 
     /**
      * Whether this status code is in the HTTP series Client error.
+     *
+     * @return true or false.
      */
     public boolean is4xxClientError()
     {
@@ -133,6 +145,8 @@ public enum HttpStatus
 
     /**
      * Whether this status code is in the HTTP series Server error.
+     *
+     * @return true or false.
      */
     public boolean is5xxServerError()
     {
@@ -141,6 +155,8 @@ public enum HttpStatus
 
     /**
      * Whether this status code is in the HTTP series Client error.
+     *
+     * @return true or false.
      */
     public boolean isError()
     {
@@ -149,6 +165,8 @@ public enum HttpStatus
 
     /**
      * Return a string representation of this status code.
+     *
+     * @return a string representation of this status code.
      */
     @Override
     public String toString()
@@ -208,7 +226,9 @@ public enum HttpStatus
         }
 
         /**
-         * Return the integer value of this status series. Ranges from 1 to 5.
+         * Returns the integer value of this status series. Ranges from 1 to 5.
+         *
+         * @return the integer value of this status series. Ranges from 1 to 5.
          */
         public int value()
         {

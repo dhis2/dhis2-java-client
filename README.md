@@ -150,6 +150,11 @@ ResponseMessage msg = dhis2.updateMetadataObject( "dataElements/" + dataElement.
 
 The various save and update methods returns an instance of `ResponseMessage`, which holds information about the operation, such as status, HTTP status, HTTP status code and a message descibing the outcome.
 
+```java
+ResponseMessage msg = dhis2.saveMetadataObject( "dataElements", dataElement );
+boolean success = msg.getHttpStatus().is2xxSuccessful();
+```
+
 ### Save data value set
 
 To save a data value set:

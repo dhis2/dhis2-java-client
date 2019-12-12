@@ -122,7 +122,7 @@ public class BaseDhis2
 
     /**
      * Returns a HTTP headers instance with basic authentication and Accept
-     * {@value application/json} headers.
+     * application/json headers.
      *
      * @return a HTTP headers instance.
      */
