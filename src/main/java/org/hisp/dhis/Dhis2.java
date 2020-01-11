@@ -8,6 +8,7 @@ import org.hisp.dhis.model.Category;
 import org.hisp.dhis.model.CategoryCombo;
 import org.hisp.dhis.model.CategoryOptionGroupSet;
 import org.hisp.dhis.model.DataElement;
+import org.hisp.dhis.model.DataElementGroup;
 import org.hisp.dhis.model.DataElementGroupSet;
 import org.hisp.dhis.model.DataValueSet;
 import org.hisp.dhis.model.Dimension;
@@ -494,6 +495,60 @@ public class Dhis2
             .pathSegment( "dataElements" )
             .queryParam( "fields", DATA_ELEMENT_FIELDS ), query, Objects.class )
             .getDataElements();
+    }
+
+    // -------------------------------------------------------------------------
+    // Data element group
+    // -------------------------------------------------------------------------
+
+    /**
+     * Saves a {@link DataElement}.
+     *
+     * @param dataElementGroup the object to save.
+     * @return a {@link ResponseMessage} holding information about the operation.
+     */
+    public ResponseMessage saveDataElementGroup( DataElementGroup dataElementGroup )
+    {
+        return saveMetadataObject( "dataElementGroups", dataElementGroup );
+    }
+
+    /**
+     * Updates a {@link DataElementGroup}.
+     *
+     * @param dataElementGroup the object to update.
+     * @return a {@link ResponseMessage} holding information about the operation.
+     */
+    public ResponseMessage updateDataElementGroup( DataElementGroup dataElementGroup )
+    {
+        return updateMetadataObject( String.format( "dataElementGroups/%s", dataElementGroup.getId() ), dataElementGroup );
+    }
+
+    /**
+     * Retrieves an {@link DataElementGroup}.
+     *
+     * @param id the object identifier.
+     * @return the {@link DataElementGroup}.
+     */
+    public DataElementGroup getDataElementGroup( String id )
+    {
+        return getObject( dhis2Config.getResolvedUriBuilder()
+            .pathSegment( "dataElementGroups" )
+            .pathSegment( id )
+            .queryParam( "fields", NAME_FIELDS ), Query.instance(), DataElementGroup.class );
+    }
+
+    /**
+     * Retrieves a list of {@link DataElementGroup}.
+     *
+     * @param query the {@link Query}.
+     * @return a list of {@link DataElementGroup}.
+     */
+    public List<DataElementGroup> getDataElementGroups( Query query )
+    {
+        return getObject( dhis2Config.getResolvedUriBuilder()
+            .pathSegment( "dataElementGroups" )
+            .queryParam( "fields", NAME_FIELDS ), query, Objects.class )
+            .getDataElementGroups();
     }
 
     // -------------------------------------------------------------------------
