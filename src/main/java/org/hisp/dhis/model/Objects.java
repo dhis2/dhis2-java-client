@@ -11,6 +11,9 @@ public class Objects
     private List<DataElement> dataElements = new ArrayList<>();
 
     @JsonProperty
+    private List<DataElementGroup> dataElementGroups = new ArrayList<>();
+
+    @JsonProperty
     private List<OrgUnit> organisationUnits = new ArrayList<>();
 
     @JsonProperty
@@ -54,6 +57,16 @@ public class Objects
     public void setDataElements( List<DataElement> dataElements )
     {
         this.dataElements = dataElements;
+    }
+
+    public List<DataElementGroup> getDataElementGroups()
+    {
+        return dataElementGroups;
+    }
+
+    public void setDataElementGroups( List<DataElementGroup> dataElementGroups )
+    {
+        this.dataElementGroups = dataElementGroups;
     }
 
     public List<OrgUnit> getOrganisationUnits()
