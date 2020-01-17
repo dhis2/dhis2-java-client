@@ -613,7 +613,7 @@ public class Dhis2
         String fieldsParam = query.isExpandAssociations() ?
             String.format( "%1$s,programType,categoryCombo[%1$s,categories[%2$s]],programStages[%1$s,programStageDataElements[%1$s,dataElement[%3$s]]]",
             NAME_FIELDS, CATEGORY_FIELDS, DATA_ELEMENT_FIELDS ) :
-            NAME_FIELDS;
+            String.format( "%1$s,programType,categoryCombo[%1$s],programStages[%1$s]", NAME_FIELDS );
 
         return getObject( dhis2Config.getResolvedUriBuilder()
             .pathSegment( "programs" )
