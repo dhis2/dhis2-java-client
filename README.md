@@ -59,6 +59,7 @@ public class MyApp
     }
 }
 ```
+
 This requires a corresponding properties file `/opt/conf.properties`:
 
 ```properties
@@ -93,6 +94,15 @@ To retrieve all org units ordered descending on the name property:
 ```java
 List<OrgUnit> orgUnits = dhis2.getOrgUnits( Query.instance()
     .withOrder( Order.desc( "name" ) ) );
+```
+
+When retrieving lists of objects, associations to other objects will not 
+be populated in the response by default. You can expand associations in 
+object lists through the query object like this, e.g. for programs:
+
+```java
+List<Program> programs = dhis2.getPrograms( Query.instance()
+    .withExpandAssociations() );
 ```
 
 To retrive a single org unit by identifier:
