@@ -610,10 +610,14 @@ public class Dhis2
      */
     public List<Program> getPrograms( Query query )
     {
+        String fieldsParam = query.isExpandAssociations() ?
+            String.format( "%1$s,programType,categoryCombo[%1$s,categories[%2$s]],programStages[%1$s,programStageDataElements[%1$s,dataElement[%3$s]]]",
+            NAME_FIELDS, CATEGORY_FIELDS, DATA_ELEMENT_FIELDS ) :
+            NAME_FIELDS;
+
         return getObject( dhis2Config.getResolvedUriBuilder()
             .pathSegment( "programs" )
-            .queryParam( "fields", String.format( "%1$s,programType,categoryCombo[%1$s,categories[%2$s]],programStages[%1$s,programStageDataElements[%1$s,dataElement[%3$s]]]",
-                NAME_FIELDS, CATEGORY_FIELDS, DATA_ELEMENT_FIELDS ) ), query, Objects.class )
+            .queryParam( "fields", fieldsParam ), query, Objects.class )
             .getPrograms();
     }
 
