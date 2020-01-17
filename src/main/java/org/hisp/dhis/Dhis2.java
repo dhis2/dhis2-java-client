@@ -71,7 +71,7 @@ public class Dhis2
     {
         try
         {
-            HttpHeaders headers =  getBasicAuthAcceptJsonHeaders();
+            HttpHeaders headers = getBasicAuthAcceptJsonHeaders();
             String url = dhis2Config.getResolvedUrl( RESOURCE_SYSTEM_INFO );
             ResponseEntity<SystemInfo> response = restTemplate.exchange( url, HttpMethod.GET, new HttpEntity<>( headers ), SystemInfo.class );
             return response.getStatusCode();
