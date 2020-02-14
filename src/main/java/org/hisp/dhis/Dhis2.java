@@ -60,10 +60,17 @@ public class Dhis2
     // -------------------------------------------------------------------------
 
     /**
-     * Checks the status of the DHIS 2 instance. Returns {@link HttpStatus#OK}
-     * if available and everything is okay. Returns {@link HttpStatus#NOT_FOUND} if the
-     * URL to the DHIS 2 instance is invalid or the DHIS 2 instance is not available. Returns
-     * a 500 series error if the DHIS 2 instance had an internal error.
+     * Checks the status of the DHIS 2 instance. Returns various status codes describing
+     * the status:
+     *
+     * <ul>
+     * <li>{@link HttpStatus#OK} if instance is available and authentication is successful.</li>
+     * <li>{@link HttpStatus#UNAUTHORIZED} if the username and password combination is
+     *     not valid.</li>
+     * <li>{@link HttpStatus#NOT_FOUND} if the URL is not pointing to a DHIS 2 instance
+     *     or the DHIS 2 instance is not available.</li>
+     * <li>A 500 series error if the DHIS 2 instance had an internal error.</li>
+     * </ul>
      *
      * @return the {@link HttpStatus} of the response from DHIS 2.
      */
