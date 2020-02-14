@@ -17,11 +17,11 @@ public class Filter
 
     private Object value;
 
-    private Filter()
+    Filter()
     {
     }
 
-    private Filter( String property, Operator operator, Object value )
+    public Filter( String property, Operator operator, Object value )
     {
         this.property = property;
         this.operator = operator;
