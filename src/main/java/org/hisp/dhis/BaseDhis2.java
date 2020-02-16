@@ -3,6 +3,7 @@ package org.hisp.dhis;
 import java.util.Base64;
 
 import org.hisp.dhis.query.Filter;
+import org.hisp.dhis.query.Operator;
 import org.hisp.dhis.query.Order;
 import org.hisp.dhis.query.Paging;
 import org.hisp.dhis.query.Query;
@@ -48,7 +49,7 @@ public class BaseDhis2
     {
         for ( Filter filter : filters.getFilters() )
         {
-            String filterValue = filter.getProperty() + ":" + filter.getOperator().value() + ":" + filter.getValue();
+            String filterValue = filter.getProperty() + ":" + filter.getOperator().value() + ":" + getValue( filter );
 
             uriBuilder.queryParam( "filter", filterValue );
         }
@@ -84,6 +85,18 @@ public class BaseDhis2
         String url = uriBuilder.build().toUriString();
 
         return getObjectFromUrl( url , klass );
+    }
+
+    private Object getValue( Filter filter )
+    {
+        if ( Operator.IN == filter.getOperator() )
+        {
+            return "[" + filter.getValue() + "]";
+        }
+        else
+        {
+            return filter.getValue();
+        }
     }
 
     /**

@@ -1,9 +1,5 @@
 package org.hisp.dhis.query;
 
-import java.util.List;
-
-import org.springframework.util.StringUtils;
-
 /**
  * Query filter.
  *
@@ -28,49 +24,111 @@ public class Filter
         this.value = value;
     }
 
+    /**
+     * Creates an equals to {@link Filter}.
+     *
+     * @param property the filter property.
+     * @param value the filter value.
+     * @return a {@link Filter}.
+     */
     public static Filter eq( String property, Object value )
     {
         return new Filter( property, Operator.EQ, value );
     }
 
+    /**
+     * Creates a greater than or equals to {@link Filter}.
+     *
+     * @param property the filter property.
+     * @param value the filter value.
+     * @return a {@link Filter}.
+     */
     public static Filter ge( String property, Object value )
     {
         return new Filter( property, Operator.GE, value );
     }
 
+    /**
+     * Creates a greater than {@link Filter}.
+     *
+     * @param property the filter property.
+     * @param value the filter value.
+     * @return a {@link Filter}.
+     */
     public static Filter gt( String property, Object value )
     {
         return new Filter( property, Operator.GT, value );
     }
 
+    /**
+     * Creates a less than or equals to {@link Filter}.
+     *
+     * @param property the filter property.
+     * @param value the filter value.
+     * @return a {@link Filter}.
+     */
     public static Filter le( String property, Object value )
     {
         return new Filter( property, Operator.LE, value );
     }
 
+    /**
+     * Creates a less than {@link Filter}.
+     *
+     * @param property the filter property.
+     * @param value the filter value.
+     * @return a {@link Filter}.
+     */
     public static Filter lt( String property, Object value )
     {
         return new Filter( property, Operator.LT, value );
     }
 
+    /**
+     * Creates an is true {@link Filter}.
+     *
+     * @param property the filter property.
+     * @return a {@link Filter}.
+     */
     public static Filter isTrue( String property )
     {
         return new Filter( property, Operator.EQ, "true" );
     }
 
+    /**
+     * Creates an is false {@link Filter}.
+     *
+     * @param property the filter property.
+     * @return a {@link Filter}.
+     */
     public static Filter isFalse( String property )
     {
         return new Filter( property, Operator.EQ, "false" );
     }
 
+    /**
+     * Creates a like {@link Filter}.
+     *
+     * @param property the filter property.
+     * @param value the filter value.
+     * @return a {@link Filter}.
+     */
     public static Filter like( String property, Object value )
     {
         return new Filter( property, Operator.LIKE, value );
     }
 
-    public static Filter in( String property, List<Object> values )
+    /**
+     * Creates an in {@link Filter}. Multiple values should be
+     * provided as a comma-separated string.
+     *
+     * @param property the filter property.
+     * @param value the filter value.
+     * @return a {@link Filter}.
+     */
+    public static Filter in( String property, String value )
     {
-        return new Filter( property, Operator.IN, values );
+        return new Filter( property, Operator.IN, value );
     }
 
     public String getProperty()
@@ -83,16 +141,8 @@ public class Filter
         return operator;
     }
 
-    @SuppressWarnings("unchecked")
     public Object getValue()
     {
-        if ( Operator.IN == operator && value != null )
-        {
-            return new StringBuilder( "[" )
-                .append( StringUtils.collectionToCommaDelimitedString( (List<Object>) value ) )
-                .append( "]" ).toString();
-        }
-
         return value;
     }
 }
