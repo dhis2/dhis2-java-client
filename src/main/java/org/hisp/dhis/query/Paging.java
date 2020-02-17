@@ -39,14 +39,24 @@ public class Paging
         return page;
     }
 
+    public boolean hasPage()
+    {
+        return page != null && page >= 0;
+    }
+
+    public int getPageOrDefault()
+    {
+        return hasPage() ? page : DEFAULT_PAGE;
+    }
+
     public Integer getPageSize()
     {
         return pageSize;
     }
 
-    public boolean hasPage()
+    public int getPageSizeOrDefault()
     {
-        return page != null && page >= 0;
+        return hasPageSize() ? pageSize : DEFAULT_PAGE_SIZE;
     }
 
     public boolean hasPageSize()
@@ -61,8 +71,6 @@ public class Paging
 
     public int getOffset()
     {
-        int pgs = hasPageSize() ? pageSize : DEFAULT_PAGE_SIZE;
-        int pg = hasPage() ? page : DEFAULT_PAGE;
-        return pgs * ( pg - 1 );
+        return getPageSizeOrDefault() * ( getPageOrDefault() - 1 );
     }
 }
