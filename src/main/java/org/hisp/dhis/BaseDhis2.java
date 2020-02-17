@@ -105,6 +105,7 @@ public class BaseDhis2
      * @param path the URL path.
      * @param id the object identifier.
      * @param klass the class type of the object.
+     * @param <T> type.
      * @return the object.
      */
     protected <T> T getObject( String path, String id, Class<T> klass )

@@ -58,8 +58,8 @@ public class Paging
 
     public int getOffset()
     {
-        int pgs = pageSize != null ? pageSize : 50;
-        int pg = page != null ? page : 1;
+        int pgs = hasPageSize() ? pageSize : 50;
+        int pg = hasPage() ? page : 1;
         return pgs * ( pg - 1 );
     }
 }
