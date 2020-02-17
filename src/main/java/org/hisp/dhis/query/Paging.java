@@ -9,6 +9,9 @@ import org.springframework.util.Assert;
  */
 public class Paging
 {
+    private static final int DEFAULT_PAGE_SIZE = 50;
+    private static final int DEFAULT_PAGE = 1;
+
     private Integer page;
 
     private Integer pageSize;
@@ -58,8 +61,8 @@ public class Paging
 
     public int getOffset()
     {
-        int pgs = hasPageSize() ? pageSize : 50;
-        int pg = hasPage() ? page : 1;
+        int pgs = hasPageSize() ? pageSize : DEFAULT_PAGE_SIZE;
+        int pg = hasPage() ? page : DEFAULT_PAGE;
         return pgs * ( pg - 1 );
     }
 }
