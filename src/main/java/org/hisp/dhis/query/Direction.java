@@ -7,6 +7,31 @@ package org.hisp.dhis.query;
  */
 public enum Direction
 {
-    ASC,
-    DESC;
+    ASC( "asc" ),
+    DESC( "desc" );
+
+    private String value;
+
+    Direction( String value )
+    {
+        this.value = value;
+    }
+
+    public static Direction fromValue( String value )
+    {
+        for ( Direction direction : Direction.values() )
+        {
+            if ( direction.value().equals( value ) )
+            {
+                return direction;
+            }
+        }
+
+        throw new IllegalArgumentException( String.format( "No enum for value: '%s'", value ) );
+    }
+
+    public String value()
+    {
+        return value;
+    }
 }
