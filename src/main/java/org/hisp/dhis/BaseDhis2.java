@@ -1,5 +1,7 @@
 package org.hisp.dhis;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Base64;
 
 import org.hisp.dhis.query.Filter;
@@ -127,7 +129,7 @@ public class BaseDhis2
      */
     protected <T> T getObjectFromUrl( String url, Class<T> klass )
     {
-        HttpHeaders headers =  getBasicAuthAcceptJsonHeaders();
+        HttpHeaders headers = getBasicAuthAcceptJsonHeaders();
 
         ResponseEntity<T> response = restTemplate.exchange( url, HttpMethod.GET, new HttpEntity<>( headers ), klass );
 
@@ -161,5 +163,16 @@ public class BaseDhis2
         String string = username + ":" + password;
 
         return "Basic " + Base64.getEncoder().encodeToString( string.getBytes() );
+    }
+
+    /**
+     * Converts the given array to a {@link ArrayList}.
+     *
+     * @param array the array.
+     * @return a list.
+     */
+    protected static <T> ArrayList<T> asList( T[] array )
+    {
+        return new ArrayList<>( Arrays.asList( array ) );
     }
 }

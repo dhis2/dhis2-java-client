@@ -395,10 +395,10 @@ public class Dhis2
     }
 
     /**
-     * Retrieves a list of {@link OrgUnitGroupSet}.
+     * Retrieves a list of {@link OrgUnitLevel}.
      *
      * @param query the {@link Query}.
-     * @return a list of {@link OrgUnitGroupSet}.
+     * @return a list of {@link OrgUnitLevel}.
      */
     public List<OrgUnitLevel> getOrgUnitLevels( Query query )
     {
@@ -406,6 +406,21 @@ public class Dhis2
             .pathSegment( "organisationUnitLevels" )
             .queryParam( "fields", String.format( "%s,level", ID_FIELDS ) ), query, Objects.class )
             .getOrganisationUnitLevels();
+    }
+
+    /**
+     * Retrieves a list of "filled" {@link OrgUnitLevel}, meaning
+     * any gaps in the persisted levels will be inserted by generated
+     * levels.
+     *
+     * @return a list of {@link OrgUnitLevel}.
+     */
+    public List<OrgUnitLevel> getFilledOrgUnitLevels()
+    {
+        // Using array, DHIS 2 should have used a wrapper entity for the response
+
+        return asList( getObject( dhis2Config.getResolvedUriBuilder()
+            .pathSegment( "filledOrganisationUnitLevels" ), Query.instance(), OrgUnitLevel[].class ) );
     }
 
     // -------------------------------------------------------------------------
