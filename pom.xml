@@ -41,8 +41,8 @@
   </scm>
   
   <issueManagement>
-	<system>GitHub</system>
-	<url>https://github.com/dhis2/dhis2-java-client</url>
+    <system>GitHub</system>
+    <url>https://github.com/dhis2/dhis2-java-client</url>
   </issueManagement>
 
   <dependencies>
