@@ -5,6 +5,11 @@ import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class OrgUnitGroupSet
     extends NameableObject
 {
@@ -26,15 +31,5 @@ public class OrgUnitGroupSet
         this.id = id;
         this.name = name;
         this.shortName = shortName;
-    }
-
-    public Set<OrgUnitGroup> getOrganisationUnitGroups()
-    {
-        return organisationUnitGroups;
-    }
-
-    public void setOrganisationUnitGroups( Set<OrgUnitGroup> organisationUnitGroups )
-    {
-        this.organisationUnitGroups = organisationUnitGroups;
     }
 }

@@ -8,6 +8,11 @@ import org.springframework.http.HttpHeaders;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class DataValueSetResponseMessage
 {
     @JsonProperty
@@ -29,66 +34,6 @@ public class DataValueSetResponseMessage
 
     public DataValueSetResponseMessage()
     {
-    }
-
-    public Status getStatus()
-    {
-        return status;
-    }
-
-    public void setStatus( Status status )
-    {
-        this.status = status;
-    }
-
-    public String getDescription()
-    {
-        return description;
-    }
-
-    public void setDescription( String description )
-    {
-        this.description = description;
-    }
-
-    public ImportCount getImportCount()
-    {
-        return importCount;
-    }
-
-    public void setImportCount( ImportCount importCount )
-    {
-        this.importCount = importCount;
-    }
-
-    public List<Conflict> getConflicts()
-    {
-        return conflicts;
-    }
-
-    public void setConflicts( List<Conflict> conflicts )
-    {
-        this.conflicts = conflicts;
-    }
-
-    public Integer getHttpStatusCode()
-    {
-        return httpStatusCode;
-    }
-
-    public void setHttpStatusCode( Integer httpStatusCode )
-    {
-        this.httpStatusCode = httpStatusCode;
-    }
-
-    public HttpHeaders getHeaders()
-    {
-        return headers;
-    }
-
-    public void setHeaders( HttpHeaders headers )
-    {
-        this.headers = headers;
     }
 
     @Override

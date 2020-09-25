@@ -8,6 +8,11 @@ import java.util.stream.Collectors;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class ProgramStage
     extends NameableObject
 {
@@ -26,15 +31,5 @@ public class ProgramStage
             .filter( element -> element.getDataElement() != null )
             .map( ProgramStageDataElement::getDataElement )
             .collect( Collectors.toSet() );
-    }
-
-    public List<ProgramStageDataElement> getProgramStageDataElements()
-    {
-        return programStageDataElements;
-    }
-
-    public void setProgramStageDataElements( List<ProgramStageDataElement> programStageDataElements )
-    {
-        this.programStageDataElements = programStageDataElements;
     }
 }

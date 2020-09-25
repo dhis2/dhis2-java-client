@@ -4,6 +4,11 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class CategoryCombo
     extends NameableObject
 {
@@ -12,24 +17,4 @@ public class CategoryCombo
 
     @JsonProperty
     private List<Category> categories;
-
-    public DataDimensionType getDataDimensionType()
-    {
-        return dataDimensionType;
-    }
-
-    public void setDataDimensionType( DataDimensionType dataDimensionType )
-    {
-        this.dataDimensionType = dataDimensionType;
-    }
-
-    public List<Category> getCategories()
-    {
-        return categories;
-    }
-
-    public void setCategories( List<Category> categories )
-    {
-        this.categories = categories;
-    }
 }

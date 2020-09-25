@@ -8,6 +8,11 @@ import java.util.stream.Collectors;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class Program
     extends NameableObject
 {
@@ -60,35 +65,5 @@ public class Program
     public boolean hasCategoryCombo()
     {
         return categoryCombo != null;
-    }
-
-    public ProgramType getProgramType()
-    {
-        return programType;
-    }
-
-    public void setProgramType( ProgramType programType )
-    {
-        this.programType = programType;
-    }
-
-    public CategoryCombo getCategoryCombo()
-    {
-        return categoryCombo;
-    }
-
-    public void setCategoryCombo( CategoryCombo categoryCombo )
-    {
-        this.categoryCombo = categoryCombo;
-    }
-
-    public List<ProgramStage> getProgramStages()
-    {
-        return programStages;
-    }
-
-    public void setProgramStages( List<ProgramStage> programStages )
-    {
-        this.programStages = programStages;
     }
 }

@@ -5,11 +5,16 @@ import org.springframework.http.HttpHeaders;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * Message providing information about a DHIS 2 web API response.
  *
  * @author Lars Helge Overland
  */
+@Getter
+@Setter
 public class ResponseMessage
 {
     @JsonProperty
@@ -35,76 +40,6 @@ public class ResponseMessage
 
     public ResponseMessage()
     {
-    }
-
-    public Status getStatus()
-    {
-        return status;
-    }
-
-    public void setStatus( Status status )
-    {
-        this.status = status;
-    }
-
-    public HttpStatus getHttpStatus()
-    {
-        return httpStatus;
-    }
-
-    public void setHttpStatus( HttpStatus httpStatus )
-    {
-        this.httpStatus = httpStatus;
-    }
-
-    public Integer getHttpStatusCode()
-    {
-        return httpStatusCode;
-    }
-
-    public void setHttpStatusCode( Integer httpStatusCode )
-    {
-        this.httpStatusCode = httpStatusCode;
-    }
-
-    public Integer getCode()
-    {
-        return code;
-    }
-
-    public void setCode( Integer code )
-    {
-        this.code = code;
-    }
-
-    public String getMessage()
-    {
-        return message;
-    }
-
-    public void setMessage( String message )
-    {
-        this.message = message;
-    }
-
-    public String getDevMessage()
-    {
-        return devMessage;
-    }
-
-    public void setDevMessage( String devMessage )
-    {
-        this.devMessage = devMessage;
-    }
-
-    public HttpHeaders getHeaders()
-    {
-        return headers;
-    }
-
-    public void setHeaders( HttpHeaders headers )
-    {
-        this.headers = headers;
     }
 
     @Override

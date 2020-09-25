@@ -5,6 +5,11 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class DataElement
     extends NameableObject
 {
@@ -22,45 +27,5 @@ public class DataElement
 
     public DataElement()
     {
-    }
-
-    public AggregationType getAggregationType()
-    {
-        return aggregationType;
-    }
-
-    public void setAggregationType( AggregationType aggregationType )
-    {
-        this.aggregationType = aggregationType;
-    }
-
-    public ValueType getValueType()
-    {
-        return valueType;
-    }
-
-    public void setValueType( ValueType valueType )
-    {
-        this.valueType = valueType;
-    }
-
-    public DataDomain getDomainType()
-    {
-        return domainType;
-    }
-
-    public void setDomainType( DataDomain domainType )
-    {
-        this.domainType = domainType;
-    }
-
-    public List<LegendSet> getLegendSets()
-    {
-        return legendSets;
-    }
-
-    public void setLegendSets( List<LegendSet> legendSets )
-    {
-        this.legendSets = legendSets;
     }
 }

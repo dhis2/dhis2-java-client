@@ -3,6 +3,11 @@ package org.hisp.dhis.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class Category
     extends NameableObject
 {
@@ -16,25 +21,5 @@ public class Category
     public boolean isDataDimension()
     {
         return dataDimension;
-    }
-
-    public DataDimensionType getDataDimensionType()
-    {
-        return dataDimensionType;
-    }
-
-    public void setDataDimensionType( DataDimensionType dataDimensionType )
-    {
-        this.dataDimensionType = dataDimensionType;
-    }
-
-    public Boolean getDataDimension()
-    {
-        return dataDimension;
-    }
-
-    public void setDataDimension( Boolean dataDimension )
-    {
-        this.dataDimension = dataDimension;
     }
 }

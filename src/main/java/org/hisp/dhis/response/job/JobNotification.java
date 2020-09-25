@@ -6,6 +6,11 @@ import org.hisp.dhis.response.NotificationLevel;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class JobNotification
 {
     @JsonProperty
@@ -36,65 +41,5 @@ public class JobNotification
         this.level = level;
         this.category = category;
         this.message = message;
-    }
-
-    public String getUid()
-    {
-        return uid;
-    }
-
-    public void setUid( String uid )
-    {
-        this.uid = uid;
-    }
-
-    public NotificationLevel getLevel()
-    {
-        return level;
-    }
-
-    public void setLevel( NotificationLevel level )
-    {
-        this.level = level;
-    }
-
-    public JobCategory getCategory()
-    {
-        return category;
-    }
-
-    public void setCategory( JobCategory category )
-    {
-        this.category = category;
-    }
-
-    public Date getTime()
-    {
-        return time;
-    }
-
-    public void setTime( Date time )
-    {
-        this.time = time;
-    }
-
-    public String getMessage()
-    {
-        return message;
-    }
-
-    public void setMessage( String message )
-    {
-        this.message = message;
-    }
-
-    public boolean isCompleted()
-    {
-        return completed;
-    }
-
-    public void setCompleted( boolean completed )
-    {
-        this.completed = completed;
     }
 }

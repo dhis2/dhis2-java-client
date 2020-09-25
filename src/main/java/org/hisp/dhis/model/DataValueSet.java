@@ -5,6 +5,11 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class DataValueSet
 {
     @JsonProperty
@@ -32,65 +37,5 @@ public class DataValueSet
     public boolean addDataValue( DataValue dataValue )
     {
         return this.dataValues.add( dataValue );
-    }
-
-    public String getDataSet()
-    {
-        return dataSet;
-    }
-
-    public void setDataSet( String dataSet )
-    {
-        this.dataSet = dataSet;
-    }
-
-    public String getCompleteDate()
-    {
-        return completeDate;
-    }
-
-    public void setCompleteDate( String completeDate )
-    {
-        this.completeDate = completeDate;
-    }
-
-    public String getPeriod()
-    {
-        return period;
-    }
-
-    public void setPeriod( String period )
-    {
-        this.period = period;
-    }
-
-    public String getOrgUnit()
-    {
-        return orgUnit;
-    }
-
-    public void setOrgUnit( String orgUnit )
-    {
-        this.orgUnit = orgUnit;
-    }
-
-    public String getAttributeOptionCombo()
-    {
-        return attributeOptionCombo;
-    }
-
-    public void setAttributeOptionCombo( String attributeOptionCombo )
-    {
-        this.attributeOptionCombo = attributeOptionCombo;
-    }
-
-    public List<DataValue> getDataValues()
-    {
-        return dataValues;
-    }
-
-    public void setDataValues( List<DataValue> dataValues )
-    {
-        this.dataValues = dataValues;
     }
 }

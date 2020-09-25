@@ -2,6 +2,11 @@ package org.hisp.dhis.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class NameableObject
     extends IdentifiableObject
 {
@@ -10,24 +15,4 @@ public class NameableObject
 
     @JsonProperty
     protected String description;
-
-    public String getShortName()
-    {
-        return shortName;
-    }
-
-    public void setShortName( String shortName )
-    {
-        this.shortName = shortName;
-    }
-
-    public String getDescription()
-    {
-        return description;
-    }
-
-    public void setDescription( String description )
-    {
-        this.description = description;
-    }
 }

@@ -1,5 +1,10 @@
 package org.hisp.dhis.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class OrgUnitLevel
     extends IdentifiableObject
 {
@@ -7,15 +12,5 @@ public class OrgUnitLevel
 
     public OrgUnitLevel()
     {
-    }
-
-    public int getLevel()
-    {
-        return level;
-    }
-
-    public void setLevel( int level )
-    {
-        this.level = level;
     }
 }

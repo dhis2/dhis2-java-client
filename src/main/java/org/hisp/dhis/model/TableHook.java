@@ -2,6 +2,11 @@ package org.hisp.dhis.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class TableHook
 {
     @JsonProperty
@@ -24,66 +29,6 @@ public class TableHook
 
     public TableHook()
     {
-    }
-
-    public String getId()
-    {
-        return id;
-    }
-
-    public void setId( String id )
-    {
-        this.id = id;
-    }
-
-    public String getName()
-    {
-        return name;
-    }
-
-    public void setName( String name )
-    {
-        this.name = name;
-    }
-
-    public TablePhase getPhase()
-    {
-        return phase;
-    }
-
-    public void setPhase( TablePhase phase )
-    {
-        this.phase = phase;
-    }
-
-    public ResourceTableType getResourceTableType()
-    {
-        return resourceTableType;
-    }
-
-    public void setResourceTableType( ResourceTableType resourceTableType )
-    {
-        this.resourceTableType = resourceTableType;
-    }
-
-    public AnalyticsTableType getAnalyticsTableType()
-    {
-        return analyticsTableType;
-    }
-
-    public void setAnalyticsTableType( AnalyticsTableType analyticsTableType )
-    {
-        this.analyticsTableType = analyticsTableType;
-    }
-
-    public String getSql()
-    {
-        return sql;
-    }
-
-    public void setSql( String sql )
-    {
-        this.sql = sql;
     }
 
     public enum TablePhase

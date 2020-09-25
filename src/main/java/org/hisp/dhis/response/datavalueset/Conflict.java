@@ -2,6 +2,11 @@ package org.hisp.dhis.response.datavalueset;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class Conflict
 {
     @JsonProperty
@@ -12,26 +17,6 @@ public class Conflict
 
     public Conflict()
     {
-    }
-
-    public String getObject()
-    {
-        return object;
-    }
-
-    public void setObject( String object )
-    {
-        this.object = object;
-    }
-
-    public String getValue()
-    {
-        return value;
-    }
-
-    public void setValue( String value )
-    {
-        this.value = value;
     }
 
     @Override

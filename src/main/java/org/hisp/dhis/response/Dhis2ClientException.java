@@ -3,11 +3,16 @@ package org.hisp.dhis.response;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * Exception caused by client side errors.
  *
  * @author Lars Helge Overland
  */
+@Getter
+@Setter
 public class Dhis2ClientException
     extends RuntimeException
 {
@@ -33,35 +38,5 @@ public class Dhis2ClientException
     public String getStatusText()
     {
         return statusCode != null ? statusCode.name() : null;
-    }
-
-    public HttpStatus getStatusCode()
-    {
-        return statusCode;
-    }
-
-    public void setStatusCode( HttpStatus statusCode )
-    {
-        this.statusCode = statusCode;
-    }
-
-    public HttpHeaders getResponseHeaders()
-    {
-        return responseHeaders;
-    }
-
-    public void setResponseHeaders( HttpHeaders responseHeaders )
-    {
-        this.responseHeaders = responseHeaders;
-    }
-
-    public String getReponseBodyString()
-    {
-        return reponseBodyString;
-    }
-
-    public void setReponseBodyString( String reponseBodyString )
-    {
-        this.reponseBodyString = reponseBodyString;
     }
 }

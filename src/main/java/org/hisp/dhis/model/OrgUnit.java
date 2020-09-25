@@ -2,6 +2,11 @@ package org.hisp.dhis.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class OrgUnit
     extends NameableObject
 {
@@ -29,35 +34,5 @@ public class OrgUnit
         this.id = id;
         this.name = name;
         this.shortName = shortName;
-    }
-
-    public OrgUnit getParent()
-    {
-        return parent;
-    }
-
-    public void setParent( OrgUnit parent )
-    {
-        this.parent = parent;
-    }
-
-    public String getPath()
-    {
-        return path;
-    }
-
-    public void setPath( String path )
-    {
-        this.path = path;
-    }
-
-    public Integer getLevel()
-    {
-        return level;
-    }
-
-    public void setLevel( Integer level )
-    {
-        this.level = level;
     }
 }
