@@ -20,6 +20,7 @@ import org.hisp.dhis.model.OrgUnitLevel;
 import org.hisp.dhis.model.PeriodType;
 import org.hisp.dhis.model.Program;
 import org.hisp.dhis.model.SystemInfo;
+import org.hisp.dhis.model.SystemSettings;
 import org.hisp.dhis.model.TableHook;
 import org.hisp.dhis.query.Query;
 import org.hisp.dhis.response.Dhis2ClientException;
@@ -774,6 +775,21 @@ public class Dhis2
             .pathSegment( "periodTypes" )
             .queryParam( "fields", "frequencyOrder,name,isoDuration,isoFormat" ), query, Objects.class )
             .getPeriodTypes();
+    }
+
+    // -------------------------------------------------------------------------
+    // System settings
+    // -------------------------------------------------------------------------
+
+    /**
+     * Retrieves {@link SystemSettings}.
+     *
+     * @return system settings.
+     */
+    public SystemSettings getSystemSettings()
+    {
+        return getObject( dhis2Config.getResolvedUriBuilder()
+            .pathSegment( "systemSettings" ), Query.instance(), SystemSettings.class );
     }
 
     // -------------------------------------------------------------------------
