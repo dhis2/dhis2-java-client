@@ -46,13 +46,6 @@
   </issueManagement>
 
   <dependencies>
-    <!-- 
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-webmvc</artifactId>
-      <version>5.2.9.RELEASE</version>
-    </dependency>
-    -->
     <dependency>
      <groupId>org.apache.httpcomponents</groupId>
        <artifactId>httpclient</artifactId>
