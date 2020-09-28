@@ -77,7 +77,7 @@ public class Dhis2
         try
         {
             URI url = dhis2Config.getResolvedUrl( RESOURCE_SYSTEM_INFO );
-            HttpGet request = new HttpGet( url );
+            HttpGet request = withBasicAuth( new HttpGet( url ) );
             CloseableHttpResponse response = httpClient.execute( request );
             return response.getStatusLine().getStatusCode();
         }
@@ -169,7 +169,7 @@ public class Dhis2
     {
         URI url = dhis2Config.getResolvedUrl( path );
 
-        HttpHead request = new HttpHead( url );
+        HttpHead request = withBasicAuth( new HttpHead( url ) );
 
         try ( CloseableHttpResponse response = httpClient.execute( request ) )
         {
