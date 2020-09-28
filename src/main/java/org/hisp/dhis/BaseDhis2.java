@@ -46,7 +46,7 @@ public class BaseDhis2
     protected static final String CATEGORY_FIELDS = String.format( "%s,dataDimensionType,dataDimension", NAME_FIELDS );
     protected static final String RESOURCE_SYSTEM_INFO = "system/info";
 
-    protected final Dhis2Config dhis2Config;
+    protected final Dhis2Config config;
 
     protected final ObjectMapper objectMapper;
 
@@ -54,9 +54,9 @@ public class BaseDhis2
 
     public BaseDhis2( Dhis2Config dhis2Config )
     {
-        Validate.notNull( dhis2Config, "dhis2Config must be specified" );
+        Validate.notNull( dhis2Config, "config must be specified" );
 
-        this.dhis2Config = dhis2Config;
+        this.config = dhis2Config;
 
         this.objectMapper = new ObjectMapper();
         objectMapper.disable( DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES );
@@ -146,7 +146,7 @@ public class BaseDhis2
     {
         try
         {
-            URI url = dhis2Config.getResolvedUriBuilder()
+            URI url = config.getResolvedUriBuilder()
                 .pathSegment( path )
                 .pathSegment( id )
                 .build();
@@ -231,7 +231,7 @@ public class BaseDhis2
      */
     protected String getBasicAuthString()
     {
-        String value = dhis2Config.getUsername() + ":" + dhis2Config.getPassword();
+        String value = config.getUsername() + ":" + config.getPassword();
 
         return "Basic " + Base64.getEncoder().encodeToString( value.getBytes() );
     }
