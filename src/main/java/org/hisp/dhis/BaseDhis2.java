@@ -177,7 +177,6 @@ public class BaseDhis2
         try ( CloseableHttpResponse response = httpClient.execute( request ) )
         {
             String responseBody = EntityUtils.toString( response.getEntity() );
-
             T responseMessage = objectMapper.readValue( responseBody, klass );
 
             responseMessage.setHeaders( new ArrayList<>( Arrays.asList( response.getAllHeaders() ) ) );
