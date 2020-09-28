@@ -1,6 +1,9 @@
 package org.hisp.dhis.response;
 
-import org.springframework.http.HttpHeaders;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.http.Header;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -16,6 +19,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ResponseMessage
+    implements HttpResponseMessage
 {
     @JsonProperty
     private Status status;
@@ -36,7 +40,7 @@ public class ResponseMessage
     private String devMessage;
 
     @JsonIgnore
-    private HttpHeaders headers;
+    private List<Header> headers = new ArrayList<>();
 
     public ResponseMessage()
     {

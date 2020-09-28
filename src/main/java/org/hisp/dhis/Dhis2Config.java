@@ -1,12 +1,18 @@
 package org.hisp.dhis;
 
-import org.springframework.web.util.UriComponentsBuilder;
+import java.net.URI;
+import java.net.URISyntaxException;
+
+import org.apache.http.client.utils.URIBuilder;
+
+import lombok.Getter;
 
 /**
  * Configuration information about a DHIS 2 instance.
  *
  * @author Lars Helge Overland
  */
+@Getter
 public class Dhis2Config
 {
     private String url;
@@ -30,44 +36,41 @@ public class Dhis2Config
     }
 
     /**
-     * Provides a fully qualified URL to the DHIS 2 instance API.
+     * Provides a fully qualified {@link URI} to the DHIS 2 instance API.
      *
      * @param path the URL path (the URL part after {@code /api/}.
-     * @return a fully qualified URL to the DHIS 2 instance API.
+     * @return a fully qualified {@link URI} to the DHIS 2 instance API.
      */
-    public String getResolvedUrl( String path )
+    public URI getResolvedUrl( String path )
     {
-        return UriComponentsBuilder.fromHttpUrl( url )
-            .pathSegment( "api" )
-            .pathSegment( path )
-            .build()
-            .toString();
+        try
+        {
+            return new URIBuilder( url )
+                .setPathSegments( "api", path )
+                .build();
+        }
+        catch ( URISyntaxException ex )
+        {
+            throw new RuntimeException( String.format( "Invalid URI syntax: '%s'", url ), ex );
+        }
     }
 
     /**
-     * Provides a {@link UriComponentsBuilder} which is resolved to
-     * the DHIS 2 instance API.
+     * Provides a {@link URIBuilder} which is resolved to the DHIS 2
+     * instance API.
      *
-     * @return a {@link UriComponentsBuilder}.
+     * @return a {@link URIBuilder}.
      */
-    public UriComponentsBuilder getResolvedUriBuilder()
+    public URIBuilder getResolvedUriBuilder()
     {
-        return UriComponentsBuilder.fromHttpUrl( url )
-            .pathSegment( "api" );
-    }
-
-    public String getUrl()
-    {
-        return url;
-    }
-
-    public String getUsername()
-    {
-        return username;
-    }
-
-    public String getPassword()
-    {
-        return password;
+        try
+        {
+            return new URIBuilder( url )
+                .setPathSegments( "api" );
+        }
+        catch ( URISyntaxException ex )
+        {
+            throw new RuntimeException( String.format( "Invalid URI syntax: '%s'", url ), ex );
+        }
     }
 }

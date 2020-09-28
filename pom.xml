@@ -46,10 +46,22 @@
   </issueManagement>
 
   <dependencies>
+    <!-- 
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-webmvc</artifactId>
-      <version>5.0.4.RELEASE</version>
+      <version>5.2.9.RELEASE</version>
+    </dependency>
+    -->
+    <dependency>
+     <groupId>org.apache.httpcomponents</groupId>
+       <artifactId>httpclient</artifactId>
+      <version>4.5.12</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-lang3</artifactId>
+      <version>3.11</version>
     </dependency>
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
