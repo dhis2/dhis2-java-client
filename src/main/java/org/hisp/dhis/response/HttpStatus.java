@@ -35,6 +35,7 @@ public enum HttpStatus
     NOT_ACCEPTABLE( 406, "Not Acceptable" ),
     PROXY_AUTHENTICATION_REQUIRED( 407, "Proxy Authentication Required" ),
     REQUEST_TIMEOUT( 408, "Request Timeout" ),
+    CONFLICT( 409, "Conflict" ),
     GONE( 410, "Gone" ),
     LENGTH_REQUIRED( 411, "Length Required" ),
     PRECONDITION_FAILED( 412, "Precondition Failed" ),

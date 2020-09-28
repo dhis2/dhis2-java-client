@@ -42,4 +42,16 @@ public class JobNotification
         this.category = category;
         this.message = message;
     }
+
+    @Override
+    public String toString()
+    {
+        return new StringBuilder( "[" )
+            .append( "uid: " ).append( uid ).append( ", " )
+            .append( "level: " ).append( level ).append( ", " )
+            .append( "category: " ).append( category ).append( ", " )
+            .append( "time:" ).append( time ).append( ", " )
+            .append( "completed: " ).append( completed ).append( "]" ).toString();
+
+    }
 }
