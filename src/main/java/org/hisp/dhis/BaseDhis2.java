@@ -10,7 +10,6 @@ import java.util.Base64;
 
 import org.apache.commons.lang3.Validate;
 import org.apache.http.Consts;
-import org.apache.http.Header;
 import org.apache.http.HttpHeaders;
 import org.apache.http.client.HttpResponseException;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -64,8 +63,6 @@ public class BaseDhis2
         objectMapper.setSerializationInclusion( Include.NON_NULL );
 
         this.httpClient = HttpClientBuilder.create().build();
-
-        System.out.println( "Set cred provider " + dhis2Config.getUsername() + " " + dhis2Config.getPassword() );
     }
 
     /**
@@ -213,12 +210,10 @@ public class BaseDhis2
             request.setHeader( HttpHeaders.ACCEPT, ContentType.APPLICATION_JSON.getMimeType() );
             CloseableHttpResponse response = httpClient.execute( request );
             String responseBody = EntityUtils.toString( response.getEntity() );
-            log.info( "URL " + url.toString() );
-            log.info( "Resp: " + responseBody );
-            log.info( "SC " + response.getStatusLine().getStatusCode() );
-            log.info( "SC " + response.getStatusLine().getReasonPhrase() );
-            for (Header h : response.getAllHeaders())
-                log.info( "H "+ h.getName() + ": " + h.getValue() );
+
+            log.debug( "URL: '{}'", url.toString() );
+            log.debug( "Status code: {}", response.getStatusLine().getStatusCode() );
+
             return objectMapper.readValue( responseBody, klass );
         }
         catch ( IOException ex )
