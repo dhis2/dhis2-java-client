@@ -46,6 +46,29 @@ public class ResponseMessage
     {
     }
 
+    /**
+     * Returns the value of the HTTP header with the given
+     * name, or null if not found.
+     *
+     * @param name the HTTP header name.
+     * @return the HTTP header value.
+     */
+    public String getHeader( String name )
+    {
+        if ( headers != null )
+        {
+            for ( Header header : headers )
+            {
+                if ( name.equals( header.getName() ) )
+                {
+                    return header.getValue();
+                }
+            }
+        }
+
+        return null;
+    }
+
     @Override
     public String toString()
     {
