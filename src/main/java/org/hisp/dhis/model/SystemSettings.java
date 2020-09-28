@@ -20,7 +20,7 @@ public class SystemSettings
     @JsonProperty(value="keyDbLocale")
     private String dbLocale;
 
-    @JsonProperty(value="keyDbLocale")
+    @JsonProperty(value="keyUiLocale")
     private String uiLocale;
 
     @JsonProperty(value="keyLastSuccessfulAnalyticsTablesUpdate")
