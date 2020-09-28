@@ -25,9 +25,6 @@ public class ResponseMessage
     private Status status;
 
     @JsonProperty
-    private HttpStatus httpStatus;
-
-    @JsonProperty
     private Integer httpStatusCode;
 
     @JsonProperty
@@ -44,6 +41,11 @@ public class ResponseMessage
 
     public ResponseMessage()
     {
+    }
+
+    public HttpStatus getHttpStatus()
+    {
+        return HttpStatus.valueOf( httpStatusCode );
     }
 
     /**
@@ -75,7 +77,6 @@ public class ResponseMessage
         return new StringBuilder( "[")
             .append( "status: " ).append( status ).append( ", " )
             .append( "code: " ).append( code ).append( ", " )
-            .append( "httpStatus: " ).append( httpStatus ).append( ", " )
             .append( "httpStatusCode: " ).append( httpStatusCode ).append( ", " )
             .append( "devMessage: " ).append( devMessage ).append( "]" ).toString();
     }

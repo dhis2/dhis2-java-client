@@ -59,6 +59,8 @@ public class Dhis2Config
      */
     public URI getResolvedUrl( String path )
     {
+        Validate.notNull( path );
+
         try
         {
             return new UriBuilder( url )
