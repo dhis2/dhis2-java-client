@@ -1,17 +1,23 @@
 package org.hisp.dhis.model;
 
+import java.util.Date;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
-@Setter
 public class OrgUnit
     extends NameableObject
 {
+    @Setter
     @JsonProperty
     private OrgUnit parent;
+
+    @Setter
+    @JsonProperty
+    private Date openingDate;
 
     @JsonProperty
     private String path;

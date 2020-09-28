@@ -1,73 +1,95 @@
 package org.hisp.dhis;
 
-import org.springframework.web.util.UriComponentsBuilder;
+import java.net.URI;
+import java.net.URISyntaxException;
+
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Validate;
+import org.apache.http.client.utils.URIBuilder;
+
+import lombok.Getter;
 
 /**
  * Configuration information about a DHIS 2 instance.
  *
  * @author Lars Helge Overland
  */
+@Getter
 public class Dhis2Config
 {
-    private String url;
+    private final String url;
 
-    private String username;
+    private final String username;
 
-    private String password;
+    private final String password;
 
     /**
      * Main constructor.
      *
-     * @param url the URL to the DHIS 2 instance, do not include the {@code /api} part.
+     * @param url the URL to the DHIS 2 instance, do not include the {@code /api} part or a trailing {@code /}.
      * @param username the DHIS 2 account username.
      * @param password the DHIS 2 account password.
      */
     public Dhis2Config( String url, String username, String password )
     {
-        this.url = url;
+        Validate.notNull( url );
+        Validate.notNull( username );
+        Validate.notNull( password );
+        this.url = normalizeUrl( url );
         this.username = username;
         this.password = password;
     }
 
     /**
-     * Provides a fully qualified URL to the DHIS 2 instance API.
+     * Normalizes the given URL.
      *
-     * @param path the URL path (the URL part after {@code /api/}.
-     * @return a fully qualified URL to the DHIS 2 instance API.
+     * @param url the URL string.
+     * @return a URL string.
      */
-    public String getResolvedUrl( String path )
+    private String normalizeUrl( String url )
     {
-        return UriComponentsBuilder.fromHttpUrl( url )
-            .pathSegment( "api" )
-            .pathSegment( path )
-            .build()
-            .toString();
+        return StringUtils.removeEnd( url, "/" );
     }
 
     /**
-     * Provides a {@link UriComponentsBuilder} which is resolved to
-     * the DHIS 2 instance API.
+     * Provides a fully qualified {@link URI} to the DHIS 2 instance API.
      *
-     * @return a {@link UriComponentsBuilder}.
+     * @param path the URL path (the URL part after {@code /api/}.
+     * @return a fully qualified {@link URI} to the DHIS 2 instance API.
      */
-    public UriComponentsBuilder getResolvedUriBuilder()
+    public URI getResolvedUrl( String path )
     {
-        return UriComponentsBuilder.fromHttpUrl( url )
-            .pathSegment( "api" );
+        Validate.notNull( path );
+
+        try
+        {
+            return new UriBuilder( url )
+                .pathSegment( "api" )
+                .pathSegment( path )
+                .build();
+        }
+        catch ( URISyntaxException ex )
+        {
+            throw new RuntimeException( String.format( "Invalid URI syntax: '%s'", url ), ex );
+        }
     }
 
-    public String getUrl()
+    /**
+     * Provides a {@link URIBuilder} which is resolved to the DHIS 2
+     * instance API.
+     *
+     * @return a {@link URIBuilder}.
+     */
+    public UriBuilder getResolvedUriBuilder( )
     {
-        return url;
-    }
-
-    public String getUsername()
-    {
-        return username;
-    }
-
-    public String getPassword()
-    {
-        return password;
+        try
+        {
+            return new UriBuilder( url )
+                .pathSegment( "api" );
+        }
+        catch ( URISyntaxException ex )
+        {
+            throw new RuntimeException( String.format( "Invalid URI syntax: '%s'", url ), ex );
+        }
     }
 }

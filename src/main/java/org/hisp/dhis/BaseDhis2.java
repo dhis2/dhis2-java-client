@@ -1,22 +1,39 @@
 package org.hisp.dhis;
 
+import java.io.IOException;
+import java.io.UncheckedIOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
 
+import org.apache.commons.lang3.Validate;
+import org.apache.http.Consts;
+import org.apache.http.HttpHeaders;
+import org.apache.http.client.HttpResponseException;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpEntityEnclosingRequestBase;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpRequestBase;
+import org.apache.http.client.utils.URIBuilder;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.util.EntityUtils;
 import org.hisp.dhis.query.Filter;
 import org.hisp.dhis.query.Operator;
 import org.hisp.dhis.query.Order;
 import org.hisp.dhis.query.Paging;
 import org.hisp.dhis.query.Query;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.util.Assert;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.UriComponentsBuilder;
+import org.hisp.dhis.response.Dhis2ClientException;
+import org.hisp.dhis.response.HttpResponseMessage;
+import org.hisp.dhis.response.ResponseMessage;
+
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class BaseDhis2
 {
@@ -26,16 +43,23 @@ public class BaseDhis2
     protected static final String CATEGORY_FIELDS = String.format( "%s,dataDimensionType,dataDimension", NAME_FIELDS );
     protected static final String RESOURCE_SYSTEM_INFO = "system/info";
 
-    protected Dhis2Config dhis2Config;
+    protected final Dhis2Config config;
 
-    protected RestTemplate restTemplate;
+    protected final ObjectMapper objectMapper;
 
-    public BaseDhis2( Dhis2Config dhis2Config, RestTemplate restTemplate )
+    protected final CloseableHttpClient httpClient;
+
+    public BaseDhis2( Dhis2Config dhis2Config )
     {
-        Assert.notNull( dhis2Config, "dhis2Config must be specified" );
-        Assert.notNull( restTemplate, "restTemplate must be specified" );
-        this.dhis2Config = dhis2Config;
-        this.restTemplate = restTemplate;
+        Validate.notNull( dhis2Config, "config must be specified" );
+
+        this.config = dhis2Config;
+
+        this.objectMapper = new ObjectMapper();
+        objectMapper.disable( DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES );
+        objectMapper.setSerializationInclusion( Include.NON_NULL );
+
+        this.httpClient = HttpClientBuilder.create().build();
     }
 
     /**
@@ -47,13 +71,13 @@ public class BaseDhis2
      * @param <T> type.
      * @return the object.
      */
-    protected <T> T getObject( UriComponentsBuilder uriBuilder, Query filters, Class<T> klass )
+    protected <T> T getObject( URIBuilder uriBuilder, Query filters, Class<T> klass )
     {
         for ( Filter filter : filters.getFilters() )
         {
             String filterValue = filter.getProperty() + ":" + filter.getOperator().value() + ":" + getValue( filter );
 
-            uriBuilder.queryParam( "filter", filterValue );
+            uriBuilder.addParameter( "filter", filterValue );
         }
 
         Paging paging = filters.getPaging();
@@ -62,17 +86,17 @@ public class BaseDhis2
         {
             if ( paging.hasPage() )
             {
-                uriBuilder.queryParam( "page", paging.getPage() );
+                uriBuilder.addParameter( "page", String.valueOf( paging.getPage() ) );
             }
 
             if ( paging.hasPageSize() )
             {
-                uriBuilder.queryParam( "pageSize", paging.getPageSize() );
+                uriBuilder.addParameter( "pageSize", String.valueOf( paging.getPageSize() ) );
             }
         }
         else
         {
-            uriBuilder.queryParam( "paging", "false" );
+            uriBuilder.addParameter( "paging", "false" );
         }
 
         Order order = filters.getOrder();
@@ -81,12 +105,17 @@ public class BaseDhis2
         {
             String orderValue = order.getProperty() + ":" + order.getDirection().name().toLowerCase();
 
-            uriBuilder.queryParam( "order", orderValue );
+            uriBuilder.addParameter( "order", orderValue );
         }
 
-        String url = uriBuilder.build().toUriString();
-
-        return getObjectFromUrl( url , klass );
+        try
+        {
+            return getObjectFromUrl( uriBuilder.build(), klass );
+        }
+        catch ( URISyntaxException ex )
+        {
+            throw new RuntimeException( ex );
+        }
     }
 
     private Object getValue( Filter filter )
@@ -112,11 +141,53 @@ public class BaseDhis2
      */
     protected <T> T getObject( String path, String id, Class<T> klass )
     {
-        String url = dhis2Config.getResolvedUriBuilder()
-            .pathSegment( path )
-            .pathSegment( id ).build().toUriString();
+        try
+        {
+            URI url = config.getResolvedUriBuilder()
+                .pathSegment( path )
+                .pathSegment( id )
+                .build();
 
-        return getObjectFromUrl( url, klass );
+            return getObjectFromUrl( url, klass );
+        }
+        catch ( URISyntaxException ex )
+        {
+            throw new RuntimeException( ex );
+        }
+    }
+
+    /**
+     * Executes the given {@link HttpEntityEnclosingRequestBase}, which may be a POST or
+     * PUT request.
+     *
+     * @param request the request.
+     * @param object the object to pass as JSON in the request body.
+     * @param klass the class type for the response entity.
+     * @param <T> class.
+     * @return a {@link ResponseMessage}.
+     */
+    protected <T extends HttpResponseMessage> T executeJsonPostPutRequest( HttpEntityEnclosingRequestBase request, Object object, Class<T> klass )
+    {
+        String jsonObject = toJsonString( object );
+
+        withBasicAuth( request );
+        request.setHeader( HttpHeaders.CONTENT_TYPE, ContentType.APPLICATION_JSON.getMimeType() );
+        request.setEntity( new StringEntity( jsonObject, Consts.UTF_8 ) );
+
+        try ( CloseableHttpResponse response = httpClient.execute( request ) )
+        {
+            String responseBody = EntityUtils.toString( response.getEntity() );
+            T responseMessage = objectMapper.readValue( responseBody, klass );
+
+            responseMessage.setHeaders( new ArrayList<>( Arrays.asList( response.getAllHeaders() ) ) );
+            responseMessage.setHttpStatusCode( response.getStatusLine().getStatusCode() );
+
+            return responseMessage;
+        }
+        catch ( IOException ex )
+        {
+            throw newDhis2ClientException( ex );
+        }
     }
 
     /**
@@ -127,48 +198,91 @@ public class BaseDhis2
      * @param <T> type.
      * @return the object.
      */
-    protected <T> T getObjectFromUrl( String url, Class<T> klass )
+    protected <T> T getObjectFromUrl( URI url, Class<T> klass )
     {
-        HttpHeaders headers = getBasicAuthAcceptJsonHeaders();
+        try
+        {
+            HttpGet request = withBasicAuth( new HttpGet( url ) );
+            request.setHeader( HttpHeaders.ACCEPT, ContentType.APPLICATION_JSON.getMimeType() );
+            CloseableHttpResponse response = httpClient.execute( request );
+            String responseBody = EntityUtils.toString( response.getEntity() );
 
-        ResponseEntity<T> response = restTemplate.exchange( url, HttpMethod.GET, new HttpEntity<>( headers ), klass );
-
-        return response.getBody();
-    }
-
-    /**
-     * Returns a HTTP headers instance with basic authentication and Accept
-     * application/json headers.
-     *
-     * @return a HTTP headers instance.
-     */
-    protected HttpHeaders getBasicAuthAcceptJsonHeaders()
-    {
-        HttpHeaders headers = new HttpHeaders();
-        headers.set( HttpHeaders.AUTHORIZATION, getBasicAuthString( dhis2Config.getUsername(), dhis2Config.getPassword() ) );
-        headers.set( HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE );
-        return headers;
+            return objectMapper.readValue( responseBody, klass );
+        }
+        catch ( IOException ex )
+        {
+            throw new UncheckedIOException( "Failed to fetch or parse object", ex );
+        }
     }
 
     /**
      * Returns a basic authentication string which is generated by prepending
-     * "Basic " and base64-encoding username:password.
+     * "Basic " and Base64-encoding username:password.
      *
-     * @param username the username to use for authentication.
-     * @param password the password to use for authentication.
      * @return the encoded string.
      */
-    protected static String getBasicAuthString( String username, String password )
+    protected String getBasicAuthString()
     {
-        String string = username + ":" + password;
+        String value = config.getUsername() + ":" + config.getPassword();
 
-        return "Basic " + Base64.getEncoder().encodeToString( string.getBytes() );
+        return "Basic " + Base64.getEncoder().encodeToString( value.getBytes() );
+    }
+
+    /**
+     * Adds basic authentication to the given request using the Authorization header.
+     *
+     * @param request the {@link HttpRequestBase}.
+     * @param <T> class.
+     * @return the request.
+     */
+    protected <T extends HttpRequestBase> T withBasicAuth( T request )
+    {
+        request.setHeader( HttpHeaders.AUTHORIZATION, getBasicAuthString() );
+        return request;
+    }
+
+    /**
+     * Serializes the given object to a JSON string.
+     *
+     * @param object the object to serialize.
+     * @return a JSON string representation of the object.
+     * @throws UncheckedIOException if the serialization failed.
+     */
+    protected String toJsonString( Object object )
+    {
+        try
+        {
+            return objectMapper.writeValueAsString( object );
+        }
+        catch ( IOException ex )
+        {
+            throw new UncheckedIOException( ex );
+        }
+    }
+
+    /**
+     * Returns a {@link Dhis2ClientException} based on the given exception.
+     *
+     * @param ex the exception.
+     * @return a {@link Dhis2ClientException}.
+     */
+    protected Dhis2ClientException newDhis2ClientException( IOException ex )
+    {
+        int statusCode = -1;
+
+        if ( ex instanceof HttpResponseException )
+        {
+            statusCode = ((HttpResponseException) ex).getStatusCode();
+        }
+
+        return new Dhis2ClientException( ex.getMessage(), ex.getCause(), statusCode );
     }
 
     /**
      * Converts the given array to a {@link ArrayList}.
      *
      * @param array the array.
+     * @param <T> class.
      * @return a list.
      */
     protected static <T> ArrayList<T> asList( T[] array )

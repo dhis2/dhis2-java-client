@@ -1,9 +1,6 @@
 # DHIS 2 Java Client
 
-DHIS 2 API client for Java and Spring. The client allows you to create, update and
-retrieve information from DHIS 2.
-
-The client depends on `spring-webmvc` and `jackson-annotations` and is suited for use with Spring Boot 2.
+DHIS 2 API client for Java. The client allows you to create, update and retrieve information from DHIS 2.
 
 ## Getting started
 
@@ -165,13 +162,19 @@ ResponseMessage msg = dhis2.saveMetadataObject( "dataElements", dataElement );
 boolean success = msg.getHttpStatus().is2xxSuccessful();
 ```
 
+### Get system settings
+
+To get system settings:
+
+```java
+SystemSettings settings = dhis2.getSystemSettings();
+```
+
 ### Save data value set
 
 To save a data value set:
 
 ```java
-Dhis2 dhis2 = new Dhis2( dhis2Config, restTemplate );
-
 DataValue dataValue1 = new DataValue();
 dataValue1.setDataElement( "f7n9E0hX8qk" );
 dataValue1.setValue( "12" );

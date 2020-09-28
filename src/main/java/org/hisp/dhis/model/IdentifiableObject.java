@@ -65,8 +65,8 @@ public class IdentifiableObject
     @Override
     public String toString()
     {
-        return new StringBuilder( "[")
+        return new StringBuilder( "[" )
             .append( "id: " ).append( id ).append( ", " )
-            .append( "name" ).append( name ).append( "]" ).toString();
+            .append( "name: " ).append( name ).append( "]" ).toString();
     }
 }

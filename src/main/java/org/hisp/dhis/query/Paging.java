@@ -1,12 +1,15 @@
 package org.hisp.dhis.query;
 
-import org.springframework.util.Assert;
+import org.apache.commons.lang3.Validate;
+
+import lombok.Getter;
 
 /**
  * Query paging.
  *
  * @author Lars Helge Overland
  */
+@Getter
 public class Paging
 {
     private static final int DEFAULT_PAGE_SIZE = 50;
@@ -28,15 +31,10 @@ public class Paging
      */
     public Paging( Integer page, Integer pageSize )
     {
-        Assert.isTrue( !( page != null && page < 1 ), "Page must be greater than zero if specified" );
-        Assert.isTrue( !( pageSize != null && pageSize < 1 ), "Page size must be greater than zero if specified" );
+        Validate.isTrue( !( page != null && page < 1 ), "Page must be greater than zero if specified" );
+        Validate.isTrue( !( pageSize != null && pageSize < 1 ), "Page size must be greater than zero if specified" );
         this.page = page;
         this.pageSize = pageSize;
-    }
-
-    public Integer getPage()
-    {
-        return page;
     }
 
     public boolean hasPage()
@@ -47,11 +45,6 @@ public class Paging
     public int getPageOrDefault()
     {
         return hasPage() ? page : DEFAULT_PAGE;
-    }
-
-    public Integer getPageSize()
-    {
-        return pageSize;
     }
 
     public int getPageSizeOrDefault()

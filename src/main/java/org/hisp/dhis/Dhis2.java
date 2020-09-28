@@ -1,9 +1,18 @@
 package org.hisp.dhis;
 
+import java.io.IOException;
+import java.io.UncheckedIOException;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.http.client.HttpResponseException;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpHead;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
 import org.hisp.dhis.model.Category;
 import org.hisp.dhis.model.CategoryCombo;
 import org.hisp.dhis.model.CategoryOptionGroupSet;
@@ -19,22 +28,15 @@ import org.hisp.dhis.model.OrgUnitGroupSet;
 import org.hisp.dhis.model.OrgUnitLevel;
 import org.hisp.dhis.model.PeriodType;
 import org.hisp.dhis.model.Program;
-import org.hisp.dhis.model.SystemInfo;
+import org.hisp.dhis.model.SystemSettings;
 import org.hisp.dhis.model.TableHook;
 import org.hisp.dhis.query.Query;
 import org.hisp.dhis.response.Dhis2ClientException;
+import org.hisp.dhis.response.HttpStatus;
 import org.hisp.dhis.response.ResponseMessage;
 import org.hisp.dhis.response.datavalueset.DataValueSetResponseMessage;
 import org.hisp.dhis.response.job.JobCategory;
 import org.hisp.dhis.response.job.JobNotification;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.HttpServerErrorException;
-import org.springframework.web.client.RestTemplate;
 
 /**
  * DHIS 2 API client for HTTP requests and responses. Request and
@@ -47,12 +49,7 @@ public class Dhis2
 {
     public Dhis2( Dhis2Config dhis2Config )
     {
-        this( dhis2Config, new RestTemplate() );
-    }
-
-    public Dhis2( Dhis2Config dhis2Config, RestTemplate restTemplate )
-    {
-        super( dhis2Config, restTemplate );
+        super( dhis2Config );
     }
 
     // -------------------------------------------------------------------------
@@ -65,27 +62,34 @@ public class Dhis2
      *
      * <ul>
      * <li>{@link HttpStatus#OK} if instance is available and authentication is successful.</li>
-     * <li>{@link HttpStatus#UNAUTHORIZED} if the username and password combination is
-     *     not valid.</li>
-     * <li>{@link HttpStatus#NOT_FOUND} if the URL is not pointing to a DHIS 2 instance
-     *     or the DHIS 2 instance is not available.</li>
-     * <li>A 500 series error if the DHIS 2 instance had an internal error.</li>
+     * <li>{@link HttpStatus#UNAUTHORIZED} if the username and password combination is not valid.</li>
+     * <li>{@link HttpStatus#NOT_FOUND} if the URL is not pointing to a DHIS 2 instance or the
+     *     DHIS 2 instance is not available.</li>
      * </ul>
      *
-     * @return the {@link HttpStatus} of the response from DHIS 2.
+     * @return the HTTP status code of the response.
      */
     public HttpStatus getStatus()
     {
         try
         {
-            HttpHeaders headers = getBasicAuthAcceptJsonHeaders();
-            String url = dhis2Config.getResolvedUrl( RESOURCE_SYSTEM_INFO );
-            ResponseEntity<SystemInfo> response = restTemplate.exchange( url, HttpMethod.GET, new HttpEntity<>( headers ), SystemInfo.class );
-            return response.getStatusCode();
+            URI url = config.getResolvedUrl( RESOURCE_SYSTEM_INFO );
+            HttpGet request = withBasicAuth( new HttpGet( url ) );
+            CloseableHttpResponse response = httpClient.execute( request );
+            int statusCode = response.getStatusLine().getStatusCode();
+            return HttpStatus.valueOf( statusCode );
         }
-        catch ( HttpClientErrorException | HttpServerErrorException ex )
+        catch ( IOException ex )
         {
-            return ex.getStatusCode();
+            // Return status code in case of unexpected exception of type HttpResponseException
+
+            if ( ex instanceof HttpResponseException )
+            {
+                int statusCode = ((HttpResponseException) ex).getStatusCode();
+                return HttpStatus.valueOf( statusCode );
+            }
+
+            throw new UncheckedIOException( ex );
         }
     }
 
@@ -96,7 +100,7 @@ public class Dhis2
      */
     public String getDhis2Url()
     {
-        return dhis2Config.getUrl();
+        return config.getUrl();
     }
 
     /**
@@ -106,7 +110,7 @@ public class Dhis2
      */
     public String getDhis2Username()
     {
-        return dhis2Config.getUsername();
+        return config.getUsername();
     }
 
     /**
@@ -115,31 +119,13 @@ public class Dhis2
      * @param path the URL path relative to the API end point.
      * @param object the object to save.
      * @return a {@link ResponseMessage} holding information about the operation.
-     * @param <T> type.
      * @throws Dhis2ClientException if the save operation failed due to client side error.
      */
-    public <T> ResponseMessage saveMetadataObject( String path, T object )
+    public ResponseMessage saveMetadataObject( String path, Object object )
     {
-        String url = dhis2Config.getResolvedUrl( path );
+        URI url = config.getResolvedUrl( path );
 
-        HttpHeaders headers = getBasicAuthAcceptJsonHeaders();
-
-        HttpEntity<T> requestEntity = new HttpEntity<>( object, headers );
-
-        try
-        {
-            ResponseEntity<ResponseMessage> response = restTemplate.exchange( url, HttpMethod.POST, requestEntity, ResponseMessage.class );
-
-            ResponseMessage message = response.getBody();
-            message.setHeaders( headers );
-            return message;
-        }
-        catch ( HttpClientErrorException ex )
-        {
-            String message = String.format( "Saving metadata object failed with status code: %s", ex.getStatusCode() );
-
-            throw new Dhis2ClientException( message, ex.getCause(), ex.getStatusCode(), ex.getResponseHeaders(), ex.getResponseBodyAsString() );
-        }
+        return executeJsonPostPutRequest( new HttpPost( url ), object, ResponseMessage.class );
     }
 
     /**
@@ -147,22 +133,13 @@ public class Dhis2
      *
      * @param path the URL path relative to the API end point.
      * @param object the object to save.
-     * @param <T> type.
      * @return a {@link ResponseMessage} holding information about the operation.
      */
-    public <T> ResponseMessage updateMetadataObject( String path, T object )
+    public ResponseMessage updateMetadataObject( String path, Object object )
     {
-        String url = dhis2Config.getResolvedUrl( path );
+        URI url = config.getResolvedUrl( path );
 
-        HttpHeaders headers = getBasicAuthAcceptJsonHeaders();
-
-        HttpEntity<T> requestEntity = new HttpEntity<>( object, headers );
-
-        ResponseEntity<ResponseMessage> response = restTemplate.exchange( url, HttpMethod.PUT, requestEntity, ResponseMessage.class );
-
-        ResponseMessage message = response.getBody();
-        message.setHeaders( headers );
-        return message;
+        return executeJsonPostPutRequest( new HttpPut( url ), object, ResponseMessage.class );
     }
 
     /**
@@ -175,7 +152,7 @@ public class Dhis2
      */
     public <T> T getObject( String path, Class<T> klass )
     {
-        return getObjectFromUrl( dhis2Config.getResolvedUrl( path ), klass );
+        return getObjectFromUrl( config.getResolvedUrl( path ), klass );
     }
 
     /**
@@ -187,26 +164,17 @@ public class Dhis2
      */
     public boolean objectExists( String path )
     {
-        String url = dhis2Config.getResolvedUrl( path );
+        URI url = config.getResolvedUrl( path );
 
-        HttpHeaders headers =  getBasicAuthAcceptJsonHeaders();
+        HttpHead request = withBasicAuth( new HttpHead( url ) );
 
-        try
+        try ( CloseableHttpResponse response = httpClient.execute( request ) )
         {
-            ResponseEntity<Object> response = restTemplate.exchange( url, HttpMethod.HEAD, new HttpEntity<>( headers ), Object.class );
-
-            return HttpStatus.OK == response.getStatusCode();
+            return HttpStatus.OK.value() == response.getStatusLine().getStatusCode();
         }
-        catch ( HttpClientErrorException ex )
+        catch ( IOException ex )
         {
-            if ( HttpStatus.NOT_FOUND == ex.getStatusCode() )
-            {
-                return false;
-            }
-            else
-            {
-                throw ex;
-            }
+            return false;
         }
     }
 
@@ -246,10 +214,10 @@ public class Dhis2
     {
         String fields = NAME_FIELDS + ",path,level";
 
-        return getObject( dhis2Config.getResolvedUriBuilder()
+        return getObject( config.getResolvedUriBuilder()
             .pathSegment( "organisationUnits" )
             .pathSegment( id )
-            .queryParam( "fields", String.format( "%s,parent[%s]", fields, fields ) ), Query.instance(), OrgUnit.class );
+            .addParameter( "fields", String.format( "%s,parent[%s]", fields, fields ) ), Query.instance(), OrgUnit.class );
     }
 
     /**
@@ -262,9 +230,9 @@ public class Dhis2
     {
         String fields = NAME_FIELDS + ",path,level";
 
-        return getObject( dhis2Config.getResolvedUriBuilder()
+        return getObject( config.getResolvedUriBuilder()
             .pathSegment( "organisationUnits" )
-            .queryParam( "fields", String.format( "%s,parent[%s]", fields, fields ) ), query, Objects.class )
+            .addParameter( "fields", String.format( "%s,parent[%s]", fields, fields ) ), query, Objects.class )
             .getOrganisationUnits();
     }
 
@@ -302,10 +270,10 @@ public class Dhis2
      */
     public OrgUnitGroup getOrgUnitGroup( String id )
     {
-        return getObject( dhis2Config.getResolvedUriBuilder()
+        return getObject( config.getResolvedUriBuilder()
             .pathSegment( "organisationUnitGroups" )
             .pathSegment( id )
-            .queryParam( "fields", NAME_FIELDS ), Query.instance(), OrgUnitGroup.class );
+            .addParameter( "fields", NAME_FIELDS ), Query.instance(), OrgUnitGroup.class );
     }
 
     /**
@@ -316,9 +284,9 @@ public class Dhis2
      */
     public List<OrgUnitGroup> getOrgUnitGroups( Query query )
     {
-        return getObject( dhis2Config.getResolvedUriBuilder()
+        return getObject( config.getResolvedUriBuilder()
             .pathSegment( "organisationUnitGroups" )
-            .queryParam( "fields", NAME_FIELDS ), query, Objects.class )
+            .addParameter( "fields", NAME_FIELDS ), query, Objects.class )
             .getOrganisationUnitGroups();
     }
 
@@ -356,10 +324,10 @@ public class Dhis2
      */
     public OrgUnitGroupSet getOrgUnitGroupSet( String id )
     {
-        return getObject( dhis2Config.getResolvedUriBuilder()
+        return getObject( config.getResolvedUriBuilder()
             .pathSegment( "organisationUnitGroupSets" )
             .pathSegment( id )
-            .queryParam( "fields", String.format( "%s,organisationUnitGroups[%s]", NAME_FIELDS, NAME_FIELDS ) ), Query.instance(), OrgUnitGroupSet.class );
+            .addParameter( "fields", String.format( "%s,organisationUnitGroups[%s]", NAME_FIELDS, NAME_FIELDS ) ), Query.instance(), OrgUnitGroupSet.class );
     }
 
     /**
@@ -370,9 +338,9 @@ public class Dhis2
      */
     public List<OrgUnitGroupSet> getOrgUnitGroupSets( Query query )
     {
-        return getObject( dhis2Config.getResolvedUriBuilder()
+        return getObject( config.getResolvedUriBuilder()
             .pathSegment( "organisationUnitGroupSets" )
-            .queryParam( "fields", String.format( "%s,organisationUnitGroups[%s]", NAME_FIELDS, NAME_FIELDS ) ), query, Objects.class )
+            .addParameter( "fields", String.format( "%s,organisationUnitGroups[%s]", NAME_FIELDS, NAME_FIELDS ) ), query, Objects.class )
             .getOrganisationUnitGroupSets();
     }
 
@@ -388,10 +356,10 @@ public class Dhis2
      */
     public OrgUnitLevel getOrgUnitLevel( String id )
     {
-        return getObject( dhis2Config.getResolvedUriBuilder()
+        return getObject( config.getResolvedUriBuilder()
             .pathSegment( "organisationUnitLevels" )
             .pathSegment( id )
-            .queryParam( "fields", String.format( "%s,level", ID_FIELDS ) ), Query.instance(), OrgUnitLevel.class );
+            .addParameter( "fields", String.format( "%s,level", ID_FIELDS ) ), Query.instance(), OrgUnitLevel.class );
     }
 
     /**
@@ -402,9 +370,9 @@ public class Dhis2
      */
     public List<OrgUnitLevel> getOrgUnitLevels( Query query )
     {
-        return getObject( dhis2Config.getResolvedUriBuilder()
+        return getObject( config.getResolvedUriBuilder()
             .pathSegment( "organisationUnitLevels" )
-            .queryParam( "fields", String.format( "%s,level", ID_FIELDS ) ), query, Objects.class )
+            .addParameter( "fields", String.format( "%s,level", ID_FIELDS ) ), query, Objects.class )
             .getOrganisationUnitLevels();
     }
 
@@ -419,7 +387,7 @@ public class Dhis2
     {
         // Using array, DHIS 2 should have used a wrapper entity for the response
 
-        return asList( getObject( dhis2Config.getResolvedUriBuilder()
+        return asList( getObject( config.getResolvedUriBuilder()
             .pathSegment( "filledOrganisationUnitLevels" ), Query.instance(), OrgUnitLevel[].class ) );
     }
 
@@ -435,10 +403,10 @@ public class Dhis2
      */
     public Category getCategory( String id )
     {
-        return getObject( dhis2Config.getResolvedUriBuilder()
+        return getObject( config.getResolvedUriBuilder()
             .pathSegment( "categories" )
             .pathSegment( id )
-            .queryParam( "fields", CATEGORY_FIELDS ), Query.instance(), Category.class );
+            .addParameter( "fields", CATEGORY_FIELDS ), Query.instance(), Category.class );
     }
 
     /**
@@ -449,9 +417,9 @@ public class Dhis2
      */
     public List<Category> getCategories( Query query )
     {
-        return getObject( dhis2Config.getResolvedUriBuilder()
+        return getObject( config.getResolvedUriBuilder()
             .pathSegment( "categories" )
-            .queryParam( "fields", CATEGORY_FIELDS ), query, Objects.class )
+            .addParameter( "fields", CATEGORY_FIELDS ), query, Objects.class )
             .getCategories();
     }
 
@@ -467,10 +435,10 @@ public class Dhis2
      */
     public CategoryCombo getCategoryCombo( String id )
     {
-        return getObject( dhis2Config.getResolvedUriBuilder()
+        return getObject( config.getResolvedUriBuilder()
             .pathSegment( "categoryCombos" )
             .pathSegment( id )
-            .queryParam( "fields", NAME_FIELDS ), Query.instance(), CategoryCombo.class );
+            .addParameter( "fields", NAME_FIELDS ), Query.instance(), CategoryCombo.class );
     }
 
     /**
@@ -481,9 +449,9 @@ public class Dhis2
      */
     public List<CategoryCombo> getCategoryCombos( Query query )
     {
-        return getObject( dhis2Config.getResolvedUriBuilder()
+        return getObject( config.getResolvedUriBuilder()
             .pathSegment( "categoryCombos" )
-            .queryParam( "fields", NAME_FIELDS ), query, Objects.class )
+            .addParameter( "fields", NAME_FIELDS ), query, Objects.class )
             .getCategoryCombos();
     }
 
@@ -499,10 +467,10 @@ public class Dhis2
      */
     public DataElement getDataElement( String id )
     {
-        return getObject( dhis2Config.getResolvedUriBuilder()
+        return getObject( config.getResolvedUriBuilder()
             .pathSegment( "dataElements" )
             .pathSegment( id )
-            .queryParam( "fields", DATA_ELEMENT_FIELDS ), Query.instance(), DataElement.class );
+            .addParameter( "fields", DATA_ELEMENT_FIELDS ), Query.instance(), DataElement.class );
     }
 
     /**
@@ -513,9 +481,9 @@ public class Dhis2
      */
     public List<DataElement> getDataElements( Query query )
     {
-        return getObject( dhis2Config.getResolvedUriBuilder()
+        return getObject( config.getResolvedUriBuilder()
             .pathSegment( "dataElements" )
-            .queryParam( "fields", DATA_ELEMENT_FIELDS ), query, Objects.class )
+            .addParameter( "fields", DATA_ELEMENT_FIELDS ), query, Objects.class )
             .getDataElements();
     }
 
@@ -553,10 +521,10 @@ public class Dhis2
      */
     public DataElementGroup getDataElementGroup( String id )
     {
-        return getObject( dhis2Config.getResolvedUriBuilder()
+        return getObject( config.getResolvedUriBuilder()
             .pathSegment( "dataElementGroups" )
             .pathSegment( id )
-            .queryParam( "fields", NAME_FIELDS ), Query.instance(), DataElementGroup.class );
+            .addParameter( "fields", NAME_FIELDS ), Query.instance(), DataElementGroup.class );
     }
 
     /**
@@ -567,9 +535,9 @@ public class Dhis2
      */
     public List<DataElementGroup> getDataElementGroups( Query query )
     {
-        return getObject( dhis2Config.getResolvedUriBuilder()
+        return getObject( config.getResolvedUriBuilder()
             .pathSegment( "dataElementGroups" )
-            .queryParam( "fields", NAME_FIELDS ), query, Objects.class )
+            .addParameter( "fields", NAME_FIELDS ), query, Objects.class )
             .getDataElementGroups();
     }
 
@@ -585,10 +553,10 @@ public class Dhis2
      */
     public DataElementGroupSet getDataElementGroupSet( String id )
     {
-        return getObject( dhis2Config.getResolvedUriBuilder()
+        return getObject( config.getResolvedUriBuilder()
             .pathSegment( "dataElementGroupSets" )
             .pathSegment( id )
-            .queryParam( "fields", NAME_FIELDS ), Query.instance(), DataElementGroupSet.class );
+            .addParameter( "fields", NAME_FIELDS ), Query.instance(), DataElementGroupSet.class );
     }
 
     /**
@@ -599,9 +567,9 @@ public class Dhis2
      */
     public List<DataElementGroupSet> getDataElementGroupSets( Query query )
     {
-        return getObject( dhis2Config.getResolvedUriBuilder()
+        return getObject( config.getResolvedUriBuilder()
             .pathSegment( "dataElementGroupSets" )
-            .queryParam( "fields", NAME_FIELDS ), query, Objects.class )
+            .addParameter( "fields", NAME_FIELDS ), query, Objects.class )
             .getDataElementGroupSets();
     }
 
@@ -617,10 +585,10 @@ public class Dhis2
      */
     public Program getProgram( String id )
     {
-        return getObject( dhis2Config.getResolvedUriBuilder()
+        return getObject( config.getResolvedUriBuilder()
             .pathSegment( "programs" )
             .pathSegment( id )
-            .queryParam( "fields", String.format( "%1$s,programType,categoryCombo[%1$s,categories[%2$s]],programStages[%1$s,programStageDataElements[%1$s,dataElement[%3$s]]]",
+            .addParameter( "fields", String.format( "%1$s,programType,categoryCombo[%1$s,categories[%2$s]],programStages[%1$s,programStageDataElements[%1$s,dataElement[%3$s]]]",
                 NAME_FIELDS, CATEGORY_FIELDS, DATA_ELEMENT_FIELDS ) ), Query.instance(), Program.class );
     }
 
@@ -637,9 +605,9 @@ public class Dhis2
             NAME_FIELDS, CATEGORY_FIELDS, DATA_ELEMENT_FIELDS ) :
             String.format( "%1$s,programType,categoryCombo[%1$s],programStages[%1$s]", NAME_FIELDS );
 
-        return getObject( dhis2Config.getResolvedUriBuilder()
+        return getObject( config.getResolvedUriBuilder()
             .pathSegment( "programs" )
-            .queryParam( "fields", fieldsParam ), query, Objects.class )
+            .addParameter( "fields", fieldsParam ), query, Objects.class )
             .getPrograms();
     }
 
@@ -655,10 +623,10 @@ public class Dhis2
      */
     public CategoryOptionGroupSet getCategoryOptionGroupSet( String id )
     {
-        return getObject( dhis2Config.getResolvedUriBuilder()
+        return getObject( config.getResolvedUriBuilder()
             .pathSegment( "categoryOptionGroupSets" )
             .pathSegment( id )
-            .queryParam( "fields", NAME_FIELDS ), Query.instance(), CategoryOptionGroupSet.class );
+            .addParameter( "fields", NAME_FIELDS ), Query.instance(), CategoryOptionGroupSet.class );
     }
 
     /**
@@ -669,9 +637,9 @@ public class Dhis2
      */
     public List<CategoryOptionGroupSet> getCategoryOptionGroupSets( Query query )
     {
-        return getObject( dhis2Config.getResolvedUriBuilder()
+        return getObject( config.getResolvedUriBuilder()
             .pathSegment( "categoryOptionGroupSets" )
-            .queryParam( "fields", NAME_FIELDS ), query, Objects.class )
+            .addParameter( "fields", NAME_FIELDS ), query, Objects.class )
             .getCategoryOptionGroupSets();
     }
 
@@ -720,9 +688,9 @@ public class Dhis2
      */
     public List<TableHook> getTableHooks( Query query )
     {
-        return getObject( dhis2Config.getResolvedUriBuilder()
+        return getObject( config.getResolvedUriBuilder()
             .pathSegment( "analyticsTableHooks" )
-            .queryParam( "fields", ID_FIELDS ), query, Objects.class )
+            .addParameter( "fields", ID_FIELDS ), query, Objects.class )
             .getAnalyticsTableHooks();
     }
 
@@ -738,10 +706,10 @@ public class Dhis2
      */
     public Dimension getDimension( String id )
     {
-        return getObject( dhis2Config.getResolvedUriBuilder()
+        return getObject( config.getResolvedUriBuilder()
             .pathSegment( "dimensions" )
             .pathSegment( id )
-            .queryParam( "fields", String.format( "%s,dimensionType", ID_FIELDS ) ), Query.instance(), Dimension.class );
+            .addParameter( "fields", String.format( "%s,dimensionType", ID_FIELDS ) ), Query.instance(), Dimension.class );
     }
 
     /**
@@ -752,9 +720,9 @@ public class Dhis2
      */
     public List<Dimension> getDimensions( Query query )
     {
-        return getObject( dhis2Config.getResolvedUriBuilder()
+        return getObject( config.getResolvedUriBuilder()
             .pathSegment( "dimensions" )
-            .queryParam( "fields", String.format( "%s,dimensionType", ID_FIELDS ) ), query, Objects.class )
+            .addParameter( "fields", String.format( "%s,dimensionType", ID_FIELDS ) ), query, Objects.class )
             .getDimensions();
     }
 
@@ -770,10 +738,25 @@ public class Dhis2
      */
     public List<PeriodType> getPeriodTypes( Query query )
     {
-        return getObject( dhis2Config.getResolvedUriBuilder()
+        return getObject( config.getResolvedUriBuilder()
             .pathSegment( "periodTypes" )
-            .queryParam( "fields", "frequencyOrder,name,isoDuration,isoFormat" ), query, Objects.class )
+            .addParameter( "fields", "frequencyOrder,name,isoDuration,isoFormat" ), query, Objects.class )
             .getPeriodTypes();
+    }
+
+    // -------------------------------------------------------------------------
+    // System settings
+    // -------------------------------------------------------------------------
+
+    /**
+     * Retrieves {@link SystemSettings}.
+     *
+     * @return system settings.
+     */
+    public SystemSettings getSystemSettings()
+    {
+        return getObject( config.getResolvedUriBuilder()
+            .pathSegment( "systemSettings" ), Query.instance(), SystemSettings.class );
     }
 
     // -------------------------------------------------------------------------
@@ -789,27 +772,9 @@ public class Dhis2
      */
     public DataValueSetResponseMessage saveDataValueSet( DataValueSet dataValueSet )
     {
-        String url = dhis2Config.getResolvedUrl( "dataValueSets" );
+        URI url = config.getResolvedUrl( "dataValueSets" );
 
-        HttpHeaders headers = getBasicAuthAcceptJsonHeaders();
-
-        HttpEntity<DataValueSet> requestEntity = new HttpEntity<>( dataValueSet, headers );
-
-        try
-        {
-            ResponseEntity<DataValueSetResponseMessage> response = restTemplate.exchange( url, HttpMethod.POST, requestEntity, DataValueSetResponseMessage.class );
-
-            DataValueSetResponseMessage message = response.getBody();
-            message.setHttpStatusCode( response.getStatusCodeValue() );
-            message.setHeaders( response.getHeaders() );
-            return message;
-        }
-        catch ( HttpClientErrorException ex )
-        {
-            String message = String.format( "Saving data value set failed with status code: %s", ex.getStatusCode() );
-
-            throw new Dhis2ClientException( message, ex.getCause(), ex.getStatusCode(), ex.getResponseHeaders(), ex.getResponseBodyAsString() );
-        }
+        return executeJsonPostPutRequest( new HttpPost( url ), dataValueSet, DataValueSetResponseMessage.class );
     }
 
     // -------------------------------------------------------------------------
@@ -825,7 +790,7 @@ public class Dhis2
      */
     public List<JobNotification> getJobNotifications( JobCategory category, String id )
     {
-        JobNotification[] response = getObject( dhis2Config.getResolvedUriBuilder()
+        JobNotification[] response = getObject( config.getResolvedUriBuilder()
             .pathSegment( "system" )
             .pathSegment( "tasks" )
             .pathSegment( category.name() )

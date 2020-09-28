@@ -6,7 +6,7 @@
   
   <groupId>org.hisp</groupId>
   <artifactId>dhis2-java-client</artifactId>
-  <version>1.1.11</version>
+  <version>1.2.0</version>
   <packaging>jar</packaging>
   
   <name>DHIS 2 API client for Java and Spring</name>
@@ -47,9 +47,14 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-webmvc</artifactId>
-      <version>5.0.4.RELEASE</version>
+      <groupId>org.apache.httpcomponents</groupId>
+      <artifactId>httpclient</artifactId>
+      <version>4.5.12</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-lang3</artifactId>
+      <version>3.11</version>
     </dependency>
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
@@ -76,12 +81,6 @@
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>4.12</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.mockito</groupId>
-      <artifactId>mockito-core</artifactId>
-      <version>2.23.4</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
