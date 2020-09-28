@@ -240,6 +240,7 @@ public class BaseDhis2
      * Adds basic authentication to the given request using the Authorization header.
      *
      * @param request the {@link HttpRequestBase}.
+     * @return the request.
      */
     protected <T extends HttpRequestBase> T withBasicAuth( T request )
     {
