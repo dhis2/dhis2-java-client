@@ -37,12 +37,15 @@ import org.hisp.dhis.response.datavalueset.DataValueSetResponseMessage;
 import org.hisp.dhis.response.job.JobCategory;
 import org.hisp.dhis.response.job.JobNotification;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * DHIS 2 API client for HTTP requests and responses. Request and
  * response bodies are in JSON format.
  *
  * @author Lars Helge Overland
  */
+@Slf4j
 public class Dhis2
     extends BaseDhis2
 {
@@ -82,12 +85,12 @@ public class Dhis2
         {
             if ( ex instanceof HttpResponseException )
             {
-                System.out.println( ((HttpResponseException) ex).getReasonPhrase() ); //TODO
+                log.warn( ((HttpResponseException) ex).getReasonPhrase() ); //TODO
                 return ((HttpResponseException) ex).getStatusCode();
             }
             else
             {
-                System.out.println( ex + " " + ex.getMessage() + " " + ex.getCause() ); //TODO
+                log.warn( ex + " " + ex.getMessage() + " " + ex.getCause() ); //TODO
                 return HttpStatus.SC_INTERNAL_SERVER_ERROR;
             }
         }
@@ -215,7 +218,8 @@ public class Dhis2
         String fields = NAME_FIELDS + ",path,level";
 
         return getObject( dhis2Config.getResolvedUriBuilder()
-            .setPathSegments( "organisationUnits", id )
+            .pathSegment( "organisationUnits" )
+            .pathSegment( id )
             .addParameter( "fields", String.format( "%s,parent[%s]", fields, fields ) ), Query.instance(), OrgUnit.class );
     }
 
@@ -230,7 +234,7 @@ public class Dhis2
         String fields = NAME_FIELDS + ",path,level";
 
         return getObject( dhis2Config.getResolvedUriBuilder()
-            .setPathSegments( "organisationUnits" )
+            .pathSegment( "organisationUnits" )
             .addParameter( "fields", String.format( "%s,parent[%s]", fields, fields ) ), query, Objects.class )
             .getOrganisationUnits();
     }
@@ -270,8 +274,8 @@ public class Dhis2
     public OrgUnitGroup getOrgUnitGroup( String id )
     {
         return getObject( dhis2Config.getResolvedUriBuilder()
-            .setPathSegments( "organisationUnitGroups" )
-            .setPathSegments( id )
+            .pathSegment( "organisationUnitGroups" )
+            .pathSegment( id )
             .addParameter( "fields", NAME_FIELDS ), Query.instance(), OrgUnitGroup.class );
     }
 
@@ -284,7 +288,7 @@ public class Dhis2
     public List<OrgUnitGroup> getOrgUnitGroups( Query query )
     {
         return getObject( dhis2Config.getResolvedUriBuilder()
-            .setPathSegments( "organisationUnitGroups" )
+            .pathSegment( "organisationUnitGroups" )
             .addParameter( "fields", NAME_FIELDS ), query, Objects.class )
             .getOrganisationUnitGroups();
     }
@@ -324,7 +328,8 @@ public class Dhis2
     public OrgUnitGroupSet getOrgUnitGroupSet( String id )
     {
         return getObject( dhis2Config.getResolvedUriBuilder()
-            .setPathSegments( "organisationUnitGroupSets", id )
+            .pathSegment( "organisationUnitGroupSets" )
+            .pathSegment( id )
             .addParameter( "fields", String.format( "%s,organisationUnitGroups[%s]", NAME_FIELDS, NAME_FIELDS ) ), Query.instance(), OrgUnitGroupSet.class );
     }
 
@@ -337,7 +342,7 @@ public class Dhis2
     public List<OrgUnitGroupSet> getOrgUnitGroupSets( Query query )
     {
         return getObject( dhis2Config.getResolvedUriBuilder()
-            .setPathSegments( "organisationUnitGroupSets" )
+            .pathSegment( "organisationUnitGroupSets" )
             .addParameter( "fields", String.format( "%s,organisationUnitGroups[%s]", NAME_FIELDS, NAME_FIELDS ) ), query, Objects.class )
             .getOrganisationUnitGroupSets();
     }
@@ -355,8 +360,8 @@ public class Dhis2
     public OrgUnitLevel getOrgUnitLevel( String id )
     {
         return getObject( dhis2Config.getResolvedUriBuilder()
-            .setPathSegments( "organisationUnitLevels" )
-            .setPathSegments( id )
+            .pathSegment( "organisationUnitLevels" )
+            .pathSegment( id )
             .addParameter( "fields", String.format( "%s,level", ID_FIELDS ) ), Query.instance(), OrgUnitLevel.class );
     }
 
@@ -369,7 +374,7 @@ public class Dhis2
     public List<OrgUnitLevel> getOrgUnitLevels( Query query )
     {
         return getObject( dhis2Config.getResolvedUriBuilder()
-            .setPathSegments( "organisationUnitLevels" )
+            .pathSegment( "organisationUnitLevels" )
             .addParameter( "fields", String.format( "%s,level", ID_FIELDS ) ), query, Objects.class )
             .getOrganisationUnitLevels();
     }
@@ -386,7 +391,7 @@ public class Dhis2
         // Using array, DHIS 2 should have used a wrapper entity for the response
 
         return asList( getObject( dhis2Config.getResolvedUriBuilder()
-            .setPathSegments( "filledOrganisationUnitLevels" ), Query.instance(), OrgUnitLevel[].class ) );
+            .pathSegment( "filledOrganisationUnitLevels" ), Query.instance(), OrgUnitLevel[].class ) );
     }
 
     // -------------------------------------------------------------------------
@@ -402,8 +407,8 @@ public class Dhis2
     public Category getCategory( String id )
     {
         return getObject( dhis2Config.getResolvedUriBuilder()
-            .setPathSegments( "categories" )
-            .setPathSegments( id )
+            .pathSegment( "categories" )
+            .pathSegment( id )
             .addParameter( "fields", CATEGORY_FIELDS ), Query.instance(), Category.class );
     }
 
@@ -416,7 +421,7 @@ public class Dhis2
     public List<Category> getCategories( Query query )
     {
         return getObject( dhis2Config.getResolvedUriBuilder()
-            .setPathSegments( "categories" )
+            .pathSegment( "categories" )
             .addParameter( "fields", CATEGORY_FIELDS ), query, Objects.class )
             .getCategories();
     }
@@ -434,8 +439,8 @@ public class Dhis2
     public CategoryCombo getCategoryCombo( String id )
     {
         return getObject( dhis2Config.getResolvedUriBuilder()
-            .setPathSegments( "categoryCombos" )
-            .setPathSegments( id )
+            .pathSegment( "categoryCombos" )
+            .pathSegment( id )
             .addParameter( "fields", NAME_FIELDS ), Query.instance(), CategoryCombo.class );
     }
 
@@ -448,7 +453,7 @@ public class Dhis2
     public List<CategoryCombo> getCategoryCombos( Query query )
     {
         return getObject( dhis2Config.getResolvedUriBuilder()
-            .setPathSegments( "categoryCombos" )
+            .pathSegment( "categoryCombos" )
             .addParameter( "fields", NAME_FIELDS ), query, Objects.class )
             .getCategoryCombos();
     }
@@ -466,8 +471,8 @@ public class Dhis2
     public DataElement getDataElement( String id )
     {
         return getObject( dhis2Config.getResolvedUriBuilder()
-            .setPathSegments( "dataElements" )
-            .setPathSegments( id )
+            .pathSegment( "dataElements" )
+            .pathSegment( id )
             .addParameter( "fields", DATA_ELEMENT_FIELDS ), Query.instance(), DataElement.class );
     }
 
@@ -480,7 +485,7 @@ public class Dhis2
     public List<DataElement> getDataElements( Query query )
     {
         return getObject( dhis2Config.getResolvedUriBuilder()
-            .setPathSegments( "dataElements" )
+            .pathSegment( "dataElements" )
             .addParameter( "fields", DATA_ELEMENT_FIELDS ), query, Objects.class )
             .getDataElements();
     }
@@ -520,8 +525,8 @@ public class Dhis2
     public DataElementGroup getDataElementGroup( String id )
     {
         return getObject( dhis2Config.getResolvedUriBuilder()
-            .setPathSegments( "dataElementGroups" )
-            .setPathSegments( id )
+            .pathSegment( "dataElementGroups" )
+            .pathSegment( id )
             .addParameter( "fields", NAME_FIELDS ), Query.instance(), DataElementGroup.class );
     }
 
@@ -534,7 +539,7 @@ public class Dhis2
     public List<DataElementGroup> getDataElementGroups( Query query )
     {
         return getObject( dhis2Config.getResolvedUriBuilder()
-            .setPathSegments( "dataElementGroups" )
+            .pathSegment( "dataElementGroups" )
             .addParameter( "fields", NAME_FIELDS ), query, Objects.class )
             .getDataElementGroups();
     }
@@ -552,8 +557,8 @@ public class Dhis2
     public DataElementGroupSet getDataElementGroupSet( String id )
     {
         return getObject( dhis2Config.getResolvedUriBuilder()
-            .setPathSegments( "dataElementGroupSets" )
-            .setPathSegments( id )
+            .pathSegment( "dataElementGroupSets" )
+            .pathSegment( id )
             .addParameter( "fields", NAME_FIELDS ), Query.instance(), DataElementGroupSet.class );
     }
 
@@ -566,7 +571,7 @@ public class Dhis2
     public List<DataElementGroupSet> getDataElementGroupSets( Query query )
     {
         return getObject( dhis2Config.getResolvedUriBuilder()
-            .setPathSegments( "dataElementGroupSets" )
+            .pathSegment( "dataElementGroupSets" )
             .addParameter( "fields", NAME_FIELDS ), query, Objects.class )
             .getDataElementGroupSets();
     }
@@ -584,8 +589,8 @@ public class Dhis2
     public Program getProgram( String id )
     {
         return getObject( dhis2Config.getResolvedUriBuilder()
-            .setPathSegments( "programs" )
-            .setPathSegments( id )
+            .pathSegment( "programs" )
+            .pathSegment( id )
             .addParameter( "fields", String.format( "%1$s,programType,categoryCombo[%1$s,categories[%2$s]],programStages[%1$s,programStageDataElements[%1$s,dataElement[%3$s]]]",
                 NAME_FIELDS, CATEGORY_FIELDS, DATA_ELEMENT_FIELDS ) ), Query.instance(), Program.class );
     }
@@ -604,7 +609,7 @@ public class Dhis2
             String.format( "%1$s,programType,categoryCombo[%1$s],programStages[%1$s]", NAME_FIELDS );
 
         return getObject( dhis2Config.getResolvedUriBuilder()
-            .setPathSegments( "programs" )
+            .pathSegment( "programs" )
             .addParameter( "fields", fieldsParam ), query, Objects.class )
             .getPrograms();
     }
@@ -622,8 +627,8 @@ public class Dhis2
     public CategoryOptionGroupSet getCategoryOptionGroupSet( String id )
     {
         return getObject( dhis2Config.getResolvedUriBuilder()
-            .setPathSegments( "categoryOptionGroupSets" )
-            .setPathSegments( id )
+            .pathSegment( "categoryOptionGroupSets" )
+            .pathSegment( id )
             .addParameter( "fields", NAME_FIELDS ), Query.instance(), CategoryOptionGroupSet.class );
     }
 
@@ -636,7 +641,7 @@ public class Dhis2
     public List<CategoryOptionGroupSet> getCategoryOptionGroupSets( Query query )
     {
         return getObject( dhis2Config.getResolvedUriBuilder()
-            .setPathSegments( "categoryOptionGroupSets" )
+            .pathSegment( "categoryOptionGroupSets" )
             .addParameter( "fields", NAME_FIELDS ), query, Objects.class )
             .getCategoryOptionGroupSets();
     }
@@ -687,7 +692,7 @@ public class Dhis2
     public List<TableHook> getTableHooks( Query query )
     {
         return getObject( dhis2Config.getResolvedUriBuilder()
-            .setPathSegments( "analyticsTableHooks" )
+            .pathSegment( "analyticsTableHooks" )
             .addParameter( "fields", ID_FIELDS ), query, Objects.class )
             .getAnalyticsTableHooks();
     }
@@ -705,8 +710,8 @@ public class Dhis2
     public Dimension getDimension( String id )
     {
         return getObject( dhis2Config.getResolvedUriBuilder()
-            .setPathSegments( "dimensions" )
-            .setPathSegments( id )
+            .pathSegment( "dimensions" )
+            .pathSegment( id )
             .addParameter( "fields", String.format( "%s,dimensionType", ID_FIELDS ) ), Query.instance(), Dimension.class );
     }
 
@@ -719,7 +724,7 @@ public class Dhis2
     public List<Dimension> getDimensions( Query query )
     {
         return getObject( dhis2Config.getResolvedUriBuilder()
-            .setPathSegments( "dimensions" )
+            .pathSegment( "dimensions" )
             .addParameter( "fields", String.format( "%s,dimensionType", ID_FIELDS ) ), query, Objects.class )
             .getDimensions();
     }
@@ -737,7 +742,7 @@ public class Dhis2
     public List<PeriodType> getPeriodTypes( Query query )
     {
         return getObject( dhis2Config.getResolvedUriBuilder()
-            .setPathSegments( "periodTypes" )
+            .pathSegment( "periodTypes" )
             .addParameter( "fields", "frequencyOrder,name,isoDuration,isoFormat" ), query, Objects.class )
             .getPeriodTypes();
     }
@@ -754,7 +759,7 @@ public class Dhis2
     public SystemSettings getSystemSettings()
     {
         return getObject( dhis2Config.getResolvedUriBuilder()
-            .setPathSegments( "systemSettings" ), Query.instance(), SystemSettings.class );
+            .pathSegment( "systemSettings" ), Query.instance(), SystemSettings.class );
     }
 
     // -------------------------------------------------------------------------
@@ -789,8 +794,10 @@ public class Dhis2
     public List<JobNotification> getJobNotifications( JobCategory category, String id )
     {
         JobNotification[] response = getObject( dhis2Config.getResolvedUriBuilder()
-            .setPathSegments( "system", "tasks", category.name(), id ),
-                Query.instance(), JobNotification[].class );
+            .pathSegment( "system" )
+            .pathSegment( "tasks" )
+            .pathSegment( category.name() )
+            .pathSegment( id ), Query.instance(), JobNotification[].class );
 
         return new ArrayList<>( Arrays.asList( response ) );
     }

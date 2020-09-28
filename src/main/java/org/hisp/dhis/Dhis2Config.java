@@ -3,6 +3,8 @@ package org.hisp.dhis;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Validate;
 import org.apache.http.client.utils.URIBuilder;
 
 import lombok.Getter;
@@ -15,24 +17,38 @@ import lombok.Getter;
 @Getter
 public class Dhis2Config
 {
-    private String url;
+    private final String url;
 
-    private String username;
+    private final String username;
 
-    private String password;
+    private final String password;
 
     /**
      * Main constructor.
      *
-     * @param url the URL to the DHIS 2 instance, do not include the {@code /api} part.
+     * @param url the URL to the DHIS 2 instance, do not include the {@code /api} part or a trailing {@code /}.
      * @param username the DHIS 2 account username.
      * @param password the DHIS 2 account password.
      */
     public Dhis2Config( String url, String username, String password )
     {
-        this.url = url;
+        Validate.notNull( url );
+        Validate.notNull( username );
+        Validate.notNull( password );
+        this.url = normalizeUrl( url );
         this.username = username;
         this.password = password;
+    }
+
+    /**
+     * Normalizes the given URL.
+     *
+     * @param url the URL string.
+     * @return a URL string.
+     */
+    private String normalizeUrl( String url )
+    {
+        return StringUtils.removeEnd( url, "/" );
     }
 
     /**
@@ -45,8 +61,9 @@ public class Dhis2Config
     {
         try
         {
-            return new URIBuilder( url )
-                .setPathSegments( "api", path )
+            return new UriBuilder( url )
+                .pathSegment( "api" )
+                .pathSegment( path )
                 .build();
         }
         catch ( URISyntaxException ex )
@@ -61,12 +78,12 @@ public class Dhis2Config
      *
      * @return a {@link URIBuilder}.
      */
-    public URIBuilder getResolvedUriBuilder()
+    public UriBuilder getResolvedUriBuilder( )
     {
         try
         {
-            return new URIBuilder( url )
-                .setPathSegments( "api" );
+            return new UriBuilder( url )
+                .pathSegment( "api" );
         }
         catch ( URISyntaxException ex )
         {

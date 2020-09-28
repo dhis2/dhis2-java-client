@@ -37,6 +37,9 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class BaseDhis2
 {
     protected static final String ID_FIELDS = "id,code,name,created,lastUpdated";
@@ -148,7 +151,8 @@ public class BaseDhis2
         try
         {
             URI url = dhis2Config.getResolvedUriBuilder()
-                .setPathSegments( path, id )
+                .pathSegment( path )
+                .pathSegment( id )
                 .build();
 
             return getObjectFromUrl( url, klass );
@@ -209,10 +213,14 @@ public class BaseDhis2
             request.setHeader( HttpHeaders.ACCEPT, ContentType.APPLICATION_JSON.getMimeType() );
             CloseableHttpResponse response = httpClient.execute( request );
             String responseBody = EntityUtils.toString( response.getEntity() );
+            log.info( "URL " + url.toString() );
+            log.info( "Headers " + request.getAllHeaders() );
+            log.info( "Resp: " + responseBody );
             return objectMapper.readValue( responseBody, klass );
         }
         catch ( IOException ex )
         {
+            log.error( "Failed to fetch object", ex );
             throw new UncheckedIOException( "Failed to fetch or parse object", ex );
         }
     }
