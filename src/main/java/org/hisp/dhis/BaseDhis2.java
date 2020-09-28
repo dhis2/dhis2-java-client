@@ -166,6 +166,7 @@ public class BaseDhis2
      * @param request the request.
      * @param object the object to pass as JSON in the request body.
      * @param klass the class type for the response entity.
+     * @param <T> class.
      * @return a {@link ResponseMessage}.
      */
     protected <T extends HttpResponseMessage> T executeJsonPostPutRequest( HttpEntityEnclosingRequestBase request, Object object, Class<T> klass )
@@ -272,6 +273,7 @@ public class BaseDhis2
      * Converts the given array to a {@link ArrayList}.
      *
      * @param array the array.
+     * @param <T> class.
      * @return a list.
      */
     protected static <T> ArrayList<T> asList( T[] array )

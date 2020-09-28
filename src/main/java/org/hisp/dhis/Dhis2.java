@@ -60,15 +60,14 @@ public class Dhis2
      * the status:
      *
      * <ul>
-     * <li>{@link HttpStatus#OK} if instance is available and authentication is successful.</li>
-     * <li>{@link HttpStatus#UNAUTHORIZED} if the username and password combination is
-     *     not valid.</li>
-     * <li>{@link HttpStatus#NOT_FOUND} if the URL is not pointing to a DHIS 2 instance
-     *     or the DHIS 2 instance is not available.</li>
-     * <li>A 500 series error if the DHIS 2 instance had an internal error.</li>
+     * <li>{@code 200} if instance is available and authentication is successful.</li>
+     * <li>{@code 401} if the username and password combination is not valid.</li>
+     * <li>{@code 404} if the URL is not pointing to a DHIS 2 instance or the
+     *     DHIS 2 instance is not available.</li>
+     * <li>A {@code 500} series error if the DHIS 2 instance had an internal error.</li>
      * </ul>
      *
-     * @return the {@link HttpStatus} of the response from DHIS 2.
+     * @return the HTTP status code of the response.
      */
     public int getStatus()
     {
