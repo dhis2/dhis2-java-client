@@ -202,9 +202,7 @@ public class BaseDhis2
     {
         try
         {
-            HttpGet request = withBasicAuth( new HttpGet( url ) );
-            request.setHeader( HttpHeaders.ACCEPT, ContentType.APPLICATION_JSON.getMimeType() );
-            CloseableHttpResponse response = httpClient.execute( request );
+            CloseableHttpResponse response = getJsonHttpResponse( url );
             String responseBody = EntityUtils.toString( response.getEntity() );
 
             return objectMapper.readValue( responseBody, klass );
@@ -212,6 +210,27 @@ public class BaseDhis2
         catch ( IOException ex )
         {
             throw new UncheckedIOException( "Failed to fetch or parse object", ex );
+        }
+    }
+
+    /**
+     * Gets a {@link CloseableHttpResponse} for the given URL.
+     *
+     * @param url the URL.
+     * @return a {@link CloseableHttpResponse}.
+     */
+    protected CloseableHttpResponse getJsonHttpResponse( URI url )
+    {
+        HttpGet request = withBasicAuth( new HttpGet( url ) );
+        request.setHeader( HttpHeaders.ACCEPT, ContentType.APPLICATION_JSON.getMimeType() );
+
+        try
+        {
+            return httpClient.execute( request );
+        }
+        catch ( IOException ex )
+        {
+            throw new UncheckedIOException( "Request failed", ex );
         }
     }
 

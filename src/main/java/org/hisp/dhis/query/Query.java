@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Query.
+ * Metadata query.
  *
  * @author Lars Helge Overland
  */
