@@ -31,6 +31,7 @@ import org.hisp.dhis.model.Program;
 import org.hisp.dhis.model.SystemSettings;
 import org.hisp.dhis.model.TableHook;
 import org.hisp.dhis.query.Query;
+import org.hisp.dhis.query.analytics.AnalyticsQuery;
 import org.hisp.dhis.response.Dhis2ClientException;
 import org.hisp.dhis.response.HttpStatus;
 import org.hisp.dhis.response.ResponseMessage;
@@ -775,6 +776,17 @@ public class Dhis2
         URI url = config.getResolvedUrl( "dataValueSets" );
 
         return executeJsonPostPutRequest( new HttpPost( url ), dataValueSet, DataValueSetResponseMessage.class );
+    }
+
+    // -------------------------------------------------------------------------
+    // Analytics as data value set
+    // -------------------------------------------------------------------------
+
+    public DataValueSet getAnalyticsAsDataValueSet( AnalyticsQuery query )
+    {
+        return getAnalyticsResponse( config.getResolvedUriBuilder()
+            .pathSegment( "analytics" )
+            .pathSegment( "dataValueSet.json" ), query, DataValueSet.class );
     }
 
     // -------------------------------------------------------------------------
