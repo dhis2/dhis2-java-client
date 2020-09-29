@@ -188,8 +188,6 @@ public class BaseDhis2
 
         try
         {
-            System.out.println( "URL " + uriBuilder.build().toString() );
-
             return getObjectFromUrl( uriBuilder.build(), klass );
         }
         catch ( URISyntaxException ex )
