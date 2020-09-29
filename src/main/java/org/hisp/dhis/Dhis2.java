@@ -779,10 +779,10 @@ public class Dhis2
     }
 
     // -------------------------------------------------------------------------
-    // Analytics as data value set
+    // Analytics data value set
     // -------------------------------------------------------------------------
 
-    public DataValueSet getAnalyticsAsDataValueSet( AnalyticsQuery query )
+    public DataValueSet getAnalyticsDataValueSet( AnalyticsQuery query )
     {
         return getAnalyticsResponse( config.getResolvedUriBuilder()
             .pathSegment( "analytics" )
