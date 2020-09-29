@@ -29,11 +29,30 @@ public class AnalyticsQuery
 
     private Boolean skipRounding;
 
+    private Boolean ignoreLimit;
+
     private IdScheme outputIdScheme;
 
     private IdScheme inputIdScheme;
 
     private AnalyticsQuery()
     {
+    }
+
+    public static AnalyticsQuery instance()
+    {
+        return new AnalyticsQuery();
+    }
+
+    public AnalyticsQuery addDimension( Dimension dimension )
+    {
+        this.dimensions.add( dimension );
+        return this;
+    }
+
+    public AnalyticsQuery addFilter( Dimension filter )
+    {
+        this.filters.add( filter );
+        return this;
     }
 }

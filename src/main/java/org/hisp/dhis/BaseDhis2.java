@@ -27,6 +27,8 @@ import org.hisp.dhis.query.Operator;
 import org.hisp.dhis.query.Order;
 import org.hisp.dhis.query.Paging;
 import org.hisp.dhis.query.Query;
+import org.hisp.dhis.query.analytics.AnalyticsQuery;
+import org.hisp.dhis.query.analytics.Dimension;
 import org.hisp.dhis.response.Dhis2ClientException;
 import org.hisp.dhis.response.HttpResponseMessage;
 import org.hisp.dhis.response.ResponseMessage;
@@ -66,21 +68,21 @@ public class BaseDhis2
      * Retrieves an object using HTTP GET.
      *
      * @param uriBuilder the URI builder.
-     * @param filters the filters to apply to the query.
+     * @param query the query filters to apply.
      * @param klass the class type of the object.
      * @param <T> type.
      * @return the object.
      */
-    protected <T> T getObject( URIBuilder uriBuilder, Query filters, Class<T> klass )
+    protected <T> T getObject( URIBuilder uriBuilder, Query query, Class<T> klass )
     {
-        for ( Filter filter : filters.getFilters() )
+        for ( Filter filter : query.getFilters() )
         {
             String filterValue = filter.getProperty() + ":" + filter.getOperator().value() + ":" + getValue( filter );
 
             uriBuilder.addParameter( "filter", filterValue );
         }
 
-        Paging paging = filters.getPaging();
+        Paging paging = query.getPaging();
 
         if ( paging.hasPaging() )
         {
@@ -99,13 +101,89 @@ public class BaseDhis2
             uriBuilder.addParameter( "paging", "false" );
         }
 
-        Order order = filters.getOrder();
+        Order order = query.getOrder();
 
         if ( order.hasOrder() )
         {
             String orderValue = order.getProperty() + ":" + order.getDirection().name().toLowerCase();
 
             uriBuilder.addParameter( "order", orderValue );
+        }
+
+        try
+        {
+            return getObjectFromUrl( uriBuilder.build(), klass );
+        }
+        catch ( URISyntaxException ex )
+        {
+            throw new RuntimeException( ex );
+        }
+    }
+
+    /**
+     * Retrieves an analytcs object using HTTP GET.
+     *
+     * @param uriBuilder the URI builder.
+     * @param query the query filters to apply.
+     * @param klass the class type of the object.
+     * @param <T> type.
+     * @return the object.
+     */
+    protected <T> T getAnalyticsResponse( URIBuilder uriBuilder, AnalyticsQuery query, Class<T> klass )
+    {
+        for ( Dimension dimension : query.getDimensions() )
+        {
+            uriBuilder.addParameter( "dimension", dimension.getDimensionValue() );
+        }
+
+        for ( Dimension filter : query.getFilters() )
+        {
+            uriBuilder.addParameter( "filter", filter.getDimensionValue() );
+        }
+
+        if ( query.getAggregationType() != null )
+        {
+            uriBuilder.addParameter( "aggregationType", query.getAggregationType().name() );
+        }
+
+        if ( query.getStartDate() != null )
+        {
+            uriBuilder.addParameter( "startDate", query.getStartDate() );
+        }
+
+        if ( query.getEndDate() != null )
+        {
+            uriBuilder.addParameter( "endDate", query.getEndDate() );
+        }
+
+        if ( query.getSkipMeta() != null )
+        {
+            uriBuilder.addParameter( "skipMeta", query.getSkipMeta().toString() );
+        }
+
+        if ( query.getSkipData() != null )
+        {
+            uriBuilder.addParameter( "skipData", query.getSkipData().toString() );
+        }
+
+        if ( query.getSkipRounding() != null )
+        {
+            uriBuilder.addParameter( "skipRounding", query.getSkipRounding().toString() );
+        }
+
+        if ( query.getIgnoreLimit() != null )
+        {
+            uriBuilder.addParameter( "ignoreLimit", query.getIgnoreLimit().toString() );
+        }
+
+        if ( query.getOutputIdScheme() != null )
+        {
+            uriBuilder.addParameter( "outputIdScheme", query.getOutputIdScheme().name() );
+        }
+
+        if ( query.getInputIdScheme() != null )
+        {
+            uriBuilder.addParameter( "inputIdScheme", query.getInputIdScheme().name() );
         }
 
         try
@@ -204,7 +282,6 @@ public class BaseDhis2
         {
             CloseableHttpResponse response = getJsonHttpResponse( url );
             String responseBody = EntityUtils.toString( response.getEntity() );
-
             return objectMapper.readValue( responseBody, klass );
         }
         catch ( IOException ex )
