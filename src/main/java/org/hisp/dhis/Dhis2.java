@@ -779,6 +779,19 @@ public class Dhis2
         return executeJsonPostPutRequest( new HttpPost( url ), dataValueSet, DataValueSetResponseMessage.class );
     }
 
+    /**
+     * Saves a data value set payload in JSON format represented by the given file.
+     *
+     * @param file the file representing the data value set JSON payload.
+     * @return a {@link DataValueSetResponseMessage} holding information about the operation.
+     */
+    public DataValueSetResponseMessage saveDataValueSet( File file )
+    {
+        URI url = config.getResolvedUrl( "dataValueSets" );
+
+        return executeJsonFilePostRequest( new HttpPost( url ), file, DataValueSetResponseMessage.class );
+    }
+
     // -------------------------------------------------------------------------
     // Analytics data value set
     // -------------------------------------------------------------------------
