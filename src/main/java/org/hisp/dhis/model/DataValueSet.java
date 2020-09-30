@@ -38,4 +38,16 @@ public class DataValueSet
     {
         return this.dataValues.add( dataValue );
     }
+
+    @Override
+    public String toString()
+    {
+        return new StringBuilder( "[" )
+            .append( "dataSet: " ).append( dataSet ).append( ", " )
+            .append( "completeDate: " ).append( completeDate ).append( ", " )
+            .append( "period: " ).append( period ).append( ", " )
+            .append( "orgUnit: " ).append( orgUnit ).append( ", " )
+            .append( "attributeOptionCombo: " ).append( attributeOptionCombo ).append( ", " )
+            .toString();
+    }
 }
