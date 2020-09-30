@@ -75,6 +75,20 @@ public class BaseDhis2
      */
     protected <T> T getObject( URIBuilder uriBuilder, Query query, Class<T> klass )
     {
+        URI url = getQuery( uriBuilder, query );
+
+        return getObjectFromUrl( url, klass );
+    }
+
+    /**
+     * Returns a {@link URI} based on the given query.
+     *
+     * @param uriBuilder the URI builder.
+     * @param query the query filters to apply.
+     * @return a URI.
+     */
+    protected URI getQuery( URIBuilder uriBuilder, Query query )
+    {
         for ( Filter filter : query.getFilters() )
         {
             String filterValue = filter.getProperty() + ":" + filter.getOperator().value() + ":" + getValue( filter );
@@ -110,18 +124,11 @@ public class BaseDhis2
             uriBuilder.addParameter( "order", orderValue );
         }
 
-        try
-        {
-            return getObjectFromUrl( uriBuilder.build(), klass );
-        }
-        catch ( URISyntaxException ex )
-        {
-            throw new RuntimeException( ex );
-        }
+        return build( uriBuilder );
     }
 
     /**
-     * Retrieves an analytcs object using HTTP GET.
+     * Retrieves an analytics object using HTTP GET.
      *
      * @param uriBuilder the URI builder.
      * @param query the query filters to apply.
@@ -130,6 +137,20 @@ public class BaseDhis2
      * @return the object.
      */
     protected <T> T getAnalyticsResponse( URIBuilder uriBuilder, AnalyticsQuery query, Class<T> klass )
+    {
+        URI url = getAnalyticsQuery( uriBuilder, query );
+
+        return getObjectFromUrl( url, klass );
+    }
+
+    /**
+     * Returns a {@link URI} based on the given analytics query.
+     *
+     * @param uriBuilder the URI builder.
+     * @param query the analytics query filters to apply.
+     * @return a URI.
+     */
+    protected URI getAnalyticsQuery( URIBuilder uriBuilder, AnalyticsQuery query )
     {
         for ( Dimension dimension : query.getDimensions() )
         {
@@ -186,14 +207,7 @@ public class BaseDhis2
             uriBuilder.addParameter( "inputIdScheme", query.getInputIdScheme().name() );
         }
 
-        try
-        {
-            return getObjectFromUrl( uriBuilder.build(), klass );
-        }
-        catch ( URISyntaxException ex )
-        {
-            throw new RuntimeException( ex );
-        }
+        return build( uriBuilder );
     }
 
     private Object getValue( Filter filter )
@@ -278,9 +292,8 @@ public class BaseDhis2
      */
     protected <T> T getObjectFromUrl( URI url, Class<T> klass )
     {
-        try
+        try ( CloseableHttpResponse response = getJsonHttpResponse( url ) )
         {
-            CloseableHttpResponse response = getJsonHttpResponse( url );
             String responseBody = EntityUtils.toString( response.getEntity() );
             return objectMapper.readValue( responseBody, klass );
         }
@@ -372,6 +385,24 @@ public class BaseDhis2
         }
 
         return new Dhis2ClientException( ex.getMessage(), ex.getCause(), statusCode );
+    }
+
+    /**
+     * Builds on URI without throwing checked exceptions.
+     *
+     * @param uriBuilder the {@link URIBuilder}.
+     * @return a {@link URI}.
+     */
+    private URI build( URIBuilder uriBuilder )
+    {
+        try
+        {
+            return uriBuilder.build();
+        }
+        catch ( URISyntaxException ex )
+        {
+            throw new RuntimeException( ex );
+        }
     }
 
     /**
