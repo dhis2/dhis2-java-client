@@ -801,8 +801,10 @@ public class Dhis2
      *
      * @param query the {@link AnalyticsQuery}.
      * @param file the {@link File}.
+     * @throws IOException if writing the response to file failed.
      */
     public void writeAnalyticsDataValueSet( AnalyticsQuery query, File file )
+        throws IOException
     {
         URI url = getAnalyticsQuery( config.getResolvedUriBuilder()
             .pathSegment( "analytics" )

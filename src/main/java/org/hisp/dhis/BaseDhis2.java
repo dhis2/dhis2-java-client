@@ -336,14 +336,11 @@ public class BaseDhis2
      * @param file the file to write the response to.
      */
     protected void writeToFile( HttpResponse response, File file )
+        throws IOException
     {
         try ( FileOutputStream fileOut = FileUtils.openOutputStream( file ) )
         {
-            IOUtils.copy( response.getEntity().getContent(), fileOut );
-        }
-        catch ( IOException ex )
-        {
-            throw new UncheckedIOException( ex );
+           IOUtils.copy( response.getEntity().getContent(), fileOut );
         }
     }
 
