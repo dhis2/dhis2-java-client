@@ -1,5 +1,7 @@
 package org.hisp.dhis;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.net.URI;
@@ -8,9 +10,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
 
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.Validate;
 import org.apache.http.Consts;
 import org.apache.http.HttpHeaders;
+import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpResponseException;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpEntityEnclosingRequestBase;
@@ -321,6 +326,24 @@ public class BaseDhis2
         catch ( IOException ex )
         {
             throw new UncheckedIOException( "Request failed", ex );
+        }
+    }
+
+    /**
+     * Write the given {@link HttpResponse} to the given {@link File}.
+     *
+     * @param response the response.
+     * @param file the file to write the response to.
+     */
+    protected void writeToFile( HttpResponse response, File file )
+    {
+        try ( FileOutputStream fileOut = FileUtils.openOutputStream( file ) )
+        {
+            IOUtils.copy( response.getEntity().getContent(), fileOut );
+        }
+        catch ( IOException ex )
+        {
+            throw new UncheckedIOException( ex );
         }
     }
 

@@ -1,5 +1,6 @@
 package org.hisp.dhis;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.net.URI;
@@ -782,11 +783,34 @@ public class Dhis2
     // Analytics data value set
     // -------------------------------------------------------------------------
 
+    /**
+     * Retrieves a {@link DataValueSet}.
+     *
+     * @param query the {@link AnalyticsQuery}.
+     * @return a {@link DataValueSet}.
+     */
     public DataValueSet getAnalyticsDataValueSet( AnalyticsQuery query )
     {
         return getAnalyticsResponse( config.getResolvedUriBuilder()
             .pathSegment( "analytics" )
             .pathSegment( "dataValueSet.json" ), query, DataValueSet.class );
+    }
+
+    /**
+     * Retrieves a {@link DataValueSet} and writes it to the given file.
+     *
+     * @param query the {@link AnalyticsQuery}.
+     * @param file the {@link File}.
+     */
+    public void writeAnalyticsDataValueSet( AnalyticsQuery query, File file )
+    {
+        URI url = getAnalyticsQuery( config.getResolvedUriBuilder()
+            .pathSegment( "analytics" )
+            .pathSegment( "dataValueSet.json" ), query );
+
+        CloseableHttpResponse response = getJsonHttpResponse( url );
+
+        writeToFile( response, file );
     }
 
     // -------------------------------------------------------------------------
