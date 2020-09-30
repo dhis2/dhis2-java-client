@@ -1,5 +1,6 @@
 package org.hisp.dhis;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.net.URI;
@@ -778,15 +779,53 @@ public class Dhis2
         return executeJsonPostPutRequest( new HttpPost( url ), dataValueSet, DataValueSetResponseMessage.class );
     }
 
+    /**
+     * Saves a data value set payload in JSON format represented by the given file.
+     *
+     * @param file the file representing the data value set JSON payload.
+     * @return a {@link DataValueSetResponseMessage} holding information about the operation.
+     */
+    public DataValueSetResponseMessage saveDataValueSet( File file )
+    {
+        URI url = config.getResolvedUrl( "dataValueSets" );
+
+        return executeJsonFilePostRequest( new HttpPost( url ), file, DataValueSetResponseMessage.class );
+    }
+
     // -------------------------------------------------------------------------
     // Analytics data value set
     // -------------------------------------------------------------------------
 
+    /**
+     * Retrieves a {@link DataValueSet}.
+     *
+     * @param query the {@link AnalyticsQuery}.
+     * @return a {@link DataValueSet}.
+     */
     public DataValueSet getAnalyticsDataValueSet( AnalyticsQuery query )
     {
         return getAnalyticsResponse( config.getResolvedUriBuilder()
             .pathSegment( "analytics" )
             .pathSegment( "dataValueSet.json" ), query, DataValueSet.class );
+    }
+
+    /**
+     * Retrieves a {@link DataValueSet} and writes it to the given file.
+     *
+     * @param query the {@link AnalyticsQuery}.
+     * @param file the {@link File}.
+     * @throws IOException if writing the response to file failed.
+     */
+    public void writeAnalyticsDataValueSet( AnalyticsQuery query, File file )
+        throws IOException
+    {
+        URI url = getAnalyticsQuery( config.getResolvedUriBuilder()
+            .pathSegment( "analytics" )
+            .pathSegment( "dataValueSet.json" ), query );
+
+        CloseableHttpResponse response = getJsonHttpResponse( url );
+
+        writeToFile( response, file );
     }
 
     // -------------------------------------------------------------------------

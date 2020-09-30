@@ -1,5 +1,7 @@
 package org.hisp.dhis;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.net.URI;
@@ -8,9 +10,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
 
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.Validate;
 import org.apache.http.Consts;
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpHeaders;
+import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpResponseException;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpEntityEnclosingRequestBase;
@@ -18,6 +24,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.entity.ContentType;
+import org.apache.http.entity.FileEntity;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
@@ -260,11 +267,39 @@ public class BaseDhis2
      */
     protected <T extends HttpResponseMessage> T executeJsonPostPutRequest( HttpEntityEnclosingRequestBase request, Object object, Class<T> klass )
     {
-        String jsonObject = toJsonString( object );
+        return executeJsonPostPutRequest( request, new StringEntity( toJsonString( object ), Consts.UTF_8 ), klass );
+    }
 
+    /**
+     * Executes the given {@link HttpEntityEnclosingRequestBase}, which may be a POST or
+     * PUT request.
+     *
+     * @param request the request.
+     * @param file the file to read the JSON payload from and pass in the request body.
+     * @param klass the class type for the response entity.
+     * @param <T> class.
+     * @return a {@link ResponseMessage}.
+     */
+    protected <T extends HttpResponseMessage> T executeJsonFilePostRequest( HttpEntityEnclosingRequestBase request, File file, Class<T> klass )
+    {
+        return executeJsonPostPutRequest( request, new FileEntity( file, ContentType.APPLICATION_JSON ), klass );
+    }
+
+    /**
+     * Executes the given {@link HttpEntityEnclosingRequestBase}, which may be a POST or
+     * PUT request.
+     *
+     * @param request the request.
+     * @param entity the HTTP entity.
+     * @param klass the class type for the response entity.
+     * @param <T> class.
+     * @return a {@link ResponseMessage}.
+     */
+    protected <T extends HttpResponseMessage> T executeJsonPostPutRequest( HttpEntityEnclosingRequestBase request, HttpEntity entity, Class<T> klass )
+    {
         withBasicAuth( request );
         request.setHeader( HttpHeaders.CONTENT_TYPE, ContentType.APPLICATION_JSON.getMimeType() );
-        request.setEntity( new StringEntity( jsonObject, Consts.UTF_8 ) );
+        request.setEntity( entity );
 
         try ( CloseableHttpResponse response = httpClient.execute( request ) )
         {
@@ -321,6 +356,21 @@ public class BaseDhis2
         catch ( IOException ex )
         {
             throw new UncheckedIOException( "Request failed", ex );
+        }
+    }
+
+    /**
+     * Write the given {@link HttpResponse} to the given {@link File}.
+     *
+     * @param response the response.
+     * @param file the file to write the response to.
+     */
+    protected void writeToFile( HttpResponse response, File file )
+        throws IOException
+    {
+        try ( FileOutputStream fileOut = FileUtils.openOutputStream( file ) )
+        {
+           IOUtils.copy( response.getEntity().getContent(), fileOut );
         }
     }
 
