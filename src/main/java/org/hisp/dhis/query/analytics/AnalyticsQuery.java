@@ -50,6 +50,11 @@ public class AnalyticsQuery
         return this;
     }
 
+    public AnalyticsQuery addDimension( String dimension, String... items )
+    {
+        return addDimension( new Dimension( dimension, items ) );
+    }
+
     public AnalyticsQuery addFilter( Dimension filter )
     {
         this.filters.add( filter );
