@@ -43,6 +43,13 @@ public class ResponseMessage
     {
     }
 
+    public ResponseMessage( Status status, Integer httpStatusCode, String message )
+    {
+        this.status = status;
+        this.httpStatusCode = httpStatusCode;
+        this.message = message;
+    }
+
     public HttpStatus getHttpStatus()
     {
         return HttpStatus.valueOf( httpStatusCode );
