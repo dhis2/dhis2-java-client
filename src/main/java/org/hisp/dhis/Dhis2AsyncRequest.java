@@ -47,6 +47,17 @@ public class Dhis2AsyncRequest
         this.objectMapper = objectMapper;
     }
 
+    /**
+     * Executes the given HTTP POST request. The request must be a DHIS 2 async
+     * request. The method will use the DHIS 2 tasks and task summary API endpoints
+     * to poll for the task status, and eventually return a task summary when the
+     * task is complete.
+     *
+     * @param request the {@link HttpPost}.
+     * @param klass the class type.
+     * @return a response message.
+     * @throws IOException if the POST operation failed.
+     */
     public <T extends HttpResponseMessage> T post( HttpPost request, Class<T> klass )
         throws IOException
     {
@@ -71,6 +82,13 @@ public class Dhis2AsyncRequest
     // Supportive methods
     // -------------------------------------------------------------------------
 
+    /**
+     * Executes the given POST request.
+     *
+     * @param request the {@link HttpPost}.
+     * @return a {link JobInfoResponseMessage}.
+     * @throws IOException if the POST operation failed.
+     */
     private JobInfoResponseMessage postAsyncRequest( HttpPost request )
         throws IOException
     {
@@ -90,8 +108,15 @@ public class Dhis2AsyncRequest
         }
     }
 
+    /**
+     * Waits for the task to complete. Returns the first job notification
+     * which indicates that the task is complete.
+     *
+     * @param jobInfo the {@link JobInfo} identifying the task.
+     * @return a {@link JobNotification}.
+     * @throws IOException if the GET operation failed.
+     */
     private JobNotification waitForCompletion( JobInfo jobInfo )
-        throws IOException
     {
         URI statusUrl = HttpUtils.build( config.getResolvedUriBuilder()
             .pathSegment( "system" )
@@ -119,6 +144,14 @@ public class Dhis2AsyncRequest
         return notification;
     }
 
+    /**
+     * Returns a task summary.
+     *
+     * @param jobInfo the {@link JobInfo} identifying the task.
+     * @param klass the class type of the task summary.
+     * @return a task summary.
+     * @throws IOException if the GET operation failed.
+     */
     private <T> T getSummary( JobInfo jobInfo, Class<T> klass )
         throws IOException
     {
@@ -135,25 +168,23 @@ public class Dhis2AsyncRequest
         return objectMapper.readValue( summary, klass );
     }
 
+    /**
+     * Returns the currently last task notification.
+     *
+     * @param url the URL.
+     * @return a {@link JobNotification}.
+     */
     private JobNotification getLastNotification( URI url )
-        throws IOException
     {
-        String response = getForBody( url );
-
-        JobNotification[] notificationArray = objectMapper.readValue( response, JobNotification[].class );
-
-        List<JobNotification> notifications = new ArrayList<>( Arrays.asList( notificationArray ) );
-
-        return notifications != null && !notifications.isEmpty() ? notifications.get( 0 ) : new JobNotification();
-    }
-
-    private String getForBody( URI url )
-    {
-        HttpGet request = HttpUtils.withBasicAuth( new HttpGet( url ), config );
-
-        try ( CloseableHttpResponse response = httpClient.execute( request ) )
+        try
         {
-            return EntityUtils.toString( response.getEntity() );
+            String response = getForBody( url );
+
+            JobNotification[] notificationArray = objectMapper.readValue( response, JobNotification[].class );
+
+            List<JobNotification> notifications = new ArrayList<>( Arrays.asList( notificationArray ) );
+
+            return notifications != null && !notifications.isEmpty() ? notifications.get( 0 ) : new JobNotification();
         }
         catch ( IOException ex )
         {
@@ -161,6 +192,30 @@ public class Dhis2AsyncRequest
         }
     }
 
+    /**
+     * Retrieves the response entity from a GET request to the given
+     * URL as a string.
+     *
+     * @param url the URL.
+     * @return the response entity string.
+     * @throws IOException
+     */
+    private String getForBody( URI url )
+        throws IOException
+    {
+        HttpGet request = HttpUtils.withBasicAuth( new HttpGet( url ), config );
+
+        try ( CloseableHttpResponse response = httpClient.execute( request ) )
+        {
+            return EntityUtils.toString( response.getEntity() );
+        }
+    }
+
+    /**
+     * Makes the current thread sleep for the given timeout in seconds.
+     *
+     * @param timeout the timeout in seconds.
+     */
     private void sleepForSeconds( long timeout )
     {
         try
