@@ -290,7 +290,7 @@ public class BaseDhis2
     }
 
     /**
-     * Returns a HTTP post request for the given URL and entity.
+     * Returns a HTTP post request with JSON content type for the given URL and entity.
      *
      * @param url the {@link URI}.
      * @param entity the {@link HttpEntity}.
