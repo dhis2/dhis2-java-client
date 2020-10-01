@@ -55,6 +55,7 @@ public class Dhis2AsyncRequest
      *
      * @param request the {@link HttpPost}.
      * @param klass the class type.
+     * @param <T> the class type.
      * @return a response message.
      * @throws IOException if the POST operation failed.
      */

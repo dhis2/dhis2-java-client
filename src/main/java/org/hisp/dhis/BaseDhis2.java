@@ -351,6 +351,7 @@ public class BaseDhis2
      *
      * @param response the response.
      * @param file the file to write the response to.
+     * @throws IOException if the write operation failed.
      */
     protected void writeToFile( HttpResponse response, File file )
         throws IOException
