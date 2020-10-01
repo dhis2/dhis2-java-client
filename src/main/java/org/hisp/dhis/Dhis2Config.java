@@ -80,7 +80,7 @@ public class Dhis2Config
      *
      * @return a {@link URIBuilder}.
      */
-    public UriBuilder getResolvedUriBuilder( )
+    public UriBuilder getResolvedUriBuilder()
     {
         try
         {
