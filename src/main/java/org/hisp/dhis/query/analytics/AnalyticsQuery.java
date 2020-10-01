@@ -1,6 +1,7 @@
 package org.hisp.dhis.query.analytics;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.hisp.dhis.model.AggregationType;
@@ -52,7 +53,7 @@ public class AnalyticsQuery
 
     public AnalyticsQuery addDimension( String dimension, String... items )
     {
-        return addDimension( new Dimension( dimension, items ) );
+        return addDimension( new Dimension( dimension, new ArrayList<>( Arrays.asList( items ) ) ) );
     }
 
     public AnalyticsQuery addFilter( Dimension filter )
