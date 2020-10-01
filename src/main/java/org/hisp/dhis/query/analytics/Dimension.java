@@ -1,7 +1,5 @@
 package org.hisp.dhis.query.analytics;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
@@ -25,10 +23,10 @@ public class Dimension
     {
     }
 
-    public Dimension( String dimension, String... items )
+    public Dimension( String dimension, List<String> items )
     {
         this.dimension = dimension;
-        this.items = new ArrayList<>( Arrays.asList( items ) );
+        this.items = items;
     }
 
     public String getDimensionValue()

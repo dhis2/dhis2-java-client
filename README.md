@@ -206,3 +206,12 @@ DataValueSet dvs = dhis2.getAnalyticsDataValueSet( AnalyticsQuery.instance()
     .addDimension( Dimension.DIMENSION_OU, "O6uvpzGd5pu", "fdc6uOvgoji" )
     .addDimension( Dimension.DIMENSION_PE, "202007", "202008" ) );
 ```
+
+### Write analytics data value set to file
+
+To retrieve analytics data and write the content to the file:
+
+```java
+
+```
+
