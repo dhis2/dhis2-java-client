@@ -1,9 +1,7 @@
 package org.hisp.dhis;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
-import java.net.URI;
 import java.util.List;
 
 import org.apache.http.Consts;
@@ -80,5 +78,7 @@ public class Dhis2ConfigTest
         assertEquals( "https://play.dhis2.org/dev/api/system/info",
             config.getResolvedUrl( "system/info" ).toString() );
 
+        assertEquals( "https://play.dhis2.org/dev/api/analytics/events/query",
+            config.getResolvedUrl( "analytics/events/query" ).toString() );
     }
 }
