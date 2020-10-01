@@ -8,12 +8,16 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.http.Consts;
 import org.apache.http.client.HttpResponseException;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpHead;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.FileEntity;
+import org.apache.http.entity.StringEntity;
 import org.hisp.dhis.model.Category;
 import org.hisp.dhis.model.CategoryCombo;
 import org.hisp.dhis.model.CategoryOptionGroupSet;
@@ -39,6 +43,7 @@ import org.hisp.dhis.response.ResponseMessage;
 import org.hisp.dhis.response.datavalueset.DataValueSetResponseMessage;
 import org.hisp.dhis.response.job.JobCategory;
 import org.hisp.dhis.response.job.JobNotification;
+import org.hisp.dhis.util.HttpUtils;
 
 /**
  * DHIS 2 API client for HTTP requests and responses. Request and
@@ -75,7 +80,7 @@ public class Dhis2
     {
         try
         {
-            URI url = build( config.getResolvedUriBuilder()
+            URI url = HttpUtils.build( config.getResolvedUriBuilder()
                 .pathSegment( "system" )
                 .pathSegment( "info" ) );
 
@@ -773,13 +778,19 @@ public class Dhis2
      *
      * @param dataValueSet the {@link DataValueSet} to save.
      * @return a {@link DataValueSetResponseMessage} holding information about the operation.
-     * @throws Dhis2ClientException if the save operation failed due to a client side error.
+     * @throws IOException if the save process failed.
      */
     public DataValueSetResponseMessage saveDataValueSet( DataValueSet dataValueSet )
+        throws IOException
     {
-        URI url = config.getResolvedUrl( "dataValueSets" );
+        URI url = HttpUtils.build( config.getResolvedUriBuilder()
+            .pathSegment( "dataValueSets" )
+            .addParameter( "async", "true" ) );
 
-        return executeJsonPostPutRequest( new HttpPost( url ), dataValueSet, DataValueSetResponseMessage.class );
+        HttpPost request = getPostRequest( url, new StringEntity( toJsonString( dataValueSet ), Consts.UTF_8 ) );
+
+        return new Dhis2AsyncRequest( config, httpClient, objectMapper )
+            .post( request, DataValueSetResponseMessage.class );
     }
 
     /**
@@ -787,12 +798,19 @@ public class Dhis2
      *
      * @param file the file representing the data value set JSON payload.
      * @return a {@link DataValueSetResponseMessage} holding information about the operation.
+     * @throws IOException if the save process failed.
      */
     public DataValueSetResponseMessage saveDataValueSet( File file )
+        throws IOException
     {
-        URI url = config.getResolvedUrl( "dataValueSets" );
+        URI url = HttpUtils.build( config.getResolvedUriBuilder()
+            .pathSegment( "dataValueSets" )
+            .addParameter( "async", "true" ) );
 
-        return executeJsonFilePostRequest( new HttpPost( url ), file, DataValueSetResponseMessage.class );
+        HttpPost request = getPostRequest( url, new FileEntity( file, ContentType.APPLICATION_JSON ) );
+
+        return new Dhis2AsyncRequest( config, httpClient, objectMapper )
+            .post( request, DataValueSetResponseMessage.class );
     }
 
     // -------------------------------------------------------------------------
