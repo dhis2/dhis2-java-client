@@ -185,7 +185,7 @@ public class Dhis2AsyncRequest
 
             List<JobNotification> notifications = new ArrayList<>( Arrays.asList( notificationArray ) );
 
-            return notifications != null && !notifications.isEmpty() ? notifications.get( 0 ) : new JobNotification();
+            return !notifications.isEmpty() ? notifications.get( 0 ) : new JobNotification();
         }
         catch ( IOException ex )
         {
