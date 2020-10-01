@@ -443,7 +443,7 @@ public class BaseDhis2
      * @param uriBuilder the {@link URIBuilder}.
      * @return a {@link URI}.
      */
-    private URI build( URIBuilder uriBuilder )
+    protected URI build( URIBuilder uriBuilder )
     {
         try
         {

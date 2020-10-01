@@ -75,7 +75,10 @@ public class Dhis2
     {
         try
         {
-            URI url = config.getResolvedUrl( RESOURCE_SYSTEM_INFO );
+            URI url = build( config.getResolvedUriBuilder()
+                .pathSegment( "system" )
+                .pathSegment( "info" ) );
+
             HttpGet request = withBasicAuth( new HttpGet( url ) );
             CloseableHttpResponse response = httpClient.execute( request );
             int statusCode = response.getStatusLine().getStatusCode();
