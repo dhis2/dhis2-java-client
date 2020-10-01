@@ -57,4 +57,21 @@ public class UriBuilderTest
             .build().toString();
         assertEquals( "https://play.dhis2.org/site/dhis/api", url );
     }
+
+    @Test
+    public void testPathSegmentC()
+        throws Exception
+    {
+        String url = new UriBuilder( "https://play.dhis2.org/dev/api" )
+            .pathSegment( "system/info" )
+            .build().toString();
+        assertEquals( "https://play.dhis2.org/dev/api/system/info", url );
+
+        url = new UriBuilder( "https://play.dhis2.org/api" )
+            .pathSegment( "analytics" )
+            .pathSegment( "events" )
+            .pathSegment( "query" )
+            .build().toString();
+        assertEquals( "https://play.dhis2.org/api/analytics/events/query", url );
+    }
 }
