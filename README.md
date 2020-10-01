@@ -212,6 +212,13 @@ DataValueSet dvs = dhis2.getAnalyticsDataValueSet( AnalyticsQuery.instance()
 To retrieve analytics data and write the content to the file:
 
 ```java
+AnalyticsQuery query = AnalyticsQuery.instance()
+    .addDimension( Dimension.DIMENSION_DX, "cYeuwXTCPkU", "Jtf34kNZhzP" )
+    .addDimension( Dimension.DIMENSION_OU, "O6uvpzGd5pu", "fdc6uOvgoji" )
+    .addDimension( Dimension.DIMENSION_PE, "202007", "202008" ) );
 
+File file = new File( "/tmp/data-value-set.json" );
+    
+dhis2.writeAnalyticsDataValueSet( query, file );
 ```
 
