@@ -298,8 +298,7 @@ public class BaseDhis2
      */
     protected HttpPost getPostRequest( URI url, HttpEntity entity )
     {
-        HttpPost request = new HttpPost( url );
-        withBasicAuth( request );
+        HttpPost request = withBasicAuth( new HttpPost( url ) );
         request.setHeader( HttpHeaders.CONTENT_TYPE, ContentType.APPLICATION_JSON.getMimeType() );
         request.setEntity( entity );
         return request;
