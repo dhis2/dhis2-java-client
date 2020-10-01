@@ -150,7 +150,8 @@ ResponseMessage msg = dhis2.updateOrgUnit( orgUnit );
 To update your own, arbitrary metadata object:
 
 ```java
-ResponseMessage msg = dhis2.updateMetadataObject( "dataElements/" + dataElement.getId(), dataElement );
+ResponseMessage msg = dhis2.updateMetadataObject( 
+    "dataElements/" + dataElement.getId(), dataElement );
 ```
 
 ### Get response message
@@ -193,4 +194,15 @@ dataValueSet.addDataValue( dataValue1 );
 dataValueSet.addDataValue( dataValue2 );
 
 DataValueSetResponseMessage response = dhis2.saveDataValueSet( dataValueSet );
+```
+
+### Get analytics data value set
+
+To retrieve analytics data in the data value set format:
+
+```java
+DataValueSet dvs = dhis2.getAnalyticsDataValueSet( AnalyticsQuery.instance()
+    .addDimension( Dimension.DIMENSION_DX, "cYeuwXTCPkU", "Jtf34kNZhzP" )
+    .addDimension( Dimension.DIMENSION_OU, "O6uvpzGd5pu", "fdc6uOvgoji" )
+    .addDimension( Dimension.DIMENSION_PE, "202007", "202008" ) );
 ```
