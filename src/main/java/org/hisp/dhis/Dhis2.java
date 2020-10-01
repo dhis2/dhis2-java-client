@@ -789,8 +789,9 @@ public class Dhis2
 
         HttpPost request = getPostRequest( url, new StringEntity( toJsonString( dataValueSet ), Consts.UTF_8 ) );
 
-        return new Dhis2AsyncRequest( config, httpClient, objectMapper )
-            .post( request, DataValueSetResponseMessage.class );
+        Dhis2AsyncRequest asyncRequest = new Dhis2AsyncRequest( config, httpClient, objectMapper );
+
+        return asyncRequest.post( request, DataValueSetResponseMessage.class );
     }
 
     /**
@@ -809,8 +810,9 @@ public class Dhis2
 
         HttpPost request = getPostRequest( url, new FileEntity( file, ContentType.APPLICATION_JSON ) );
 
-        return new Dhis2AsyncRequest( config, httpClient, objectMapper )
-            .post( request, DataValueSetResponseMessage.class );
+        Dhis2AsyncRequest asyncRequest = new Dhis2AsyncRequest( config, httpClient, objectMapper );
+
+        return asyncRequest.post( request, DataValueSetResponseMessage.class );
     }
 
     // -------------------------------------------------------------------------
