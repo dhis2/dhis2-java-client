@@ -50,7 +50,7 @@ public class DataValueSetResponseMessage
             .append( "description: " ).append( description ).append( ", " )
             .append( "importCount: " ).append( importCount ).append( ", " )
             .append( "conflicts: " ).append( conflicts ).append( ", " )
-            .append( "dataSetComplete" ).append( dataSetComplete ).append( ", " )
+            .append( "dataSetComplete: " ).append( dataSetComplete ).append( ", " )
             .append( "httpStatusCode: " ).append( httpStatusCode ).append( "]" ).toString();
     }
 }

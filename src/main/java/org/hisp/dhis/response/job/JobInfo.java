@@ -30,7 +30,7 @@ public class JobInfo
     {
         return new StringBuilder( "[" )
             .append( "id: " ).append( id ).append( "," )
-            .append( "name: " ).append( name ).append( "," )
+            .append( "name: " ).append( name ).append( ", " )
             .append( "job type: " ).append( jobType ).append( "]" ).toString();
     }
 }

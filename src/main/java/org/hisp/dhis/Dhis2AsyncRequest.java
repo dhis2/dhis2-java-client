@@ -74,7 +74,7 @@ public class Dhis2AsyncRequest
 
         T summary = getSummary( jobInfo, klass );
 
-        log.info( "Summary: '{}'", summary );
+        log.debug( "Summary: '{}'", summary );
 
         return summary;
     }
