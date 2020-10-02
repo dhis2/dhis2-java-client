@@ -196,6 +196,15 @@ dataValueSet.addDataValue( dataValue2 );
 DataValueSetResponseMessage response = dhis2.saveDataValueSet( dataValueSet );
 ```
 
+### Save data value set from file
+
+To read a data value set from a file and save it:
+
+```java
+File file = new File( "/tmp/datavalueset.json" );
+DataValueSetResponseMessage response = dhis2.saveDataValueSet( file );
+```
+
 ### Get analytics data value set
 
 To retrieve analytics data in the data value set format:
