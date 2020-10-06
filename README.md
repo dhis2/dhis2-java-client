@@ -193,7 +193,9 @@ dataValueSet.setOrgUnit( "DiszpKrYNg8" );
 dataValueSet.addDataValue( dataValue1 );
 dataValueSet.addDataValue( dataValue2 );
 
-DataValueSetResponseMessage response = dhis2.saveDataValueSet( dataValueSet );
+DataValueSetImportOptions options = DataValueSetImportOptions.instance();
+
+DataValueSetResponseMessage response = dhis2.saveDataValueSet( dataValueSet, options );
 ```
 
 ### Save data value set from file
@@ -202,7 +204,10 @@ To read a data value set from a file and save it:
 
 ```java
 File file = new File( "/tmp/datavalueset.json" );
-DataValueSetResponseMessage response = dhis2.saveDataValueSet( file );
+
+DataValueSetImportOptions options = DataValueSetImportOptions.instance();
+
+DataValueSetResponseMessage response = dhis2.saveDataValueSet( file, options );
 ```
 
 ### Get analytics data value set
