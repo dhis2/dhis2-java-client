@@ -28,42 +28,6 @@ Dhis2Config config = new Dhis2Config(
 
 Dhis2 dhis2 = new Dhis2( config );
 ```
-An externalized configuration in a Spring Boot 2 setting could look like this:
-
-```java
-@SpringBootApplication
-@PropertySource("file:/opt/conf.properties")
-public class MyApp
-{  
-    @Value("${dhis.instance.url}")
-    private String dhisInstanceUrl;
-
-    @Value("${dhis.instance.username}")
-    private String dhisInstanceUsername;
-    
-    @Value("${dhis.instance.password}")
-    private String dhisInstancePassword;
-
-    @Bean
-    public Dhis2 dhis2()
-    {
-        Dhis2Config config = new Dhis2Config( 
-            dhisInstanceUrl, 
-            dhisInstanceUsername, 
-            dhisInstancePassword );
-        
-        return new Dhis2( config );
-    }
-}
-```
-
-This requires a corresponding properties file `/opt/conf.properties`:
-
-```properties
-dhis.instance.url = https://play.dhis2.org/2.32.2
-dhis.instance.username = admin
-dhis.instance.password = district
-```
 
 ## Usage
 
