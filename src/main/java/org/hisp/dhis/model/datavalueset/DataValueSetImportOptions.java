@@ -49,4 +49,10 @@ public class DataValueSetImportOptions
         this.idScheme = idScheme;
         return this;
     }
+
+    public DataValueSetImportOptions withSkipAudit()
+    {
+        this.skipAudit = true;
+        return this;
+    }
 }
