@@ -1,4 +1,4 @@
-package org.hisp.dhis.model;
+package org.hisp.dhis.model.datavalueset;
 
 import java.util.ArrayList;
 import java.util.List;

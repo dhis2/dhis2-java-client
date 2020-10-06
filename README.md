@@ -14,7 +14,7 @@ To use `dhis2-java-client` with Maven you can specify the following dependency:
 </dependency>
 ```
 
-You can find `dhis2-java-client` and the available versions in Maven central repository at [mvnrepository.com/artifact/org.hisp/dhis2-java-client](https://mvnrepository.com/artifact/org.hisp/dhis2-java-client).
+You can find `dhis2-java-client` and the available versions in [Maven central repository](https://mvnrepository.com/artifact/org.hisp/dhis2-java-client).
 
 ## Configuration
 
@@ -27,42 +27,6 @@ Dhis2Config config = new Dhis2Config(
     "district" );
 
 Dhis2 dhis2 = new Dhis2( config );
-```
-An externalized configuration in a Spring Boot 2 setting could look like this:
-
-```java
-@SpringBootApplication
-@PropertySource("file:/opt/conf.properties")
-public class MyApp
-{  
-    @Value("${dhis.instance.url}")
-    private String dhisInstanceUrl;
-
-    @Value("${dhis.instance.username}")
-    private String dhisInstanceUsername;
-    
-    @Value("${dhis.instance.password}")
-    private String dhisInstancePassword;
-
-    @Bean
-    public Dhis2 dhis2()
-    {
-        Dhis2Config config = new Dhis2Config( 
-            dhisInstanceUrl, 
-            dhisInstanceUsername, 
-            dhisInstancePassword );
-        
-        return new Dhis2( config );
-    }
-}
-```
-
-This requires a corresponding properties file `/opt/conf.properties`:
-
-```properties
-dhis.instance.url = https://play.dhis2.org/2.32.2
-dhis.instance.username = admin
-dhis.instance.password = district
 ```
 
 ## Usage
@@ -160,6 +124,7 @@ The various save and update methods returns an instance of `ResponseMessage`, wh
 
 ```java
 ResponseMessage msg = dhis2.saveMetadataObject( "dataElements", dataElement );
+
 boolean success = msg.getHttpStatus().is2xxSuccessful();
 ```
 
@@ -193,7 +158,21 @@ dataValueSet.setOrgUnit( "DiszpKrYNg8" );
 dataValueSet.addDataValue( dataValue1 );
 dataValueSet.addDataValue( dataValue2 );
 
-DataValueSetResponseMessage response = dhis2.saveDataValueSet( dataValueSet );
+DataValueSetImportOptions options = DataValueSetImportOptions.instance();
+
+DataValueSetResponseMessage response = dhis2.saveDataValueSet( dataValueSet, options );
+```
+
+### Save data value set from file
+
+To read a data value set from a file and save it:
+
+```java
+File file = new File( "/tmp/datavalueset.json" );
+
+DataValueSetImportOptions options = DataValueSetImportOptions.instance();
+
+DataValueSetResponseMessage response = dhis2.saveDataValueSet( file, options );
 ```
 
 ### Get analytics data value set

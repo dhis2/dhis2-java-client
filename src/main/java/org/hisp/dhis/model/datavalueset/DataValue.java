@@ -1,4 +1,4 @@
-package org.hisp.dhis.model;
+package org.hisp.dhis.model.datavalueset;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

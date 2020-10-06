@@ -24,7 +24,6 @@ import org.hisp.dhis.model.CategoryOptionGroupSet;
 import org.hisp.dhis.model.DataElement;
 import org.hisp.dhis.model.DataElementGroup;
 import org.hisp.dhis.model.DataElementGroupSet;
-import org.hisp.dhis.model.DataValueSet;
 import org.hisp.dhis.model.Dimension;
 import org.hisp.dhis.model.Objects;
 import org.hisp.dhis.model.OrgUnit;
@@ -35,6 +34,8 @@ import org.hisp.dhis.model.PeriodType;
 import org.hisp.dhis.model.Program;
 import org.hisp.dhis.model.SystemSettings;
 import org.hisp.dhis.model.TableHook;
+import org.hisp.dhis.model.datavalueset.DataValueSet;
+import org.hisp.dhis.model.datavalueset.DataValueSetImportOptions;
 import org.hisp.dhis.query.Query;
 import org.hisp.dhis.query.analytics.AnalyticsQuery;
 import org.hisp.dhis.response.Dhis2ClientException;
@@ -54,6 +55,8 @@ import org.hisp.dhis.util.HttpUtils;
 public class Dhis2
     extends BaseDhis2
 {
+    //TODO DataValueSetImportOptions id scheme
+
     public Dhis2( Dhis2Config dhis2Config )
     {
         super( dhis2Config );
@@ -780,12 +783,11 @@ public class Dhis2
      * @return a {@link DataValueSetResponseMessage} holding information about the operation.
      * @throws IOException if the save process failed.
      */
-    public DataValueSetResponseMessage saveDataValueSet( DataValueSet dataValueSet )
+    public DataValueSetResponseMessage saveDataValueSet( DataValueSet dataValueSet, DataValueSetImportOptions options )
         throws IOException
     {
-        URI url = HttpUtils.build( config.getResolvedUriBuilder()
-            .pathSegment( "dataValueSets" )
-            .addParameter( "async", "true" ) );
+        URI url = getDataValueSetImportQuery( config.getResolvedUriBuilder()
+            .pathSegment( "dataValueSets" ), options );
 
         HttpPost request = getPostRequest( url, new StringEntity( toJsonString( dataValueSet ), Consts.UTF_8 ) );
 
@@ -801,12 +803,11 @@ public class Dhis2
      * @return a {@link DataValueSetResponseMessage} holding information about the operation.
      * @throws IOException if the save process failed.
      */
-    public DataValueSetResponseMessage saveDataValueSet( File file )
+    public DataValueSetResponseMessage saveDataValueSet( File file, DataValueSetImportOptions options )
         throws IOException
     {
-        URI url = HttpUtils.build( config.getResolvedUriBuilder()
-            .pathSegment( "dataValueSets" )
-            .addParameter( "async", "true" ) );
+        URI url = getDataValueSetImportQuery( config.getResolvedUriBuilder()
+            .pathSegment( "dataValueSets" ), options );
 
         HttpPost request = getPostRequest( url, new FileEntity( file, ContentType.APPLICATION_JSON ) );
 

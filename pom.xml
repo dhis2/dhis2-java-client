@@ -6,7 +6,7 @@
   
   <groupId>org.hisp</groupId>
   <artifactId>dhis2-java-client</artifactId>
-  <version>1.2.2</version>
+  <version>1.2.4</version>
   <packaging>jar</packaging>
   
   <name>DHIS 2 API client for Java and Spring</name>
@@ -34,6 +34,12 @@
     </license>
   </licenses>
 
+  <scm>
+    <connection>scm:git:git@github.com:dhis2/dhis2-java-client.git</connection>
+    <developerConnection>scm:git:git@github.com:dhis2/dhis2-java-client.gitt</developerConnection>
+    <url>git@github.com:dhis2/dhis2-java-client.git</url>
+  </scm>
+  
   <issueManagement>
     <system>GitHub</system>
     <url>https://github.com/dhis2/dhis2-java-client</url>
@@ -167,6 +173,7 @@
   </build>  
   
   <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <jackson.version>2.11.2</jackson.version>
   </properties>
 	
