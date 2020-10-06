@@ -14,7 +14,7 @@ To use `dhis2-java-client` with Maven you can specify the following dependency:
 </dependency>
 ```
 
-You can find `dhis2-java-client` and the available versions in Maven central repository at [mvnrepository.com/artifact/org.hisp/dhis2-java-client](https://mvnrepository.com/artifact/org.hisp/dhis2-java-client).
+You can find `dhis2-java-client` and the available versions in [Maven central repository](https://mvnrepository.com/artifact/org.hisp/dhis2-java-client).
 
 ## Configuration
 
@@ -124,6 +124,7 @@ The various save and update methods returns an instance of `ResponseMessage`, wh
 
 ```java
 ResponseMessage msg = dhis2.saveMetadataObject( "dataElements", dataElement );
+
 boolean success = msg.getHttpStatus().is2xxSuccessful();
 ```
 
