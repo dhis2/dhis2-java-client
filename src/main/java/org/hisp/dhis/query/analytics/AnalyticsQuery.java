@@ -8,10 +8,8 @@ import org.hisp.dhis.model.AggregationType;
 import org.hisp.dhis.model.IdScheme;
 
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
-@Setter
 public class AnalyticsQuery
 {
     private List<Dimension> dimensions = new ArrayList<Dimension>();
@@ -59,6 +57,60 @@ public class AnalyticsQuery
     public AnalyticsQuery addFilter( Dimension filter )
     {
         this.filters.add( filter );
+        return this;
+    }
+
+    public AnalyticsQuery withAggregationType( AggregationType aggregationType )
+    {
+        this.aggregationType = aggregationType;
+        return this;
+    }
+
+    public AnalyticsQuery withStartDate( String startDate )
+    {
+        this.startDate = startDate;
+        return this;
+    }
+
+    public AnalyticsQuery withEndDate( String endDate )
+    {
+        this.endDate = endDate;
+        return this;
+    }
+
+    public AnalyticsQuery withSkipMeta()
+    {
+        this.skipMeta = true;
+        return this;
+    }
+
+    public AnalyticsQuery withSkipData()
+    {
+        this.skipData = true;
+        return this;
+    }
+
+    public AnalyticsQuery withSkipRounding()
+    {
+        this.skipRounding = true;
+        return this;
+    }
+
+    public AnalyticsQuery withIgnoreLimit()
+    {
+        this.ignoreLimit = true;
+        return this;
+    }
+
+    public AnalyticsQuery withOutputIdScheme( IdScheme outputIdScheme )
+    {
+        this.outputIdScheme = outputIdScheme;
+        return this;
+    }
+
+    public AnalyticsQuery withInputIdScheme( IdScheme inputIdScheme )
+    {
+        this.inputIdScheme = inputIdScheme;
         return this;
     }
 }
