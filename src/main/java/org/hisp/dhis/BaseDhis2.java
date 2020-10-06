@@ -28,6 +28,7 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
+import org.hisp.dhis.model.datavalueset.DataValueSetImportOptions;
 import org.hisp.dhis.query.Filter;
 import org.hisp.dhis.query.Operator;
 import org.hisp.dhis.query.Order;
@@ -75,7 +76,7 @@ public class BaseDhis2
      * Retrieves an object using HTTP GET.
      *
      * @param uriBuilder the URI builder.
-     * @param query the query filters to apply.
+     * @param query the {@link Query} filters to apply.
      * @param klass the class type of the object.
      * @param <T> type.
      * @return the object.
@@ -91,7 +92,7 @@ public class BaseDhis2
      * Returns a {@link URI} based on the given query.
      *
      * @param uriBuilder the URI builder.
-     * @param query the query filters to apply.
+     * @param query the {@link Query} filters to apply.
      * @return a URI.
      */
     protected URI getQuery( URIBuilder uriBuilder, Query query )
@@ -138,7 +139,7 @@ public class BaseDhis2
      * Retrieves an analytics object using HTTP GET.
      *
      * @param uriBuilder the URI builder.
-     * @param query the query filters to apply.
+     * @param query the {@link AnalyticsQuery} filters to apply.
      * @param klass the class type of the object.
      * @param <T> type.
      * @return the object.
@@ -154,7 +155,7 @@ public class BaseDhis2
      * Returns a {@link URI} based on the given analytics query.
      *
      * @param uriBuilder the URI builder.
-     * @param query the analytics query filters to apply.
+     * @param query the {@link AnalyticsQuery} filters to apply.
      * @return a URI.
      */
     protected URI getAnalyticsQuery( URIBuilder uriBuilder, AnalyticsQuery query )
@@ -212,6 +213,40 @@ public class BaseDhis2
         if ( query.getInputIdScheme() != null )
         {
             uriBuilder.addParameter( "inputIdScheme", query.getInputIdScheme().name() );
+        }
+
+        return HttpUtils.build( uriBuilder );
+    }
+
+    /**
+     * Returns a {@link URI} based on the given data value set import options.
+     *
+     * @param uriBuilder the URI builder.
+     * @param options the {@link DataValueSetImportOptions} to apply.
+     * @return a URI.
+     */
+    protected URI getDataValueSetImportQuery( URIBuilder uriBuilder, DataValueSetImportOptions options )
+    {
+        uriBuilder.addParameter( "async", "true" ); // Always use async
+
+        if ( options.getDataElementIdScheme() != null )
+        {
+            uriBuilder.addParameter( "dataElementIdScheme", options.getDataElementIdScheme().name() );
+        }
+
+        if ( options.getOrgUnitIdScheme() != null )
+        {
+            uriBuilder.addParameter( "orgUnitIdScheme", options.getOrgUnitIdScheme().name() );
+        }
+
+        if ( options.getCategoryOptionComboIdScheme() != null )
+        {
+            uriBuilder.addParameter( "categoryOptionComboIdScheme", options.getCategoryOptionComboIdScheme().name() );
+        }
+
+        if ( options.getIdScheme() != null )
+        {
+            uriBuilder.addParameter( "idScheme", options.getIdScheme().name() );
         }
 
         return HttpUtils.build( uriBuilder );
