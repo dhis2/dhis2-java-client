@@ -31,6 +31,6 @@ public class ImportCount
             .append( "imported: " ).append( imported ).append( ", " )
             .append( "updated: " ).append( updated ).append( ", " )
             .append( "ignored: " ).append( ignored ).append( ", " )
-            .append( "deleted" ).append( deleted ).append( "]" ).toString();
+            .append( "deleted: " ).append( deleted ).append( "]" ).toString();
     }
 }
