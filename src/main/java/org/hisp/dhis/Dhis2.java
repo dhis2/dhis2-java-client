@@ -778,6 +778,7 @@ public class Dhis2
      * Saves a {@link DataValueSet}.
      *
      * @param dataValueSet the {@link DataValueSet} to save.
+     * @param options the {@link DataValueSetImportOptions}.
      * @return a {@link DataValueSetResponseMessage} holding information about the operation.
      * @throws IOException if the save process failed.
      */
@@ -798,6 +799,7 @@ public class Dhis2
      * Saves a data value set payload in JSON format represented by the given file.
      *
      * @param file the file representing the data value set JSON payload.
+     * @param options the {@link DataValueSetImportOptions}.
      * @return a {@link DataValueSetResponseMessage} holding information about the operation.
      * @throws IOException if the save process failed.
      */
