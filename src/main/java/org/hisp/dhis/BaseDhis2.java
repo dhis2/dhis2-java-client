@@ -45,6 +45,9 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class BaseDhis2
 {
     protected static final String ID_FIELDS = "id,code,name,created,lastUpdated";
@@ -249,6 +252,11 @@ public class BaseDhis2
             uriBuilder.addParameter( "idScheme", options.getIdScheme().name() );
         }
 
+        if ( options.getSkipAudit() != null )
+        {
+            uriBuilder.addParameter( "skipAudit", options.getSkipAudit().toString() );
+        }
+
         return HttpUtils.build( uriBuilder );
     }
 
@@ -307,6 +315,8 @@ public class BaseDhis2
         withBasicAuth( request );
         request.setHeader( HttpHeaders.CONTENT_TYPE, ContentType.APPLICATION_JSON.getMimeType() );
         request.setEntity( entity );
+
+        log.debug( "POST request URL: '{}'", request.getURI().toString() );
 
         try ( CloseableHttpResponse response = httpClient.execute( request ) )
         {
@@ -371,6 +381,8 @@ public class BaseDhis2
         HttpGet request = withBasicAuth( new HttpGet( url ) );
         request.setHeader( HttpHeaders.ACCEPT, ContentType.APPLICATION_JSON.getMimeType() );
 
+        log.debug( "GET request URL: '{}'", url.toString() );
+
         try
         {
             return httpClient.execute( request );
@@ -393,7 +405,7 @@ public class BaseDhis2
     {
         try ( FileOutputStream fileOut = FileUtils.openOutputStream( file ) )
         {
-           IOUtils.copy( response.getEntity().getContent(), fileOut );
+            IOUtils.copy( response.getEntity().getContent(), fileOut );
         }
     }
 
