@@ -252,6 +252,11 @@ public class BaseDhis2
             uriBuilder.addParameter( "idScheme", options.getIdScheme().name() );
         }
 
+        if ( options.getSkipAudit() != null )
+        {
+            uriBuilder.addParameter( "skipAudit", options.getSkipAudit().toString() );
+        }
+
         return HttpUtils.build( uriBuilder );
     }
 
