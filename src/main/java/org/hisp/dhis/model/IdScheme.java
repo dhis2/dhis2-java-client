@@ -103,7 +103,7 @@ public class IdScheme
      * Indicates whether the given UID is valid.
      *
      * @param uid the UID.
-     * @return
+     * @return true if the given UID is valid.
      */
     private static boolean isValidUid( String uid )
     {
