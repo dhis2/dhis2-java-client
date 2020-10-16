@@ -1,4 +1,4 @@
-package org.hisp.dhis;
+package org.hisp.dhis.query;
 
 import org.hisp.dhis.query.Paging;
 import org.junit.Test;
