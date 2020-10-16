@@ -316,7 +316,7 @@ public class BaseDhis2
         request.setHeader( HttpHeaders.CONTENT_TYPE, ContentType.APPLICATION_JSON.getMimeType() );
         request.setEntity( entity );
 
-        log.debug( "POST request URL: '{}'", request.getURI().toString() );
+        log.debug( "POST request URL: '{}'", HttpUtils.asString( request.getURI() ) );
 
         try ( CloseableHttpResponse response = httpClient.execute( request ) )
         {
@@ -381,7 +381,7 @@ public class BaseDhis2
         HttpGet request = withBasicAuth( new HttpGet( url ) );
         request.setHeader( HttpHeaders.ACCEPT, ContentType.APPLICATION_JSON.getMimeType() );
 
-        log.debug( "GET request URL: '{}'", url.toString() );
+        log.debug( "GET request URL: '{}'", HttpUtils.asString( url ) );
 
         try
         {
