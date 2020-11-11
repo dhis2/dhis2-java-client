@@ -119,6 +119,18 @@ public class Filter
     }
 
     /**
+     * Creates an ilike {@link Filter}.
+     *
+     * @param property the filter property.
+     * @param value the filter value.
+     * @return a {@link Filter}.
+     */
+    public static Filter ilike( String property, Object value )
+    {
+        return new Filter( property, Operator.ILIKE, value );
+    }
+
+    /**
      * Creates an in {@link Filter}. Multiple values should be
      * provided as a comma-separated string.
      *
