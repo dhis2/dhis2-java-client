@@ -4,20 +4,21 @@ import java.io.File;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.net.URI;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.apache.http.Consts;
-import org.apache.http.client.HttpResponseException;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpHead;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.methods.HttpPut;
-import org.apache.http.entity.ContentType;
-import org.apache.http.entity.FileEntity;
-import org.apache.http.entity.StringEntity;
+import org.apache.hc.client5.http.HttpResponseException;
+import org.apache.hc.client5.http.classic.methods.HttpGet;
+import org.apache.hc.client5.http.classic.methods.HttpHead;
+import org.apache.hc.client5.http.classic.methods.HttpPost;
+import org.apache.hc.client5.http.classic.methods.HttpPut;
+import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
+import org.apache.hc.core5.http.ContentType;
+import org.apache.hc.core5.http.ParseException;
+import org.apache.hc.core5.http.io.entity.FileEntity;
+import org.apache.hc.core5.http.io.entity.StringEntity;
 import org.hisp.dhis.model.Category;
 import org.hisp.dhis.model.CategoryCombo;
 import org.hisp.dhis.model.CategoryOptionGroupSet;
@@ -87,7 +88,7 @@ public class Dhis2
 
             HttpGet request = withBasicAuth( new HttpGet( url ) );
             CloseableHttpResponse response = httpClient.execute( request );
-            int statusCode = response.getStatusLine().getStatusCode();
+            int statusCode = response.getCode();
             return HttpStatus.valueOf( statusCode );
         }
         catch ( IOException ex )
@@ -181,7 +182,7 @@ public class Dhis2
 
         try ( CloseableHttpResponse response = httpClient.execute( request ) )
         {
-            return HttpStatus.OK.value() == response.getStatusLine().getStatusCode();
+            return HttpStatus.OK.value() == response.getCode();
         }
         catch ( IOException ex )
         {
@@ -781,14 +782,15 @@ public class Dhis2
      * @param options the {@link DataValueSetImportOptions}.
      * @return a {@link DataValueSetResponseMessage} holding information about the operation.
      * @throws IOException if the save process failed.
+     * @throws ParseException if the response entity could not be parsed.
      */
     public DataValueSetResponseMessage saveDataValueSet( DataValueSet dataValueSet, DataValueSetImportOptions options )
-        throws IOException
+        throws IOException, ParseException
     {
         URI url = getDataValueSetImportQuery( config.getResolvedUriBuilder()
             .pathSegment( "dataValueSets" ), options );
 
-        HttpPost request = getPostRequest( url, new StringEntity( toJsonString( dataValueSet ), Consts.UTF_8 ) );
+        HttpPost request = getPostRequest( url, new StringEntity( toJsonString( dataValueSet ), StandardCharsets.UTF_8 ) );
 
         Dhis2AsyncRequest asyncRequest = new Dhis2AsyncRequest( config, httpClient, objectMapper );
 
@@ -802,9 +804,10 @@ public class Dhis2
      * @param options the {@link DataValueSetImportOptions}.
      * @return a {@link DataValueSetResponseMessage} holding information about the operation.
      * @throws IOException if the save process failed.
+     * @throws ParseException if the response entity could not be parsed.
      */
     public DataValueSetResponseMessage saveDataValueSet( File file, DataValueSetImportOptions options )
-        throws IOException
+        throws IOException, ParseException
     {
         URI url = getDataValueSetImportQuery( config.getResolvedUriBuilder()
             .pathSegment( "dataValueSets" ), options );
