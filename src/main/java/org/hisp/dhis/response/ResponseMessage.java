@@ -3,7 +3,7 @@ package org.hisp.dhis.response;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.http.Header;
+import org.apache.hc.core5.http.Header;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;

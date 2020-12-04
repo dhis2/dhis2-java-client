@@ -2,10 +2,10 @@ package org.hisp.dhis;
 
 import static org.junit.Assert.assertEquals;
 
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
-import org.apache.http.Consts;
-import org.apache.http.client.utils.URLEncodedUtils;
+import org.apache.hc.core5.net.URLEncodedUtils;
 import org.junit.Test;
 
 public class Dhis2ConfigTest
@@ -48,18 +48,18 @@ public class Dhis2ConfigTest
     @Test
     public void testParsePathSegments()
     {
-        List<String> segments = URLEncodedUtils.parsePathSegments( "dataElements", Consts.UTF_8 );
+        List<String> segments = URLEncodedUtils.parsePathSegments( "dataElements", StandardCharsets.UTF_8 );
 
         assertEquals( 1, segments.size() );
         assertEquals( "dataElements", segments.get( 0 ) );
 
-        segments = URLEncodedUtils.parsePathSegments( "system/info", Consts.UTF_8 );
+        segments = URLEncodedUtils.parsePathSegments( "system/info", StandardCharsets.UTF_8 );
 
         assertEquals( 2, segments.size() );
         assertEquals( "system", segments.get( 0 ) );
         assertEquals( "info", segments.get( 1 ) );
 
-        segments = URLEncodedUtils.parsePathSegments( "analytics/events/query", Consts.UTF_8 );
+        segments = URLEncodedUtils.parsePathSegments( "analytics/events/query", StandardCharsets.UTF_8 );
 
         assertEquals( 3, segments.size() );
         assertEquals( "analytics", segments.get( 0 ) );

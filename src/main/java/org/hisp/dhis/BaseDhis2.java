@@ -6,28 +6,28 @@ import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.Validate;
-import org.apache.http.Consts;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpHeaders;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpResponseException;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpEntityEnclosingRequestBase;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.methods.HttpRequestBase;
-import org.apache.http.client.utils.URIBuilder;
-import org.apache.http.entity.ContentType;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.util.EntityUtils;
+import org.apache.hc.client5.http.HttpResponseException;
+import org.apache.hc.client5.http.classic.methods.HttpGet;
+import org.apache.hc.client5.http.classic.methods.HttpPost;
+import org.apache.hc.client5.http.classic.methods.HttpUriRequestBase;
+import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
+import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
+import org.apache.hc.client5.http.impl.classic.HttpClients;
+import org.apache.hc.core5.http.ContentType;
+import org.apache.hc.core5.http.HttpEntity;
+import org.apache.hc.core5.http.HttpHeaders;
+import org.apache.hc.core5.http.HttpResponse;
+import org.apache.hc.core5.http.ParseException;
+import org.apache.hc.core5.http.io.entity.EntityUtils;
+import org.apache.hc.core5.http.io.entity.StringEntity;
+import org.apache.hc.core5.net.URIBuilder;
 import org.hisp.dhis.model.datavalueset.DataValueSetImportOptions;
 import org.hisp.dhis.query.Filter;
 import org.hisp.dhis.query.Operator;
@@ -64,7 +64,7 @@ public class BaseDhis2
 
     public BaseDhis2( Dhis2Config dhis2Config )
     {
-        Validate.notNull( dhis2Config, "config must be specified" );
+        Validate.notNull( dhis2Config, "Config must be specified" );
 
         this.config = dhis2Config;
 
@@ -72,7 +72,7 @@ public class BaseDhis2
         objectMapper.disable( DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES );
         objectMapper.setSerializationInclusion( Include.NON_NULL );
 
-        this.httpClient = HttpClientBuilder.create().build();
+        this.httpClient = HttpClients.createDefault();
     }
 
     /**
@@ -299,7 +299,7 @@ public class BaseDhis2
     }
 
     /**
-     * Executes the given {@link HttpEntityEnclosingRequestBase}, which may be a POST or
+     * Executes the given {@link HttpUriRequestBase}, which may be a POST or
      * PUT request.
      *
      * @param request the request.
@@ -308,29 +308,31 @@ public class BaseDhis2
      * @param <T> class.
      * @return a {@link ResponseMessage}.
      */
-    protected <T extends HttpResponseMessage> T executeJsonPostPutRequest( HttpEntityEnclosingRequestBase request, Object object, Class<T> klass )
+    protected <T extends HttpResponseMessage> T executeJsonPostPutRequest( HttpUriRequestBase request, Object object, Class<T> klass )
     {
-        HttpEntity entity = new StringEntity( toJsonString( object ), Consts.UTF_8 );
+        HttpEntity entity = new StringEntity( toJsonString( object ), StandardCharsets.UTF_8 );
 
         withBasicAuth( request );
         request.setHeader( HttpHeaders.CONTENT_TYPE, ContentType.APPLICATION_JSON.getMimeType() );
         request.setEntity( entity );
-
-        log.debug( "POST request URL: '{}'", HttpUtils.asString( request.getURI() ) );
 
         try ( CloseableHttpResponse response = httpClient.execute( request ) )
         {
             String responseBody = EntityUtils.toString( response.getEntity() );
             T responseMessage = objectMapper.readValue( responseBody, klass );
 
-            responseMessage.setHeaders( new ArrayList<>( Arrays.asList( response.getAllHeaders() ) ) );
-            responseMessage.setHttpStatusCode( response.getStatusLine().getStatusCode() );
+            responseMessage.setHeaders( new ArrayList<>( Arrays.asList( response.getHeaders() ) ) );
+            responseMessage.setHttpStatusCode( response.getCode() );
 
             return responseMessage;
         }
         catch ( IOException ex )
         {
             throw newDhis2ClientException( ex );
+        }
+        catch ( ParseException ex )
+        {
+            throw new RuntimeException( "Failed to parse response", ex );
         }
     }
 
@@ -366,7 +368,11 @@ public class BaseDhis2
         }
         catch ( IOException ex )
         {
-            throw new UncheckedIOException( "Failed to fetch or parse object", ex );
+            throw new UncheckedIOException( "Failed to fetch object", ex );
+        }
+        catch ( ParseException ex )
+        {
+            throw new RuntimeException( "Failed to parse object", ex );
         }
     }
 
@@ -400,7 +406,7 @@ public class BaseDhis2
      * @param file the file to write the response to.
      * @throws IOException if the write operation failed.
      */
-    protected void writeToFile( HttpResponse response, File file )
+    protected void writeToFile( CloseableHttpResponse response, File file )
         throws IOException
     {
         try ( FileOutputStream fileOut = FileUtils.openOutputStream( file ) )
@@ -412,11 +418,11 @@ public class BaseDhis2
     /**
      * Adds basic authentication to the given request using the Authorization header.
      *
-     * @param request the {@link HttpRequestBase}.
+     * @param request the {@link HttpUriRequestBase}.
      * @param <T> class.
      * @return the request.
      */
-    protected <T extends HttpRequestBase> T withBasicAuth( T request )
+    protected <T extends HttpUriRequestBase> T withBasicAuth( T request )
     {
         return HttpUtils.withBasicAuth( request, config );
     }
