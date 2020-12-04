@@ -27,6 +27,16 @@ public class IdSchemeTest
     }
 
     @Test
+    public void testGetIdSchemeFromConstructor()
+    {
+        IdScheme uidScheme = new IdScheme( "UID" );
+        assertEquals( IdScheme.ObjectProperty.UID, uidScheme.getObjectProperty() );
+
+        IdScheme codeScheme = new IdScheme( "CODE" );
+        assertEquals( IdScheme.ObjectProperty.CODE, codeScheme.getObjectProperty() );
+    }
+
+    @Test
     public void testGetAttributeIdSchemeFromString()
     {
         IdScheme attributeAScheme = IdScheme.createIdScheme( "attribute:HGT65Gdgq2k" );

@@ -19,10 +19,10 @@ public class IdScheme
     private String attribute;
 
     // -------------------------------------------------------------------------
-    // Private constructors
+    // Constructors
     // -------------------------------------------------------------------------
 
-    private IdScheme()
+    IdScheme()
     {
     }
 
@@ -37,6 +37,13 @@ public class IdScheme
         this( objectProperty );
         Validate.notNull( attribute );
         this.attribute = attribute;
+    }
+
+    public IdScheme( String idScheme )
+    {
+        IdScheme scheme = IdScheme.createIdScheme( idScheme );
+        this.objectProperty = scheme.objectProperty;
+        this.attribute = scheme.attribute;
     }
 
     // -------------------------------------------------------------------------
@@ -82,6 +89,7 @@ public class IdScheme
         {
             return UID;
         }
+
         if ( ObjectProperty.CODE.name().equals( idScheme ) )
         {
             return CODE;

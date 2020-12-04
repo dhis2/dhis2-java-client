@@ -1,12 +1,15 @@
 package org.hisp.dhis.util;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
-import org.apache.http.HttpHeaders;
-import org.apache.http.client.methods.HttpRequestBase;
-import org.apache.http.client.utils.URIBuilder;
+import org.apache.hc.client5.http.classic.methods.HttpUriRequestBase;
+import org.apache.hc.core5.http.HttpHeaders;
+import org.apache.hc.core5.net.URIBuilder;
 import org.hisp.dhis.Dhis2Config;
 
 public class HttpUtils
@@ -28,12 +31,12 @@ public class HttpUtils
     /**
      * Adds basic authentication to the given request using the Authorization header.
      *
-     * @param request the {@link HttpRequestBase}.
+     * @param request the {@link HttpUriRequestBase}.
      * @param config the {@link Dhis2Config}.
      * @param <T> class.
      * @return the request.
      */
-    public static <T extends HttpRequestBase> T withBasicAuth( T request, Dhis2Config config )
+    public static <T extends HttpUriRequestBase> T withBasicAuth( T request, Dhis2Config config )
     {
         request.setHeader( HttpHeaders.AUTHORIZATION, getBasicAuthString( config ) );
         return request;
@@ -52,6 +55,24 @@ public class HttpUtils
             return uriBuilder.build();
         }
         catch ( URISyntaxException ex )
+        {
+            throw new RuntimeException( ex );
+        }
+    }
+
+    /**
+     * Returns the string representing the given URI. The URI is decoded.
+     *
+     * @param uri the {@link URI}.
+     * @return a URI string.
+     */
+    public static String asString( URI uri )
+    {
+        try
+        {
+            return URLDecoder.decode( uri.toString(), StandardCharsets.UTF_8.toString() );
+        }
+        catch ( UnsupportedEncodingException ex )
         {
             throw new RuntimeException( ex );
         }

@@ -9,11 +9,12 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.lang3.Validate;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.util.EntityUtils;
+import org.apache.hc.client5.http.classic.methods.HttpGet;
+import org.apache.hc.client5.http.classic.methods.HttpPost;
+import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
+import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
+import org.apache.hc.core5.http.ParseException;
+import org.apache.hc.core5.http.io.entity.EntityUtils;
 import org.hisp.dhis.response.HttpResponseMessage;
 import org.hisp.dhis.response.job.JobInfo;
 import org.hisp.dhis.response.job.JobInfoResponseMessage;
@@ -58,9 +59,10 @@ public class Dhis2AsyncRequest
      * @param <T> the class type.
      * @return a response message.
      * @throws IOException if the POST operation failed.
+     * @throws ParseException if the response entity could not be parsed.
      */
     public <T extends HttpResponseMessage> T post( HttpPost request, Class<T> klass )
-        throws IOException
+        throws IOException, ParseException
     {
         JobInfoResponseMessage message = postAsyncRequest( request );
 
@@ -89,9 +91,10 @@ public class Dhis2AsyncRequest
      * @param request the {@link HttpPost}.
      * @return a {link JobInfoResponseMessage}.
      * @throws IOException if the POST operation failed.
+     * @throws ParseException if the response entity could not be parsed.
      */
     private JobInfoResponseMessage postAsyncRequest( HttpPost request )
-        throws IOException
+        throws IOException, ParseException
     {
         try ( CloseableHttpResponse response = httpClient.execute( request ) )
         {
@@ -152,9 +155,10 @@ public class Dhis2AsyncRequest
      * @param klass the class type of the task summary.
      * @return a task summary.
      * @throws IOException if the GET operation failed.
+     * @throws ParseException if the response entity could not be parsed.
      */
     private <T> T getSummary( JobInfo jobInfo, Class<T> klass )
-        throws IOException
+        throws IOException, ParseException
     {
         URI summaryUrl = HttpUtils.build( config.getResolvedUriBuilder()
             .pathSegment( "system" )
@@ -191,6 +195,10 @@ public class Dhis2AsyncRequest
         {
             throw new UncheckedIOException( ex );
         }
+        catch ( ParseException ex )
+        {
+            throw new RuntimeException( ex );
+        }
     }
 
     /**
@@ -199,10 +207,11 @@ public class Dhis2AsyncRequest
      *
      * @param url the URL.
      * @return the response entity string.
-     * @throws IOException
+     * @throws IOException if the GET operation failed.
+     * @throws ParseException if the response entity could not be parsed.
      */
     private String getForBody( URI url )
-        throws IOException
+        throws IOException, ParseException
     {
         HttpGet request = HttpUtils.withBasicAuth( new HttpGet( url ), config );
 

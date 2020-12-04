@@ -5,7 +5,6 @@ import java.net.URISyntaxException;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
-import org.apache.http.client.utils.URIBuilder;
 
 import lombok.Getter;
 
@@ -75,10 +74,10 @@ public class Dhis2Config
     }
 
     /**
-     * Provides a {@link URIBuilder} which is resolved to the DHIS 2
+     * Provides a {@link UriBuilder} which is resolved to the DHIS 2
      * instance API.
      *
-     * @return a {@link URIBuilder}.
+     * @return a {@link UriBuilder}.
      */
     public UriBuilder getResolvedUriBuilder()
     {
