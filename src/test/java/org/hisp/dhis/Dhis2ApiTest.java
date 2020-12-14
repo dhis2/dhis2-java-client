@@ -48,7 +48,8 @@ public class Dhis2ApiTest
     {
         Dhis2 dhis2 = new Dhis2( new Dhis2Config( "https://not_a_domain.abc", "username", "pw" ) );
 
-        assertThrows( UncheckedIOException.class, () -> dhis2.getOrgUnitGroups( Query.instance() ) );
+        assertThrows( UncheckedIOException.class,
+            () -> dhis2.getOrgUnitGroups( Query.instance() ) );
     }
 
     @Test
