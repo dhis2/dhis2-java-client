@@ -3,6 +3,7 @@ package org.hisp.dhis;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.UncheckedIOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -24,6 +25,7 @@ import org.apache.hc.core5.http.ContentType;
 import org.apache.hc.core5.http.HttpEntity;
 import org.apache.hc.core5.http.HttpHeaders;
 import org.apache.hc.core5.http.HttpResponse;
+import org.apache.hc.core5.http.HttpStatus;
 import org.apache.hc.core5.http.ParseException;
 import org.apache.hc.core5.http.io.entity.EntityUtils;
 import org.apache.hc.core5.http.io.entity.StringEntity;
@@ -280,6 +282,7 @@ public class BaseDhis2
      * @param klass the class type of the object.
      * @param <T> type.
      * @return the object.
+     * @throws Dhis2ClientException if access was denied or resource was not found.
      */
     protected <T> T getObject( String path, String id, Class<T> klass )
     {
@@ -307,6 +310,7 @@ public class BaseDhis2
      * @param klass the class type for the response entity.
      * @param <T> class.
      * @return a {@link ResponseMessage}.
+     * @throws Dhis2ClientException if access was denied or resource was not found.
      */
     protected <T extends HttpResponseMessage> T executeJsonPostPutRequest( HttpUriRequestBase request, Object object, Class<T> klass )
     {
@@ -318,6 +322,8 @@ public class BaseDhis2
 
         try ( CloseableHttpResponse response = httpClient.execute( request ) )
         {
+            handleErrors( response );
+
             String responseBody = EntityUtils.toString( response.getEntity() );
             T responseMessage = objectMapper.readValue( responseBody, klass );
 
@@ -358,11 +364,14 @@ public class BaseDhis2
      * @param klass the class type of the object.
      * @param <T> type.
      * @return the object.
+     * @throws Dhis2ClientException if access was denied or resource was not found.
      */
     protected <T> T getObjectFromUrl( URI url, Class<T> klass )
     {
         try ( CloseableHttpResponse response = getJsonHttpResponse( url ) )
         {
+            handleErrors( response );
+
             String responseBody = EntityUtils.toString( response.getEntity() );
             return objectMapper.readValue( responseBody, klass );
         }
@@ -400,6 +409,26 @@ public class BaseDhis2
     }
 
     /**
+     * Handles error status codes, currently <code>401/403</code> and <code>404</code>.
+     *
+     * @param response {@link HttpResponse}.
+     */
+    protected void handleErrors( HttpResponse response )
+    {
+        int code = response.getCode();
+
+        if ( code == HttpStatus.SC_UNAUTHORIZED || code == HttpStatus.SC_FORBIDDEN )
+        {
+            throw new Dhis2ClientException( "Access denied", code );
+        }
+
+        if ( code == HttpStatus.SC_NOT_FOUND )
+        {
+            throw new Dhis2ClientException( "Object not found", code );
+        }
+    }
+
+    /**
      * Write the given {@link HttpResponse} to the given {@link File}.
      *
      * @param response the response.
@@ -409,9 +438,10 @@ public class BaseDhis2
     protected void writeToFile( CloseableHttpResponse response, File file )
         throws IOException
     {
-        try ( FileOutputStream fileOut = FileUtils.openOutputStream( file ) )
+        try ( FileOutputStream fileOut = FileUtils.openOutputStream( file );
+            InputStream in = response.getEntity().getContent() )
         {
-            IOUtils.copy( response.getEntity().getContent(), fileOut );
+            IOUtils.copy( in, fileOut );
         }
     }
 
