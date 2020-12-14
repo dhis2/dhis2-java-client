@@ -11,8 +11,10 @@ import java.util.List;
 import org.hisp.dhis.model.OrgUnitGroup;
 import org.hisp.dhis.query.Query;
 import org.hisp.dhis.response.Dhis2ClientException;
+import org.junit.Ignore;
 import org.junit.Test;
 
+@Ignore
 public class Dhis2ApiTest
 {
     private final Dhis2Config config = new Dhis2Config(
