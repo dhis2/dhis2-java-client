@@ -338,7 +338,7 @@ public class BaseDhis2
         }
         catch ( ParseException ex )
         {
-            throw new RuntimeException( "Failed to parse response", ex );
+            throw new Dhis2ClientException( "HTTP headers could not be parsed", ex );
         }
     }
 
@@ -381,7 +381,7 @@ public class BaseDhis2
         }
         catch ( ParseException ex )
         {
-            throw new RuntimeException( "Failed to parse object", ex );
+            throw new Dhis2ClientException( "HTTP headers could not be parsed", ex );
         }
     }
 

@@ -59,10 +59,9 @@ public class Dhis2AsyncRequest
      * @param <T> the class type.
      * @return a response message.
      * @throws IOException if the POST operation failed.
-     * @throws ParseException if the response entity could not be parsed.
      */
     public <T extends HttpResponseMessage> T post( HttpPost request, Class<T> klass )
-        throws IOException, ParseException
+        throws IOException
     {
         JobInfoResponseMessage message = postAsyncRequest( request );
 
@@ -91,10 +90,9 @@ public class Dhis2AsyncRequest
      * @param request the {@link HttpPost}.
      * @return a {link JobInfoResponseMessage}.
      * @throws IOException if the POST operation failed.
-     * @throws ParseException if the response entity could not be parsed.
      */
     private JobInfoResponseMessage postAsyncRequest( HttpPost request )
-        throws IOException, ParseException
+        throws IOException
     {
         try ( CloseableHttpResponse response = httpClient.execute( request ) )
         {
@@ -109,6 +107,10 @@ public class Dhis2AsyncRequest
             }
 
             return message;
+        }
+        catch ( ParseException ex )
+        {
+            throw new IOException( "HTTP headers could not be parsed", ex );
         }
     }
 
@@ -155,10 +157,9 @@ public class Dhis2AsyncRequest
      * @param klass the class type of the task summary.
      * @return a task summary.
      * @throws IOException if the GET operation failed.
-     * @throws ParseException if the response entity could not be parsed.
      */
     private <T> T getSummary( JobInfo jobInfo, Class<T> klass )
-        throws IOException, ParseException
+        throws IOException
     {
         URI summaryUrl = HttpUtils.build( config.getResolvedUriBuilder()
             .pathSegment( "system" )
@@ -195,10 +196,6 @@ public class Dhis2AsyncRequest
         {
             throw new UncheckedIOException( ex );
         }
-        catch ( ParseException ex )
-        {
-            throw new RuntimeException( ex );
-        }
     }
 
     /**
@@ -208,16 +205,19 @@ public class Dhis2AsyncRequest
      * @param url the URL.
      * @return the response entity string.
      * @throws IOException if the GET operation failed.
-     * @throws ParseException if the response entity could not be parsed.
      */
     private String getForBody( URI url )
-        throws IOException, ParseException
+        throws IOException
     {
         HttpGet request = HttpUtils.withBasicAuth( new HttpGet( url ), config );
 
         try ( CloseableHttpResponse response = httpClient.execute( request ) )
         {
             return EntityUtils.toString( response.getEntity() );
+        }
+        catch ( ParseException ex )
+        {
+            throw new IOException( "HTTP headers could not be parsed", ex );
         }
     }
 

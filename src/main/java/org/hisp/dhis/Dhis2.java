@@ -16,7 +16,6 @@ import org.apache.hc.client5.http.classic.methods.HttpPost;
 import org.apache.hc.client5.http.classic.methods.HttpPut;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
 import org.apache.hc.core5.http.ContentType;
-import org.apache.hc.core5.http.ParseException;
 import org.apache.hc.core5.http.io.entity.FileEntity;
 import org.apache.hc.core5.http.io.entity.StringEntity;
 import org.hisp.dhis.model.Category;
@@ -782,10 +781,9 @@ public class Dhis2
      * @param options the {@link DataValueSetImportOptions}.
      * @return a {@link DataValueSetResponseMessage} holding information about the operation.
      * @throws IOException if the save process failed.
-     * @throws ParseException if the response entity could not be parsed.
      */
     public DataValueSetResponseMessage saveDataValueSet( DataValueSet dataValueSet, DataValueSetImportOptions options )
-        throws IOException, ParseException
+        throws IOException
     {
         URI url = getDataValueSetImportQuery( config.getResolvedUriBuilder()
             .pathSegment( "dataValueSets" ), options );
@@ -804,10 +802,9 @@ public class Dhis2
      * @param options the {@link DataValueSetImportOptions}.
      * @return a {@link DataValueSetResponseMessage} holding information about the operation.
      * @throws IOException if the save process failed.
-     * @throws ParseException if the response entity could not be parsed.
      */
     public DataValueSetResponseMessage saveDataValueSet( File file, DataValueSetImportOptions options )
-        throws IOException, ParseException
+        throws IOException
     {
         URI url = getDataValueSetImportQuery( config.getResolvedUriBuilder()
             .pathSegment( "dataValueSets" ), options );
