@@ -19,6 +19,11 @@ public class Dhis2ClientException
         this.statusCode = statusCode;
     }
 
+    public Dhis2ClientException( String message, Throwable cause )
+    {
+        super( message, cause );
+    }
+
     public Dhis2ClientException( String message, Throwable cause, int statusCode )
     {
         super( message, cause );
