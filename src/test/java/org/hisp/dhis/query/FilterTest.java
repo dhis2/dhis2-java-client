@@ -22,6 +22,5 @@ public class FilterTest
         assertEquals( "name", ilike.getProperty() );
         assertEquals( Operator.ILIKE, ilike.getOperator() );
         assertEquals( "vaccination", ilike.getValue() );
-
     }
 }
