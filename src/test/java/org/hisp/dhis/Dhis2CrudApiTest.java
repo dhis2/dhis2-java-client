@@ -1,7 +1,6 @@
 package org.hisp.dhis;
 
 import org.hisp.dhis.category.IntegrationTest;
-import org.hisp.dhis.model.CategoryOption;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
@@ -16,7 +15,6 @@ public class Dhis2CrudApiTest
     {
         Dhis2 dhis2 = new Dhis2( config );
 
-        CategoryOption
     }
 
 }
