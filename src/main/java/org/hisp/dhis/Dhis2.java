@@ -447,7 +447,7 @@ public class Dhis2
     /**
      * Removes a {@link CategoryOption}.
      *
-     * @param categoryOption the object to remove.
+     * @param id the identifier of the object to remove.
      * @return a {@link MetadataResponseMessage} holding information about the operation.
      */
     public MetadataResponseMessage removeCategoryOption( String id )
@@ -512,7 +512,7 @@ public class Dhis2
     /**
      * Removes a {@link Category}.
      *
-     * @param category the object to remove.
+     * @param id the identifier of the object to remove.
      * @return a {@link MetadataResponseMessage} holding information about the operation.
      */
     public MetadataResponseMessage removeCategory( String id )
