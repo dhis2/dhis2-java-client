@@ -31,6 +31,9 @@ public class Objects
     private List<OrgUnitLevel> organisationUnitLevels = new ArrayList<>();
 
     @JsonProperty
+    private List<CategoryOption> categoryOptions = new ArrayList<>();
+
+    @JsonProperty
     private List<Category> categories = new ArrayList<>();
 
     @JsonProperty

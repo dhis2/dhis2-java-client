@@ -55,6 +55,7 @@ public class BaseDhis2
     protected static final String ID_FIELDS = "id,code,name,created,lastUpdated";
     protected static final String NAME_FIELDS = String.format( "%s,shortName,description", ID_FIELDS );
     protected static final String DATA_ELEMENT_FIELDS = String.format( "%1$s,aggregationType,valueType,domainType,legendSets[%1$s]", NAME_FIELDS );
+    protected static final String CATEGORY_OPTION_FIELDS = String.format( "%1$s,shortName,startDate,endDate,formName", ID_FIELDS );
     protected static final String CATEGORY_FIELDS = String.format( "%s,dataDimensionType,dataDimension", NAME_FIELDS );
     protected static final String RESOURCE_SYSTEM_INFO = "system/info";
 

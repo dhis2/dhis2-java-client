@@ -20,6 +20,7 @@ import org.apache.hc.core5.http.io.entity.FileEntity;
 import org.apache.hc.core5.http.io.entity.StringEntity;
 import org.hisp.dhis.model.Category;
 import org.hisp.dhis.model.CategoryCombo;
+import org.hisp.dhis.model.CategoryOption;
 import org.hisp.dhis.model.CategoryOptionGroupSet;
 import org.hisp.dhis.model.DataElement;
 import org.hisp.dhis.model.DataElementGroup;
@@ -403,8 +404,84 @@ public class Dhis2
     }
 
     // -------------------------------------------------------------------------
+    // Category option
+    // -------------------------------------------------------------------------
+
+    /**
+     * Saves a {@link CategoryOption}.
+     *
+     * @param categoryOption the object to save.
+     * @return a {@link ResponseMessage} holding information about the operation.
+     */
+    public ResponseMessage saveCategoryOption( CategoryOption categoryOption )
+    {
+        return saveMetadataObject( "categoryOptions", categoryOption );
+    }
+
+    /**
+     * Updates a {@link CategoryOption}.
+     *
+     * @param categoryOption the object to update.
+     * @return a {@link ResponseMessage} holding information about the operation.
+     */
+    public ResponseMessage updateCategoryOption( CategoryOption categoryOption )
+    {
+        return updateMetadataObject( String.format( "categoryOptions/%s", categoryOption.getId() ), categoryOption );
+    }
+
+    /**
+     * Retrieves an {@link CategoryOption}.
+     *
+     * @param id the object identifier.
+     * @return the {@link CategoryOption}.
+     */
+    public CategoryOption getCategoryOption( String id )
+    {
+        return getObject( config.getResolvedUriBuilder()
+            .pathSegment( "categoryOptions" )
+            .pathSegment( id )
+            .addParameter( "fields", CATEGORY_OPTION_FIELDS ), Query.instance(), CategoryOption.class );
+    }
+
+    /**
+     * Retrieves a list of {@link CategoryOption}.
+     *
+     * @param query the {@link Query}.
+     * @return a list of {@link CategoryOption}.
+     */
+    public List<Category> getCategoryOptions( Query query )
+    {
+        return getObject( config.getResolvedUriBuilder()
+            .pathSegment( "categoryOptions" )
+            .addParameter( "fields", CATEGORY_OPTION_FIELDS ), query, Objects.class )
+            .getCategories();
+    }
+
+    // -------------------------------------------------------------------------
     // Category
     // -------------------------------------------------------------------------
+
+    /**
+     * Saves a {@link Category}.
+     *
+     * @param category the object to save.
+     * @return a {@link ResponseMessage} holding information about the operation.
+     */
+    public ResponseMessage saveCategory( Category category )
+    {
+        return saveMetadataObject( "categories", category );
+    }
+
+    /**
+     * Updates a {@link Category}.
+     *
+     * @param category the object to update.
+     * @return a {@link ResponseMessage} holding information about the operation.
+     */
+    public ResponseMessage updateCategory( CategoryOption categoryOption )
+    {
+        return updateMetadataObject( String.format( "categories/%s", categoryOption.getId() ), categoryOption );
+    }
 
     /**
      * Retrieves an {@link Category}.
