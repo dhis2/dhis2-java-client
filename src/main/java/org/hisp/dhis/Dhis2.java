@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.apache.hc.client5.http.HttpResponseException;
+import org.apache.hc.client5.http.classic.methods.HttpDelete;
 import org.apache.hc.client5.http.classic.methods.HttpGet;
 import org.apache.hc.client5.http.classic.methods.HttpHead;
 import org.apache.hc.client5.http.classic.methods.HttpPost;
@@ -41,10 +42,10 @@ import org.hisp.dhis.query.Query;
 import org.hisp.dhis.query.analytics.AnalyticsQuery;
 import org.hisp.dhis.response.Dhis2ClientException;
 import org.hisp.dhis.response.HttpStatus;
-import org.hisp.dhis.response.ResponseMessage;
 import org.hisp.dhis.response.datavalueset.DataValueSetResponseMessage;
 import org.hisp.dhis.response.job.JobCategory;
 import org.hisp.dhis.response.job.JobNotification;
+import org.hisp.dhis.response.metadata.MetadataResponseMessage;
 import org.hisp.dhis.util.HttpUtils;
 
 /**
@@ -130,14 +131,14 @@ public class Dhis2
      *
      * @param path the URL path relative to the API end point.
      * @param object the object to save.
-     * @return a {@link ResponseMessage} holding information about the operation.
+     * @return a {@link MetadataResponseMessage} holding information about the operation.
      * @throws Dhis2ClientException if the save operation failed due to client side error.
      */
-    public ResponseMessage saveMetadataObject( String path, Object object )
+    public MetadataResponseMessage saveMetadataObject( String path, Object object )
     {
         URI url = config.getResolvedUrl( path );
 
-        return executeJsonPostPutRequest( new HttpPost( url ), object, ResponseMessage.class );
+        return executeJsonPostPutRequest( new HttpPost( url ), object, MetadataResponseMessage.class );
     }
 
     /**
@@ -145,13 +146,27 @@ public class Dhis2
      *
      * @param path the URL path relative to the API end point.
      * @param object the object to save.
-     * @return a {@link ResponseMessage} holding information about the operation.
+     * @return a {@link MetadataResponseMessage} holding information about the operation.
      */
-    public ResponseMessage updateMetadataObject( String path, Object object )
+    public MetadataResponseMessage updateMetadataObject( String path, Object object )
     {
         URI url = config.getResolvedUrl( path );
 
-        return executeJsonPostPutRequest( new HttpPut( url ), object, ResponseMessage.class );
+        return executeJsonPostPutRequest( new HttpPut( url ), object, MetadataResponseMessage.class );
+    }
+
+    /**
+     * Updates an object using HTTP DELETE.
+     *
+     * @param path the URL path relative to the API end point.
+     * @param object the object to save.
+     * @return a {@link MetadataResponseMessage} holding information about the operation.
+     */
+    public MetadataResponseMessage removeMetadataObject( String path )
+    {
+        URI url = config.getResolvedUrl( path );
+
+        return executeJsonPostPutRequest( new HttpDelete( url ), null, MetadataResponseMessage.class );
     }
 
     /**
@@ -198,9 +213,9 @@ public class Dhis2
      * Saves a {@link OrgUnit}.
      *
      * @param orgUnit the object to save.
-     * @return a {@link ResponseMessage} holding information about the operation.
+     * @return a {@link MetadataResponseMessage} holding information about the operation.
      */
-    public ResponseMessage saveOrgUnit( OrgUnit orgUnit )
+    public MetadataResponseMessage saveOrgUnit( OrgUnit orgUnit )
     {
         return saveMetadataObject( "organisationUnits", orgUnit );
     }
@@ -209,9 +224,9 @@ public class Dhis2
      * Updates a {@link OrgUnit}.
      *
      * @param orgUnit the object to update.
-     * @return a {@link ResponseMessage} holding information about the operation.
+     * @return a {@link MetadataResponseMessage} holding information about the operation.
      */
-    public ResponseMessage updateOrgUnit( OrgUnit orgUnit )
+    public MetadataResponseMessage updateOrgUnit( OrgUnit orgUnit )
     {
         return updateMetadataObject( String.format( "organisationUnits/%s", orgUnit.getId() ), orgUnit );
     }
@@ -256,9 +271,9 @@ public class Dhis2
      * Saves a {@link OrgUnitGroup}.
      *
      * @param orgUnitGroup the object to save.
-     * @return a {@link ResponseMessage} holding information about the operation.
+     * @return a {@link MetadataResponseMessage} holding information about the operation.
      */
-    public ResponseMessage saveOrgUnitGroup( OrgUnitGroup orgUnitGroup )
+    public MetadataResponseMessage saveOrgUnitGroup( OrgUnitGroup orgUnitGroup )
     {
         return saveMetadataObject( "organisationUnitGroups", orgUnitGroup );
     }
@@ -267,9 +282,9 @@ public class Dhis2
      * Updates a {@link OrgUnitGroup}.
      *
      * @param orgUnitGroup the object to update.
-     * @return a {@link ResponseMessage} holding information about the operation.
+     * @return a {@link MetadataResponseMessage} holding information about the operation.
      */
-    public ResponseMessage updateOrgUnitGroup( OrgUnitGroup orgUnitGroup )
+    public MetadataResponseMessage updateOrgUnitGroup( OrgUnitGroup orgUnitGroup )
     {
         return updateMetadataObject( String.format( "organisationUnitGroups/%s", orgUnitGroup.getId() ), orgUnitGroup );
     }
@@ -312,7 +327,7 @@ public class Dhis2
      * @param orgUnitGroupSet the object to save.
      * @return a {@link ResponseMessage} holding information about the operation.
      */
-    public ResponseMessage saveOrgUnitGroupSet( OrgUnitGroupSet orgUnitGroupSet )
+    public MetadataResponseMessage saveOrgUnitGroupSet( OrgUnitGroupSet orgUnitGroupSet )
     {
         return saveMetadataObject( "organisationUnitGroupSets", orgUnitGroupSet );
     }
@@ -323,7 +338,7 @@ public class Dhis2
      * @param orgUnitGroupSet the object to update.
      * @return a {@link ResponseMessage} holding information about the operation.
      */
-    public ResponseMessage updateOrgUnitGroupSet( OrgUnitGroupSet orgUnitGroupSet )
+    public MetadataResponseMessage updateOrgUnitGroupSet( OrgUnitGroupSet orgUnitGroupSet )
     {
         return updateMetadataObject( String.format( "organisationUnitGroupSets/%s", orgUnitGroupSet.getId() ), orgUnitGroupSet );
     }
@@ -411,9 +426,9 @@ public class Dhis2
      * Saves a {@link CategoryOption}.
      *
      * @param categoryOption the object to save.
-     * @return a {@link ResponseMessage} holding information about the operation.
+     * @return a {@link MetadataResponseMessage} holding information about the operation.
      */
-    public ResponseMessage saveCategoryOption( CategoryOption categoryOption )
+    public MetadataResponseMessage saveCategoryOption( CategoryOption categoryOption )
     {
         return saveMetadataObject( "categoryOptions", categoryOption );
     }
@@ -422,11 +437,22 @@ public class Dhis2
      * Updates a {@link CategoryOption}.
      *
      * @param categoryOption the object to update.
-     * @return a {@link ResponseMessage} holding information about the operation.
+     * @return a {@link MetadataResponseMessage} holding information about the operation.
      */
-    public ResponseMessage updateCategoryOption( CategoryOption categoryOption )
+    public MetadataResponseMessage updateCategoryOption( CategoryOption categoryOption )
     {
         return updateMetadataObject( String.format( "categoryOptions/%s", categoryOption.getId() ), categoryOption );
+    }
+
+    /**
+     * Removes a {@link CategoryOption}.
+     *
+     * @param categoryOption the object to remove.
+     * @return a {@link MetadataResponseMessage} holding information about the operation.
+     */
+    public MetadataResponseMessage removeCategoryOption( String id )
+    {
+        return removeMetadataObject( String.format( "categoryOptions/%s", id ) );
     }
 
     /**
@@ -465,9 +491,9 @@ public class Dhis2
      * Saves a {@link Category}.
      *
      * @param category the object to save.
-     * @return a {@link ResponseMessage} holding information about the operation.
+     * @return a {@link MetadataResponseMessage} holding information about the operation.
      */
-    public ResponseMessage saveCategory( Category category )
+    public MetadataResponseMessage saveCategory( Category category )
     {
         return saveMetadataObject( "categories", category );
     }
@@ -476,11 +502,22 @@ public class Dhis2
      * Updates a {@link Category}.
      *
      * @param category the object to update.
-     * @return a {@link ResponseMessage} holding information about the operation.
+     * @return a {@link MetadataResponseMessage} holding information about the operation.
      */
-    public ResponseMessage updateCategory( CategoryOption categoryOption )
+    public MetadataResponseMessage updateCategory( CategoryOption categoryOption )
     {
         return updateMetadataObject( String.format( "categories/%s", categoryOption.getId() ), categoryOption );
+    }
+
+    /**
+     * Removes a {@link Category}.
+     *
+     * @param category the object to remove.
+     * @return a {@link MetadataResponseMessage} holding information about the operation.
+     */
+    public MetadataResponseMessage removeCategory( String id )
+    {
+        return removeMetadataObject( String.format( "categories/%s", id ) );
     }
 
     /**
@@ -583,9 +620,9 @@ public class Dhis2
      * Saves a {@link DataElement}.
      *
      * @param dataElementGroup the object to save.
-     * @return a {@link ResponseMessage} holding information about the operation.
+     * @return a {@link MetadataResponseMessage} holding information about the operation.
      */
-    public ResponseMessage saveDataElementGroup( DataElementGroup dataElementGroup )
+    public MetadataResponseMessage saveDataElementGroup( DataElementGroup dataElementGroup )
     {
         return saveMetadataObject( "dataElementGroups", dataElementGroup );
     }
@@ -594,9 +631,9 @@ public class Dhis2
      * Updates a {@link DataElementGroup}.
      *
      * @param dataElementGroup the object to update.
-     * @return a {@link ResponseMessage} holding information about the operation.
+     * @return a {@link MetadataResponseMessage} holding information about the operation.
      */
-    public ResponseMessage updateDataElementGroup( DataElementGroup dataElementGroup )
+    public MetadataResponseMessage updateDataElementGroup( DataElementGroup dataElementGroup )
     {
         return updateMetadataObject( String.format( "dataElementGroups/%s", dataElementGroup.getId() ), dataElementGroup );
     }
@@ -739,9 +776,9 @@ public class Dhis2
      * Saves a {@link TableHook}.
      *
      * @param tableHook the object to save.
-     * @return a {@link ResponseMessage} holding information about the operation.
+     * @return a {@link MetadataResponseMessage} holding information about the operation.
      */
-    public ResponseMessage saveTableHook( TableHook tableHook )
+    public MetadataResponseMessage saveTableHook( TableHook tableHook )
     {
         return saveMetadataObject( "analyticsTableHooks", tableHook );
     }
@@ -750,9 +787,9 @@ public class Dhis2
      * Updates a {@link TableHook}.
      *
      * @param tableHook the object to update.
-     * @return a {@link ResponseMessage} holding information about the operation.
+     * @return a {@link MetadataResponseMessage} holding information about the operation.
      */
-    public ResponseMessage updateTableHook( TableHook tableHook )
+    public MetadataResponseMessage updateTableHook( TableHook tableHook )
     {
         return updateMetadataObject( String.format( "analyticsTableHooks/%s", tableHook.getId() ), tableHook );
     }
