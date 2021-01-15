@@ -232,6 +232,17 @@ public class Dhis2
     }
 
     /**
+     * Removes a {@link OrgUnit}.
+     *
+     * @param id the identifier of the object to remove.
+     * @return a {@link MetadataResponseMessage} holding information about the operation.
+     */
+    public MetadataResponseMessage removeOrgUnit( String id )
+    {
+        return removeMetadataObject( String.format( "organisationUnits/%s", id ) );
+    }
+
+    /**
      * Retrieves an {@link OrgUnit}.
      *
      * @param id the object identifier.
@@ -290,6 +301,17 @@ public class Dhis2
     }
 
     /**
+     * Removes a {@link OrgUnitGroup}.
+     *
+     * @param id the identifier of the object to remove.
+     * @return a {@link MetadataResponseMessage} holding information about the operation.
+     */
+    public MetadataResponseMessage removeOrgUnitGroup( String id )
+    {
+        return removeMetadataObject( String.format( "organisationUnitGroups/%s", id ) );
+    }
+
+    /**
      * Retrieves an {@link OrgUnitGroup}.
      *
      * @param id the object identifier.
@@ -341,6 +363,17 @@ public class Dhis2
     public MetadataResponseMessage updateOrgUnitGroupSet( OrgUnitGroupSet orgUnitGroupSet )
     {
         return updateMetadataObject( String.format( "organisationUnitGroupSets/%s", orgUnitGroupSet.getId() ), orgUnitGroupSet );
+    }
+
+    /**
+     * Removes a {@link OrgUnitGroupSet}.
+     *
+     * @param id the identifier of the object to remove.
+     * @return a {@link MetadataResponseMessage} holding information about the operation.
+     */
+    public MetadataResponseMessage removeOrgUnitGroupSet( String id )
+    {
+        return removeMetadataObject( String.format( "organisationUnitGroupSets/%s", id ) );
     }
 
     /**
@@ -639,6 +672,17 @@ public class Dhis2
     }
 
     /**
+     * Removes a {@link DataElementGroup}.
+     *
+     * @param id the identifier of the object to remove.
+     * @return a {@link MetadataResponseMessage} holding information about the operation.
+     */
+    public MetadataResponseMessage removeDataElementGroup( String id )
+    {
+        return removeMetadataObject( String.format( "dataElementGroups/%s", id ) );
+    }
+
+    /**
      * Retrieves an {@link DataElementGroup}.
      *
      * @param id the object identifier.
@@ -792,6 +836,17 @@ public class Dhis2
     public MetadataResponseMessage updateTableHook( TableHook tableHook )
     {
         return updateMetadataObject( String.format( "analyticsTableHooks/%s", tableHook.getId() ), tableHook );
+    }
+
+    /**
+     * Removes a {@link TableHook}.
+     *
+     * @param id the identifier of the object to remove.
+     * @return a {@link MetadataResponseMessage} holding information about the operation.
+     */
+    public MetadataResponseMessage removeTableHook( String id )
+    {
+        return removeMetadataObject( String.format( "analyticsTableHooks/%s", id ) );
     }
 
     /**

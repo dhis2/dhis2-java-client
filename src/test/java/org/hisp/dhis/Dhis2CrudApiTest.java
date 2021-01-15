@@ -2,6 +2,7 @@ package org.hisp.dhis;
 
 import org.hisp.dhis.category.IntegrationTest;
 import org.hisp.dhis.model.CategoryOption;
+import org.hisp.dhis.model.OrgUnitGroup;
 import org.hisp.dhis.response.Dhis2ClientException;
 import org.hisp.dhis.response.HttpStatus;
 import org.hisp.dhis.response.Status;
@@ -73,6 +74,60 @@ public class Dhis2CrudApiTest
         // Remove
 
         MetadataResponseMessage removeRespA = dhis2.removeCategoryOption( uidA );
+
+        assertEquals( 200, removeRespA.getHttpStatusCode().intValue() );
+        assertEquals( HttpStatus.OK, removeRespA.getHttpStatus() );
+        assertEquals( Status.OK, removeRespA.getStatus() );
+        assertNotNull( removeRespA.getResponse() );
+        assertNotNull( removeRespA.getResponse().getUid() );
+    }
+
+    @Test
+    public void testOrgUnitGroup()
+    {
+        Dhis2 dhis2 = new Dhis2( config );
+
+        OrgUnitGroup ougA = new OrgUnitGroup();
+        ougA.setCode( "ORG_UNIT_GROUP__A" );
+        ougA.setName( "OUG name__A" );
+        ougA.setShortName( "OUG short name__A" );
+
+        // Create
+
+        MetadataResponseMessage createRespA = dhis2.saveOrgUnitGroup( ougA );
+
+        assertEquals( 201, createRespA.getHttpStatusCode().intValue() );
+        assertEquals( HttpStatus.CREATED, createRespA.getHttpStatus() );
+        assertEquals( Status.OK, createRespA.getStatus() );
+        assertNotNull( createRespA.getResponse() );
+        assertNotNull( createRespA.getResponse().getUid() );
+
+        String uidA = createRespA.getResponse().getUid();
+
+        // Get
+
+        ougA = dhis2.getOrgUnitGroup( uidA );
+
+        assertNotNull( ougA );
+        assertEquals( uidA, ougA.getId() );
+
+        String name = "Category updated name__A";
+
+        ougA.setName( name );
+
+        // Update
+
+        MetadataResponseMessage updateRespA = dhis2.updateOrgUnitGroup( ougA );
+
+        assertEquals( 200, updateRespA.getHttpStatusCode().intValue() );
+        assertEquals( HttpStatus.OK, updateRespA.getHttpStatus() );
+        assertEquals( Status.OK, updateRespA.getStatus() );
+        assertNotNull( updateRespA.getResponse() );
+        assertNotNull( updateRespA.getResponse().getUid() );
+
+        // Remove
+
+        MetadataResponseMessage removeRespA = dhis2.removeOrgUnitGroup( uidA );
 
         assertEquals( 200, removeRespA.getHttpStatusCode().intValue() );
         assertEquals( HttpStatus.OK, removeRespA.getHttpStatus() );
