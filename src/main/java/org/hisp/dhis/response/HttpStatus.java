@@ -111,7 +111,7 @@ public enum HttpStatus
      */
     public boolean is1xxInformational()
     {
-        return (series() == Series.INFORMATIONAL);
+        return series() == Series.INFORMATIONAL;
     }
 
     /**
@@ -121,7 +121,7 @@ public enum HttpStatus
      */
     public boolean is2xxSuccessful()
     {
-        return (series() == Series.SUCCESSFUL);
+        return series() == Series.SUCCESSFUL;
     }
 
     /**
@@ -131,7 +131,7 @@ public enum HttpStatus
      */
     public boolean is3xxRedirection()
     {
-        return (series() == Series.REDIRECTION);
+        return series() == Series.REDIRECTION;
     }
 
     /**
@@ -141,7 +141,7 @@ public enum HttpStatus
      */
     public boolean is4xxClientError()
     {
-        return (series() == Series.CLIENT_ERROR);
+        return series() == Series.CLIENT_ERROR;
     }
 
     /**
@@ -151,7 +151,7 @@ public enum HttpStatus
      */
     public boolean is5xxServerError()
     {
-        return (series() == Series.SERVER_ERROR);
+        return series() == Series.SERVER_ERROR;
     }
 
     /**
@@ -161,7 +161,7 @@ public enum HttpStatus
      */
     public boolean isError()
     {
-        return (is4xxClientError() || is5xxServerError());
+        return is4xxClientError() || is5xxServerError();
     }
 
     /**
@@ -172,7 +172,7 @@ public enum HttpStatus
     @Override
     public String toString()
     {
-        return this.value + " " + name();
+        return String.format( "%s %s", value, name() );
     }
 
     /**
@@ -217,7 +217,11 @@ public enum HttpStatus
      */
     public enum Series
     {
-        INFORMATIONAL( 1 ), SUCCESSFUL( 2 ), REDIRECTION( 3 ), CLIENT_ERROR( 4 ), SERVER_ERROR( 5 );
+        INFORMATIONAL( 1 ),
+        SUCCESSFUL( 2 ),
+        REDIRECTION( 3 ),
+        CLIENT_ERROR( 4 ),
+        SERVER_ERROR( 5 );
 
         private final int value;
 
