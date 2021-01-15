@@ -18,7 +18,7 @@ You can find `dhis2-java-client` and the available versions in [Maven central re
 
 ## Configuration
 
-A minimal, local configuration of `dhis2-java-client` looks like this, where the configuration parameters refer to the base URL, username and password for the DHIS 2 instance to connect to. Note that you should not include the `api` part of the base URL:
+A minimal, local configuration of `dhis2-java-client` looks like this, where the configuration parameters refer to the base URL, username and password for the DHIS 2 instance to connect to. Note that you should not include the `api` part in the base URL:
 
 ```java
 Dhis2Config config = new Dhis2Config( 
@@ -66,7 +66,7 @@ List<Program> programs = dhis2.getPrograms( Query.instance()
     .withExpandAssociations() );
 ```
 
-To retrive a single org unit by identifier:
+To retrieve a single org unit by identifier:
 
 ```java
 OrgUnit orgUnit = dhis2.getOrgUnit( "j7gkH3hf83k" );
@@ -87,13 +87,13 @@ OrgUnit orgUnit = new OrgUnit();
 orgUnit.setName( "Ngelehun" );
 orgUnit.setCode( "NGLH" );
 
-ResponseMessage msg = dhis2.saveOrgUnit( orgUnit );
+MetadataResponseMessage response = dhis2.saveOrgUnit( orgUnit );
 ```
 
 To save your own, arbitrary metadata object:
 
 ```java
-DataElement dataElement = new DataElement( "Staff ");
+DataElement dataElement = new DataElement( "Patients on treatment" );
 
 ResponseMessage msg = dhis2.saveMetadataObject( "dataElements", dataElement );
 ```
@@ -108,24 +108,32 @@ orgUnit.setId( "cDw53Ej8rjT" );
 orgUnit.setName( "Ngelehun" );
 orgUnit.setCode( "NGLH" );
 
-ResponseMessage msg = dhis2.updateOrgUnit( orgUnit );
+MetadataResponseMessage response = dhis2.updateOrgUnit( orgUnit );
 ```
 
 To update your own, arbitrary metadata object:
 
 ```java
-ResponseMessage msg = dhis2.updateMetadataObject( 
+MetadataResponseMessage response = dhis2.updateMetadataObject( 
     "dataElements/" + dataElement.getId(), dataElement );
+```
+
+### Remove objects
+
+To remove an org unit:
+
+```java
+MetadataResponseMessage response = dhis2.removeOrgUnit( "j7gkH3hf83k" );
 ```
 
 ### Get response message
 
-The various save and update methods returns an instance of `ResponseMessage`, which holds information about the operation, such as status, HTTP status, HTTP status code and a message descibing the outcome.
+The various metadata object save and update methods return an instance of `MetadataResponseMessage`, which holds information about the operation, such as status, HTTP status, HTTP status code and a message describing the outcome.
 
 ```java
-ResponseMessage msg = dhis2.saveMetadataObject( "dataElements", dataElement );
+MetadataResponseMessage response = dhis2.saveMetadataObject( "dataElements", dataElement );
 
-boolean success = msg.getHttpStatus().is2xxSuccessful();
+boolean success = response.getHttpStatus().is2xxSuccessful();
 ```
 
 ### Get system settings
