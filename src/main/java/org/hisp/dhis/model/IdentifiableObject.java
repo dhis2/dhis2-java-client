@@ -1,15 +1,18 @@
 package org.hisp.dhis.model;
 
 import java.util.Date;
+import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
+@ToString
 public class IdentifiableObject
 {
     @JsonProperty
@@ -36,7 +39,7 @@ public class IdentifiableObject
     @Override
     public int hashCode()
     {
-        return 31 * getId().hashCode();
+        return Objects.hash( getId() );
     }
 
     @Override
@@ -59,14 +62,6 @@ public class IdentifiableObject
 
         final IdentifiableObject other = (IdentifiableObject) o;
 
-        return getId().equals( other.getId() );
-    }
-
-    @Override
-    public String toString()
-    {
-        return new StringBuilder( "[" )
-            .append( "id: " ).append( id ).append( ", " )
-            .append( "name: " ).append( name ).append( "]" ).toString();
+        return Objects.equals( getId(), other.getId() );
     }
 }

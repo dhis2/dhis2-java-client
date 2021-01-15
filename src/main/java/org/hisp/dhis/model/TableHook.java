@@ -27,10 +27,6 @@ public class TableHook
     @JsonProperty
     private String sql;
 
-    public TableHook()
-    {
-    }
-
     public enum TablePhase
     {
         RESOURCE_TABLE_POPULATED,

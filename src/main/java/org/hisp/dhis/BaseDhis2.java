@@ -15,6 +15,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.Validate;
 import org.apache.hc.client5.http.HttpResponseException;
+import org.apache.hc.client5.http.classic.methods.HttpDelete;
 import org.apache.hc.client5.http.classic.methods.HttpGet;
 import org.apache.hc.client5.http.classic.methods.HttpPost;
 import org.apache.hc.client5.http.classic.methods.HttpUriRequestBase;
@@ -55,6 +56,7 @@ public class BaseDhis2
     protected static final String ID_FIELDS = "id,code,name,created,lastUpdated";
     protected static final String NAME_FIELDS = String.format( "%s,shortName,description", ID_FIELDS );
     protected static final String DATA_ELEMENT_FIELDS = String.format( "%1$s,aggregationType,valueType,domainType,legendSets[%1$s]", NAME_FIELDS );
+    protected static final String CATEGORY_OPTION_FIELDS = String.format( "%1$s,shortName,startDate,endDate,formName", ID_FIELDS );
     protected static final String CATEGORY_FIELDS = String.format( "%s,dataDimensionType,dataDimension", NAME_FIELDS );
     protected static final String RESOURCE_SYSTEM_INFO = "system/info";
 
@@ -302,30 +304,58 @@ public class BaseDhis2
     }
 
     /**
-     * Executes the given {@link HttpUriRequestBase}, which may be a POST or
-     * PUT request.
+     * Executes the given {@link HttpUriRequestBase} request, which may be a
+     * POST or PUT request.
      *
      * @param request the request.
      * @param object the object to pass as JSON in the request body.
-     * @param klass the class type for the response entity.
+     * @param type the class type for the response entity.
      * @param <T> class.
      * @return a {@link ResponseMessage}.
      * @throws Dhis2ClientException if access was denied or resource was not found.
      */
-    protected <T extends HttpResponseMessage> T executeJsonPostPutRequest( HttpUriRequestBase request, Object object, Class<T> klass )
+    protected <T extends HttpResponseMessage> T executeJsonPostPutRequest( HttpUriRequestBase request, Object object, Class<T> type )
     {
         HttpEntity entity = new StringEntity( toJsonString( object ), StandardCharsets.UTF_8 );
 
-        withBasicAuth( request );
         request.setHeader( HttpHeaders.CONTENT_TYPE, ContentType.APPLICATION_JSON.getMimeType() );
         request.setEntity( entity );
+
+        return executeRequest( request, type );
+    }
+
+    /**
+     * Executes the given {@link HttpDelete} request.
+     *
+     * @param request the request.
+     * @param type the class type for the response entity.
+     * @param <T> class.
+     * @return a {@link ResponseMessage}.
+     * @throws Dhis2ClientException if access was denied or resource was not found.
+     */
+    protected <T extends HttpResponseMessage> T executeDeleteRequest( HttpDelete request, Class<T> type )
+    {
+        return executeRequest( request, type );
+    }
+
+    /**
+     * Executes the given request and returns a response message.
+     *
+     * @param request the {@link HttpUriRequestBase}.
+     * @param type the class type.
+     * @return a response message.
+     * @throws Dhis2ClientException if access was denied or resource was not found.
+     */
+    private <T extends HttpResponseMessage> T executeRequest( HttpUriRequestBase request, Class<T> type )
+    {
+        withBasicAuth( request );
 
         try ( CloseableHttpResponse response = httpClient.execute( request ) )
         {
             handleErrors( response );
 
             String responseBody = EntityUtils.toString( response.getEntity() );
-            T responseMessage = objectMapper.readValue( responseBody, klass );
+            T responseMessage = objectMapper.readValue( responseBody, type );
 
             responseMessage.setHeaders( new ArrayList<>( Arrays.asList( response.getHeaders() ) ) );
             responseMessage.setHttpStatusCode( response.getCode() );

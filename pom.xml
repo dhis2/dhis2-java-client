@@ -174,8 +174,34 @@
           </execution>
         </executions>
       </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>2.22.2</version>
+        <configuration>
+          <excludedGroups>${test.excluded.groups}</excludedGroups>
+        </configuration>
+      </plugin>
     </plugins>
   </build>  
+  
+  <profiles>
+    <profile>
+      <id>Default</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <properties>
+        <test.excluded.groups>org.hisp.dhis.category.IntegrationTest</test.excluded.groups>
+      </properties>
+    </profile>
+    <profile>
+      <id>IntegrationTest</id>
+      <properties>
+        <test.excluded.groups></test.excluded.groups>
+      </properties>
+    </profile>
+  </profiles>
   
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

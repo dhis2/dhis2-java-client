@@ -8,17 +8,18 @@ import static org.junit.Assert.assertTrue;
 import java.io.UncheckedIOException;
 import java.util.List;
 
+import org.hisp.dhis.category.IntegrationTest;
 import org.hisp.dhis.model.OrgUnitGroup;
 import org.hisp.dhis.query.Query;
 import org.hisp.dhis.response.Dhis2ClientException;
-import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
-@Ignore
+@Category(IntegrationTest.class)
 public class Dhis2ApiTest
 {
-    private final Dhis2Config config = new Dhis2Config(
-        "https://play.dhis2.org/demo", "admin", "district" );
+    private static final Dhis2Config config = new Dhis2Config(
+        "https://play.dhis2.org/2.35.1", "admin", "district" );
 
     @Test
     public void testGetOrgUnitGroups()

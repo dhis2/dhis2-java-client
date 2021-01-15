@@ -9,8 +9,4 @@ public class OrgUnitLevel
     extends IdentifiableObject
 {
     private int level;
-
-    public OrgUnitLevel()
-    {
-    }
 }
