@@ -68,8 +68,7 @@ public class Dhis2CrudApiTest
         assertEquals( 200, updateRespA.getHttpStatusCode().intValue() );
         assertEquals( HttpStatus.OK, updateRespA.getHttpStatus() );
         assertEquals( Status.OK, updateRespA.getStatus() );
-        assertNotNull( updateRespA.getResponse() );
-        assertNotNull( updateRespA.getResponse().getUid() );
+        assertEquals( uidA, updateRespA.getResponse().getUid() );
 
         // Remove
 
@@ -78,8 +77,7 @@ public class Dhis2CrudApiTest
         assertEquals( 200, removeRespA.getHttpStatusCode().intValue() );
         assertEquals( HttpStatus.OK, removeRespA.getHttpStatus() );
         assertEquals( Status.OK, removeRespA.getStatus() );
-        assertNotNull( removeRespA.getResponse() );
-        assertNotNull( removeRespA.getResponse().getUid() );
+        assertEquals( uidA, updateRespA.getResponse().getUid() );
     }
 
     @Test
@@ -122,8 +120,7 @@ public class Dhis2CrudApiTest
         assertEquals( 200, updateRespA.getHttpStatusCode().intValue() );
         assertEquals( HttpStatus.OK, updateRespA.getHttpStatus() );
         assertEquals( Status.OK, updateRespA.getStatus() );
-        assertNotNull( updateRespA.getResponse() );
-        assertNotNull( updateRespA.getResponse().getUid() );
+        assertEquals( uidA, updateRespA.getResponse().getUid() );
 
         // Remove
 
