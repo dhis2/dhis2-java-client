@@ -53,7 +53,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class BaseDhis2
 {
-    protected static final String ID_FIELDS = "id,code,name,created,lastUpdated";
+    protected static final String ID_FIELDS = "id,code,name,created,lastUpdated,attributeValues";
     protected static final String NAME_FIELDS = String.format( "%s,shortName,description", ID_FIELDS );
     protected static final String DATA_ELEMENT_FIELDS = String.format( "%1$s,aggregationType,valueType,domainType,legendSets[%1$s]", NAME_FIELDS );
     protected static final String CATEGORY_OPTION_FIELDS = String.format( "%1$s,shortName,startDate,endDate,formName", ID_FIELDS );
@@ -316,7 +316,9 @@ public class BaseDhis2
      */
     protected <T extends HttpResponseMessage> T executeJsonPostPutRequest( HttpUriRequestBase request, Object object, Class<T> type )
     {
-        HttpEntity entity = new StringEntity( toJsonString( object ), StandardCharsets.UTF_8 );
+        String payload = toJsonString( object );
+
+        HttpEntity entity = new StringEntity( payload, StandardCharsets.UTF_8 );
 
         request.setHeader( HttpHeaders.CONTENT_TYPE, ContentType.APPLICATION_JSON.getMimeType() );
         request.setEntity( entity );

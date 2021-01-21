@@ -1,7 +1,9 @@
 package org.hisp.dhis.model;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -31,6 +33,23 @@ public class IdentifiableObject
     @JsonProperty
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'hh:mm:ss")
     protected Date lastUpdated;
+
+    @JsonProperty
+    protected Set<AttributeValue> attributeValues = new HashSet<>();
+
+    // -------------------------------------------------------------------------
+    // Loigc methods
+    // -------------------------------------------------------------------------
+
+    public boolean addAttributeValue( AttributeValue attributeValue )
+    {
+        return this.attributeValues.add( attributeValue );
+    }
+
+    public void clearAttributeValues()
+    {
+        this.attributeValues.clear();
+    }
 
     // -------------------------------------------------------------------------
     // hashCode, equals, toString
