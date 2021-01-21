@@ -24,7 +24,7 @@ public class ObjectReport
     private List<ErrorReport> errorReports = new ArrayList<>();
 
     /**
-     * Alias for {@link ObjectReport#getUid()}.
+     * Alias for UID.
      *
      * @return the identifier.
      */

@@ -1,6 +1,8 @@
 package org.hisp.dhis;
 
 import org.hisp.dhis.category.IntegrationTest;
+import org.hisp.dhis.model.Attribute;
+import org.hisp.dhis.model.AttributeValue;
 import org.hisp.dhis.model.CategoryOption;
 import org.hisp.dhis.model.OrgUnitGroup;
 import org.hisp.dhis.response.Dhis2ClientException;
@@ -27,11 +29,20 @@ public class Dhis2CrudApiTest
     {
         Dhis2 dhis2 = new Dhis2( config );
 
+        Attribute atA = new Attribute();
+        atA.setId( "l1VmqIHKk6t" );
+
+        AttributeValue avA = new AttributeValue( atA, "AT__A_Value__A" );
+
+        String codeA = "CAT_OPT__A";
+        String nameA = "Category name__A";
+        String shortNameA = "Category short name__A";
+
         CategoryOption coA = new CategoryOption();
-        coA.setCode( "CAT_OPT__A" );
-        coA.setName( "Category name__A" );
-        coA.setShortName( "Category short name__A" );
-        coA.setDescription( "Category description__A" );
+        coA.setCode( codeA );
+        coA.setName( nameA );
+        coA.setShortName( shortNameA );
+        coA.addAttributeValue( avA );
 
         // Create
 
@@ -55,7 +66,12 @@ public class Dhis2CrudApiTest
         coA = dhis2.getCategoryOption( uidA );
 
         assertNotNull( coA );
+        assertNotNull( coA.getAttributeValues() );
         assertEquals( uidA, coA.getId() );
+        assertEquals( codeA, coA.getCode() );
+        assertEquals( nameA, coA.getName() );
+        assertEquals( shortNameA, coA.getShortName() );
+        assertEquals( 1, coA.getAttributeValues().size() );
 
         String name = "Category updated name__A";
 

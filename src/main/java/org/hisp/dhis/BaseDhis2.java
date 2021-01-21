@@ -53,7 +53,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class BaseDhis2
 {
-    protected static final String ID_FIELDS = "id,code,name,created,lastUpdated";
+    protected static final String ID_FIELDS = "id,code,name,created,lastUpdated,attributeValues";
     protected static final String NAME_FIELDS = String.format( "%s,shortName,description", ID_FIELDS );
     protected static final String DATA_ELEMENT_FIELDS = String.format( "%1$s,aggregationType,valueType,domainType,legendSets[%1$s]", NAME_FIELDS );
     protected static final String CATEGORY_OPTION_FIELDS = String.format( "%1$s,shortName,startDate,endDate,formName", ID_FIELDS );
@@ -66,11 +66,11 @@ public class BaseDhis2
 
     protected final CloseableHttpClient httpClient;
 
-    public BaseDhis2( Dhis2Config dhis2Config )
+    public BaseDhis2( Dhis2Config config )
     {
-        Validate.notNull( dhis2Config, "Config must be specified" );
+        Validate.notNull( config, "Config must be specified" );
 
-        this.config = dhis2Config;
+        this.config = config;
 
         this.objectMapper = new ObjectMapper();
         objectMapper.disable( DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES );
@@ -451,8 +451,7 @@ public class BaseDhis2
         {
             throw new Dhis2ClientException( "Access denied", code );
         }
-
-        if ( code == HttpStatus.SC_NOT_FOUND )
+        else if ( code == HttpStatus.SC_NOT_FOUND )
         {
             throw new Dhis2ClientException( "Object not found", code );
         }

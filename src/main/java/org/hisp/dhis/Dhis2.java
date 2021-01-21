@@ -57,9 +57,9 @@ import org.hisp.dhis.util.HttpUtils;
 public class Dhis2
     extends BaseDhis2
 {
-    public Dhis2( Dhis2Config dhis2Config )
+    public Dhis2( Dhis2Config config )
     {
-        super( dhis2Config );
+        super( config );
     }
 
     // -------------------------------------------------------------------------
@@ -159,7 +159,6 @@ public class Dhis2
      * Updates an object using HTTP DELETE.
      *
      * @param path the URL path relative to the API end point.
-     * @param object the object to save.
      * @return a {@link MetadataResponseMessage} holding information about the operation.
      */
     public MetadataResponseMessage removeMetadataObject( String path )
@@ -347,7 +346,7 @@ public class Dhis2
      * Saves a {@link OrgUnitGroupSet}.
      *
      * @param orgUnitGroupSet the object to save.
-     * @return a {@link ResponseMessage} holding information about the operation.
+     * @return a {@link MetadataResponseMessage} holding information about the operation.
      */
     public MetadataResponseMessage saveOrgUnitGroupSet( OrgUnitGroupSet orgUnitGroupSet )
     {
@@ -358,7 +357,7 @@ public class Dhis2
      * Updates a {@link OrgUnitGroupSet}.
      *
      * @param orgUnitGroupSet the object to update.
-     * @return a {@link ResponseMessage} holding information about the operation.
+     * @return a {@link MetadataResponseMessage} holding information about the operation.
      */
     public MetadataResponseMessage updateOrgUnitGroupSet( OrgUnitGroupSet orgUnitGroupSet )
     {
@@ -534,7 +533,7 @@ public class Dhis2
     /**
      * Updates a {@link Category}.
      *
-     * @param category the object to update.
+     * @param categoryOption the object to update.
      * @return a {@link MetadataResponseMessage} holding information about the operation.
      */
     public MetadataResponseMessage updateCategory( CategoryOption categoryOption )
