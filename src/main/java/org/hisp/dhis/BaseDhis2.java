@@ -66,11 +66,11 @@ public class BaseDhis2
 
     protected final CloseableHttpClient httpClient;
 
-    public BaseDhis2( Dhis2Config dhis2Config )
+    public BaseDhis2( Dhis2Config config )
     {
-        Validate.notNull( dhis2Config, "Config must be specified" );
+        Validate.notNull( config, "Config must be specified" );
 
-        this.config = dhis2Config;
+        this.config = config;
 
         this.objectMapper = new ObjectMapper();
         objectMapper.disable( DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES );
@@ -451,8 +451,7 @@ public class BaseDhis2
         {
             throw new Dhis2ClientException( "Access denied", code );
         }
-
-        if ( code == HttpStatus.SC_NOT_FOUND )
+        else if ( code == HttpStatus.SC_NOT_FOUND )
         {
             throw new Dhis2ClientException( "Object not found", code );
         }

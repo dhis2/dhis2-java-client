@@ -57,9 +57,9 @@ import org.hisp.dhis.util.HttpUtils;
 public class Dhis2
     extends BaseDhis2
 {
-    public Dhis2( Dhis2Config dhis2Config )
+    public Dhis2( Dhis2Config config )
     {
-        super( dhis2Config );
+        super( config );
     }
 
     // -------------------------------------------------------------------------
