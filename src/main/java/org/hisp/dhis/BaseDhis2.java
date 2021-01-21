@@ -316,9 +316,7 @@ public class BaseDhis2
      */
     protected <T extends HttpResponseMessage> T executeJsonPostPutRequest( HttpUriRequestBase request, Object object, Class<T> type )
     {
-        String payload = toJsonString( object );
-
-        HttpEntity entity = new StringEntity( payload, StandardCharsets.UTF_8 );
+        HttpEntity entity = new StringEntity( toJsonString( object ), StandardCharsets.UTF_8 );
 
         request.setHeader( HttpHeaders.CONTENT_TYPE, ContentType.APPLICATION_JSON.getMimeType() );
         request.setEntity( entity );
