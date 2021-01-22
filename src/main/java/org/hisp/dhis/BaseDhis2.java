@@ -1,5 +1,9 @@
 package org.hisp.dhis;
 
+import static org.apache.hc.core5.http.HttpStatus.SC_FORBIDDEN;
+import static org.apache.hc.core5.http.HttpStatus.SC_NOT_FOUND;
+import static org.apache.hc.core5.http.HttpStatus.SC_UNAUTHORIZED;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -10,6 +14,7 @@ import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Set;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
@@ -26,7 +31,6 @@ import org.apache.hc.core5.http.ContentType;
 import org.apache.hc.core5.http.HttpEntity;
 import org.apache.hc.core5.http.HttpHeaders;
 import org.apache.hc.core5.http.HttpResponse;
-import org.apache.hc.core5.http.HttpStatus;
 import org.apache.hc.core5.http.ParseException;
 import org.apache.hc.core5.http.io.entity.EntityUtils;
 import org.apache.hc.core5.http.io.entity.StringEntity;
@@ -48,6 +52,8 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import static org.hisp.dhis.util.CollectionUtils.newImmutableSet;
+
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -59,6 +65,9 @@ public class BaseDhis2
     protected static final String CATEGORY_OPTION_FIELDS = String.format( "%1$s,shortName,startDate,endDate,formName", ID_FIELDS );
     protected static final String CATEGORY_FIELDS = String.format( "%s,dataDimensionType,dataDimension", NAME_FIELDS );
     protected static final String RESOURCE_SYSTEM_INFO = "system/info";
+
+    private static final Set<Integer> ERROR_STATUS_CODES = newImmutableSet(
+        SC_UNAUTHORIZED, SC_FORBIDDEN, SC_NOT_FOUND );
 
     protected final Dhis2Config config;
 
@@ -445,15 +454,9 @@ public class BaseDhis2
      */
     protected void handleErrors( HttpResponse response )
     {
-        int code = response.getCode();
-
-        if ( code == HttpStatus.SC_UNAUTHORIZED || code == HttpStatus.SC_FORBIDDEN )
+        if ( ERROR_STATUS_CODES.contains( response.getCode() ) )
         {
-            throw new Dhis2ClientException( "Access denied", code );
-        }
-        else if ( code == HttpStatus.SC_NOT_FOUND )
-        {
-            throw new Dhis2ClientException( "Object not found", code );
+            throw new Dhis2ClientException( response.getReasonPhrase(), response.getCode() );
         }
     }
 
