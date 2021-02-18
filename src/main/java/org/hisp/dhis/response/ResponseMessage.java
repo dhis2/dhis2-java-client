@@ -22,22 +22,22 @@ public class ResponseMessage
     implements HttpResponseMessage
 {
     @JsonProperty
-    private Status status;
+    protected Status status;
 
     @JsonProperty
-    private Integer httpStatusCode;
+    protected Integer httpStatusCode;
 
     @JsonProperty
-    private Integer code;
+    protected Integer code;
 
     @JsonProperty
-    private String message;
+    protected String message;
 
     @JsonProperty
-    private String devMessage;
+    protected String devMessage;
 
     @JsonIgnore
-    private List<Header> headers = new ArrayList<>();
+    protected List<Header> headers = new ArrayList<>();
 
     public ResponseMessage()
     {
