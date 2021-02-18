@@ -12,6 +12,7 @@ import java.io.UncheckedIOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Set;
@@ -66,6 +67,8 @@ public class BaseDhis2
     protected static final String CATEGORY_FIELDS = String.format( "%s,dataDimensionType,dataDimension", NAME_FIELDS );
     protected static final String RESOURCE_SYSTEM_INFO = "system/info";
 
+    protected static final String DATE_FORMAT = "yyyy-MM-dd";
+
     private static final Set<Integer> ERROR_STATUS_CODES = newImmutableSet(
         SC_UNAUTHORIZED, SC_FORBIDDEN, SC_NOT_FOUND );
 
@@ -84,6 +87,7 @@ public class BaseDhis2
         this.objectMapper = new ObjectMapper();
         objectMapper.disable( DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES );
         objectMapper.setSerializationInclusion( Include.NON_NULL );
+        objectMapper.setDateFormat( new SimpleDateFormat( DATE_FORMAT ) );
 
         this.httpClient = HttpClients.createDefault();
     }
