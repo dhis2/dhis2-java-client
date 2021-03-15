@@ -65,6 +65,7 @@ public class BaseDhis2
     protected static final String DATA_ELEMENT_FIELDS = String.format( "%1$s,aggregationType,valueType,domainType,legendSets[%1$s]", NAME_FIELDS );
     protected static final String CATEGORY_OPTION_FIELDS = String.format( "%1$s,shortName,startDate,endDate,formName", ID_FIELDS );
     protected static final String CATEGORY_FIELDS = String.format( "%s,dataDimensionType,dataDimension", NAME_FIELDS );
+    protected static final String TE_ATTRIBUTE_FIELDS = String.format( "%s,valueType,confidential,unique", NAME_FIELDS );
     protected static final String RESOURCE_SYSTEM_INFO = "system/info";
 
     protected static final String DATE_FORMAT = "yyyy-MM-dd";
@@ -458,9 +459,11 @@ public class BaseDhis2
      */
     protected void handleErrors( HttpResponse response )
     {
-        if ( ERROR_STATUS_CODES.contains( response.getCode() ) )
+        final int code = response.getCode();
+
+        if ( ERROR_STATUS_CODES.contains( code ) )
         {
-            throw new Dhis2ClientException( response.getReasonPhrase(), response.getCode() );
+            throw new Dhis2ClientException( response.getReasonPhrase(), code );
         }
     }
 

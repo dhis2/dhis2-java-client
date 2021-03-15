@@ -753,11 +753,16 @@ public class Dhis2
      */
     public Program getProgram( String id )
     {
+        String fieldsParam = String.format(
+            "%1$s,programType,categoryCombo[%1$s,categories[%2$s]]," +
+            "programStages[%1$s,programStageDataElements[%1$s,dataElement[%3$s]]]," +
+            "programTrackedEntityAttributes[id,code,name,trackedEntityAttribute[%4$s]]",
+            NAME_FIELDS, CATEGORY_FIELDS, DATA_ELEMENT_FIELDS, TE_ATTRIBUTE_FIELDS );
+
         return getObject( config.getResolvedUriBuilder()
             .pathSegment( "programs" )
             .pathSegment( id )
-            .addParameter( "fields", String.format( "%1$s,programType,categoryCombo[%1$s,categories[%2$s]],programStages[%1$s,programStageDataElements[%1$s,dataElement[%3$s]]]",
-                NAME_FIELDS, CATEGORY_FIELDS, DATA_ELEMENT_FIELDS ) ), Query.instance(), Program.class );
+            .addParameter( "fields", fieldsParam ), Query.instance(), Program.class );
     }
 
     /**
@@ -769,9 +774,14 @@ public class Dhis2
     public List<Program> getPrograms( Query query )
     {
         String fieldsParam = query.isExpandAssociations() ?
-            String.format( "%1$s,programType,categoryCombo[%1$s,categories[%2$s]],programStages[%1$s,programStageDataElements[%1$s,dataElement[%3$s]]]",
-            NAME_FIELDS, CATEGORY_FIELDS, DATA_ELEMENT_FIELDS ) :
-            String.format( "%1$s,programType,categoryCombo[%1$s],programStages[%1$s]", NAME_FIELDS );
+            String.format(
+                "%1$s,programType,categoryCombo[%1$s,categories[%2$s]]," +
+                "programStages[%1$s,programStageDataElements[%1$s,dataElement[%3$s]]]," +
+                "programTrackedEntityAttributes[id,code,name,trackedEntityAttribute[%4$s]]",
+            NAME_FIELDS, CATEGORY_FIELDS, DATA_ELEMENT_FIELDS, TE_ATTRIBUTE_FIELDS ) :
+            String.format(
+                "%1$s,programType,categoryCombo[%1$s],programStages[%1$s],programTrackedEntityAttributes[%1$s]",
+                NAME_FIELDS );
 
         return getObject( config.getResolvedUriBuilder()
             .pathSegment( "programs" )

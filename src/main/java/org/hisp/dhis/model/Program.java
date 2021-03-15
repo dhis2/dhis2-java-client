@@ -23,6 +23,9 @@ public class Program
     private CategoryCombo categoryCombo;
 
     @JsonProperty
+    private List<ProgramTrackedEntityAttribute> programTrackedEntityAttributes = new ArrayList<>();
+
+    @JsonProperty
     private List<ProgramStage> programStages = new ArrayList<>();
 
     public Program()
@@ -33,6 +36,32 @@ public class Program
     {
         this.id = id;
         this.name = name;
+    }
+
+    /**
+     * Returns all tracked entity attributes which are part of the program.
+     *
+     * @return a list of {@link TrackedEntityAttribute}.
+     */
+    public List<TrackedEntityAttribute> getTrackedEntityAttributes()
+    {
+        return programTrackedEntityAttributes.stream()
+            .map( ProgramTrackedEntityAttribute::getTrackedEntityAttribute )
+            .collect( Collectors.toList() );
+    }
+
+    /**
+     * Returns all tracked entity attributes which are not confidential and
+     * part of the program.
+     *
+     * @return a list of {@link TrackedEntityAttribute}.
+     */
+    public List<TrackedEntityAttribute> getNonConfidentialTrackedEntityAttributes()
+    {
+        return programTrackedEntityAttributes.stream()
+            .map( ProgramTrackedEntityAttribute::getTrackedEntityAttribute )
+            .filter( tea -> ( tea.getConfidential() == null || tea.getConfidential() == false ) )
+            .collect( Collectors.toList() );
     }
 
     /**
