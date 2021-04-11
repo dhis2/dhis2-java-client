@@ -22,7 +22,7 @@ import static org.junit.Assert.*;
 public class Dhis2CrudApiTest
 {
     private static final Dhis2Config config = new Dhis2Config(
-        "https://play.dhis2.org/2.35.1", "admin", "district" );
+        "https://play.dhis2.org/2.35.3", "admin", "district" );
 
     @Test
     public void testCategoryOption()
