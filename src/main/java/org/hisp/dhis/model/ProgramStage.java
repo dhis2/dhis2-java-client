@@ -2,6 +2,7 @@ package org.hisp.dhis.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -28,8 +29,8 @@ public class ProgramStage
     public Set<DataElement> getDataElements()
     {
         return programStageDataElements.stream()
-            .filter( element -> element.getDataElement() != null )
             .map( ProgramStageDataElement::getDataElement )
+            .filter( Objects::nonNull )
             .collect( Collectors.toSet() );
     }
 }

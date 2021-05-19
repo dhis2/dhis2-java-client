@@ -60,7 +60,8 @@ public class Program
     {
         return programTrackedEntityAttributes.stream()
             .map( ProgramTrackedEntityAttribute::getTrackedEntityAttribute )
-            .filter( tea -> ( tea.getConfidential() == null || tea.getConfidential() == false ) )
+            .filter( java.util.Objects::nonNull )
+            .filter( tea -> (  tea.getConfidential() == null || tea.getConfidential() == false ) )
             .collect( Collectors.toList() );
     }
 
