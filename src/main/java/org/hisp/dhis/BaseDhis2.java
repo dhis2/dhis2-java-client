@@ -305,8 +305,8 @@ public class BaseDhis2
         try
         {
             URI url = config.getResolvedUriBuilder()
-                .pathSegment( path )
-                .pathSegment( id )
+                .appendPath( path )
+                .appendPath( id )
                 .build();
 
             return getObjectFromUrl( url, klass );

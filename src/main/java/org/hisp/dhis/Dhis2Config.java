@@ -5,6 +5,7 @@ import java.net.URISyntaxException;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
+import org.apache.hc.core5.net.URIBuilder;
 
 import lombok.Getter;
 
@@ -62,9 +63,9 @@ public class Dhis2Config
 
         try
         {
-            return new UriBuilder( url )
-                .pathSegment( "api" )
-                .pathSegment( path )
+            return new URIBuilder( url )
+                .appendPath( "api" )
+                .appendPath( path )
                 .build();
         }
         catch ( URISyntaxException ex )
@@ -74,17 +75,17 @@ public class Dhis2Config
     }
 
     /**
-     * Provides a {@link UriBuilder} which is resolved to the DHIS 2
+     * Provides a {@link URIBuilder} which is resolved to the DHIS 2
      * instance API.
      *
-     * @return a {@link UriBuilder}.
+     * @return a {@link URIBuilder}.
      */
-    public UriBuilder getResolvedUriBuilder()
+    public URIBuilder getResolvedUriBuilder()
     {
         try
         {
-            return new UriBuilder( url )
-                .pathSegment( "api" );
+            return new URIBuilder( url )
+                .appendPath( "api" );
         }
         catch ( URISyntaxException ex )
         {

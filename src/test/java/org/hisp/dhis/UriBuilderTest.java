@@ -2,6 +2,7 @@ package org.hisp.dhis;
 
 import static org.junit.Assert.assertEquals;
 
+import org.apache.hc.core5.net.URIBuilder;
 import org.junit.Test;
 
 public class UriBuilderTest
@@ -10,67 +11,67 @@ public class UriBuilderTest
     public void testConstructor()
         throws Exception
     {
-        String url = new UriBuilder( "https://play.dhis2.org" )
+        String url = new URIBuilder( "https://play.dhis2.org" )
             .build().toString();
         assertEquals( "https://play.dhis2.org", url );
 
-        url = new UriBuilder( "https://play.dhis2.org/dev" )
+        url = new URIBuilder( "https://play.dhis2.org/dev" )
             .build().toString();
         assertEquals( "https://play.dhis2.org/dev", url );
 
-        url = new UriBuilder( "https://play.dhis2.org/dev/" )
+        url = new URIBuilder( "https://play.dhis2.org/dev/" )
             .build().toString();
         assertEquals( "https://play.dhis2.org/dev/", url );
 
-        url = new UriBuilder( "https://play.dhis2.org/dev/api" )
+        url = new URIBuilder( "https://play.dhis2.org/dev/api" )
             .build().toString();
         assertEquals( "https://play.dhis2.org/dev/api", url );
     }
 
     @Test
-    public void testPathSegmentA()
+    public void testAppendPathA()
         throws Exception
     {
-        String url = new UriBuilder( "https://play.dhis2.org" )
-            .pathSegment( "dev" )
+        String url = new URIBuilder( "https://play.dhis2.org" )
+            .appendPath( "dev" )
             .build().toString();
         assertEquals( "https://play.dhis2.org/dev", url );
 
-        url = new UriBuilder( "https://play.dhis2.org" )
-            .pathSegment( "dev" )
-            .pathSegment( "api" )
+        url = new URIBuilder( "https://play.dhis2.org" )
+            .appendPath( "dev" )
+            .appendPath( "api" )
             .build().toString();
         assertEquals( "https://play.dhis2.org/dev/api", url );
     }
 
     @Test
-    public void testPathSegmentB()
+    public void testAppendPathB()
         throws Exception
     {
-        String url = new UriBuilder( "https://play.dhis2.org/site" )
-            .pathSegment( "dhis" )
+        String url = new URIBuilder( "https://play.dhis2.org/site" )
+            .appendPath( "dhis" )
             .build().toString();
         assertEquals( "https://play.dhis2.org/site/dhis", url );
 
-        url = new UriBuilder( "https://play.dhis2.org/site/dhis" )
-            .pathSegment( "api" )
+        url = new URIBuilder( "https://play.dhis2.org/site/dhis" )
+            .appendPath( "api" )
             .build().toString();
         assertEquals( "https://play.dhis2.org/site/dhis/api", url );
     }
 
     @Test
-    public void testPathSegmentC()
+    public void testAppendPathC()
         throws Exception
     {
-        String url = new UriBuilder( "https://play.dhis2.org/dev/api" )
-            .pathSegment( "system/info" )
+        String url = new URIBuilder( "https://play.dhis2.org/dev/api" )
+            .appendPath( "system/info" )
             .build().toString();
         assertEquals( "https://play.dhis2.org/dev/api/system/info", url );
 
-        url = new UriBuilder( "https://play.dhis2.org/api" )
-            .pathSegment( "analytics" )
-            .pathSegment( "events" )
-            .pathSegment( "query" )
+        url = new URIBuilder( "https://play.dhis2.org/api" )
+            .appendPath( "analytics" )
+            .appendPath( "events" )
+            .appendPath( "query" )
             .build().toString();
         assertEquals( "https://play.dhis2.org/api/analytics/events/query", url );
     }
