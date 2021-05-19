@@ -125,10 +125,10 @@ public class Dhis2AsyncRequest
     private JobNotification waitForCompletion( JobInfo jobInfo )
     {
         URI statusUrl = HttpUtils.build( config.getResolvedUriBuilder()
-            .pathSegment( "system" )
-            .pathSegment( "tasks" )
-            .pathSegment( jobInfo.getJobType().name() )
-            .pathSegment( jobInfo.getId() ) );
+            .appendPath( "system" )
+            .appendPath( "tasks" )
+            .appendPath( jobInfo.getJobType().name() )
+            .appendPath( jobInfo.getId() ) );
 
         JobNotification notification = null;
         boolean completed = false;
@@ -162,10 +162,10 @@ public class Dhis2AsyncRequest
         throws IOException
     {
         URI summaryUrl = HttpUtils.build( config.getResolvedUriBuilder()
-            .pathSegment( "system" )
-            .pathSegment( "taskSummaries" )
-            .pathSegment( jobInfo.getJobType().name() )
-            .pathSegment( jobInfo.getId() ) );
+            .appendPath( "system" )
+            .appendPath( "taskSummaries" )
+            .appendPath( jobInfo.getJobType().name() )
+            .appendPath( jobInfo.getId() ) );
 
         log.info( "Task summary URL: '{}'", summaryUrl );
 
