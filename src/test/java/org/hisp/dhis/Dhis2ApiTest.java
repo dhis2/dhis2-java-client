@@ -3,7 +3,6 @@ package org.hisp.dhis;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThrows;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
 
 import java.io.UncheckedIOException;
@@ -11,6 +10,7 @@ import java.util.List;
 
 import org.hisp.dhis.category.IntegrationTest;
 import org.hisp.dhis.model.DataElement;
+import org.hisp.dhis.model.OrgUnit;
 import org.hisp.dhis.model.OrgUnitGroup;
 import org.hisp.dhis.model.Program;
 import org.hisp.dhis.model.ProgramStage;
@@ -27,7 +27,22 @@ import org.junit.experimental.categories.Category;
 public class Dhis2ApiTest
 {
     private static final Dhis2Config config = new Dhis2Config(
-        "https://play.dhis2.org/2.35.3", "admin", "district" );
+        "https://play.dhis2.org/2.35.4", "admin", "district" );
+
+    @Test
+    public void testGetOrgUnits()
+    {
+        Dhis2 dhis2 = new Dhis2( config );
+
+        List<OrgUnit> orgUnits = dhis2.getOrgUnits( Query.instance()
+            .withPaging( 1, 100 ) );
+
+        assertNotNull( orgUnits );
+        assertFalse( orgUnits.isEmpty() );
+        assertNotNull( orgUnits.get( 0 ) );
+        assertNotNull( orgUnits.get( 0 ).getId() );
+        assertNotNull( orgUnits.get( 0 ).getName() );
+    }
 
     @Test
     public void testGetOrgUnitGroups()
@@ -37,8 +52,10 @@ public class Dhis2ApiTest
         List<OrgUnitGroup> orgUnitGroups = dhis2.getOrgUnitGroups( Query.instance() );
 
         assertNotNull( orgUnitGroups );
-        assertTrue( orgUnitGroups.size() > 0 );
+        assertFalse( orgUnitGroups.isEmpty() );
         assertNotNull( orgUnitGroups.get( 0 ) );
+        assertNotNull( orgUnitGroups.get( 0 ).getId() );
+        assertNotNull( orgUnitGroups.get( 0 ).getName() );
     }
 
     @Test
