@@ -1,5 +1,9 @@
 package org.hisp.dhis;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThrows;
+
 import org.hisp.dhis.category.IntegrationTest;
 import org.hisp.dhis.model.Attribute;
 import org.hisp.dhis.model.AttributeValue;
@@ -15,14 +19,12 @@ import org.junit.function.ThrowingRunnable;
 
 import lombok.extern.slf4j.Slf4j;
 
-import static org.junit.Assert.*;
-
 @Slf4j
 @Category(IntegrationTest.class)
 public class Dhis2CrudApiTest
 {
     private static final Dhis2Config config = new Dhis2Config(
-        "https://play.dhis2.org/2.35.3", "admin", "district" );
+        "https://play.dhis2.org/2.35.4", "admin", "district" );
 
     @Test
     public void testCategoryOption()
