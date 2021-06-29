@@ -27,7 +27,7 @@ import org.junit.experimental.categories.Category;
 public class Dhis2ApiTest
 {
     private static final Dhis2Config config = new Dhis2Config(
-        "https://play.dhis2.org/2.35.4", "admin", "district" );
+        "https://play.dhis2.org/2.35.5", "admin", "district" );
 
     @Test
     public void testGetOrgUnits()
