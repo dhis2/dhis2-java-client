@@ -1,10 +1,17 @@
-package org.hisp.dhis.query.orgunit;
+package org.hisp.dhis.request.orgunit;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.experimental.Accessors;
+
+@Getter
+@Setter
+@Accessors(chain = true)
 public class OrgUnitMergeRequest
 {
     @JsonProperty
@@ -21,4 +28,10 @@ public class OrgUnitMergeRequest
 
     @JsonProperty
     private Boolean deleteSources;
+
+    public OrgUnitMergeRequest addSource( String source )
+    {
+        this.sources.add( source );
+        return this;
+    }
 }

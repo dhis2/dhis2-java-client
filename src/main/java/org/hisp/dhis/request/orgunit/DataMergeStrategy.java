@@ -1,4 +1,4 @@
-package org.hisp.dhis.query.orgunit;
+package org.hisp.dhis.request.orgunit;
 
 public enum DataMergeStrategy
 {

@@ -40,8 +40,11 @@ import org.hisp.dhis.model.datavalueset.DataValueSet;
 import org.hisp.dhis.model.datavalueset.DataValueSetImportOptions;
 import org.hisp.dhis.query.Query;
 import org.hisp.dhis.query.analytics.AnalyticsQuery;
+import org.hisp.dhis.request.orgunit.OrgUnitMergeRequest;
+import org.hisp.dhis.request.orgunit.OrgUnitSplitRequest;
 import org.hisp.dhis.response.Dhis2ClientException;
 import org.hisp.dhis.response.HttpStatus;
+import org.hisp.dhis.response.ResponseMessage;
 import org.hisp.dhis.response.datavalueset.DataValueSetResponseMessage;
 import org.hisp.dhis.response.job.JobCategory;
 import org.hisp.dhis.response.job.JobNotification;
@@ -271,6 +274,36 @@ public class Dhis2
             .appendPath( "organisationUnits" )
             .addParameter( "fields", String.format( "%s,parent[%s]", fields, fields ) ), query, Objects.class )
             .getOrganisationUnits();
+    }
+
+    // -------------------------------------------------------------------------
+    // Org unit merge and split
+    // -------------------------------------------------------------------------
+
+    /**
+     * Performs an org unit split operation.
+     *
+     * @param request the {@link OrgUnitSplitRequest}.
+     * @return a {@link ResponseMessage} holding information about the operation.
+     */
+    public ResponseMessage splitOrgUnit( OrgUnitSplitRequest request )
+    {
+        URI url = config.getResolvedUrl( "organisationUnits/split" );
+
+        return executeJsonPostPutRequest( new HttpPost( url ), request, ResponseMessage.class );
+    }
+
+    /**
+     * Performs an org unit merge operation.
+     *
+     * @param request the {@link OrgUnitMergeRequest request}.
+     * @return a {@link ResponseMessage} holding information about the operation.
+     */
+    public ResponseMessage mergeOrgUnits( OrgUnitMergeRequest request )
+    {
+        URI url = config.getResolvedUrl( "organisationUnits/merge" );
+
+        return executeJsonPostPutRequest( new HttpPost( url ), request, ResponseMessage.class );
     }
 
     // -------------------------------------------------------------------------
