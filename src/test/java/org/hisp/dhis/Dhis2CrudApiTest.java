@@ -24,7 +24,7 @@ import lombok.extern.slf4j.Slf4j;
 public class Dhis2CrudApiTest
 {
     private static final Dhis2Config config = new Dhis2Config(
-        "https://play.dhis2.org/2.35.4", "admin", "district" );
+        "https://play.dhis2.org/2.35.5", "admin", "district" );
 
     @Test
     public void testCategoryOption()

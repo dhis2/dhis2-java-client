@@ -35,7 +35,7 @@ public class Dhis2ApiTest
         Dhis2 dhis2 = new Dhis2( config );
 
         List<OrgUnit> orgUnits = dhis2.getOrgUnits( Query.instance()
-            .withPaging( 1, 100 ) );
+            .setPaging( 1, 100 ) );
 
         assertNotNull( orgUnits );
         assertFalse( orgUnits.isEmpty() );
