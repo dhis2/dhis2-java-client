@@ -26,13 +26,10 @@ import org.junit.experimental.categories.Category;
 @Category(IntegrationTest.class)
 public class Dhis2ApiTest
 {
-    private static final Dhis2Config config = new Dhis2Config(
-        "https://play.dhis2.org/2.35.5", "admin", "district" );
-
     @Test
     public void testGetOrgUnits()
     {
-        Dhis2 dhis2 = new Dhis2( config );
+        Dhis2 dhis2 = new Dhis2( TestFixture.CONFIG );
 
         List<OrgUnit> orgUnits = dhis2.getOrgUnits( Query.instance()
             .setPaging( 1, 100 ) );
@@ -47,7 +44,7 @@ public class Dhis2ApiTest
     @Test
     public void testGetOrgUnitGroups()
     {
-        Dhis2 dhis2 = new Dhis2( config );
+        Dhis2 dhis2 = new Dhis2( TestFixture.CONFIG );
 
         List<OrgUnitGroup> orgUnitGroups = dhis2.getOrgUnitGroups( Query.instance() );
 
@@ -61,7 +58,7 @@ public class Dhis2ApiTest
     @Test
     public void testGetOrgUnitGroup()
     {
-        Dhis2 dhis2 = new Dhis2( config );
+        Dhis2 dhis2 = new Dhis2( TestFixture.CONFIG );
 
         OrgUnitGroup orgUnitGroup = dhis2.getOrgUnitGroup( "CXw2yu5fodb" );
 
@@ -72,7 +69,7 @@ public class Dhis2ApiTest
     @Test
     public void testGetProgram()
     {
-        Dhis2 dhis2 = new Dhis2( config );
+        Dhis2 dhis2 = new Dhis2( TestFixture.CONFIG );
 
         Program program = dhis2.getProgram( "IpHINAT79UW" );
 
@@ -117,7 +114,7 @@ public class Dhis2ApiTest
     @Test
     public void testGetPrograms()
     {
-        Dhis2 dhis2 = new Dhis2( config );
+        Dhis2 dhis2 = new Dhis2( TestFixture.CONFIG );
 
         List<Program> programs = dhis2.getPrograms( Query.instance() );
 
@@ -129,7 +126,7 @@ public class Dhis2ApiTest
     @Test
     public void testGetProgramsExpandAssociations()
     {
-        Dhis2 dhis2 = new Dhis2( config );
+        Dhis2 dhis2 = new Dhis2( TestFixture.CONFIG );
 
         List<Program> programs = dhis2.getPrograms( Query.instance()
             .withExpandAssociations()
@@ -203,7 +200,7 @@ public class Dhis2ApiTest
     @Test
     public void testGetNotFound()
     {
-        Dhis2 dhis2 = new Dhis2( config );
+        Dhis2 dhis2 = new Dhis2( TestFixture.CONFIG );
 
         Dhis2ClientException ex = assertThrows( Dhis2ClientException.class,
             () -> dhis2.getOrgUnitGroup( "NonExisting" ) );
