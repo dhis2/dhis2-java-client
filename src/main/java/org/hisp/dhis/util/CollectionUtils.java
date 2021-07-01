@@ -1,6 +1,8 @@
 package org.hisp.dhis.util;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class CollectionUtils
@@ -16,5 +18,18 @@ public class CollectionUtils
         }
 
         return Collections.unmodifiableSet( set );
+    }
+
+    @SafeVarargs
+    public static <T> List<T> newImmutableList( T... items )
+    {
+        List<T> list = new ArrayList<>();
+
+        for ( T item : items )
+        {
+            list.add( item );
+        }
+
+        return Collections.unmodifiableList( list );
     }
 }

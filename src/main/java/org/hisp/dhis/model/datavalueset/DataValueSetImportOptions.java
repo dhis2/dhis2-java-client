@@ -3,8 +3,12 @@ package org.hisp.dhis.model.datavalueset;
 import org.hisp.dhis.model.IdScheme;
 
 import lombok.Getter;
+import lombok.Setter;
+import lombok.experimental.Accessors;
 
 @Getter
+@Setter
+@Accessors(chain = true)
 public class DataValueSetImportOptions
 {
     private IdScheme dataElementIdScheme;
@@ -24,35 +28,5 @@ public class DataValueSetImportOptions
     public static DataValueSetImportOptions instance()
     {
         return new DataValueSetImportOptions();
-    }
-
-    public DataValueSetImportOptions withDataElementIdScheme( IdScheme dataElementIdScheme )
-    {
-        this.dataElementIdScheme = dataElementIdScheme;
-        return this;
-    }
-
-    public DataValueSetImportOptions withOrgUnitIdScheme( IdScheme orgUnitIdScheme )
-    {
-        this.orgUnitIdScheme = orgUnitIdScheme;
-        return this;
-    }
-
-    public DataValueSetImportOptions withCategoryOptionComboIdScheme( IdScheme categoryOptionComboIdScheme )
-    {
-        this.categoryOptionComboIdScheme = categoryOptionComboIdScheme;
-        return this;
-    }
-
-    public DataValueSetImportOptions withIdScheme( IdScheme idScheme )
-    {
-        this.idScheme = idScheme;
-        return this;
-    }
-
-    public DataValueSetImportOptions withSkipAudit()
-    {
-        this.skipAudit = true;
-        return this;
     }
 }

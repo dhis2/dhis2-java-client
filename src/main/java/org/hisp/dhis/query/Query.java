@@ -61,7 +61,7 @@ public class Query
      * @param pageSize the page size to return.
      * @return this {@link Query}.
      */
-    public Query withPaging( Integer page, Integer pageSize )
+    public Query setPaging( Integer page, Integer pageSize )
     {
         this.paging = new Paging( page, pageSize );
         return this;
@@ -83,7 +83,7 @@ public class Query
      * @param order the {@link Order}.
      * @return this {@link Query}.
      */
-    public Query withOrder( Order order )
+    public Query setOrder( Order order )
     {
         this.order = order;
         return this;
