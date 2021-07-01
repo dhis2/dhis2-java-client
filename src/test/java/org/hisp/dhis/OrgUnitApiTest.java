@@ -62,6 +62,5 @@ public class OrgUnitApiTest
             () -> dhis2.getOrgUnit( uidB ) ).getStatusCode() );
         assertEquals( 404, assertThrows( Dhis2ClientException.class,
             () -> dhis2.getOrgUnit( uidC ) ).getStatusCode() );
-
     }
 }
