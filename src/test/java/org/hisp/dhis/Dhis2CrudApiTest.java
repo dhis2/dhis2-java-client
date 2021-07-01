@@ -26,7 +26,7 @@ public class Dhis2CrudApiTest
     @Test
     public void testCategoryOption()
     {
-        Dhis2 dhis2 = new Dhis2( TestFixture.CONFIG );
+        Dhis2 dhis2 = new Dhis2( TestFixture.DEFAULT_CONFIG );
 
         Attribute atA = new Attribute();
         atA.setId( "l1VmqIHKk6t" );
@@ -98,7 +98,7 @@ public class Dhis2CrudApiTest
     @Test
     public void testOrgUnitGroup()
     {
-        Dhis2 dhis2 = new Dhis2( TestFixture.CONFIG );
+        Dhis2 dhis2 = new Dhis2( TestFixture.DEFAULT_CONFIG );
 
         OrgUnitGroup ougA = new OrgUnitGroup();
         ougA.setCode( "ORG_UNIT_GROUP__A" );
@@ -151,7 +151,7 @@ public class Dhis2CrudApiTest
     @Test
     public void testNotFound()
     {
-        Dhis2 dhis2 = new Dhis2( TestFixture.CONFIG );
+        Dhis2 dhis2 = new Dhis2( TestFixture.DEFAULT_CONFIG );
 
         ThrowingRunnable runnable = () -> dhis2.getCategoryOption( "kju6y2JHtR1" );
         Dhis2ClientException ex = assertThrows( Dhis2ClientException.class, runnable );

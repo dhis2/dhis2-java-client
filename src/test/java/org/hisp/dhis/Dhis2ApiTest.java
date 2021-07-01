@@ -6,6 +6,7 @@ import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertFalse;
 
 import java.io.UncheckedIOException;
+import java.util.Date;
 import java.util.List;
 
 import org.hisp.dhis.category.IntegrationTest;
@@ -20,6 +21,8 @@ import org.hisp.dhis.model.TrackedEntityAttribute;
 import org.hisp.dhis.query.Filter;
 import org.hisp.dhis.query.Query;
 import org.hisp.dhis.response.Dhis2ClientException;
+import org.hisp.dhis.response.Status;
+import org.hisp.dhis.util.UidUtils;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
@@ -29,7 +32,7 @@ public class Dhis2ApiTest
     @Test
     public void testGetOrgUnits()
     {
-        Dhis2 dhis2 = new Dhis2( TestFixture.CONFIG );
+        Dhis2 dhis2 = new Dhis2( TestFixture.DEFAULT_CONFIG );
 
         List<OrgUnit> orgUnits = dhis2.getOrgUnits( Query.instance()
             .setPaging( 1, 100 ) );
@@ -44,7 +47,7 @@ public class Dhis2ApiTest
     @Test
     public void testGetOrgUnitGroups()
     {
-        Dhis2 dhis2 = new Dhis2( TestFixture.CONFIG );
+        Dhis2 dhis2 = new Dhis2( TestFixture.DEFAULT_CONFIG );
 
         List<OrgUnitGroup> orgUnitGroups = dhis2.getOrgUnitGroups( Query.instance() );
 
@@ -58,7 +61,7 @@ public class Dhis2ApiTest
     @Test
     public void testGetOrgUnitGroup()
     {
-        Dhis2 dhis2 = new Dhis2( TestFixture.CONFIG );
+        Dhis2 dhis2 = new Dhis2( TestFixture.DEFAULT_CONFIG );
 
         OrgUnitGroup orgUnitGroup = dhis2.getOrgUnitGroup( "CXw2yu5fodb" );
 
@@ -69,7 +72,7 @@ public class Dhis2ApiTest
     @Test
     public void testGetProgram()
     {
-        Dhis2 dhis2 = new Dhis2( TestFixture.CONFIG );
+        Dhis2 dhis2 = new Dhis2( TestFixture.DEFAULT_CONFIG );
 
         Program program = dhis2.getProgram( "IpHINAT79UW" );
 
@@ -114,7 +117,7 @@ public class Dhis2ApiTest
     @Test
     public void testGetPrograms()
     {
-        Dhis2 dhis2 = new Dhis2( TestFixture.CONFIG );
+        Dhis2 dhis2 = new Dhis2( TestFixture.DEFAULT_CONFIG );
 
         List<Program> programs = dhis2.getPrograms( Query.instance() );
 
@@ -126,7 +129,7 @@ public class Dhis2ApiTest
     @Test
     public void testGetProgramsExpandAssociations()
     {
-        Dhis2 dhis2 = new Dhis2( TestFixture.CONFIG );
+        Dhis2 dhis2 = new Dhis2( TestFixture.DEFAULT_CONFIG );
 
         List<Program> programs = dhis2.getPrograms( Query.instance()
             .withExpandAssociations()
@@ -178,6 +181,35 @@ public class Dhis2ApiTest
     }
 
     @Test
+    public void testSaveAndRemoveOrgUnits()
+    {
+        Dhis2 dhis2 = new Dhis2( TestFixture.DEFAULT_CONFIG );
+
+        String uidA = UidUtils.generateUid();
+        String uidB = UidUtils.generateUid();
+        String uidC = UidUtils.generateUid();
+
+        OrgUnit ouA = new OrgUnit( uidA, uidA, uidA );
+        ouA.setOpeningDate( new Date() );
+        OrgUnit ouB = new OrgUnit( uidB, uidB, uidB );
+        ouB.setOpeningDate( new Date() );
+        OrgUnit ouC = new OrgUnit( uidC, uidC, uidC );
+        ouC.setOpeningDate( new Date() );
+
+        assertEquals( Status.OK, dhis2.saveOrgUnit( ouA ).getStatus() );
+        assertEquals( Status.OK, dhis2.saveOrgUnit( ouB ).getStatus() );
+        assertEquals( Status.OK, dhis2.saveOrgUnit( ouC ).getStatus() );
+
+        assertNotNull( dhis2.getOrgUnit( uidA ) );
+        assertNotNull( dhis2.getOrgUnit( uidB ) );
+        assertNotNull( dhis2.getOrgUnit( uidC ) );
+
+        assertEquals( Status.OK, dhis2.removeOrgUnit( uidA ).getStatus() );
+        assertEquals( Status.OK, dhis2.removeOrgUnit( uidB ).getStatus() );
+        assertEquals( Status.OK, dhis2.removeOrgUnit( uidC ).getStatus() );
+    }
+
+    @Test
     public void testGetInvalidUrl()
     {
         Dhis2 dhis2 = new Dhis2( new Dhis2Config( "https://not_a_domain.abc", "username", "pw" ) );
@@ -200,7 +232,7 @@ public class Dhis2ApiTest
     @Test
     public void testGetNotFound()
     {
-        Dhis2 dhis2 = new Dhis2( TestFixture.CONFIG );
+        Dhis2 dhis2 = new Dhis2( TestFixture.DEFAULT_CONFIG );
 
         Dhis2ClientException ex = assertThrows( Dhis2ClientException.class,
             () -> dhis2.getOrgUnitGroup( "NonExisting" ) );
