@@ -57,6 +57,9 @@ import static org.hisp.dhis.util.CollectionUtils.newImmutableSet;
 
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * @author Lars Helge Overland
+ */
 @Slf4j
 public class BaseDhis2
 {
