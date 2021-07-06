@@ -72,4 +72,12 @@ public class OrgUnit
         this.name = name;
         this.shortName = shortName;
     }
+
+    public OrgUnit( String id, String name, String shortName, Date openingDate )
+    {
+        this.id = id;
+        this.name = name;
+        this.shortName = shortName;
+        this.openingDate = openingDate;
+    }
 }
