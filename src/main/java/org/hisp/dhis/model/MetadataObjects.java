@@ -10,7 +10,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class Objects
+public class MetadataObjects
 {
     @JsonProperty
     private List<DataElement> dataElements = new ArrayList<>();
