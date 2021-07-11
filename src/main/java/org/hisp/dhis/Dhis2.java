@@ -27,6 +27,7 @@ import org.hisp.dhis.model.DataElement;
 import org.hisp.dhis.model.DataElementGroup;
 import org.hisp.dhis.model.DataElementGroupSet;
 import org.hisp.dhis.model.Dimension;
+import org.hisp.dhis.model.IdentifiableObject;
 import org.hisp.dhis.model.Objects;
 import org.hisp.dhis.model.OrgUnit;
 import org.hisp.dhis.model.OrgUnitGroup;
@@ -137,7 +138,7 @@ public class Dhis2
      * @return a {@link MetadataResponseMessage} holding information about the operation.
      * @throws Dhis2ClientException if the save operation failed due to client side error.
      */
-    public MetadataResponseMessage saveMetadataObject( String path, Object object )
+    public MetadataResponseMessage saveMetadataObject( String path, IdentifiableObject object )
     {
         URI url = config.getResolvedUrl( path );
 
@@ -151,7 +152,7 @@ public class Dhis2
      * @param object the object to save.
      * @return a {@link MetadataResponseMessage} holding information about the operation.
      */
-    public MetadataResponseMessage updateMetadataObject( String path, Object object )
+    public MetadataResponseMessage updateMetadataObject( String path, IdentifiableObject object )
     {
         URI url = config.getResolvedUrl( path );
 
