@@ -10,10 +10,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class ObjectsResponse
     extends BaseHttpResponse
 {
@@ -25,6 +27,13 @@ public class ObjectsResponse
 
     @JsonProperty
     private ObjectStatistics stats;
+
+    public ObjectsResponse( Status status, Integer httpStatusCode, ObjectStatistics stats )
+    {
+        this.status = status;
+        this.httpStatusCode = httpStatusCode;
+        this.stats = stats;
+    }
 
     @JsonIgnore
     public TypeReport getTypeReport()

@@ -625,7 +625,7 @@ public class Dhis2
     /**
      * Saves or updates the list of {@link Category}.
      *
-     * @param categoryOptions the list of {@link Category}.
+     * @param categories the list of {@link Category}.
      * @return {@link ObjectsResponse} holding information about the operation.
      */
     public ObjectsResponse saveCategories( List<Category> categories )
@@ -809,7 +809,7 @@ public class Dhis2
     /**
      * Saves or updates the list of {@link DataElementGroup}.
      *
-     * @param dataElements the list of {@link DataElementGroup}.
+     * @param dataElementGroups the list of {@link DataElementGroup}.
      * @return {@link ObjectsResponse} holding information about the operation.
      */
     public ObjectsResponse saveDataElementGroups( List<DataElementGroup> dataElementGroups )
