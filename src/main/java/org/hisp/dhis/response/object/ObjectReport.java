@@ -21,9 +21,6 @@ public class ObjectReport
     private String klass;
 
     @JsonProperty
-    private Integer index;
-
-    @JsonProperty
     private String uid;
 
     @JsonProperty
