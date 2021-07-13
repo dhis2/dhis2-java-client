@@ -3,10 +3,7 @@ package org.hisp.dhis.response.datavalueset;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.hc.core5.http.Header;
-import org.hisp.dhis.response.HttpResponseMessage;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hisp.dhis.response.BaseHttpResponse;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Getter;
@@ -14,8 +11,8 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class DataValueSetResponseMessage
-    implements HttpResponseMessage
+public class DataValueSetResponse
+    extends BaseHttpResponse
 {
     @JsonProperty
     private Status status;
@@ -32,13 +29,7 @@ public class DataValueSetResponseMessage
     @JsonProperty
     private String dataSetComplete;
 
-    @JsonIgnore
-    private Integer httpStatusCode;
-
-    @JsonIgnore
-    private List<Header> headers = new ArrayList<>();
-
-    public DataValueSetResponseMessage()
+    public DataValueSetResponse()
     {
     }
 

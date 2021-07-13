@@ -87,7 +87,7 @@ OrgUnit orgUnit = new OrgUnit();
 orgUnit.setName( "Ngelehun" );
 orgUnit.setCode( "NGLH" );
 
-MetadataResponseMessage response = dhis2.saveOrgUnit( orgUnit );
+ObjectResponse response = dhis2.saveOrgUnit( orgUnit );
 ```
 
 To save your own, arbitrary metadata object:
@@ -95,7 +95,7 @@ To save your own, arbitrary metadata object:
 ```java
 DataElement dataElement = new DataElement( "Patients on treatment" );
 
-ResponseMessage msg = dhis2.saveMetadataObject( "dataElements", dataElement );
+ObjectResponse response = dhis2.saveMetadataObject( "dataElements", dataElement );
 ```
 
 ### Update objects
@@ -108,13 +108,13 @@ orgUnit.setId( "cDw53Ej8rjT" );
 orgUnit.setName( "Ngelehun" );
 orgUnit.setCode( "NGLH" );
 
-MetadataResponseMessage response = dhis2.updateOrgUnit( orgUnit );
+ObjectResponse response = dhis2.updateOrgUnit( orgUnit );
 ```
 
 To update your own, arbitrary metadata object:
 
 ```java
-MetadataResponseMessage response = dhis2.updateMetadataObject( 
+ObjectResponse response = dhis2.updateMetadataObject( 
     "dataElements/" + dataElement.getId(), dataElement );
 ```
 
@@ -123,15 +123,15 @@ MetadataResponseMessage response = dhis2.updateMetadataObject(
 To remove an org unit:
 
 ```java
-MetadataResponseMessage response = dhis2.removeOrgUnit( "j7gkH3hf83k" );
+ObjectResponse response = dhis2.removeOrgUnit( "j7gkH3hf83k" );
 ```
 
 ### Get response message
 
-The various metadata object save and update methods return an instance of `MetadataResponseMessage`, which holds information about the operation, such as status, HTTP status, HTTP status code and a message describing the outcome.
+The various metadata object save and update methods return an instance of `MetadataResponse`, which holds information about the operation, such as status, HTTP status, HTTP status code and a message describing the outcome.
 
 ```java
-MetadataResponseMessage response = dhis2.saveMetadataObject( "dataElements", dataElement );
+ObjectResponse response = dhis2.saveMetadataObject( "dataElements", dataElement );
 
 boolean success = response.getHttpStatus().is2xxSuccessful();
 ```
@@ -168,7 +168,7 @@ dataValueSet.addDataValue( dataValue2 );
 
 DataValueSetImportOptions options = DataValueSetImportOptions.instance();
 
-DataValueSetResponseMessage response = dhis2.saveDataValueSet( dataValueSet, options );
+DataValueSetResponse response = dhis2.saveDataValueSet( dataValueSet, options );
 ```
 
 ### Save data value set from file
@@ -180,7 +180,7 @@ File file = new File( "/tmp/datavalueset.json" );
 
 DataValueSetImportOptions options = DataValueSetImportOptions.instance();
 
-DataValueSetResponseMessage response = dhis2.saveDataValueSet( file, options );
+DataValueSetResponse response = dhis2.saveDataValueSet( file, options );
 ```
 
 ### Get analytics data value set

@@ -8,13 +8,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class TableHook
+    extends IdentifiableObject
 {
-    @JsonProperty
-    private String id;
-
-    @JsonProperty
-    private String name;
-
     @JsonProperty
     private TablePhase phase;
 

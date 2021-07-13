@@ -44,9 +44,9 @@ import org.hisp.dhis.query.Paging;
 import org.hisp.dhis.query.Query;
 import org.hisp.dhis.query.analytics.AnalyticsQuery;
 import org.hisp.dhis.query.analytics.Dimension;
+import org.hisp.dhis.response.BaseHttpResponse;
 import org.hisp.dhis.response.Dhis2ClientException;
-import org.hisp.dhis.response.HttpResponseMessage;
-import org.hisp.dhis.response.ResponseMessage;
+import org.hisp.dhis.response.Response;
 import org.hisp.dhis.util.HttpUtils;
 
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -328,10 +328,10 @@ public class BaseDhis2
      * @param object the object to pass as JSON in the request body.
      * @param type the class type for the response entity.
      * @param <T> class.
-     * @return a {@link ResponseMessage}.
+     * @return a {@link Response}.
      * @throws Dhis2ClientException if access was denied or resource was not found.
      */
-    protected <T extends HttpResponseMessage> T executeJsonPostPutRequest( HttpUriRequestBase request, Object object, Class<T> type )
+    protected <T extends BaseHttpResponse> T executeJsonPostPutRequest( HttpUriRequestBase request, Object object, Class<T> type )
     {
         HttpEntity entity = new StringEntity( toJsonString( object ), StandardCharsets.UTF_8 );
 
@@ -347,10 +347,10 @@ public class BaseDhis2
      * @param request the request.
      * @param type the class type for the response entity.
      * @param <T> class.
-     * @return a {@link ResponseMessage}.
+     * @return a {@link Response}.
      * @throws Dhis2ClientException if access was denied or resource was not found.
      */
-    protected <T extends HttpResponseMessage> T executeDeleteRequest( HttpDelete request, Class<T> type )
+    protected <T extends BaseHttpResponse> T executeDeleteRequest( HttpDelete request, Class<T> type )
     {
         return executeRequest( request, type );
     }
@@ -363,7 +363,7 @@ public class BaseDhis2
      * @return a response message.
      * @throws Dhis2ClientException if access was denied or resource was not found.
      */
-    private <T extends HttpResponseMessage> T executeRequest( HttpUriRequestBase request, Class<T> type )
+    private <T extends BaseHttpResponse> T executeRequest( HttpUriRequestBase request, Class<T> type )
     {
         withBasicAuth( request );
 
