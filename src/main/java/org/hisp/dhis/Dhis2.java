@@ -49,7 +49,7 @@ import org.hisp.dhis.response.Response;
 import org.hisp.dhis.response.datavalueset.DataValueSetResponse;
 import org.hisp.dhis.response.job.JobCategory;
 import org.hisp.dhis.response.job.JobNotification;
-import org.hisp.dhis.response.metadata.ObjectResponse;
+import org.hisp.dhis.response.object.ObjectResponse;
 import org.hisp.dhis.util.HttpUtils;
 
 /**

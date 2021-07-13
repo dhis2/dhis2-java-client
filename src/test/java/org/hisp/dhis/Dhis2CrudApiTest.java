@@ -12,7 +12,7 @@ import org.hisp.dhis.model.OrgUnitGroup;
 import org.hisp.dhis.response.Dhis2ClientException;
 import org.hisp.dhis.response.HttpStatus;
 import org.hisp.dhis.response.Status;
-import org.hisp.dhis.response.metadata.ObjectResponse;
+import org.hisp.dhis.response.object.ObjectResponse;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.function.ThrowingRunnable;

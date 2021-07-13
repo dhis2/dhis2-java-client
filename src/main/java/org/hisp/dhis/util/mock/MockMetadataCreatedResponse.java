@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 import org.hisp.dhis.model.IdentifiableObject;
 import org.hisp.dhis.response.Status;
-import org.hisp.dhis.response.metadata.ObjectResponse;
-import org.hisp.dhis.response.metadata.ObjectReport;
+import org.hisp.dhis.response.object.ObjectReport;
+import org.hisp.dhis.response.object.ObjectResponse;
 import org.hisp.dhis.util.UidUtils;
 
 public class MockMetadataCreatedResponse

@@ -1,7 +1,7 @@
 package org.hisp.dhis.util.mock;
 
 import org.hisp.dhis.response.Status;
-import org.hisp.dhis.response.metadata.ObjectResponse;
+import org.hisp.dhis.response.object.ObjectResponse;
 
 public class MockOkResponse
     extends ObjectResponse

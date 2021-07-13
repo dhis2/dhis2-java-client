@@ -1,4 +1,4 @@
-package org.hisp.dhis.response.metadata;
+package org.hisp.dhis.response.object;
 
 import org.hisp.dhis.response.Response;
 import org.hisp.dhis.response.Status;

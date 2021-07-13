@@ -1,4 +1,4 @@
-package org.hisp.dhis.response.metadata;
+package org.hisp.dhis.response.object;
 
 import java.util.ArrayList;
 import java.util.List;
