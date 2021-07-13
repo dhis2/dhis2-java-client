@@ -21,7 +21,6 @@ public class ObjectStatistics
     @JsonProperty
     private Integer ignored;
 
-
     @Override
     public String toString()
     {
