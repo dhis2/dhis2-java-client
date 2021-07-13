@@ -348,6 +348,17 @@ public class Dhis2
     }
 
     /**
+     * Saves or updates the list of {@link OrgUnitGroup}.
+     *
+     * @param orgUnitGroups the list of {@link OrgUnitGroup}.
+     * @return {@link ObjectsResponse} holding information about the operation.
+     */
+    public ObjectsResponse saveOrgUnitGroups( List<OrgUnitGroup> orgUnitGroups )
+    {
+        return saveMetadataObjects( new MetadataObjects().setOrganisationUnitGroups( orgUnitGroups ) );
+    }
+
+    /**
      * Updates a {@link OrgUnitGroup}.
      *
      * @param orgUnitGroup the object to update.
@@ -410,6 +421,17 @@ public class Dhis2
     public ObjectResponse saveOrgUnitGroupSet( OrgUnitGroupSet orgUnitGroupSet )
     {
         return saveMetadataObject( "organisationUnitGroupSets", orgUnitGroupSet );
+    }
+
+    /**
+     * Saves or updates the list of {@link OrgUnitGroupSet}.
+     *
+     * @param orgUnitGroupSets the list of {@link OrgUnitGroupSet}.
+     * @return {@link ObjectsResponse} holding information about the operation.
+     */
+    public ObjectsResponse saveOrgUnitGroupSets( List<OrgUnitGroupSet> orgUnitGroupSets )
+    {
+        return saveMetadataObjects( new MetadataObjects().setOrganisationUnitGroupSets( orgUnitGroupSets ) );
     }
 
     /**
