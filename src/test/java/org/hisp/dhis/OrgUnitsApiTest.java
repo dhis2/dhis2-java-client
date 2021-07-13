@@ -20,8 +20,6 @@ import org.junit.experimental.categories.Category;
 @Category(IntegrationTest.class)
 public class OrgUnitsApiTest
 {
-    //TODO test validation errors
-
     @Test
     public void testSaveOrgUnitsWithUids()
     {
