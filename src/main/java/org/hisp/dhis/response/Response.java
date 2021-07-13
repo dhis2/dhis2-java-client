@@ -1,7 +1,6 @@
 package org.hisp.dhis.response;
 
 import org.apache.hc.core5.http.Header;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Getter;

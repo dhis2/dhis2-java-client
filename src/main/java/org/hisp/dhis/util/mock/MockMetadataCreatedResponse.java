@@ -15,6 +15,11 @@ public class MockMetadataCreatedResponse
     {
         super( Status.OK, 201, "Object created" );
         super.code = 201;
-        super.response = new ObjectReport( type.getClass().getName(), UidUtils.generateUid(), new ArrayList<>() );
+
+        ObjectReport report = new ObjectReport();
+        report.setKlass( type.getClass().getName() );
+        report.setUid( UidUtils.generateUid() );
+        report.setErrorReports( new ArrayList<>() );
+        super.response = report;
     }
 }
