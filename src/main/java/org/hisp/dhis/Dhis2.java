@@ -28,7 +28,7 @@ import org.hisp.dhis.model.DataElementGroup;
 import org.hisp.dhis.model.DataElementGroupSet;
 import org.hisp.dhis.model.Dimension;
 import org.hisp.dhis.model.IdentifiableObject;
-import org.hisp.dhis.model.MetadataObjects;
+import org.hisp.dhis.model.Objects;
 import org.hisp.dhis.model.OrgUnit;
 import org.hisp.dhis.model.OrgUnitGroup;
 import org.hisp.dhis.model.OrgUnitGroupSet;
@@ -149,10 +149,10 @@ public class Dhis2
     /**
      * Saves or updates metadata objects.
      *
-     * @param objects the {@link MetadataObjects}.
+     * @param objects the {@link Objects}.
      * @return {@link ObjectsResponse} holding information about the operation.
      */
-    public ObjectsResponse saveMetadataObjects( MetadataObjects objects )
+    public ObjectsResponse saveMetadataObjects( Objects objects )
     {
         URI url = config.getResolvedUrl( "metadata" );
 
@@ -245,7 +245,7 @@ public class Dhis2
      */
     public ObjectsResponse saveOrgUnits( List<OrgUnit> orgUnits )
     {
-        return saveMetadataObjects( new MetadataObjects().setOrganisationUnits( orgUnits ) );
+        return saveMetadataObjects( new Objects().setOrganisationUnits( orgUnits ) );
     }
 
     /**
@@ -298,7 +298,7 @@ public class Dhis2
 
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "organisationUnits" )
-            .addParameter( "fields", String.format( "%s,parent[%s]", fields, fields ) ), query, MetadataObjects.class )
+            .addParameter( "fields", String.format( "%s,parent[%s]", fields, fields ) ), query, Objects.class )
             .getOrganisationUnits();
     }
 
@@ -355,7 +355,7 @@ public class Dhis2
      */
     public ObjectsResponse saveOrgUnitGroups( List<OrgUnitGroup> orgUnitGroups )
     {
-        return saveMetadataObjects( new MetadataObjects().setOrganisationUnitGroups( orgUnitGroups ) );
+        return saveMetadataObjects( new Objects().setOrganisationUnitGroups( orgUnitGroups ) );
     }
 
     /**
@@ -404,7 +404,7 @@ public class Dhis2
     {
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "organisationUnitGroups" )
-            .addParameter( "fields", NAME_FIELDS ), query, MetadataObjects.class )
+            .addParameter( "fields", NAME_FIELDS ), query, Objects.class )
             .getOrganisationUnitGroups();
     }
 
@@ -431,7 +431,7 @@ public class Dhis2
      */
     public ObjectsResponse saveOrgUnitGroupSets( List<OrgUnitGroupSet> orgUnitGroupSets )
     {
-        return saveMetadataObjects( new MetadataObjects().setOrganisationUnitGroupSets( orgUnitGroupSets ) );
+        return saveMetadataObjects( new Objects().setOrganisationUnitGroupSets( orgUnitGroupSets ) );
     }
 
     /**
@@ -480,7 +480,7 @@ public class Dhis2
     {
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "organisationUnitGroupSets" )
-            .addParameter( "fields", String.format( "%s,organisationUnitGroups[%s]", NAME_FIELDS, NAME_FIELDS ) ), query, MetadataObjects.class )
+            .addParameter( "fields", String.format( "%s,organisationUnitGroups[%s]", NAME_FIELDS, NAME_FIELDS ) ), query, Objects.class )
             .getOrganisationUnitGroupSets();
     }
 
@@ -512,7 +512,7 @@ public class Dhis2
     {
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "organisationUnitLevels" )
-            .addParameter( "fields", String.format( "%s,level", ID_FIELDS ) ), query, MetadataObjects.class )
+            .addParameter( "fields", String.format( "%s,level", ID_FIELDS ) ), query, Objects.class )
             .getOrganisationUnitLevels();
     }
 
@@ -554,7 +554,7 @@ public class Dhis2
      */
     public ObjectsResponse saveCategoryOptions( List<CategoryOption> categoryOptions )
     {
-        return saveMetadataObjects( new MetadataObjects().setCategoryOptions( categoryOptions ) );
+        return saveMetadataObjects( new Objects().setCategoryOptions( categoryOptions ) );
     }
 
     /**
@@ -603,7 +603,7 @@ public class Dhis2
     {
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "categoryOptions" )
-            .addParameter( "fields", CATEGORY_OPTION_FIELDS ), query, MetadataObjects.class )
+            .addParameter( "fields", CATEGORY_OPTION_FIELDS ), query, Objects.class )
             .getCategories();
     }
 
@@ -630,7 +630,7 @@ public class Dhis2
      */
     public ObjectsResponse saveCategories( List<Category> categories )
     {
-        return saveMetadataObjects( new MetadataObjects().setCategories( categories ) );
+        return saveMetadataObjects( new Objects().setCategories( categories ) );
     }
 
     /**
@@ -679,7 +679,7 @@ public class Dhis2
     {
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "categories" )
-            .addParameter( "fields", CATEGORY_FIELDS ), query, MetadataObjects.class )
+            .addParameter( "fields", CATEGORY_FIELDS ), query, Objects.class )
             .getCategories();
     }
 
@@ -711,7 +711,7 @@ public class Dhis2
     {
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "categoryCombos" )
-            .addParameter( "fields", NAME_FIELDS ), query, MetadataObjects.class )
+            .addParameter( "fields", NAME_FIELDS ), query, Objects.class )
             .getCategoryCombos();
     }
 
@@ -738,7 +738,7 @@ public class Dhis2
      */
     public ObjectsResponse saveDataElements( List<DataElement> dataElements )
     {
-        return saveMetadataObjects( new MetadataObjects().setDataElements( dataElements ) );
+        return saveMetadataObjects( new Objects().setDataElements( dataElements ) );
     }
 
     /**
@@ -787,7 +787,7 @@ public class Dhis2
     {
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "dataElements" )
-            .addParameter( "fields", DATA_ELEMENT_FIELDS ), query, MetadataObjects.class )
+            .addParameter( "fields", DATA_ELEMENT_FIELDS ), query, Objects.class )
             .getDataElements();
     }
 
@@ -814,7 +814,7 @@ public class Dhis2
      */
     public ObjectsResponse saveDataElementGroups( List<DataElementGroup> dataElementGroups )
     {
-        return saveMetadataObjects( new MetadataObjects().setDataElementGroups( dataElementGroups ) );
+        return saveMetadataObjects( new Objects().setDataElementGroups( dataElementGroups ) );
     }
 
     /**
@@ -863,7 +863,7 @@ public class Dhis2
     {
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "dataElementGroups" )
-            .addParameter( "fields", NAME_FIELDS ), query, MetadataObjects.class )
+            .addParameter( "fields", NAME_FIELDS ), query, Objects.class )
             .getDataElementGroups();
     }
 
@@ -895,7 +895,7 @@ public class Dhis2
     {
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "dataElementGroupSets" )
-            .addParameter( "fields", NAME_FIELDS ), query, MetadataObjects.class )
+            .addParameter( "fields", NAME_FIELDS ), query, Objects.class )
             .getDataElementGroupSets();
     }
 
@@ -943,7 +943,7 @@ public class Dhis2
 
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "programs" )
-            .addParameter( "fields", fieldsParam ), query, MetadataObjects.class )
+            .addParameter( "fields", fieldsParam ), query, Objects.class )
             .getPrograms();
     }
 
@@ -975,7 +975,7 @@ public class Dhis2
     {
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "categoryOptionGroupSets" )
-            .addParameter( "fields", NAME_FIELDS ), query, MetadataObjects.class )
+            .addParameter( "fields", NAME_FIELDS ), query, Objects.class )
             .getCategoryOptionGroupSets();
     }
 
@@ -1002,7 +1002,7 @@ public class Dhis2
      */
     public ObjectsResponse saveTableHooks( List<TableHook> tableHooks )
     {
-        return saveMetadataObjects( new MetadataObjects().setAnalyticsTableHooks( tableHooks ) );
+        return saveMetadataObjects( new Objects().setAnalyticsTableHooks( tableHooks ) );
     }
 
     /**
@@ -1048,7 +1048,7 @@ public class Dhis2
     {
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "analyticsTableHooks" )
-            .addParameter( "fields", ID_FIELDS ), query, MetadataObjects.class )
+            .addParameter( "fields", ID_FIELDS ), query, Objects.class )
             .getAnalyticsTableHooks();
     }
 
@@ -1080,7 +1080,7 @@ public class Dhis2
     {
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "dimensions" )
-            .addParameter( "fields", String.format( "%s,dimensionType", ID_FIELDS ) ), query, MetadataObjects.class )
+            .addParameter( "fields", String.format( "%s,dimensionType", ID_FIELDS ) ), query, Objects.class )
             .getDimensions();
     }
 
@@ -1098,7 +1098,7 @@ public class Dhis2
     {
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "periodTypes" )
-            .addParameter( "fields", "frequencyOrder,name,isoDuration,isoFormat" ), query, MetadataObjects.class )
+            .addParameter( "fields", "frequencyOrder,name,isoDuration,isoFormat" ), query, Objects.class )
             .getPeriodTypes();
     }
 

@@ -14,7 +14,7 @@ import lombok.experimental.Accessors;
 @Setter
 @Accessors(chain = true)
 @NoArgsConstructor
-public class MetadataObjects
+public class Objects
 {
     @JsonProperty
     private List<DataElement> dataElements = new ArrayList<>();
