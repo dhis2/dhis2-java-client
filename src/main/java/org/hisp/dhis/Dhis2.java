@@ -547,6 +547,17 @@ public class Dhis2
     }
 
     /**
+     * Saves or updates the list of {@link CategoryOption}.
+     *
+     * @param categoryOptions the list of {@link CategoryOption}.
+     * @return {@link ObjectsResponse} holding information about the operation.
+     */
+    public ObjectsResponse saveCategoryOptions( List<CategoryOption> categoryOptions )
+    {
+        return saveMetadataObjects( new MetadataObjects().setCategoryOptions( categoryOptions ) );
+    }
+
+    /**
      * Updates a {@link CategoryOption}.
      *
      * @param categoryOption the object to update.
@@ -609,6 +620,17 @@ public class Dhis2
     public ObjectResponse saveCategory( Category category )
     {
         return saveMetadataObject( "categories", category );
+    }
+
+    /**
+     * Saves or updates the list of {@link Category}.
+     *
+     * @param categoryOptions the list of {@link Category}.
+     * @return {@link ObjectsResponse} holding information about the operation.
+     */
+    public ObjectsResponse saveCategories( List<Category> categories )
+    {
+        return saveMetadataObjects( new MetadataObjects().setCategories( categories ) );
     }
 
     /**
@@ -698,6 +720,50 @@ public class Dhis2
     // -------------------------------------------------------------------------
 
     /**
+     * Saves a {@link DataElement}.
+     *
+     * @param dataElement the object to save.
+     * @return {@link ObjectResponse} holding information about the operation.
+     */
+    public ObjectResponse saveDataElement( DataElement dataElement )
+    {
+        return saveMetadataObject( "dataElements", dataElement );
+    }
+
+    /**
+     * Saves or updates the list of {@link DataElement}.
+     *
+     * @param dataElements the list of {@link DataElement}.
+     * @return {@link ObjectsResponse} holding information about the operation.
+     */
+    public ObjectsResponse saveDataElements( List<DataElement> dataElements )
+    {
+        return saveMetadataObjects( new MetadataObjects().setDataElements( dataElements ) );
+    }
+
+    /**
+     * Updates a {@link DataElement}.
+     *
+     * @param dataElement the object to update.
+     * @return {@link ObjectResponse} holding information about the operation.
+     */
+    public ObjectResponse updateDataElement( DataElement dataElement )
+    {
+        return updateMetadataObject( String.format( "dataElements/%s", dataElement.getId() ), dataElement );
+    }
+
+    /**
+     * Removes a {@link DataElement}.
+     *
+     * @param id the identifier of the object to remove.
+     * @return {@link ObjectResponse} holding information about the operation.
+     */
+    public ObjectResponse removeDataElement( String id )
+    {
+        return removeMetadataObject( String.format( "dataElements/%s", id ) );
+    }
+
+    /**
      * Retrieves an {@link DataElement}.
      *
      * @param id the object identifier.
@@ -738,6 +804,17 @@ public class Dhis2
     public ObjectResponse saveDataElementGroup( DataElementGroup dataElementGroup )
     {
         return saveMetadataObject( "dataElementGroups", dataElementGroup );
+    }
+
+    /**
+     * Saves or updates the list of {@link DataElementGroup}.
+     *
+     * @param dataElements the list of {@link DataElementGroup}.
+     * @return {@link ObjectsResponse} holding information about the operation.
+     */
+    public ObjectsResponse saveDataElementGroups( List<DataElementGroup> dataElementGroups )
+    {
+        return saveMetadataObjects( new MetadataObjects().setDataElementGroups( dataElementGroups ) );
     }
 
     /**
@@ -915,6 +992,17 @@ public class Dhis2
     public ObjectResponse saveTableHook( TableHook tableHook )
     {
         return saveMetadataObject( "analyticsTableHooks", tableHook );
+    }
+
+    /**
+     * Saves or updates the list of {@link TableHook}.
+     *
+     * @param tableHooks the list of {@link TableHook}.
+     * @return {@link ObjectsResponse} holding information about the operation.
+     */
+    public ObjectsResponse saveTableHooks( List<TableHook> tableHooks )
+    {
+        return saveMetadataObjects( new MetadataObjects().setAnalyticsTableHooks( tableHooks ) );
     }
 
     /**
