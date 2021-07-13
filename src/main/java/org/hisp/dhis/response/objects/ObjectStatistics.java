@@ -20,4 +20,15 @@ public class ObjectStatistics
 
     @JsonProperty
     private Integer ignored;
+
+
+    @Override
+    public String toString()
+    {
+        return new StringBuilder( "[")
+            .append( "created: " ).append( created ).append( ", " )
+            .append( "updated: " ).append( updated ).append( ", " )
+            .append( "deleted: " ).append( deleted ).append( ", " )
+            .append( "ignored: " ).append( ignored ).append( "] " ).toString();
+    }
 }

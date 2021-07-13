@@ -28,8 +28,7 @@ public class OrgUnitGroupSet
 
     public OrgUnitGroupSet( String id, String name, String shortName )
     {
-        this.id = id;
-        this.name = name;
+        this( id, name );
         this.shortName = shortName;
     }
 }

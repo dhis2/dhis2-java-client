@@ -32,4 +32,13 @@ public class ObjectsResponse
          return typeReports != null && !typeReports.isEmpty() ?
              typeReports.get( 0 ) : new TypeReport();
     }
+
+    @Override
+    public String toString()
+    {
+        return new StringBuilder( "[")
+            .append( "status: " ).append( status ).append( ", " )
+            .append( "httpStatusCode: " ).append( httpStatusCode ).append( ", " )
+            .append( "stats: " ).append( stats ).append( "]" ).toString();
+    }
 }
