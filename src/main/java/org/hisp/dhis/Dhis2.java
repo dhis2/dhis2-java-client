@@ -50,6 +50,7 @@ import org.hisp.dhis.response.datavalueset.DataValueSetResponse;
 import org.hisp.dhis.response.job.JobCategory;
 import org.hisp.dhis.response.job.JobNotification;
 import org.hisp.dhis.response.object.ObjectResponse;
+import org.hisp.dhis.response.objects.ObjectsResponse;
 import org.hisp.dhis.util.HttpUtils;
 
 /**
@@ -135,7 +136,7 @@ public class Dhis2
      *
      * @param path the URL path relative to the API end point.
      * @param object the object to save.
-     * @return a {@link ObjectResponse} holding information about the operation.
+     * @return {@link ObjectResponse} holding information about the operation.
      * @throws Dhis2ClientException if the save operation failed due to client side error.
      */
     public ObjectResponse saveMetadataObject( String path, IdentifiableObject object )
@@ -149,13 +150,13 @@ public class Dhis2
      * Saves or updates metadata objects.
      *
      * @param objects the {@link MetadataObjects}.
-     * @return a {@link ObjectResponse} holding information about the operation.
+     * @return {@link ObjectsResponse} holding information about the operation.
      */
-    public ObjectResponse saveMetadataObjects( MetadataObjects objects )
+    public ObjectsResponse saveMetadataObjects( MetadataObjects objects )
     {
         URI url = config.getResolvedUrl( "metadata" );
 
-        return executeJsonPostPutRequest( new HttpPost( url ), objects, ObjectResponse.class );
+        return executeJsonPostPutRequest( new HttpPost( url ), objects, ObjectsResponse.class );
     }
 
     /**
@@ -163,7 +164,7 @@ public class Dhis2
      *
      * @param path the URL path relative to the API end point.
      * @param object the object to save.
-     * @return a {@link ObjectResponse} holding information about the operation.
+     * @return {@link ObjectResponse} holding information about the operation.
      */
     public ObjectResponse updateMetadataObject( String path, IdentifiableObject object )
     {
@@ -176,7 +177,7 @@ public class Dhis2
      * Updates an object using HTTP DELETE.
      *
      * @param path the URL path relative to the API end point.
-     * @return a {@link ObjectResponse} holding information about the operation.
+     * @return {@link ObjectResponse} holding information about the operation.
      */
     public ObjectResponse removeMetadataObject( String path )
     {
@@ -229,7 +230,7 @@ public class Dhis2
      * Saves a {@link OrgUnit}.
      *
      * @param orgUnit the object to save.
-     * @return a {@link ObjectResponse} holding information about the operation.
+     * @return {@link ObjectResponse} holding information about the operation.
      */
     public ObjectResponse saveOrgUnit( OrgUnit orgUnit )
     {
@@ -240,9 +241,9 @@ public class Dhis2
      * Saves or updates the list of {@link OrgUnit}.
      *
      * @param orgUnits the list of {@link OrgUnit}.
-     * @return a {@link ObjectResponse} holding information about the operation.
+     * @return {@link ObjectsResponse} holding information about the operation.
      */
-    public ObjectResponse saveOrUpdateOrgUnits( List<OrgUnit> orgUnits )
+    public ObjectsResponse saveOrgUnits( List<OrgUnit> orgUnits )
     {
         return saveMetadataObjects( new MetadataObjects().setOrganisationUnits( orgUnits ) );
     }
@@ -251,7 +252,7 @@ public class Dhis2
      * Updates a {@link OrgUnit}.
      *
      * @param orgUnit the object to update.
-     * @return a {@link ObjectResponse} holding information about the operation.
+     * @return {@link ObjectResponse} holding information about the operation.
      */
     public ObjectResponse updateOrgUnit( OrgUnit orgUnit )
     {
@@ -262,7 +263,7 @@ public class Dhis2
      * Removes a {@link OrgUnit}.
      *
      * @param id the identifier of the object to remove.
-     * @return a {@link ObjectResponse} holding information about the operation.
+     * @return {@link ObjectResponse} holding information about the operation.
      */
     public ObjectResponse removeOrgUnit( String id )
     {
@@ -289,7 +290,7 @@ public class Dhis2
      * Retrieves a list of {@link OrgUnit}.
      *
      * @param query the {@link Query}.
-     * @return a list of {@link OrgUnit}.
+     * @return list of {@link OrgUnit}.
      */
     public List<OrgUnit> getOrgUnits( Query query )
     {
@@ -309,7 +310,7 @@ public class Dhis2
      * Performs an org unit split operation.
      *
      * @param request the {@link OrgUnitSplitRequest}.
-     * @return a {@link Response} holding information about the operation.
+     * @return the {@link Response} holding information about the operation.
      */
     public Response splitOrgUnit( OrgUnitSplitRequest request )
     {
@@ -322,7 +323,7 @@ public class Dhis2
      * Performs an org unit merge operation.
      *
      * @param request the {@link OrgUnitMergeRequest request}.
-     * @return a {@link Response} holding information about the operation.
+     * @return the {@link Response} holding information about the operation.
      */
     public Response mergeOrgUnits( OrgUnitMergeRequest request )
     {
@@ -339,7 +340,7 @@ public class Dhis2
      * Saves a {@link OrgUnitGroup}.
      *
      * @param orgUnitGroup the object to save.
-     * @return a {@link ObjectResponse} holding information about the operation.
+     * @return {@link ObjectResponse} holding information about the operation.
      */
     public ObjectResponse saveOrgUnitGroup( OrgUnitGroup orgUnitGroup )
     {
@@ -350,7 +351,7 @@ public class Dhis2
      * Updates a {@link OrgUnitGroup}.
      *
      * @param orgUnitGroup the object to update.
-     * @return a {@link ObjectResponse} holding information about the operation.
+     * @return {@link ObjectResponse} holding information about the operation.
      */
     public ObjectResponse updateOrgUnitGroup( OrgUnitGroup orgUnitGroup )
     {
@@ -361,7 +362,7 @@ public class Dhis2
      * Removes a {@link OrgUnitGroup}.
      *
      * @param id the identifier of the object to remove.
-     * @return a {@link ObjectResponse} holding information about the operation.
+     * @return {@link ObjectResponse} holding information about the operation.
      */
     public ObjectResponse removeOrgUnitGroup( String id )
     {
@@ -386,7 +387,7 @@ public class Dhis2
      * Retrieves a list of {@link OrgUnitGroup}.
      *
      * @param query the {@link Query}.
-     * @return a list of {@link OrgUnitGroup}.
+     * @return list of {@link OrgUnitGroup}.
      */
     public List<OrgUnitGroup> getOrgUnitGroups( Query query )
     {
@@ -404,7 +405,7 @@ public class Dhis2
      * Saves a {@link OrgUnitGroupSet}.
      *
      * @param orgUnitGroupSet the object to save.
-     * @return a {@link ObjectResponse} holding information about the operation.
+     * @return {@link ObjectResponse} holding information about the operation.
      */
     public ObjectResponse saveOrgUnitGroupSet( OrgUnitGroupSet orgUnitGroupSet )
     {
@@ -415,7 +416,7 @@ public class Dhis2
      * Updates a {@link OrgUnitGroupSet}.
      *
      * @param orgUnitGroupSet the object to update.
-     * @return a {@link ObjectResponse} holding information about the operation.
+     * @return {@link ObjectResponse} holding information about the operation.
      */
     public ObjectResponse updateOrgUnitGroupSet( OrgUnitGroupSet orgUnitGroupSet )
     {
@@ -426,7 +427,7 @@ public class Dhis2
      * Removes a {@link OrgUnitGroupSet}.
      *
      * @param id the identifier of the object to remove.
-     * @return a {@link ObjectResponse} holding information about the operation.
+     * @return {@link ObjectResponse} holding information about the operation.
      */
     public ObjectResponse removeOrgUnitGroupSet( String id )
     {
@@ -451,7 +452,7 @@ public class Dhis2
      * Retrieves a list of {@link OrgUnitGroupSet}.
      *
      * @param query the {@link Query}.
-     * @return a list of {@link OrgUnitGroupSet}.
+     * @return list of {@link OrgUnitGroupSet}.
      */
     public List<OrgUnitGroupSet> getOrgUnitGroupSets( Query query )
     {
@@ -483,7 +484,7 @@ public class Dhis2
      * Retrieves a list of {@link OrgUnitLevel}.
      *
      * @param query the {@link Query}.
-     * @return a list of {@link OrgUnitLevel}.
+     * @return list of {@link OrgUnitLevel}.
      */
     public List<OrgUnitLevel> getOrgUnitLevels( Query query )
     {
@@ -498,7 +499,7 @@ public class Dhis2
      * any gaps in the persisted levels will be inserted by generated
      * levels.
      *
-     * @return a list of {@link OrgUnitLevel}.
+     * @return list of {@link OrgUnitLevel}.
      */
     public List<OrgUnitLevel> getFilledOrgUnitLevels()
     {
@@ -516,7 +517,7 @@ public class Dhis2
      * Saves a {@link CategoryOption}.
      *
      * @param categoryOption the object to save.
-     * @return a {@link ObjectResponse} holding information about the operation.
+     * @return {@link ObjectResponse} holding information about the operation.
      */
     public ObjectResponse saveCategoryOption( CategoryOption categoryOption )
     {
@@ -527,7 +528,7 @@ public class Dhis2
      * Updates a {@link CategoryOption}.
      *
      * @param categoryOption the object to update.
-     * @return a {@link ObjectResponse} holding information about the operation.
+     * @return {@link ObjectResponse} holding information about the operation.
      */
     public ObjectResponse updateCategoryOption( CategoryOption categoryOption )
     {
@@ -538,7 +539,7 @@ public class Dhis2
      * Removes a {@link CategoryOption}.
      *
      * @param id the identifier of the object to remove.
-     * @return a {@link ObjectResponse} holding information about the operation.
+     * @return {@link ObjectResponse} holding information about the operation.
      */
     public ObjectResponse removeCategoryOption( String id )
     {
@@ -563,7 +564,7 @@ public class Dhis2
      * Retrieves a list of {@link CategoryOption}.
      *
      * @param query the {@link Query}.
-     * @return a list of {@link CategoryOption}.
+     * @return list of {@link CategoryOption}.
      */
     public List<Category> getCategoryOptions( Query query )
     {
@@ -581,7 +582,7 @@ public class Dhis2
      * Saves a {@link Category}.
      *
      * @param category the object to save.
-     * @return a {@link ObjectResponse} holding information about the operation.
+     * @return {@link ObjectResponse} holding information about the operation.
      */
     public ObjectResponse saveCategory( Category category )
     {
@@ -592,7 +593,7 @@ public class Dhis2
      * Updates a {@link Category}.
      *
      * @param categoryOption the object to update.
-     * @return a {@link ObjectResponse} holding information about the operation.
+     * @return {@link ObjectResponse} holding information about the operation.
      */
     public ObjectResponse updateCategory( CategoryOption categoryOption )
     {
@@ -603,7 +604,7 @@ public class Dhis2
      * Removes a {@link Category}.
      *
      * @param id the identifier of the object to remove.
-     * @return a {@link ObjectResponse} holding information about the operation.
+     * @return {@link ObjectResponse} holding information about the operation.
      */
     public ObjectResponse removeCategory( String id )
     {
@@ -628,7 +629,7 @@ public class Dhis2
      * Retrieves a list of {@link Category}.
      *
      * @param query the {@link Query}.
-     * @return a list of {@link Category}.
+     * @return list of {@link Category}.
      */
     public List<Category> getCategories( Query query )
     {
@@ -660,7 +661,7 @@ public class Dhis2
      * Retrieves a list of {@link CategoryCombo}.
      *
      * @param query the {@link Query}.
-     * @return a list of {@link CategoryCombo}.
+     * @return list of {@link CategoryCombo}.
      */
     public List<CategoryCombo> getCategoryCombos( Query query )
     {
@@ -692,7 +693,7 @@ public class Dhis2
      * Retrieves a list of {@link DataElement}.
      *
      * @param query the {@link Query}.
-     * @return a list of {@link DataElement}.
+     * @return list of {@link DataElement}.
      */
     public List<DataElement> getDataElements( Query query )
     {
@@ -710,7 +711,7 @@ public class Dhis2
      * Saves a {@link DataElement}.
      *
      * @param dataElementGroup the object to save.
-     * @return a {@link ObjectResponse} holding information about the operation.
+     * @return {@link ObjectResponse} holding information about the operation.
      */
     public ObjectResponse saveDataElementGroup( DataElementGroup dataElementGroup )
     {
@@ -721,7 +722,7 @@ public class Dhis2
      * Updates a {@link DataElementGroup}.
      *
      * @param dataElementGroup the object to update.
-     * @return a {@link ObjectResponse} holding information about the operation.
+     * @return {@link ObjectResponse} holding information about the operation.
      */
     public ObjectResponse updateDataElementGroup( DataElementGroup dataElementGroup )
     {
@@ -732,7 +733,7 @@ public class Dhis2
      * Removes a {@link DataElementGroup}.
      *
      * @param id the identifier of the object to remove.
-     * @return a {@link ObjectResponse} holding information about the operation.
+     * @return {@link ObjectResponse} holding information about the operation.
      */
     public ObjectResponse removeDataElementGroup( String id )
     {
@@ -757,7 +758,7 @@ public class Dhis2
      * Retrieves a list of {@link DataElementGroup}.
      *
      * @param query the {@link Query}.
-     * @return a list of {@link DataElementGroup}.
+     * @return list of {@link DataElementGroup}.
      */
     public List<DataElementGroup> getDataElementGroups( Query query )
     {
@@ -789,7 +790,7 @@ public class Dhis2
      * Retrieves a list of {@link DataElementGroupSet}.
      *
      * @param query the {@link Query}.
-     * @return a list of {@link DataElementGroupSet}.
+     * @return list of {@link DataElementGroupSet}.
      */
     public List<DataElementGroupSet> getDataElementGroupSets( Query query )
     {
@@ -827,7 +828,7 @@ public class Dhis2
      * Retrieves a list of {@link Program}.
      *
      * @param query the {@link Query}.
-     * @return a list of {@link Program}.
+     * @return list of {@link Program}.
      */
     public List<Program> getPrograms( Query query )
     {
@@ -869,7 +870,7 @@ public class Dhis2
      * Retrieves a list of {@link CategoryOptionGroupSet}.
      *
      * @param query the {@link Query}.
-     * @return a list of {@link CategoryOptionGroupSet}.
+     * @return list of {@link CategoryOptionGroupSet}.
      */
     public List<CategoryOptionGroupSet> getCategoryOptionGroupSets( Query query )
     {
@@ -887,7 +888,7 @@ public class Dhis2
      * Saves a {@link TableHook}.
      *
      * @param tableHook the object to save.
-     * @return a {@link ObjectResponse} holding information about the operation.
+     * @return {@link ObjectResponse} holding information about the operation.
      */
     public ObjectResponse saveTableHook( TableHook tableHook )
     {
@@ -898,7 +899,7 @@ public class Dhis2
      * Updates a {@link TableHook}.
      *
      * @param tableHook the object to update.
-     * @return a {@link ObjectResponse} holding information about the operation.
+     * @return {@link ObjectResponse} holding information about the operation.
      */
     public ObjectResponse updateTableHook( TableHook tableHook )
     {
@@ -909,7 +910,7 @@ public class Dhis2
      * Removes a {@link TableHook}.
      *
      * @param id the identifier of the object to remove.
-     * @return a {@link ObjectResponse} holding information about the operation.
+     * @return {@link ObjectResponse} holding information about the operation.
      */
     public ObjectResponse removeTableHook( String id )
     {
@@ -931,7 +932,7 @@ public class Dhis2
      * Retrieves a list of {@link TableHook}.
      *
      * @param query the {@link Query}.
-     * @return a list of {@link TableHook}.
+     * @return list of {@link TableHook}.
      */
     public List<TableHook> getTableHooks( Query query )
     {
@@ -963,7 +964,7 @@ public class Dhis2
      * Retrieves a list of {@link Dimension}.
      *
      * @param query the {@link Query}.
-     * @return a list of {@link Dimension}.
+     * @return list of {@link Dimension}.
      */
     public List<Dimension> getDimensions( Query query )
     {
@@ -981,7 +982,7 @@ public class Dhis2
      * Retrieves a list of {@link PeriodType}.
      *
      * @param query the {@link Query}.
-     * @return a list of {@link PeriodType}.
+     * @return list of {@link PeriodType}.
      */
     public List<PeriodType> getPeriodTypes( Query query )
     {
@@ -1015,7 +1016,7 @@ public class Dhis2
      *
      * @param dataValueSet the {@link DataValueSet} to save.
      * @param options the {@link DataValueSetImportOptions}.
-     * @return a {@link DataValueSetResponse} holding information about the operation.
+     * @return {@link DataValueSetResponse} holding information about the operation.
      * @throws IOException if the save process failed.
      */
     public DataValueSetResponse saveDataValueSet( DataValueSet dataValueSet, DataValueSetImportOptions options )
@@ -1036,7 +1037,7 @@ public class Dhis2
      *
      * @param file the file representing the data value set JSON payload.
      * @param options the {@link DataValueSetImportOptions}.
-     * @return a {@link DataValueSetResponse} holding information about the operation.
+     * @return {@link DataValueSetResponse} holding information about the operation.
      * @throws IOException if the save process failed.
      */
     public DataValueSetResponse saveDataValueSet( File file, DataValueSetImportOptions options )
@@ -1060,7 +1061,7 @@ public class Dhis2
      * Retrieves a {@link DataValueSet}.
      *
      * @param query the {@link AnalyticsQuery}.
-     * @return a {@link DataValueSet}.
+     * @return {@link DataValueSet}.
      */
     public DataValueSet getAnalyticsDataValueSet( AnalyticsQuery query )
     {
@@ -1097,7 +1098,7 @@ public class Dhis2
      *
      * @param category the {@link JobCategory}.
      * @param id the job identifier.
-     * @return a list of {@link JobNotification}.
+     * @return list of {@link JobNotification}.
      */
     public List<JobNotification> getJobNotifications( JobCategory category, String id )
     {
