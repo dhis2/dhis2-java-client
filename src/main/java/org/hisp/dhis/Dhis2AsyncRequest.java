@@ -15,9 +15,9 @@ import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
 import org.apache.hc.core5.http.ParseException;
 import org.apache.hc.core5.http.io.entity.EntityUtils;
-import org.hisp.dhis.response.HttpResponseMessage;
+import org.hisp.dhis.response.BaseHttpResponse;
 import org.hisp.dhis.response.job.JobInfo;
-import org.hisp.dhis.response.job.JobInfoResponseMessage;
+import org.hisp.dhis.response.job.JobInfoResponse;
 import org.hisp.dhis.response.job.JobNotification;
 import org.hisp.dhis.util.HttpUtils;
 
@@ -60,10 +60,10 @@ public class Dhis2AsyncRequest
      * @return a response message.
      * @throws IOException if the POST operation failed.
      */
-    public <T extends HttpResponseMessage> T post( HttpPost request, Class<T> klass )
+    public <T extends BaseHttpResponse> T post( HttpPost request, Class<T> klass )
         throws IOException
     {
-        JobInfoResponseMessage message = postAsyncRequest( request );
+        JobInfoResponse message = postAsyncRequest( request );
 
         JobInfo jobInfo = message.getResponse();
 
@@ -91,14 +91,14 @@ public class Dhis2AsyncRequest
      * @return a {link JobInfoResponseMessage}.
      * @throws IOException if the POST operation failed.
      */
-    private JobInfoResponseMessage postAsyncRequest( HttpPost request )
+    private JobInfoResponse postAsyncRequest( HttpPost request )
         throws IOException
     {
         try ( CloseableHttpResponse response = httpClient.execute( request ) )
         {
             String body = EntityUtils.toString( response.getEntity() );
 
-            JobInfoResponseMessage message = objectMapper.readValue( body, JobInfoResponseMessage.class );
+            JobInfoResponse message = objectMapper.readValue( body, JobInfoResponse.class );
 
             if ( !message.getHttpStatus().is2xxSuccessful() )
             {

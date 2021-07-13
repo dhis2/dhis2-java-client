@@ -1,11 +1,7 @@
 package org.hisp.dhis.response;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.hc.core5.http.Header;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Getter;
@@ -20,14 +16,11 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class ResponseMessage
-    implements HttpResponseMessage
+public class Response
+    extends BaseHttpResponse
 {
     @JsonProperty
     protected Status status;
-
-    @JsonProperty
-    protected Integer httpStatusCode;
 
     @JsonProperty
     protected Integer code;
@@ -38,10 +31,7 @@ public class ResponseMessage
     @JsonProperty
     protected String devMessage;
 
-    @JsonIgnore
-    protected List<Header> headers = new ArrayList<>();
-
-    public ResponseMessage( Status status, Integer httpStatusCode, String message )
+    public Response( Status status, Integer httpStatusCode, String message )
     {
         this.status = status;
         this.httpStatusCode = httpStatusCode;

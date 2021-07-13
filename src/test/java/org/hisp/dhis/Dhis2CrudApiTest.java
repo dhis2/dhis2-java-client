@@ -12,7 +12,7 @@ import org.hisp.dhis.model.OrgUnitGroup;
 import org.hisp.dhis.response.Dhis2ClientException;
 import org.hisp.dhis.response.HttpStatus;
 import org.hisp.dhis.response.Status;
-import org.hisp.dhis.response.metadata.MetadataResponseMessage;
+import org.hisp.dhis.response.metadata.ObjectResponse;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.function.ThrowingRunnable;
@@ -45,7 +45,7 @@ public class Dhis2CrudApiTest
 
         // Create
 
-        MetadataResponseMessage createRespA = dhis2.saveCategoryOption( coA );
+        ObjectResponse createRespA = dhis2.saveCategoryOption( coA );
 
         log.info( "Status code: {}", createRespA.getHttpStatusCode() );
         log.info( "Message: '{}'", createRespA.getMessage() );
@@ -78,7 +78,7 @@ public class Dhis2CrudApiTest
 
         // Update
 
-        MetadataResponseMessage updateRespA = dhis2.updateCategoryOption( coA );
+        ObjectResponse updateRespA = dhis2.updateCategoryOption( coA );
 
         assertEquals( 200, updateRespA.getHttpStatusCode().intValue() );
         assertEquals( HttpStatus.OK, updateRespA.getHttpStatus() );
@@ -87,7 +87,7 @@ public class Dhis2CrudApiTest
 
         // Remove
 
-        MetadataResponseMessage removeRespA = dhis2.removeCategoryOption( uidA );
+        ObjectResponse removeRespA = dhis2.removeCategoryOption( uidA );
 
         assertEquals( 200, removeRespA.getHttpStatusCode().intValue() );
         assertEquals( HttpStatus.OK, removeRespA.getHttpStatus() );
@@ -107,7 +107,7 @@ public class Dhis2CrudApiTest
 
         // Create
 
-        MetadataResponseMessage createRespA = dhis2.saveOrgUnitGroup( ougA );
+        ObjectResponse createRespA = dhis2.saveOrgUnitGroup( ougA );
 
         assertEquals( 201, createRespA.getHttpStatusCode().intValue() );
         assertEquals( HttpStatus.CREATED, createRespA.getHttpStatus() );
@@ -130,7 +130,7 @@ public class Dhis2CrudApiTest
 
         // Update
 
-        MetadataResponseMessage updateRespA = dhis2.updateOrgUnitGroup( ougA );
+        ObjectResponse updateRespA = dhis2.updateOrgUnitGroup( ougA );
 
         assertEquals( 200, updateRespA.getHttpStatusCode().intValue() );
         assertEquals( HttpStatus.OK, updateRespA.getHttpStatus() );
@@ -139,7 +139,7 @@ public class Dhis2CrudApiTest
 
         // Remove
 
-        MetadataResponseMessage removeRespA = dhis2.removeOrgUnitGroup( uidA );
+        ObjectResponse removeRespA = dhis2.removeOrgUnitGroup( uidA );
 
         assertEquals( 200, removeRespA.getHttpStatusCode().intValue() );
         assertEquals( HttpStatus.OK, removeRespA.getHttpStatus() );

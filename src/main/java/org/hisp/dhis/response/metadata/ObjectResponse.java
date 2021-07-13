@@ -1,6 +1,6 @@
 package org.hisp.dhis.response.metadata;
 
-import org.hisp.dhis.response.ResponseMessage;
+import org.hisp.dhis.response.Response;
 import org.hisp.dhis.response.Status;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -12,13 +12,13 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class MetadataResponseMessage
-    extends ResponseMessage
+public class ObjectResponse
+    extends Response
 {
     @JsonProperty
     protected ObjectReport response;
 
-    public MetadataResponseMessage( Status status, Integer httpStatusCode, String message )
+    public ObjectResponse( Status status, Integer httpStatusCode, String message )
     {
         super( status, httpStatusCode, message );
     }

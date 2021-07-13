@@ -10,7 +10,7 @@ import org.hisp.dhis.category.IntegrationTest;
 import org.hisp.dhis.model.OrgUnit;
 import org.hisp.dhis.request.orgunit.OrgUnitMergeRequest;
 import org.hisp.dhis.response.Dhis2ClientException;
-import org.hisp.dhis.response.ResponseMessage;
+import org.hisp.dhis.response.Response;
 import org.hisp.dhis.response.Status;
 import org.hisp.dhis.util.CollectionUtils;
 import org.hisp.dhis.util.UidUtils;
@@ -49,7 +49,7 @@ public class OrgUnitApiTest
             .setTarget( uidC )
             .setDeleteSources( true );
 
-        ResponseMessage response = dhis2.mergeOrgUnits( request );
+        Response response = dhis2.mergeOrgUnits( request );
 
         assertEquals( Status.OK, response.getStatus() );
 
