@@ -33,7 +33,7 @@ Dhis2 dhis2 = new Dhis2( config );
 
 This section explains the basic usage of the client.
 
-### Retrieve objects
+### Query objects
 
 To retrieve all org unit groups:
 
@@ -57,25 +57,19 @@ List<OrgUnit> orgUnits = dhis2.getOrgUnits( Query.instance()
     .withOrder( Order.desc( "name" ) ) );
 ```
 
-When retrieving lists of objects, associations to other objects will not 
-be populated in the response by default. You can expand associations in 
-object lists through the query object like this, e.g. for programs:
+When retrieving lists of objects, associations to other objects will not be populated in the response by default. You can expand associations in object lists through the query object like this, e.g. for programs:
 
 ```java
 List<Program> programs = dhis2.getPrograms( Query.instance()
     .withExpandAssociations() );
 ```
 
+### Get objects
+
 To retrieve a single org unit by identifier:
 
 ```java
 OrgUnit orgUnit = dhis2.getOrgUnit( "j7gkH3hf83k" );
-```
-
-To retrieve your own, arbitrary domain object:
-
-```java
-DataElement dataElement = dhis2.getObject( "dataElements/khG6T32uJ71", DataElement.class );
 ```
 
 ### Create objects
@@ -90,12 +84,16 @@ orgUnit.setCode( "NGLH" );
 ObjectResponse response = dhis2.saveOrgUnit( orgUnit );
 ```
 
-To save your own, arbitrary metadata object:
+### Create multiple objects
+
+To create or update multiple objects:
 
 ```java
-DataElement dataElement = new DataElement( "Patients on treatment" );
+List<OrgUnit> orgUnits = List.of( 
+    new OrgUnit( "nEt3lFHOqYP", "Ngelehun"),
+    new OrgUnit( "gnAOCDoZUVO", "Kailahun" ) );
 
-ObjectResponse response = dhis2.saveMetadataObject( "dataElements", dataElement );
+ObjectsResponse response = dhis2.saveOrgUnits( orgUnits );
 ```
 
 ### Update objects
@@ -111,13 +109,6 @@ orgUnit.setCode( "NGLH" );
 ObjectResponse response = dhis2.updateOrgUnit( orgUnit );
 ```
 
-To update your own, arbitrary metadata object:
-
-```java
-ObjectResponse response = dhis2.updateMetadataObject( 
-    "dataElements/" + dataElement.getId(), dataElement );
-```
-
 ### Remove objects
 
 To remove an org unit:
@@ -128,7 +119,7 @@ ObjectResponse response = dhis2.removeOrgUnit( "j7gkH3hf83k" );
 
 ### Get response message
 
-The various metadata object save and update methods return an instance of `MetadataResponse`, which holds information about the operation, such as status, HTTP status, HTTP status code and a message describing the outcome.
+The various metadata object save and update methods return an instance of `ObjectResponse` which holds information about the operation, such as status, HTTP status, HTTP status code and a message describing the outcome.
 
 ```java
 ObjectResponse response = dhis2.saveMetadataObject( "dataElements", dataElement );

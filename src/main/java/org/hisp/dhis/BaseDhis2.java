@@ -27,6 +27,7 @@ import org.apache.hc.client5.http.HttpResponseException;
 import org.apache.hc.client5.http.classic.methods.HttpDelete;
 import org.apache.hc.client5.http.classic.methods.HttpGet;
 import org.apache.hc.client5.http.classic.methods.HttpPost;
+import org.apache.hc.client5.http.classic.methods.HttpPut;
 import org.apache.hc.client5.http.classic.methods.HttpUriRequestBase;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
@@ -39,6 +40,8 @@ import org.apache.hc.core5.http.ParseException;
 import org.apache.hc.core5.http.io.entity.EntityUtils;
 import org.apache.hc.core5.http.io.entity.StringEntity;
 import org.apache.hc.core5.net.URIBuilder;
+import org.hisp.dhis.model.IdentifiableObject;
+import org.hisp.dhis.model.Objects;
 import org.hisp.dhis.model.datavalueset.DataValueSetImportOptions;
 import org.hisp.dhis.query.Filter;
 import org.hisp.dhis.query.Operator;
@@ -50,6 +53,8 @@ import org.hisp.dhis.query.analytics.Dimension;
 import org.hisp.dhis.response.BaseHttpResponse;
 import org.hisp.dhis.response.Dhis2ClientException;
 import org.hisp.dhis.response.Response;
+import org.hisp.dhis.response.object.ObjectResponse;
+import org.hisp.dhis.response.objects.ObjectsResponse;
 import org.hisp.dhis.util.HttpUtils;
 
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -563,5 +568,78 @@ public class BaseDhis2
     protected static <T> ArrayList<T> asList( T[] array )
     {
         return new ArrayList<>( Arrays.asList( array ) );
+    }
+
+    // -------------------------------------------------------------------------
+    // Protected generic object methods
+    // -------------------------------------------------------------------------
+
+    /**
+     * Saves a metadata object using HTTP POST.
+     *
+     * @param path the URL path relative to the API end point.
+     * @param object the object to save.
+     * @return {@link ObjectResponse} holding information about the operation.
+     * @throws Dhis2ClientException if the save operation failed due to client
+     *         side error.
+     */
+    protected ObjectResponse saveMetadataObject( String path, IdentifiableObject object )
+    {
+        URI url = config.getResolvedUrl( path );
+
+        return executeJsonPostPutRequest( new HttpPost( url ), object, ObjectResponse.class );
+    }
+
+    /**
+     * Saves or updates metadata objects.
+     *
+     * @param objects the {@link Objects}.
+     * @return {@link ObjectsResponse} holding information about the operation.
+     */
+    protected ObjectsResponse saveMetadataObjects( Objects objects )
+    {
+        URI url = config.getResolvedUrl( "metadata" );
+
+        return executeJsonPostPutRequest( new HttpPost( url ), objects, ObjectsResponse.class );
+    }
+
+    /**
+     * Updates an object using HTTP PUT.
+     *
+     * @param path the URL path relative to the API end point.
+     * @param object the object to save.
+     * @return {@link ObjectResponse} holding information about the operation.
+     */
+    protected ObjectResponse updateMetadataObject( String path, IdentifiableObject object )
+    {
+        URI url = config.getResolvedUrl( path );
+
+        return executeJsonPostPutRequest( new HttpPut( url ), object, ObjectResponse.class );
+    }
+
+    /**
+     * Updates an object using HTTP DELETE.
+     *
+     * @param path the URL path relative to the API end point.
+     * @return {@link ObjectResponse} holding information about the operation.
+     */
+    protected ObjectResponse removeMetadataObject( String path )
+    {
+        URI url = config.getResolvedUrl( path );
+
+        return executeJsonPostPutRequest( new HttpDelete( url ), null, ObjectResponse.class );
+    }
+
+    /**
+     * Retrieves an object using HTTP GET.
+     *
+     * @param path the URL path relative to the API end point.
+     * @param klass the class type of the object.
+     * @param <T> type.
+     * @return the object.
+     */
+    protected <T> T getObject( String path, Class<T> klass )
+    {
+        return getObjectFromUrl( config.getResolvedUrl( path ), klass );
     }
 }

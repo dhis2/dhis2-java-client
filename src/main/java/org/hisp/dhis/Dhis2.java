@@ -10,11 +10,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.apache.hc.client5.http.HttpResponseException;
-import org.apache.hc.client5.http.classic.methods.HttpDelete;
 import org.apache.hc.client5.http.classic.methods.HttpGet;
 import org.apache.hc.client5.http.classic.methods.HttpHead;
 import org.apache.hc.client5.http.classic.methods.HttpPost;
-import org.apache.hc.client5.http.classic.methods.HttpPut;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
 import org.apache.hc.core5.http.ContentType;
 import org.apache.hc.core5.http.io.entity.FileEntity;
@@ -27,7 +25,6 @@ import org.hisp.dhis.model.DataElement;
 import org.hisp.dhis.model.DataElementGroup;
 import org.hisp.dhis.model.DataElementGroupSet;
 import org.hisp.dhis.model.Dimension;
-import org.hisp.dhis.model.IdentifiableObject;
 import org.hisp.dhis.model.Objects;
 import org.hisp.dhis.model.OrgUnit;
 import org.hisp.dhis.model.OrgUnitGroup;
@@ -43,7 +40,6 @@ import org.hisp.dhis.query.Query;
 import org.hisp.dhis.query.analytics.AnalyticsQuery;
 import org.hisp.dhis.request.orgunit.OrgUnitMergeRequest;
 import org.hisp.dhis.request.orgunit.OrgUnitSplitRequest;
-import org.hisp.dhis.response.Dhis2ClientException;
 import org.hisp.dhis.response.HttpStatus;
 import org.hisp.dhis.response.Response;
 import org.hisp.dhis.response.datavalueset.DataValueSetResponse;
@@ -132,75 +128,6 @@ public class Dhis2
     public String getDhis2Username()
     {
         return config.getUsername();
-    }
-
-    /**
-     * Saves a metadata object using HTTP POST.
-     *
-     * @param path the URL path relative to the API end point.
-     * @param object the object to save.
-     * @return {@link ObjectResponse} holding information about the operation.
-     * @throws Dhis2ClientException if the save operation failed due to client
-     *         side error.
-     */
-    public ObjectResponse saveMetadataObject( String path, IdentifiableObject object )
-    {
-        URI url = config.getResolvedUrl( path );
-
-        return executeJsonPostPutRequest( new HttpPost( url ), object, ObjectResponse.class );
-    }
-
-    /**
-     * Saves or updates metadata objects.
-     *
-     * @param objects the {@link Objects}.
-     * @return {@link ObjectsResponse} holding information about the operation.
-     */
-    public ObjectsResponse saveMetadataObjects( Objects objects )
-    {
-        URI url = config.getResolvedUrl( "metadata" );
-
-        return executeJsonPostPutRequest( new HttpPost( url ), objects, ObjectsResponse.class );
-    }
-
-    /**
-     * Updates an object using HTTP PUT.
-     *
-     * @param path the URL path relative to the API end point.
-     * @param object the object to save.
-     * @return {@link ObjectResponse} holding information about the operation.
-     */
-    public ObjectResponse updateMetadataObject( String path, IdentifiableObject object )
-    {
-        URI url = config.getResolvedUrl( path );
-
-        return executeJsonPostPutRequest( new HttpPut( url ), object, ObjectResponse.class );
-    }
-
-    /**
-     * Updates an object using HTTP DELETE.
-     *
-     * @param path the URL path relative to the API end point.
-     * @return {@link ObjectResponse} holding information about the operation.
-     */
-    public ObjectResponse removeMetadataObject( String path )
-    {
-        URI url = config.getResolvedUrl( path );
-
-        return executeJsonPostPutRequest( new HttpDelete( url ), null, ObjectResponse.class );
-    }
-
-    /**
-     * Retrieves an object using HTTP GET.
-     *
-     * @param path the URL path relative to the API end point.
-     * @param klass the class type of the object.
-     * @param <T> type.
-     * @return the object.
-     */
-    public <T> T getObject( String path, Class<T> klass )
-    {
-        return getObjectFromUrl( config.getResolvedUrl( path ), klass );
     }
 
     /**
