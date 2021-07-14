@@ -90,7 +90,7 @@ To create or update multiple objects:
 
 ```java
 List<OrgUnit> orgUnits = List.of( 
-    new OrgUnit( "nEt3lFHOqYP", "Ngelehun"),
+    new OrgUnit( "nEt3lFHOqYP", "Ngelehun" ),
     new OrgUnit( "gnAOCDoZUVO", "Kailahun" ) );
 
 ObjectsResponse response = dhis2.saveOrgUnits( orgUnits );
