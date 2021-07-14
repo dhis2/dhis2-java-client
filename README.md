@@ -90,7 +90,7 @@ To create or update multiple objects:
 
 ```java
 List<OrgUnit> orgUnits = List.of( 
-    new OrgUnit( "nEt3lFHOqYP", "Ngelehun" ),
+    new OrgUnit( "nEt3lFHOqYP", "Ngelehun"),
     new OrgUnit( "gnAOCDoZUVO", "Kailahun" ) );
 
 ObjectsResponse response = dhis2.saveOrgUnits( orgUnits );
@@ -122,8 +122,9 @@ ObjectResponse response = dhis2.removeOrgUnit( "j7gkH3hf83k" );
 The various metadata object save and update methods return an instance of `ObjectResponse` which holds information about the operation, such as status, HTTP status, HTTP status code and a message describing the outcome.
 
 ```java
-ObjectResponse response = dhis2.saveMetadataObject( "dataElements", dataElement );
+ObjectResponse response = dhis2.saveDataElement( dataElement );
 
+Status status = response.getStatus();
 boolean success = response.getHttpStatus().is2xxSuccessful();
 ```
 
