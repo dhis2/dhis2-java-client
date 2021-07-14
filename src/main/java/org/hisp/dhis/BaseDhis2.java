@@ -109,15 +109,15 @@ public class BaseDhis2
      *
      * @param uriBuilder the URI builder.
      * @param query the {@link Query} filters to apply.
-     * @param klass the class type of the object.
+     * @param type the class type of the object.
      * @param <T> type.
      * @return the object.
      */
-    protected <T> T getObject( URIBuilder uriBuilder, Query query, Class<T> klass )
+    protected <T> T getObject( URIBuilder uriBuilder, Query query, Class<T> type )
     {
         URI url = getQuery( uriBuilder, query );
 
-        return getObjectFromUrl( url, klass );
+        return getObjectFromUrl( url, type );
     }
 
     /**
@@ -172,15 +172,15 @@ public class BaseDhis2
      *
      * @param uriBuilder the URI builder.
      * @param query the {@link AnalyticsQuery} filters to apply.
-     * @param klass the class type of the object.
+     * @param type the class type of the object.
      * @param <T> type.
      * @return the object.
      */
-    protected <T> T getAnalyticsResponse( URIBuilder uriBuilder, AnalyticsQuery query, Class<T> klass )
+    protected <T> T getAnalyticsResponse( URIBuilder uriBuilder, AnalyticsQuery query, Class<T> type )
     {
         URI url = getAnalyticsQuery( uriBuilder, query );
 
-        return getObjectFromUrl( url, klass );
+        return getObjectFromUrl( url, type );
     }
 
     /**
@@ -306,13 +306,13 @@ public class BaseDhis2
      *
      * @param path the URL path.
      * @param id the object identifier.
-     * @param klass the class type of the object.
+     * @param type the class type of the object.
      * @param <T> type.
      * @return the object.
      * @throws Dhis2ClientException if access was denied or resource was not
      *         found.
      */
-    protected <T> T getObject( String path, String id, Class<T> klass )
+    protected <T> T getObject( String path, String id, Class<T> type )
     {
         try
         {
@@ -321,7 +321,7 @@ public class BaseDhis2
                 .appendPath( id )
                 .build();
 
-            return getObjectFromUrl( url, klass );
+            return getObjectFromUrl( url, type );
         }
         catch ( URISyntaxException ex )
         {
@@ -422,20 +422,20 @@ public class BaseDhis2
      * Retrieves an object using HTTP GET.
      *
      * @param url the fully qualified URL.
-     * @param klass the class type of the object.
+     * @param type the class type of the object.
      * @param <T> type.
      * @return the object.
      * @throws Dhis2ClientException if access was denied or resource was not
      *         found.
      */
-    protected <T> T getObjectFromUrl( URI url, Class<T> klass )
+    protected <T> T getObjectFromUrl( URI url, Class<T> type )
     {
         try ( CloseableHttpResponse response = getJsonHttpResponse( url ) )
         {
             handleErrors( response );
 
             String responseBody = EntityUtils.toString( response.getEntity() );
-            return objectMapper.readValue( responseBody, klass );
+            return objectMapper.readValue( responseBody, type );
         }
         catch ( IOException ex )
         {
