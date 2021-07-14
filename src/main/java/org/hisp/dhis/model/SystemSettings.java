@@ -2,33 +2,33 @@ package org.hisp.dhis.model;
 
 import java.util.Date;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import lombok.Getter;
 import lombok.Setter;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Getter
 @Setter
 public class SystemSettings
 {
-    @JsonProperty(value="keyCalendar")
+    @JsonProperty( value = "keyCalendar" )
     private String calendar;
 
-    @JsonProperty(value="keyDateFormat")
+    @JsonProperty( value = "keyDateFormat" )
     private String dateFormat;
 
-    @JsonProperty(value="keyDbLocale")
+    @JsonProperty( value = "keyDbLocale" )
     private String dbLocale;
 
-    @JsonProperty(value="keyUiLocale")
+    @JsonProperty( value = "keyUiLocale" )
     private String uiLocale;
 
-    @JsonProperty(value="keyLastSuccessfulAnalyticsTablesUpdate")
+    @JsonProperty( value = "keyLastSuccessfulAnalyticsTablesUpdate" )
     private Date lastSuccessfulAnalyticsTablesUpdate;
 
-    @JsonProperty(value="keyLastSuccessfulResourceTablesUpdate")
+    @JsonProperty( value = "keyLastSuccessfulResourceTablesUpdate" )
     private Date lastSuccessfulResourceTablesUpdate;
 
-    @JsonProperty(value="lastSuccessfulSystemMonitoringPush")
+    @JsonProperty( value = "lastSuccessfulSystemMonitoringPush" )
     private Date keyLastSuccessfulSystemMonitoringPush;
 }

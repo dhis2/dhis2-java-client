@@ -1,14 +1,14 @@
 package org.hisp.dhis.model.datavalueset;
 
-import org.hisp.dhis.model.IdScheme;
-
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
+import org.hisp.dhis.model.IdScheme;
+
 @Getter
 @Setter
-@Accessors(chain = true)
+@Accessors( chain = true )
 public class DataValueSetImportOptions
 {
     private IdScheme dataElementIdScheme;

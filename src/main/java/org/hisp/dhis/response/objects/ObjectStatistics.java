@@ -1,9 +1,9 @@
 package org.hisp.dhis.response.objects;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import lombok.Getter;
 import lombok.Setter;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Getter
 @Setter
@@ -24,7 +24,7 @@ public class ObjectStatistics
     @Override
     public String toString()
     {
-        return new StringBuilder( "[")
+        return new StringBuilder( "[" )
             .append( "created: " ).append( created ).append( ", " )
             .append( "updated: " ).append( updated ).append( ", " )
             .append( "deleted: " ).append( deleted ).append( ", " )

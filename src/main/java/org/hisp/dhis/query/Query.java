@@ -101,7 +101,8 @@ public class Query
 
     /**
      * Enables expansion of associations, i.e. that all properties of associated
-     * objects will be present. Applies to lists of objects only (not single objects).
+     * objects will be present. Applies to lists of objects only (not single
+     * objects).
      *
      * @return this {@link Query}.
      */
@@ -112,8 +113,8 @@ public class Query
     }
 
     /**
-     * Indicates whether expansion of associations is enabled. Applies to lists of
-     * objects only (not single objects).
+     * Indicates whether expansion of associations is enabled. Applies to lists
+     * of objects only (not single objects).
      *
      * @return true if expansion of associations is enabled, false if not.
      */

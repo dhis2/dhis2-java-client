@@ -29,7 +29,8 @@ public class HttpUtils
     }
 
     /**
-     * Adds basic authentication to the given request using the Authorization header.
+     * Adds basic authentication to the given request using the Authorization
+     * header.
      *
      * @param request the {@link HttpUriRequestBase}.
      * @param config the {@link Dhis2Config}.

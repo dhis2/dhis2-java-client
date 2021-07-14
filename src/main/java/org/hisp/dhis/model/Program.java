@@ -5,11 +5,11 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import lombok.Getter;
 import lombok.Setter;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Getter
 @Setter
@@ -51,8 +51,8 @@ public class Program
     }
 
     /**
-     * Returns all tracked entity attributes which are not confidential and
-     * part of the program.
+     * Returns all tracked entity attributes which are not confidential and part
+     * of the program.
      *
      * @return a list of {@link TrackedEntityAttribute}.
      */
@@ -61,7 +61,7 @@ public class Program
         return programTrackedEntityAttributes.stream()
             .map( ProgramTrackedEntityAttribute::getTrackedEntityAttribute )
             .filter( java.util.Objects::nonNull )
-            .filter( tea -> (  tea.getConfidential() == null || tea.getConfidential() == false ) )
+            .filter( tea -> (tea.getConfidential() == null || tea.getConfidential() == false) )
             .collect( Collectors.toList() );
     }
 

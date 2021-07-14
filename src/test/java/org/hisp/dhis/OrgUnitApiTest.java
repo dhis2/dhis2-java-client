@@ -17,7 +17,7 @@ import org.hisp.dhis.util.UidUtils;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
-@Category(IntegrationTest.class)
+@Category( IntegrationTest.class )
 public class OrgUnitApiTest
 {
     @Test

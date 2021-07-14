@@ -8,6 +8,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import lombok.extern.slf4j.Slf4j;
+
 import org.apache.commons.lang3.Validate;
 import org.apache.hc.client5.http.classic.methods.HttpGet;
 import org.apache.hc.client5.http.classic.methods.HttpPost;
@@ -23,13 +25,13 @@ import org.hisp.dhis.util.HttpUtils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import lombok.extern.slf4j.Slf4j;
-
 @Slf4j
 public class Dhis2AsyncRequest
 {
     private static final int TIMEOUT_S = 3600;
+
     private static final int DELAY_S = 2;
+
     private static final int ATTEMPTS_MAX = TIMEOUT_S / DELAY_S;
 
     private final Dhis2Config config;
@@ -50,9 +52,9 @@ public class Dhis2AsyncRequest
 
     /**
      * Executes the given HTTP POST request. The request must be a DHIS 2 async
-     * request. The method will use the DHIS 2 tasks and task summary API endpoints
-     * to poll for the task status, and eventually return a task summary when the
-     * task is complete.
+     * request. The method will use the DHIS 2 tasks and task summary API
+     * endpoints to poll for the task status, and eventually return a task
+     * summary when the task is complete.
      *
      * @param request the {@link HttpPost}.
      * @param klass the class type.
@@ -115,8 +117,8 @@ public class Dhis2AsyncRequest
     }
 
     /**
-     * Waits for the task to complete. Returns the first job notification
-     * which indicates that the task is complete.
+     * Waits for the task to complete. Returns the first job notification which
+     * indicates that the task is complete.
      *
      * @param jobInfo the {@link JobInfo} identifying the task.
      * @return a {@link JobNotification}.
@@ -199,8 +201,8 @@ public class Dhis2AsyncRequest
     }
 
     /**
-     * Retrieves the response entity from a GET request to the given
-     * URL as a string.
+     * Retrieves the response entity from a GET request to the given URL as a
+     * string.
      *
      * @param url the URL.
      * @return the response entity string.

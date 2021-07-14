@@ -1,10 +1,10 @@
 package org.hisp.dhis.response.object;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Getter
 @Setter

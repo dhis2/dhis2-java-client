@@ -3,6 +3,7 @@ package org.hisp.dhis;
 import static org.apache.hc.core5.http.HttpStatus.SC_FORBIDDEN;
 import static org.apache.hc.core5.http.HttpStatus.SC_NOT_FOUND;
 import static org.apache.hc.core5.http.HttpStatus.SC_UNAUTHORIZED;
+import static org.hisp.dhis.util.CollectionUtils.newImmutableSet;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -16,6 +17,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Set;
+
+import lombok.extern.slf4j.Slf4j;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
@@ -53,10 +56,6 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import static org.hisp.dhis.util.CollectionUtils.newImmutableSet;
-
-import lombok.extern.slf4j.Slf4j;
-
 /**
  * @author Lars Helge Overland
  */
@@ -64,11 +63,20 @@ import lombok.extern.slf4j.Slf4j;
 public class BaseDhis2
 {
     protected static final String ID_FIELDS = "id,code,name,created,lastUpdated,attributeValues";
+
     protected static final String NAME_FIELDS = String.format( "%s,shortName,description", ID_FIELDS );
-    protected static final String DATA_ELEMENT_FIELDS = String.format( "%1$s,aggregationType,valueType,domainType,legendSets[%1$s]", NAME_FIELDS );
-    protected static final String CATEGORY_OPTION_FIELDS = String.format( "%1$s,shortName,startDate,endDate,formName", ID_FIELDS );
+
+    protected static final String DATA_ELEMENT_FIELDS = String
+        .format( "%1$s,aggregationType,valueType,domainType,legendSets[%1$s]", NAME_FIELDS );
+
+    protected static final String CATEGORY_OPTION_FIELDS = String.format( "%1$s,shortName,startDate,endDate,formName",
+        ID_FIELDS );
+
     protected static final String CATEGORY_FIELDS = String.format( "%s,dataDimensionType,dataDimension", NAME_FIELDS );
-    protected static final String TE_ATTRIBUTE_FIELDS = String.format( "%s,valueType,confidential,unique", NAME_FIELDS );
+
+    protected static final String TE_ATTRIBUTE_FIELDS = String.format( "%s,valueType,confidential,unique",
+        NAME_FIELDS );
+
     protected static final String RESOURCE_SYSTEM_INFO = "system/info";
 
     protected static final String DATE_FORMAT = "yyyy-MM-dd";
@@ -301,7 +309,8 @@ public class BaseDhis2
      * @param klass the class type of the object.
      * @param <T> type.
      * @return the object.
-     * @throws Dhis2ClientException if access was denied or resource was not found.
+     * @throws Dhis2ClientException if access was denied or resource was not
+     *         found.
      */
     protected <T> T getObject( String path, String id, Class<T> klass )
     {
@@ -329,9 +338,11 @@ public class BaseDhis2
      * @param type the class type for the response entity.
      * @param <T> class.
      * @return a {@link Response}.
-     * @throws Dhis2ClientException if access was denied or resource was not found.
+     * @throws Dhis2ClientException if access was denied or resource was not
+     *         found.
      */
-    protected <T extends BaseHttpResponse> T executeJsonPostPutRequest( HttpUriRequestBase request, Object object, Class<T> type )
+    protected <T extends BaseHttpResponse> T executeJsonPostPutRequest( HttpUriRequestBase request, Object object,
+        Class<T> type )
     {
         HttpEntity entity = new StringEntity( toJsonString( object ), StandardCharsets.UTF_8 );
 
@@ -348,7 +359,8 @@ public class BaseDhis2
      * @param type the class type for the response entity.
      * @param <T> class.
      * @return a {@link Response}.
-     * @throws Dhis2ClientException if access was denied or resource was not found.
+     * @throws Dhis2ClientException if access was denied or resource was not
+     *         found.
      */
     protected <T extends BaseHttpResponse> T executeDeleteRequest( HttpDelete request, Class<T> type )
     {
@@ -361,7 +373,8 @@ public class BaseDhis2
      * @param request the {@link HttpUriRequestBase}.
      * @param type the class type.
      * @return a response message.
-     * @throws Dhis2ClientException if access was denied or resource was not found.
+     * @throws Dhis2ClientException if access was denied or resource was not
+     *         found.
      */
     private <T extends BaseHttpResponse> T executeRequest( HttpUriRequestBase request, Class<T> type )
     {
@@ -390,7 +403,8 @@ public class BaseDhis2
     }
 
     /**
-     * Returns a HTTP post request with JSON content type for the given URL and entity.
+     * Returns a HTTP post request with JSON content type for the given URL and
+     * entity.
      *
      * @param url the {@link URI}.
      * @param entity the {@link HttpEntity}.
@@ -411,7 +425,8 @@ public class BaseDhis2
      * @param klass the class type of the object.
      * @param <T> type.
      * @return the object.
-     * @throws Dhis2ClientException if access was denied or resource was not found.
+     * @throws Dhis2ClientException if access was denied or resource was not
+     *         found.
      */
     protected <T> T getObjectFromUrl( URI url, Class<T> klass )
     {
@@ -456,7 +471,8 @@ public class BaseDhis2
     }
 
     /**
-     * Handles error status codes, currently <code>401/403</code> and <code>404</code>.
+     * Handles error status codes, currently <code>401/403</code> and
+     * <code>404</code>.
      *
      * @param response {@link HttpResponse}.
      */
@@ -488,7 +504,8 @@ public class BaseDhis2
     }
 
     /**
-     * Adds basic authentication to the given request using the Authorization header.
+     * Adds basic authentication to the given request using the Authorization
+     * header.
      *
      * @param request the {@link HttpUriRequestBase}.
      * @param <T> class.

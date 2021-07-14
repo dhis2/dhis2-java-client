@@ -9,9 +9,12 @@ import org.apache.commons.lang3.Validate;
 public class IdScheme
 {
     public static final IdScheme UID = new IdScheme( ObjectProperty.UID );
+
     public static final IdScheme CODE = new IdScheme( ObjectProperty.CODE );
 
-    private static final Pattern ATTRIBUTE_ID_SCHEME_PATTERN = Pattern.compile( "^(ATTRIBUTE|attribute):([a-zA-Z]{1}[a-zA-Z0-9]{10})$" );
+    private static final Pattern ATTRIBUTE_ID_SCHEME_PATTERN = Pattern
+        .compile( "^(ATTRIBUTE|attribute):([a-zA-Z]{1}[a-zA-Z0-9]{10})$" );
+
     private static final Pattern UID_PATTERN = Pattern.compile( "^[a-zA-Z]{1}[a-zA-Z0-9]{10}$" );
 
     private ObjectProperty objectProperty;
@@ -51,9 +54,8 @@ public class IdScheme
     // -------------------------------------------------------------------------
 
     /**
-     * Creates an {@link IdScheme} with object property ATTRIBUTE for the
-     * given attribute ID (UID). The attribute must be a valid UID and
-     * cannot be null.
+     * Creates an {@link IdScheme} with object property ATTRIBUTE for the given
+     * attribute ID (UID). The attribute must be a valid UID and cannot be null.
      *
      * @param attribute the attribute ID (UID).
      * @return an {@link IdScheme}.
@@ -135,7 +137,6 @@ public class IdScheme
     // -------------------------------------------------------------------------
     // Hash code and equals
     // -------------------------------------------------------------------------
-
 
     @Override
     public int hashCode()

@@ -3,11 +3,11 @@ package org.hisp.dhis;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import lombok.Getter;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 import org.apache.hc.core5.net.URIBuilder;
-
-import lombok.Getter;
 
 /**
  * Configuration information about a DHIS 2 instance.
@@ -26,7 +26,8 @@ public class Dhis2Config
     /**
      * Main constructor.
      *
-     * @param url the URL to the DHIS 2 instance, do not include the {@code /api} part or a trailing {@code /}.
+     * @param url the URL to the DHIS 2 instance, do not include the
+     *        {@code /api} part or a trailing {@code /}.
      * @param username the DHIS 2 account username.
      * @param password the DHIS 2 account password.
      */
@@ -75,8 +76,8 @@ public class Dhis2Config
     }
 
     /**
-     * Provides a {@link URIBuilder} which is resolved to the DHIS 2
-     * instance API.
+     * Provides a {@link URIBuilder} which is resolved to the DHIS 2 instance
+     * API.
      *
      * @return a {@link URIBuilder}.
      */

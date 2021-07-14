@@ -3,11 +3,12 @@ package org.hisp.dhis.response.datavalueset;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.hisp.dhis.response.BaseHttpResponse;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import lombok.Getter;
 import lombok.Setter;
+
+import org.hisp.dhis.response.BaseHttpResponse;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Getter
 @Setter
@@ -36,7 +37,7 @@ public class DataValueSetResponse
     @Override
     public String toString()
     {
-        return new StringBuilder( "[")
+        return new StringBuilder( "[" )
             .append( "status: " ).append( status ).append( ", " )
             .append( "description: " ).append( description ).append( ", " )
             .append( "importCount: " ).append( importCount ).append( ", " )

@@ -6,8 +6,11 @@ public class UidUtils
 {
     private static final String letters = "abcdefghijklmnopqrstuvwxyz"
         + "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
     private static final String ALLOWED_CHARS = "0123456789" + letters;
+
     private static final int NUMBER_OF_CODEPOINTS = ALLOWED_CHARS.length();
+
     private static final int CODESIZE = 11;
 
     /**

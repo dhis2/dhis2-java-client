@@ -207,9 +207,6 @@
                 java,javax,org,com
               </order>
             </importOrder>
-            <licenseHeader>
-              <file>${rootDir}/license-header</file>
-            </licenseHeader>
           </java>
           <lineEndings>UNIX</lineEndings>
         </configuration>

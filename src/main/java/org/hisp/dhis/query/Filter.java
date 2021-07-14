@@ -131,8 +131,8 @@ public class Filter
     }
 
     /**
-     * Creates an in {@link Filter}. Multiple values should be
-     * provided as a comma-separated string.
+     * Creates an in {@link Filter}. Multiple values should be provided as a
+     * comma-separated string.
      *
      * @param property the filter property.
      * @param value the filter value.
