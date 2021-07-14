@@ -1,8 +1,8 @@
 package org.hisp.dhis.query;
 
-import org.apache.commons.lang3.Validate;
-
 import lombok.Getter;
+
+import org.apache.commons.lang3.Validate;
 
 /**
  * Query paging.
@@ -13,6 +13,7 @@ import lombok.Getter;
 public class Paging
 {
     private static final int DEFAULT_PAGE_SIZE = 50;
+
     private static final int DEFAULT_PAGE = 1;
 
     private Integer page;
@@ -26,13 +27,14 @@ public class Paging
     /**
      * Constructor.
      *
-     * @param page the page number, starting on 1, can be null, cannot be negative.
+     * @param page the page number, starting on 1, can be null, cannot be
+     *        negative.
      * @param pageSize the page size, can be null, cannot be negative.
      */
     public Paging( Integer page, Integer pageSize )
     {
-        Validate.isTrue( !( page != null && page < 1 ), "Page must be greater than zero if specified" );
-        Validate.isTrue( !( pageSize != null && pageSize < 1 ), "Page size must be greater than zero if specified" );
+        Validate.isTrue( !(page != null && page < 1), "Page must be greater than zero if specified" );
+        Validate.isTrue( !(pageSize != null && pageSize < 1), "Page size must be greater than zero if specified" );
         this.page = page;
         this.pageSize = pageSize;
     }
@@ -64,6 +66,6 @@ public class Paging
 
     public int getOffset()
     {
-        return getPageSizeOrDefault() * ( getPageOrDefault() - 1 );
+        return getPageSizeOrDefault() * (getPageOrDefault() - 1);
     }
 }

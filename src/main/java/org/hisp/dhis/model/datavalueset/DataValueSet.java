@@ -3,15 +3,15 @@ package org.hisp.dhis.model.datavalueset;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 @Getter
 @Setter
-@Accessors(chain=true)
+@Accessors( chain = true )
 public class DataValueSet
 {
     @JsonProperty

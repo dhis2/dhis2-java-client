@@ -1,8 +1,8 @@
 package org.hisp.dhis;
 
-import org.junit.Test;
-
 import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
 
 public class Dhis2Test
 {

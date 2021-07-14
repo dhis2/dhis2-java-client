@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThrows;
 
+import lombok.extern.slf4j.Slf4j;
+
 import org.hisp.dhis.category.IntegrationTest;
 import org.hisp.dhis.model.Attribute;
 import org.hisp.dhis.model.AttributeValue;
@@ -17,10 +19,8 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.function.ThrowingRunnable;
 
-import lombok.extern.slf4j.Slf4j;
-
 @Slf4j
-@Category(IntegrationTest.class)
+@Category( IntegrationTest.class )
 public class Dhis2CrudApiTest
 {
     @Test

@@ -1,11 +1,12 @@
 package org.hisp.dhis.response;
 
-import org.apache.hc.core5.http.Header;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import org.apache.hc.core5.http.Header;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Message providing information about a DHIS 2 web API response.
@@ -43,8 +44,8 @@ public class Response
     }
 
     /**
-     * Returns the value of the HTTP header with the given
-     * name, or null if not found.
+     * Returns the value of the HTTP header with the given name, or null if not
+     * found.
      *
      * @param name the HTTP header name.
      * @return the HTTP header value.
@@ -68,7 +69,7 @@ public class Response
     @Override
     public String toString()
     {
-        return new StringBuilder( "[")
+        return new StringBuilder( "[" )
             .append( "status: " ).append( status ).append( ", " )
             .append( "code: " ).append( code ).append( ", " )
             .append( "httpStatusCode: " ).append( httpStatusCode ).append( ", " )

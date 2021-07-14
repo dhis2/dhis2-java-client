@@ -13,7 +13,7 @@ public enum Operator
     LE( "le", "<=" ),
     LT( "lt", "<" ),
     LIKE( "like", "like" ),
-    ILIKE( "ilike", "ilike "),
+    ILIKE( "ilike", "ilike " ),
     IN( "in", "in" );
 
     private String value;

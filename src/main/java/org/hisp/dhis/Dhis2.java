@@ -54,8 +54,8 @@ import org.hisp.dhis.response.objects.ObjectsResponse;
 import org.hisp.dhis.util.HttpUtils;
 
 /**
- * DHIS 2 API client for HTTP requests and responses. Request and
- * response bodies are in JSON format.
+ * DHIS 2 API client for HTTP requests and responses. Request and response
+ * bodies are in JSON format.
  *
  * @author Lars Helge Overland
  */
@@ -72,14 +72,16 @@ public class Dhis2
     // -------------------------------------------------------------------------
 
     /**
-     * Checks the status of the DHIS 2 instance. Returns various status codes describing
-     * the status:
+     * Checks the status of the DHIS 2 instance. Returns various status codes
+     * describing the status:
      *
      * <ul>
-     * <li>{@link HttpStatus#OK} if instance is available and authentication is successful.</li>
-     * <li>{@link HttpStatus#UNAUTHORIZED} if the username and password combination is not valid.</li>
-     * <li>{@link HttpStatus#NOT_FOUND} if the URL is not pointing to a DHIS 2 instance or the
-     *     DHIS 2 instance is not available.</li>
+     * <li>{@link HttpStatus#OK} if instance is available and authentication is
+     * successful.</li>
+     * <li>{@link HttpStatus#UNAUTHORIZED} if the username and password
+     * combination is not valid.</li>
+     * <li>{@link HttpStatus#NOT_FOUND} if the URL is not pointing to a DHIS 2
+     * instance or the DHIS 2 instance is not available.</li>
      * </ul>
      *
      * @return the HTTP status code of the response.
@@ -99,7 +101,8 @@ public class Dhis2
         }
         catch ( IOException ex )
         {
-            // Return status code in case of unexpected exception of type HttpResponseException
+            // Return status code in case of unexpected exception of type
+            // HttpResponseException
 
             if ( ex instanceof HttpResponseException )
             {
@@ -137,7 +140,8 @@ public class Dhis2
      * @param path the URL path relative to the API end point.
      * @param object the object to save.
      * @return {@link ObjectResponse} holding information about the operation.
-     * @throws Dhis2ClientException if the save operation failed due to client side error.
+     * @throws Dhis2ClientException if the save operation failed due to client
+     *         side error.
      */
     public ObjectResponse saveMetadataObject( String path, IdentifiableObject object )
     {
@@ -200,8 +204,7 @@ public class Dhis2
     }
 
     /**
-     * Indicates whether an object exists at the given URL path
-     * using HTTP HEAD.
+     * Indicates whether an object exists at the given URL path using HTTP HEAD.
      *
      * @param path the URL path relative to the API end point.
      * @return true if the object exists.
@@ -283,7 +286,8 @@ public class Dhis2
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "organisationUnits" )
             .appendPath( id )
-            .addParameter( "fields", String.format( "%s,parent[%s]", fields, fields ) ), Query.instance(), OrgUnit.class );
+            .addParameter( "fields", String.format( "%s,parent[%s]", fields, fields ) ), Query.instance(),
+            OrgUnit.class );
     }
 
     /**
@@ -299,7 +303,7 @@ public class Dhis2
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "organisationUnits" )
             .addParameter( "fields", String.format( "%s,parent[%s]", fields, fields ) ), query, Objects.class )
-            .getOrganisationUnits();
+                .getOrganisationUnits();
     }
 
     // -------------------------------------------------------------------------
@@ -405,7 +409,7 @@ public class Dhis2
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "organisationUnitGroups" )
             .addParameter( "fields", NAME_FIELDS ), query, Objects.class )
-            .getOrganisationUnitGroups();
+                .getOrganisationUnitGroups();
     }
 
     // -------------------------------------------------------------------------
@@ -442,7 +446,8 @@ public class Dhis2
      */
     public ObjectResponse updateOrgUnitGroupSet( OrgUnitGroupSet orgUnitGroupSet )
     {
-        return updateMetadataObject( String.format( "organisationUnitGroupSets/%s", orgUnitGroupSet.getId() ), orgUnitGroupSet );
+        return updateMetadataObject( String.format( "organisationUnitGroupSets/%s", orgUnitGroupSet.getId() ),
+            orgUnitGroupSet );
     }
 
     /**
@@ -467,7 +472,8 @@ public class Dhis2
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "organisationUnitGroupSets" )
             .appendPath( id )
-            .addParameter( "fields", String.format( "%s,organisationUnitGroups[%s]", NAME_FIELDS, NAME_FIELDS ) ), Query.instance(), OrgUnitGroupSet.class );
+            .addParameter( "fields", String.format( "%s,organisationUnitGroups[%s]", NAME_FIELDS, NAME_FIELDS ) ),
+            Query.instance(), OrgUnitGroupSet.class );
     }
 
     /**
@@ -480,8 +486,9 @@ public class Dhis2
     {
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "organisationUnitGroupSets" )
-            .addParameter( "fields", String.format( "%s,organisationUnitGroups[%s]", NAME_FIELDS, NAME_FIELDS ) ), query, Objects.class )
-            .getOrganisationUnitGroupSets();
+            .addParameter( "fields", String.format( "%s,organisationUnitGroups[%s]", NAME_FIELDS, NAME_FIELDS ) ),
+            query, Objects.class )
+                .getOrganisationUnitGroupSets();
     }
 
     // -------------------------------------------------------------------------
@@ -513,19 +520,19 @@ public class Dhis2
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "organisationUnitLevels" )
             .addParameter( "fields", String.format( "%s,level", ID_FIELDS ) ), query, Objects.class )
-            .getOrganisationUnitLevels();
+                .getOrganisationUnitLevels();
     }
 
     /**
-     * Retrieves a list of "filled" {@link OrgUnitLevel}, meaning
-     * any gaps in the persisted levels will be inserted by generated
-     * levels.
+     * Retrieves a list of "filled" {@link OrgUnitLevel}, meaning any gaps in
+     * the persisted levels will be inserted by generated levels.
      *
      * @return list of {@link OrgUnitLevel}.
      */
     public List<OrgUnitLevel> getFilledOrgUnitLevels()
     {
-        // Using array, DHIS 2 should have used a wrapper entity for the response
+        // Using array, DHIS 2 should have used a wrapper entity for the
+        // response
 
         return asList( getObject( config.getResolvedUriBuilder()
             .appendPath( "filledOrganisationUnitLevels" ), Query.instance(), OrgUnitLevel[].class ) );
@@ -604,7 +611,7 @@ public class Dhis2
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "categoryOptions" )
             .addParameter( "fields", CATEGORY_OPTION_FIELDS ), query, Objects.class )
-            .getCategories();
+                .getCategories();
     }
 
     // -------------------------------------------------------------------------
@@ -625,7 +632,7 @@ public class Dhis2
     /**
      * Saves or updates the list of {@link Category}.
      *
-     * @param categoryOptions the list of {@link Category}.
+     * @param categories the list of {@link Category}.
      * @return {@link ObjectsResponse} holding information about the operation.
      */
     public ObjectsResponse saveCategories( List<Category> categories )
@@ -680,7 +687,7 @@ public class Dhis2
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "categories" )
             .addParameter( "fields", CATEGORY_FIELDS ), query, Objects.class )
-            .getCategories();
+                .getCategories();
     }
 
     // -------------------------------------------------------------------------
@@ -712,7 +719,7 @@ public class Dhis2
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "categoryCombos" )
             .addParameter( "fields", NAME_FIELDS ), query, Objects.class )
-            .getCategoryCombos();
+                .getCategoryCombos();
     }
 
     // -------------------------------------------------------------------------
@@ -788,7 +795,7 @@ public class Dhis2
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "dataElements" )
             .addParameter( "fields", DATA_ELEMENT_FIELDS ), query, Objects.class )
-            .getDataElements();
+                .getDataElements();
     }
 
     // -------------------------------------------------------------------------
@@ -809,7 +816,7 @@ public class Dhis2
     /**
      * Saves or updates the list of {@link DataElementGroup}.
      *
-     * @param dataElements the list of {@link DataElementGroup}.
+     * @param dataElementGroups the list of {@link DataElementGroup}.
      * @return {@link ObjectsResponse} holding information about the operation.
      */
     public ObjectsResponse saveDataElementGroups( List<DataElementGroup> dataElementGroups )
@@ -825,7 +832,8 @@ public class Dhis2
      */
     public ObjectResponse updateDataElementGroup( DataElementGroup dataElementGroup )
     {
-        return updateMetadataObject( String.format( "dataElementGroups/%s", dataElementGroup.getId() ), dataElementGroup );
+        return updateMetadataObject( String.format( "dataElementGroups/%s", dataElementGroup.getId() ),
+            dataElementGroup );
     }
 
     /**
@@ -864,7 +872,7 @@ public class Dhis2
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "dataElementGroups" )
             .addParameter( "fields", NAME_FIELDS ), query, Objects.class )
-            .getDataElementGroups();
+                .getDataElementGroups();
     }
 
     // -------------------------------------------------------------------------
@@ -896,7 +904,7 @@ public class Dhis2
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "dataElementGroupSets" )
             .addParameter( "fields", NAME_FIELDS ), query, Objects.class )
-            .getDataElementGroupSets();
+                .getDataElementGroupSets();
     }
 
     // -------------------------------------------------------------------------
@@ -913,8 +921,8 @@ public class Dhis2
     {
         String fieldsParam = String.format(
             "%1$s,programType,categoryCombo[%1$s,categories[%2$s]]," +
-            "programStages[%1$s,programStageDataElements[%1$s,dataElement[%3$s]]]," +
-            "programTrackedEntityAttributes[id,code,name,trackedEntityAttribute[%4$s]]",
+                "programStages[%1$s,programStageDataElements[%1$s,dataElement[%3$s]]]," +
+                "programTrackedEntityAttributes[id,code,name,trackedEntityAttribute[%4$s]]",
             NAME_FIELDS, CATEGORY_FIELDS, DATA_ELEMENT_FIELDS, TE_ATTRIBUTE_FIELDS );
 
         return getObject( config.getResolvedUriBuilder()
@@ -931,20 +939,19 @@ public class Dhis2
      */
     public List<Program> getPrograms( Query query )
     {
-        String fieldsParam = query.isExpandAssociations() ?
-            String.format(
-                "%1$s,programType,categoryCombo[%1$s,categories[%2$s]]," +
+        String fieldsParam = query.isExpandAssociations() ? String.format(
+            "%1$s,programType,categoryCombo[%1$s,categories[%2$s]]," +
                 "programStages[%1$s,programStageDataElements[%1$s,dataElement[%3$s]]]," +
                 "programTrackedEntityAttributes[id,code,name,trackedEntityAttribute[%4$s]]",
-            NAME_FIELDS, CATEGORY_FIELDS, DATA_ELEMENT_FIELDS, TE_ATTRIBUTE_FIELDS ) :
-            String.format(
+            NAME_FIELDS, CATEGORY_FIELDS, DATA_ELEMENT_FIELDS, TE_ATTRIBUTE_FIELDS )
+            : String.format(
                 "%1$s,programType,categoryCombo[%1$s],programStages[%1$s],programTrackedEntityAttributes[%1$s]",
                 NAME_FIELDS );
 
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "programs" )
             .addParameter( "fields", fieldsParam ), query, Objects.class )
-            .getPrograms();
+                .getPrograms();
     }
 
     // -------------------------------------------------------------------------
@@ -976,7 +983,7 @@ public class Dhis2
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "categoryOptionGroupSets" )
             .addParameter( "fields", NAME_FIELDS ), query, Objects.class )
-            .getCategoryOptionGroupSets();
+                .getCategoryOptionGroupSets();
     }
 
     // -------------------------------------------------------------------------
@@ -1049,7 +1056,7 @@ public class Dhis2
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "analyticsTableHooks" )
             .addParameter( "fields", ID_FIELDS ), query, Objects.class )
-            .getAnalyticsTableHooks();
+                .getAnalyticsTableHooks();
     }
 
     // -------------------------------------------------------------------------
@@ -1067,7 +1074,8 @@ public class Dhis2
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "dimensions" )
             .appendPath( id )
-            .addParameter( "fields", String.format( "%s,dimensionType", ID_FIELDS ) ), Query.instance(), Dimension.class );
+            .addParameter( "fields", String.format( "%s,dimensionType", ID_FIELDS ) ), Query.instance(),
+            Dimension.class );
     }
 
     /**
@@ -1081,7 +1089,7 @@ public class Dhis2
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "dimensions" )
             .addParameter( "fields", String.format( "%s,dimensionType", ID_FIELDS ) ), query, Objects.class )
-            .getDimensions();
+                .getDimensions();
     }
 
     // -------------------------------------------------------------------------
@@ -1099,7 +1107,7 @@ public class Dhis2
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "periodTypes" )
             .addParameter( "fields", "frequencyOrder,name,isoDuration,isoFormat" ), query, Objects.class )
-            .getPeriodTypes();
+                .getPeriodTypes();
     }
 
     // -------------------------------------------------------------------------
@@ -1126,7 +1134,8 @@ public class Dhis2
      *
      * @param dataValueSet the {@link DataValueSet} to save.
      * @param options the {@link DataValueSetImportOptions}.
-     * @return {@link DataValueSetResponse} holding information about the operation.
+     * @return {@link DataValueSetResponse} holding information about the
+     *         operation.
      * @throws IOException if the save process failed.
      */
     public DataValueSetResponse saveDataValueSet( DataValueSet dataValueSet, DataValueSetImportOptions options )
@@ -1135,7 +1144,8 @@ public class Dhis2
         URI url = getDataValueSetImportQuery( config.getResolvedUriBuilder()
             .appendPath( "dataValueSets" ), options );
 
-        HttpPost request = getPostRequest( url, new StringEntity( toJsonString( dataValueSet ), StandardCharsets.UTF_8 ) );
+        HttpPost request = getPostRequest( url,
+            new StringEntity( toJsonString( dataValueSet ), StandardCharsets.UTF_8 ) );
 
         Dhis2AsyncRequest asyncRequest = new Dhis2AsyncRequest( config, httpClient, objectMapper );
 
@@ -1143,11 +1153,13 @@ public class Dhis2
     }
 
     /**
-     * Saves a data value set payload in JSON format represented by the given file.
+     * Saves a data value set payload in JSON format represented by the given
+     * file.
      *
      * @param file the file representing the data value set JSON payload.
      * @param options the {@link DataValueSetImportOptions}.
-     * @return {@link DataValueSetResponse} holding information about the operation.
+     * @return {@link DataValueSetResponse} holding information about the
+     *         operation.
      * @throws IOException if the save process failed.
      */
     public DataValueSetResponse saveDataValueSet( File file, DataValueSetImportOptions options )

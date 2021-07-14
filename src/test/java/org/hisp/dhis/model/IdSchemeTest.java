@@ -1,9 +1,9 @@
 package org.hisp.dhis.model;
 
-import org.junit.Test;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+
+import org.junit.Test;
 
 public class IdSchemeTest
 {
@@ -60,13 +60,13 @@ public class IdSchemeTest
         assertEquals( "CODE", idSchemeB.name() );
     }
 
-    @Test(expected=IllegalArgumentException.class)
+    @Test( expected = IllegalArgumentException.class )
     public void testGetInvalidAttributeIdSchemeA()
     {
         IdScheme.createIdScheme( "FORM_NAME" );
     }
 
-    @Test(expected=IllegalArgumentException.class)
+    @Test( expected = IllegalArgumentException.class )
     public void testGetInvalidAttributeIdSchemeB()
     {
         IdScheme.createIdScheme( "attribute:invalid_uid" );

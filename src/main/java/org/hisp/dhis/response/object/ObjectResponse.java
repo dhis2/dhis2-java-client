@@ -1,12 +1,13 @@
 package org.hisp.dhis.response.object;
 
-import org.hisp.dhis.response.Response;
-import org.hisp.dhis.response.Status;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import org.hisp.dhis.response.Response;
+import org.hisp.dhis.response.Status;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Getter
 @Setter
@@ -25,7 +26,7 @@ public class ObjectResponse
     @Override
     public String toString()
     {
-        return new StringBuilder( "[")
+        return new StringBuilder( "[" )
             .append( "status: " ).append( status ).append( ", " )
             .append( "code: " ).append( code ).append( ", " )
             .append( "httpStatusCode: " ).append( httpStatusCode ).append( ", " )

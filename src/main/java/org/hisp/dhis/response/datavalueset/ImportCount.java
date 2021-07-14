@@ -1,9 +1,9 @@
 package org.hisp.dhis.response.datavalueset;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import lombok.Getter;
 import lombok.Setter;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Getter
 @Setter
@@ -24,10 +24,11 @@ public class ImportCount
     public ImportCount()
     {
     }
+
     @Override
     public String toString()
     {
-        return new StringBuilder( "[")
+        return new StringBuilder( "[" )
             .append( "imported: " ).append( imported ).append( ", " )
             .append( "updated: " ).append( updated ).append( ", " )
             .append( "ignored: " ).append( ignored ).append( ", " )

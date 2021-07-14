@@ -1,7 +1,7 @@
 package org.hisp.dhis;
 
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.util.Date;
 import java.util.List;
@@ -17,7 +17,7 @@ import org.hisp.dhis.util.UidUtils;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
-@Category(IntegrationTest.class)
+@Category( IntegrationTest.class )
 public class OrgUnitsApiTest
 {
     @Test
