@@ -1,5 +1,9 @@
 package org.hisp.dhis.query;
 
+import java.util.List;
+
+import org.apache.commons.lang3.StringUtils;
+
 /**
  * Query filter.
  *
@@ -131,16 +135,15 @@ public class Filter
     }
 
     /**
-     * Creates an in {@link Filter}. Multiple values should be provided as a
-     * comma-separated string.
+     * Creates an in {@link Filter}.
      *
      * @param property the filter property.
-     * @param value the filter value.
+     * @param values the filter values.
      * @return a {@link Filter}.
      */
-    public static Filter in( String property, String value )
+    public static Filter in( String property, List<String> values )
     {
-        return new Filter( property, Operator.IN, value );
+        return new Filter( property, Operator.IN, StringUtils.join( values, ',' ) );
     }
 
     public String getProperty()
