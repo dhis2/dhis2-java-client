@@ -84,14 +84,14 @@ public class Dhis2
      */
     public HttpStatus getStatus()
     {
-        try
-        {
-            URI url = HttpUtils.build( config.getResolvedUriBuilder()
-                .appendPath( "system" )
-                .appendPath( "info" ) );
+        URI url = HttpUtils.build( config.getResolvedUriBuilder()
+            .appendPath( "system" )
+            .appendPath( "info" ) );
 
-            HttpGet request = withBasicAuth( new HttpGet( url ) );
-            CloseableHttpResponse response = httpClient.execute( request );
+        HttpGet request = withAuth( new HttpGet( url ) );
+
+        try ( CloseableHttpResponse response = httpClient.execute( request ) )
+        {
             int statusCode = response.getCode();
             return HttpStatus.valueOf( statusCode );
         }
@@ -130,7 +130,7 @@ public class Dhis2
     {
         URI url = config.getResolvedUrl( path );
 
-        HttpHead request = withBasicAuth( new HttpHead( url ) );
+        HttpHead request = withAuth( new HttpHead( url ) );
 
         try ( CloseableHttpResponse response = httpClient.execute( request ) )
         {

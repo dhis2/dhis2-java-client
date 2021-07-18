@@ -382,7 +382,7 @@ public class BaseDhis2
      */
     private <T extends BaseHttpResponse> T executeRequest( HttpUriRequestBase request, Class<T> type )
     {
-        withBasicAuth( request );
+        withAuth( request );
 
         try ( CloseableHttpResponse response = httpClient.execute( request ) )
         {
@@ -416,7 +416,7 @@ public class BaseDhis2
      */
     protected HttpPost getPostRequest( URI url, HttpEntity entity )
     {
-        HttpPost request = withBasicAuth( new HttpPost( url ) );
+        HttpPost request = withAuth( new HttpPost( url ) );
         request.setHeader( HttpHeaders.CONTENT_TYPE, ContentType.APPLICATION_JSON.getMimeType() );
         request.setEntity( entity );
         return request;
@@ -458,7 +458,7 @@ public class BaseDhis2
      */
     protected CloseableHttpResponse getJsonHttpResponse( URI url )
     {
-        HttpGet request = withBasicAuth( new HttpGet( url ) );
+        HttpGet request = withAuth( new HttpGet( url ) );
         request.setHeader( HttpHeaders.ACCEPT, ContentType.APPLICATION_JSON.getMimeType() );
 
         log.debug( "GET request URL: '{}'", HttpUtils.asString( url ) );
@@ -507,14 +507,13 @@ public class BaseDhis2
     }
 
     /**
-     * Adds basic authentication to the given request using the Authorization
-     * header.
+     * Adds authentication to the given request.
      *
      * @param request the {@link HttpUriRequestBase}.
      * @param <T> class.
      * @return the request.
      */
-    protected <T extends HttpUriRequestBase> T withBasicAuth( T request )
+    protected <T extends HttpUriRequestBase> T withAuth( T request )
     {
         return HttpUtils.withAuth( request, config );
     }
