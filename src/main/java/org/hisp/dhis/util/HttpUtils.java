@@ -7,10 +7,14 @@ import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
+import org.apache.commons.lang3.Validate;
 import org.apache.hc.client5.http.classic.methods.HttpUriRequestBase;
 import org.apache.hc.core5.http.HttpHeaders;
 import org.apache.hc.core5.net.URIBuilder;
 import org.hisp.dhis.Dhis2Config;
+import org.hisp.dhis.auth.Authentication;
+import org.hisp.dhis.auth.BasicAuthentication;
+import org.hisp.dhis.auth.CookieAuthentication;
 
 public class HttpUtils
 {
@@ -19,27 +23,61 @@ public class HttpUtils
      * "Basic " and Base64-encoding username:password.
      *
      * @param config the {@link Dhis2Config}.
-     * @return the encoded string.
+     * @return the encoded basic authentication string.
      */
     public static String getBasicAuthString( Dhis2Config config )
     {
-        String value = config.getUsername() + ":" + config.getPassword();
+        Validate.isAssignableFrom( BasicAuthentication.class, config.getAuthentication().getClass() );
+
+        BasicAuthentication auth = (BasicAuthentication) config.getAuthentication();
+
+        final String value = String.format( "%s:%s", auth.getUsername(), auth.getPassword() );
 
         return "Basic " + Base64.getEncoder().encodeToString( value.getBytes() );
     }
 
     /**
-     * Adds basic authentication to the given request using the Authorization
-     * header.
+     * Returns a session cookie authentication string which is on the format
+     * {@code name=value}.
+     *
+     * @param config the {@link Dhis2Config}.
+     * @return the session cookie authentication string.
+     */
+    public static String getSessionCookieAuthString( Dhis2Config config )
+    {
+        Validate.isAssignableFrom( CookieAuthentication.class, config.getAuthentication().getClass() );
+
+        CookieAuthentication auth = (CookieAuthentication) config.getAuthentication();
+
+        return String.format( "JSESSIONID=%s", auth.getValue() );
+    }
+
+    /**
+     * Adds a HTTP header for authentication based on the {@link Authentication}
+     * of the given {@link Dhis2Config}.
      *
      * @param request the {@link HttpUriRequestBase}.
      * @param config the {@link Dhis2Config}.
-     * @param <T> class.
-     * @return the request.
+     * @param <T>
+     * @return
      */
-    public static <T extends HttpUriRequestBase> T withBasicAuth( T request, Dhis2Config config )
+    public static <T extends HttpUriRequestBase> T withAuth( T request, Dhis2Config config )
     {
-        request.setHeader( HttpHeaders.AUTHORIZATION, getBasicAuthString( config ) );
+        Class<? extends Authentication> authType = config.getAuthentication().getClass();
+
+        if ( BasicAuthentication.class.isAssignableFrom( authType ) )
+        {
+            request.setHeader( HttpHeaders.AUTHORIZATION, getBasicAuthString( config ) );
+        }
+        else if ( CookieAuthentication.class.isAssignableFrom( authType ) )
+        {
+            request.setHeader( HttpHeaders.COOKIE, getSessionCookieAuthString( config ) );
+        }
+        else
+        {
+            throw new IllegalStateException( String.format( "Invalid authentication type: '%s'", authType ) );
+        }
+
         return request;
     }
 

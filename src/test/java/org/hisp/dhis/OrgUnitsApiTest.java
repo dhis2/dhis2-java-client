@@ -8,6 +8,8 @@ import java.util.List;
 
 import org.hisp.dhis.category.IntegrationTest;
 import org.hisp.dhis.model.OrgUnit;
+import org.hisp.dhis.query.Filter;
+import org.hisp.dhis.query.Query;
 import org.hisp.dhis.response.Status;
 import org.hisp.dhis.response.object.ErrorReport;
 import org.hisp.dhis.response.object.ObjectReport;
@@ -166,5 +168,18 @@ public class OrgUnitsApiTest
         assertNotNull( errorReport2 );
         assertEquals( "org.hisp.dhis.organisationunit.OrganisationUnit", errorReport2.getMainKlass() );
         assertEquals( "E4000", errorReport2.getErrorCode() );
+    }
+
+    @Test
+    public void testInFilter()
+    {
+        Dhis2 dhis2 = new Dhis2( TestFixture.DEV_CONFIG );
+
+        List<String> values = CollectionUtils.newImmutableList( "Rp268JB6Ne4", "cDw53Ej8rju", "GvFqTavdpGE" );
+
+        List<OrgUnit> orgUnits = dhis2.getOrgUnits( Query.instance()
+            .addFilter( Filter.in( "id", values ) ) );
+
+        assertEquals( 3, orgUnits.size() );
     }
 }

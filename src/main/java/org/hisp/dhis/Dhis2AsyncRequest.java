@@ -211,7 +211,7 @@ public class Dhis2AsyncRequest
     private String getForBody( URI url )
         throws IOException
     {
-        HttpGet request = HttpUtils.withBasicAuth( new HttpGet( url ), config );
+        HttpGet request = HttpUtils.withAuth( new HttpGet( url ), config );
 
         try ( CloseableHttpResponse response = httpClient.execute( request ) )
         {

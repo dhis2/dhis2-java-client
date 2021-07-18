@@ -14,6 +14,5 @@ public class Dhis2Test
         Dhis2 dhis2 = new Dhis2( config );
 
         assertEquals( "https://play.dhis2.org/demo", dhis2.getDhis2Url() );
-        assertEquals( "admin", dhis2.getDhis2Username() );
     }
 }

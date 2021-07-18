@@ -47,6 +47,7 @@ public class ObjectsResponse
         return new StringBuilder( "[" )
             .append( "status: " ).append( status ).append( ", " )
             .append( "httpStatusCode: " ).append( httpStatusCode ).append( ", " )
-            .append( "stats: " ).append( stats ).append( "]" ).toString();
+            .append( "stats: " ).append( stats ).append( "," )
+            .append( "typeReport" ).append( getTypeReport() ).append( "]" ).toString();
     }
 }

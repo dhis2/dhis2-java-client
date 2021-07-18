@@ -5,6 +5,7 @@ import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import org.hisp.dhis.response.object.ObjectReport;
 
@@ -12,6 +13,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Getter
 @Setter
+@ToString
 public class TypeReport
 {
     @JsonProperty
