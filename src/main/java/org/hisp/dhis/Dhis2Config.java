@@ -8,6 +8,9 @@ import lombok.Getter;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 import org.apache.hc.core5.net.URIBuilder;
+import org.hisp.dhis.auth.Authentication;
+import org.hisp.dhis.auth.BasicAuthentication;
+import org.hisp.dhis.auth.CookieAuthentication;
 
 /**
  * Configuration information about a DHIS 2 instance.
@@ -19,9 +22,7 @@ public class Dhis2Config
 {
     private final String url;
 
-    private final String username;
-
-    private final String password;
+    private final Authentication authentication;
 
     /**
      * Main constructor.
@@ -37,8 +38,23 @@ public class Dhis2Config
         Validate.notNull( username );
         Validate.notNull( password );
         this.url = normalizeUrl( url );
-        this.username = username;
-        this.password = password;
+        this.authentication = new BasicAuthentication( username, password );
+    }
+
+    /**
+     * Main constructor.
+     *
+     * @param url the URL to the DHIS 2 instance, do not include the
+     *        {@code /api} part or a trailing {@code /}.
+     * @param authentication the {@link Authentication}, can be
+     *        {@link BasicAuthentication} or {@link CookieAuthentication}.
+     */
+    public Dhis2Config( String url, Authentication authentication )
+    {
+        Validate.notNull( url );
+        Validate.notNull( authentication );
+        this.url = normalizeUrl( url );
+        this.authentication = authentication;
     }
 
     /**

@@ -69,18 +69,20 @@ public class BaseDhis2
 {
     protected static final String ID_FIELDS = "id,code,name,created,lastUpdated,attributeValues";
 
-    protected static final String NAME_FIELDS = String.format( "%s,shortName,description", ID_FIELDS );
+    protected static final String NAME_FIELDS = String.format(
+        "%s,shortName,description", ID_FIELDS );
 
-    protected static final String DATA_ELEMENT_FIELDS = String
-        .format( "%1$s,aggregationType,valueType,domainType,legendSets[%1$s]", NAME_FIELDS );
+    protected static final String DATA_ELEMENT_FIELDS = String.format(
+        "%1$s,aggregationType,valueType,domainType,legendSets[%1$s]", NAME_FIELDS );
 
-    protected static final String CATEGORY_OPTION_FIELDS = String.format( "%1$s,shortName,startDate,endDate,formName",
-        ID_FIELDS );
+    protected static final String CATEGORY_OPTION_FIELDS = String.format(
+        "%1$s,shortName,startDate,endDate,formName", ID_FIELDS );
 
-    protected static final String CATEGORY_FIELDS = String.format( "%s,dataDimensionType,dataDimension", NAME_FIELDS );
+    protected static final String CATEGORY_FIELDS = String.format(
+        "%s,dataDimensionType,dataDimension", NAME_FIELDS );
 
-    protected static final String TE_ATTRIBUTE_FIELDS = String.format( "%s,valueType,confidential,unique",
-        NAME_FIELDS );
+    protected static final String TE_ATTRIBUTE_FIELDS = String.format(
+        "%s,valueType,confidential,unique", NAME_FIELDS );
 
     protected static final String RESOURCE_SYSTEM_INFO = "system/info";
 
@@ -343,8 +345,7 @@ public class BaseDhis2
      * @param type the class type for the response entity.
      * @param <T> class.
      * @return a {@link Response}.
-     * @throws Dhis2ClientException if access was denied or resource was not
-     *         found.
+     * @throws Dhis2ClientException if access denied or resource not found.
      */
     protected <T extends BaseHttpResponse> T executeJsonPostPutRequest( HttpUriRequestBase request, Object object,
         Class<T> type )
@@ -364,8 +365,7 @@ public class BaseDhis2
      * @param type the class type for the response entity.
      * @param <T> class.
      * @return a {@link Response}.
-     * @throws Dhis2ClientException if access was denied or resource was not
-     *         found.
+     * @throws Dhis2ClientException if access denied or resource not found.
      */
     protected <T extends BaseHttpResponse> T executeDeleteRequest( HttpDelete request, Class<T> type )
     {
@@ -378,8 +378,7 @@ public class BaseDhis2
      * @param request the {@link HttpUriRequestBase}.
      * @param type the class type.
      * @return a response message.
-     * @throws Dhis2ClientException if access was denied or resource was not
-     *         found.
+     * @throws Dhis2ClientException if access denied or resource not found.
      */
     private <T extends BaseHttpResponse> T executeRequest( HttpUriRequestBase request, Class<T> type )
     {
@@ -430,8 +429,7 @@ public class BaseDhis2
      * @param type the class type of the object.
      * @param <T> type.
      * @return the object.
-     * @throws Dhis2ClientException if access was denied or resource was not
-     *         found.
+     * @throws Dhis2ClientException if access denied or resource not found.
      */
     protected <T> T getObjectFromUrl( URI url, Class<T> type )
     {
@@ -518,7 +516,7 @@ public class BaseDhis2
      */
     protected <T extends HttpUriRequestBase> T withBasicAuth( T request )
     {
-        return HttpUtils.withBasicAuth( request, config );
+        return HttpUtils.withAuth( request, config );
     }
 
     /**

@@ -121,16 +121,6 @@ public class Dhis2
     }
 
     /**
-     * Returns the username of the DHIS 2 configuration.
-     *
-     * @return the username of the DHIS 2 configuration.
-     */
-    public String getDhis2Username()
-    {
-        return config.getUsername();
-    }
-
-    /**
      * Indicates whether an object exists at the given URL path using HTTP HEAD.
      *
      * @param path the URL path relative to the API end point.
