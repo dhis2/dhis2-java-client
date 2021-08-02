@@ -150,9 +150,7 @@ public class Dhis2
     {
         String path = String.format( "dataStore/%s/%s", namespace, key );
 
-        URI url = config.getResolvedUrl( path );
-
-        return executeJsonPostPutRequest( new HttpPost( url ), object, ObjectResponse.class );
+        return saveObject( path, object, Response.class );
     }
 
     // -------------------------------------------------------------------------
