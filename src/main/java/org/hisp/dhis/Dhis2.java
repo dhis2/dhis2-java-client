@@ -34,6 +34,7 @@ import org.hisp.dhis.model.PeriodType;
 import org.hisp.dhis.model.Program;
 import org.hisp.dhis.model.SystemSettings;
 import org.hisp.dhis.model.TableHook;
+import org.hisp.dhis.model.datastore.EntryMetadata;
 import org.hisp.dhis.model.datavalueset.DataValueSet;
 import org.hisp.dhis.model.datavalueset.DataValueSetImportOptions;
 import org.hisp.dhis.query.Query;
@@ -209,6 +210,20 @@ public class Dhis2
     public <T> T getDataStoreEntry( String namespace, String key, Class<T> type )
     {
         return getObject( getDataStorePath( namespace, key ), type );
+    }
+
+    /**
+     * Retrieves metadata for a data store entry.
+     *
+     * @param namespace the namespace.
+     * @param key the key.
+     * @return the {@link EntryMetadata}.
+     */
+    public EntryMetadata getDataStoreEntryMetadata( String namespace, String key )
+    {
+        String path = String.format( "dataStore/%s/%s/metaData", namespace, key );
+
+        return getObject( path, EntryMetadata.class );
     }
 
     /**
