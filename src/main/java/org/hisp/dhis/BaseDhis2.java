@@ -603,7 +603,7 @@ public class BaseDhis2
      * @param object the object to save.
      * @param type the class type for the response entity.
      * @param <T> class.
-     * @return <T> holding information about the operation.
+     * @return object holding information about the operation.
      * @throws Dhis2ClientException if the save operation failed due to client
      *         side error.
      */
@@ -646,7 +646,7 @@ public class BaseDhis2
      * @param object the object to save.
      * @param type the class type for the response entity.
      * @param <T> class.
-     * @return <T> holding information about the operation.
+     * @return object holding information about the operation.
      */
     protected <T extends BaseHttpResponse> T updateObject( String path, Object object, Class<T> type )
     {
@@ -672,7 +672,7 @@ public class BaseDhis2
      * @param path the URL path relative to the API end point.
      * @param type the class type for the response entity.
      * @param <T> class.
-     * @return <T> holding information about the operation.
+     * @return object holding information about the operation.
      */
     protected <T extends BaseHttpResponse> T removeObject( String path, Class<T> type )
     {

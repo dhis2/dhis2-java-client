@@ -148,7 +148,7 @@ public class Dhis2
 
     /**
      * Saves a data store entry. The given object will be serialized to JSON
-     * using {@value Jackson}.
+     * using <code>Jackson</code>.
      *
      * @param namespace the namespace.
      * @param key the key.
@@ -162,7 +162,7 @@ public class Dhis2
 
     /**
      * Updates a data store entry. The given object will be serialized to JSON
-     * using {@value Jackson}.
+     * using <code>Jackson</code>.
      *
      * @param namespace the namespace.
      * @param key the key.
@@ -177,7 +177,7 @@ public class Dhis2
     /**
      * Retrieves all data store namespaces.
      *
-     * @return the {@link Namespaces}.
+     * @return the list of namespaces.
      */
     @SuppressWarnings( "unchecked" )
     public List<String> getDataStoreNamespaces()
@@ -189,7 +189,7 @@ public class Dhis2
      * Retrieves all data store keys for the given namespace.
      *
      * @param namespace the namespace.
-     * @return the {@link Keys}.
+     * @return the list of keys.
      */
     @SuppressWarnings( "unchecked" )
     public List<String> getDataStoreKeys( String namespace )
@@ -203,7 +203,7 @@ public class Dhis2
      * @param namespace the namespace.
      * @param key the key.
      * @param type the class type of the object to retrieve.
-     * @param <T>
+     * @param <T> the class type.
      * @return the object associated with the given namespace and key.
      */
     public <T> T getDataStoreEntry( String namespace, String key, Class<T> type )
