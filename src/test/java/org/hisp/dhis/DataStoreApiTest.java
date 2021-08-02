@@ -7,6 +7,7 @@ import static org.junit.Assert.assertNotNull;
 import java.util.List;
 
 import org.hisp.dhis.category.IntegrationTest;
+import org.hisp.dhis.model.datastore.EntryMetadata;
 import org.hisp.dhis.response.Response;
 import org.hisp.dhis.response.Status;
 import org.junit.Test;
@@ -28,7 +29,6 @@ public class DataStoreApiTest
         Response rA = dhis2.saveDataStoreEntry( "fruits", "banana", banana );
         Response rB = dhis2.saveDataStoreEntry( "fruits", "grape", grape );
 
-        System.out.println( rA );
         assertEquals( Status.OK, rA.getStatus() );
         assertEquals( Status.OK, rB.getStatus() );
 
@@ -55,7 +55,7 @@ public class DataStoreApiTest
         List<String> keys = dhis2.getDataStoreKeys( "fruits" );
 
         assertNotNull( keys );
-        assertEquals( 2, keys.size() );
+        assertFalse( keys.isEmpty() );
 
         // Update
 
@@ -77,5 +77,35 @@ public class DataStoreApiTest
 
         assertEquals( Status.OK, rD.getStatus() );
         assertEquals( Status.OK, rE.getStatus() );
+    }
+
+    @Test
+    public void testGetMetadata()
+    {
+        Dhis2 dhis2 = new Dhis2( TestFixture.DEFAULT_CONFIG );
+
+        Fruit mango = new Fruit( "Mango", "Yellow" );
+
+        Response rA = dhis2.saveDataStoreEntry( "fruits", "mango", mango );
+
+        assertEquals( Status.OK, rA.getStatus() );
+
+        mango = dhis2.getDataStoreEntry( "fruits", "mango", Fruit.class );
+
+        assertNotNull( mango );
+
+        EntryMetadata mangoMeta = dhis2.getDataStoreEntryMetadata( "fruits", "mango" );
+
+        assertNotNull( mangoMeta );
+        assertNotNull( mangoMeta.getId() );
+        assertNotNull( mangoMeta.getCreated() );
+        assertNotNull( mangoMeta.getLastUpdated() );
+        assertNotNull( mangoMeta.getLastUpdatedBy() );
+        assertEquals( "fruits", mangoMeta.getNamespace() );
+        assertEquals( "mango", mangoMeta.getKey() );
+
+        Response rB = dhis2.removeDataStoreNamespace( "fruits" );
+
+        assertEquals( Status.OK, rB.getStatus() );
     }
 }
