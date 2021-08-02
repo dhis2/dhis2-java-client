@@ -143,6 +143,110 @@ public class Dhis2
     }
 
     // -------------------------------------------------------------------------
+    // Data store
+    // -------------------------------------------------------------------------
+
+    /**
+     * Saves a data store entry. The given object will be serialized to JSON
+     * using {@value Jackson}.
+     *
+     * @param namespace the namespace.
+     * @param key the key.
+     * @param object the object.
+     * @return {@link Response} holding information about the operation.
+     */
+    public Response saveDataStoreEntry( String namespace, String key, Object object )
+    {
+        return saveObject( getDataStorePath( namespace, key ), object, Response.class );
+    }
+
+    /**
+     * Updates a data store entry. The given object will be serialized to JSON
+     * using {@value Jackson}.
+     *
+     * @param namespace the namespace.
+     * @param key the key.
+     * @param object the object.
+     * @return {@link Response} holding information about the operation.
+     */
+    public Response updateDataStoreEntry( String namespace, String key, Object object )
+    {
+        return updateObject( getDataStorePath( namespace, key ), object, Response.class );
+    }
+
+    /**
+     * Retrieves all data store namespaces.
+     *
+     * @return the {@link Namespaces}.
+     */
+    @SuppressWarnings( "unchecked" )
+    public List<String> getDataStoreNamespaces()
+    {
+        return getObject( "dataStore", List.class );
+    }
+
+    /**
+     * Retrieves all data store keys for the given namespace.
+     *
+     * @param namespace the namespace.
+     * @return the {@link Keys}.
+     */
+    @SuppressWarnings( "unchecked" )
+    public List<String> getDataStoreKeys( String namespace )
+    {
+        return getObject( String.format( "dataStore/%s", namespace ), List.class );
+    }
+
+    /**
+     * Retrieves a data store entry.
+     *
+     * @param namespace the namespace.
+     * @param key the key.
+     * @param type the class type of the object to retrieve.
+     * @param <T>
+     * @return the object associated with the given namespace and key.
+     */
+    public <T> T getDataStoreEntry( String namespace, String key, Class<T> type )
+    {
+        return getObject( getDataStorePath( namespace, key ), type );
+    }
+
+    /**
+     * Removes a data store entry.
+     *
+     * @param namespace the namespace.
+     * @param key the key.
+     * @return {@link Response} holding information about the operation.
+     */
+    public Response removeDataStoreEntry( String namespace, String key )
+    {
+        return removeObject( getDataStorePath( namespace, key ), Response.class );
+    }
+
+    /**
+     * Removes a namespace including all entries.
+     *
+     * @param namespace the namespace.
+     * @return {@link Response} holding information about the operation.
+     */
+    public Response removeDataStoreNamespace( String namespace )
+    {
+        return removeObject( String.format( "dataStore/%s", namespace ), Response.class );
+    }
+
+    /**
+     * Returns the path to a data store entry.
+     *
+     * @param namespace the namespace.
+     * @param key the key.
+     * @return the path to a data store entry.
+     */
+    private String getDataStorePath( String namespace, String key )
+    {
+        return String.format( "dataStore/%s/%s", namespace, key );
+    }
+
+    // -------------------------------------------------------------------------
     // Org unit
     // -------------------------------------------------------------------------
 

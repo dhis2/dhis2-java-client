@@ -36,6 +36,7 @@ import org.apache.hc.core5.http.ContentType;
 import org.apache.hc.core5.http.HttpEntity;
 import org.apache.hc.core5.http.HttpHeaders;
 import org.apache.hc.core5.http.HttpResponse;
+import org.apache.hc.core5.http.HttpStatus;
 import org.apache.hc.core5.http.ParseException;
 import org.apache.hc.core5.http.io.entity.EntityUtils;
 import org.apache.hc.core5.http.io.entity.StringEntity;
@@ -138,7 +139,8 @@ public class BaseDhis2
     {
         for ( Filter filter : query.getFilters() )
         {
-            String filterValue = filter.getProperty() + ":" + filter.getOperator().value() + ":" + getValue( filter );
+            String filterValue = filter.getProperty() + ":" + filter.getOperator().value() + ":"
+                + getQueryValue( filter );
 
             uriBuilder.addParameter( "filter", filterValue );
         }
@@ -296,7 +298,13 @@ public class BaseDhis2
         return HttpUtils.build( uriBuilder );
     }
 
-    private Object getValue( Filter filter )
+    /**
+     * Converts the given filter to a query value.
+     *
+     * @param filter the {@link Filter}.
+     * @return a query value.
+     */
+    private Object getQueryValue( Filter filter )
     {
         if ( Operator.IN == filter.getOperator() )
         {
@@ -350,6 +358,8 @@ public class BaseDhis2
     protected <T extends BaseHttpResponse> T executeJsonPostPutRequest( HttpUriRequestBase request, Object object,
         Class<T> type )
     {
+        validateRequestObject( object );
+
         HttpEntity entity = new StringEntity( toJsonString( object ), StandardCharsets.UTF_8 );
 
         request.setHeader( HttpHeaders.CONTENT_TYPE, ContentType.APPLICATION_JSON.getMimeType() );
@@ -359,24 +369,10 @@ public class BaseDhis2
     }
 
     /**
-     * Executes the given {@link HttpDelete} request.
+     * Executes the given request and returns a response message.
      *
      * @param request the request.
      * @param type the class type for the response entity.
-     * @param <T> class.
-     * @return a {@link Response}.
-     * @throws Dhis2ClientException if access denied or resource not found.
-     */
-    protected <T extends BaseHttpResponse> T executeDeleteRequest( HttpDelete request, Class<T> type )
-    {
-        return executeRequest( request, type );
-    }
-
-    /**
-     * Executes the given request and returns a response message.
-     *
-     * @param request the {@link HttpUriRequestBase}.
-     * @param type the class type.
      * @return a response message.
      * @throws Dhis2ClientException if access denied or resource not found.
      */
@@ -391,7 +387,7 @@ public class BaseDhis2
             String responseBody = EntityUtils.toString( response.getEntity() );
             T responseMessage = objectMapper.readValue( responseBody, type );
 
-            responseMessage.setHeaders( new ArrayList<>( Arrays.asList( response.getHeaders() ) ) );
+            responseMessage.setHeaders( asList( response.getHeaders() ) );
             responseMessage.setHttpStatusCode( response.getCode() );
 
             return responseMessage;
@@ -478,14 +474,29 @@ public class BaseDhis2
      * <code>404</code>.
      *
      * @param response {@link HttpResponse}.
+     * @throws Dhis2ClientException
      */
-    protected void handleErrors( HttpResponse response )
+    private void handleErrors( HttpResponse response )
     {
         final int code = response.getCode();
 
         if ( ERROR_STATUS_CODES.contains( code ) )
         {
             throw new Dhis2ClientException( response.getReasonPhrase(), code );
+        }
+    }
+
+    /**
+     * Validates a request object.
+     *
+     * @param object the request object to validate.
+     * @throws Dhis2ClientException
+     */
+    private void validateRequestObject( Object object )
+    {
+        if ( object == null )
+        {
+            throw new Dhis2ClientException( "Request object is null", HttpStatus.SC_BAD_REQUEST );
         }
     }
 
@@ -582,9 +593,25 @@ public class BaseDhis2
      */
     protected ObjectResponse saveMetadataObject( String path, IdentifiableObject object )
     {
+        return saveObject( path, object, ObjectResponse.class );
+    }
+
+    /**
+     * Saves an object using HTTP POST.
+     *
+     * @param path the URL path relative to the API end point.
+     * @param object the object to save.
+     * @param type the class type for the response entity.
+     * @param <T> class.
+     * @return <T> holding information about the operation.
+     * @throws Dhis2ClientException if the save operation failed due to client
+     *         side error.
+     */
+    protected <T extends BaseHttpResponse> T saveObject( String path, Object object, Class<T> type )
+    {
         URI url = config.getResolvedUrl( path );
 
-        return executeJsonPostPutRequest( new HttpPost( url ), object, ObjectResponse.class );
+        return executeJsonPostPutRequest( new HttpPost( url ), object, type );
     }
 
     /**
@@ -609,34 +636,61 @@ public class BaseDhis2
      */
     protected ObjectResponse updateMetadataObject( String path, IdentifiableObject object )
     {
-        URI url = config.getResolvedUrl( path );
-
-        return executeJsonPostPutRequest( new HttpPut( url ), object, ObjectResponse.class );
+        return updateObject( path, object, ObjectResponse.class );
     }
 
     /**
-     * Updates an object using HTTP DELETE.
+     * Updates an object using HTTP PUT.
+     *
+     * @param path the URL path relative to the API end point.
+     * @param object the object to save.
+     * @param type the class type for the response entity.
+     * @param <T> class.
+     * @return <T> holding information about the operation.
+     */
+    protected <T extends BaseHttpResponse> T updateObject( String path, Object object, Class<T> type )
+    {
+        URI url = config.getResolvedUrl( path );
+
+        return executeJsonPostPutRequest( new HttpPut( url ), object, type );
+    }
+
+    /**
+     * Removes an object using HTTP DELETE.
      *
      * @param path the URL path relative to the API end point.
      * @return {@link ObjectResponse} holding information about the operation.
      */
     protected ObjectResponse removeMetadataObject( String path )
     {
+        return removeObject( path, ObjectResponse.class );
+    }
+
+    /**
+     * Removes an object using HTTP DELETE.
+     *
+     * @param path the URL path relative to the API end point.
+     * @param type the class type for the response entity.
+     * @param <T> class.
+     * @return <T> holding information about the operation.
+     */
+    protected <T extends BaseHttpResponse> T removeObject( String path, Class<T> type )
+    {
         URI url = config.getResolvedUrl( path );
 
-        return executeJsonPostPutRequest( new HttpDelete( url ), null, ObjectResponse.class );
+        return executeRequest( new HttpDelete( url ), type );
     }
 
     /**
      * Retrieves an object using HTTP GET.
      *
      * @param path the URL path relative to the API end point.
-     * @param klass the class type of the object.
+     * @param type the class type of the object.
      * @param <T> type.
      * @return the object.
      */
-    protected <T> T getObject( String path, Class<T> klass )
+    protected <T> T getObject( String path, Class<T> type )
     {
-        return getObjectFromUrl( config.getResolvedUrl( path ), klass );
+        return getObjectFromUrl( config.getResolvedUrl( path ), type );
     }
 }
