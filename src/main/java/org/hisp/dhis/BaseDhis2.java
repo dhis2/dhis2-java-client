@@ -371,7 +371,7 @@ public class BaseDhis2
     /**
      * Executes the given request and returns a response message.
      *
-     * @param request the {@link HttpUriRequestBase}.request.
+     * @param request the request.
      * @param type the class type for the response entity.
      * @return a response message.
      * @throws Dhis2ClientException if access denied or resource not found.
@@ -496,7 +496,7 @@ public class BaseDhis2
     {
         if ( object == null )
         {
-            throw new Dhis2ClientException( "Object is null", HttpStatus.SC_BAD_REQUEST );
+            throw new Dhis2ClientException( "Request object is null", HttpStatus.SC_BAD_REQUEST );
         }
     }
 

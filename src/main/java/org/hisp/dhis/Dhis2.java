@@ -173,6 +173,29 @@ public class Dhis2
     }
 
     /**
+     * Retrieves all data store namespaces.
+     *
+     * @return the {@link Namespaces}.
+     */
+    @SuppressWarnings( "unchecked" )
+    public List<String> getDataStoreNamespaces()
+    {
+        return getObject( "dataStore", List.class );
+    }
+
+    /**
+     * Retrieves all data store keys for the given namespace.
+     *
+     * @param namespace the namespace.
+     * @return the {@link Keys}.
+     */
+    @SuppressWarnings( "unchecked" )
+    public List<String> getDataStoreKeys( String namespace )
+    {
+        return getObject( String.format( "dataStore/%s", namespace ), List.class );
+    }
+
+    /**
      * Retrieves a data store entry.
      *
      * @param namespace the namespace.
