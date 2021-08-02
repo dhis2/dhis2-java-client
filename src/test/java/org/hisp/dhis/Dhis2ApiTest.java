@@ -239,4 +239,15 @@ public class Dhis2ApiTest
 
         assertEquals( 404, ex.getStatusCode() );
     }
+
+    @Test
+    public void testSaveNullObject()
+    {
+        Dhis2 dhis2 = new Dhis2( TestFixture.DEFAULT_CONFIG );
+
+        Dhis2ClientException ex = assertThrows( Dhis2ClientException.class,
+            () -> dhis2.saveOrgUnitGroup( null ) );
+
+        assertEquals( 400, ex.getStatusCode() );
+    }
 }

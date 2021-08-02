@@ -36,6 +36,7 @@ import org.apache.hc.core5.http.ContentType;
 import org.apache.hc.core5.http.HttpEntity;
 import org.apache.hc.core5.http.HttpHeaders;
 import org.apache.hc.core5.http.HttpResponse;
+import org.apache.hc.core5.http.HttpStatus;
 import org.apache.hc.core5.http.ParseException;
 import org.apache.hc.core5.http.io.entity.EntityUtils;
 import org.apache.hc.core5.http.io.entity.StringEntity;
@@ -138,7 +139,8 @@ public class BaseDhis2
     {
         for ( Filter filter : query.getFilters() )
         {
-            String filterValue = filter.getProperty() + ":" + filter.getOperator().value() + ":" + getValue( filter );
+            String filterValue = filter.getProperty() + ":" + filter.getOperator().value() + ":"
+                + getQueryValue( filter );
 
             uriBuilder.addParameter( "filter", filterValue );
         }
@@ -296,7 +298,13 @@ public class BaseDhis2
         return HttpUtils.build( uriBuilder );
     }
 
-    private Object getValue( Filter filter )
+    /**
+     * Converts the given filter to a query value.
+     *
+     * @param filter the {@link Filter}.
+     * @return a query value.
+     */
+    private Object getQueryValue( Filter filter )
     {
         if ( Operator.IN == filter.getOperator() )
         {
@@ -350,25 +358,13 @@ public class BaseDhis2
     protected <T extends BaseHttpResponse> T executeJsonPostPutRequest( HttpUriRequestBase request, Object object,
         Class<T> type )
     {
+        validateRequestObject( object );
+
         HttpEntity entity = new StringEntity( toJsonString( object ), StandardCharsets.UTF_8 );
 
         request.setHeader( HttpHeaders.CONTENT_TYPE, ContentType.APPLICATION_JSON.getMimeType() );
         request.setEntity( entity );
 
-        return executeRequest( request, type );
-    }
-
-    /**
-     * Executes the given {@link HttpDelete} request.
-     *
-     * @param request the request.
-     * @param type the class type for the response entity.
-     * @param <T> class.
-     * @return a {@link Response}.
-     * @throws Dhis2ClientException if access denied or resource not found.
-     */
-    protected <T extends BaseHttpResponse> T executeDeleteRequest( HttpDelete request, Class<T> type )
-    {
         return executeRequest( request, type );
     }
 
@@ -478,14 +474,29 @@ public class BaseDhis2
      * <code>404</code>.
      *
      * @param response {@link HttpResponse}.
+     * @throws Dhis2ClientException
      */
-    protected void handleErrors( HttpResponse response )
+    private void handleErrors( HttpResponse response )
     {
         final int code = response.getCode();
 
         if ( ERROR_STATUS_CODES.contains( code ) )
         {
             throw new Dhis2ClientException( response.getReasonPhrase(), code );
+        }
+    }
+
+    /**
+     * Validates a request object.
+     *
+     * @param object the request object to validate.
+     * @throws Dhis2ClientException
+     */
+    private void validateRequestObject( Object object )
+    {
+        if ( object == null )
+        {
+            throw new Dhis2ClientException( "Object is null", HttpStatus.SC_BAD_REQUEST );
         }
     }
 
@@ -667,7 +678,7 @@ public class BaseDhis2
     {
         URI url = config.getResolvedUrl( path );
 
-        return executeJsonPostPutRequest( new HttpDelete( url ), null, type );
+        return executeRequest( new HttpDelete( url ), type );
     }
 
     /**
