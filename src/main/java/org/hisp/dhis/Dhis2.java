@@ -199,6 +199,17 @@ public class Dhis2
     }
 
     /**
+     * Removes a namespace including all entries.
+     *
+     * @param namespace the namespace.
+     * @return {@link Response} holding information about the operation.
+     */
+    public Response removeDataStoreNamespace( String namespace )
+    {
+        return removeObject( String.format( "dataStore/%s", namespace ), Response.class );
+    }
+
+    /**
      * Returns the path to a data store entry.
      *
      * @param namespace the namespace.
