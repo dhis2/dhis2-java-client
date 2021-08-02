@@ -58,8 +58,8 @@ public class HttpUtils
      *
      * @param request the {@link HttpUriRequestBase}.
      * @param config the {@link Dhis2Config}.
-     * @param <T>
-     * @return
+     * @param <T> the request class type.
+     * @return the request object.
      */
     public static <T extends HttpUriRequestBase> T withAuth( T request, Dhis2Config config )
     {
