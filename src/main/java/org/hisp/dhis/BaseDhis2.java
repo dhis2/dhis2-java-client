@@ -674,12 +674,12 @@ public class BaseDhis2
      * Retrieves an object using HTTP GET.
      *
      * @param path the URL path relative to the API end point.
-     * @param klass the class type of the object.
+     * @param type the class type of the object.
      * @param <T> type.
      * @return the object.
      */
-    protected <T> T getObject( String path, Class<T> klass )
+    protected <T> T getObject( String path, Class<T> type )
     {
-        return getObjectFromUrl( config.getResolvedUrl( path ), klass );
+        return getObjectFromUrl( config.getResolvedUrl( path ), type );
     }
 }

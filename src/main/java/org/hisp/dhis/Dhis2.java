@@ -146,11 +146,68 @@ public class Dhis2
     // Data store
     // -------------------------------------------------------------------------
 
+    /**
+     * Saves a data store entry.
+     *
+     * @param namespace the namespace.
+     * @param key the key.
+     * @param object the object.
+     * @return {@link Response} holding information about the operation.
+     */
     public Response saveDataStoreEntry( String namespace, String key, Object object )
     {
-        String path = String.format( "dataStore/%s/%s", namespace, key );
+        return saveObject( getDataStorePath( namespace, key ), object, Response.class );
+    }
 
-        return saveObject( path, object, Response.class );
+    /**
+     * Updates a data store entry.
+     *
+     * @param namespace the namespace.
+     * @param key the key.
+     * @param object the object.
+     * @return {@link Response} holding information about the operation.
+     */
+    public Response updateDataStoreEntry( String namespace, String key, Object object )
+    {
+        return updateObject( getDataStorePath( namespace, key ), object, Response.class );
+    }
+
+    /**
+     * Retrieves a data store entry.
+     *
+     * @param namespace the namespace.
+     * @param key the key.
+     * @param type the class type of the object to retrieve.
+     * @param <T>
+     * @return the object associated with the given namespace and key.
+     */
+    public <T> T getDataStoreEntry( String namespace, String key, Class<T> type )
+    {
+        return getObject( getDataStorePath( namespace, key ), type );
+    }
+
+    /**
+     * Removes a data store entry.
+     *
+     * @param namespace the namespace.
+     * @param key the key.
+     * @return {@link Response} holding information about the operation.
+     */
+    public Response removeDataStoreEntry( String namespace, String key )
+    {
+        return removeObject( getDataStorePath( namespace, key ), Response.class );
+    }
+
+    /**
+     * Returns the path to a data store entry.
+     *
+     * @param namespace the namespace.
+     * @param key the key.
+     * @return the path to a data store entry.
+     */
+    private String getDataStorePath( String namespace, String key )
+    {
+        return String.format( "dataStore/%s/%s", namespace, key );
     }
 
     // -------------------------------------------------------------------------
