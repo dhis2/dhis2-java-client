@@ -147,7 +147,8 @@ public class Dhis2
     // -------------------------------------------------------------------------
 
     /**
-     * Saves a data store entry.
+     * Saves a data store entry. The given object will be serialized to JSON
+     * using {@value Jackson}.
      *
      * @param namespace the namespace.
      * @param key the key.
@@ -160,7 +161,8 @@ public class Dhis2
     }
 
     /**
-     * Updates a data store entry.
+     * Updates a data store entry. The given object will be serialized to JSON
+     * using {@value Jackson}.
      *
      * @param namespace the namespace.
      * @param key the key.
