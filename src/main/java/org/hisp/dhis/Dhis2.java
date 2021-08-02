@@ -143,6 +143,19 @@ public class Dhis2
     }
 
     // -------------------------------------------------------------------------
+    // Data store
+    // -------------------------------------------------------------------------
+
+    public Response saveDataStoreEntry( String namespace, String key, Object object )
+    {
+        String path = String.format( "dataStore/%s/%s", namespace, key );
+
+        URI url = config.getResolvedUrl( path );
+
+        return executeJsonPostPutRequest( new HttpPost( url ), object, ObjectResponse.class );
+    }
+
+    // -------------------------------------------------------------------------
     // Org unit
     // -------------------------------------------------------------------------
 
