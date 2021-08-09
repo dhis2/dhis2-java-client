@@ -1,6 +1,6 @@
 # DHIS 2 Java Client
 
-DHIS 2 API client for Java. The client allows you to create, update and retrieve information from DHIS 2.
+DHIS 2 API client for Java. The client allows you to create, update and retrieve information from DHIS 2. Java 8 or later is required.
 
 ## Getting started
 
