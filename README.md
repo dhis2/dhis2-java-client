@@ -31,7 +31,7 @@ Dhis2 dhis2 = new Dhis2( config );
 
 ## Authentication
 
-The default configuration as specified above uses _Basic authentication_. 
+The default configuration as specified above uses Basic authentication. 
 
 ### Basic authentication
 
@@ -47,7 +47,7 @@ Dhis2 dhis2 = new Dhis2( config );
 
 ### Cookie authentication
 
-To use cookie-based authentication you can specify the session ID with the `CookieAuthentication` class:
+To use Cookie-based authentication you can specify the session ID with the `CookieAuthentication` class:
 
 ```java
 Authentication authentication = new CookieAuthentication( "754E5D586868DB9A8665249A97DC91D3" );
@@ -57,7 +57,7 @@ Dhis2Config config = new Dhis2Config( authentication );
 Dhis2 dhis2 = new Dhis2( config );
 ```
 
-The name of the session cookie used by the DHIS 2 API is `JSESSIONID`, and can typically be retrieved from the `Cookie` HTTP request header sent with DHIS 2 API requests.
+The name of the session cookie used by the DHIS 2 API is `JSESSIONID`. The value can typically be retrieved from the `Cookie` HTTP request header sent with DHIS 2 API requests.
 
 ## Usage
 
