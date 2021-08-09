@@ -18,7 +18,7 @@ You can find `dhis2-java-client` and the available versions in [Maven central re
 
 ## Configuration
 
-A minimal, local configuration of `dhis2-java-client` looks like this, where the configuration parameters refer to the base URL, username and password for the DHIS 2 instance to connect to. Note that you should not include the `api` part in the base URL:
+A minimal configuration of `dhis2-java-client` where the configuration parameters refer to the base URL, username and password for the DHIS 2 instance to connect to can be specified like this. Note that you should not include the `api` part or a trailing `/` in the base URL:
 
 ```java
 Dhis2Config config = new Dhis2Config( 
