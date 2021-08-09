@@ -73,9 +73,15 @@ public class OrgUnit
         this.shortName = shortName;
     }
 
-    public OrgUnit( String id, String name, String shortName, Date openingDate )
+    public OrgUnit( String id, String name, String shortName, OrgUnit parent )
     {
         this( id, name, shortName );
+        this.parent = parent;
+    }
+
+    public OrgUnit( String id, String name, String shortName, OrgUnit parent, Date openingDate )
+    {
+        this( id, name, shortName, parent );
         this.openingDate = openingDate;
     }
 }
