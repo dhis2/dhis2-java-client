@@ -18,16 +18,46 @@ You can find `dhis2-java-client` and the available versions in [Maven central re
 
 ## Configuration
 
-A minimal configuration of `dhis2-java-client` where the configuration parameters refer to the base URL, username and password for the DHIS 2 instance to connect to can be specified like this. Note that you should not include the `api` part or a trailing `/` in the base URL:
+A minimal configuration of `dhis2-java-client` where the configuration parameters refer to the base URL, username and password for the DHIS 2 instance to connect to can be specified like this. The default authentication mechanism is *Basic authentication*. Note that you should *not* include the `api` part or a trailing `/` in the base URL:
 
 ```java
 Dhis2Config config = new Dhis2Config( 
-    "https://play.dhis2.org/2.32.2", 
+    "https://play.dhis2.org/2.36.3", 
     "admin", 
     "district" );
 
 Dhis2 dhis2 = new Dhis2( config );
 ```
+
+## Authentication
+
+The default configuration as specified above uses _Basic authentication_. 
+
+### Basic authentication
+
+To explicitly use Basic authentication (equivalent to the configuration above), you can specify the username and password of the DHIS 2 account with the `BasicAuthentication` class:
+
+```java
+Authentication authentication = new BasicAuthentication( "admin", "district" );
+
+Dhis2Config config = new Dhis2Config( authentication );
+
+Dhis2 dhis2 = new Dhis2( config );
+```
+
+### Cookie authentication
+
+To use cookie-based authentication you can specify the session ID with the `CookieAuthentication` class:
+
+```java
+Authentication authentication = new CookieAuthentication( "754E5D586868DB9A8665249A97DC91D3" );
+
+Dhis2Config config = new Dhis2Config( authentication );
+
+Dhis2 dhis2 = new Dhis2( config );
+```
+
+The name of the session cookie used by the DHIS 2 API is `JSESSIONID`, and can typically be retrieved from the `Cookie` HTTP request header sent with DHIS 2 API requests.
 
 ## Usage
 
