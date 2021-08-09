@@ -317,12 +317,10 @@ public class Dhis2
      */
     public OrgUnit getOrgUnit( String id )
     {
-        String fields = NAME_FIELDS + ",path,level";
-
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "organisationUnits" )
             .appendPath( id )
-            .addParameter( "fields", String.format( "%s,parent[%s]", fields, fields ) ), Query.instance(),
+            .addParameter( "fields", ORG_UNIT_FIELDS ), Query.instance(),
             OrgUnit.class );
     }
 
@@ -334,11 +332,9 @@ public class Dhis2
      */
     public List<OrgUnit> getOrgUnits( Query query )
     {
-        String fields = NAME_FIELDS + ",path,level";
-
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "organisationUnits" )
-            .addParameter( "fields", String.format( "%s,parent[%s]", fields, fields ) ), query, Objects.class )
+            .addParameter( "fields", ORG_UNIT_FIELDS ), query, Objects.class )
                 .getOrganisationUnits();
     }
 

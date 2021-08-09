@@ -5,9 +5,12 @@ import java.util.Date;
 import lombok.Getter;
 import lombok.Setter;
 
+import org.locationtech.jts.geom.Geometry;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Getter
+@Setter
 public class OrgUnit
     extends NameableObject
 {
@@ -35,7 +38,7 @@ public class OrgUnit
 
     @Setter
     @JsonProperty
-    private String geometry;
+    private Geometry geometry;
 
     @Setter
     @JsonProperty

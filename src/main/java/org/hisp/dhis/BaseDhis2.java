@@ -82,6 +82,11 @@ public class BaseDhis2
     protected static final String CATEGORY_FIELDS = String.format(
         "%s,dataDimensionType,dataDimension", NAME_FIELDS );
 
+    protected static final String ORG_UNIT_FIELDS = String.format(
+        "%s,path,level,parent[%s],openingDate,closedDate,comment," +
+            "url,contactPerson,address,email,phoneNumber",
+        NAME_FIELDS, NAME_FIELDS );
+
     protected static final String TE_ATTRIBUTE_FIELDS = String.format(
         "%s,valueType,confidential,unique", NAME_FIELDS );
 

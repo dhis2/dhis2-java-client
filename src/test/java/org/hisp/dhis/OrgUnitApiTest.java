@@ -21,6 +21,26 @@ import org.junit.experimental.categories.Category;
 public class OrgUnitApiTest
 {
     @Test
+    public void testGetOrgUnit()
+    {
+        Dhis2 dhis2 = new Dhis2( TestFixture.DEFAULT_CONFIG );
+
+        OrgUnit ou = dhis2.getOrgUnit( "YuQRtpLP10I" );
+
+        assertEquals( "YuQRtpLP10I", ou.getId() );
+        assertEquals( "OU_539", ou.getCode() );
+        assertNotNull( ou.getCreated() );
+        assertNotNull( ou.getLastUpdated() );
+        assertEquals( "Badjia", ou.getName() );
+        assertEquals( "Badjia", ou.getShortName() );
+        assertEquals( "/ImspTQPwCqd/O6uvpzGd5pu/YuQRtpLP10I", ou.getPath() );
+        assertEquals( new Integer( 3 ), ou.getLevel() );
+        assertNotNull( ou.getParent() );
+        assertEquals( "O6uvpzGd5pu", ou.getParent().getId() );
+        assertNotNull( ou.getOpeningDate() );
+    }
+
+    @Test
     public void testOrgUnitMerge()
     {
         Dhis2 dhis2 = new Dhis2( TestFixture.DEV_CONFIG );
