@@ -12,6 +12,7 @@ import org.hisp.dhis.model.event.Event;
 import org.hisp.dhis.model.event.EventDataValue;
 import org.hisp.dhis.model.event.Events;
 import org.hisp.dhis.response.Status;
+import org.hisp.dhis.response.event.ErrorReport;
 import org.hisp.dhis.response.event.EventResponse;
 import org.hisp.dhis.util.UidUtils;
 import org.junit.Test;
@@ -74,5 +75,35 @@ public class EventsApiTest
         assertNotNull( evB );
         assertEquals( "Zj7UnCAulEk", evB.getProgramStage() );
         assertEquals( "DiszpKrYNg8", evB.getOrgUnit() );
+    }
+
+    @Test
+    public void testSaveEventsMissingOccurredAt()
+    {
+        Dhis2 dhis2 = new Dhis2( TestFixture.DEFAULT_CONFIG );
+
+        List<EventDataValue> dvA = newImmutableList(
+            new EventDataValue( "oZg33kd9taw", "Male" ),
+            new EventDataValue( "qrur9Dvnyt5", "45" ),
+            new EventDataValue( "GieVkTxp4HH", "143" ),
+            new EventDataValue( "vV9UWAZohSf", "43" ),
+            new EventDataValue( "eMyVanycQSC", "2021-07-02" ),
+            new EventDataValue( "msodh3rEMJa", "2021-08-05" ),
+            new EventDataValue( "K6uUAvq500H", "A010" ),
+            new EventDataValue( "fWIAEtYVEGk", "MODDISCH" ) );
+
+        Event evA = new Event( UidUtils.generateUid(), "Zj7UnCAulEk", "DiszpKrYNg8", null, dvA );
+
+        Events events = new Events( newImmutableList( evA ) );
+
+        EventResponse response = dhis2.saveEvents( events );
+
+        assertNotNull( response );
+        assertEquals( Status.ERROR, response.getStatus() );
+        assertEquals( 1, response.getStats().getIgnored() );
+        assertEquals( 1, response.getValidationReport().getErrorReports().size() );
+
+        ErrorReport errorReport = response.getValidationReport().getErrorReports().get( 0 );
+        assertEquals( "E1031", errorReport.getErrorCode() );
     }
 }
