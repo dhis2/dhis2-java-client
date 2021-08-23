@@ -25,7 +25,7 @@ public class Dhis2AuthTest
     @Test
     public void testBasicAuthConstructor()
     {
-        Dhis2Config config = new Dhis2Config( TestFixture.DEV_URL, "admin", "district" );
+        Dhis2Config config = new Dhis2Config( TestFixture.DEFAULT_URL, "admin", "district" );
 
         Dhis2 dhis2 = new Dhis2( config );
 
@@ -37,7 +37,7 @@ public class Dhis2AuthTest
     {
         Authentication authentication = new BasicAuthentication( "admin", "district" );
 
-        Dhis2Config config = new Dhis2Config( TestFixture.DEV_URL, authentication );
+        Dhis2Config config = new Dhis2Config( TestFixture.DEFAULT_URL, authentication );
 
         Dhis2 dhis2 = new Dhis2( config );
 
@@ -48,11 +48,11 @@ public class Dhis2AuthTest
     public void testCookieAuthentication()
         throws Exception
     {
-        String sessionId = getSessionId( TestFixture.DEV_CONFIG );
+        String sessionId = getSessionId( TestFixture.DEFAULT_CONFIG );
 
         Authentication authentication = new CookieAuthentication( sessionId );
 
-        Dhis2Config config = new Dhis2Config( TestFixture.DEV_URL, authentication );
+        Dhis2Config config = new Dhis2Config( TestFixture.DEFAULT_URL, authentication );
 
         Dhis2 dhis2 = new Dhis2( config );
 
@@ -64,7 +64,7 @@ public class Dhis2AuthTest
     {
         CloseableHttpClient httpClient = HttpClients.createDefault();
 
-        HttpGet request = new HttpGet( TestFixture.DEV_URL + "/api/dataElements.json" );
+        HttpGet request = new HttpGet( TestFixture.DEFAULT_URL + "/api/dataElements.json" );
         HttpUtils.withAuth( request, basicAuthConfig );
 
         try ( CloseableHttpResponse response = httpClient.execute( request ) )

@@ -25,7 +25,7 @@ public class OrgUnitsApiTest
     @Test
     public void testSaveOrgUnitsWithUids()
     {
-        Dhis2 dhis2 = new Dhis2( TestFixture.DEV_CONFIG );
+        Dhis2 dhis2 = new Dhis2( TestFixture.DEFAULT_CONFIG );
 
         String uidA = UidUtils.generateUid();
         String uidB = UidUtils.generateUid();
@@ -66,7 +66,7 @@ public class OrgUnitsApiTest
     @Test
     public void testSaveAndUpdateOrgUnitswithUids()
     {
-        Dhis2 dhis2 = new Dhis2( TestFixture.DEV_CONFIG );
+        Dhis2 dhis2 = new Dhis2( TestFixture.DEFAULT_CONFIG );
 
         String uidA = UidUtils.generateUid();
         String uidB = UidUtils.generateUid();
@@ -119,7 +119,7 @@ public class OrgUnitsApiTest
     @Test
     public void testSaveOrgUnitsMissingRequiredProperty()
     {
-        Dhis2 dhis2 = new Dhis2( TestFixture.DEV_CONFIG );
+        Dhis2 dhis2 = new Dhis2( TestFixture.DEFAULT_CONFIG );
 
         String uidA = UidUtils.generateUid();
         String uidB = UidUtils.generateUid();
@@ -199,7 +199,7 @@ public class OrgUnitsApiTest
     @Test
     public void testInFilter()
     {
-        Dhis2 dhis2 = new Dhis2( TestFixture.DEV_CONFIG );
+        Dhis2 dhis2 = new Dhis2( TestFixture.DEFAULT_CONFIG );
 
         List<String> values = newImmutableList( "Rp268JB6Ne4", "cDw53Ej8rju", "GvFqTavdpGE" );
 
