@@ -185,6 +185,7 @@
         <version>2.22.2</version>
         <configuration>
           <excludedGroups>${test.excluded.groups}</excludedGroups>
+          <trimStackTrace>false</trimStackTrace>
         </configuration>
       </plugin>
       <plugin>
