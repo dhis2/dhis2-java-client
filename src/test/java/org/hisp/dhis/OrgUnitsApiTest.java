@@ -1,5 +1,6 @@
 package org.hisp.dhis;
 
+import static org.hisp.dhis.util.CollectionUtils.newImmutableList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
@@ -14,7 +15,6 @@ import org.hisp.dhis.response.Status;
 import org.hisp.dhis.response.object.ErrorReport;
 import org.hisp.dhis.response.object.ObjectReport;
 import org.hisp.dhis.response.objects.ObjectsResponse;
-import org.hisp.dhis.util.CollectionUtils;
 import org.hisp.dhis.util.UidUtils;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -25,7 +25,7 @@ public class OrgUnitsApiTest
     @Test
     public void testSaveOrgUnitsWithUids()
     {
-        Dhis2 dhis2 = new Dhis2( TestFixture.DEV_CONFIG );
+        Dhis2 dhis2 = new Dhis2( TestFixture.DEFAULT_CONFIG );
 
         String uidA = UidUtils.generateUid();
         String uidB = UidUtils.generateUid();
@@ -47,7 +47,7 @@ public class OrgUnitsApiTest
         ouC.setOpeningDate( new Date() );
         ouC.setParent( parent );
 
-        List<OrgUnit> orgUnits = CollectionUtils.newImmutableList( ouA, ouB, ouC );
+        List<OrgUnit> orgUnits = newImmutableList( ouA, ouB, ouC );
 
         ObjectsResponse response = dhis2.saveOrgUnits( orgUnits );
 
@@ -66,7 +66,7 @@ public class OrgUnitsApiTest
     @Test
     public void testSaveAndUpdateOrgUnitswithUids()
     {
-        Dhis2 dhis2 = new Dhis2( TestFixture.DEV_CONFIG );
+        Dhis2 dhis2 = new Dhis2( TestFixture.DEFAULT_CONFIG );
 
         String uidA = UidUtils.generateUid();
         String uidB = UidUtils.generateUid();
@@ -88,7 +88,7 @@ public class OrgUnitsApiTest
         ouC.setOpeningDate( new Date() );
         ouC.setParent( parent );
 
-        List<OrgUnit> orgUnits = CollectionUtils.newImmutableList( ouA, ouB );
+        List<OrgUnit> orgUnits = newImmutableList( ouA, ouB );
 
         ObjectsResponse response = dhis2.saveOrgUnits( orgUnits );
 
@@ -99,7 +99,7 @@ public class OrgUnitsApiTest
         assertEquals( Status.OK, response.getStatus() );
         assertEquals( new Integer( 2 ), response.getStats().getCreated() );
 
-        orgUnits = CollectionUtils.newImmutableList( ouB, ouC );
+        orgUnits = newImmutableList( ouB, ouC );
 
         response = dhis2.saveOrgUnits( orgUnits );
 
@@ -119,7 +119,7 @@ public class OrgUnitsApiTest
     @Test
     public void testSaveOrgUnitsMissingRequiredProperty()
     {
-        Dhis2 dhis2 = new Dhis2( TestFixture.DEV_CONFIG );
+        Dhis2 dhis2 = new Dhis2( TestFixture.DEFAULT_CONFIG );
 
         String uidA = UidUtils.generateUid();
         String uidB = UidUtils.generateUid();
@@ -132,7 +132,7 @@ public class OrgUnitsApiTest
         OrgUnit ouB = new OrgUnit( uidB, uidB, null );
         ouB.setParent( parent );
 
-        List<OrgUnit> orgUnits = CollectionUtils.newImmutableList( ouA, ouB );
+        List<OrgUnit> orgUnits = newImmutableList( ouA, ouB );
 
         ObjectsResponse response = dhis2.saveOrgUnits( orgUnits );
 
@@ -171,11 +171,37 @@ public class OrgUnitsApiTest
     }
 
     @Test
+    public void testGetOrgUnits()
+    {
+        Dhis2 dhis2 = new Dhis2( TestFixture.DEFAULT_CONFIG );
+
+        List<OrgUnit> orgUnits = dhis2.getOrgUnits( Query.instance()
+            .addFilter( Filter.in( "id", newImmutableList( "YuQRtpLP10I", "jPidqyo7cpF", "vWbkYPRmKyS" ) ) ) );
+
+        assertNotNull( orgUnits );
+        assertEquals( 3, orgUnits.size() );
+
+        OrgUnit ou = orgUnits.get( 0 );
+
+        assertEquals( "YuQRtpLP10I", ou.getId() );
+        assertEquals( "OU_539", ou.getCode() );
+        assertNotNull( ou.getCreated() );
+        assertNotNull( ou.getLastUpdated() );
+        assertEquals( "Badjia", ou.getName() );
+        assertEquals( "Badjia", ou.getShortName() );
+        assertEquals( "/ImspTQPwCqd/O6uvpzGd5pu/YuQRtpLP10I", ou.getPath() );
+        assertEquals( new Integer( 3 ), ou.getLevel() );
+        assertNotNull( ou.getParent() );
+        assertEquals( "O6uvpzGd5pu", ou.getParent().getId() );
+        assertNotNull( ou.getOpeningDate() );
+    }
+
+    @Test
     public void testInFilter()
     {
-        Dhis2 dhis2 = new Dhis2( TestFixture.DEV_CONFIG );
+        Dhis2 dhis2 = new Dhis2( TestFixture.DEFAULT_CONFIG );
 
-        List<String> values = CollectionUtils.newImmutableList( "Rp268JB6Ne4", "cDw53Ej8rju", "GvFqTavdpGE" );
+        List<String> values = newImmutableList( "Rp268JB6Ne4", "cDw53Ej8rju", "GvFqTavdpGE" );
 
         List<OrgUnit> orgUnits = dhis2.getOrgUnits( Query.instance()
             .addFilter( Filter.in( "id", values ) ) );

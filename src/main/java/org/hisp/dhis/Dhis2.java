@@ -37,6 +37,8 @@ import org.hisp.dhis.model.TableHook;
 import org.hisp.dhis.model.datastore.EntryMetadata;
 import org.hisp.dhis.model.datavalueset.DataValueSet;
 import org.hisp.dhis.model.datavalueset.DataValueSetImportOptions;
+import org.hisp.dhis.model.event.Event;
+import org.hisp.dhis.model.event.Events;
 import org.hisp.dhis.query.Query;
 import org.hisp.dhis.query.analytics.AnalyticsQuery;
 import org.hisp.dhis.request.orgunit.OrgUnitMergeRequest;
@@ -44,6 +46,7 @@ import org.hisp.dhis.request.orgunit.OrgUnitSplitRequest;
 import org.hisp.dhis.response.HttpStatus;
 import org.hisp.dhis.response.Response;
 import org.hisp.dhis.response.datavalueset.DataValueSetResponse;
+import org.hisp.dhis.response.event.EventResponse;
 import org.hisp.dhis.response.job.JobCategory;
 import org.hisp.dhis.response.job.JobNotification;
 import org.hisp.dhis.response.object.ObjectResponse;
@@ -98,8 +101,7 @@ public class Dhis2
         }
         catch ( IOException ex )
         {
-            // Return status code in case of unexpected exception of type
-            // HttpResponseException
+            // Return status code for exception of type HttpResponseException
 
             if ( ex instanceof HttpResponseException )
             {
@@ -317,12 +319,10 @@ public class Dhis2
      */
     public OrgUnit getOrgUnit( String id )
     {
-        String fields = NAME_FIELDS + ",path,level";
-
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "organisationUnits" )
             .appendPath( id )
-            .addParameter( "fields", String.format( "%s,parent[%s]", fields, fields ) ), Query.instance(),
+            .addParameter( "fields", ORG_UNIT_FIELDS ), Query.instance(),
             OrgUnit.class );
     }
 
@@ -334,11 +334,9 @@ public class Dhis2
      */
     public List<OrgUnit> getOrgUnits( Query query )
     {
-        String fields = NAME_FIELDS + ",path,level";
-
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "organisationUnits" )
-            .addParameter( "fields", String.format( "%s,parent[%s]", fields, fields ) ), query, Objects.class )
+            .addParameter( "fields", ORG_UNIT_FIELDS ), query, Objects.class )
                 .getOrganisationUnits();
     }
 
@@ -1248,7 +1246,42 @@ public class Dhis2
     }
 
     // -------------------------------------------------------------------------
-    // Job notifications
+    // Event
+    // -------------------------------------------------------------------------
+
+    /**
+     * Saves an {@link Events}. The operation is synchronous.
+     * <p>
+     * Requires DHIS 2 version 2.35 or later.
+     *
+     * @param events the {@link Events}.
+     * @return {@link EventResponse} holding information about the operation.
+     */
+    public EventResponse saveEvents( Events events )
+    {
+        return saveObject( config.getResolvedUriBuilder()
+            .appendPath( "tracker" )
+            .setParameter( "async", "false" ), events, EventResponse.class );
+    }
+
+    /**
+     * Retrieves an {@link Events}.
+     * <p>
+     * Requires DHIS 2 version 2.35 or later.
+     *
+     * @param id the event identifier.
+     * @return the {@link Event}.
+     */
+    public Event getEvent( String id )
+    {
+        return getObject( config.getResolvedUriBuilder()
+            .appendPath( "tracker" )
+            .appendPath( "events" )
+            .appendPath( id ), Query.instance(), Event.class );
+    }
+
+    // -------------------------------------------------------------------------
+    // Job notification
     // -------------------------------------------------------------------------
 
     /**

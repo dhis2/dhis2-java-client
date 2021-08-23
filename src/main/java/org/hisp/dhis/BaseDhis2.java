@@ -82,6 +82,11 @@ public class BaseDhis2
     protected static final String CATEGORY_FIELDS = String.format(
         "%s,dataDimensionType,dataDimension", NAME_FIELDS );
 
+    protected static final String ORG_UNIT_FIELDS = String.format(
+        "%s,path,level,parent[%s],openingDate,closedDate,comment," +
+            "url,contactPerson,address,email,phoneNumber",
+        NAME_FIELDS, NAME_FIELDS );
+
     protected static final String TE_ATTRIBUTE_FIELDS = String.format(
         "%s,valueType,confidential,unique", NAME_FIELDS );
 
@@ -385,6 +390,7 @@ public class BaseDhis2
             handleErrors( response );
 
             String responseBody = EntityUtils.toString( response.getEntity() );
+
             T responseMessage = objectMapper.readValue( responseBody, type );
 
             responseMessage.setHeaders( asList( response.getHeaders() ) );
@@ -434,6 +440,7 @@ public class BaseDhis2
             handleErrors( response );
 
             String responseBody = EntityUtils.toString( response.getEntity() );
+
             return objectMapper.readValue( responseBody, type );
         }
         catch ( IOException ex )
@@ -482,7 +489,9 @@ public class BaseDhis2
 
         if ( ERROR_STATUS_CODES.contains( code ) )
         {
-            throw new Dhis2ClientException( response.getReasonPhrase(), code );
+            String message = String.format( "%d %s", code, response.getReasonPhrase() );
+
+            throw new Dhis2ClientException( message, code );
         }
     }
 
@@ -610,6 +619,24 @@ public class BaseDhis2
     protected <T extends BaseHttpResponse> T saveObject( String path, Object object, Class<T> type )
     {
         URI url = config.getResolvedUrl( path );
+
+        return executeJsonPostPutRequest( new HttpPost( url ), object, type );
+    }
+
+    /**
+     * Saves an object using HTTP POST.
+     *
+     * @param uriBuilder the URI builder.
+     * @param object the object to save.
+     * @param type the class type for the response entity.
+     * @param <T> class.
+     * @return object holding information about the operation.
+     * @throws Dhis2ClientException if the save operation failed due to client
+     *         side error.
+     */
+    protected <T extends BaseHttpResponse> T saveObject( URIBuilder uriBuilder, Object object, Class<T> type )
+    {
+        URI url = HttpUtils.build( uriBuilder );
 
         return executeJsonPostPutRequest( new HttpPost( url ), object, type );
     }

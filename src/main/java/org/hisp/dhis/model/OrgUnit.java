@@ -8,6 +8,7 @@ import lombok.Setter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Getter
+@Setter
 public class OrgUnit
     extends NameableObject
 {
@@ -32,10 +33,6 @@ public class OrgUnit
     @Setter
     @JsonProperty
     private String comment;
-
-    @Setter
-    @JsonProperty
-    private String geometry;
 
     @Setter
     @JsonProperty
