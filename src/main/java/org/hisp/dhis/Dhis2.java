@@ -1250,7 +1250,8 @@ public class Dhis2
     // -------------------------------------------------------------------------
 
     /**
-     * Saves an {@link Events}.
+     * Saves an {@link Events}. The operation is synchronous. Requires DHIS 2
+     * version 2.35 or later.
      *
      * @param events the {@link Events}.
      * @return {@link EventResponse} holding information about the operation.
