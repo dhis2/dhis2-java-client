@@ -68,9 +68,14 @@ public class Event
 
     private List<EventDataValue> dataValues = new ArrayList<>();
 
-    public Event( String id, String programStage, String orgUnit, Date occurredAt, List<EventDataValue> dataValues )
+    public Event( String id )
     {
         this.id = id;
+    }
+
+    public Event( String id, String programStage, String orgUnit, Date occurredAt, List<EventDataValue> dataValues )
+    {
+        this( id );
         this.programStage = programStage;
         this.orgUnit = orgUnit;
         this.occurredAt = occurredAt;
