@@ -22,7 +22,7 @@ import org.junit.experimental.categories.Category;
 public class EventsApiTest
 {
     @Test
-    public void testSaveGetEvents()
+    public void testSaveGetDeleteEvents()
     {
         Dhis2 dhis2 = new Dhis2( TestFixture.DEFAULT_CONFIG );
 
@@ -75,6 +75,24 @@ public class EventsApiTest
         assertNotNull( evB );
         assertEquals( "Zj7UnCAulEk", evB.getProgramStage() );
         assertEquals( "DiszpKrYNg8", evB.getOrgUnit() );
+
+        response = dhis2.removeEvent( evA );
+
+        assertNotNull( response );
+        assertEquals( Status.OK, response.getStatus() );
+        assertEquals( 0, response.getStats().getCreated() );
+        assertEquals( 0, response.getStats().getUpdated() );
+        assertEquals( 0, response.getStats().getIgnored() );
+        assertEquals( 1, response.getStats().getDeleted() );
+
+        response = dhis2.removeEvent( evB );
+
+        assertNotNull( response );
+        assertEquals( Status.OK, response.getStatus() );
+        assertEquals( 0, response.getStats().getCreated() );
+        assertEquals( 0, response.getStats().getUpdated() );
+        assertEquals( 0, response.getStats().getIgnored() );
+        assertEquals( 1, response.getStats().getDeleted() );
     }
 
     @Test

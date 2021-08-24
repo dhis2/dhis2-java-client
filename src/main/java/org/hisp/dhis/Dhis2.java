@@ -1,5 +1,7 @@
 package org.hisp.dhis;
 
+import static org.hisp.dhis.util.CollectionUtils.newImmutableList;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.UncheckedIOException;
@@ -9,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.commons.lang3.Validate;
 import org.apache.hc.client5.http.HttpResponseException;
 import org.apache.hc.client5.http.classic.methods.HttpGet;
 import org.apache.hc.client5.http.classic.methods.HttpHead;
@@ -322,8 +325,7 @@ public class Dhis2
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "organisationUnits" )
             .appendPath( id )
-            .addParameter( "fields", ORG_UNIT_FIELDS ), Query.instance(),
-            OrgUnit.class );
+            .addParameter( "fields", ORG_UNIT_FIELDS ), Query.instance(), OrgUnit.class );
     }
 
     /**
@@ -1261,11 +1263,12 @@ public class Dhis2
     {
         return saveObject( config.getResolvedUriBuilder()
             .appendPath( "tracker" )
-            .setParameter( "async", "false" ), events, EventResponse.class );
+            .setParameter( "async", "false" )
+            .setParameter( "importStrategy", "CREATE_AND_UPDATE" ), events, EventResponse.class );
     }
 
     /**
-     * Retrieves an {@link Events}.
+     * Retrieves an {@link Event}.
      * <p>
      * Requires DHIS 2 version 2.35 or later.
      *
@@ -1278,6 +1281,26 @@ public class Dhis2
             .appendPath( "tracker" )
             .appendPath( "events" )
             .appendPath( id ), Query.instance(), Event.class );
+    }
+
+    /**
+     * Removes an {@link Event}.
+     * <p>
+     * Requires DHIS 2 version 2.35 or later.
+     *
+     * @param events the {@link Events}.
+     * @return {@link EventResponse} holding information about the operation.
+     */
+    public EventResponse removeEvent( Event event )
+    {
+        Validate.notNull( event.getId(), "Event identifier must be specified" );
+
+        Events events = new Events( newImmutableList( event ) );
+
+        return saveObject( config.getResolvedUriBuilder()
+            .appendPath( "tracker" )
+            .setParameter( "async", "false" )
+            .setParameter( "importStrategy", "DELETE" ), events, EventResponse.class );
     }
 
     // -------------------------------------------------------------------------

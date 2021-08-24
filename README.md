@@ -94,7 +94,7 @@ List<Program> programs = dhis2.getPrograms( Query.instance()
     .withExpandAssociations() );
 ```
 
-### Get objects
+### Get object
 
 To retrieve a single org unit by identifier:
 
@@ -102,7 +102,7 @@ To retrieve a single org unit by identifier:
 OrgUnit orgUnit = dhis2.getOrgUnit( "j7gkH3hf83k" );
 ```
 
-### Create objects
+### Create object
 
 To create an org unit:
 
@@ -126,7 +126,7 @@ List<OrgUnit> orgUnits = List.of(
 ObjectsResponse response = dhis2.saveOrgUnits( orgUnits );
 ```
 
-### Update objects
+### Update object
 
 To update an org unit (note that the ID property must be set):
 
@@ -139,7 +139,7 @@ orgUnit.setCode( "NGLH" );
 ObjectResponse response = dhis2.updateOrgUnit( orgUnit );
 ```
 
-### Remove objects
+### Remove object
 
 To remove an org unit:
 
@@ -164,6 +164,44 @@ To get system settings:
 
 ```java
 SystemSettings settings = dhis2.getSystemSettings();
+```
+
+### Save events
+
+To save a list of events:
+
+```java
+List<EventDataValue> dataValues = CollectionUtils.newImmutableList(
+    new EventDataValue( "oZg33kd9taw", "Male" ),
+    new EventDataValue( "qrur9Dvnyt5", "45" ),
+    new EventDataValue( "GieVkTxp4HH", "143" ),
+    new EventDataValue( "eMyVanycQSC", "2021-07-02" ),
+    new EventDataValue( "msodh3rEMJa", "2021-08-05" ),
+    new EventDataValue( "K6uUAvq500H", "A010" ),
+    new EventDataValue( "fWIAEtYVEGk", "MODDISCH" ) );
+
+Event event = new Event( "EHlOLNtR4J0", "Zj7UnCAulEk", 
+    "DiszpKrYNg8", DateTimeUtils.getDate( 2021, 7, 12 ), dvA );
+
+Events events = new Events( CollectionUtils.newImmutableList( evA, evB ) );
+
+EventResponse response = dhis2.saveEvents( events );
+```
+
+### Get event
+
+To retrieve an event:
+
+```java
+Event event = dhis2.getEvent( "EHlOLNtR4J0" );
+```
+
+### Remove event
+
+To remove an event:
+
+```java
+EventResponse response = dhis2.removeEvent( Event event );
 ```
 
 ### Save data value set
