@@ -24,7 +24,7 @@ public class EventsApiTest
     @Test
     public void testSaveGetDeleteEvents()
     {
-        Dhis2 dhis2 = new Dhis2( TestFixture.DEV_CONFIG );
+        Dhis2 dhis2 = new Dhis2( TestFixture.DEFAULT_CONFIG );
 
         String uidA = UidUtils.generateUid();
         String uidB = UidUtils.generateUid();
@@ -98,7 +98,7 @@ public class EventsApiTest
     @Test
     public void testSaveEventsMissingOccurredAt()
     {
-        Dhis2 dhis2 = new Dhis2( TestFixture.DEV_CONFIG );
+        Dhis2 dhis2 = new Dhis2( TestFixture.DEFAULT_CONFIG );
 
         List<EventDataValue> dvA = newImmutableList(
             new EventDataValue( "oZg33kd9taw", "Male" ),
