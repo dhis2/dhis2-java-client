@@ -201,7 +201,7 @@ Event event = dhis2.getEvent( "EHlOLNtR4J0" );
 To remove an event:
 
 ```java
-EventResponse response = dhis2.removeEvent( Event event );
+EventResponse response = dhis2.removeEvent( event );
 ```
 
 ### Save data value set
