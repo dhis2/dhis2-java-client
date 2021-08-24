@@ -181,9 +181,9 @@ List<EventDataValue> dataValues = CollectionUtils.newImmutableList(
     new EventDataValue( "fWIAEtYVEGk", "MODDISCH" ) );
 
 Event event = new Event( "EHlOLNtR4J0", "Zj7UnCAulEk", 
-    "DiszpKrYNg8", DateTimeUtils.getDate( 2021, 7, 12 ), dvA );
+    "DiszpKrYNg8", DateTimeUtils.getDate( 2021, 7, 12 ), dataValues );
 
-Events events = new Events( CollectionUtils.newImmutableList( evA, evB ) );
+Events events = new Events( CollectionUtils.newImmutableList( event ) );
 
 EventResponse response = dhis2.saveEvents( events );
 ```
