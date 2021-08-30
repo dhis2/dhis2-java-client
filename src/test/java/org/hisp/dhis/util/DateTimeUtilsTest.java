@@ -14,12 +14,14 @@ public class DateTimeUtilsTest
     {
         LocalDateTime dateTime = LocalDateTime.of( 2021, 8, 30, 14, 20, 5 );
 
-        String str = DateTimeUtils.getTimestampString( dateTime );
+        String strA = DateTimeUtils.getTimestampString( dateTime );
 
-        // 2021-08-30T14:20:05
-        System.out.println( str );
-        assertNotNull( str );
-        assertEquals( "2021-08-30T14:20:05", str );
-        // assertEquals( "", str.substring( 0, 0 ) );
+        assertNotNull( strA );
+        assertEquals( "2021-08-30T14:20:05.000", strA );
+
+        String strB = DateTimeUtils.getTimestampString( LocalDateTime.now() );
+
+        assertNotNull( strB );
+        assertEquals( 23, strB.length() );
     }
 }

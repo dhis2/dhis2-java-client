@@ -8,6 +8,9 @@ import java.util.Date;
 
 public class DateTimeUtils
 {
+    private static final DateTimeFormatter DATE_TIME_FORMAT = DateTimeFormatter
+        .ofPattern( "yyyy-MM-dd'T'HH:mm:ss.SSS" );
+
     /**
      * Returns a date.
      *
@@ -31,6 +34,6 @@ public class DateTimeUtils
      */
     public static String getTimestampString( LocalDateTime dateTime )
     {
-        return DateTimeFormatter.ISO_DATE_TIME.format( dateTime );
+        return DATE_TIME_FORMAT.format( dateTime );
     }
 }
