@@ -365,7 +365,9 @@ public class BaseDhis2
     {
         validateRequestObject( object );
 
-        HttpEntity entity = new StringEntity( toJsonString( object ), StandardCharsets.UTF_8 );
+        String requestBody = toJsonString( object );
+
+        HttpEntity entity = new StringEntity( requestBody, StandardCharsets.UTF_8 );
 
         request.setHeader( HttpHeaders.CONTENT_TYPE, ContentType.APPLICATION_JSON.getMimeType() );
         request.setEntity( entity );
