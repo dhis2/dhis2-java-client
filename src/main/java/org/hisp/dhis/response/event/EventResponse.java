@@ -7,6 +7,7 @@ import lombok.ToString;
 
 import org.hisp.dhis.response.Response;
 import org.hisp.dhis.response.Stats;
+import org.hisp.dhis.response.Status;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -22,4 +23,9 @@ public class EventResponse
 
     @JsonProperty
     private Stats stats;
+
+    public EventResponse( Status status, Integer httpStatusCode, String message )
+    {
+        super( status, httpStatusCode, message );
+    }
 }
