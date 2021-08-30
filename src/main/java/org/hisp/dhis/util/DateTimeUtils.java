@@ -8,7 +8,10 @@ import java.util.Date;
 
 public class DateTimeUtils
 {
-    private static final DateTimeFormatter DATE_TIME_FORMAT = DateTimeFormatter
+    private static final DateTimeFormatter DATE_TIME_S_FORMAT = DateTimeFormatter
+        .ofPattern( "yyyy-MM-dd'T'HH:mm:ss" );
+
+    private static final DateTimeFormatter DATE_TIME_MS_FORMAT = DateTimeFormatter
         .ofPattern( "yyyy-MM-dd'T'HH:mm:ss.SSS" );
 
     /**
@@ -27,13 +30,26 @@ public class DateTimeUtils
     }
 
     /**
-     * Returns a date-time string in a ISO-8601-like format.
+     * Returns a date-time string with second precision on the format:
+     * <code>yyyy-MM-dd'T'HH:mm:ss</code>.
      *
      * @param dateTime the {@link LocalDateTime}.
      * @return a date-time string.
      */
-    public static String getTimestampString( LocalDateTime dateTime )
+    public static String getTimestampSecondsString( LocalDateTime dateTime )
     {
-        return DATE_TIME_FORMAT.format( dateTime );
+        return DATE_TIME_S_FORMAT.format( dateTime );
+    }
+
+    /**
+     * Returns a date-time string with millisecond precision on the format:
+     * <code>yyyy-MM-dd'T'HH:mm:ss.SSS</code>.
+     *
+     * @param dateTime the {@link LocalDateTime}.
+     * @return a date-time string.
+     */
+    public static String getTimestampMillisString( LocalDateTime dateTime )
+    {
+        return DATE_TIME_MS_FORMAT.format( dateTime );
     }
 }
