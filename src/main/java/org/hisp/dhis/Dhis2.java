@@ -1288,7 +1288,7 @@ public class Dhis2
      * <p>
      * Requires DHIS 2 version 2.35 or later.
      *
-     * @param events the {@link Events}.
+     * @param event the {@link Event}.
      * @return {@link EventResponse} holding information about the operation.
      */
     public EventResponse removeEvent( Event event )
