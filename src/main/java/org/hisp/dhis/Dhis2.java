@@ -329,6 +329,28 @@ public class Dhis2
     }
 
     /**
+     * Retrieves a list of {@link OrgUnit} which represents the sub-hierarchy of
+     * the given parent org unit.
+     *
+     * @param id the identifier of the parent org unit.
+     * @param level the org unit level, relative to the level of the parent org
+     *        unit, where 1 is the level immediately below.
+     * @param query the {@link Query}.
+     * @return list of {@link OrgUnit}.
+     */
+    public List<OrgUnit> getOrgUnitSubHierarchy( String id, Integer level, Query query )
+    {
+        Validate.notNull( level );
+
+        return getObject( config.getResolvedUriBuilder()
+            .appendPath( "organisationUnits" )
+            .appendPath( id )
+            .addParameter( "fields", ORG_UNIT_FIELDS )
+            .addParameter( "level", String.valueOf( level ) ), query, Objects.class )
+                .getOrganisationUnits();
+    }
+
+    /**
      * Retrieves a list of {@link OrgUnit}.
      *
      * @param query the {@link Query}.
@@ -567,8 +589,7 @@ public class Dhis2
      */
     public List<OrgUnitLevel> getFilledOrgUnitLevels()
     {
-        // Using array, DHIS 2 should have used a wrapper entity for the
-        // response
+        // Using array, DHIS 2 should have used a wrapper entity
 
         return asList( getObject( config.getResolvedUriBuilder()
             .appendPath( "filledOrganisationUnitLevels" ), Query.instance(), OrgUnitLevel[].class ) );

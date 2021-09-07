@@ -3,6 +3,7 @@ package org.hisp.dhis;
 import static org.hisp.dhis.util.CollectionUtils.newImmutableList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Date;
 import java.util.List;
@@ -194,6 +195,19 @@ public class OrgUnitsApiTest
         assertNotNull( ou.getParent() );
         assertEquals( "O6uvpzGd5pu", ou.getParent().getId() );
         assertNotNull( ou.getOpeningDate() );
+    }
+
+    @Test
+    public void testGetOrgUnitSubHierarchy()
+    {
+        Dhis2 dhis2 = new Dhis2( TestFixture.DEFAULT_CONFIG );
+
+        List<OrgUnit> orgUnits = dhis2.getOrgUnitSubHierarchy( "O6uvpzGd5pu", 1, Query.instance() );
+
+        assertEquals( 15, orgUnits.size() );
+        assertTrue( orgUnits.contains( new OrgUnit( "YuQRtpLP10I", "Badjia" ) ) );
+        assertTrue( orgUnits.contains( new OrgUnit( "dGheVylzol6", "Bargbe" ) ) );
+        assertTrue( orgUnits.contains( new OrgUnit( "kU8vhUkAGaT", "Lugbu" ) ) );
     }
 
     @Test
