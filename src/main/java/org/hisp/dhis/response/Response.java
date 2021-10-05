@@ -29,6 +29,9 @@ public class Response
     protected String message;
 
     @JsonProperty
+    protected String errorCode;
+
+    @JsonProperty
     protected String devMessage;
 
     public Response( Status status, Integer httpStatusCode, String message )
@@ -36,6 +39,12 @@ public class Response
         this.status = status;
         this.httpStatusCode = httpStatusCode;
         this.message = message;
+    }
+
+    public Response( Status status, Integer httpStatusCode, String message, String errorCode )
+    {
+        this( status, httpStatusCode, message );
+        this.errorCode = errorCode;
     }
 
     public HttpStatus getHttpStatus()
