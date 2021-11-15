@@ -19,6 +19,9 @@ public class Event
     private String id;
 
     @JsonProperty
+    private String program;
+
+    @JsonProperty
     private String programStage;
 
     @JsonProperty
@@ -73,9 +76,11 @@ public class Event
         this.id = id;
     }
 
-    public Event( String id, String programStage, String orgUnit, Date occurredAt, List<EventDataValue> dataValues )
+    public Event( String id, String program, String programStage,
+        String orgUnit, Date occurredAt, List<EventDataValue> dataValues )
     {
         this( id );
+        this.program = program;
         this.programStage = programStage;
         this.orgUnit = orgUnit;
         this.occurredAt = occurredAt;

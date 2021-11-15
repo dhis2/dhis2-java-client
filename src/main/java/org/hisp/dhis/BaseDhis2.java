@@ -551,7 +551,11 @@ public class BaseDhis2
     {
         try
         {
-            return objectMapper.writeValueAsString( object );
+            String json = objectMapper.writeValueAsString( object );
+
+            log.trace( "Object JSON: '{}'", json );
+
+            return json;
         }
         catch ( IOException ex )
         {
