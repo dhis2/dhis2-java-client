@@ -180,8 +180,12 @@ List<EventDataValue> dataValues = CollectionUtils.newImmutableList(
     new EventDataValue( "K6uUAvq500H", "A010" ),
     new EventDataValue( "fWIAEtYVEGk", "MODDISCH" ) );
 
-Event event = new Event( "EHlOLNtR4J0", "eBAyeGv0exc", "Zj7UnCAulEk", 
-    "DiszpKrYNg8", DateTimeUtils.getDate( 2021, 7, 12 ), dataValues );
+Event event = new Event( "EHlOLNtR4J0" );
+event.setProgram( "eBAyeGv0exc" );
+event.setProgramStage( "Zj7UnCAulEk" );
+event.setOrgUnit( "DiszpKrYNg8" );
+event.setOccurredAt( DateTimeUtils.getDate( 2021, 7, 12 ) );
+event.setDataValues( dataValues );
 
 Events events = new Events( CollectionUtils.newImmutableList( event ) );
 
@@ -209,26 +213,26 @@ EventResponse response = dhis2.removeEvent( event );
 To save a data value set:
 
 ```java
-DataValue dataValue1 = new DataValue();
-dataValue1.setDataElement( "f7n9E0hX8qk" );
-dataValue1.setValue( "12" );
+DataValue dv1 = new DataValue();
+dv1.setDataElement( "f7n9E0hX8qk" );
+dv1.setValue( "12" );
 
-DataValue dataValue2 = new DataValue();
-dataValue2.setDataElement( "Ix2HsbDMLea" );
-dataValue2.setValue( "13" );
+DataValue dv2 = new DataValue();
+dv2.setDataElement( "Ix2HsbDMLea" );
+dv2.setValue( "13" );
 
-DataValueSet dataValueSet = new DataValueSet();
-dataValueSet.setDataSet( "pBOMPrpg1QX" );
-dataValueSet.setCompleteDate( "2014-02-03" );
-dataValueSet.setPeriod( "201910" );
-dataValueSet.setOrgUnit( "DiszpKrYNg8" );
+DataValueSet dvs = new DataValueSet();
+dvs.setDataSet( "pBOMPrpg1QX" );
+dvs.setCompleteDate( "2014-02-03" );
+dvs.setPeriod( "201910" );
+dvs.setOrgUnit( "DiszpKrYNg8" );
 
-dataValueSet.addDataValue( dataValue1 );
-dataValueSet.addDataValue( dataValue2 );
+dvs.addDataValue( dv1 );
+dvs.addDataValue( dv2 );
 
 DataValueSetImportOptions options = DataValueSetImportOptions.instance();
 
-DataValueSetResponse response = dhis2.saveDataValueSet( dataValueSet, options );
+DataValueSetResponse response = dhis2.saveDataValueSet( dvs, options );
 ```
 
 ### Save data value set from file
