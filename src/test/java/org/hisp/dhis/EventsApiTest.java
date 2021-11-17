@@ -39,7 +39,12 @@ public class EventsApiTest
             new EventDataValue( "K6uUAvq500H", "A010" ),
             new EventDataValue( "fWIAEtYVEGk", "MODDISCH" ) );
 
-        Event evA = new Event( uidA, "eBAyeGv0exc", "Zj7UnCAulEk", "DiszpKrYNg8", getDate( 2021, 7, 12 ), dvA );
+        Event evA = new Event( uidA );
+        evA.setProgram( "eBAyeGv0exc" );
+        evA.setProgramStage( "Zj7UnCAulEk" );
+        evA.setOrgUnit( "DiszpKrYNg8" );
+        evA.setOccurredAt( getDate( 2021, 7, 12 ) );
+        evA.setDataValues( dvA );
 
         List<EventDataValue> dvB = newImmutableList(
             new EventDataValue( "oZg33kd9taw", "Female" ),
@@ -51,7 +56,12 @@ public class EventsApiTest
             new EventDataValue( "K6uUAvq500H", "A011" ),
             new EventDataValue( "fWIAEtYVEGk", "MODDISCH" ) );
 
-        Event evB = new Event( uidB, "eBAyeGv0exc", "Zj7UnCAulEk", "DiszpKrYNg8", getDate( 2021, 7, 14 ), dvB );
+        Event evB = new Event( uidB );
+        evB.setProgram( "eBAyeGv0exc" );
+        evB.setProgramStage( "Zj7UnCAulEk" );
+        evB.setOrgUnit( "DiszpKrYNg8" );
+        evB.setOccurredAt( getDate( 2021, 7, 14 ) );
+        evB.setDataValues( dvB );
 
         Events events = new Events( newImmutableList( evA, evB ) );
 
@@ -110,7 +120,12 @@ public class EventsApiTest
             new EventDataValue( "K6uUAvq500H", "A010" ),
             new EventDataValue( "fWIAEtYVEGk", "MODDISCH" ) );
 
-        Event evA = new Event( UidUtils.generateUid(), "eBAyeGv0exc", "Zj7UnCAulEk", "DiszpKrYNg8", null, dvA );
+        Event evA = new Event( UidUtils.generateUid() );
+        evA.setProgram( "eBAyeGv0exc" );
+        evA.setProgramStage( "Zj7UnCAulEk" );
+        evA.setOrgUnit( "DiszpKrYNg8" );
+        evA.setOccurredAt( null );
+        evA.setDataValues( dvA );
 
         Events events = new Events( newImmutableList( evA ) );
 
