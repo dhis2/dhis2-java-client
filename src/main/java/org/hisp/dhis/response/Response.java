@@ -81,6 +81,8 @@ public class Response
         return new StringBuilder( "[" )
             .append( "status: " ).append( status ).append( ", " )
             .append( "code: " ).append( code ).append( ", " )
+            .append( "message: " ).append( message ).append( ", " )
+            .append( "errorCode: " ).append( errorCode ).append( ", " )
             .append( "httpStatusCode: " ).append( httpStatusCode ).append( ", " )
             .append( "devMessage: " ).append( devMessage ).append( "]" ).toString();
     }
