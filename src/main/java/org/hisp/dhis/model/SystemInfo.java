@@ -14,4 +14,10 @@ public class SystemInfo
 
     @JsonProperty
     private String revision;
+
+    @JsonProperty
+    private String nodeId;
+
+    @JsonProperty
+    private String systemId;
 }

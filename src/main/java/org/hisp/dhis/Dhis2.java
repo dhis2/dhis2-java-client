@@ -35,6 +35,7 @@ import org.hisp.dhis.model.OrgUnitGroupSet;
 import org.hisp.dhis.model.OrgUnitLevel;
 import org.hisp.dhis.model.PeriodType;
 import org.hisp.dhis.model.Program;
+import org.hisp.dhis.model.SystemInfo;
 import org.hisp.dhis.model.SystemSettings;
 import org.hisp.dhis.model.TableHook;
 import org.hisp.dhis.model.datastore.EntryMetadata;
@@ -146,6 +147,23 @@ public class Dhis2
         {
             return false;
         }
+    }
+
+    // -------------------------------------------------------------------------
+    // System info
+    // -------------------------------------------------------------------------
+
+    /**
+     * Retrieves the {@link SystemInfo}.
+     *
+     * @param id the object identifier.
+     * @return the {@link OrgUnit}.
+     */
+    public SystemInfo getSystemInfo()
+    {
+        return getObject( config.getResolvedUriBuilder()
+            .appendPath( "system" )
+            .appendPath( "info" ), Query.instance(), SystemInfo.class );
     }
 
     // -------------------------------------------------------------------------
