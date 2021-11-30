@@ -14,4 +14,20 @@ public class SystemInfo
 
     @JsonProperty
     private String revision;
+
+    @JsonProperty
+    private String nodeId;
+
+    @JsonProperty
+    private String systemId;
+
+    /**
+     * Returns the {@link SystemVersion}.
+     *
+     * @return the {@link SystemVersion}.
+     */
+    public SystemVersion getSystemVersion()
+    {
+        return new SystemVersion( version );
+    }
 }

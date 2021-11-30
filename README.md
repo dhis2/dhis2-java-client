@@ -273,3 +273,22 @@ File file = new File( "/tmp/data-value-set.json" );
 dhis2.writeAnalyticsDataValueSet( query, file );
 ```
 
+### Get system info
+
+To get system info:
+
+```java
+SystemInfo info = dhis2.getSystemInfo();
+
+String version = info.getVersion();
+```
+
+To compare the system version:
+
+```java
+SystemInfo info = dhis2.getSystemInfo();
+
+SystemVersion version = info.getSystemVersion();
+
+boolean isHigher = version.isHigher( "2.37.0" );
+```
