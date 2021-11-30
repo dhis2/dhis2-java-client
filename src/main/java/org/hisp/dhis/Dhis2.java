@@ -156,8 +156,7 @@ public class Dhis2
     /**
      * Retrieves the {@link SystemInfo}.
      *
-     * @param id the object identifier.
-     * @return the {@link OrgUnit}.
+     * @return the {@link SystemInfo}.
      */
     public SystemInfo getSystemInfo()
     {
