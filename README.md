@@ -77,14 +77,14 @@ To retrieve org units with a filter on the level in a paged way:
 List<OrgUnit> orgUnits = dhis2.getOrgUnits( Query.instance()
     .addFilter( Filter.eq( "level", 4 ) )
     .addFilter( Filter.like( "code", "fac" ) )
-    .withPaging( 1, 200 ) );
+    .setPaging( 1, 200 ) );
 ```
 
 To retrieve all org units ordered descending on the name property:
 
 ```java
 List<OrgUnit> orgUnits = dhis2.getOrgUnits( Query.instance()
-    .withOrder( Order.desc( "name" ) ) );
+    .setOrder( Order.desc( "name" ) ) );
 ```
 
 When retrieving lists of objects, associations to other objects will not be populated in the response by default. You can expand associations in object lists through the query object like this, e.g. for programs:
