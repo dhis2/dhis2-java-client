@@ -491,9 +491,30 @@ public class BaseDhis2
 
         if ( ERROR_STATUS_CODES.contains( code ) )
         {
-            String message = String.format( "%d %s", code, response.getReasonPhrase() );
+            String message = String.format( "%s (%d)", getErrorMessage( code ), code );
 
             throw new Dhis2ClientException( message, code );
+        }
+    }
+
+    /**
+     * Return an error message for the given status code.
+     *
+     * @param code the status code.
+     * @return an error message.
+     */
+    private String getErrorMessage( int code )
+    {
+        switch ( code )
+        {
+        case 401:
+            return "Authentication failed";
+        case 403:
+            return "Access was denied";
+        case 404:
+            return "Object not found";
+        default:
+            return null;
         }
     }
 
