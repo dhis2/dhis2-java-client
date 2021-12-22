@@ -47,6 +47,7 @@ import org.hisp.dhis.query.Query;
 import org.hisp.dhis.query.analytics.AnalyticsQuery;
 import org.hisp.dhis.request.orgunit.OrgUnitMergeRequest;
 import org.hisp.dhis.request.orgunit.OrgUnitSplitRequest;
+import org.hisp.dhis.response.Dhis2ClientException;
 import org.hisp.dhis.response.HttpStatus;
 import org.hisp.dhis.response.Response;
 import org.hisp.dhis.response.datavalueset.DataValueSetResponse;
@@ -336,6 +337,7 @@ public class Dhis2
      *
      * @param id the object identifier.
      * @return the {@link OrgUnit}.
+     * @throws Dhis2ClientException if the object does not exist.
      */
     public OrgUnit getOrgUnit( String id )
     {
@@ -464,6 +466,7 @@ public class Dhis2
      *
      * @param id the object identifier.
      * @return the {@link OrgUnitGroup}.
+     * @throws Dhis2ClientException if the object does not exist.
      */
     public OrgUnitGroup getOrgUnitGroup( String id )
     {
@@ -541,6 +544,7 @@ public class Dhis2
      *
      * @param id the object identifier.
      * @return the {@link OrgUnitGroupSet}.
+     * @throws Dhis2ClientException if the object does not exist.
      */
     public OrgUnitGroupSet getOrgUnitGroupSet( String id )
     {
@@ -575,6 +579,7 @@ public class Dhis2
      *
      * @param id the object identifier.
      * @return the {@link OrgUnitLevel}.
+     * @throws Dhis2ClientException if the object does not exist.
      */
     public OrgUnitLevel getOrgUnitLevel( String id )
     {
@@ -665,6 +670,7 @@ public class Dhis2
      *
      * @param id the object identifier.
      * @return the {@link CategoryOption}.
+     * @throws Dhis2ClientException if the object does not exist.
      */
     public CategoryOption getCategoryOption( String id )
     {
@@ -741,6 +747,7 @@ public class Dhis2
      *
      * @param id the object identifier.
      * @return the {@link Category}.
+     * @throws Dhis2ClientException if the object does not exist.
      */
     public Category getCategory( String id )
     {
@@ -773,6 +780,7 @@ public class Dhis2
      *
      * @param id the object identifier.
      * @return the {@link CategoryCombo}.
+     * @throws Dhis2ClientException if the object does not exist.
      */
     public CategoryCombo getCategoryCombo( String id )
     {
@@ -849,6 +857,7 @@ public class Dhis2
      *
      * @param id the object identifier.
      * @return the {@link DataElement}.
+     * @throws Dhis2ClientException if the object does not exist.
      */
     public DataElement getDataElement( String id )
     {
@@ -926,6 +935,7 @@ public class Dhis2
      *
      * @param id the object identifier.
      * @return the {@link DataElementGroup}.
+     * @throws Dhis2ClientException if the object does not exist.
      */
     public DataElementGroup getDataElementGroup( String id )
     {
@@ -990,6 +1000,7 @@ public class Dhis2
      *
      * @param id the object identifier.
      * @return the {@link Program}.
+     * @throws Dhis2ClientException if the object does not exist.
      */
     public Program getProgram( String id )
     {
@@ -1037,6 +1048,7 @@ public class Dhis2
      *
      * @param id the object identifier.
      * @return the {@link CategoryOptionGroupSet}.
+     * @throws Dhis2ClientException if the object does not exist.
      */
     public CategoryOptionGroupSet getCategoryOptionGroupSet( String id )
     {
@@ -1113,6 +1125,7 @@ public class Dhis2
      *
      * @param id the identifier of the table hook.
      * @return the {@link TableHook}.
+     * @throws Dhis2ClientException if the object does not exist.
      */
     public TableHook getTableHook( String id )
     {
