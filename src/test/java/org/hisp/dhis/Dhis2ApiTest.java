@@ -227,6 +227,7 @@ public class Dhis2ApiTest
             () -> dhis2.getOrgUnitGroups( Query.instance() ) );
 
         assertEquals( 401, ex.getStatusCode() );
+        assertEquals( "Authentication failed (401)", ex.getMessage() );
     }
 
     @Test
@@ -238,6 +239,7 @@ public class Dhis2ApiTest
             () -> dhis2.getOrgUnitGroup( "NonExisting" ) );
 
         assertEquals( 404, ex.getStatusCode() );
+        assertEquals( "Object not found (404)", ex.getMessage() );
     }
 
     @Test
