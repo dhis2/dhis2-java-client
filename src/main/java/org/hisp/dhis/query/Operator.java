@@ -13,6 +13,7 @@ public enum Operator
     LE( "le", "<=" ),
     LT( "lt", "<" ),
     LIKE( "like", "like" ),
+    TOKEN( "token", "" ),
     ILIKE( "ilike", "ilike " ),
     IN( "in", "in" );
 
