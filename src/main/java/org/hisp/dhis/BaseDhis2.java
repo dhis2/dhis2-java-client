@@ -516,7 +516,7 @@ public class BaseDhis2
         if ( code >= 400 && code < 500 )
             return "Client error";
         if ( code >= 500 && code < 600 )
-            return "Sever error";
+            return "Server error";
         else
             return "Error";
     }
