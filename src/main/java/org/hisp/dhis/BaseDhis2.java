@@ -505,17 +505,20 @@ public class BaseDhis2
      */
     private String getErrorMessage( int code )
     {
-        switch ( code )
-        {
-        case 401:
+        if ( 401 == code )
             return "Authentication failed";
-        case 403:
+        if ( 403 == code )
             return "Access was denied";
-        case 404:
+        if ( 404 == code )
             return "Object not found";
-        default:
-            return null;
-        }
+        if ( 409 == code )
+            return "Conflict";
+        if ( code >= 400 && code < 500 )
+            return "Client error";
+        if ( code >= 500 && code < 600 )
+            return "Sever error";
+        else
+            return "Error";
     }
 
     /**

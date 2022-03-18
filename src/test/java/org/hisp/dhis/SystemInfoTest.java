@@ -20,6 +20,8 @@ public class SystemInfoTest
 
         assertTrue( version.isHigher( "2.35.4" ) );
         assertTrue( version.isHigher( "2.32.3" ) );
+        assertTrue( version.isHigher( "2.35" ) );
+        assertTrue( version.isHigher( "2.34.0" ) );
         assertTrue( version.isHigher( "2.32-SNAPSHOT" ) );
         assertTrue( version.isHigherOrEqual( "2.34.3" ) );
         assertTrue( version.isHigherOrEqual( "2.35.6" ) );
