@@ -393,6 +393,8 @@ public class BaseDhis2
 
             String responseBody = EntityUtils.toString( response.getEntity() );
 
+            log.info( "Response body: '{}'", responseBody );
+
             T responseMessage = objectMapper.readValue( responseBody, type );
 
             responseMessage.setHeaders( asList( response.getHeaders() ) );
@@ -442,6 +444,8 @@ public class BaseDhis2
             handleErrors( response );
 
             String responseBody = EntityUtils.toString( response.getEntity() );
+
+            log.debug( "Response body: '{}'", responseBody );
 
             return objectMapper.readValue( responseBody, type );
         }
