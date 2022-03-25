@@ -3,17 +3,16 @@ package org.hisp.dhis.response.objects;
 import java.util.ArrayList;
 import java.util.List;
 
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import org.hisp.dhis.response.BaseHttpResponse;
 import org.hisp.dhis.response.Status;
+import org.hisp.dhis.response.objects.internal.Response;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-@Getter
 @Setter
 @NoArgsConstructor
 public class ObjectsResponse
@@ -28,6 +27,12 @@ public class ObjectsResponse
     @JsonProperty
     private ObjectStatistics stats;
 
+    /**
+     * From DHIS 2.38.
+     */
+    @JsonProperty
+    private Response response;
+
     public ObjectsResponse( Status status, Integer httpStatusCode, ObjectStatistics stats )
     {
         this.status = status;
@@ -41,6 +46,11 @@ public class ObjectsResponse
         return typeReports != null && !typeReports.isEmpty() ? typeReports.get( 0 ) : new TypeReport();
     }
 
+    private boolean hasResponse()
+    {
+        return response != null;
+    }
+
     @Override
     public String toString()
     {
@@ -48,6 +58,21 @@ public class ObjectsResponse
             .append( "status: " ).append( status ).append( ", " )
             .append( "httpStatusCode: " ).append( httpStatusCode ).append( ", " )
             .append( "stats: " ).append( stats ).append( "," )
-            .append( "typeReport" ).append( getTypeReport() ).append( "]" ).toString();
+            .append( "typeReport: " ).append( getTypeReport() ).append( "]" ).toString();
+    }
+
+    public Status getStatus()
+    {
+        return hasResponse() ? response.getStatus() : status;
+    }
+
+    public List<TypeReport> getTypeReports()
+    {
+        return hasResponse() ? response.getTypeReports() : typeReports;
+    }
+
+    public ObjectStatistics getStats()
+    {
+        return hasResponse() ? response.getStats() : stats;
     }
 }
