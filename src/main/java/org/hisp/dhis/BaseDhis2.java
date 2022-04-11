@@ -439,6 +439,8 @@ public class BaseDhis2
      */
     protected <T> T getObjectFromUrl( URI url, Class<T> type )
     {
+        log.debug( "Get object from URL: '{}'", url );
+
         try ( CloseableHttpResponse response = getJsonHttpResponse( url ) )
         {
             handleErrors( response );

@@ -27,6 +27,12 @@ public enum Operator
         this.sqlOperator = sqlOperator;
     }
 
+    /**
+     * Returns the operator with a value matching the given string.
+     *
+     * @param value the value.
+     * @return an {@link Operator} or null if no match.
+     */
     public static Operator fromValue( String value )
     {
         for ( Operator operator : Operator.values() )
@@ -37,7 +43,7 @@ public enum Operator
             }
         }
 
-        throw new IllegalArgumentException( String.format( "No enum for value: '%s'", value ) );
+        return null;
     }
 
     public String value()

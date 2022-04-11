@@ -17,6 +17,12 @@ public enum Direction
         this.value = value;
     }
 
+    /**
+     * Returns the direction with a value matching the given string.
+     *
+     * @param value the value.
+     * @return an {@link Direction} or null if no match.
+     */
     public static Direction fromValue( String value )
     {
         for ( Direction direction : Direction.values() )
@@ -27,7 +33,7 @@ public enum Direction
             }
         }
 
-        throw new IllegalArgumentException( String.format( "No enum for value: '%s'", value ) );
+        return null;
     }
 
     public String value()
