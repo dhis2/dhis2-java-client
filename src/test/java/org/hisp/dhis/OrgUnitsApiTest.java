@@ -204,10 +204,10 @@ public class OrgUnitsApiTest
 
         List<OrgUnit> orgUnits = dhis2.getOrgUnits( Query.instance()
             .addFilter( Filter.eq( "attributeValues.attribute.id", "l1VmqIHKk6t" ) )
-            .addFilter( Filter.eq( "attributeValues.value", "KE03" ) ) );
+            .addFilter( Filter.eq( "attributeValues.value", "KE02" ) ) );
 
         assertEquals( 1, orgUnits.size() );
-        assertTrue( orgUnits.contains( new OrgUnit( "vWbkYPRmKyS", "Baoma" ) ) );
+        assertTrue( orgUnits.contains( new OrgUnit( "g8upMTyEZGZ", "Njandama MCHP" ) ) );
     }
 
     @Test
