@@ -68,6 +68,17 @@ public class IdentifiableObject
     }
 
     /**
+     * Removes the attribute value with the given attribute identifier.
+     *
+     * @param attribute the attribute identifier.
+     * @return true if an attribute value was removed.
+     */
+    public boolean removeAttributeValue( String attribute )
+    {
+        return attributeValues.removeIf( av -> av.getAttribute().getId().equals( attribute ) );
+    }
+
+    /**
      * Removes all attribute values.
      */
     public void clearAttributeValues()
