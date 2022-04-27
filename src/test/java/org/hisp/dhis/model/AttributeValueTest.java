@@ -14,7 +14,7 @@ public class AttributeValueTest
     {
         Attribute atA = set( new Attribute(), 'A' );
         Attribute atB = set( new Attribute(), 'B' );
-        Attribute atC = set( new Attribute(), 'B' );
+        Attribute atC = set( new Attribute(), 'C' );
 
         AttributeValue avA = new AttributeValue( atA, "ValA" );
         AttributeValue avB = new AttributeValue( atB, "ValB" );
@@ -36,7 +36,7 @@ public class AttributeValueTest
     {
         Attribute atA = set( new Attribute(), 'A' );
         Attribute atB = set( new Attribute(), 'B' );
-        Attribute atC = set( new Attribute(), 'B' );
+        Attribute atC = set( new Attribute(), 'C' );
 
         AttributeValue avA = new AttributeValue( atA, "ValA" );
         AttributeValue avB = new AttributeValue( atB, "ValB" );
@@ -50,6 +50,33 @@ public class AttributeValueTest
         assertEquals( avA, orgUnit.getAttributeValue( atA.getId() ) );
         assertEquals( avB, orgUnit.getAttributeValue( atB.getId() ) );
         assertEquals( avC, orgUnit.getAttributeValue( atC.getId() ) );
+
+        assertEquals( "ValA", orgUnit.getAttributeValue( atA.getId() ).getValue() );
+        assertEquals( "ValB", orgUnit.getAttributeValue( atB.getId() ).getValue() );
+        assertEquals( "ValC", orgUnit.getAttributeValue( atC.getId() ).getValue() );
+    }
+
+    @Test
+    public void testUpdateAttributeValue()
+    {
+        Attribute atA = set( new Attribute(), 'A' );
+        Attribute atB = set( new Attribute(), 'B' );
+
+        AttributeValue avA = new AttributeValue( atA, "ValA" );
+        AttributeValue avB = new AttributeValue( atB, "ValB" );
+
+        OrgUnit orgUnit = set( new OrgUnit(), 'A' );
+        orgUnit.addAttributeValue( avA );
+        orgUnit.addAttributeValue( avB );
+
+        assertEquals( "ValA", orgUnit.getAttributeValue( atA.getId() ).getValue() );
+        assertEquals( "ValB", orgUnit.getAttributeValue( atB.getId() ).getValue() );
+
+        avA.setValue( "ValX" );
+
+        orgUnit.updateAttributeValue( avA );
+
+        assertEquals( "ValX", orgUnit.getAttributeValue( atA.getId() ).getValue() );
     }
 
     @Test
@@ -57,7 +84,7 @@ public class AttributeValueTest
     {
         Attribute atA = set( new Attribute(), 'A' );
         Attribute atB = set( new Attribute(), 'B' );
-        Attribute atC = set( new Attribute(), 'B' );
+        Attribute atC = set( new Attribute(), 'C' );
 
         AttributeValue avA = new AttributeValue( atA, "ValA" );
         AttributeValue avB = new AttributeValue( atB, "ValB" );

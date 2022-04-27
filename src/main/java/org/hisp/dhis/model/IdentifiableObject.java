@@ -53,6 +53,18 @@ public class IdentifiableObject
     }
 
     /**
+     * Updates an attribute value. Removes an existing attribute value if
+     * necessary before adding the given attribute value.
+     *
+     * @param attributeValue the {@link AttributeValue}.
+     */
+    public void updateAttributeValue( AttributeValue attributeValue )
+    {
+        removeAttributeValue( attributeValue.getAttribute().getId() );
+        addAttributeValue( attributeValue );
+    }
+
+    /**
      * Returns the attribute value with the given attribute identifier.
      *
      * @param attribute the attribute identifier.
