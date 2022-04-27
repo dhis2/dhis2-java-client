@@ -198,6 +198,19 @@ public class OrgUnitsApiTest
     }
 
     @Test
+    public void testGetOrgUnitsByAttributeValue()
+    {
+        Dhis2 dhis2 = new Dhis2( TestFixture.DEFAULT_CONFIG );
+
+        List<OrgUnit> orgUnits = dhis2.getOrgUnits( Query.instance()
+            .addFilter( Filter.eq( "attributeValues.attribute.id", "l1VmqIHKk6t" ) )
+            .addFilter( Filter.eq( "attributeValues.value", "KE03" ) ) );
+
+        assertEquals( 1, orgUnits.size() );
+        assertTrue( orgUnits.contains( new OrgUnit( "vWbkYPRmKyS", "Baoma" ) ) );
+    }
+
+    @Test
     public void testGetOrgUnitSubHierarchy()
     {
         Dhis2 dhis2 = new Dhis2( TestFixture.DEFAULT_CONFIG );
