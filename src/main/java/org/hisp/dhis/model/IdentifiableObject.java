@@ -41,14 +41,38 @@ public class IdentifiableObject
     // Loigc methods
     // -------------------------------------------------------------------------
 
+    /**
+     * Adds an attribute value.
+     *
+     * @param attributeValue the {@link AttributeValue}.
+     * @return true if this set did not already contain the attribute value.
+     */
     public boolean addAttributeValue( AttributeValue attributeValue )
     {
-        return this.attributeValues.add( attributeValue );
+        return attributeValues.add( attributeValue );
     }
 
+    /**
+     * Returns the attribute value with the given attribute identifier.
+     *
+     * @param attribute the attribute identifier.
+     * @return the attribute value with the given attribute identifier, or null
+     *         if no attribute value exists.
+     */
+    public AttributeValue getAttributeValue( String attribute )
+    {
+        return attributeValues.stream()
+            .filter( av -> av.getAttribute().getId().equals( attribute ) )
+            .findFirst()
+            .orElse( null );
+    }
+
+    /**
+     * Removes all attribute values.
+     */
     public void clearAttributeValues()
     {
-        this.attributeValues.clear();
+        attributeValues.clear();
     }
 
     // -------------------------------------------------------------------------
