@@ -723,12 +723,12 @@ public class Dhis2
     /**
      * Updates a {@link Category}.
      *
-     * @param categoryOption the object to update.
+     * @param category the object to update.
      * @return {@link ObjectResponse} holding information about the operation.
      */
-    public ObjectResponse updateCategory( CategoryOption categoryOption )
+    public ObjectResponse updateCategory( Category category )
     {
-        return updateMetadataObject( String.format( "categories/%s", categoryOption.getId() ), categoryOption );
+        return updateMetadataObject( String.format( "categories/%s", category.getId() ), category );
     }
 
     /**
