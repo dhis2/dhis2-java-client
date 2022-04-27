@@ -367,6 +367,8 @@ public class BaseDhis2
 
         String requestBody = toJsonString( object );
 
+        log.debug( "Request body: '{}'", requestBody );
+
         HttpEntity entity = new StringEntity( requestBody, StandardCharsets.UTF_8 );
 
         request.setHeader( HttpHeaders.CONTENT_TYPE, ContentType.APPLICATION_JSON.getMimeType() );
@@ -393,7 +395,7 @@ public class BaseDhis2
 
             String responseBody = EntityUtils.toString( response.getEntity() );
 
-            log.info( "Response body: '{}'", responseBody );
+            log.debug( "Response body: '{}'", responseBody );
 
             T responseMessage = objectMapper.readValue( responseBody, type );
 

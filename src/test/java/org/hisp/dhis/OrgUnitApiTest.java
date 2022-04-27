@@ -7,11 +7,14 @@ import static org.junit.Assert.assertThrows;
 import java.util.Date;
 
 import org.hisp.dhis.category.IntegrationTest;
+import org.hisp.dhis.model.Attribute;
+import org.hisp.dhis.model.AttributeValue;
 import org.hisp.dhis.model.OrgUnit;
 import org.hisp.dhis.request.orgunit.OrgUnitMergeRequest;
 import org.hisp.dhis.response.Dhis2ClientException;
 import org.hisp.dhis.response.Response;
 import org.hisp.dhis.response.Status;
+import org.hisp.dhis.response.object.ObjectResponse;
 import org.hisp.dhis.util.CollectionUtils;
 import org.hisp.dhis.util.UidUtils;
 import org.junit.Test;
@@ -38,6 +41,42 @@ public class OrgUnitApiTest
         assertNotNull( ou.getParent() );
         assertEquals( "O6uvpzGd5pu", ou.getParent().getId() );
         assertNotNull( ou.getOpeningDate() );
+    }
+
+    @Test
+    public void testSaveOrgUnitWithAttributes()
+    {
+        Dhis2 dhis2 = new Dhis2( TestFixture.DEFAULT_CONFIG );
+
+        String uidA = UidUtils.generateUid();
+
+        Attribute atA = new Attribute();
+        atA.setId( "l1VmqIHKk6t" );
+
+        Attribute atB = new Attribute();
+        atB.setId( "n2xYlNbsfko" );
+
+        AttributeValue avA = new AttributeValue( atA, "KE7651" );
+        AttributeValue avB = new AttributeValue( atB, "NG8749" );
+
+        OrgUnit ouA = new OrgUnit( uidA, uidA, uidA );
+        ouA.setOpeningDate( new Date() );
+        ouA.addAttributeValue( avA );
+        ouA.addAttributeValue( avB );
+
+        ObjectResponse response = dhis2.saveOrgUnit( ouA );
+
+        assertEquals( Status.OK, response.getStatus() );
+
+        OrgUnit orgUnit = dhis2.getOrgUnit( uidA );
+
+        assertNotNull( orgUnit );
+        assertEquals( uidA, orgUnit.getId() );
+        assertEquals( 2, orgUnit.getAttributeValues().size() );
+
+        response = dhis2.removeOrgUnit( uidA );
+
+        assertEquals( Status.OK, response.getStatus() );
     }
 
     @Test

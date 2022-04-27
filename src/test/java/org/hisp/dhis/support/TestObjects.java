@@ -5,7 +5,7 @@ import java.util.Date;
 import org.hisp.dhis.model.NameableObject;
 import org.hisp.dhis.util.UidUtils;
 
-public class TestObjectUtils
+public class TestObjects
 {
     public static <T extends NameableObject> T set( T object, char chr )
     {

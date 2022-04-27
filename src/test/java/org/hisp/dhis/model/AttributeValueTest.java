@@ -1,6 +1,6 @@
 package org.hisp.dhis.model;
 
-import static org.hisp.dhis.support.TestObjectUtils.set;
+import static org.hisp.dhis.support.TestObjects.set;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
