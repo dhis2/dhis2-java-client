@@ -686,12 +686,12 @@ public class Dhis2
      * @param query the {@link Query}.
      * @return list of {@link CategoryOption}.
      */
-    public List<Category> getCategoryOptions( Query query )
+    public List<CategoryOption> getCategoryOptions( Query query )
     {
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "categoryOptions" )
             .addParameter( "fields", CATEGORY_OPTION_FIELDS ), query, Objects.class )
-                .getCategories();
+                .getCategoryOptions();
     }
 
     // -------------------------------------------------------------------------
