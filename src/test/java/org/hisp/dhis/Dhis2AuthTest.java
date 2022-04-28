@@ -1,6 +1,6 @@
 package org.hisp.dhis;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -13,13 +13,12 @@ import org.apache.hc.core5.http.Header;
 import org.hisp.dhis.auth.Authentication;
 import org.hisp.dhis.auth.BasicAuthentication;
 import org.hisp.dhis.auth.CookieAuthentication;
-import org.hisp.dhis.category.IntegrationTest;
 import org.hisp.dhis.query.Query;
 import org.hisp.dhis.util.HttpUtils;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
 
-@Category( IntegrationTest.class )
+@Tag( "integration" )
 public class Dhis2AuthTest
 {
     @Test

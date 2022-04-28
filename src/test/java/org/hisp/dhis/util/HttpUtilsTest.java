@@ -1,13 +1,13 @@
 package org.hisp.dhis.util;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.hc.core5.net.URIBuilder;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class HttpUtilsTest
 {

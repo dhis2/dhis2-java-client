@@ -104,11 +104,12 @@
       <scope>provided</scope>
     </dependency>
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.13.1</version>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
+      <version>5.8.2</version>
       <scope>test</scope>
     </dependency>
+    
   </dependencies>
   
   <distributionManagement>
@@ -234,7 +235,7 @@
         <activeByDefault>true</activeByDefault>
       </activation>
       <properties>
-        <test.excluded.groups>org.hisp.dhis.category.IntegrationTest</test.excluded.groups>
+        <test.excluded.groups>integration</test.excluded.groups>
       </properties>
     </profile>
     <profile>

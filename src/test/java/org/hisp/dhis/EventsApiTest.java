@@ -1,13 +1,12 @@
 package org.hisp.dhis;
 
-import static org.hisp.dhis.util.CollectionUtils.newImmutableList;
+import static org.hisp.dhis.util.CollectionUtils.list;
 import static org.hisp.dhis.util.DateTimeUtils.getDate;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.List;
 
-import org.hisp.dhis.category.IntegrationTest;
 import org.hisp.dhis.model.event.Event;
 import org.hisp.dhis.model.event.EventDataValue;
 import org.hisp.dhis.model.event.Events;
@@ -15,10 +14,10 @@ import org.hisp.dhis.response.Status;
 import org.hisp.dhis.response.event.ErrorReport;
 import org.hisp.dhis.response.event.EventResponse;
 import org.hisp.dhis.util.UidUtils;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
 
-@Category( IntegrationTest.class )
+@Tag( "integration" )
 public class EventsApiTest
 {
     @Test
@@ -29,7 +28,7 @@ public class EventsApiTest
         String uidA = UidUtils.generateUid();
         String uidB = UidUtils.generateUid();
 
-        List<EventDataValue> dvA = newImmutableList(
+        List<EventDataValue> dvA = list(
             new EventDataValue( "oZg33kd9taw", "Male" ),
             new EventDataValue( "qrur9Dvnyt5", "45" ),
             new EventDataValue( "GieVkTxp4HH", "143" ),
@@ -46,7 +45,7 @@ public class EventsApiTest
         evA.setOccurredAt( getDate( 2021, 7, 12 ) );
         evA.setDataValues( dvA );
 
-        List<EventDataValue> dvB = newImmutableList(
+        List<EventDataValue> dvB = list(
             new EventDataValue( "oZg33kd9taw", "Female" ),
             new EventDataValue( "qrur9Dvnyt5", "41" ),
             new EventDataValue( "GieVkTxp4HH", "157" ),
@@ -63,7 +62,7 @@ public class EventsApiTest
         evB.setOccurredAt( getDate( 2021, 7, 14 ) );
         evB.setDataValues( dvB );
 
-        Events events = new Events( newImmutableList( evA, evB ) );
+        Events events = new Events( list( evA, evB ) );
 
         EventResponse response = dhis2.saveEvents( events );
 
@@ -110,7 +109,7 @@ public class EventsApiTest
     {
         Dhis2 dhis2 = new Dhis2( TestFixture.DEFAULT_CONFIG );
 
-        List<EventDataValue> dvA = newImmutableList(
+        List<EventDataValue> dvA = list(
             new EventDataValue( "oZg33kd9taw", "Male" ),
             new EventDataValue( "qrur9Dvnyt5", "45" ),
             new EventDataValue( "GieVkTxp4HH", "143" ),
@@ -127,7 +126,7 @@ public class EventsApiTest
         evA.setOccurredAt( null );
         evA.setDataValues( dvA );
 
-        Events events = new Events( newImmutableList( evA ) );
+        Events events = new Events( list( evA ) );
 
         EventResponse response = dhis2.saveEvents( events );
 

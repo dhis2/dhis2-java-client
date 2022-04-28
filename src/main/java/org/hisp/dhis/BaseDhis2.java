@@ -3,7 +3,7 @@ package org.hisp.dhis;
 import static org.apache.hc.core5.http.HttpStatus.SC_FORBIDDEN;
 import static org.apache.hc.core5.http.HttpStatus.SC_NOT_FOUND;
 import static org.apache.hc.core5.http.HttpStatus.SC_UNAUTHORIZED;
-import static org.hisp.dhis.util.CollectionUtils.newImmutableSet;
+import static org.hisp.dhis.util.CollectionUtils.set;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -94,7 +94,7 @@ public class BaseDhis2
 
     protected static final String DATE_FORMAT = "yyyy-MM-dd";
 
-    private static final Set<Integer> ERROR_STATUS_CODES = newImmutableSet(
+    private static final Set<Integer> ERROR_STATUS_CODES = set(
         SC_UNAUTHORIZED, SC_FORBIDDEN, SC_NOT_FOUND );
 
     protected final Dhis2Config config;

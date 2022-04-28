@@ -1,9 +1,10 @@
 package org.hisp.dhis.model;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class IdSchemeTest
 {
@@ -60,15 +61,15 @@ public class IdSchemeTest
         assertEquals( "CODE", idSchemeB.name() );
     }
 
-    @Test( expected = IllegalArgumentException.class )
+    @Test
     public void testGetInvalidAttributeIdSchemeA()
     {
-        IdScheme.createIdScheme( "FORM_NAME" );
+        assertThrows( IllegalArgumentException.class, () -> IdScheme.createIdScheme( "FORM_NAME" ) );
     }
 
-    @Test( expected = IllegalArgumentException.class )
+    @Test
     public void testGetInvalidAttributeIdSchemeB()
     {
-        IdScheme.createIdScheme( "attribute:invalid_uid" );
+        assertThrows( IllegalArgumentException.class, () -> IdScheme.createIdScheme( "attribute:invalid_uid" ) );
     }
 }

@@ -6,14 +6,13 @@ import static org.junit.Assert.assertNotNull;
 
 import java.util.List;
 
-import org.hisp.dhis.category.IntegrationTest;
 import org.hisp.dhis.model.datastore.EntryMetadata;
 import org.hisp.dhis.response.Response;
 import org.hisp.dhis.response.Status;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
 
-@Category( IntegrationTest.class )
+@Tag( "integration" )
 public class DataStoreApiTest
 {
     @Test

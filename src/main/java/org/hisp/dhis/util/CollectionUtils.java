@@ -8,8 +8,15 @@ import java.util.Set;
 
 public class CollectionUtils
 {
+    /**
+     * Returns an immutable set containing the given items.
+     *
+     * @param <T> type.
+     * @param items the items.
+     * @return an immutable set.
+     */
     @SafeVarargs
-    public static <T> Set<T> newImmutableSet( T... items )
+    public static <T> Set<T> set( T... items )
     {
         Set<T> set = new HashSet<>();
 
@@ -21,8 +28,15 @@ public class CollectionUtils
         return Collections.unmodifiableSet( set );
     }
 
+    /**
+     * Returns an immutable list containing the given items.
+     *
+     * @param <T> type.
+     * @param items the items.
+     * @return an immutable list.
+     */
     @SafeVarargs
-    public static <T> List<T> newImmutableList( T... items )
+    public static <T> List<T> list( T... items )
     {
         List<T> list = new ArrayList<>();
 

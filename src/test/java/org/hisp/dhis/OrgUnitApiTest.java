@@ -1,12 +1,11 @@
 package org.hisp.dhis;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.Date;
 
-import org.hisp.dhis.category.IntegrationTest;
 import org.hisp.dhis.model.Attribute;
 import org.hisp.dhis.model.AttributeValue;
 import org.hisp.dhis.model.OrgUnit;
@@ -17,10 +16,10 @@ import org.hisp.dhis.response.Status;
 import org.hisp.dhis.response.object.ObjectResponse;
 import org.hisp.dhis.util.CollectionUtils;
 import org.hisp.dhis.util.UidUtils;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
 
-@Category( IntegrationTest.class )
+@Tag( "integration" )
 public class OrgUnitApiTest
 {
     @Test
@@ -104,7 +103,7 @@ public class OrgUnitApiTest
         assertNotNull( dhis2.getOrgUnit( uidC ) );
 
         OrgUnitMergeRequest request = new OrgUnitMergeRequest()
-            .setSources( CollectionUtils.newImmutableList( uidA, uidB ) )
+            .setSources( CollectionUtils.list( uidA, uidB ) )
             .setTarget( uidC )
             .setDeleteSources( true );
 

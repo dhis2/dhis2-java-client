@@ -1,12 +1,11 @@
 package org.hisp.dhis;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import lombok.extern.slf4j.Slf4j;
 
-import org.hisp.dhis.category.IntegrationTest;
 import org.hisp.dhis.model.Attribute;
 import org.hisp.dhis.model.AttributeValue;
 import org.hisp.dhis.model.CategoryOption;
@@ -15,12 +14,11 @@ import org.hisp.dhis.response.Dhis2ClientException;
 import org.hisp.dhis.response.HttpStatus;
 import org.hisp.dhis.response.Status;
 import org.hisp.dhis.response.object.ObjectResponse;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
-import org.junit.function.ThrowingRunnable;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
 
 @Slf4j
-@Category( IntegrationTest.class )
+@Tag( "integration" )
 public class Dhis2CrudApiTest
 {
     @Test
@@ -153,8 +151,8 @@ public class Dhis2CrudApiTest
     {
         Dhis2 dhis2 = new Dhis2( TestFixture.DEFAULT_CONFIG );
 
-        ThrowingRunnable runnable = () -> dhis2.getCategoryOption( "kju6y2JHtR1" );
-        Dhis2ClientException ex = assertThrows( Dhis2ClientException.class, runnable );
+        Dhis2ClientException ex = assertThrows( Dhis2ClientException.class,
+            () -> dhis2.getCategoryOption( "kju6y2JHtR1" ) );
         assertEquals( 404, ex.getStatusCode() );
     }
 }

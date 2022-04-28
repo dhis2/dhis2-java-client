@@ -1,14 +1,13 @@
 package org.hisp.dhis;
 
-import static org.hisp.dhis.util.CollectionUtils.newImmutableList;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.hisp.dhis.util.CollectionUtils.list;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Date;
 import java.util.List;
 
-import org.hisp.dhis.category.IntegrationTest;
 import org.hisp.dhis.model.OrgUnit;
 import org.hisp.dhis.query.Filter;
 import org.hisp.dhis.query.Query;
@@ -17,10 +16,10 @@ import org.hisp.dhis.response.object.ErrorReport;
 import org.hisp.dhis.response.object.ObjectReport;
 import org.hisp.dhis.response.objects.ObjectsResponse;
 import org.hisp.dhis.util.UidUtils;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
 
-@Category( IntegrationTest.class )
+@Tag( "integration" )
 public class OrgUnitsApiTest
 {
     @Test
@@ -48,7 +47,7 @@ public class OrgUnitsApiTest
         ouC.setOpeningDate( new Date() );
         ouC.setParent( parent );
 
-        List<OrgUnit> orgUnits = newImmutableList( ouA, ouB, ouC );
+        List<OrgUnit> orgUnits = list( ouA, ouB, ouC );
 
         ObjectsResponse response = dhis2.saveOrgUnits( orgUnits );
 
@@ -89,7 +88,7 @@ public class OrgUnitsApiTest
         ouC.setOpeningDate( new Date() );
         ouC.setParent( parent );
 
-        List<OrgUnit> orgUnits = newImmutableList( ouA, ouB );
+        List<OrgUnit> orgUnits = list( ouA, ouB );
 
         ObjectsResponse response = dhis2.saveOrgUnits( orgUnits );
 
@@ -100,7 +99,7 @@ public class OrgUnitsApiTest
         assertEquals( Status.OK, response.getStatus() );
         assertEquals( new Integer( 2 ), response.getStats().getCreated() );
 
-        orgUnits = newImmutableList( ouB, ouC );
+        orgUnits = list( ouB, ouC );
 
         response = dhis2.saveOrgUnits( orgUnits );
 
@@ -133,7 +132,7 @@ public class OrgUnitsApiTest
         OrgUnit ouB = new OrgUnit( uidB, uidB, null );
         ouB.setParent( parent );
 
-        List<OrgUnit> orgUnits = newImmutableList( ouA, ouB );
+        List<OrgUnit> orgUnits = list( ouA, ouB );
 
         ObjectsResponse response = dhis2.saveOrgUnits( orgUnits );
 
@@ -177,7 +176,7 @@ public class OrgUnitsApiTest
         Dhis2 dhis2 = new Dhis2( TestFixture.DEFAULT_CONFIG );
 
         List<OrgUnit> orgUnits = dhis2.getOrgUnits( Query.instance()
-            .addFilter( Filter.in( "id", newImmutableList( "YuQRtpLP10I", "jPidqyo7cpF", "vWbkYPRmKyS" ) ) ) );
+            .addFilter( Filter.in( "id", list( "YuQRtpLP10I", "jPidqyo7cpF", "vWbkYPRmKyS" ) ) ) );
 
         assertNotNull( orgUnits );
         assertEquals( 3, orgUnits.size() );
@@ -228,7 +227,7 @@ public class OrgUnitsApiTest
     {
         Dhis2 dhis2 = new Dhis2( TestFixture.DEFAULT_CONFIG );
 
-        List<String> values = newImmutableList( "Rp268JB6Ne4", "cDw53Ej8rju", "GvFqTavdpGE" );
+        List<String> values = list( "Rp268JB6Ne4", "cDw53Ej8rju", "GvFqTavdpGE" );
 
         List<OrgUnit> orgUnits = dhis2.getOrgUnits( Query.instance()
             .addFilter( Filter.in( "id", values ) ) );

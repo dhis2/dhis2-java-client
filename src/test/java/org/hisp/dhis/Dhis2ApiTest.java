@@ -1,15 +1,14 @@
 package org.hisp.dhis;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.UncheckedIOException;
 import java.util.Date;
 import java.util.List;
 
-import org.hisp.dhis.category.IntegrationTest;
 import org.hisp.dhis.model.DataElement;
 import org.hisp.dhis.model.OrgUnit;
 import org.hisp.dhis.model.OrgUnitGroup;
@@ -23,10 +22,10 @@ import org.hisp.dhis.query.Query;
 import org.hisp.dhis.response.Dhis2ClientException;
 import org.hisp.dhis.response.Status;
 import org.hisp.dhis.util.UidUtils;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
 
-@Category( IntegrationTest.class )
+@Tag( "integration" )
 public class Dhis2ApiTest
 {
     @Test

@@ -1,6 +1,6 @@
 package org.hisp.dhis;
 
-import static org.hisp.dhis.util.CollectionUtils.newImmutableList;
+import static org.hisp.dhis.util.CollectionUtils.list;
 
 import java.io.File;
 import java.io.IOException;
@@ -1346,7 +1346,7 @@ public class Dhis2
     {
         Validate.notNull( event.getId(), "Event identifier must be specified" );
 
-        Events events = new Events( newImmutableList( event ) );
+        Events events = new Events( list( event ) );
 
         return saveObject( config.getResolvedUriBuilder()
             .appendPath( "tracker" )

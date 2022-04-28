@@ -1,13 +1,12 @@
 package org.hisp.dhis;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import org.hisp.dhis.category.IntegrationTest;
 import org.hisp.dhis.model.SystemInfo;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
 
-@Category( IntegrationTest.class )
+@Tag( "integration" )
 public class SystemInfoApiTest
 {
     @Test
