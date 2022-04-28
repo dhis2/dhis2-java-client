@@ -23,7 +23,7 @@ import org.junit.jupiter.api.Test;
 public class OrgUnitApiTest
 {
     @Test
-    public void testGetOrgUnit()
+    void testGetOrgUnit()
     {
         Dhis2 dhis2 = new Dhis2( TestFixture.DEFAULT_CONFIG );
 
@@ -43,7 +43,7 @@ public class OrgUnitApiTest
     }
 
     @Test
-    public void testSaveOrgUnitWithAttributes()
+    void testSaveOrgUnitWithAttributes()
     {
         Dhis2 dhis2 = new Dhis2( TestFixture.DEFAULT_CONFIG );
 
@@ -79,7 +79,7 @@ public class OrgUnitApiTest
     }
 
     @Test
-    public void testOrgUnitMerge()
+    void testOrgUnitMerge()
     {
         Dhis2 dhis2 = new Dhis2( TestFixture.DEV_CONFIG );
 

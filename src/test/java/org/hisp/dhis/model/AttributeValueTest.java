@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 public class AttributeValueTest
 {
     @Test
-    public void testAddGetAttributeValues()
+    void testAddGetAttributeValues()
     {
         Attribute atA = set( new Attribute(), 'A' );
         Attribute atB = set( new Attribute(), 'B' );
@@ -32,7 +32,7 @@ public class AttributeValueTest
     }
 
     @Test
-    public void testGetAttributeValue()
+    void testGetAttributeValue()
     {
         Attribute atA = set( new Attribute(), 'A' );
         Attribute atB = set( new Attribute(), 'B' );
@@ -57,7 +57,7 @@ public class AttributeValueTest
     }
 
     @Test
-    public void testUpdateAttributeValue()
+    void testUpdateAttributeValue()
     {
         Attribute atA = set( new Attribute(), 'A' );
         Attribute atB = set( new Attribute(), 'B' );
@@ -80,7 +80,7 @@ public class AttributeValueTest
     }
 
     @Test
-    public void testRemoveAttributeValue()
+    void testRemoveAttributeValue()
     {
         Attribute atA = set( new Attribute(), 'A' );
         Attribute atB = set( new Attribute(), 'B' );

@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 public class SystemInfoTest
 {
     @Test
-    public void testVersionComparison()
+    void testVersionComparison()
     {
         SystemInfo info = new SystemInfo();
         info.setVersion( "2.35.6" );

@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 public class DateTimeUtilsTest
 {
     @Test
-    public void testGetTimestampSecondsString()
+    void testGetTimestampSecondsString()
     {
         LocalDateTime dateTime = LocalDateTime.of( 2021, 8, 30, 14, 20, 5 );
 
@@ -26,7 +26,7 @@ public class DateTimeUtilsTest
     }
 
     @Test
-    public void testGetTimestampMillisString()
+    void testGetTimestampMillisString()
     {
         LocalDateTime dateTime = LocalDateTime.of( 2021, 5, 20, 14, 20, 5, 372_000_000 );
 

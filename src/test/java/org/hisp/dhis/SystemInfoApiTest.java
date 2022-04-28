@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 public class SystemInfoApiTest
 {
     @Test
-    public void testGetOrgUnit()
+    void testGetOrgUnit()
     {
         Dhis2 dhis2 = new Dhis2( TestFixture.DEFAULT_CONFIG );
 

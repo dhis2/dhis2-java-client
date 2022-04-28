@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 public class UriBuilderTest
 {
     @Test
-    public void testConstructor()
+    void testConstructor()
         throws Exception
     {
         String url = new URIBuilder( "https://play.dhis2.org" )
@@ -29,7 +29,7 @@ public class UriBuilderTest
     }
 
     @Test
-    public void testAppendPathA()
+    void testAppendPathA()
         throws Exception
     {
         String url = new URIBuilder( "https://play.dhis2.org" )
@@ -45,7 +45,7 @@ public class UriBuilderTest
     }
 
     @Test
-    public void testAppendPathB()
+    void testAppendPathB()
         throws Exception
     {
         String url = new URIBuilder( "https://play.dhis2.org/site" )
@@ -60,7 +60,7 @@ public class UriBuilderTest
     }
 
     @Test
-    public void testAppendPathC()
+    void testAppendPathC()
         throws Exception
     {
         String url = new URIBuilder( "https://play.dhis2.org/dev/api" )

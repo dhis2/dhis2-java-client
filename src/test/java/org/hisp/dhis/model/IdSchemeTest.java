@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 public class IdSchemeTest
 {
     @Test
-    public void testGetAttributeIdScheme()
+    void testGetAttributeIdScheme()
     {
         IdScheme attribute = IdScheme.createAttributeIdScheme( "JYHR54Rfr41" );
 
@@ -18,7 +18,7 @@ public class IdSchemeTest
     }
 
     @Test
-    public void testGetIdSchemeFromString()
+    void testGetIdSchemeFromString()
     {
         IdScheme uidScheme = IdScheme.createIdScheme( "UID" );
         assertEquals( IdScheme.ObjectProperty.UID, uidScheme.getObjectProperty() );
@@ -28,7 +28,7 @@ public class IdSchemeTest
     }
 
     @Test
-    public void testGetIdSchemeFromConstructor()
+    void testGetIdSchemeFromConstructor()
     {
         IdScheme uidScheme = new IdScheme( "UID" );
         assertEquals( IdScheme.ObjectProperty.UID, uidScheme.getObjectProperty() );
@@ -38,7 +38,7 @@ public class IdSchemeTest
     }
 
     @Test
-    public void testGetAttributeIdSchemeFromString()
+    void testGetAttributeIdSchemeFromString()
     {
         IdScheme attributeAScheme = IdScheme.createIdScheme( "attribute:HGT65Gdgq2k" );
         IdScheme attributeBScheme = IdScheme.createIdScheme( "attribute:LUJJhf2jf21" );
@@ -52,7 +52,7 @@ public class IdSchemeTest
     }
 
     @Test
-    public void testGetName()
+    void testGetName()
     {
         IdScheme idSchemeA = IdScheme.createIdScheme( "attribute:HGT65Gdgq2k" );
         IdScheme idSchemeB = IdScheme.createIdScheme( "CODE" );
@@ -62,13 +62,13 @@ public class IdSchemeTest
     }
 
     @Test
-    public void testGetInvalidAttributeIdSchemeA()
+    void testGetInvalidAttributeIdSchemeA()
     {
         assertThrows( IllegalArgumentException.class, () -> IdScheme.createIdScheme( "FORM_NAME" ) );
     }
 
     @Test
-    public void testGetInvalidAttributeIdSchemeB()
+    void testGetInvalidAttributeIdSchemeB()
     {
         assertThrows( IllegalArgumentException.class, () -> IdScheme.createIdScheme( "attribute:invalid_uid" ) );
     }

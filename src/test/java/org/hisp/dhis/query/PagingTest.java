@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 public class PagingTest
 {
     @Test
-    public void testGetOffset()
+    void testGetOffset()
     {
         Paging paging = new Paging( 3, 10 );
         assertEquals( 20, paging.getOffset() );

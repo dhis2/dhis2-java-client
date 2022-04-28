@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test;
 public class DataStoreApiTest
 {
     @Test
-    public void testCrud()
+    void testCrud()
     {
         Dhis2 dhis2 = new Dhis2( TestFixture.DEFAULT_CONFIG );
 
@@ -79,7 +79,7 @@ public class DataStoreApiTest
     }
 
     @Test
-    public void testGetMetadata()
+    void testGetMetadata()
     {
         Dhis2 dhis2 = new Dhis2( TestFixture.DEFAULT_CONFIG );
 

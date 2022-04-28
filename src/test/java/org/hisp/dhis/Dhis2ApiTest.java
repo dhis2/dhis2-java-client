@@ -29,7 +29,7 @@ import org.junit.jupiter.api.Test;
 public class Dhis2ApiTest
 {
     @Test
-    public void testGetOrgUnits()
+    void testGetOrgUnits()
     {
         Dhis2 dhis2 = new Dhis2( TestFixture.DEFAULT_CONFIG );
 
@@ -44,7 +44,7 @@ public class Dhis2ApiTest
     }
 
     @Test
-    public void testGetOrgUnitGroups()
+    void testGetOrgUnitGroups()
     {
         Dhis2 dhis2 = new Dhis2( TestFixture.DEFAULT_CONFIG );
 
@@ -58,7 +58,7 @@ public class Dhis2ApiTest
     }
 
     @Test
-    public void testGetOrgUnitGroup()
+    void testGetOrgUnitGroup()
     {
         Dhis2 dhis2 = new Dhis2( TestFixture.DEFAULT_CONFIG );
 
@@ -69,7 +69,7 @@ public class Dhis2ApiTest
     }
 
     @Test
-    public void testGetProgram()
+    void testGetProgram()
     {
         Dhis2 dhis2 = new Dhis2( TestFixture.DEFAULT_CONFIG );
 
@@ -114,7 +114,7 @@ public class Dhis2ApiTest
     }
 
     @Test
-    public void testGetPrograms()
+    void testGetPrograms()
     {
         Dhis2 dhis2 = new Dhis2( TestFixture.DEFAULT_CONFIG );
 
@@ -126,7 +126,7 @@ public class Dhis2ApiTest
     }
 
     @Test
-    public void testGetProgramsExpandAssociations()
+    void testGetProgramsExpandAssociations()
     {
         Dhis2 dhis2 = new Dhis2( TestFixture.DEFAULT_CONFIG );
 
@@ -180,7 +180,7 @@ public class Dhis2ApiTest
     }
 
     @Test
-    public void testSaveAndRemoveOrgUnits()
+    void testSaveAndRemoveOrgUnits()
     {
         Dhis2 dhis2 = new Dhis2( TestFixture.DEFAULT_CONFIG );
 
@@ -209,7 +209,7 @@ public class Dhis2ApiTest
     }
 
     @Test
-    public void testGetInvalidUrl()
+    void testGetInvalidUrl()
     {
         Dhis2 dhis2 = new Dhis2( new Dhis2Config( "https://not_a_domain.abc", "username", "pw" ) );
 
@@ -218,7 +218,7 @@ public class Dhis2ApiTest
     }
 
     @Test
-    public void testGetAccessDenied()
+    void testGetAccessDenied()
     {
         Dhis2 dhis2 = new Dhis2( new Dhis2Config( "https://play.dhis2.org/demo", "notauser", "invalidpw" ) );
 
@@ -230,7 +230,7 @@ public class Dhis2ApiTest
     }
 
     @Test
-    public void testGetNotFound()
+    void testGetNotFound()
     {
         Dhis2 dhis2 = new Dhis2( TestFixture.DEFAULT_CONFIG );
 
@@ -242,7 +242,7 @@ public class Dhis2ApiTest
     }
 
     @Test
-    public void testSaveNullObject()
+    void testSaveNullObject()
     {
         Dhis2 dhis2 = new Dhis2( TestFixture.DEFAULT_CONFIG );
 

@@ -23,7 +23,7 @@ import org.junit.jupiter.api.Test;
 public class OrgUnitsApiTest
 {
     @Test
-    public void testSaveOrgUnitsWithUids()
+    void testSaveOrgUnitsWithUids()
     {
         Dhis2 dhis2 = new Dhis2( TestFixture.DEFAULT_CONFIG );
 
@@ -64,7 +64,7 @@ public class OrgUnitsApiTest
     }
 
     @Test
-    public void testSaveAndUpdateOrgUnitswithUids()
+    void testSaveAndUpdateOrgUnitswithUids()
     {
         Dhis2 dhis2 = new Dhis2( TestFixture.DEFAULT_CONFIG );
 
@@ -117,7 +117,7 @@ public class OrgUnitsApiTest
     }
 
     @Test
-    public void testSaveOrgUnitsMissingRequiredProperty()
+    void testSaveOrgUnitsMissingRequiredProperty()
     {
         Dhis2 dhis2 = new Dhis2( TestFixture.DEFAULT_CONFIG );
 
@@ -171,7 +171,7 @@ public class OrgUnitsApiTest
     }
 
     @Test
-    public void testGetOrgUnits()
+    void testGetOrgUnits()
     {
         Dhis2 dhis2 = new Dhis2( TestFixture.DEFAULT_CONFIG );
 
@@ -197,7 +197,7 @@ public class OrgUnitsApiTest
     }
 
     @Test
-    public void testGetOrgUnitsByAttributeValue()
+    void testGetOrgUnitsByAttributeValue()
     {
         Dhis2 dhis2 = new Dhis2( TestFixture.DEFAULT_CONFIG );
 
@@ -210,7 +210,7 @@ public class OrgUnitsApiTest
     }
 
     @Test
-    public void testGetOrgUnitSubHierarchy()
+    void testGetOrgUnitSubHierarchy()
     {
         Dhis2 dhis2 = new Dhis2( TestFixture.DEFAULT_CONFIG );
 
@@ -223,7 +223,7 @@ public class OrgUnitsApiTest
     }
 
     @Test
-    public void testInFilter()
+    void testInFilter()
     {
         Dhis2 dhis2 = new Dhis2( TestFixture.DEFAULT_CONFIG );
 

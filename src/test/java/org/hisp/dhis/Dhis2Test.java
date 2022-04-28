@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 public class Dhis2Test
 {
     @Test
-    public void testGetDhis2()
+    void testGetDhis2()
     {
         Dhis2Config config = new Dhis2Config( "https://play.dhis2.org/demo", "admin", "district" );
 

@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 public class Dhis2CrudApiTest
 {
     @Test
-    public void testCategoryOption()
+    void testCategoryOption()
     {
         Dhis2 dhis2 = new Dhis2( TestFixture.DEFAULT_CONFIG );
 
@@ -94,7 +94,7 @@ public class Dhis2CrudApiTest
     }
 
     @Test
-    public void testOrgUnitGroup()
+    void testOrgUnitGroup()
     {
         Dhis2 dhis2 = new Dhis2( TestFixture.DEFAULT_CONFIG );
 
@@ -147,7 +147,7 @@ public class Dhis2CrudApiTest
     }
 
     @Test
-    public void testNotFound()
+    void testNotFound()
     {
         Dhis2 dhis2 = new Dhis2( TestFixture.DEFAULT_CONFIG );
 

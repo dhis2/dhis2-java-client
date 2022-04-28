@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 public class Dhis2ConfigTest
 {
     @Test
-    public void testGetResolvedUriBuilder()
+    void testGetResolvedUriBuilder()
         throws Exception
     {
         Dhis2Config config = new Dhis2Config( "https://company.com", "admin", "district" );
@@ -42,7 +42,7 @@ public class Dhis2ConfigTest
     }
 
     @Test
-    public void testGetResolvedUrl()
+    void testGetResolvedUrl()
     {
         Dhis2Config config = new Dhis2Config( "https://play.dhis2.org/dev", "admin", "district" );
 

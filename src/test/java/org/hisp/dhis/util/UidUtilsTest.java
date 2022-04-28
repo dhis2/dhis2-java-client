@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 public class UidUtilsTest
 {
     @Test
-    public void testGetUid()
+    void testGetUid()
     {
         String uid = UidUtils.generateUid();
 
@@ -19,7 +19,7 @@ public class UidUtilsTest
     }
 
     @Test
-    public void testUidIsValid()
+    void testUidIsValid()
     {
         assertTrue( UidUtils.isValidUid( "mq4jAnN6fg3" ) );
         assertTrue( UidUtils.isValidUid( "QX4LpiTZmUH" ) );

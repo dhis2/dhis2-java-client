@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 public class HttpUtilsTest
 {
     @Test
-    public void testAsString()
+    void testAsString()
         throws Exception
     {
         String encodedUri = "https://atlantis.dhis2.org/staging/api/analytics?dimension=dx%3AGF_CM-1a%3BGF_CM-1b%3BGF_CM-1c%3BGF_KP-1a%3BGF_KP-1b%3BGF_KP-3a&dimension=pe%3A202009%3B202010";

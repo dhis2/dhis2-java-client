@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 public class FilterTest
 {
     @Test
-    public void testGetFilterEq()
+    void testGetFilterEq()
     {
         Filter eq = Filter.eq( "valueType", "NUMBER" );
         assertEquals( "valueType", eq.getProperty() );
@@ -16,7 +16,7 @@ public class FilterTest
     }
 
     @Test
-    public void testGetFilterIlike()
+    void testGetFilterIlike()
     {
         Filter ilike = Filter.ilike( "name", "vaccination" );
         assertEquals( "name", ilike.getProperty() );

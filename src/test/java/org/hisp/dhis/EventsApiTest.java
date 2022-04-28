@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
 public class EventsApiTest
 {
     @Test
-    public void testSaveGetDeleteEvents()
+    void testSaveGetDeleteEvents()
     {
         Dhis2 dhis2 = new Dhis2( TestFixture.DEFAULT_CONFIG );
 
@@ -105,7 +105,7 @@ public class EventsApiTest
     }
 
     @Test
-    public void testSaveEventsMissingOccurredAt()
+    void testSaveEventsMissingOccurredAt()
     {
         Dhis2 dhis2 = new Dhis2( TestFixture.DEFAULT_CONFIG );
 

@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 public class Dhis2AuthTest
 {
     @Test
-    public void testBasicAuthConstructor()
+    void testBasicAuthConstructor()
     {
         Dhis2Config config = new Dhis2Config( TestFixture.DEFAULT_URL, "admin", "district" );
 
@@ -32,7 +32,7 @@ public class Dhis2AuthTest
     }
 
     @Test
-    public void testBasicAuthentication()
+    void testBasicAuthentication()
     {
         Authentication authentication = new BasicAuthentication( "admin", "district" );
 
@@ -44,7 +44,7 @@ public class Dhis2AuthTest
     }
 
     @Test
-    public void testCookieAuthentication()
+    void testCookieAuthentication()
         throws Exception
     {
         String sessionId = getSessionId( TestFixture.DEFAULT_CONFIG );
