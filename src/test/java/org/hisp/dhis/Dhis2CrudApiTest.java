@@ -3,12 +3,14 @@ package org.hisp.dhis;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import lombok.extern.slf4j.Slf4j;
 
 import org.hisp.dhis.model.Attribute;
 import org.hisp.dhis.model.AttributeValue;
 import org.hisp.dhis.model.CategoryOption;
+import org.hisp.dhis.model.OrgUnit;
 import org.hisp.dhis.model.OrgUnitGroup;
 import org.hisp.dhis.response.Dhis2ClientException;
 import org.hisp.dhis.response.HttpStatus;
@@ -31,15 +33,20 @@ public class Dhis2CrudApiTest
 
         AttributeValue avA = new AttributeValue( atA, "AT__A_Value__A" );
 
+        OrgUnit ouA = new OrgUnit( "ueuQlqb8ccl", null );
+        OrgUnit ouB = new OrgUnit( "Rp268JB6Ne4", null );
+
         String codeA = "CAT_OPT__A";
-        String nameA = "Category name__A";
-        String shortNameA = "Category short name__A";
+        String nameA = "Category option name__A";
+        String shortNameA = "Category option short name__A";
 
         CategoryOption coA = new CategoryOption();
         coA.setCode( codeA );
         coA.setName( nameA );
         coA.setShortName( shortNameA );
         coA.addAttributeValue( avA );
+        coA.getOrganisationUnits().add( ouA );
+        coA.getOrganisationUnits().add( ouB );
 
         // Create
 
@@ -69,6 +76,10 @@ public class Dhis2CrudApiTest
         assertEquals( nameA, coA.getName() );
         assertEquals( shortNameA, coA.getShortName() );
         assertEquals( 1, coA.getAttributeValues().size() );
+        assertTrue( coA.getAttributeValues().contains( avA ) );
+        assertEquals( 2, coA.getOrganisationUnits().size() );
+        assertTrue( coA.getOrganisationUnits().contains( ouA ) );
+        assertTrue( coA.getOrganisationUnits().contains( ouB ) );
 
         String name = "Category updated name__A";
 
@@ -82,6 +93,20 @@ public class Dhis2CrudApiTest
         assertEquals( HttpStatus.OK, updateRespA.getHttpStatus() );
         assertEquals( Status.OK, updateRespA.getStatus() );
         assertEquals( uidA, updateRespA.getResponse().getUid() );
+
+        // Get
+
+        coA = dhis2.getCategoryOption( uidA );
+
+        assertNotNull( coA );
+        assertNotNull( coA.getAttributeValues() );
+        assertEquals( uidA, coA.getId() );
+        assertEquals( codeA, coA.getCode() );
+        assertEquals( 1, coA.getAttributeValues().size() );
+        assertTrue( coA.getAttributeValues().contains( avA ) );
+        assertEquals( 2, coA.getOrganisationUnits().size() );
+        assertTrue( coA.getOrganisationUnits().contains( ouA ) );
+        assertTrue( coA.getOrganisationUnits().contains( ouB ) );
 
         // Remove
 

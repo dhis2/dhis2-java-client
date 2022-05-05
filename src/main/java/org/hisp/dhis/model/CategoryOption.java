@@ -1,6 +1,8 @@
 package org.hisp.dhis.model;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -20,4 +22,7 @@ public class CategoryOption
 
     @JsonProperty
     private String formName;
+
+    @JsonProperty
+    private Set<OrgUnit> organisationUnits = new HashSet<>();
 }

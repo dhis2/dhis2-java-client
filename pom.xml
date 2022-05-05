@@ -230,7 +230,7 @@
   
   <profiles>
     <profile>
-      <id>Default</id>
+      <id>default</id>
       <activation>
         <activeByDefault>true</activeByDefault>
       </activation>
@@ -239,7 +239,7 @@
       </properties>
     </profile>
     <profile>
-      <id>IntegrationTest</id>
+      <id>integration</id>
       <properties>
         <test.excluded.groups></test.excluded.groups>
       </properties>
