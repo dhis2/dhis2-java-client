@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import java.io.UncheckedIOException;
 import java.util.Date;
 import java.util.List;
 
@@ -213,7 +212,7 @@ public class Dhis2ApiTest
     {
         Dhis2 dhis2 = new Dhis2( new Dhis2Config( "https://not_a_domain.abc", "username", "pw" ) );
 
-        assertThrows( UncheckedIOException.class,
+        assertThrows( Dhis2ClientException.class,
             () -> dhis2.getOrgUnitGroups( Query.instance() ) );
     }
 

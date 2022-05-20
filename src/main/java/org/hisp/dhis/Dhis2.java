@@ -4,7 +4,6 @@ import static org.hisp.dhis.util.CollectionUtils.list;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.UncheckedIOException;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -114,7 +113,7 @@ public class Dhis2
                 return HttpStatus.valueOf( statusCode );
             }
 
-            throw new UncheckedIOException( ex );
+            throw new Dhis2ClientException( "Failed to get system info", ex );
         }
     }
 
@@ -1223,10 +1222,8 @@ public class Dhis2
      * @param options the {@link DataValueSetImportOptions}.
      * @return {@link DataValueSetResponse} holding information about the
      *         operation.
-     * @throws IOException if the save process failed.
      */
     public DataValueSetResponse saveDataValueSet( DataValueSet dataValueSet, DataValueSetImportOptions options )
-        throws IOException
     {
         URI url = getDataValueSetImportQuery( config.getResolvedUriBuilder()
             .appendPath( "dataValueSets" ), options );
@@ -1247,10 +1244,8 @@ public class Dhis2
      * @param options the {@link DataValueSetImportOptions}.
      * @return {@link DataValueSetResponse} holding information about the
      *         operation.
-     * @throws IOException if the save process failed.
      */
     public DataValueSetResponse saveDataValueSet( File file, DataValueSetImportOptions options )
-        throws IOException
     {
         URI url = getDataValueSetImportQuery( config.getResolvedUriBuilder()
             .appendPath( "dataValueSets" ), options );
@@ -1284,10 +1279,8 @@ public class Dhis2
      *
      * @param query the {@link AnalyticsQuery}.
      * @param file the {@link File}.
-     * @throws IOException if writing the response to file failed.
      */
     public void writeAnalyticsDataValueSet( AnalyticsQuery query, File file )
-        throws IOException
     {
         URI url = getAnalyticsQuery( config.getResolvedUriBuilder()
             .appendPath( "analytics" )

@@ -9,7 +9,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.UncheckedIOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
@@ -455,7 +454,7 @@ public class BaseDhis2
         }
         catch ( IOException ex )
         {
-            throw new UncheckedIOException( "Failed to fetch object", ex );
+            throw new Dhis2ClientException( "Failed to fetch object", ex );
         }
         catch ( ParseException ex )
         {
@@ -482,7 +481,7 @@ public class BaseDhis2
         }
         catch ( IOException ex )
         {
-            throw new UncheckedIOException( "Request failed", ex );
+            throw new Dhis2ClientException( "Request failed", ex );
         }
     }
 
@@ -548,15 +547,18 @@ public class BaseDhis2
      *
      * @param response the response.
      * @param file the file to write the response to.
-     * @throws IOException if the write operation failed.
+     * @throws Dhis2ClientException if the write operation failed.
      */
     protected void writeToFile( CloseableHttpResponse response, File file )
-        throws IOException
     {
         try ( FileOutputStream fileOut = FileUtils.openOutputStream( file );
             InputStream in = response.getEntity().getContent() )
         {
             IOUtils.copy( in, fileOut );
+        }
+        catch ( IOException ex )
+        {
+            throw new Dhis2ClientException( "Failed to write to file", ex );
         }
     }
 
@@ -577,7 +579,7 @@ public class BaseDhis2
      *
      * @param object the object to serialize.
      * @return a JSON string representation of the object.
-     * @throws UncheckedIOException if the serialization failed.
+     * @throws Dhis2ClientException if the serialization failed.
      */
     protected String toJsonString( Object object )
     {
@@ -591,7 +593,7 @@ public class BaseDhis2
         }
         catch ( IOException ex )
         {
-            throw new UncheckedIOException( ex );
+            throw new Dhis2ClientException( "Failed to deserialize JSON", ex );
         }
     }
 
