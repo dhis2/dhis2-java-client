@@ -11,6 +11,7 @@ import org.apache.hc.core5.net.URIBuilder;
 import org.hisp.dhis.auth.Authentication;
 import org.hisp.dhis.auth.BasicAuthentication;
 import org.hisp.dhis.auth.CookieAuthentication;
+import org.hisp.dhis.response.Dhis2ClientException;
 
 /**
  * Configuration information about a DHIS 2 instance.
@@ -87,7 +88,7 @@ public class Dhis2Config
         }
         catch ( URISyntaxException ex )
         {
-            throw new RuntimeException( String.format( "Invalid URI syntax: '%s'", url ), ex );
+            throw new Dhis2ClientException( String.format( "Invalid URI syntax: '%s'", url ), ex );
         }
     }
 
@@ -106,7 +107,7 @@ public class Dhis2Config
         }
         catch ( URISyntaxException ex )
         {
-            throw new RuntimeException( String.format( "Invalid URI syntax: '%s'", url ), ex );
+            throw new Dhis2ClientException( String.format( "Invalid URI syntax: '%s'", url ), ex );
         }
     }
 }
