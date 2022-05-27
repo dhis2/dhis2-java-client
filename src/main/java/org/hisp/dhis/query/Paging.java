@@ -22,6 +22,15 @@ public class Paging
 
     /**
      * Constructor.
+     */
+    public Paging()
+    {
+        this.page = DEFAULT_PAGE;
+        this.pageSize = DEFAULT_PAGE_SIZE;
+    }
+
+    /**
+     * Constructor.
      *
      * @param page the page number, starting on 1, can be null, cannot be
      *        negative.
