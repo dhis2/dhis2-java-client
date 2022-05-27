@@ -1,21 +1,19 @@
 package org.hisp.dhis.query;
 
+import lombok.RequiredArgsConstructor;
+
 /**
  * Enumeration of order direction.
  *
  * @author Lars Helge Overland
  */
+@RequiredArgsConstructor
 public enum Direction
 {
     ASC( "asc" ),
     DESC( "desc" );
 
-    private String value;
-
-    Direction( String value )
-    {
-        this.value = value;
-    }
+    private final String value;
 
     /**
      * Returns the direction with a value matching the given string.

@@ -16,9 +16,9 @@ import org.hisp.dhis.model.IdScheme;
 @Accessors( chain = true )
 public class AnalyticsQuery
 {
-    private List<Dimension> dimensions = new ArrayList<>();
+    private final List<Dimension> dimensions = new ArrayList<>();
 
-    private List<Dimension> filters = new ArrayList<>();
+    private final List<Dimension> filters = new ArrayList<>();
 
     private AggregationType aggregationType;
 

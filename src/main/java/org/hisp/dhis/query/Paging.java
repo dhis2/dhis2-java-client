@@ -16,13 +16,9 @@ public class Paging
 
     private static final int DEFAULT_PAGE = 1;
 
-    private Integer page;
+    private final Integer page;
 
-    private Integer pageSize;
-
-    public Paging()
-    {
-    }
+    private final Integer pageSize;
 
     /**
      * Constructor.

@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class Query
 {
-    private List<Filter> filters = new ArrayList<>();
+    private final List<Filter> filters = new ArrayList<>();
 
     private Paging paging;
 
@@ -74,7 +74,7 @@ public class Query
      */
     public Paging getPaging()
     {
-        return paging != null ? paging : new Paging();
+        return paging != null ? paging : new Paging( null, null );
     }
 
     /**
@@ -96,7 +96,7 @@ public class Query
      */
     public Order getOrder()
     {
-        return order != null ? order : new Order();
+        return order != null ? order : new Order( null, null );
     }
 
     /**

@@ -7,15 +7,11 @@ package org.hisp.dhis.query;
  */
 public class Order
 {
-    private String property;
+    private final String property;
 
-    private Direction direction;
+    private final Direction direction;
 
-    public Order()
-    {
-    }
-
-    private Order( String property, Direction direction )
+    protected Order( String property, Direction direction )
     {
         this.property = property;
         this.direction = direction;

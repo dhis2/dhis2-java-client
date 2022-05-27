@@ -1,10 +1,13 @@
 package org.hisp.dhis.query;
 
+import lombok.RequiredArgsConstructor;
+
 /**
  * Enumeration of query filter operators.
  *
  * @author Lars Helge Overland
  */
+@RequiredArgsConstructor
 public enum Operator
 {
     EQ( "eq", "=" ),
@@ -17,15 +20,9 @@ public enum Operator
     ILIKE( "ilike", "ilike " ),
     IN( "in", "in" );
 
-    private String value;
+    private final String value;
 
-    private String sqlOperator;
-
-    Operator( String value, String sqlOperator )
-    {
-        this.value = value;
-        this.sqlOperator = sqlOperator;
-    }
+    private final String sqlOperator;
 
     /**
      * Returns the operator with a value matching the given string.

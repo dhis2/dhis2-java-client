@@ -2,6 +2,8 @@ package org.hisp.dhis.query;
 
 import java.util.List;
 
+import lombok.RequiredArgsConstructor;
+
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -9,24 +11,14 @@ import org.apache.commons.lang3.StringUtils;
  *
  * @author Lars Helge Overland
  */
+@RequiredArgsConstructor
 public class Filter
 {
-    private String property;
+    private final String property;
 
-    private Operator operator;
+    private final Operator operator;
 
-    private Object value;
-
-    Filter()
-    {
-    }
-
-    public Filter( String property, Operator operator, Object value )
-    {
-        this.property = property;
-        this.operator = operator;
-        this.value = value;
-    }
+    private final Object value;
 
     /**
      * Creates an equals to {@link Filter}.
