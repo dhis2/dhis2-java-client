@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  
+
   <groupId>org.hisp</groupId>
   <artifactId>dhis2-java-client</artifactId>
-  <version>1.5.1</version>
+  <version>1.5.2</version>
   <packaging>jar</packaging>
-  
+
   <name>DHIS 2 API client for Java</name>
   <description>DHIS 2 API client for Java.</description>
   <url>https://github.com/dhis2/dhis2-java-client</url>
-  
+
   <organization>
     <name>UiO</name>
     <url>http://www.dhis2.org</url>
@@ -26,7 +25,7 @@
       <organizationUrl>http://www.uio.no/</organizationUrl>
     </developer>
   </developers>
-  
+
   <licenses>
     <license>
       <name>BSD</name>
@@ -39,7 +38,7 @@
     <developerConnection>scm:git:git@github.com:dhis2/dhis2-java-client.gitt</developerConnection>
     <url>git@github.com:dhis2/dhis2-java-client.git</url>
   </scm>
-  
+
   <issueManagement>
     <system>GitHub</system>
     <url>https://github.com/dhis2/dhis2-java-client</url>
@@ -109,9 +108,9 @@
       <version>5.8.2</version>
       <scope>test</scope>
     </dependency>
-    
+
   </dependencies>
-  
+
   <distributionManagement>
     <snapshotRepository>
       <id>ossrh</id>
@@ -122,7 +121,7 @@
       <url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
     </repository>
   </distributionManagement>
-  
+
   <build>
     <plugins>
       <plugin>
@@ -214,8 +213,8 @@
               <file>codestyle.xml</file>
               <version>4.9.0</version>
             </eclipse>
-            <trimTrailingWhitespace/>
-            <removeUnusedImports/>
+            <trimTrailingWhitespace />
+            <removeUnusedImports />
             <importOrder>
               <order>
                 java,javax,org,com
@@ -226,8 +225,8 @@
         </configuration>
       </plugin>
     </plugins>
-  </build>  
-  
+  </build>
+
   <profiles>
     <profile>
       <id>default</id>
@@ -245,12 +244,12 @@
       </properties>
     </profile>
   </profiles>
-  
+
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <jackson.version>2.11.2</jackson.version>
     <jts-io-common.version>1.16.0</jts-io-common.version>
     <slf4j.version>1.7.30</slf4j.version>
   </properties>
-	
+
 </project>

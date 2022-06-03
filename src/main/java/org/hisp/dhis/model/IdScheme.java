@@ -17,29 +17,27 @@ public class IdScheme
 
     private static final Pattern UID_PATTERN = Pattern.compile( "^[a-zA-Z]{1}[a-zA-Z0-9]{10}$" );
 
-    private ObjectProperty objectProperty;
+    private final ObjectProperty objectProperty;
 
-    private String attribute;
+    private final String attribute;
 
     // -------------------------------------------------------------------------
     // Constructors
     // -------------------------------------------------------------------------
 
-    IdScheme()
-    {
-    }
-
     private IdScheme( ObjectProperty objectProperty )
     {
-        Validate.notNull( objectProperty );
         this.objectProperty = objectProperty;
+        this.attribute = null;
+        Validate.notNull( objectProperty );
     }
 
     private IdScheme( ObjectProperty objectProperty, String attribute )
     {
-        this( objectProperty );
-        Validate.notNull( attribute );
+        this.objectProperty = objectProperty;
         this.attribute = attribute;
+        Validate.notNull( objectProperty );
+        Validate.notNull( attribute );
     }
 
     public IdScheme( String idScheme )
@@ -47,6 +45,7 @@ public class IdScheme
         IdScheme scheme = IdScheme.createIdScheme( idScheme );
         this.objectProperty = scheme.objectProperty;
         this.attribute = scheme.attribute;
+        Validate.notNull( objectProperty );
     }
 
     // -------------------------------------------------------------------------
@@ -87,12 +86,12 @@ public class IdScheme
             return null;
         }
 
-        if ( ObjectProperty.UID.name().equals( idScheme ) )
+        if ( ObjectProperty.UID.name().equalsIgnoreCase( idScheme ) )
         {
             return UID;
         }
 
-        if ( ObjectProperty.CODE.name().equals( idScheme ) )
+        if ( ObjectProperty.CODE.name().equalsIgnoreCase( idScheme ) )
         {
             return CODE;
         }
@@ -163,11 +162,18 @@ public class IdScheme
             Objects.equals( this.attribute, other.attribute );
     }
 
+    /**
+     * Returns a string representation of this {@link IdScheme}. Alias for
+     * {@link IdScheme#toString()}.
+     */
     public String name()
     {
         return this.toString();
     }
 
+    /**
+     * Returns a string representation of this {@link IdScheme}.
+     */
     @Override
     public String toString()
     {
@@ -177,7 +183,7 @@ public class IdScheme
         }
         else
         {
-            return objectProperty.name();
+            return objectProperty.name().toLowerCase();
         }
 
     }

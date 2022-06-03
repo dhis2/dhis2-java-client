@@ -19,6 +19,10 @@ public class DataValueSetImportOptions
 
     private IdScheme idScheme;
 
+    private Boolean dryRun;
+
+    private Boolean preheatCache;
+
     private Boolean skipAudit;
 
     private DataValueSetImportOptions()

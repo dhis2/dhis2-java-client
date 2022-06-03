@@ -292,3 +292,32 @@ SystemVersion version = info.getSystemVersion();
 
 boolean isHigher = version.isHigher( "2.37.0" );
 ```
+
+## Development
+
+Package:
+
+```
+mvn clean package
+```
+
+Deploy to Maven repository:
+
+```
+mvn clean deploy
+```
+
+Run unit tests:
+
+```
+mvn test
+```
+
+Run integration tests:
+
+```
+mvn test -P integration
+```
+
+
+

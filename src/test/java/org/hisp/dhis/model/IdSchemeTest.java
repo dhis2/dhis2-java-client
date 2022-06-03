@@ -20,21 +20,27 @@ public class IdSchemeTest
     @Test
     void testGetIdSchemeFromString()
     {
-        IdScheme uidScheme = IdScheme.createIdScheme( "UID" );
+        IdScheme uidScheme = IdScheme.createIdScheme( "uid" );
         assertEquals( IdScheme.ObjectProperty.UID, uidScheme.getObjectProperty() );
 
-        IdScheme codeScheme = IdScheme.createIdScheme( "CODE" );
+        IdScheme codeScheme = IdScheme.createIdScheme( "code" );
         assertEquals( IdScheme.ObjectProperty.CODE, codeScheme.getObjectProperty() );
+
+        IdScheme codeUpperCaseScheme = IdScheme.createIdScheme( "CODE" );
+        assertEquals( IdScheme.ObjectProperty.CODE, codeUpperCaseScheme.getObjectProperty() );
     }
 
     @Test
     void testGetIdSchemeFromConstructor()
     {
-        IdScheme uidScheme = new IdScheme( "UID" );
+        IdScheme uidScheme = new IdScheme( "uid" );
         assertEquals( IdScheme.ObjectProperty.UID, uidScheme.getObjectProperty() );
 
-        IdScheme codeScheme = new IdScheme( "CODE" );
+        IdScheme codeScheme = new IdScheme( "code" );
         assertEquals( IdScheme.ObjectProperty.CODE, codeScheme.getObjectProperty() );
+
+        IdScheme codeUpperCaseScheme = new IdScheme( "CODE" );
+        assertEquals( IdScheme.ObjectProperty.CODE, codeUpperCaseScheme.getObjectProperty() );
     }
 
     @Test
@@ -55,10 +61,30 @@ public class IdSchemeTest
     void testGetName()
     {
         IdScheme idSchemeA = IdScheme.createIdScheme( "attribute:HGT65Gdgq2k" );
-        IdScheme idSchemeB = IdScheme.createIdScheme( "CODE" );
+        IdScheme idSchemeB = IdScheme.createIdScheme( "code" );
+        IdScheme idSchemeC = IdScheme.createIdScheme( "CODE" );
 
         assertEquals( "attribute:HGT65Gdgq2k", idSchemeA.name() );
-        assertEquals( "CODE", idSchemeB.name() );
+        assertEquals( "code", idSchemeB.name() );
+        assertEquals( "code", idSchemeC.name() );
+    }
+
+    @Test
+    void testToString()
+    {
+        IdScheme idSchemeA = IdScheme.createIdScheme( "attribute:HGT65Gdgq2k" );
+        IdScheme idSchemeB = IdScheme.createIdScheme( "code" );
+        IdScheme idSchemeC = IdScheme.createIdScheme( "CODE" );
+
+        assertEquals( "attribute:HGT65Gdgq2k", idSchemeA.toString() );
+        assertEquals( "code", idSchemeB.toString() );
+        assertEquals( "code", idSchemeC.toString() );
+    }
+
+    @Test
+    void testGetNullIdScheme()
+    {
+        assertNull( IdScheme.createIdScheme( null ) );
     }
 
     @Test
@@ -71,5 +97,11 @@ public class IdSchemeTest
     void testGetInvalidAttributeIdSchemeB()
     {
         assertThrows( IllegalArgumentException.class, () -> IdScheme.createIdScheme( "attribute:invalid_uid" ) );
+    }
+
+    @Test
+    void testNullConstructor()
+    {
+        assertThrows( NullPointerException.class, () -> new IdScheme( null ) );
     }
 }

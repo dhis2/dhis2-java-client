@@ -294,6 +294,16 @@ public class BaseDhis2
             uriBuilder.addParameter( "idScheme", options.getIdScheme().name() );
         }
 
+        if ( options.getDryRun() != null )
+        {
+            uriBuilder.addParameter( "dryRun", options.getDryRun().toString() );
+        }
+
+        if ( options.getPreheatCache() != null )
+        {
+            uriBuilder.addParameter( "preheatCache", options.getPreheatCache().toString() );
+        }
+
         if ( options.getSkipAudit() != null )
         {
             uriBuilder.addParameter( "skipAudit", options.getSkipAudit().toString() );
