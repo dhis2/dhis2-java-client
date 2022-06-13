@@ -13,7 +13,7 @@ import org.hisp.dhis.model.event.ProgramStatus;
 @Getter
 @Setter
 @Accessors( chain = true )
-public class EventQuery
+public class EventsQuery
 {
     private String program;
 
@@ -28,10 +28,6 @@ public class EventQuery
     private String orgUnit;
 
     private OrgUnitSelectionMode ouMode;
-
-    private Date occuredAfter;
-
-    private Date occuredBefore;
 
     private EventStatus status;
 
@@ -59,12 +55,12 @@ public class EventQuery
 
     private IdScheme idScheme;
 
-    private EventQuery()
+    private EventsQuery()
     {
     }
 
-    public static EventQuery instance()
+    public static EventsQuery instance()
     {
-        return new EventQuery();
+        return new EventsQuery();
     }
 }

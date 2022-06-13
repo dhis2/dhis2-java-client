@@ -8,7 +8,9 @@ import org.apache.hc.core5.net.URIBuilder;
 import org.hisp.dhis.model.AggregationType;
 import org.hisp.dhis.model.IdScheme;
 import org.hisp.dhis.model.datavalueset.DataValueSetImportOptions;
+import org.hisp.dhis.model.event.ProgramStatus;
 import org.hisp.dhis.query.analytics.AnalyticsQuery;
+import org.hisp.dhis.query.event.EventsQuery;
 import org.junit.jupiter.api.Test;
 
 public class Dhis2Test
@@ -65,6 +67,29 @@ public class Dhis2Test
 
         String expected = "https://dhis2.org/api/analytics?" +
             "aggregationType=AVERAGE&ignoreLimit=true&inputIdScheme=code&outputIdScheme=uid";
+
+        assertEquals( expected, uri.toString() );
+    }
+
+    @Test
+    void testGetEventsQuery()
+    {
+        Dhis2Config config = new Dhis2Config( "https://dhis2.org", "admin", "district" );
+
+        Dhis2 dhis2 = new Dhis2( config );
+
+        URIBuilder uriBuilder = config.getResolvedUriBuilder().appendPath( "tracker" ).appendPath( "events" );
+
+        EventsQuery query = EventsQuery.instance()
+            .setProgram( "hJhgt5cDs7j" )
+            .setProgramStatus( ProgramStatus.ACTIVE )
+            .setFollowUp( true )
+            .setIdScheme( IdScheme.CODE );
+
+        URI uri = dhis2.getEventsQuery( uriBuilder, query );
+
+        String expected = "https://dhis2.org/api/tracker/events?" +
+            "program=hJhgt5cDs7j&programStatus=ACTIVE&followUp=true&idScheme=code";
 
         assertEquals( expected, uri.toString() );
     }

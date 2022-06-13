@@ -43,6 +43,7 @@ import org.apache.hc.core5.net.URIBuilder;
 import org.hisp.dhis.model.IdentifiableObject;
 import org.hisp.dhis.model.Objects;
 import org.hisp.dhis.model.datavalueset.DataValueSetImportOptions;
+import org.hisp.dhis.model.event.Events;
 import org.hisp.dhis.query.Filter;
 import org.hisp.dhis.query.Operator;
 import org.hisp.dhis.query.Order;
@@ -50,6 +51,7 @@ import org.hisp.dhis.query.Paging;
 import org.hisp.dhis.query.Query;
 import org.hisp.dhis.query.analytics.AnalyticsQuery;
 import org.hisp.dhis.query.analytics.Dimension;
+import org.hisp.dhis.query.event.EventsQuery;
 import org.hisp.dhis.response.BaseHttpResponse;
 import org.hisp.dhis.response.Dhis2ClientException;
 import org.hisp.dhis.response.Response;
@@ -245,6 +247,53 @@ public class BaseDhis2
         addParameter( uriBuilder, "dryRun", options.getDryRun() );
         addParameter( uriBuilder, "preheatCache", options.getPreheatCache() );
         addParameter( uriBuilder, "skipAudit", options.getSkipAudit() );
+
+        return HttpUtils.build( uriBuilder );
+    }
+
+    /**
+     * Retrieves events using HTTP GET.
+     *
+     * @param uriBuilder the URI builder.
+     * @param query the {@link EventsQuery}.
+     * @return the {@link Events} object.
+     */
+    protected Events getEventsResponse( URIBuilder uriBuilder, EventsQuery query )
+    {
+        URI url = getEventsQuery( uriBuilder, query );
+
+        return getObjectFromUrl( url, Events.class );
+    }
+
+    /**
+     * Returns a {@link URI} based on the given events query.
+     *
+     * @param uriBuilder the URI builder.
+     * @param query the {@link EventsQuery}.
+     * @return a URI.
+     */
+    protected URI getEventsQuery( URIBuilder uriBuilder, EventsQuery query )
+    {
+        addParameter( uriBuilder, "program", query.getProgram() );
+        addParameter( uriBuilder, "programStage", query.getProgramStage() );
+        addParameter( uriBuilder, "programStatus", query.getProgramStatus() );
+        addParameter( uriBuilder, "followUp", query.getFollowUp() );
+        addParameter( uriBuilder, "trackedEntityInstance", query.getTrackedEntityInstance() );
+        addParameter( uriBuilder, "orgUnit", query.getOrgUnit() );
+        addParameter( uriBuilder, "ouMode", query.getOuMode() );
+        addParameter( uriBuilder, "status", query.getStatus() );
+        addParameter( uriBuilder, "occuredAfter", query.getOccurredAfter() );
+        addParameter( uriBuilder, "occuredBefore", query.getOccurredBefore() );
+        addParameter( uriBuilder, "scheduledAfter", query.getScheduledAfter() );
+        addParameter( uriBuilder, "scheduledBefore", query.getScheduledBefore() );
+        addParameter( uriBuilder, "updatedAfter", query.getUpdatedAfter() );
+        addParameter( uriBuilder, "updatedBefore", query.getUpdatedBefore() );
+        addParameter( uriBuilder, "dataElementIdScheme", query.getDataElementIdScheme() );
+        addParameter( uriBuilder, "categoryOptionComboIdScheme", query.getCategoryOptionComboIdScheme() );
+        addParameter( uriBuilder, "orgUnitIdScheme", query.getOrgUnitIdScheme() );
+        addParameter( uriBuilder, "programIdScheme", query.getProgramIdScheme() );
+        addParameter( uriBuilder, "programStageIdScheme", query.getProgramStageIdScheme() );
+        addParameter( uriBuilder, "idScheme", query.getIdScheme() );
 
         return HttpUtils.build( uriBuilder );
     }

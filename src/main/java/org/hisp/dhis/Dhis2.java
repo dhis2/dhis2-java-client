@@ -44,7 +44,7 @@ import org.hisp.dhis.model.event.Event;
 import org.hisp.dhis.model.event.Events;
 import org.hisp.dhis.query.Query;
 import org.hisp.dhis.query.analytics.AnalyticsQuery;
-import org.hisp.dhis.query.event.EventQuery;
+import org.hisp.dhis.query.event.EventsQuery;
 import org.hisp.dhis.request.orgunit.OrgUnitMergeRequest;
 import org.hisp.dhis.request.orgunit.OrgUnitSplitRequest;
 import org.hisp.dhis.response.Dhis2ClientException;
@@ -1299,7 +1299,7 @@ public class Dhis2
     /**
      * Saves an {@link Events}. The operation is synchronous.
      * <p>
-     * Requires DHIS 2 version 2.35 or later.
+     * Requires DHIS 2 version 2.36 or later.
      *
      * @param events the {@link Events}.
      * @return {@link EventResponse} holding information about the operation.
@@ -1315,7 +1315,7 @@ public class Dhis2
     /**
      * Retrieves an {@link Event}.
      * <p>
-     * Requires DHIS 2 version 2.35 or later.
+     * Requires DHIS 2 version 2.36 or later.
      *
      * @param id the event identifier.
      * @return the {@link Event}.
@@ -1328,15 +1328,25 @@ public class Dhis2
             .appendPath( id ), Query.instance(), Event.class );
     }
 
-    public Events getEvents( EventQuery query )
+    /**
+     * Retrieves an {@link Events}.
+     * <p>
+     * Requires DHIS 2 version 2.36 or later.
+     *
+     * @param query the {@link EventsQuery}.
+     * @return the {@link Events}.
+     */
+    public Events getEvents( EventsQuery query )
     {
-        return null;
+        return getEventsResponse( config.getResolvedUriBuilder()
+            .appendPath( "tracker" )
+            .appendPath( "events" ), query );
     }
 
     /**
      * Removes an {@link Event}.
      * <p>
-     * Requires DHIS 2 version 2.35 or later.
+     * Requires DHIS 2 version 2.36 or later.
      *
      * @param event the {@link Event}.
      * @return {@link EventResponse} holding information about the operation.
