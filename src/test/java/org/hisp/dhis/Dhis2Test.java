@@ -5,8 +5,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.net.URI;
 
 import org.apache.hc.core5.net.URIBuilder;
+import org.hisp.dhis.model.AggregationType;
 import org.hisp.dhis.model.IdScheme;
 import org.hisp.dhis.model.datavalueset.DataValueSetImportOptions;
+import org.hisp.dhis.query.analytics.AnalyticsQuery;
 import org.junit.jupiter.api.Test;
 
 public class Dhis2Test
@@ -40,6 +42,29 @@ public class Dhis2Test
 
         String expected = "https://dhis2.org/api/dataValueSets?" +
             "async=true&dataElementIdScheme=code&dryRun=true&preheatCache=true&skipAudit=true";
+
+        assertEquals( expected, uri.toString() );
+    }
+
+    @Test
+    void testGetAnalyticsQuery()
+    {
+        Dhis2Config config = new Dhis2Config( "https://dhis2.org", "admin", "district" );
+
+        Dhis2 dhis2 = new Dhis2( config );
+
+        URIBuilder uriBuilder = config.getResolvedUriBuilder().appendPath( "analytics" );
+
+        AnalyticsQuery query = AnalyticsQuery.instance()
+            .setAggregationType( AggregationType.AVERAGE )
+            .setIgnoreLimit( true )
+            .setInputIdScheme( IdScheme.CODE )
+            .setOutputIdScheme( IdScheme.UID );
+
+        URI uri = dhis2.getAnalyticsQuery( uriBuilder, query );
+
+        String expected = "https://dhis2.org/api/analytics?" +
+            "aggregationType=AVERAGE&ignoreLimit=true&inputIdScheme=code&outputIdScheme=uid";
 
         assertEquals( expected, uri.toString() );
     }

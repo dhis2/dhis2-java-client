@@ -44,6 +44,7 @@ import org.hisp.dhis.model.event.Event;
 import org.hisp.dhis.model.event.Events;
 import org.hisp.dhis.query.Query;
 import org.hisp.dhis.query.analytics.AnalyticsQuery;
+import org.hisp.dhis.query.event.EventQuery;
 import org.hisp.dhis.request.orgunit.OrgUnitMergeRequest;
 import org.hisp.dhis.request.orgunit.OrgUnitSplitRequest;
 import org.hisp.dhis.response.Dhis2ClientException;
@@ -80,7 +81,7 @@ public class Dhis2
      * describing the status:
      *
      * <ul>
-     * <li>{@link HttpStatus#OK} if instance is available and authentication is
+     * <li>{@link HttpStatus#OK} if instance is available and authentication isf
      * successful.</li>
      * <li>{@link HttpStatus#UNAUTHORIZED} if the username and password
      * combination is not valid.</li>
@@ -1325,6 +1326,11 @@ public class Dhis2
             .appendPath( "tracker" )
             .appendPath( "events" )
             .appendPath( id ), Query.instance(), Event.class );
+    }
+
+    public Events getEvents( EventQuery query )
+    {
+        return null;
     }
 
     /**

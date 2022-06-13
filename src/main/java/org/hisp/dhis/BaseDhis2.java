@@ -207,58 +207,23 @@ public class BaseDhis2
     {
         for ( Dimension dimension : query.getDimensions() )
         {
-            uriBuilder.addParameter( "dimension", dimension.getDimensionValue() );
+            addParameter( uriBuilder, "dimension", dimension.getDimensionValue() );
         }
 
         for ( Dimension filter : query.getFilters() )
         {
-            uriBuilder.addParameter( "filter", filter.getDimensionValue() );
+            addParameter( uriBuilder, "filter", filter.getDimensionValue() );
         }
 
-        if ( query.getAggregationType() != null )
-        {
-            uriBuilder.addParameter( "aggregationType", query.getAggregationType().name() );
-        }
-
-        if ( query.getStartDate() != null )
-        {
-            uriBuilder.addParameter( "startDate", query.getStartDate() );
-        }
-
-        if ( query.getEndDate() != null )
-        {
-            uriBuilder.addParameter( "endDate", query.getEndDate() );
-        }
-
-        if ( query.getSkipMeta() != null )
-        {
-            uriBuilder.addParameter( "skipMeta", query.getSkipMeta().toString() );
-        }
-
-        if ( query.getSkipData() != null )
-        {
-            uriBuilder.addParameter( "skipData", query.getSkipData().toString() );
-        }
-
-        if ( query.getSkipRounding() != null )
-        {
-            uriBuilder.addParameter( "skipRounding", query.getSkipRounding().toString() );
-        }
-
-        if ( query.getIgnoreLimit() != null )
-        {
-            uriBuilder.addParameter( "ignoreLimit", query.getIgnoreLimit().toString() );
-        }
-
-        if ( query.getOutputIdScheme() != null )
-        {
-            uriBuilder.addParameter( "outputIdScheme", query.getOutputIdScheme().name() );
-        }
-
-        if ( query.getInputIdScheme() != null )
-        {
-            uriBuilder.addParameter( "inputIdScheme", query.getInputIdScheme().name() );
-        }
+        addParameter( uriBuilder, "aggregationType", query.getAggregationType() );
+        addParameter( uriBuilder, "startDate", query.getStartDate() );
+        addParameter( uriBuilder, "endDate", query.getEndDate() );
+        addParameter( uriBuilder, "skipMeta", query.getSkipMeta() );
+        addParameter( uriBuilder, "skipData", query.getSkipData() );
+        addParameter( uriBuilder, "skipRounding", query.getSkipRounding() );
+        addParameter( uriBuilder, "ignoreLimit", query.getIgnoreLimit() );
+        addParameter( uriBuilder, "inputIdScheme", query.getInputIdScheme() );
+        addParameter( uriBuilder, "outputIdScheme", query.getOutputIdScheme() );
 
         return HttpUtils.build( uriBuilder );
     }
@@ -272,44 +237,32 @@ public class BaseDhis2
      */
     protected URI getDataValueSetImportQuery( URIBuilder uriBuilder, DataValueSetImportOptions options )
     {
-        uriBuilder.addParameter( "async", "true" ); // Always use async
-
-        if ( options.getDataElementIdScheme() != null )
-        {
-            uriBuilder.addParameter( "dataElementIdScheme", options.getDataElementIdScheme().name() );
-        }
-
-        if ( options.getOrgUnitIdScheme() != null )
-        {
-            uriBuilder.addParameter( "orgUnitIdScheme", options.getOrgUnitIdScheme().name() );
-        }
-
-        if ( options.getCategoryOptionComboIdScheme() != null )
-        {
-            uriBuilder.addParameter( "categoryOptionComboIdScheme", options.getCategoryOptionComboIdScheme().name() );
-        }
-
-        if ( options.getIdScheme() != null )
-        {
-            uriBuilder.addParameter( "idScheme", options.getIdScheme().name() );
-        }
-
-        if ( options.getDryRun() != null )
-        {
-            uriBuilder.addParameter( "dryRun", options.getDryRun().toString() );
-        }
-
-        if ( options.getPreheatCache() != null )
-        {
-            uriBuilder.addParameter( "preheatCache", options.getPreheatCache().toString() );
-        }
-
-        if ( options.getSkipAudit() != null )
-        {
-            uriBuilder.addParameter( "skipAudit", options.getSkipAudit().toString() );
-        }
+        addParameter( uriBuilder, "async", "true" ); // Always use async
+        addParameter( uriBuilder, "dataElementIdScheme", options.getDataElementIdScheme() );
+        addParameter( uriBuilder, "orgUnitIdScheme", options.getOrgUnitIdScheme() );
+        addParameter( uriBuilder, "categoryOptionComboIdScheme", options.getCategoryOptionComboIdScheme() );
+        addParameter( uriBuilder, "idScheme", options.getIdScheme() );
+        addParameter( uriBuilder, "dryRun", options.getDryRun() );
+        addParameter( uriBuilder, "preheatCache", options.getPreheatCache() );
+        addParameter( uriBuilder, "skipAudit", options.getSkipAudit() );
 
         return HttpUtils.build( uriBuilder );
+    }
+
+    /**
+     * Adds a query parameter to the given {@link URIBuilder} if the given
+     * parameter value is not null.
+     *
+     * @param uriBuilder the {@link URIBuilder}.
+     * @param parameter the query parameter.
+     * @param value the query parameter value.
+     */
+    private void addParameter( URIBuilder uriBuilder, String parameter, Object value )
+    {
+        if ( value != null )
+        {
+            uriBuilder.addParameter( parameter, value.toString() );
+        }
     }
 
     /**
@@ -369,8 +322,8 @@ public class BaseDhis2
      * @return a {@link Response}.
      * @throws Dhis2ClientException if access denied or resource not found.
      */
-    protected <T extends BaseHttpResponse> T executeJsonPostPutRequest( HttpUriRequestBase request, Object object,
-        Class<T> type )
+    protected <T extends BaseHttpResponse> T executeJsonPostPutRequest(
+        HttpUriRequestBase request, Object object, Class<T> type )
     {
         validateRequestObject( object );
 
