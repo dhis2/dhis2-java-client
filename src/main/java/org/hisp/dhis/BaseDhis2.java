@@ -44,6 +44,7 @@ import org.hisp.dhis.model.IdentifiableObject;
 import org.hisp.dhis.model.Objects;
 import org.hisp.dhis.model.datavalueset.DataValueSetImportOptions;
 import org.hisp.dhis.model.event.Events;
+import org.hisp.dhis.model.event.EventsResult;
 import org.hisp.dhis.query.Filter;
 import org.hisp.dhis.query.Operator;
 import org.hisp.dhis.query.Order;
@@ -258,11 +259,11 @@ public class BaseDhis2
      * @param query the {@link EventsQuery}.
      * @return the {@link Events} object.
      */
-    protected Events getEventsResponse( URIBuilder uriBuilder, EventsQuery query )
+    protected EventsResult getEventsResponse( URIBuilder uriBuilder, EventsQuery query )
     {
         URI url = getEventsQuery( uriBuilder, query );
 
-        return getObjectFromUrl( url, Events.class );
+        return getObjectFromUrl( url, EventsResult.class );
     }
 
     /**

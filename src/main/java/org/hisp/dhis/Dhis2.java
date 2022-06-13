@@ -42,6 +42,7 @@ import org.hisp.dhis.model.datavalueset.DataValueSet;
 import org.hisp.dhis.model.datavalueset.DataValueSetImportOptions;
 import org.hisp.dhis.model.event.Event;
 import org.hisp.dhis.model.event.Events;
+import org.hisp.dhis.model.event.EventsResult;
 import org.hisp.dhis.query.Query;
 import org.hisp.dhis.query.analytics.AnalyticsQuery;
 import org.hisp.dhis.query.event.EventsQuery;
@@ -1336,7 +1337,7 @@ public class Dhis2
      * @param query the {@link EventsQuery}.
      * @return the {@link Events}.
      */
-    public Events getEvents( EventsQuery query )
+    public EventsResult getEvents( EventsQuery query )
     {
         return getEventsResponse( config.getResolvedUriBuilder()
             .appendPath( "tracker" )
