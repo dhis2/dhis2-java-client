@@ -1,8 +1,10 @@
 package org.hisp.dhis.util;
 
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
@@ -27,6 +29,20 @@ public class DateTimeUtils
         LocalDate localDate = LocalDate.of( year, month, dayOfMonth );
 
         return Date.from( localDate.atStartOfDay( ZoneId.systemDefault() ).toInstant() );
+    }
+
+    /**
+     * Returns a {@link LocalDateTime} based on the given instant string using
+     * the UTC time zone. The string must be on the ISO instant format, e.g.
+     * <code>2007-12-03T10:15:30.00Z</code>.
+     *
+     * @param zonedDateTime the zoned date time string.
+     * @return a {@link LocalDateTime}.
+     * @throws DateTimeParseException if the string could not be parsed.
+     */
+    public static LocalDateTime getLocalDateTime( String instant )
+    {
+        return LocalDateTime.ofInstant( Instant.parse( instant ), ZoneId.of( ZoneOffset.UTC.getId() ) );
     }
 
     /**
