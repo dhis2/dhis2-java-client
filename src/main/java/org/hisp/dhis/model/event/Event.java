@@ -86,4 +86,19 @@ public class Event
         this.occurredAt = occurredAt;
         this.dataValues = dataValues;
     }
+
+    /**
+     * Returns the first {@link EventDataValue} which data element matches the
+     * given data element identifier, or null if no match.
+     *
+     * @param dataElement the data element identifier.
+     * @return a {@link EventDataValue} or null.
+     */
+    public EventDataValue getDataValue( String dataElement )
+    {
+        return dataValues.stream()
+            .filter( dv -> dataElement.equals( dv.getDataElement() ) )
+            .findFirst()
+            .orElse( null );
+    }
 }
