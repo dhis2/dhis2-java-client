@@ -165,6 +165,8 @@ public class IdScheme
     /**
      * Returns a string representation of this {@link IdScheme}. Alias for
      * {@link IdScheme#toString()}.
+     *
+     * @return a string representation of this {@link IdScheme}.
      */
     public String name()
     {
@@ -173,6 +175,8 @@ public class IdScheme
 
     /**
      * Returns a string representation of this {@link IdScheme}.
+     *
+     * @return a string representation of this {@link IdScheme}.
      */
     @Override
     public String toString()

@@ -6,6 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Getter
@@ -35,5 +38,35 @@ public class EventDataValue
     {
         this.dataElement = dataElement;
         this.value = value;
+    }
+
+    public boolean isBoolean()
+    {
+        return "true".equalsIgnoreCase( value ) || "false".equalsIgnoreCase( value );
+    }
+
+    public Boolean getBooleanValue()
+    {
+        return isBoolean() ? Boolean.valueOf( value ) : null;
+    }
+
+    public boolean isDouble()
+    {
+        return NumberUtils.isCreatable( value );
+    }
+
+    public Double getDoubleValue()
+    {
+        return isDouble() ? Double.valueOf( value ) : null;
+    }
+
+    public boolean isInteger()
+    {
+        return StringUtils.isNumeric( value );
+    }
+
+    public Integer getIntegerValue()
+    {
+        return isInteger() ? Integer.valueOf( value ) : null;
     }
 }

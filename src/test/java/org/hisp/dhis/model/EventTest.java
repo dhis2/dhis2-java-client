@@ -1,7 +1,9 @@
 package org.hisp.dhis.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.hisp.dhis.model.event.Event;
 import org.hisp.dhis.model.event.EventDataValue;
@@ -22,5 +24,52 @@ public class EventTest
         assertEquals( "3", event.getDataValue( "KvIzgr6osJQ" ).getValue() );
         assertEquals( "5", event.getDataValue( "tbqtM7AQpnl" ).getValue() );
         assertNull( event.getDataValue( "w4wYmYSS8ng" ) );
+    }
+
+    @Test
+    void testGetValueAsBoolean()
+    {
+        EventDataValue value = new EventDataValue( "rNwYgGgYzPA", "true" );
+
+        assertTrue( value.isBoolean() );
+        assertTrue( value.getBooleanValue() );
+
+        value = new EventDataValue( "rNwYgGgYzPA", "false" );
+
+        assertTrue( value.isBoolean() );
+        assertFalse( value.getBooleanValue() );
+
+        value = new EventDataValue( "rNwYgGgYzPA", "1" );
+
+        assertFalse( value.isBoolean() );
+        assertNull( value.getBooleanValue() );
+    }
+
+    @Test
+    void testGetValueAsInteger()
+    {
+        EventDataValue value = new EventDataValue( "rNwYgGgYzPA", "142" );
+
+        assertTrue( value.isInteger() );
+        assertEquals( 142, value.getIntegerValue() );
+
+        value = new EventDataValue( "rNwYgGgYzPA", "14.73" );
+
+        assertFalse( value.isInteger() );
+        assertNull( value.getIntegerValue() );
+    }
+
+    @Test
+    void testGetValueAsDouble()
+    {
+        EventDataValue value = new EventDataValue( "rNwYgGgYzPA", "18.52" );
+
+        assertTrue( value.isDouble() );
+        assertEquals( 18.52, value.getDoubleValue() );
+
+        value = new EventDataValue( "rNwYgGgYzPA", "Yes" );
+
+        assertFalse( value.isDouble() );
+        assertNull( value.getDoubleValue() );
     }
 }

@@ -36,9 +36,8 @@ public class DateTimeUtils
      * the UTC time zone. The string must be on the ISO instant format, e.g.
      * <code>2007-12-03T10:15:30.00Z</code>.
      *
-     * @param zonedDateTime the zoned date time string.
+     * @param instant the instant string.
      * @return a {@link LocalDateTime}.
-     * @throws DateTimeParseException if the string could not be parsed.
      */
     public static LocalDateTime getLocalDateTime( String instant )
     {
