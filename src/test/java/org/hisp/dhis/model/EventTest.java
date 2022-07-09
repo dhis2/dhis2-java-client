@@ -34,7 +34,17 @@ public class EventTest
         assertTrue( value.isBoolean() );
         assertTrue( value.getBooleanValue() );
 
+        value = new EventDataValue( "rNwYgGgYzPA", "TRUE" );
+
+        assertTrue( value.isBoolean() );
+        assertTrue( value.getBooleanValue() );
+
         value = new EventDataValue( "rNwYgGgYzPA", "false" );
+
+        assertTrue( value.isBoolean() );
+        assertFalse( value.getBooleanValue() );
+
+        value = new EventDataValue( "rNwYgGgYzPA", "FALSE" );
 
         assertTrue( value.isBoolean() );
         assertFalse( value.getBooleanValue() );
