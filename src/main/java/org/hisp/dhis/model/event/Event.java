@@ -94,11 +94,24 @@ public class Event
      * @param dataElement the data element identifier.
      * @return a {@link EventDataValue} or null.
      */
-    public EventDataValue getDataValue( String dataElement )
+    public EventDataValue getEventDataValue( String dataElement )
     {
         return dataValues.stream()
             .filter( dv -> dataElement.equals( dv.getDataElement() ) )
             .findFirst()
             .orElse( null );
+    }
+
+    /**
+     * Returns the value of the first {@link EventDataValue} which data element
+     * matches the given data element identifier, or null if no match.
+     *
+     * @param dataElement the data element identifier.
+     * @return a {@link EventDataValue} or null.
+     */
+    public String getDataValue( String dataElement )
+    {
+        EventDataValue eventDataValue = getEventDataValue( dataElement );
+        return eventDataValue != null ? eventDataValue.getValue() : null;
     }
 }
