@@ -1315,22 +1315,6 @@ public class Dhis2
     }
 
     /**
-     * Removes an {@link Events}. The operation is synchronous.
-     * <p>
-     * Requires DHIS 2 version 2.36 or later.
-     *
-     * @param events the {@link Events}.
-     * @return {@link EventResponse} holding information about the operation.
-     */
-    public EventResponse removeEvents( Events events )
-    {
-        return saveObject( config.getResolvedUriBuilder()
-            .appendPath( "tracker" )
-            .setParameter( "async", "false" )
-            .setParameter( "importStrategy", ImportStrategy.DELETE.name() ), events, EventResponse.class );
-    }
-
-    /**
      * Retrieves an {@link Event}.
      * <p>
      * Requires DHIS 2 version 2.36 or later.
@@ -1359,6 +1343,22 @@ public class Dhis2
         return getEventsResponse( config.getResolvedUriBuilder()
             .appendPath( "tracker" )
             .appendPath( "events" ), query );
+    }
+
+    /**
+     * Removes an {@link Events}. The operation is synchronous.
+     * <p>
+     * Requires DHIS 2 version 2.36 or later.
+     *
+     * @param events the {@link Events}.
+     * @return {@link EventResponse} holding information about the operation.
+     */
+    public EventResponse removeEvents( Events events )
+    {
+        return saveObject( config.getResolvedUriBuilder()
+            .appendPath( "tracker" )
+            .setParameter( "async", "false" )
+            .setParameter( "importStrategy", ImportStrategy.DELETE.name() ), events, EventResponse.class );
     }
 
     /**
