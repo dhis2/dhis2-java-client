@@ -114,4 +114,14 @@ public class Event
         EventDataValue eventDataValue = getEventDataValue( dataElement );
         return eventDataValue != null ? eventDataValue.getValue() : null;
     }
+
+    /**
+     * Adds a data value.
+     *
+     * @param dataValue the {@link EventDataValue}.
+     */
+    public void addDataValue( EventDataValue dataValue )
+    {
+        this.dataValues.add( dataValue );
+    }
 }

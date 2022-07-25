@@ -16,6 +16,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @NoArgsConstructor
 public class EventDataValue
 {
+    public static final String VALUE_TRUE = "true";
+
+    public static final String VALUE_FALSE = "false";
+
     @JsonProperty
     private String dataElement;
 
@@ -42,7 +46,7 @@ public class EventDataValue
 
     public boolean isBoolean()
     {
-        return "true".equalsIgnoreCase( value ) || "false".equalsIgnoreCase( value );
+        return VALUE_TRUE.equalsIgnoreCase( value ) || VALUE_FALSE.equalsIgnoreCase( value );
     }
 
     public Boolean getBooleanValue()
