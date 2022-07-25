@@ -27,6 +27,7 @@ import org.hisp.dhis.model.DataElement;
 import org.hisp.dhis.model.DataElementGroup;
 import org.hisp.dhis.model.DataElementGroupSet;
 import org.hisp.dhis.model.Dimension;
+import org.hisp.dhis.model.ImportStrategy;
 import org.hisp.dhis.model.Objects;
 import org.hisp.dhis.model.OrgUnit;
 import org.hisp.dhis.model.OrgUnitGroup;
@@ -1310,7 +1311,23 @@ public class Dhis2
         return saveObject( config.getResolvedUriBuilder()
             .appendPath( "tracker" )
             .setParameter( "async", "false" )
-            .setParameter( "importStrategy", "CREATE_AND_UPDATE" ), events, EventResponse.class );
+            .setParameter( "importStrategy", ImportStrategy.CREATE_AND_UPDATE.name() ), events, EventResponse.class );
+    }
+
+    /**
+     * Removes an {@link Events}. The operation is synchronous.
+     * <p>
+     * Requires DHIS 2 version 2.36 or later.
+     *
+     * @param events the {@link Events}.
+     * @return {@link EventResponse} holding information about the operation.
+     */
+    public EventResponse removeEvents( Events events )
+    {
+        return saveObject( config.getResolvedUriBuilder()
+            .appendPath( "tracker" )
+            .setParameter( "async", "false" )
+            .setParameter( "importStrategy", ImportStrategy.DELETE.name() ), events, EventResponse.class );
     }
 
     /**
