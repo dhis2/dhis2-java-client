@@ -1,25 +1,30 @@
 package org.hisp.dhis.model.event;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
+import org.hisp.dhis.util.DateTimeUtils;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Getter
 @Setter
 @NoArgsConstructor
+@EqualsAndHashCode( onlyExplicitlyIncluded = true )
 public class EventDataValue
 {
     public static final String VALUE_TRUE = "true";
 
     public static final String VALUE_FALSE = "false";
 
+    @EqualsAndHashCode.Include
     @JsonProperty
     private String dataElement;
 
@@ -72,5 +77,15 @@ public class EventDataValue
     public Integer getIntegerValue()
     {
         return isInteger() ? Integer.valueOf( value ) : null;
+    }
+
+    public boolean isLocalDateTime()
+    {
+        return DateTimeUtils.isValidLocalDateTime( value );
+    }
+
+    public LocalDateTime getLocalDateTimeValue()
+    {
+        return DateTimeUtils.isValidLocalDateTime( value ) ? DateTimeUtils.getLocalDateTime( value ) : null;
     }
 }

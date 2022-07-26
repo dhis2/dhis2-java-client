@@ -36,12 +36,12 @@ public class DateTimeUtils
      * time zone. The string must be on the ISO local date time format, e.g.
      * <code>2007-12-03T10:15:30.00Z</code>.
      *
-     * @param instant the instant string.
+     * @param string the instant string.
      * @return a {@link LocalDateTime}.
      */
-    public static LocalDateTime getLocalDateTime( String instant )
+    public static LocalDateTime getLocalDateTime( String string )
     {
-        return LocalDateTime.ofInstant( Instant.parse( instant ), ZoneId.of( ZoneOffset.UTC.getId() ) );
+        return LocalDateTime.ofInstant( Instant.parse( string ), ZoneId.of( ZoneOffset.UTC.getId() ) );
     }
 
     /**
@@ -49,15 +49,15 @@ public class DateTimeUtils
      * i.e. is in a valid ISO date time format, e.g.
      * <code>2007-12-03T10:15:30.00Z</code>.
      *
-     * @param instant
-     * @return
+     * @param instant the instant string.
+     * @return true if the given string can be parsed to a local date time,
+     *         false otherwise.
      */
     public static boolean isValidLocalDateTime( String instant )
     {
         try
         {
-            getLocalDateTime( instant );
-            return true;
+            return instant != null && getLocalDateTime( instant ) != null;
         }
         catch ( DateTimeException ex )
         {

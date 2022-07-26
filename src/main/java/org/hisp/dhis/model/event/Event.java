@@ -119,12 +119,15 @@ public class Event
     }
 
     /**
-     * Adds a data value.
+     * Adds a data value. If a data value with the same data element identifier
+     * exists, the given value will overwrite the existing data value. The new
+     * data value is added to the end of the list of data values.
      *
      * @param dataValue the {@link EventDataValue}.
      */
     public void addDataValue( EventDataValue dataValue )
     {
+        this.dataValues.remove( dataValue );
         this.dataValues.add( dataValue );
     }
 }

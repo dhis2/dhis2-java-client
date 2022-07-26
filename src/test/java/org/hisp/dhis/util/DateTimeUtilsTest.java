@@ -35,6 +35,7 @@ public class DateTimeUtilsTest
         assertFalse( DateTimeUtils.isValidLocalDateTime( "2019-10-02T0:00:00.000Z" ) );
         assertFalse( DateTimeUtils.isValidLocalDateTime( "2020-10-02T00:00:00.000" ) );
         assertFalse( DateTimeUtils.isValidLocalDateTime( "2020-13-02T00:00:00.000" ) );
+        assertFalse( DateTimeUtils.isValidLocalDateTime( null ) );
 
         assertTrue( DateTimeUtils.isValidLocalDateTime( "2017-08-06T00:00:00.000Z" ) );
         assertTrue( DateTimeUtils.isValidLocalDateTime( "2018-10-02T14:52:00.000Z" ) );
