@@ -171,7 +171,7 @@ SystemSettings settings = dhis2.getSystemSettings();
 To save a list of events:
 
 ```java
-List<EventDataValue> dataValues = CollectionUtils.newImmutableList(
+List<EventDataValue> dataValues = CollectionUtils.list(
     new EventDataValue( "oZg33kd9taw", "Male" ),
     new EventDataValue( "qrur9Dvnyt5", "45" ),
     new EventDataValue( "GieVkTxp4HH", "143" ),
@@ -187,7 +187,7 @@ event.setOrgUnit( "DiszpKrYNg8" );
 event.setOccurredAt( DateTimeUtils.getDate( 2021, 7, 12 ) );
 event.setDataValues( dataValues );
 
-Events events = new Events( CollectionUtils.newImmutableList( event ) );
+Events events = new Events( CollectionUtils.list( event ) );
 
 EventResponse response = dhis2.saveEvents( events );
 ```
