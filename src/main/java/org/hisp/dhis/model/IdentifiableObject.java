@@ -38,7 +38,7 @@ public class IdentifiableObject
     protected Set<AttributeValue> attributeValues = new HashSet<>();
 
     // -------------------------------------------------------------------------
-    // Loigc methods
+    // Logic methods
     // -------------------------------------------------------------------------
 
     /**
@@ -99,7 +99,7 @@ public class IdentifiableObject
     }
 
     // -------------------------------------------------------------------------
-    // hashCode, equals, toString
+    // hashCode and equals
     // -------------------------------------------------------------------------
 
     @Override

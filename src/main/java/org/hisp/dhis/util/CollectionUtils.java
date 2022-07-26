@@ -18,6 +18,19 @@ public class CollectionUtils
     @SafeVarargs
     public static <T> Set<T> set( T... items )
     {
+        return Collections.unmodifiableSet( mutableSet( items ) );
+    }
+
+    /**
+     * Returns an mutable set containing the given items.
+     *
+     * @param <T> type.
+     * @param items the items.
+     * @return an immutable set.
+     */
+    @SafeVarargs
+    public static <T> Set<T> mutableSet( T... items )
+    {
         Set<T> set = new HashSet<>();
 
         for ( T item : items )
@@ -25,7 +38,7 @@ public class CollectionUtils
             set.add( item );
         }
 
-        return Collections.unmodifiableSet( set );
+        return set;
     }
 
     /**
@@ -38,6 +51,19 @@ public class CollectionUtils
     @SafeVarargs
     public static <T> List<T> list( T... items )
     {
+        return Collections.unmodifiableList( mutableList( items ) );
+    }
+
+    /**
+     * Returns an mutable list containing the given items.
+     *
+     * @param <T> type.
+     * @param items the items.
+     * @return an immutable list.
+     */
+    @SafeVarargs
+    public static <T> List<T> mutableList( T... items )
+    {
         List<T> list = new ArrayList<>();
 
         for ( T item : items )
@@ -45,6 +71,6 @@ public class CollectionUtils
             list.add( item );
         }
 
-        return Collections.unmodifiableList( list );
+        return list;
     }
 }

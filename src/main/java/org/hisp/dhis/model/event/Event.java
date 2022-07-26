@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,8 +14,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Getter
 @Setter
 @NoArgsConstructor
+@EqualsAndHashCode( onlyExplicitlyIncluded = true )
 public class Event
 {
+    @EqualsAndHashCode.Include
     @JsonProperty( value = "event" )
     private String id;
 
