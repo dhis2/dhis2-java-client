@@ -3,7 +3,6 @@ package org.hisp.dhis.model.event;
 import java.time.LocalDateTime;
 import java.util.Date;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,14 +16,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Getter
 @Setter
 @NoArgsConstructor
-@EqualsAndHashCode( onlyExplicitlyIncluded = true )
 public class EventDataValue
 {
     public static final String VALUE_TRUE = "true";
 
     public static final String VALUE_FALSE = "false";
 
-    @EqualsAndHashCode.Include
     @JsonProperty
     private String dataElement;
 

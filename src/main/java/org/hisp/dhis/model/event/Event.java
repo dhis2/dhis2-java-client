@@ -9,6 +9,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import org.apache.commons.lang3.Validate;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Getter
@@ -123,11 +125,14 @@ public class Event
      * exists, the given value will overwrite the existing data value. The new
      * data value is added to the end of the list of data values.
      *
-     * @param dataValue the {@link EventDataValue}.
+     * @param dataValue the {@link EventDataValue}, not null.
      */
     public void addDataValue( EventDataValue dataValue )
     {
-        this.dataValues.remove( dataValue );
+        Validate.notNull( dataValue );
+        Validate.notNull( dataValue.getDataElement() );
+
+        this.dataValues.removeIf( dv -> dv.getDataElement().equals( dataValue.getDataElement() ) );
         this.dataValues.add( dataValue );
     }
 }

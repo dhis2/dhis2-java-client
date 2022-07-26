@@ -1,21 +1,16 @@
 package org.hisp.dhis.util;
 
 import java.time.DateTimeException;
-import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
+import org.apache.commons.lang3.StringUtils;
+
 public class DateTimeUtils
 {
-    /**
-     * Format: <code>yyyy-MM-dd'T'HH:mm:ss</code>
-     */
-    private static final DateTimeFormatter DATE_TIME_S_FORMAT = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
-
     /**
      * Returns a date.
      *
@@ -34,14 +29,18 @@ public class DateTimeUtils
     /**
      * Returns a {@link LocalDateTime} based on the given string using the UTC
      * time zone. The string must be on the ISO local date time format, e.g.
-     * <code>2007-12-03T10:15:30.00Z</code>.
+     * <code>2007-12-03T10:15:30.00</code> or
+     * <code>2007-12-03T10:15:30.00Z</code>. A trailing 'Z' indicating Zulu/UTC
+     * time will be ignored.
      *
      * @param string the instant string.
      * @return a {@link LocalDateTime}.
      */
     public static LocalDateTime getLocalDateTime( String string )
     {
-        return LocalDateTime.ofInstant( Instant.parse( string ), ZoneId.of( ZoneOffset.UTC.getId() ) );
+        string = StringUtils.removeEndIgnoreCase( string, "z" );
+
+        return LocalDateTime.parse( string );
     }
 
     /**
@@ -74,6 +73,18 @@ public class DateTimeUtils
      */
     public static String getLocalDateTimeString( LocalDateTime dateTime )
     {
-        return DATE_TIME_S_FORMAT.format( dateTime );
+        return DateTimeFormatter.ISO_LOCAL_DATE_TIME.format( dateTime );
+    }
+
+    /**
+     * Returns a date time string on the format:
+     * <code>yyyy-MM-dd'T'HH:mm:ss.SSSZ</code>.
+     *
+     * @param dateTime the {@link LocalDateTime}.
+     * @return a date-time string.
+     */
+    public static String getUtcDateTimeString( LocalDateTime dateTime )
+    {
+        return String.format( "%sZ", DateTimeFormatter.ISO_LOCAL_DATE_TIME.format( dateTime ) );
     }
 }
