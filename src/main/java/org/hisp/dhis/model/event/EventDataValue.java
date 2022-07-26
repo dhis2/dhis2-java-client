@@ -47,6 +47,16 @@ public class EventDataValue
     }
 
     /**
+     * Indicates whether the value is not null or empty.
+     *
+     * @return true if the value is not null or empty.
+     */
+    public boolean hasValue()
+    {
+        return StringUtils.isNotEmpty( value );
+    }
+
+    /**
      * Indicates whether the value represents a boolean.
      *
      * @return true if the value represents a boolean.

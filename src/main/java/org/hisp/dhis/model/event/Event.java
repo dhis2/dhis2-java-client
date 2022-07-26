@@ -135,4 +135,17 @@ public class Event
         this.dataValues.removeIf( dv -> dv.getDataElement().equals( dataValue.getDataElement() ) );
         this.dataValues.add( dataValue );
     }
+
+    /**
+     * Adds a data value. If a data value with the same data element identifier
+     * exists, the given value will overwrite the existing data value. The new
+     * data value is added to the end of the list of data values.
+     *
+     * @param dataElement the data element identifier, not null.
+     * @param value the data value.
+     */
+    public void addDataValue( String dataElement, String value )
+    {
+        addDataValue( new EventDataValue( dataElement, value ) );
+    }
 }
