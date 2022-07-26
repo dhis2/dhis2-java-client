@@ -1,5 +1,6 @@
 package org.hisp.dhis.util;
 
+import java.time.DateTimeException;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -10,11 +11,10 @@ import java.util.Date;
 
 public class DateTimeUtils
 {
-    private static final DateTimeFormatter DATE_TIME_S_FORMAT = DateTimeFormatter
-        .ofPattern( "yyyy-MM-dd'T'HH:mm:ss" );
-
-    private static final DateTimeFormatter DATE_TIME_MS_FORMAT = DateTimeFormatter
-        .ofPattern( "yyyy-MM-dd'T'HH:mm:ss.SSS" );
+    /**
+     * Format: <code>yyyy-MM-dd'T'HH:mm:ss</code>
+     */
+    private static final DateTimeFormatter DATE_TIME_S_FORMAT = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
 
     /**
      * Returns a date.
@@ -32,8 +32,8 @@ public class DateTimeUtils
     }
 
     /**
-     * Returns a {@link LocalDateTime} based on the given instant string using
-     * the UTC time zone. The string must be on the ISO instant format, e.g.
+     * Returns a {@link LocalDateTime} based on the given string using the UTC
+     * time zone. The string must be on the ISO local date time format, e.g.
      * <code>2007-12-03T10:15:30.00Z</code>.
      *
      * @param instant the instant string.
@@ -45,26 +45,35 @@ public class DateTimeUtils
     }
 
     /**
-     * Returns a date-time string with second precision on the format:
-     * <code>yyyy-MM-dd'T'HH:mm:ss</code>.
+     * Indicates whether the given string can be parsed to a local date time,
+     * i.e. is in a valid ISO date time format, e.g.
+     * <code>2007-12-03T10:15:30.00Z</code>.
      *
-     * @param dateTime the {@link LocalDateTime}.
-     * @return a date-time string.
+     * @param instant
+     * @return
      */
-    public static String getTimestampSecondsString( LocalDateTime dateTime )
+    public static boolean isValidLocalDateTime( String instant )
     {
-        return DATE_TIME_S_FORMAT.format( dateTime );
+        try
+        {
+            getLocalDateTime( instant );
+            return true;
+        }
+        catch ( DateTimeException ex )
+        {
+            return false;
+        }
     }
 
     /**
-     * Returns a date-time string with millisecond precision on the format:
+     * Returns a date time string on the format:
      * <code>yyyy-MM-dd'T'HH:mm:ss.SSS</code>.
      *
      * @param dateTime the {@link LocalDateTime}.
      * @return a date-time string.
      */
-    public static String getTimestampMillisString( LocalDateTime dateTime )
+    public static String getLocalDateTimeString( LocalDateTime dateTime )
     {
-        return DATE_TIME_MS_FORMAT.format( dateTime );
+        return DATE_TIME_S_FORMAT.format( dateTime );
     }
 }
