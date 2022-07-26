@@ -83,7 +83,7 @@ public class EventTest
         value = new EventDataValue( "rNwYgGgYzPA", "1" );
 
         assertFalse( value.isBoolean() );
-        assertNull( value.getBooleanValue() );
+        assertFalse( value.getBooleanValue() );
     }
 
     @Test
@@ -97,7 +97,7 @@ public class EventTest
         value = new EventDataValue( "rNwYgGgYzPA", "14.73" );
 
         assertFalse( value.isInteger() );
-        assertNull( value.getIntegerValue() );
+        assertEquals( 0, value.getIntegerValue() );
     }
 
     @Test
@@ -111,7 +111,7 @@ public class EventTest
         value = new EventDataValue( "rNwYgGgYzPA", "Yes" );
 
         assertFalse( value.isDouble() );
-        assertNull( value.getDoubleValue() );
+        assertEquals( 0.0, value.getDoubleValue() );
     }
 
     @Test
@@ -123,5 +123,10 @@ public class EventTest
         assertEquals( 2018, value.getLocalDateTimeValue().getYear() );
         assertEquals( 10, value.getLocalDateTimeValue().getMonthValue() );
         assertEquals( 2, value.getLocalDateTimeValue().getDayOfMonth() );
+
+        value = new EventDataValue( "rNwYgGgYzPA", "2018" );
+
+        assertFalse( value.isLocalDateTime() );
+        assertNull( value.getLocalDateTimeValue() );
     }
 }
