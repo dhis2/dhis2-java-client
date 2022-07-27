@@ -1,12 +1,16 @@
 package org.hisp.dhis.response.objects;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Getter
 @Setter
+@ToString
+@NoArgsConstructor
 public class ObjectStatistics
 {
     @JsonProperty
@@ -20,14 +24,4 @@ public class ObjectStatistics
 
     @JsonProperty
     private Integer ignored;
-
-    @Override
-    public String toString()
-    {
-        return new StringBuilder( "[" )
-            .append( "created: " ).append( created ).append( ", " )
-            .append( "updated: " ).append( updated ).append( ", " )
-            .append( "deleted: " ).append( deleted ).append( ", " )
-            .append( "ignored: " ).append( ignored ).append( "] " ).toString();
-    }
 }

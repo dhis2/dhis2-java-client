@@ -1,12 +1,16 @@
 package org.hisp.dhis.response.job;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Getter
 @Setter
+@ToString
+@NoArgsConstructor
 public class JobInfo
 {
     @JsonProperty
@@ -20,17 +24,4 @@ public class JobInfo
 
     @JsonProperty
     private String relativeNotifierEndpoint;
-
-    public JobInfo()
-    {
-    }
-
-    @Override
-    public String toString()
-    {
-        return new StringBuilder( "[" )
-            .append( "id: " ).append( id ).append( "," )
-            .append( "name: " ).append( name ).append( ", " )
-            .append( "job type: " ).append( jobType ).append( "]" ).toString();
-    }
 }

@@ -4,13 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import lombok.experimental.Accessors;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Getter
 @Setter
+@ToString
+@NoArgsConstructor
 @Accessors( chain = true )
 public class DataValueSet
 {
@@ -29,27 +33,12 @@ public class DataValueSet
     @JsonProperty
     private String attributeOptionCombo;
 
+    @ToString.Exclude
     @JsonProperty
     private List<DataValue> dataValues = new ArrayList<>();
-
-    public DataValueSet()
-    {
-    }
 
     public boolean addDataValue( DataValue dataValue )
     {
         return this.dataValues.add( dataValue );
-    }
-
-    @Override
-    public String toString()
-    {
-        return new StringBuilder( "[" )
-            .append( "dataSet: " ).append( dataSet ).append( ", " )
-            .append( "completeDate: " ).append( completeDate ).append( ", " )
-            .append( "period: " ).append( period ).append( ", " )
-            .append( "orgUnit: " ).append( orgUnit ).append( ", " )
-            .append( "attributeOptionCombo: " ).append( attributeOptionCombo ).append( ", " )
-            .toString();
     }
 }

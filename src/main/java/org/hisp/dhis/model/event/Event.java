@@ -8,6 +8,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import org.apache.commons.lang3.Validate;
 
@@ -17,21 +18,26 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode( onlyExplicitlyIncluded = true )
+@ToString( onlyExplicitlyIncluded = true )
 public class Event
 {
     @EqualsAndHashCode.Include
+    @ToString.Include
     @JsonProperty( value = "event" )
     private String id;
 
     @JsonProperty
     private String program;
 
+    @ToString.Include
     @JsonProperty
     private String programStage;
 
+    @ToString.Include
     @JsonProperty
     private String enrollment;
 
+    @ToString.Include
     @JsonProperty
     private String attributeOptionCombo;
 

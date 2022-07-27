@@ -3,6 +3,7 @@ package org.hisp.dhis.response;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import org.apache.hc.core5.http.Header;
 
@@ -15,6 +16,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 @Getter
 @Setter
+@ToString
 @NoArgsConstructor
 public class Response
     extends BaseHttpResponse
@@ -73,17 +75,5 @@ public class Response
         }
 
         return null;
-    }
-
-    @Override
-    public String toString()
-    {
-        return new StringBuilder( "[" )
-            .append( "status: " ).append( status ).append( ", " )
-            .append( "code: " ).append( code ).append( ", " )
-            .append( "message: " ).append( message ).append( ", " )
-            .append( "errorCode: " ).append( errorCode ).append( ", " )
-            .append( "httpStatusCode: " ).append( httpStatusCode ).append( ", " )
-            .append( "devMessage: " ).append( devMessage ).append( "]" ).toString();
     }
 }
