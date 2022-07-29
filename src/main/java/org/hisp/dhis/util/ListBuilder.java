@@ -27,6 +27,12 @@ public class ListBuilder<T>
         return this;
     }
 
+    public final ListBuilder<T> add( T item )
+    {
+        this.list.add( item );
+        return this;
+    }
+
     public List<T> build()
     {
         return Collections.unmodifiableList( list );
