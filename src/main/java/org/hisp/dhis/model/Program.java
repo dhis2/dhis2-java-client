@@ -6,6 +6,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -13,6 +14,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class Program
     extends NameableObject
 {
@@ -27,10 +29,6 @@ public class Program
 
     @JsonProperty
     private List<ProgramStage> programStages = new ArrayList<>();
-
-    public Program()
-    {
-    }
 
     public Program( String id, String name )
     {
