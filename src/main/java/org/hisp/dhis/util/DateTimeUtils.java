@@ -42,6 +42,26 @@ public class DateTimeUtils
     }
 
     /**
+     * Indicates whether the given string can be parsed to a local date, i.e. is
+     * in a valid ISO date format, e.g. <code>2007-12-03</code>.
+     *
+     * @param string the date string.
+     * @return true if the given string can be parsed to a local date, false
+     *         otherwise.
+     */
+    public static boolean isValidLocalDate( String string )
+    {
+        try
+        {
+            return string != null && getLocalDate( string ) != null;
+        }
+        catch ( DateTimeException ex )
+        {
+            return false;
+        }
+    }
+
+    /**
      * Returns a {@link LocalDateTime} based on the given string using the UTC
      * time zone. The string must be on the ISO local date time format, e.g.
      * <code>2007-12-03T10:15:30.00</code> or
@@ -63,15 +83,15 @@ public class DateTimeUtils
      * i.e. is in a valid ISO date time format, e.g.
      * <code>2007-12-03T10:15:30.00Z</code>.
      *
-     * @param instant the instant string.
+     * @param string the instant string.
      * @return true if the given string can be parsed to a local date time,
      *         false otherwise.
      */
-    public static boolean isValidLocalDateTime( String instant )
+    public static boolean isValidLocalDateTime( String string )
     {
         try
         {
-            return instant != null && getLocalDateTime( instant ) != null;
+            return string != null && getLocalDateTime( string ) != null;
         }
         catch ( DateTimeException ex )
         {

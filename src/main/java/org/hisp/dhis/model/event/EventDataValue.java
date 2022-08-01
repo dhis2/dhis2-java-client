@@ -1,5 +1,6 @@
 package org.hisp.dhis.model.event;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -117,6 +118,27 @@ public class EventDataValue
     public int getIntegerValue()
     {
         return isInteger() ? Integer.valueOf( value ) : 0;
+    }
+
+    /**
+     * Indicates whether the value represents a {@link LocalDate}.
+     *
+     * @return true if the value represents a {@link LocalDate}.
+     */
+    public boolean isLocalDate()
+    {
+        return DateTimeUtils.isValidLocalDate( value );
+    }
+
+    /**
+     * Returns the value as a {@link LocalDate}, only if the value represents a
+     * {@link LocalDate}. Returns null if not.
+     *
+     * @return a {@link LocalDate} or null.
+     */
+    public LocalDate getLocalDateValue()
+    {
+        return DateTimeUtils.isValidLocalDate( value ) ? DateTimeUtils.getLocalDate( value ) : null;
     }
 
     /**

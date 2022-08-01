@@ -25,6 +25,15 @@ public class DateTimeUtilsTest
     }
 
     @Test
+    void testIsValidLocalDate()
+    {
+        assertFalse( DateTimeUtils.isValidLocalDate( "20180122" ) );
+        assertFalse( DateTimeUtils.isValidLocalDate( "2018-10-2T00:00:00.000Z" ) );
+        assertFalse( DateTimeUtils.isValidLocalDate( null ) );
+        assertTrue( DateTimeUtils.isValidLocalDate( "2018-01-22" ) );
+    }
+
+    @Test
     void testGetLocalDateTime()
     {
         LocalDateTime dateTime = DateTimeUtils.getLocalDateTime( "2020-11-15T06:12:26.641" );

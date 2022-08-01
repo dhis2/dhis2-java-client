@@ -115,6 +115,22 @@ public class EventTest
     }
 
     @Test
+    void testGetValueAsLocalDate()
+    {
+        EventDataValue value = new EventDataValue( "rNwYgGgYzPA", "2018-10-02" );
+
+        assertTrue( value.isLocalDate() );
+        assertEquals( 2018, value.getLocalDateValue().getYear() );
+        assertEquals( 10, value.getLocalDateValue().getMonthValue() );
+        assertEquals( 2, value.getLocalDateValue().getDayOfMonth() );
+
+        value = new EventDataValue( "rNwYgGgYzPA", "2018-10-02T14:52:00.000" );
+
+        assertFalse( value.isLocalDate() );
+        assertNull( value.getLocalDateValue() );
+    }
+
+    @Test
     void testGetValueAsLocalDateTime()
     {
         EventDataValue value = new EventDataValue( "rNwYgGgYzPA", "2018-10-02T14:52:00.000Z" );
