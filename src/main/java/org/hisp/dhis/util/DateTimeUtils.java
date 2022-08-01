@@ -1,5 +1,6 @@
 package org.hisp.dhis.util;
 
+import java.text.SimpleDateFormat;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -11,6 +12,8 @@ import org.apache.commons.lang3.StringUtils;
 
 public class DateTimeUtils
 {
+    private static final String DATE_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS";
+
     /**
      * Returns a date.
      *
@@ -69,7 +72,7 @@ public class DateTimeUtils
      * <code>yyyy-MM-dd'T'HH:mm:ss.SSS</code>.
      *
      * @param dateTime the {@link LocalDateTime}.
-     * @return a date-time string.
+     * @return a date time string.
      */
     public static String getLocalDateTimeString( LocalDateTime dateTime )
     {
@@ -78,13 +81,37 @@ public class DateTimeUtils
 
     /**
      * Returns a date time string on the format:
+     * <code>yyyy-MM-dd'T'HH:mm:ss.SSS</code>.
+     *
+     * @param dateTime the {@link Date}.
+     * @return a date time string.
+     */
+    public static String getDateTimeString( Date dateTime )
+    {
+        return new SimpleDateFormat( DATE_TIME_FORMAT ).format( dateTime );
+    }
+
+    /**
+     * Returns a date time string on the format:
      * <code>yyyy-MM-dd'T'HH:mm:ss.SSSZ</code>.
      *
      * @param dateTime the {@link LocalDateTime}.
-     * @return a date-time string.
+     * @return a date time string.
      */
     public static String getUtcDateTimeString( LocalDateTime dateTime )
     {
         return String.format( "%sZ", DateTimeFormatter.ISO_LOCAL_DATE_TIME.format( dateTime ) );
+    }
+
+    /**
+     * Returns a date time string on the format:
+     * <code>yyyy-MM-dd'T'HH:mm:ss.SSSZ</code>.
+     *
+     * @param dateTime the {@link Date}.
+     * @return a date time string.
+     */
+    public static String getUtcDateTimeString( Date dateTime )
+    {
+        return String.format( "%sZ", new SimpleDateFormat( DATE_TIME_FORMAT ).format( dateTime ) );
     }
 }

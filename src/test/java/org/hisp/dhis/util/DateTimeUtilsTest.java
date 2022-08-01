@@ -6,6 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDateTime;
+import java.util.Calendar;
+import java.util.Date;
 
 import org.junit.jupiter.api.Test;
 
@@ -65,10 +67,10 @@ public class DateTimeUtilsTest
     {
         LocalDateTime dateTime = LocalDateTime.of( 2021, 8, 30, 14, 20, 5 );
 
-        String strA = DateTimeUtils.getLocalDateTimeString( dateTime );
+        String str = DateTimeUtils.getLocalDateTimeString( dateTime );
 
-        assertNotNull( strA );
-        assertEquals( "2021-08-30T14:20:05", strA );
+        assertNotNull( str );
+        assertEquals( "2021-08-30T14:20:05", str );
     }
 
     @Test
@@ -76,10 +78,21 @@ public class DateTimeUtilsTest
     {
         LocalDateTime dateTime = LocalDateTime.of( 2021, 5, 20, 14, 20, 5, 372_000_000 );
 
-        String strA = DateTimeUtils.getLocalDateTimeString( dateTime );
+        String str = DateTimeUtils.getLocalDateTimeString( dateTime );
 
-        assertNotNull( strA );
-        assertEquals( "2021-05-20T14:20:05.372", strA );
+        assertNotNull( str );
+        assertEquals( "2021-05-20T14:20:05.372", str );
+    }
+
+    @Test
+    void testGetDateTimeStringFromDate()
+    {
+        Date dateTime = getDate( 2021, 5, 20, 14, 20, 5 );
+
+        String str = DateTimeUtils.getDateTimeString( dateTime );
+
+        assertNotNull( str );
+        assertEquals( "2021-05-20T14:20:05.000", str );
     }
 
     @Test
@@ -87,10 +100,10 @@ public class DateTimeUtilsTest
     {
         LocalDateTime dateTime = LocalDateTime.of( 2021, 8, 30, 14, 20, 5 );
 
-        String strA = DateTimeUtils.getUtcDateTimeString( dateTime );
+        String str = DateTimeUtils.getUtcDateTimeString( dateTime );
 
-        assertNotNull( strA );
-        assertEquals( "2021-08-30T14:20:05Z", strA );
+        assertNotNull( str );
+        assertEquals( "2021-08-30T14:20:05Z", str );
     }
 
     @Test
@@ -98,10 +111,21 @@ public class DateTimeUtilsTest
     {
         LocalDateTime dateTime = LocalDateTime.of( 2021, 5, 20, 14, 20, 5, 372_000_000 );
 
-        String strA = DateTimeUtils.getUtcDateTimeString( dateTime );
+        String str = DateTimeUtils.getUtcDateTimeString( dateTime );
 
-        assertNotNull( strA );
-        assertEquals( "2021-05-20T14:20:05.372Z", strA );
+        assertNotNull( str );
+        assertEquals( "2021-05-20T14:20:05.372Z", str );
+    }
+
+    @Test
+    void testGetUtcDateTimeStringFromDate()
+    {
+        Date dateTime = getDate( 2021, 8, 30, 14, 20, 5 );
+
+        String str = DateTimeUtils.getUtcDateTimeString( dateTime );
+
+        assertNotNull( str );
+        assertEquals( "2021-08-30T14:20:05.000Z", str );
     }
 
     @Test
@@ -164,4 +188,11 @@ public class DateTimeUtilsTest
         assertNotNull( string );
     }
 
+    private Date getDate( int year, int month, int dayOfMonth, int hour, int minute, int second )
+    {
+        Calendar cal = Calendar.getInstance();
+        cal.clear();
+        cal.set( year, (month - 1), dayOfMonth, hour, minute, second );
+        return cal.getTime();
+    }
 }
