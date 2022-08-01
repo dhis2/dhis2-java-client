@@ -47,6 +47,7 @@ public class Event
     @JsonProperty
     private EventStatus status = EventStatus.ACTIVE;
 
+    @ToString.Include
     @JsonProperty
     private String orgUnit;
 
