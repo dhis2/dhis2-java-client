@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
@@ -13,6 +14,16 @@ import org.junit.jupiter.api.Test;
 
 public class DateTimeUtilsTest
 {
+    @Test
+    void testGetLocalDate()
+    {
+        LocalDate date = DateTimeUtils.getLocalDate( "2020-11-15" );
+
+        assertEquals( 2020, date.getYear() );
+        assertEquals( 11, date.getMonthValue() );
+        assertEquals( 15, date.getDayOfMonth() );
+    }
+
     @Test
     void testGetLocalDateTime()
     {

@@ -30,6 +30,18 @@ public class DateTimeUtils
     }
 
     /**
+     * Returns a {@link LocalDate} based on the given string. The string must be
+     * on the ISO local date format, e.g. <code>2007-12-03</code>.
+     *
+     * @param string the date string.
+     * @return a {@link LocalDate}.
+     */
+    public static LocalDate getLocalDate( String string )
+    {
+        return LocalDate.parse( string );
+    }
+
+    /**
      * Returns a {@link LocalDateTime} based on the given string using the UTC
      * time zone. The string must be on the ISO local date time format, e.g.
      * <code>2007-12-03T10:15:30.00</code> or
