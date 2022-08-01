@@ -14,6 +14,8 @@ public class DateTimeUtils
 {
     private static final String DATE_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS";
 
+    private static final String DATE_FORMAT = "yyyy-MM-dd";
+
     /**
      * Returns a date.
      *
@@ -30,6 +32,17 @@ public class DateTimeUtils
     }
 
     /**
+     * Returns a date string on the format: <code>yyyy-MM-dd</code>.
+     *
+     * @param date the {@link Date}.
+     * @return a date string.
+     */
+    public static String getDateString( Date date )
+    {
+        return new SimpleDateFormat( DATE_FORMAT ).format( date );
+    }
+
+    /**
      * Returns a {@link LocalDate} based on the given string. The string must be
      * on the ISO local date format, e.g. <code>2007-12-03</code>.
      *
@@ -39,6 +52,17 @@ public class DateTimeUtils
     public static LocalDate getLocalDate( String string )
     {
         return LocalDate.parse( string );
+    }
+
+    /**
+     * Returns a date string on the format: <code>yyyy-MM-dd</code>.
+     *
+     * @param date the {@link LocalDate}.
+     * @return a date time string.
+     */
+    public static String getLocalDateString( LocalDate date )
+    {
+        return DateTimeFormatter.ISO_LOCAL_DATE.format( date );
     }
 
     /**

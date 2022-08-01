@@ -33,6 +33,16 @@ public class DateTimeUtilsTest
         assertTrue( DateTimeUtils.isValidLocalDate( "2018-01-22" ) );
     }
 
+    void testGetLocalDateString()
+    {
+        LocalDate date = LocalDate.of( 2021, 8, 30 );
+
+        String str = DateTimeUtils.getLocalDateString( date );
+
+        assertNotNull( str );
+        assertEquals( "2021-08-30", str );
+    }
+
     @Test
     void testGetLocalDateTime()
     {
@@ -113,6 +123,17 @@ public class DateTimeUtilsTest
 
         assertNotNull( str );
         assertEquals( "2021-05-20T14:20:05.000", str );
+    }
+
+    @Test
+    void testGetDateStringFromDate()
+    {
+        Date dateTime = getDate( 2021, 5, 20, 0, 0, 0 );
+
+        String str = DateTimeUtils.getDateString( dateTime );
+
+        assertNotNull( str );
+        assertEquals( "2021-05-20", str );
     }
 
     @Test
