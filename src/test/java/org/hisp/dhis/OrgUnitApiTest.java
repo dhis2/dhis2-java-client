@@ -9,6 +9,7 @@ import java.util.Date;
 import org.hisp.dhis.model.Attribute;
 import org.hisp.dhis.model.AttributeValue;
 import org.hisp.dhis.model.OrgUnit;
+import org.hisp.dhis.model.OrgUnitGroup;
 import org.hisp.dhis.request.orgunit.OrgUnitMergeRequest;
 import org.hisp.dhis.response.Dhis2ClientException;
 import org.hisp.dhis.response.Response;
@@ -120,5 +121,31 @@ public class OrgUnitApiTest
             () -> dhis2.getOrgUnit( uidB ) ).getStatusCode() );
         assertEquals( 404, assertThrows( Dhis2ClientException.class,
             () -> dhis2.getOrgUnit( uidC ) ).getStatusCode() );
+    }
+
+    @Test
+    void testAddOrgUnitToGroup()
+    {
+        Dhis2 dhis2 = new Dhis2( TestFixture.DEFAULT_CONFIG );
+
+        String ouId = UidUtils.generateUid();
+        String ougId = UidUtils.generateUid();
+
+        OrgUnit ou = new OrgUnit( ouId, ouId, ouId );
+        ou.setOpeningDate( new Date() );
+
+        ObjectResponse ouResp = dhis2.saveOrgUnit( ou );
+
+        assertEquals( Status.OK, ouResp.getStatus() );
+
+        OrgUnitGroup oug = new OrgUnitGroup( ougId, ougId );
+
+        ObjectResponse ougResp = dhis2.saveOrgUnitGroup( oug );
+
+        assertEquals( Status.OK, ougResp.getStatus() );
+
+        Response resp = dhis2.addOrgUnitToOrgUnitGroup( ougId, ouId );
+
+        assertEquals( Status.OK, resp.getStatus() );
     }
 }

@@ -35,7 +35,6 @@ import org.apache.hc.core5.http.ContentType;
 import org.apache.hc.core5.http.HttpEntity;
 import org.apache.hc.core5.http.HttpHeaders;
 import org.apache.hc.core5.http.HttpResponse;
-import org.apache.hc.core5.http.HttpStatus;
 import org.apache.hc.core5.http.ParseException;
 import org.apache.hc.core5.http.io.entity.EntityUtils;
 import org.apache.hc.core5.http.io.entity.StringEntity;
@@ -55,7 +54,9 @@ import org.hisp.dhis.query.analytics.Dimension;
 import org.hisp.dhis.query.event.EventsQuery;
 import org.hisp.dhis.response.BaseHttpResponse;
 import org.hisp.dhis.response.Dhis2ClientException;
+import org.hisp.dhis.response.HttpStatus;
 import org.hisp.dhis.response.Response;
+import org.hisp.dhis.response.Status;
 import org.hisp.dhis.response.object.ObjectResponse;
 import org.hisp.dhis.response.objects.ObjectsResponse;
 import org.hisp.dhis.util.HttpUtils;
@@ -390,7 +391,8 @@ public class BaseDhis2
     }
 
     /**
-     * Executes the given request and returns a response message.
+     * Executes the given request, parses the response body and returns a
+     * response message.
      *
      * @param request the request.
      * @param type the class type for the response entity.
@@ -422,7 +424,41 @@ public class BaseDhis2
         }
         catch ( ParseException ex )
         {
-            throw new Dhis2ClientException( "HTTP headers could not be parsed", ex );
+            throw new Dhis2ClientException( "HTTP response body could not be parsed", ex );
+        }
+    }
+
+    /**
+     * Executes the given request without attempting to parse a response body
+     * and returns a response message.
+     *
+     * @param request the request.
+     * @param type the class type for the response entity.
+     * @return a response message.
+     * @throws Dhis2ClientException if access denied or resource not found.
+     */
+    protected Response executeRequest( HttpUriRequestBase request )
+    {
+        withAuth( request );
+
+        try ( CloseableHttpResponse response = httpClient.execute( request ) )
+        {
+            handleErrors( response );
+
+            HttpStatus httpStatus = HttpStatus.valueOf( response.getCode() );
+            Status status = httpStatus != null && httpStatus.is2xxSuccessful() ? Status.OK : Status.ERROR;
+
+            Response resp = new Response();
+
+            resp.setHeaders( asList( response.getHeaders() ) );
+            resp.setStatus( status );
+            resp.setHttpStatusCode( response.getCode() );
+
+            return resp;
+        }
+        catch ( IOException ex )
+        {
+            throw newDhis2ClientException( ex );
         }
     }
 
@@ -551,7 +587,7 @@ public class BaseDhis2
     {
         if ( object == null )
         {
-            throw new Dhis2ClientException( "Request object is null", HttpStatus.SC_BAD_REQUEST );
+            throw new Dhis2ClientException( "Request object is null", 400 );
         }
     }
 
@@ -772,5 +808,30 @@ public class BaseDhis2
     protected <T> T getObject( String path, Class<T> type )
     {
         return getObjectFromUrl( config.getResolvedUrl( path ), type );
+    }
+
+    /**
+     * Adds the item to the collection of the entity with the given identifier.
+     *
+     * @param path the object path in plural.
+     * @param id the object identifier.
+     * @param collection the collection path.
+     * @param item the item identifier.
+     * @return a {@link Response} holding information about the operation.
+     */
+    protected Response addToCollection( String path, String id, String collection, String item )
+    {
+        URI url = HttpUtils.build( config.getResolvedUriBuilder()
+            .appendPath( path )
+            .appendPath( id )
+            .appendPath( collection )
+            .appendPath( item ) );
+
+        Response response = executeRequest( new HttpPost( url ) );
+
+        Status status = response != null && response.getHttpStatus() != null
+            && response.getHttpStatus().is2xxSuccessful() ? Status.OK : Status.ERROR;
+
+        return new Response( status, response.getHttpStatusCode(), response.getMessage() );
     }
 }

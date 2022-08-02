@@ -492,6 +492,18 @@ public class Dhis2
                 .getOrganisationUnitGroups();
     }
 
+    /**
+     * Adds the program to the org unit.
+     *
+     * @param orgUnitGroup the org unit group identifier.
+     * @param orgUnit the org unit identifier.
+     * @return a {@link Response}.
+     */
+    public Response addOrgUnitToOrgUnitGroup( String orgUnitGroup, String orgUnit )
+    {
+        return addToCollection( "organisationUnitGroups", orgUnitGroup, "organisationUnits", orgUnit );
+    }
+
     // -------------------------------------------------------------------------
     // Org unit group set
     // -------------------------------------------------------------------------
@@ -1039,6 +1051,18 @@ public class Dhis2
             .appendPath( "programs" )
             .addParameter( "fields", fieldsParam ), query, Objects.class )
                 .getPrograms();
+    }
+
+    /**
+     * Adds the program to the org unit.
+     *
+     * @param program the program identifier.
+     * @param orgUnit the org unit identifier.
+     * @return a {@link Response}.
+     */
+    public Response addOrgUnitToProgram( String program, String orgUnit )
+    {
+        return addToCollection( "programs", program, "organisationUnits", orgUnit );
     }
 
     // -------------------------------------------------------------------------
