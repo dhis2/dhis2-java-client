@@ -380,7 +380,7 @@ public class BaseDhis2
 
         String requestBody = toJsonString( object );
 
-        log.debug( "Request body: '{}'", requestBody );
+        log.info( "Request body: '{}'", requestBody );
 
         HttpEntity entity = new StringEntity( requestBody, StandardCharsets.UTF_8 );
 
