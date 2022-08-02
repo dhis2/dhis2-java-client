@@ -433,7 +433,6 @@ public class BaseDhis2
      * and returns a response message.
      *
      * @param request the request.
-     * @param type the class type for the response entity.
      * @return a response message.
      * @throws Dhis2ClientException if access denied or resource not found.
      */
