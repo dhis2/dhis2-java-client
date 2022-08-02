@@ -33,6 +33,7 @@ public class DateTimeUtilsTest
         assertTrue( DateTimeUtils.isValidLocalDate( "2018-01-22" ) );
     }
 
+    @Test
     void testGetLocalDateString()
     {
         LocalDate date = LocalDate.of( 2021, 8, 30 );
