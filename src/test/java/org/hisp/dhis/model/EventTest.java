@@ -124,10 +124,17 @@ public class EventTest
         assertEquals( 10, value.getLocalDateValue().getMonthValue() );
         assertEquals( 2, value.getLocalDateValue().getDayOfMonth() );
 
-        value = new EventDataValue( "rNwYgGgYzPA", "2018-10-02T14:52:00.000" );
+        value = new EventDataValue( "rNwYgGgYzPA", "20190804" );
 
         assertFalse( value.isLocalDate() );
-        assertNull( value.getLocalDateValue() );
+
+        value = new EventDataValue( "rNwYgGgYzPA", "2020-07-12T14:52:00.000" );
+
+        assertFalse( value.isLocalDate() );
+        assertTrue( value.isLocalDateTime() );
+        assertEquals( 2020, value.getLocalDateValue().getYear() );
+        assertEquals( 7, value.getLocalDateValue().getMonthValue() );
+        assertEquals( 12, value.getLocalDateValue().getDayOfMonth() );
     }
 
     @Test

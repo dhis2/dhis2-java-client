@@ -93,6 +93,16 @@ public class DateTimeUtilsTest
     }
 
     @Test
+    void testGetLocalDateTimeAsDate()
+    {
+        LocalDate date = DateTimeUtils.getLocalDateTimeAsDate( "2020-11-15T06:12:26.641" );
+
+        assertEquals( 2020, date.getYear() );
+        assertEquals( 11, date.getMonthValue() );
+        assertEquals( 15, date.getDayOfMonth() );
+    }
+
+    @Test
     void testGetLocalDateTimeStringA()
     {
         LocalDateTime dateTime = LocalDateTime.of( 2021, 8, 30, 14, 20, 5 );

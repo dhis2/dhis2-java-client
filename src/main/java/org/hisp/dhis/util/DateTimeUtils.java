@@ -103,6 +103,21 @@ public class DateTimeUtils
     }
 
     /**
+     * Returns a {@link LocalDate} based on the given string using the UTC time
+     * zone. The string must be on the ISO local date time format, e.g.
+     * <code>2007-12-03T10:15:30.00</code> or
+     * <code>2007-12-03T10:15:30.00Z</code>. A trailing 'Z' indicating Zulu/UTC
+     * time will be ignored.
+     *
+     * @param string the instant string.
+     * @return a {@link LocalDateTime}.
+     */
+    public static LocalDate getLocalDateTimeAsDate( String string )
+    {
+        return getLocalDateTime( string ).toLocalDate();
+    }
+
+    /**
      * Indicates whether the given string can be parsed to a local date time,
      * i.e. is in a valid ISO date time format, e.g.
      * <code>2007-12-03T10:15:30.00Z</code>.

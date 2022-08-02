@@ -12,6 +12,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.hisp.dhis.util.DateTimeUtils;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Getter
@@ -52,6 +53,7 @@ public class EventDataValue
      *
      * @return true if the value is not null or empty.
      */
+    @JsonIgnore
     public boolean hasValue()
     {
         return StringUtils.isNotEmpty( value );
@@ -62,6 +64,7 @@ public class EventDataValue
      *
      * @return true if the value represents a boolean.
      */
+    @JsonIgnore
     public boolean isBoolean()
     {
         return VALUE_TRUE.equalsIgnoreCase( value ) || VALUE_FALSE.equalsIgnoreCase( value );
@@ -73,6 +76,7 @@ public class EventDataValue
      *
      * @return a boolean value.
      */
+    @JsonIgnore
     public boolean getBooleanValue()
     {
         return isBoolean() ? Boolean.valueOf( value ) : false;
@@ -83,6 +87,7 @@ public class EventDataValue
      *
      * @return true if the value represents a double.
      */
+    @JsonIgnore
     public boolean isDouble()
     {
         return NumberUtils.isCreatable( value );
@@ -94,6 +99,7 @@ public class EventDataValue
      *
      * @return a double value.
      */
+    @JsonIgnore
     public double getDoubleValue()
     {
         return isDouble() ? Double.valueOf( value ) : 0.0;
@@ -104,6 +110,7 @@ public class EventDataValue
      *
      * @return true if the value represents an integer.
      */
+    @JsonIgnore
     public boolean isInteger()
     {
         return StringUtils.isNumeric( value );
@@ -115,6 +122,7 @@ public class EventDataValue
      *
      * @return an integer value.
      */
+    @JsonIgnore
     public int getIntegerValue()
     {
         return isInteger() ? Integer.valueOf( value ) : 0;
@@ -125,6 +133,7 @@ public class EventDataValue
      *
      * @return true if the value represents a {@link LocalDate}.
      */
+    @JsonIgnore
     public boolean isLocalDate()
     {
         return DateTimeUtils.isValidLocalDate( value );
@@ -132,13 +141,21 @@ public class EventDataValue
 
     /**
      * Returns the value as a {@link LocalDate}, only if the value represents a
-     * {@link LocalDate}. Returns null if not.
+     * {@link LocalDate} or a {@link LocalDateTime}. If the value represents the
+     * latter, the {@link LocalDateTime} is converted to a {@link LocalDate}.
+     * Returns null if not.
      *
      * @return a {@link LocalDate} or null.
      */
+    @JsonIgnore
     public LocalDate getLocalDateValue()
     {
-        return DateTimeUtils.isValidLocalDate( value ) ? DateTimeUtils.getLocalDate( value ) : null;
+        if ( DateTimeUtils.isValidLocalDate( value ) )
+        {
+            return DateTimeUtils.getLocalDate( value );
+        }
+
+        return DateTimeUtils.isValidLocalDateTime( value ) ? DateTimeUtils.getLocalDateTimeAsDate( value ) : null;
     }
 
     /**
@@ -146,6 +163,7 @@ public class EventDataValue
      *
      * @return true if the value represents a {@link LocalDateTime}.
      */
+    @JsonIgnore
     public boolean isLocalDateTime()
     {
         return DateTimeUtils.isValidLocalDateTime( value );
@@ -157,6 +175,7 @@ public class EventDataValue
      *
      * @return a {@link LocalDateTime} or null.
      */
+    @JsonIgnore
     public LocalDateTime getLocalDateTimeValue()
     {
         return DateTimeUtils.isValidLocalDateTime( value ) ? DateTimeUtils.getLocalDateTime( value ) : null;
