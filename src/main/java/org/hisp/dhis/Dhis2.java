@@ -897,7 +897,7 @@ public class Dhis2
     }
 
     /**
-     * Indicates whether a {@link isDataElement} exists.
+     * Indicates whether a {@link DataElement} exists.
      *
      * @param id the object identifier.
      * @return true if the object exists.
