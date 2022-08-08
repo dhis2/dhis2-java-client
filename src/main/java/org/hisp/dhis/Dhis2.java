@@ -13,7 +13,6 @@ import java.util.List;
 import org.apache.commons.lang3.Validate;
 import org.apache.hc.client5.http.HttpResponseException;
 import org.apache.hc.client5.http.classic.methods.HttpGet;
-import org.apache.hc.client5.http.classic.methods.HttpHead;
 import org.apache.hc.client5.http.classic.methods.HttpPost;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
 import org.apache.hc.core5.http.ContentType;
@@ -138,18 +137,8 @@ public class Dhis2
      */
     public boolean objectExists( String path )
     {
-        URI url = config.getResolvedUrl( path );
-
-        HttpHead request = withAuth( new HttpHead( url ) );
-
-        try ( CloseableHttpResponse response = httpClient.execute( request ) )
-        {
-            return HttpStatus.OK.value() == response.getCode();
-        }
-        catch ( IOException ex )
-        {
-            return false;
-        }
+        return objectExists( config.getResolvedUriBuilder()
+            .appendPath( path ) );
     }
 
     // -------------------------------------------------------------------------
@@ -347,6 +336,19 @@ public class Dhis2
             .appendPath( "organisationUnits" )
             .appendPath( id )
             .addParameter( "fields", ORG_UNIT_FIELDS ), Query.instance(), OrgUnit.class );
+    }
+
+    /**
+     * Indicates whether an {@link OrgUnit} exists.
+     *
+     * @param id the object identifier.
+     * @return true if the object exists.
+     */
+    public boolean isOrgUnit( String id )
+    {
+        return objectExists( config.getResolvedUriBuilder()
+            .appendPath( "organisationUnits" )
+            .appendPath( id ) );
     }
 
     /**
@@ -772,6 +774,19 @@ public class Dhis2
     }
 
     /**
+     * Indicates whether a {@link Category} exists.
+     *
+     * @param id the object identifier.
+     * @return true if the object exists.
+     */
+    public boolean isCategory( String id )
+    {
+        return objectExists( config.getResolvedUriBuilder()
+            .appendPath( "categories" )
+            .appendPath( id ) );
+    }
+
+    /**
      * Retrieves a list of {@link Category}.
      *
      * @param query the {@link Query}.
@@ -879,6 +894,19 @@ public class Dhis2
             .appendPath( "dataElements" )
             .appendPath( id )
             .addParameter( "fields", DATA_ELEMENT_FIELDS ), Query.instance(), DataElement.class );
+    }
+
+    /**
+     * Indicates whether a {@link isDataElement} exists.
+     *
+     * @param id the object identifier.
+     * @return true if the object exists.
+     */
+    public boolean isDataElement( String id )
+    {
+        return objectExists( config.getResolvedUriBuilder()
+            .appendPath( "dataElements" )
+            .appendPath( id ) );
     }
 
     /**
@@ -1028,6 +1056,19 @@ public class Dhis2
             .appendPath( "programs" )
             .appendPath( id )
             .addParameter( "fields", fieldsParam ), Query.instance(), Program.class );
+    }
+
+    /**
+     * Indicates whether a {@link Program} exists.
+     *
+     * @param id the object identifier.
+     * @return true if the object exists.
+     */
+    public boolean isProgram( String id )
+    {
+        return objectExists( config.getResolvedUriBuilder()
+            .appendPath( "programs" )
+            .appendPath( id ) );
     }
 
     /**

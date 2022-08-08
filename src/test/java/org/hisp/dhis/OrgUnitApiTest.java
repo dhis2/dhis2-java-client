@@ -1,8 +1,10 @@
 package org.hisp.dhis;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Date;
 
@@ -41,6 +43,15 @@ public class OrgUnitApiTest
         assertNotNull( ou.getParent() );
         assertEquals( "O6uvpzGd5pu", ou.getParent().getId() );
         assertNotNull( ou.getOpeningDate() );
+    }
+
+    @Test
+    void testIsOrgUnit()
+    {
+        Dhis2 dhis2 = new Dhis2( TestFixture.DEFAULT_CONFIG );
+
+        assertTrue( dhis2.isOrgUnit( "qhqAxPSTUXp" ) );
+        assertFalse( dhis2.isOrgUnit( "VhZoBbbnMeO" ) );
     }
 
     @Test

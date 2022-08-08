@@ -139,6 +139,14 @@ orgUnit.setCode( "NGLH" );
 ObjectResponse response = dhis2.updateOrgUnit( orgUnit );
 ```
 
+### Check if object exists
+
+To check if an object exists:
+
+```java
+boolean exists = dhis2.isOrgUnit( "O6uvpzGd5pu" );
+```
+
 ### Remove object
 
 To remove an org unit:

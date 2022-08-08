@@ -25,6 +25,7 @@ import org.apache.commons.lang3.Validate;
 import org.apache.hc.client5.http.HttpResponseException;
 import org.apache.hc.client5.http.classic.methods.HttpDelete;
 import org.apache.hc.client5.http.classic.methods.HttpGet;
+import org.apache.hc.client5.http.classic.methods.HttpHead;
 import org.apache.hc.client5.http.classic.methods.HttpPost;
 import org.apache.hc.client5.http.classic.methods.HttpPut;
 import org.apache.hc.client5.http.classic.methods.HttpUriRequestBase;
@@ -134,6 +135,26 @@ public class BaseDhis2
         URI url = getQuery( uriBuilder, query );
 
         return getObjectFromUrl( url, type );
+    }
+
+    /**
+     * Indicates whether an object exists using HTTP HEAD.
+     *
+     * @param uriBuilder the URI builder.
+     * @return true if the object exists.
+     */
+    protected boolean objectExists( URIBuilder uriBuilder )
+    {
+        HttpHead request = withAuth( new HttpHead( HttpUtils.build( uriBuilder ) ) );
+
+        try ( CloseableHttpResponse response = httpClient.execute( request ) )
+        {
+            return HttpStatus.OK.value() == response.getCode();
+        }
+        catch ( IOException ex )
+        {
+            return false;
+        }
     }
 
     /**
