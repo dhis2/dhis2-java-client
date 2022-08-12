@@ -27,7 +27,7 @@ public class Dhis2Config
     private final Authentication authentication;
 
     /**
-     * Main constructor.
+     * Constructor. Uses basic authentication.
      *
      * @param url the URL to the DHIS 2 instance, do not include the
      *        {@code /api} part or a trailing {@code /}.
@@ -44,7 +44,7 @@ public class Dhis2Config
     }
 
     /**
-     * Main constructor.
+     * Constructor. Uses basic authentication.
      *
      * @param url the URL to the DHIS 2 instance, do not include the
      *        {@code /api} part or a trailing {@code /}.
