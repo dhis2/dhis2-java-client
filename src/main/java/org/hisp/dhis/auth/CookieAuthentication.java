@@ -10,11 +10,11 @@ public class CookieAuthentication
     implements Authentication
 {
     @NonNull
-    private final String value;
+    private final String sessionId;
 
     @Override
     public String getHttpHeaderAuthValue()
     {
-        return String.format( "JSESSIONID=%s", value );
+        return String.format( "JSESSIONID=%s", sessionId );
     }
 }

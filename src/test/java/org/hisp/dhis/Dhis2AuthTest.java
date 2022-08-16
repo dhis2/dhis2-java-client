@@ -32,6 +32,14 @@ public class Dhis2AuthTest
     }
 
     @Test
+    void testBasicAuthInstance()
+    {
+        Dhis2 dhis2 = Dhis2.withBasicAuth( TestFixture.DEFAULT_URL, "admin", "district" );
+
+        assertNotNull( dhis2.getDataElements( Query.instance() ) );
+    }
+
+    @Test
     void testBasicAuthentication()
     {
         Authentication authentication = new BasicAuthentication( "admin", "district" );
