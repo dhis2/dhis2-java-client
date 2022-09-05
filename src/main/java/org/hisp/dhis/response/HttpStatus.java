@@ -188,7 +188,8 @@ public enum HttpStatus
         HttpStatus status = resolve( statusCode );
         if ( status == null )
         {
-            throw new IllegalArgumentException( "No matching constant for [" + statusCode + "]" );
+            throw new IllegalArgumentException( String.format(
+                "No matching constant for status code: %d", statusCode ) );
         }
         return status;
     }
