@@ -71,7 +71,7 @@ public class EventsApiTest
         EventResponse response = dhis2.saveEvents( events );
 
         assertNotNull( response );
-        assertEquals( Status.OK, response.getStatus() );
+        assertEquals( Status.OK, response.getStatus(), response.toString() );
         assertEquals( 2, response.getStats().getCreated() );
         assertEquals( 0, response.getStats().getUpdated() );
         assertEquals( 0, response.getStats().getIgnored() );
@@ -92,7 +92,7 @@ public class EventsApiTest
         response = dhis2.removeEvent( evA );
 
         assertNotNull( response );
-        assertEquals( Status.OK, response.getStatus() );
+        assertEquals( Status.OK, response.getStatus(), response.toString() );
         assertEquals( 0, response.getStats().getCreated() );
         assertEquals( 0, response.getStats().getUpdated() );
         assertEquals( 0, response.getStats().getIgnored() );
@@ -101,7 +101,7 @@ public class EventsApiTest
         response = dhis2.removeEvent( evB );
 
         assertNotNull( response );
-        assertEquals( Status.OK, response.getStatus() );
+        assertEquals( Status.OK, response.getStatus(), response.toString() );
         assertEquals( 0, response.getStats().getCreated() );
         assertEquals( 0, response.getStats().getUpdated() );
         assertEquals( 0, response.getStats().getIgnored() );
@@ -155,7 +155,7 @@ public class EventsApiTest
         EventResponse response = dhis2.saveEvents( events );
 
         assertNotNull( response );
-        assertEquals( Status.OK, response.getStatus() );
+        assertEquals( Status.OK, response.getStatus(), response.toString() );
         assertEquals( 2, response.getStats().getCreated() );
 
         assertNotNull( dhis2.getEvent( evA.getId() ) );
@@ -164,7 +164,7 @@ public class EventsApiTest
         response = dhis2.removeEvents( events );
 
         assertNotNull( response );
-        assertEquals( Status.OK, response.getStatus() );
+        assertEquals( Status.OK, response.getStatus(), response.toString() );
         assertEquals( 0, response.getStats().getCreated() );
         assertEquals( 0, response.getStats().getUpdated() );
         assertEquals( 0, response.getStats().getIgnored() );
@@ -203,7 +203,7 @@ public class EventsApiTest
         EventResponse response = dhis2.saveEvents( events );
 
         assertNotNull( response );
-        assertEquals( Status.ERROR, response.getStatus() );
+        assertEquals( Status.ERROR, response.getStatus(), response.toString() );
         assertEquals( 1, response.getStats().getIgnored() );
         assertEquals( 1, response.getValidationReport().getErrorReports().size() );
 

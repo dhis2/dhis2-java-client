@@ -57,9 +57,9 @@ public class Dhis2CrudApiTest
         log.info( "UID: {}", createRespA.getResponse().getUid() );
         log.info( "Response: {}", createRespA.getResponse().toString() );
 
-        assertEquals( 201, createRespA.getHttpStatusCode().intValue() );
-        assertEquals( HttpStatus.CREATED, createRespA.getHttpStatus() );
-        assertEquals( Status.OK, createRespA.getStatus() );
+        assertEquals( 201, createRespA.getHttpStatusCode().intValue(), createRespA.toString() );
+        assertEquals( HttpStatus.CREATED, createRespA.getHttpStatus(), createRespA.toString() );
+        assertEquals( Status.OK, createRespA.getStatus(), createRespA.toString() );
         assertNotNull( createRespA.getResponse() );
         assertNotNull( createRespA.getResponse().getUid() );
 
@@ -89,10 +89,10 @@ public class Dhis2CrudApiTest
 
         ObjectResponse updateRespA = dhis2.updateCategoryOption( coA );
 
-        assertEquals( 200, updateRespA.getHttpStatusCode().intValue() );
-        assertEquals( HttpStatus.OK, updateRespA.getHttpStatus() );
-        assertEquals( Status.OK, updateRespA.getStatus() );
-        assertEquals( uidA, updateRespA.getResponse().getUid() );
+        assertEquals( 200, updateRespA.getHttpStatusCode().intValue(), updateRespA.toString() );
+        assertEquals( HttpStatus.OK, updateRespA.getHttpStatus(), updateRespA.toString() );
+        assertEquals( Status.OK, updateRespA.getStatus(), updateRespA.toString() );
+        assertEquals( uidA, updateRespA.getResponse().getUid(), updateRespA.toString() );
 
         // Get
 
@@ -112,10 +112,10 @@ public class Dhis2CrudApiTest
 
         ObjectResponse removeRespA = dhis2.removeCategoryOption( uidA );
 
-        assertEquals( 200, removeRespA.getHttpStatusCode().intValue() );
-        assertEquals( HttpStatus.OK, removeRespA.getHttpStatus() );
-        assertEquals( Status.OK, removeRespA.getStatus() );
-        assertEquals( uidA, updateRespA.getResponse().getUid() );
+        assertEquals( 200, removeRespA.getHttpStatusCode().intValue(), removeRespA.toString() );
+        assertEquals( HttpStatus.OK, removeRespA.getHttpStatus(), removeRespA.toString() );
+        assertEquals( Status.OK, removeRespA.getStatus(), removeRespA.toString() );
+        assertEquals( uidA, updateRespA.getResponse().getUid(), removeRespA.toString() );
     }
 
     @Test
@@ -132,9 +132,9 @@ public class Dhis2CrudApiTest
 
         ObjectResponse createRespA = dhis2.saveOrgUnitGroup( ougA );
 
-        assertEquals( 201, createRespA.getHttpStatusCode().intValue() );
-        assertEquals( HttpStatus.CREATED, createRespA.getHttpStatus() );
-        assertEquals( Status.OK, createRespA.getStatus() );
+        assertEquals( 201, createRespA.getHttpStatusCode().intValue(), createRespA.toString() );
+        assertEquals( HttpStatus.CREATED, createRespA.getHttpStatus(), createRespA.toString() );
+        assertEquals( Status.OK, createRespA.getStatus(), createRespA.toString() );
         assertNotNull( createRespA.getResponse() );
         assertNotNull( createRespA.getResponse().getUid() );
 
@@ -155,18 +155,18 @@ public class Dhis2CrudApiTest
 
         ObjectResponse updateRespA = dhis2.updateOrgUnitGroup( ougA );
 
-        assertEquals( 200, updateRespA.getHttpStatusCode().intValue() );
-        assertEquals( HttpStatus.OK, updateRespA.getHttpStatus() );
-        assertEquals( Status.OK, updateRespA.getStatus() );
-        assertEquals( uidA, updateRespA.getResponse().getUid() );
+        assertEquals( 200, updateRespA.getHttpStatusCode().intValue(), updateRespA.toString() );
+        assertEquals( HttpStatus.OK, updateRespA.getHttpStatus(), updateRespA.toString() );
+        assertEquals( Status.OK, updateRespA.getStatus(), updateRespA.toString() );
+        assertEquals( uidA, updateRespA.getResponse().getUid(), updateRespA.toString() );
 
         // Remove
 
         ObjectResponse removeRespA = dhis2.removeOrgUnitGroup( uidA );
 
-        assertEquals( 200, removeRespA.getHttpStatusCode().intValue() );
-        assertEquals( HttpStatus.OK, removeRespA.getHttpStatus() );
-        assertEquals( Status.OK, removeRespA.getStatus() );
+        assertEquals( 200, removeRespA.getHttpStatusCode().intValue(), removeRespA.toString() );
+        assertEquals( HttpStatus.OK, removeRespA.getHttpStatus(), removeRespA.toString() );
+        assertEquals( Status.OK, removeRespA.getStatus(), removeRespA.toString() );
         assertNotNull( removeRespA.getResponse() );
         assertNotNull( removeRespA.getResponse().getUid() );
     }

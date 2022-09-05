@@ -8,6 +8,7 @@ import lombok.Getter;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 import org.apache.hc.core5.net.URIBuilder;
+import org.hisp.dhis.auth.AccessTokenAuthentication;
 import org.hisp.dhis.auth.Authentication;
 import org.hisp.dhis.auth.BasicAuthentication;
 import org.hisp.dhis.auth.CookieAuthentication;
@@ -26,7 +27,7 @@ public class Dhis2Config
     private final Authentication authentication;
 
     /**
-     * Main constructor.
+     * Constructor. Uses basic authentication.
      *
      * @param url the URL to the DHIS 2 instance, do not include the
      *        {@code /api} part or a trailing {@code /}.
@@ -43,12 +44,13 @@ public class Dhis2Config
     }
 
     /**
-     * Main constructor.
+     * Constructor. Uses basic authentication.
      *
      * @param url the URL to the DHIS 2 instance, do not include the
      *        {@code /api} part or a trailing {@code /}.
      * @param authentication the {@link Authentication}, can be
-     *        {@link BasicAuthentication} or {@link CookieAuthentication}.
+     *        {@link BasicAuthentication}, {@link AccessTokenAuthentication} or
+     *        {@link CookieAuthentication}.
      */
     public Dhis2Config( String url, Authentication authentication )
     {

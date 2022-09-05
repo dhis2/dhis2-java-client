@@ -18,6 +18,9 @@ import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
 import org.apache.hc.core5.http.ContentType;
 import org.apache.hc.core5.http.io.entity.FileEntity;
 import org.apache.hc.core5.http.io.entity.StringEntity;
+import org.hisp.dhis.auth.AccessTokenAuthentication;
+import org.hisp.dhis.auth.BasicAuthentication;
+import org.hisp.dhis.auth.CookieAuthentication;
 import org.hisp.dhis.model.Category;
 import org.hisp.dhis.model.CategoryCombo;
 import org.hisp.dhis.model.CategoryOption;
@@ -71,6 +74,48 @@ public class Dhis2
     public Dhis2( Dhis2Config config )
     {
         super( config );
+    }
+
+    /**
+     * Creates a {@link Dhis2} instance configured for basic authentication.
+     *
+     *
+     * @param url the URL to the DHIS 2 instance, do not include the
+     *        {@code /api} part or a trailing {@code /}.
+     * @param username the DHIS 2 account username.
+     * @param password the DHIS 2 account password.
+     * @return a {@link Dhis2} instance.
+     */
+    public static Dhis2 withBasicAuth( String url, String username, String password )
+    {
+        return new Dhis2( new Dhis2Config( url, new BasicAuthentication( username, password ) ) );
+    }
+
+    /**
+     * Creates a {@link Dhis2} instance configured for access token (PAT)
+     * authentication.
+     *
+     * @param url the URL to the DHIS 2 instance, do not include the
+     *        {@code /api} part or a trailing {@code /}.
+     * @param accessToken the access token (PAT).
+     * @return a {@link Dhis2} instance.
+     */
+    public static Dhis2 withAccessTokenAuth( String url, String accessToken )
+    {
+        return new Dhis2( new Dhis2Config( url, new AccessTokenAuthentication( accessToken ) ) );
+    }
+
+    /**
+     * Creates a {@link Dhis2} instance configured for cookie authentication.
+     *
+     * @param url the URL to the DHIS 2 instance, do not include the
+     *        {@code /api} part or a trailing {@code /}.
+     * @param sessionId the session identifier.
+     * @return a {@link Dhis2} instance.
+     */
+    public static Dhis2 withCookieAuth( String url, String sessionId )
+    {
+        return new Dhis2( new Dhis2Config( url, new CookieAuthentication( sessionId ) ) );
     }
 
     // -------------------------------------------------------------------------

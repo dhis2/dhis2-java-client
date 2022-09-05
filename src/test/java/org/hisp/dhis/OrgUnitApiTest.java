@@ -87,7 +87,7 @@ public class OrgUnitApiTest
 
         response = dhis2.removeOrgUnit( uidA );
 
-        assertEquals( Status.OK, response.getStatus() );
+        assertEquals( Status.OK, response.getStatus(), response.toString() );
     }
 
     @Test
@@ -121,7 +121,7 @@ public class OrgUnitApiTest
 
         Response response = dhis2.mergeOrgUnits( request );
 
-        assertEquals( Status.OK, response.getStatus() );
+        assertEquals( Status.OK, response.getStatus(), response.toString() );
 
         assertNotNull( dhis2.getOrgUnit( uidC ) );
         assertEquals( Status.OK, dhis2.removeOrgUnit( uidC ).getStatus() );
@@ -147,16 +147,16 @@ public class OrgUnitApiTest
 
         ObjectResponse ouResp = dhis2.saveOrgUnit( ou );
 
-        assertEquals( Status.OK, ouResp.getStatus() );
+        assertEquals( Status.OK, ouResp.getStatus(), ouResp.toString() );
 
         OrgUnitGroup oug = new OrgUnitGroup( ougId, ougId );
 
         ObjectResponse ougResp = dhis2.saveOrgUnitGroup( oug );
 
-        assertEquals( Status.OK, ougResp.getStatus() );
+        assertEquals( Status.OK, ougResp.getStatus(), ougResp.toString() );
 
         Response resp = dhis2.addOrgUnitToOrgUnitGroup( ougId, ouId );
 
-        assertEquals( Status.OK, resp.getStatus() );
+        assertEquals( Status.OK, resp.getStatus(), resp.toString() );
     }
 }

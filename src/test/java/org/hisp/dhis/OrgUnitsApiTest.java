@@ -55,7 +55,7 @@ public class OrgUnitsApiTest
         assertNotNull( response.getStats() );
         assertNotNull( response.getTypeReport() );
 
-        assertEquals( Status.OK, response.getStatus() );
+        assertEquals( Status.OK, response.getStatus(), response.toString() );
         assertEquals( new Integer( 3 ), response.getStats().getCreated() );
 
         assertEquals( Status.OK, dhis2.removeOrgUnit( uidA ).getStatus() );
@@ -96,7 +96,7 @@ public class OrgUnitsApiTest
         assertNotNull( response.getStats() );
         assertNotNull( response.getTypeReport() );
 
-        assertEquals( Status.OK, response.getStatus() );
+        assertEquals( Status.OK, response.getStatus(), response.toString() );
         assertEquals( new Integer( 2 ), response.getStats().getCreated() );
 
         orgUnits = list( ouB, ouC );
@@ -107,7 +107,7 @@ public class OrgUnitsApiTest
         assertNotNull( response.getStats() );
         assertNotNull( response.getTypeReport() );
 
-        assertEquals( Status.OK, response.getStatus() );
+        assertEquals( Status.OK, response.getStatus(), response.toString() );
         assertEquals( new Integer( 1 ), response.getStats().getCreated() );
         assertEquals( new Integer( 1 ), response.getStats().getUpdated() );
 
@@ -140,7 +140,7 @@ public class OrgUnitsApiTest
         assertNotNull( response.getStats() );
         assertNotNull( response.getTypeReport() );
 
-        assertEquals( Status.ERROR, response.getStatus() );
+        assertEquals( Status.ERROR, response.getStatus(), response.toString() );
         assertEquals( new Integer( 2 ), response.getStats().getIgnored() );
         assertEquals( "org.hisp.dhis.organisationunit.OrganisationUnit", response.getTypeReport().getKlass() );
         assertEquals( new Integer( 2 ), response.getTypeReport().getStats().getIgnored() );

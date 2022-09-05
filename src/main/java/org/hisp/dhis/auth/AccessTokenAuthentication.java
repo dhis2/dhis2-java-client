@@ -6,15 +6,15 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public class CookieAuthentication
+public class AccessTokenAuthentication
     implements Authentication
 {
     @NonNull
-    private final String sessionId;
+    private final String accessToken;
 
     @Override
     public String getHttpHeaderAuthValue()
     {
-        return String.format( "JSESSIONID=%s", sessionId );
+        return String.format( "ApiToken %s", accessToken );
     }
 }
