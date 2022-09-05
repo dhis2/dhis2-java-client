@@ -42,9 +42,6 @@ public class Event
     private String attributeOptionCombo;
 
     @JsonProperty
-    private String assignedUser;
-
-    @JsonProperty
     private EventStatus status = EventStatus.ACTIVE;
 
     @ToString.Include

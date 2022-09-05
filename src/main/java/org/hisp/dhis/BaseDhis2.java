@@ -656,7 +656,7 @@ public class BaseDhis2
         {
             String json = objectMapper.writeValueAsString( object );
 
-            log.trace( "Object JSON: '{}'", json );
+            log.debug( "Object JSON: '{}'", json );
 
             return json;
         }
