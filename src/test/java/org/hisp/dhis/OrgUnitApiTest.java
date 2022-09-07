@@ -124,7 +124,10 @@ public class OrgUnitApiTest
         assertEquals( Status.OK, response.getStatus(), response.toString() );
 
         assertNotNull( dhis2.getOrgUnit( uidC ) );
-        assertEquals( Status.OK, dhis2.removeOrgUnit( uidC ).getStatus() );
+
+        ObjectResponse ouResp = dhis2.removeOrgUnit( uidC );
+
+        assertEquals( Status.OK, ouResp.getStatus(), ouResp.toString() );
 
         assertEquals( 404, assertThrows( Dhis2ClientException.class,
             () -> dhis2.getOrgUnit( uidA ) ).getStatusCode() );
