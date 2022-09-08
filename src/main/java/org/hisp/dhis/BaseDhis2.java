@@ -426,7 +426,7 @@ public class BaseDhis2
 
         try ( CloseableHttpResponse response = httpClient.execute( request ) )
         {
-            handleErrors( response );
+            handleErrors( response, request.getRequestUri() );
 
             String responseBody = EntityUtils.toString( response.getEntity() );
 
@@ -463,7 +463,7 @@ public class BaseDhis2
 
         try ( CloseableHttpResponse response = httpClient.execute( request ) )
         {
-            handleErrors( response );
+            handleErrors( response, request.getRequestUri() );
 
             HttpStatus httpStatus = HttpStatus.valueOf( response.getCode() );
             Status status = httpStatus != null && httpStatus.is2xxSuccessful() ? Status.OK : Status.ERROR;
@@ -513,7 +513,7 @@ public class BaseDhis2
 
         try ( CloseableHttpResponse response = getJsonHttpResponse( url ) )
         {
-            handleErrors( response );
+            handleErrors( response, url.toString() );
 
             String responseBody = EntityUtils.toString( response.getEntity() );
 
@@ -559,15 +559,18 @@ public class BaseDhis2
      * <code>404</code>.
      *
      * @param response {@link HttpResponse}.
+     * @param url the request URL.
      * @throws Dhis2ClientException
      */
-    private void handleErrors( HttpResponse response )
+    private void handleErrors( HttpResponse response, String url )
     {
         final int code = response.getCode();
 
         if ( ERROR_STATUS_CODES.contains( code ) )
         {
             String message = String.format( "%s (%d)", getErrorMessage( code ), code );
+
+            log.debug( "Error URL: '{}'", url );
 
             throw new Dhis2ClientException( message, code );
         }
