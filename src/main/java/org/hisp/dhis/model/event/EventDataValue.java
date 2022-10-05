@@ -7,6 +7,7 @@ import java.util.Date;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
@@ -18,15 +19,18 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Getter
 @Setter
 @NoArgsConstructor
+@ToString( onlyExplicitlyIncluded = true )
 public class EventDataValue
 {
     public static final String VALUE_TRUE = "true";
 
     public static final String VALUE_FALSE = "false";
 
+    @ToString.Include
     @JsonProperty
     private String dataElement;
 
+    @ToString.Include
     @JsonProperty
     private String value;
 

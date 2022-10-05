@@ -2,12 +2,14 @@ package org.hisp.dhis.model.datavalueset;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import lombok.experimental.Accessors;
 
 import org.hisp.dhis.model.IdScheme;
 
 @Getter
 @Setter
+@ToString
 @Accessors( chain = true )
 public class DataValueSetImportOptions
 {
