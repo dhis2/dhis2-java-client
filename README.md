@@ -77,8 +77,9 @@ The name of the session cookie used by the DHIS 2 API is `JSESSIONID`. The value
 
 To use personal access token (PAT)-based authentication you can specify the access token with the `AccessTokenAuthentication` class:
 
-```
-Authentication authentication = new AccessTokenAuthentication( "d2pat_2bBQecgNcxrS4EPhBJuRlQkwiLr2ATnC2557514242" );
+```java
+Authentication authentication = new AccessTokenAuthentication( 
+    "d2pat_2bBQecgNcxrS4EPhBJuRlQkwiLr2ATnC2557514242" );
 
 Dhis2Config config = new Dhis2Config( authentication );
 
