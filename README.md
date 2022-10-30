@@ -92,7 +92,7 @@ You can alternatively use the helper method:
 Dhis2 dhis2 = Dhis2.withAccessTokenAuth( "d2pat_2bBQecgNcxrS4EPhBJuRlQkwiLr2ATnC2557514242" );
 ```
 
-PATs can be created through the API or the user interface by going to **Profile** > **Settings** > **Personal access tokens**.
+PATs can be created through the API or the user interface by going to Profile > Settings > Personal access tokens.
 
 ## Usage
 
