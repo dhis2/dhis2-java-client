@@ -36,7 +36,8 @@ Dhis2 dhis2 = new Dhis2( config );
 Alternatively, to use Basic authentication you can specify the username and password of the DHIS 2 account together with the base URL of the DHIS 2 instance:
 
 ```java
-Dhis2 dhis2 = Dhis2.withBasicAuth( "https://play.dhis2.org/2.39.0", "admin", "district" );
+Dhis2 dhis2 = Dhis2.withBasicAuth( 
+    "https://play.dhis2.org/2.39.0", "admin", "district" );
 ```
 
 You can use the username and password of a regular DHIS 2 user account.
@@ -46,7 +47,8 @@ You can use the username and password of a regular DHIS 2 user account.
 To use personal access token (PAT)-based authentication you can specify the access token:
 
 ```java
-Dhis2 dhis2 = Dhis2.withAccessTokenAuth( "https://play.dhis2.org/2.39.0", "d2pat_2bBQecgNcxrS4EPhBJuRlQkwiLr2ATnC2557514242" );
+Dhis2 dhis2 = Dhis2.withAccessTokenAuth( 
+    "https://play.dhis2.org/2.39.0", "d2pat_2bBQecgNcxrS4EPhBJuRlQkwiLr2ATnC2557514242" );
 ```
 
 PATs can be created through the API or the user interface by going to Profile > Settings > Personal access tokens.
@@ -56,7 +58,8 @@ PATs can be created through the API or the user interface by going to Profile > 
 To use cookie-based authentication you can specify the session identifier:
 
 ```java
-Dhis2 dhis2 = Dhis2.withCookieAuth( "https://play.dhis2.org/2.39.0", "5EC557E60D7E5CE8D78EEC1389592D3E" );
+Dhis2 dhis2 = Dhis2.withCookieAuth( 
+    "https://play.dhis2.org/2.39.0", "5EC557E60D7E5CE8D78EEC1389592D3E" );
 ```
 
 The name of the session cookie used by the DHIS 2 API is `JSESSIONID`. The value can typically be retrieved from the `Cookie` HTTP request header sent with DHIS 2 API requests.
