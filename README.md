@@ -16,83 +16,50 @@ To use `dhis2-java-client` with Maven you can specify the following dependency:
 
 You can find `dhis2-java-client` and the available versions in [Maven central repository](https://mvnrepository.com/artifact/org.hisp/dhis2-java-client).
 
-## Configuration
+## Configuration and Authentication
 
-A minimal configuration of `dhis2-java-client` where the configuration parameters refer to the base URL, username and password for the DHIS 2 instance to connect to can be specified like this. The default authentication mechanism is *Basic authentication*. Note that you should *not* include the `api` part or a trailing `/` in the base URL:
+This section describes configuration and authentication of the client.
+
+#### Basic authentication
+
+A minimal configuration of `dhis2-java-client` where the configuration parameters refer to the base URL, username and password for the DHIS 2 instance to connect to can be specified like this. The default authentication mechanism is *Basic authentication*. Note that you should *not* include the `api` part nor a trailing `/` in the base URL:
 
 ```java
 Dhis2Config config = new Dhis2Config( 
-    "https://play.dhis2.org/2.36.3", 
+    "https://play.dhis2.org/2.39.0", 
     "admin", 
     "district" );
 
 Dhis2 dhis2 = new Dhis2( config );
 ```
 
-## Authentication
-
-The default configuration as specified above uses Basic authentication. 
-
-### Basic authentication
-
-To use Basic authentication you can specify the username and password of the DHIS 2 account with the `BasicAuthentication` class:
+Alternatively, to use Basic authentication you can specify the username and password of the DHIS 2 account together with the base URL of the DHIS 2 instance:
 
 ```java
-Authentication authentication = new BasicAuthentication( "admin", "district" );
-
-Dhis2Config config = new Dhis2Config( authentication );
-
-Dhis2 dhis2 = new Dhis2( config );
+Dhis2 dhis2 = Dhis2.withBasicAuth( "https://play.dhis2.org/2.39.0", "admin", "district" );
 ```
 
-You can alternatively use the helper method:
-
-```java
-Dhis2 dhis2 = Dhis2.withBasicAuth( "https://play.dhis2.org/demo", "admin", "district" );
-```
-
-Note that basic auth is the default authentication mechanism. You can use the username and password of a regular DHIS 2 user account.
-
-### Cookie authentication
-
-To use cookie-based authentication you can specify the session ID with the `CookieAuthentication` class:
-
-```java
-Authentication authentication = new CookieAuthentication( "754E5D586868DB9A8665249A97DC91D3" );
-
-Dhis2Config config = new Dhis2Config( authentication );
-
-Dhis2 dhis2 = new Dhis2( config );
-```
-
-You can alternatively use the helper method:
-
-```java
-Dhis2 dhis2 = Dhis2.withCookieAuth( "https://play.dhis2.org/demo", "5EC557E60D7E5CE8D78EEC1389592D3E" );
-```
-
-The name of the session cookie used by the DHIS 2 API is `JSESSIONID`. The value can typically be retrieved from the `Cookie` HTTP request header sent with DHIS 2 API requests.
+You can use the username and password of a regular DHIS 2 user account.
 
 ### Personal access token authentication
 
-To use personal access token (PAT)-based authentication you can specify the access token with the `AccessTokenAuthentication` class:
+To use personal access token (PAT)-based authentication you can specify the access token:
 
 ```java
-Authentication authentication = new AccessTokenAuthentication( 
-    "d2pat_2bBQecgNcxrS4EPhBJuRlQkwiLr2ATnC2557514242" );
-
-Dhis2Config config = new Dhis2Config( authentication );
-
-Dhis2 dhis2 = new Dhis2( config );
-```
-
-You can alternatively use the helper method:
-
-```java
-Dhis2 dhis2 = Dhis2.withAccessTokenAuth( "d2pat_2bBQecgNcxrS4EPhBJuRlQkwiLr2ATnC2557514242" );
+Dhis2 dhis2 = Dhis2.withAccessTokenAuth( "https://play.dhis2.org/2.39.0", "d2pat_2bBQecgNcxrS4EPhBJuRlQkwiLr2ATnC2557514242" );
 ```
 
 PATs can be created through the API or the user interface by going to Profile > Settings > Personal access tokens.
+
+### Cookie authentication
+
+To use cookie-based authentication you can specify the session identifier:
+
+```java
+Dhis2 dhis2 = Dhis2.withCookieAuth( "https://play.dhis2.org/2.39.0", "5EC557E60D7E5CE8D78EEC1389592D3E" );
+```
+
+The name of the session cookie used by the DHIS 2 API is `JSESSIONID`. The value can typically be retrieved from the `Cookie` HTTP request header sent with DHIS 2 API requests.
 
 ## Usage
 
