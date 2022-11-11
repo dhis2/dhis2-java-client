@@ -39,7 +39,7 @@ public class OrgUnitApiTest
         assertEquals( "Badjia", ou.getName() );
         assertEquals( "Badjia", ou.getShortName() );
         assertEquals( "/ImspTQPwCqd/O6uvpzGd5pu/YuQRtpLP10I", ou.getPath() );
-        assertEquals( new Integer( 3 ), ou.getLevel() );
+        assertEquals( 3, ou.getLevel() );
         assertNotNull( ou.getParent() );
         assertEquals( "O6uvpzGd5pu", ou.getParent().getId() );
         assertNotNull( ou.getOpeningDate() );

@@ -56,7 +56,7 @@ public class OrgUnitsApiTest
         assertNotNull( response.getTypeReport() );
 
         assertEquals( Status.OK, response.getStatus(), response.toString() );
-        assertEquals( new Integer( 3 ), response.getStats().getCreated() );
+        assertEquals( 3, response.getStats().getCreated() );
 
         assertEquals( Status.OK, dhis2.removeOrgUnit( uidA ).getStatus() );
         assertEquals( Status.OK, dhis2.removeOrgUnit( uidB ).getStatus() );
@@ -97,7 +97,7 @@ public class OrgUnitsApiTest
         assertNotNull( response.getTypeReport() );
 
         assertEquals( Status.OK, response.getStatus(), response.toString() );
-        assertEquals( new Integer( 2 ), response.getStats().getCreated() );
+        assertEquals( 2, response.getStats().getCreated() );
 
         orgUnits = list( ouB, ouC );
 
@@ -108,8 +108,8 @@ public class OrgUnitsApiTest
         assertNotNull( response.getTypeReport() );
 
         assertEquals( Status.OK, response.getStatus(), response.toString() );
-        assertEquals( new Integer( 1 ), response.getStats().getCreated() );
-        assertEquals( new Integer( 1 ), response.getStats().getUpdated() );
+        assertEquals( 1, response.getStats().getCreated() );
+        assertEquals( 1, response.getStats().getUpdated() );
 
         assertEquals( Status.OK, dhis2.removeOrgUnit( uidA ).getStatus() );
         assertEquals( Status.OK, dhis2.removeOrgUnit( uidB ).getStatus() );
@@ -141,9 +141,9 @@ public class OrgUnitsApiTest
         assertNotNull( response.getTypeReport() );
 
         assertEquals( Status.ERROR, response.getStatus(), response.toString() );
-        assertEquals( new Integer( 2 ), response.getStats().getIgnored() );
+        assertEquals( 2, response.getStats().getIgnored() );
         assertEquals( "org.hisp.dhis.organisationunit.OrganisationUnit", response.getTypeReport().getKlass() );
-        assertEquals( new Integer( 2 ), response.getTypeReport().getStats().getIgnored() );
+        assertEquals( 2, response.getTypeReport().getStats().getIgnored() );
         assertEquals( 1, response.getTypeReports().size() );
         assertEquals( 2, response.getTypeReport().getObjectReports().size() );
 
@@ -190,7 +190,7 @@ public class OrgUnitsApiTest
         assertEquals( "Badjia", ou.getName() );
         assertEquals( "Badjia", ou.getShortName() );
         assertEquals( "/ImspTQPwCqd/O6uvpzGd5pu/YuQRtpLP10I", ou.getPath() );
-        assertEquals( new Integer( 3 ), ou.getLevel() );
+        assertEquals( 3, ou.getLevel() );
         assertNotNull( ou.getParent() );
         assertEquals( "O6uvpzGd5pu", ou.getParent().getId() );
         assertNotNull( ou.getOpeningDate() );

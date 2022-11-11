@@ -76,14 +76,14 @@ public class EventDataValue
 
     /**
      * Returns the value as a boolean, only if this value represents a boolean.
-     * Returns false if not.
+     * Returns null if not.
      *
      * @return a boolean value.
      */
     @JsonIgnore
-    public boolean getBooleanValue()
+    public Boolean getBooleanValue()
     {
-        return isBoolean() ? Boolean.valueOf( value ) : false;
+        return isBoolean() ? Boolean.valueOf( value ) : null;
     }
 
     /**
@@ -98,15 +98,15 @@ public class EventDataValue
     }
 
     /**
-     * Returns the value as a double, only if the value represents a double.
-     * Returns 0.0 if not.
+     * Returns the value as a Double, only if the value represents a double.
+     * Returns null if not.
      *
      * @return a double value.
      */
     @JsonIgnore
-    public double getDoubleValue()
+    public Double getDoubleValue()
     {
-        return isDouble() ? Double.valueOf( value ) : 0.0;
+        return isDouble() ? Double.valueOf( value ) : null;
     }
 
     /**
@@ -122,14 +122,14 @@ public class EventDataValue
 
     /**
      * Returns the value as an integer, only if the value represents an integer.
-     * Return 0 if not.
+     * Return null if not.
      *
      * @return an integer value.
      */
     @JsonIgnore
-    public int getIntegerValue()
+    public Integer getIntegerValue()
     {
-        return isInteger() ? Integer.valueOf( value ) : 0;
+        return isInteger() ? Integer.valueOf( value ) : null;
     }
 
     /**
