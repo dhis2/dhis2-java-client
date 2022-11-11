@@ -11,7 +11,7 @@ import java.util.function.Predicate;
 public class CollectionUtils
 {
     /**
-     * Returns an immutable set containing the given items.
+     * Returns an immutable set containing the given items. Accepts null items.
      *
      * @param <T> type.
      * @param items the items.
@@ -24,7 +24,7 @@ public class CollectionUtils
     }
 
     /**
-     * Returns an mutable set containing the given items.
+     * Returns an mutable set containing the given items. Accepts null items.
      *
      * @param <T> type.
      * @param items the items.
@@ -44,7 +44,7 @@ public class CollectionUtils
     }
 
     /**
-     * Returns an immutable list containing the given items.
+     * Returns an immutable list containing the given items. Accepts null items.
      *
      * @param <T> type.
      * @param items the items.
@@ -57,7 +57,7 @@ public class CollectionUtils
     }
 
     /**
-     * Returns an mutable list containing the given items.
+     * Returns an mutable list containing the given items. Accepts null items.
      *
      * @param <T> type.
      * @param items the items.
