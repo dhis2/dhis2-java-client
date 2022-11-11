@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class CollectionUtils
 {
@@ -24,7 +25,7 @@ public class CollectionUtils
     }
 
     /**
-     * Returns an mutable set containing the given items. Accepts null items.
+     * Returns a mutable set containing the given items. Accepts null items.
      *
      * @param <T> type.
      * @param items the items.
@@ -57,7 +58,7 @@ public class CollectionUtils
     }
 
     /**
-     * Returns an mutable list containing the given items. Accepts null items.
+     * Returns a mutable list containing the given items. Accepts null items.
      *
      * @param <T> type.
      * @param items the items.
@@ -80,16 +81,32 @@ public class CollectionUtils
      * Returns the first matching item in the given collection based on the
      * given predicate. Returns null if no match is found.
      *
-     * @param <A> type.
+     * @param <T> type.
      * @param collection the collection.
      * @param predicate the predicate.
      * @return the first matching item, or null if no match is found.
      */
-    public static <A> A firstMatch( Collection<A> collection, Predicate<A> predicate )
+    public static <T> T firstMatch( Collection<T> collection, Predicate<T> predicate )
     {
         return collection.stream()
             .filter( predicate )
             .findFirst()
             .orElse( null );
+    }
+
+    /**
+     * Returns a new mutable list of the items in the given collection which
+     * match the given predicate.
+     *
+     * @param <T> type.
+     * @param collection the collection.
+     * @param predicate the predicate.
+     * @return a new mutable list.
+     */
+    public static <T> List<T> list( Collection<T> collection, Predicate<T> predicate )
+    {
+        return collection.stream()
+            .filter( predicate )
+            .collect( Collectors.toList() );
     }
 }
