@@ -7,13 +7,9 @@ import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 
 import org.apache.hc.client5.http.classic.methods.HttpUriRequestBase;
-import org.apache.hc.core5.http.HttpHeaders;
 import org.apache.hc.core5.net.URIBuilder;
 import org.hisp.dhis.Dhis2Config;
-import org.hisp.dhis.auth.AccessTokenAuthentication;
 import org.hisp.dhis.auth.Authentication;
-import org.hisp.dhis.auth.BasicAuthentication;
-import org.hisp.dhis.auth.CookieAuthentication;
 
 public class HttpUtils
 {
@@ -28,27 +24,8 @@ public class HttpUtils
      */
     public static <T extends HttpUriRequestBase> T withAuth( T request, Dhis2Config config )
     {
-        Class<? extends Authentication> authType = config.getAuthentication().getClass();
-
-        String value = config.getAuthentication().getHttpHeaderAuthValue();
-
-        if ( BasicAuthentication.class.isAssignableFrom( authType ) )
-        {
-            request.setHeader( HttpHeaders.AUTHORIZATION, value );
-        }
-        else if ( AccessTokenAuthentication.class.isAssignableFrom( authType ) )
-        {
-            request.setHeader( HttpHeaders.AUTHORIZATION, value );
-        }
-        else if ( CookieAuthentication.class.isAssignableFrom( authType ) )
-        {
-            request.setHeader( HttpHeaders.COOKIE, value );
-        }
-        else
-        {
-            throw new IllegalStateException( String.format( "Invalid authentication type: '%s'", authType ) );
-        }
-
+        Authentication auth = config.getAuthentication();
+        request.setHeader( auth.getHttpHeaderAuthName(), auth.getHttpHeaderAuthValue() );
         return request;
     }
 

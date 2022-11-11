@@ -6,11 +6,19 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.hc.client5.http.classic.methods.HttpPost;
+import org.apache.hc.core5.http.HttpHeaders;
 import org.apache.hc.core5.net.URIBuilder;
+import org.hisp.dhis.Dhis2Config;
+import org.hisp.dhis.auth.AccessTokenAuthentication;
+import org.hisp.dhis.auth.BasicAuthentication;
+import org.hisp.dhis.auth.CookieAuthentication;
 import org.junit.jupiter.api.Test;
 
 public class HttpUtilsTest
 {
+    private final String DEV_URL = "https://play.dhis2.org/dev";
+
     @Test
     void testAsString()
         throws Exception
@@ -31,5 +39,38 @@ public class HttpUtilsTest
 
         assertEquals( encodedUri, uri.toString() );
         assertEquals( decodedUri, HttpUtils.asString( uri ) );
+    }
+
+    @Test
+    void testWithBasicAuth()
+        throws Exception
+    {
+        HttpPost post = new HttpPost( DEV_URL );
+
+        HttpUtils.withAuth( post, new Dhis2Config( DEV_URL, new BasicAuthentication( "admin", "district" ) ) );
+
+        assertEquals( "Basic YWRtaW46ZGlzdHJpY3Q=", post.getHeader( HttpHeaders.AUTHORIZATION ).getValue() );
+    }
+
+    @Test
+    void testWithAccessTokenAuth()
+        throws Exception
+    {
+        HttpPost post = new HttpPost( DEV_URL );
+
+        HttpUtils.withAuth( post, new Dhis2Config( DEV_URL, new AccessTokenAuthentication( "d2pat_kjytgr63jj837" ) ) );
+
+        assertEquals( "ApiToken d2pat_kjytgr63jj837", post.getHeader( HttpHeaders.AUTHORIZATION ).getValue() );
+    }
+
+    @Test
+    void testWithCookieAuth()
+        throws Exception
+    {
+        HttpPost post = new HttpPost( DEV_URL );
+
+        HttpUtils.withAuth( post, new Dhis2Config( DEV_URL, new CookieAuthentication( "KJH8KJ24fRD3FK491" ) ) );
+
+        assertEquals( "JSESSIONID=KJH8KJ24fRD3FK491", post.getHeader( HttpHeaders.COOKIE ).getValue() );
     }
 }
