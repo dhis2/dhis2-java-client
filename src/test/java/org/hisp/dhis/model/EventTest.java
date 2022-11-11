@@ -84,6 +84,11 @@ public class EventTest
 
         assertFalse( value.isBoolean() );
         assertNull( value.getBooleanValue() );
+
+        value = new EventDataValue( "rNwYgGgYzPA", null );
+
+        assertFalse( value.isBoolean() );
+        assertNull( value.getBooleanValue() );
     }
 
     @Test
@@ -98,6 +103,11 @@ public class EventTest
 
         assertFalse( value.isInteger() );
         assertNull( value.getIntegerValue() );
+
+        value = new EventDataValue( "rNwYgGgYzPA", null );
+
+        assertFalse( value.isInteger() );
+        assertNull( value.getIntegerValue() );
     }
 
     @Test
@@ -109,6 +119,11 @@ public class EventTest
         assertEquals( 18.52, value.getDoubleValue() );
 
         value = new EventDataValue( "rNwYgGgYzPA", "Yes" );
+
+        assertFalse( value.isDouble() );
+        assertNull( value.getDoubleValue() );
+
+        value = new EventDataValue( "rNwYgGgYzPA", null );
 
         assertFalse( value.isDouble() );
         assertNull( value.getDoubleValue() );
