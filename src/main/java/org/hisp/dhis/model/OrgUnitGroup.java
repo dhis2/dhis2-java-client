@@ -1,12 +1,11 @@
 package org.hisp.dhis.model;
 
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
 public class OrgUnitGroup
     extends NameableObject
 {
-    public OrgUnitGroup()
-    {
-    }
-
     public OrgUnitGroup( String id, String name )
     {
         this.id = id;
