@@ -24,4 +24,7 @@ public class DataElement
 
     @JsonProperty
     private List<LegendSet> legendSets = new ArrayList<>();
+
+    @JsonProperty
+    private OptionSet optionSet;
 }
