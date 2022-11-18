@@ -6,6 +6,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Getter
@@ -23,6 +27,63 @@ public class AttributeValue
     {
         this.attribute = attribute;
         this.value = value;
+    }
+
+    /**
+     * Indicates whether the value is not null or empty.
+     *
+     * @return true if the value is not null or empty.
+     */
+    @JsonIgnore
+    public boolean hasValue()
+    {
+        return StringUtils.isNotEmpty( value );
+    }
+
+    /**
+     * Indicates whether the value represents a double.
+     *
+     * @return true if the value represents a double.
+     */
+    @JsonIgnore
+    public boolean isDouble()
+    {
+        return NumberUtils.isCreatable( value );
+    }
+
+    /**
+     * Returns the value as a Double, only if the value represents a double.
+     * Returns null if not.
+     *
+     * @return a double value.
+     */
+    @JsonIgnore
+    public Double getDoubleValue()
+    {
+        return isDouble() ? Double.valueOf( value ) : null;
+    }
+
+    /**
+     * Indicates whether the value represents an integer.
+     *
+     * @return true if the value represents an integer.
+     */
+    @JsonIgnore
+    public boolean isInteger()
+    {
+        return StringUtils.isNumeric( value );
+    }
+
+    /**
+     * Returns the value as an integer, only if the value represents an integer.
+     * Return null if not.
+     *
+     * @return an integer value.
+     */
+    @JsonIgnore
+    public Integer getIntegerValue()
+    {
+        return isInteger() ? Integer.valueOf( value ) : null;
     }
 
     @Override

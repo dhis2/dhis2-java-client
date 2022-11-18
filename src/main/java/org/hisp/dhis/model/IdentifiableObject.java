@@ -68,8 +68,7 @@ public class IdentifiableObject
      * Returns the attribute value with the given attribute identifier.
      *
      * @param attribute the attribute identifier.
-     * @return the attribute value with the given attribute identifier, or null
-     *         if no attribute value exists.
+     * @return the attribute value with the given attribute identifier, or null.
      */
     public AttributeValue getAttributeValue( String attribute )
     {
@@ -77,6 +76,32 @@ public class IdentifiableObject
             .filter( av -> av.getAttribute().getId().equals( attribute ) )
             .findFirst()
             .orElse( null );
+    }
+
+    /**
+     * Indicates whether an attribute value exists for the given attribute
+     * identifier.
+     *
+     * @param attribute the attribute identifier.
+     * @return true of an attribute value exists.
+     */
+    public boolean hasAttributeValue( String attribute )
+    {
+        return attributeValues.stream()
+            .anyMatch( av -> av.getAttribute().getId().equals( attribute ) );
+    }
+
+    /**
+     * Returns the attribute value with the given attribute identifier as a
+     * string.
+     *
+     * @param attribute the attribute identifier.
+     * @return the attribute value with the given attribute identifier, or null.
+     */
+    public String getAttributeValueAsString( String attribute )
+    {
+        AttributeValue attributeValue = getAttributeValue( attribute );
+        return attributeValue != null ? attributeValue.getValue() : null;
     }
 
     /**
