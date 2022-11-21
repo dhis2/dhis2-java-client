@@ -65,7 +65,7 @@ import org.hisp.dhis.util.HttpUtils;
 
 /**
  * DHIS 2 API client for HTTP requests and responses. Request and response
- * bodies are in JSON format.
+ * bodies are in JSON format. Client is tread-safe and suitable for reuse.
  *
  * @author Lars Helge Overland
  */
