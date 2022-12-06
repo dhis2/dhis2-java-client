@@ -27,8 +27,7 @@ A minimal configuration of `dhis2-java-client` where the configuration parameter
 ```java
 Dhis2Config config = new Dhis2Config( 
     "https://play.dhis2.org/2.39.0", 
-    "admin", 
-    "district" );
+    "admin", "district" );
 
 Dhis2 dhis2 = new Dhis2( config );
 ```
@@ -37,7 +36,8 @@ Alternatively, to use Basic authentication you can specify the username and pass
 
 ```java
 Dhis2 dhis2 = Dhis2.withBasicAuth( 
-    "https://play.dhis2.org/2.39.0", "admin", "district" );
+    "https://play.dhis2.org/2.39.0", 
+    "admin", "district" );
 ```
 
 You can use the username and password of a regular DHIS 2 user account.
@@ -48,7 +48,8 @@ To use personal access token (PAT)-based authentication you can specify the acce
 
 ```java
 Dhis2 dhis2 = Dhis2.withAccessTokenAuth( 
-    "https://play.dhis2.org/2.39.0", "d2pat_2bBQecgNcxrS4EPhBJuRlQkwiLr2ATnC2557514242" );
+    "https://play.dhis2.org/2.39.0", 
+    "d2pat_2bBQecgNcxrS4EPhBJuRlQkwiLr2ATnC2557514242" );
 ```
 
 PATs can be created through the API or the user interface by going to Profile > Settings > Personal access tokens.
@@ -59,7 +60,8 @@ To use cookie-based authentication you can specify the session identifier:
 
 ```java
 Dhis2 dhis2 = Dhis2.withCookieAuth( 
-    "https://play.dhis2.org/2.39.0", "5EC557E60D7E5CE8D78EEC1389592D3E" );
+    "https://play.dhis2.org/2.39.0", 
+    "5EC557E60D7E5CE8D78EEC1389592D3E" );
 ```
 
 The name of the session cookie used by the DHIS 2 API is `JSESSIONID`. The value can typically be retrieved from the `Cookie` HTTP request header sent with DHIS 2 API requests.
@@ -124,7 +126,7 @@ ObjectResponse response = dhis2.saveOrgUnit( orgUnit );
 To create or update multiple objects:
 
 ```java
-List<OrgUnit> orgUnits = List.of( 
+List<OrgUnit> orgUnits = CollectionUtils.list( 
     new OrgUnit( "nEt3lFHOqYP", "Ngelehun"),
     new OrgUnit( "gnAOCDoZUVO", "Kailahun" ) );
 
@@ -331,6 +333,4 @@ Run integration tests:
 ```
 mvn test -P integration
 ```
-
-
 
