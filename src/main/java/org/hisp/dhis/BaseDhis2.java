@@ -84,7 +84,7 @@ public class BaseDhis2
         "%1$s,aggregationType,valueType,domainType,legendSets[%1$s],optionSet[%2$s]", NAME_FIELDS, OPTION_SET_FIELDS );
 
     protected static final String CATEGORY_OPTION_FIELDS = String.format(
-        "%1$s,shortName,startDate,endDate,formName,organisationUnits[%1$s]", ID_FIELDS );
+        "%1$s,shortName,startDate,endDate,formName,categories[%1$s],organisationUnits[%1$s]", ID_FIELDS );
 
     protected static final String CATEGORY_FIELDS = String.format(
         "%s,dataDimensionType,dataDimension", NAME_FIELDS );

@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.util.Date;
 import java.util.List;
 
+import org.hisp.dhis.model.CategoryOption;
 import org.hisp.dhis.model.DataElement;
 import org.hisp.dhis.model.OrgUnit;
 import org.hisp.dhis.model.OrgUnitGroup;
@@ -27,6 +28,21 @@ import org.junit.jupiter.api.Test;
 @Tag( "integration" )
 public class Dhis2ApiTest
 {
+    @Test
+    void testGetCategoryOptions()
+    {
+        Dhis2 dhis2 = new Dhis2( TestFixture.DEFAULT_CONFIG );
+
+        List<CategoryOption> categoryOptions = dhis2.getCategoryOptions( Query.instance()
+            .setPaging( 1, 10 ) );
+
+        assertNotNull( categoryOptions );
+        assertFalse( categoryOptions.isEmpty() );
+        assertNotNull( categoryOptions.get( 0 ).getId() );
+        assertNotNull( categoryOptions.get( 0 ).getName() );
+        assertFalse( categoryOptions.get( 0 ).getCategories().isEmpty() );
+    }
+
     @Test
     void testGetOrgUnits()
     {

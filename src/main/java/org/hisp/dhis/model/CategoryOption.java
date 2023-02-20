@@ -24,5 +24,8 @@ public class CategoryOption
     private String formName;
 
     @JsonProperty
+    private Set<Category> categories = new HashSet<>();
+
+    @JsonProperty
     private Set<OrgUnit> organisationUnits = new HashSet<>();
 }
