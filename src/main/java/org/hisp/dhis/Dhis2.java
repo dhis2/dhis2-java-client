@@ -1,5 +1,6 @@
 package org.hisp.dhis;
 
+import static org.hisp.dhis.util.CollectionUtils.asList;
 import static org.hisp.dhis.util.CollectionUtils.list;
 
 import java.io.File;

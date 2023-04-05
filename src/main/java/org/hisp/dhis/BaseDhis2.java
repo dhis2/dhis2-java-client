@@ -3,6 +3,7 @@ package org.hisp.dhis;
 import static org.apache.hc.core5.http.HttpStatus.SC_FORBIDDEN;
 import static org.apache.hc.core5.http.HttpStatus.SC_NOT_FOUND;
 import static org.apache.hc.core5.http.HttpStatus.SC_UNAUTHORIZED;
+import static org.hisp.dhis.util.CollectionUtils.asList;
 import static org.hisp.dhis.util.CollectionUtils.set;
 
 import java.io.File;
@@ -13,8 +14,6 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Set;
 
 import lombok.extern.slf4j.Slf4j;
@@ -688,18 +687,6 @@ public class BaseDhis2
         }
 
         return new Dhis2ClientException( ex.getMessage(), ex.getCause(), statusCode );
-    }
-
-    /**
-     * Converts the given array to a {@link ArrayList}.
-     *
-     * @param array the array.
-     * @param <T> class.
-     * @return a list.
-     */
-    protected static <T> ArrayList<T> asList( T[] array )
-    {
-        return new ArrayList<>( Arrays.asList( array ) );
     }
 
     // -------------------------------------------------------------------------
