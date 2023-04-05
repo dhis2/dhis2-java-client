@@ -1,6 +1,7 @@
 package org.hisp.dhis.util;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
@@ -75,6 +76,18 @@ public class CollectionUtils
         }
 
         return list;
+    }
+
+    /**
+     * Converts the given array to an {@link ArrayList}.
+     *
+     * @param array the array.
+     * @param <T> class.
+     * @return a list.
+     */
+    public static <T> List<T> asList( T[] array )
+    {
+        return new ArrayList<>( Arrays.asList( array ) );
     }
 
     /**

@@ -1,5 +1,6 @@
 package org.hisp.dhis;
 
+import static org.hisp.dhis.util.CollectionUtils.asList;
 import static org.hisp.dhis.util.CollectionUtils.list;
 
 import java.io.File;
@@ -72,6 +73,11 @@ import org.hisp.dhis.util.HttpUtils;
 public class Dhis2
     extends BaseDhis2
 {
+    /**
+     * Authority which provides superuser authorization in DHIS 2.
+     */
+    public static final String SUPER_AUTH = "ALL";
+
     public Dhis2( Dhis2Config config )
     {
         super( config );
@@ -201,6 +207,21 @@ public class Dhis2
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "system" )
             .appendPath( "info" ), Query.instance(), SystemInfo.class );
+    }
+
+    // -------------------------------------------------------------------------
+    // User and authorization
+    // -------------------------------------------------------------------------
+
+    /**
+     * Retrieves the list of authorities granted to the authenticated user.
+     *
+     * @return a list of authorities.
+     */
+    @SuppressWarnings( "unchecked" )
+    public List<String> getUserAuthorization()
+    {
+        return getObject( "me/authorization", List.class );
     }
 
     // -------------------------------------------------------------------------

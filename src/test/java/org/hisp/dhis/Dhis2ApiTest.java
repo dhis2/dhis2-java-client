@@ -29,6 +29,17 @@ import org.junit.jupiter.api.Test;
 public class Dhis2ApiTest
 {
     @Test
+    void testGetUserAuthorization()
+    {
+        Dhis2 dhis2 = new Dhis2( TestFixture.DEFAULT_CONFIG );
+
+        List<String> authorization = dhis2.getUserAuthorization();
+
+        assertNotNull( authorization );
+        assertFalse( authorization.isEmpty() );
+    }
+
+    @Test
     void testGetCategoryOptions()
     {
         Dhis2 dhis2 = new Dhis2( TestFixture.DEFAULT_CONFIG );

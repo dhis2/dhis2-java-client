@@ -288,6 +288,14 @@ File file = new File( "/tmp/data-value-set.json" );
 dhis2.writeAnalyticsDataValueSet( query, file );
 ```
 
+### Get user authentication
+
+To retrieve the list of authorities granted to the authenticated user:
+
+```java
+List<String> authorities = dhis2.getUserAuthorization();
+```
+
 ### Get system info
 
 To get system info:
@@ -316,12 +324,6 @@ Package:
 mvn clean package
 ```
 
-Deploy to Maven repository:
-
-```
-mvn clean deploy
-```
-
 Run unit tests:
 
 ```
@@ -333,4 +335,10 @@ Run integration tests:
 ```
 mvn test -P integration
 ```
+
+## Deployment
+
+The artifact will be deployed through a GitHub action to the OSSRH Maven repository when detecting a commit to master 
+where the main version is  not a SNAPSHOT version. To trigger a deploy, make a commit to master where the main version 
+is bumped to a non-SNAPSHOT version.
 
