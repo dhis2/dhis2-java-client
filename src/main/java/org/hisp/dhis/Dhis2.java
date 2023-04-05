@@ -205,6 +205,21 @@ public class Dhis2
     }
 
     // -------------------------------------------------------------------------
+    // User and authorization
+    // -------------------------------------------------------------------------
+
+    /**
+     * Retrieves the list of authorities granted to the authenticated user.
+     *
+     * @return a list of authorities.
+     */
+    @SuppressWarnings( "unchecked" )
+    public List<String> getUserAuthorization()
+    {
+        return getObject( "me/authorization", List.class );
+    }
+
+    // -------------------------------------------------------------------------
     // Data store
     // -------------------------------------------------------------------------
 
