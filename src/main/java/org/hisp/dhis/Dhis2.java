@@ -73,6 +73,11 @@ import org.hisp.dhis.util.HttpUtils;
 public class Dhis2
     extends BaseDhis2
 {
+    /**
+     * Authority which provides superuser authorization in DHIS 2.
+     */
+    public static final String SUPER_AUTH = "ALL";
+
     public Dhis2( Dhis2Config config )
     {
         super( config );
