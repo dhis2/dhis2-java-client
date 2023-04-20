@@ -90,6 +90,7 @@ public class Program
             .collect( Collectors.toSet() );
     }
 
+    @JsonIgnore
     public boolean hasCategoryCombo()
     {
         return categoryCombo != null;
