@@ -2,7 +2,7 @@ package org.hisp.dhis;
 
 public class TestFixture
 {
-    public static final String DEFAULT_URL = "https://play.dhis2.org/2.37.9";
+    public static final String DEFAULT_URL = "https://play.dhis2.org/2.37.9.1";
 
     public static final String DEV_URL = "https://play.dhis2.org/dev";
 
