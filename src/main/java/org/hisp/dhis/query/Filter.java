@@ -127,6 +127,18 @@ public class Filter
     }
 
     /**
+     * Creates a token {@link Filter}.
+     *
+     * @param property the filter property.
+     * @param value the filter value.
+     * @return a {@link Filter}.
+     */
+    public static Filter token( String property, Object value )
+    {
+        return new Filter( property, Operator.TOKEN, value );
+    }
+
+    /**
      * Creates an in {@link Filter}.
      *
      * @param property the filter property.

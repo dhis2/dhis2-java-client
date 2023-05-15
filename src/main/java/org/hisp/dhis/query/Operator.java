@@ -16,8 +16,8 @@ public enum Operator
     LE( "le", "<=" ),
     LT( "lt", "<" ),
     LIKE( "like", "like" ),
-    TOKEN( "token", "" ),
     ILIKE( "ilike", "ilike " ),
+    TOKEN( "token", "" ),
     IN( "in", "in" );
 
     private final String value;

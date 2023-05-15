@@ -23,4 +23,13 @@ public class FilterTest
         assertEquals( Operator.ILIKE, ilike.getOperator() );
         assertEquals( "vaccination", ilike.getValue() );
     }
+
+    @Test
+    void testGetFilterToken()
+    {
+        Filter token = Filter.token( "identifiable", "Immunization doses" );
+        assertEquals( "identifiable", token.getProperty() );
+        assertEquals( Operator.TOKEN, token.getOperator() );
+        assertEquals( "Immunization doses", token.getValue() );
+    }
 }
