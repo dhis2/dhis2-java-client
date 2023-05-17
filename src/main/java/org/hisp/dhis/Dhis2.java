@@ -86,7 +86,6 @@ public class Dhis2
     /**
      * Creates a {@link Dhis2} instance configured for basic authentication.
      *
-     *
      * @param url the URL to the DHIS 2 instance, do not include the
      *        {@code /api} part or a trailing {@code /}.
      * @param username the DHIS 2 account username.
@@ -541,10 +540,13 @@ public class Dhis2
      */
     public OrgUnitGroup getOrgUnitGroup( String id )
     {
+        String fieldsParams = String.format(
+            "%1$s,organisationUnits[%2$s]", NAME_FIELDS, ORG_UNIT_FIELDS );
+
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "organisationUnitGroups" )
             .appendPath( id )
-            .addParameter( "fields", NAME_FIELDS ), Query.instance(), OrgUnitGroup.class );
+            .addParameter( "fields", fieldsParams ), Query.instance(), OrgUnitGroup.class );
     }
 
     /**
@@ -555,9 +557,13 @@ public class Dhis2
      */
     public List<OrgUnitGroup> getOrgUnitGroups( Query query )
     {
+        String fieldsParams = query.isExpandAssociations() ? String.format(
+            "%1$s,organisationUnits[%2$s]", NAME_FIELDS, ORG_UNIT_FIELDS )
+            : NAME_FIELDS;
+
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "organisationUnitGroups" )
-            .addParameter( "fields", NAME_FIELDS ), query, Objects.class )
+            .addParameter( "fields", fieldsParams ), query, Objects.class )
                 .getOrganisationUnitGroups();
     }
 
@@ -1048,10 +1054,13 @@ public class Dhis2
      */
     public DataElementGroup getDataElementGroup( String id )
     {
+        String fieldsParams = String.format(
+            "%1$s,dataElements[%2$s]", NAME_FIELDS, DATA_ELEMENT_FIELDS );
+
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "dataElementGroups" )
             .appendPath( id )
-            .addParameter( "fields", NAME_FIELDS ), Query.instance(), DataElementGroup.class );
+            .addParameter( "fields", fieldsParams ), Query.instance(), DataElementGroup.class );
     }
 
     /**
@@ -1062,9 +1071,12 @@ public class Dhis2
      */
     public List<DataElementGroup> getDataElementGroups( Query query )
     {
+        String fieldsParams = query.isExpandAssociations() ? String.format(
+            "%1$s,dataElements[%2$s]", NAME_FIELDS, DATA_ELEMENT_FIELDS )
+            : NAME_FIELDS;
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "dataElementGroups" )
-            .addParameter( "fields", NAME_FIELDS ), query, Objects.class )
+            .addParameter( "fields", fieldsParams ), query, Objects.class )
                 .getDataElementGroups();
     }
 
