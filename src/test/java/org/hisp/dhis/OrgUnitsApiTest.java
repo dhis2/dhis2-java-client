@@ -64,7 +64,7 @@ public class OrgUnitsApiTest
     }
 
     @Test
-    void testSaveAndUpdateOrgUnitswithUids()
+    void testSaveAndUpdateOrgUnitsWithUids()
     {
         Dhis2 dhis2 = new Dhis2( TestFixture.DEFAULT_CONFIG );
 
