@@ -49,6 +49,7 @@ import org.hisp.dhis.query.Operator;
 import org.hisp.dhis.query.Order;
 import org.hisp.dhis.query.Paging;
 import org.hisp.dhis.query.Query;
+import org.hisp.dhis.query.RootJunction;
 import org.hisp.dhis.query.analytics.AnalyticsQuery;
 import org.hisp.dhis.query.analytics.Dimension;
 import org.hisp.dhis.query.event.EventsQuery;
@@ -174,6 +175,11 @@ public class BaseDhis2
                 + getQueryValue( filter );
 
             uriBuilder.addParameter( "filter", filterValue );
+        }
+
+        if ( !query.getFilters().isEmpty() && query.getRootJunction() == RootJunction.OR )
+        {
+            uriBuilder.addParameter( "rootJunction", "OR" );
         }
 
         Paging paging = query.getPaging();

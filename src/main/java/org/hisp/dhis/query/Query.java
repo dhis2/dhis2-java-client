@@ -16,6 +16,8 @@ public class Query
 
     private Order order;
 
+    private RootJunction rootJunction;
+
     private boolean expandAssociations = false;
 
     private Query()
@@ -100,6 +102,16 @@ public class Query
     }
 
     /**
+     * Returns the root junction of this query.
+     *
+     * @return the {@link RootJunction}
+     */
+    public RootJunction getRootJunction()
+    {
+        return rootJunction != null ? rootJunction : RootJunction.AND;
+    }
+
+    /**
      * Enables expansion of associations, i.e. that all properties of associated
      * objects will be present. Applies to lists of objects only (not single
      * objects).
@@ -109,6 +121,17 @@ public class Query
     public Query withExpandAssociations()
     {
         this.expandAssociations = true;
+        return this;
+    }
+
+    /**
+     * Determines the logic to use when combining filters.
+     *
+     * @return this {@link Query}
+     */
+    public Query withRootJunction( RootJunction rootJunction )
+    {
+        this.rootJunction = rootJunction;
         return this;
     }
 
