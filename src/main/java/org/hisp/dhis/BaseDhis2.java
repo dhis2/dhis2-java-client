@@ -176,6 +176,11 @@ public class BaseDhis2
             uriBuilder.addParameter( "filter", filterValue );
         }
 
+        if ( !query.getFilters().isEmpty() && query.isRootJunctionOr() )
+        {
+            uriBuilder.addParameter( "rootJunction", "OR" );
+        }
+
         Paging paging = query.getPaging();
 
         if ( paging.hasPaging() )

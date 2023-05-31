@@ -6,11 +6,14 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Date;
+import java.util.List;
 
 import org.hisp.dhis.model.Attribute;
 import org.hisp.dhis.model.AttributeValue;
 import org.hisp.dhis.model.OrgUnit;
 import org.hisp.dhis.model.OrgUnitGroup;
+import org.hisp.dhis.query.Filter;
+import org.hisp.dhis.query.Query;
 import org.hisp.dhis.response.Response;
 import org.hisp.dhis.response.Status;
 import org.hisp.dhis.response.object.ObjectResponse;
@@ -110,5 +113,29 @@ public class OrgUnitApiTest
         Response resp = dhis2.addOrgUnitToOrgUnitGroup( ougId, ouId );
 
         assertEquals( Status.OK, resp.getStatus(), resp.toString() );
+    }
+
+    @Test
+    void testGetOrgUnitWithoutRootJunctionOr()
+    {
+        Dhis2 dhis2 = new Dhis2( TestFixture.DEFAULT_CONFIG );
+
+        List<OrgUnit> orgUnits = dhis2.getOrgUnits( Query.instance()
+            .addFilter( Filter.like( "name", "Sierra Leone" ) )
+            .addFilter( Filter.like( "name", "Agape CHP" ) ) );
+
+        assertEquals( 0, orgUnits.size() );
+    }
+
+    @Test
+    void testGetOrgUnitWithRootJunctionOr()
+    {
+        Dhis2 dhis2 = new Dhis2( TestFixture.DEFAULT_CONFIG );
+
+        List<OrgUnit> orgUnits = dhis2.getOrgUnits( Query.instance().withRootJunctionOr()
+            .addFilter( Filter.like( "name", "Sierra Leone" ) )
+            .addFilter( Filter.like( "name", "Agape CHP" ) ) );
+
+        assertEquals( 2, orgUnits.size() );
     }
 }

@@ -18,6 +18,8 @@ public class Query
 
     private boolean expandAssociations = false;
 
+    private boolean rootJunctionOr = false;
+
     private Query()
     {
     }
@@ -113,6 +115,17 @@ public class Query
     }
 
     /**
+     * Enables disjunction (OR) logic when combining filters.
+     *
+     * @return this {@link Query}
+     */
+    public Query withRootJunctionOr()
+    {
+        this.rootJunctionOr = true;
+        return this;
+    }
+
+    /**
      * Indicates whether expansion of associations is enabled. Applies to lists
      * of objects only (not single objects).
      *
@@ -121,5 +134,16 @@ public class Query
     public boolean isExpandAssociations()
     {
         return expandAssociations;
+    }
+
+    /**
+     *
+     * Indicates whether to use disjunction (OR) logic when combining filters.
+     *
+     * @return true if disjunction is enabled, false if not.
+     */
+    public boolean isRootJunctionOr()
+    {
+        return rootJunctionOr;
     }
 }
