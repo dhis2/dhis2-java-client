@@ -14,6 +14,7 @@ import org.hisp.dhis.model.OrgUnit;
 import org.hisp.dhis.model.OrgUnitGroup;
 import org.hisp.dhis.query.Filter;
 import org.hisp.dhis.query.Query;
+import org.hisp.dhis.query.RootJunction;
 import org.hisp.dhis.response.Response;
 import org.hisp.dhis.response.Status;
 import org.hisp.dhis.response.object.ObjectResponse;
@@ -116,11 +117,11 @@ public class OrgUnitApiTest
     }
 
     @Test
-    void testGetOrgUnitWithoutRootJunctionOr()
+    void testGetOrgUnitWithRootJunctionAnd()
     {
         Dhis2 dhis2 = new Dhis2( TestFixture.DEFAULT_CONFIG );
 
-        List<OrgUnit> orgUnits = dhis2.getOrgUnits( Query.instance()
+        List<OrgUnit> orgUnits = dhis2.getOrgUnits( Query.instance().withRootJunction( RootJunction.AND )
             .addFilter( Filter.like( "name", "Sierra Leone" ) )
             .addFilter( Filter.like( "name", "Agape CHP" ) ) );
 
@@ -132,7 +133,7 @@ public class OrgUnitApiTest
     {
         Dhis2 dhis2 = new Dhis2( TestFixture.DEFAULT_CONFIG );
 
-        List<OrgUnit> orgUnits = dhis2.getOrgUnits( Query.instance().withRootJunctionOr()
+        List<OrgUnit> orgUnits = dhis2.getOrgUnits( Query.instance().withRootJunction( RootJunction.OR )
             .addFilter( Filter.like( "name", "Sierra Leone" ) )
             .addFilter( Filter.like( "name", "Agape CHP" ) ) );
 
