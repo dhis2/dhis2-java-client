@@ -31,6 +31,8 @@ import org.hisp.dhis.model.DataElementGroup;
 import org.hisp.dhis.model.DataElementGroupSet;
 import org.hisp.dhis.model.Dimension;
 import org.hisp.dhis.model.ImportStrategy;
+import org.hisp.dhis.model.Indicator;
+import org.hisp.dhis.model.IndicatorType;
 import org.hisp.dhis.model.Objects;
 import org.hisp.dhis.model.OptionSet;
 import org.hisp.dhis.model.OrgUnit;
@@ -1110,6 +1112,46 @@ public class Dhis2
             .appendPath( "dataElementGroupSets" )
             .addParameter( "fields", NAME_FIELDS ), query, Objects.class )
                 .getDataElementGroupSets();
+    }
+
+    // -------------------------------------------------------------------------
+    // Indicator
+    // -------------------------------------------------------------------------
+
+    public Indicator getIndicator( String id )
+    {
+        return getObject( config.getResolvedUriBuilder()
+            .appendPath( "indicators" )
+            .appendPath( id )
+            .addParameter( "fields", INDICATOR_FIELDS ), Query.instance(), Indicator.class );
+    }
+
+    public List<Indicator> getIndicators( Query query )
+    {
+        return getObject( config.getResolvedUriBuilder()
+            .appendPath( "indicators" )
+            .addParameter( "fields", INDICATOR_FIELDS ), query, Objects.class )
+                .getIndicators();
+    }
+
+    // -------------------------------------------------------------------------
+    // Indicator Type
+    // -------------------------------------------------------------------------
+
+    public IndicatorType getIndicatorType( String id )
+    {
+        return getObject( config.getResolvedUriBuilder()
+            .appendPath( "indicatorTypes" )
+            .appendPath( id )
+            .addParameter( "fields", INDICATOR_TYPE_FIELDS ), Query.instance(), IndicatorType.class );
+    }
+
+    public List<IndicatorType> getIndicatorTypes( Query query )
+    {
+        return getObject( config.getResolvedUriBuilder()
+            .appendPath( "indicators" )
+            .addParameter( "fields", INDICATOR_FIELDS ), query, Objects.class )
+                .getIndicatorTypes();
     }
 
     // -------------------------------------------------------------------------

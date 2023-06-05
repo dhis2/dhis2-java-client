@@ -50,6 +50,12 @@ public class Objects
     private List<DataElementGroupSet> dataElementGroupSets = new ArrayList<>();
 
     @JsonProperty
+    private List<IndicatorType> indicatorTypes = new ArrayList<>();
+
+    @JsonProperty
+    private List<Indicator> indicators = new ArrayList<>();
+
+    @JsonProperty
     private List<Program> programs = new ArrayList<>();
 
     @JsonProperty

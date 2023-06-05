@@ -89,6 +89,14 @@ public class BaseDhis2
     protected static final String CATEGORY_FIELDS = String.format(
         "%s,dataDimensionType,dataDimension", NAME_FIELDS );
 
+    protected static final String INDICATOR_TYPE_FIELDS = String.format(
+        "%s,factor,number", NAME_FIELDS );
+
+    protected static final String INDICATOR_FIELDS = String.format(
+        "%1$s,annualized,numerator,numeratorDescription,denominator,denominatorDescription,url," +
+            "indicatorType[%2$s]",
+        NAME_FIELDS, INDICATOR_TYPE_FIELDS );
+
     protected static final String ORG_UNIT_FIELDS = String.format(
         "%s,path,level,parent[%s],openingDate,closedDate,comment," +
             "url,contactPerson,address,email,phoneNumber",
