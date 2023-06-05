@@ -10,8 +10,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class IndicatorType extends NameableObject
 {
     @JsonProperty
-    Integer factor;
+    private Integer factor;
 
     @JsonProperty
-    Boolean number;
+    private Boolean number;
 }

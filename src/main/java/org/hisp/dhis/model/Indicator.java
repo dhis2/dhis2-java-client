@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Indicator extends NameableObject
 {
     @JsonProperty
-    IndicatorType indicatorType;
+    private IndicatorType indicatorType;
 
     @JsonProperty
     private boolean annualized;
