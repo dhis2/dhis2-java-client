@@ -1,11 +1,19 @@
 package org.hisp.dhis;
 
-import static org.junit.Assert.assertNotNull;
+import static org.hisp.dhis.util.CollectionUtils.list;
+import static org.junit.jupiter.api.Assertions.*;
 
 import org.hisp.dhis.model.DataElement;
+import org.hisp.dhis.model.DataElementGroup;
+import org.hisp.dhis.model.DataElementGroupSet;
 import org.hisp.dhis.model.OptionSet;
+import org.hisp.dhis.query.Filter;
+import org.hisp.dhis.query.Order;
+import org.hisp.dhis.query.Query;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
 
 @Tag( "integration" )
 public class DataElementsApiTest
@@ -27,5 +35,29 @@ public class DataElementsApiTest
         assertNotNull( optionSet.getId() );
         assertNotNull( optionSet.getName() );
         assertNotNull( optionSet.getValueType() );
+    }
+
+    @Test
+    void testGetDataElementsWithAssociations()
+    {
+        Dhis2 dhis2 = new Dhis2( TestFixture.DEFAULT_CONFIG );
+
+        List<DataElement> dataElements = dhis2.getDataElements( Query.instance().withExpandAssociations()
+            .addFilter( Filter.in( "id", list( "WO8yRIZb7nb", "eMyVanycQSC" ) ) )
+            .setOrder( Order.asc( "id" ) ) );
+
+        assertEquals( 2, dataElements.size() );
+
+        DataElement de1 = dataElements.get( 0 );
+        DataElementGroup deg1 = de1.getDataElementGroups().get( 0 );
+        DataElementGroupSet degs1 = deg1.getGroupSets().get( 0 );
+
+        assertEquals( deg1.getId(), "oDkJh5Ddh7d" );
+        assertEquals( deg1.getName().trim(), "Acute Flaccid Paralysis (AFP)" );
+        assertEquals( degs1.getId(), "jp826jAJHUc" );
+        assertEquals( degs1.getName(), "Diagnosis" );
+
+        DataElement de2 = dataElements.get( 1 );
+        assertTrue( de2.getDataElementGroups().isEmpty() );
     }
 }

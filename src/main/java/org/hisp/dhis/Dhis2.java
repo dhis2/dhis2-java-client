@@ -992,9 +992,12 @@ public class Dhis2
      */
     public List<DataElement> getDataElements( Query query )
     {
+        String fieldsParam = query.isExpandAssociations() ? String.format(
+            "%1$s,dataElementGroups[id,code,name,groupSets[id,code,name]]", DATA_ELEMENT_FIELDS
+        ) : DATA_ELEMENT_FIELDS;
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "dataElements" )
-            .addParameter( "fields", DATA_ELEMENT_FIELDS ), query, Objects.class )
+            .addParameter( "fields", fieldsParam ), query, Objects.class )
                 .getDataElements();
     }
 
