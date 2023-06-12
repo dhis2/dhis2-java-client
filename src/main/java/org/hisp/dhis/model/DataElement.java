@@ -30,7 +30,7 @@ public class DataElement
     private OptionSet optionSet;
 
     @JsonProperty
-    public List<DataElementGroup> dataElementGroups = new ArrayList<>();
+    private List<DataElementGroup> dataElementGroups = new ArrayList<>();
 
     @JsonIgnore
     public boolean hasOptionSet()

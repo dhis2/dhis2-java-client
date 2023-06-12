@@ -19,5 +19,5 @@ public class DataElementGroup
     private List<DataElement> dataElements = new ArrayList<>();
 
     @JsonProperty
-    public List<DataElementGroupSet> groupSets = new ArrayList<>();
+    private List<DataElementGroupSet> groupSets = new ArrayList<>();
 }
