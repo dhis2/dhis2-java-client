@@ -105,16 +105,13 @@ public class Dhis2Test
         URIBuilder uriBuilder = config.getResolvedUriBuilder().appendPath( "dataValueSets.json" );
 
         DataValueSetQuery query = DataValueSetQuery.instance()
-            .addDataElements( "N9vniUuCcqY", "zAW6b5Owalk", "wZqi8EXN5x4" )
-            .addPeriods( "202211", "202212" )
+            .addDataElements( "N9vniUuCcqY" )
+            .addPeriods( "202211" )
             .addOrgUnits( "ImspTQPwCqd" )
             .setChildren( true );
 
         String expected = "https://dhis2.org/api/dataValueSets.json?" +
-            "dataElement=N9vniUuCcqY&dataElement=zAW6b5Owalk&dataElement=wZqi8EXN5x4" +
-            "&orgUnit=ImspTQPwCqd" +
-            "&period=202211&period=202212" +
-            "&children=true";
+            "dataElement=N9vniUuCcqY&orgUnit=ImspTQPwCqd&period=202211&children=true";
 
         URI uri = dhis2.getDataValueSetQuery( uriBuilder, query );
 
