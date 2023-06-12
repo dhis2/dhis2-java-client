@@ -10,6 +10,7 @@ import org.hisp.dhis.model.IdScheme;
 import org.hisp.dhis.model.datavalueset.DataValueSetImportOptions;
 import org.hisp.dhis.model.event.ProgramStatus;
 import org.hisp.dhis.query.analytics.AnalyticsQuery;
+import org.hisp.dhis.query.datavalue.DataValueSetQuery;
 import org.hisp.dhis.query.event.EventsQuery;
 import org.junit.jupiter.api.Test;
 
@@ -90,6 +91,32 @@ public class Dhis2Test
 
         String expected = "https://dhis2.org/api/tracker/events?" +
             "program=hJhgt5cDs7j&programStatus=ACTIVE&followUp=true&idScheme=code";
+
+        assertEquals( expected, uri.toString() );
+    }
+
+    @Test
+    void testGetDataValueSetQuery()
+    {
+        Dhis2Config config = new Dhis2Config( "https://dhis2.org", "admin", "district" );
+
+        Dhis2 dhis2 = new Dhis2( config );
+
+        URIBuilder uriBuilder = config.getResolvedUriBuilder().appendPath( "dataValueSets.json" );
+
+        DataValueSetQuery query = DataValueSetQuery.instance()
+            .addDataElements( "N9vniUuCcqY", "zAW6b5Owalk", "wZqi8EXN5x4" )
+            .addPeriods( "202211", "202212" )
+            .addOrgUnits( "ImspTQPwCqd" )
+            .setChildren( true );
+
+        String expected = "https://dhis2.org/api/dataValueSets.json?" +
+            "dataElement=N9vniUuCcqY&dataElement=zAW6b5Owalk&dataElement=wZqi8EXN5x4" +
+            "&orgUnit=ImspTQPwCqd" +
+            "&period=202211&period=202212" +
+            "&children=true";
+
+        URI uri = dhis2.getDataValueSetQuery( uriBuilder, query );
 
         assertEquals( expected, uri.toString() );
     }

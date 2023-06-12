@@ -52,6 +52,7 @@ import org.hisp.dhis.model.event.Events;
 import org.hisp.dhis.model.event.EventsResult;
 import org.hisp.dhis.query.Query;
 import org.hisp.dhis.query.analytics.AnalyticsQuery;
+import org.hisp.dhis.query.datavalue.DataValueSetQuery;
 import org.hisp.dhis.query.event.EventsQuery;
 import org.hisp.dhis.request.orgunit.OrgUnitMergeRequest;
 import org.hisp.dhis.request.orgunit.OrgUnitSplitRequest;
@@ -993,8 +994,7 @@ public class Dhis2
     public List<DataElement> getDataElements( Query query )
     {
         String fieldsParam = query.isExpandAssociations() ? String.format(
-            "%1$s,dataElementGroups[id,code,name,groupSets[id,code,name]]", DATA_ELEMENT_FIELDS
-        ) : DATA_ELEMENT_FIELDS;
+            "%1$s,dataElementGroups[id,code,name,groupSets[id,code,name]]", DATA_ELEMENT_FIELDS ) : DATA_ELEMENT_FIELDS;
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "dataElements" )
             .addParameter( "fields", fieldsParam ), query, Objects.class )
@@ -1486,6 +1486,18 @@ public class Dhis2
         Dhis2AsyncRequest asyncRequest = new Dhis2AsyncRequest( config, httpClient, objectMapper );
 
         return asyncRequest.post( request, DataValueSetResponse.class );
+    }
+
+    /**
+     * Retrieves a {@link DataValueSet}.
+     *
+     * @param query the {@link AnalyticsQuery}.
+     * @return {@link DataValueSet}.
+     */
+    public DataValueSet getDataValueSet( DataValueSetQuery query )
+    {
+        return getDataValueSetResponse( config.getResolvedUriBuilder()
+            .appendPath( "dataValueSets.json" ), query, DataValueSet.class );
     }
 
     // -------------------------------------------------------------------------
