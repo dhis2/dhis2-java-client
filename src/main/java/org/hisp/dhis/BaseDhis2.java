@@ -97,6 +97,13 @@ public class BaseDhis2
             "indicatorType[%2$s]",
         NAME_FIELDS, INDICATOR_TYPE_FIELDS );
 
+    protected static final String DATA_SET_FIELDS = String.format(
+        "%1$s,formName,displayFormName,categoryCombo[%1$s],dataSetElements,dimensionItem,openFuturePeriods, " +
+            "expiryDays,timelyDays,url,formType,periodType,version,dimensionItemType,aggregationType,favorite," +
+            "compulsoryFieldsCompleteOnly,skipOffline,validCompleteOnly,dataElementDecoration," +
+            "notifyCompletingUser,noValueRequiresComment,fieldCombinationRequired,mobile",
+        NAME_FIELDS );
+
     protected static final String ORG_UNIT_FIELDS = String.format(
         "%s,path,level,parent[%s],openingDate,closedDate,comment," +
             "url,contactPerson,address,email,phoneNumber",

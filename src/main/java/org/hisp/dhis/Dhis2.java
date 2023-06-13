@@ -29,6 +29,7 @@ import org.hisp.dhis.model.CategoryOptionGroupSet;
 import org.hisp.dhis.model.DataElement;
 import org.hisp.dhis.model.DataElementGroup;
 import org.hisp.dhis.model.DataElementGroupSet;
+import org.hisp.dhis.model.DataSet;
 import org.hisp.dhis.model.Dimension;
 import org.hisp.dhis.model.ImportStrategy;
 import org.hisp.dhis.model.Indicator;
@@ -993,8 +994,7 @@ public class Dhis2
     public List<DataElement> getDataElements( Query query )
     {
         String fieldsParam = query.isExpandAssociations() ? String.format(
-            "%1$s,dataElementGroups[id,code,name,groupSets[id,code,name]]", DATA_ELEMENT_FIELDS
-        ) : DATA_ELEMENT_FIELDS;
+            "%1$s,dataElementGroups[id,code,name,groupSets[id,code,name]]", DATA_ELEMENT_FIELDS ) : DATA_ELEMENT_FIELDS;
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "dataElements" )
             .addParameter( "fields", fieldsParam ), query, Objects.class )
@@ -1155,6 +1155,35 @@ public class Dhis2
             .appendPath( "indicators" )
             .addParameter( "fields", INDICATOR_FIELDS ), query, Objects.class )
                 .getIndicatorTypes();
+    }
+
+    // -------------------------------------------------------------------------
+    // DataSet
+    // -------------------------------------------------------------------------
+
+    public DataSet getDataSet( String id )
+    {
+        String fieldsParam = String.format(
+            "%1$s,organisationUnits[%2$s],workflow[%2$s],indicators[%2$s],sections[%2$s],legendSets[%2$s]",
+            DATA_SET_FIELDS, NAME_FIELDS );
+
+        return getObject( config.getResolvedUriBuilder()
+            .appendPath( "dataSets" )
+            .appendPath( id )
+            .addParameter( "fields", fieldsParam ), Query.instance(), DataSet.class );
+    }
+
+    public List<DataSet> getDataSets( Query query )
+    {
+        String fieldsParam = query.isExpandAssociations()
+            ? String.format( "%1$s,organisationUnits[%2$s],workflow[%2$s],indicators[%2$s],sections[%2$s]," +
+                "legendSets[%2$s]", DATA_SET_FIELDS, NAME_FIELDS )
+            : DATA_SET_FIELDS;
+
+        return getObject( config.getResolvedUriBuilder()
+            .appendPath( "dataSets" )
+            .addParameter( "fields", fieldsParam ), query, Objects.class )
+                .getDataSets();
     }
 
     // -------------------------------------------------------------------------

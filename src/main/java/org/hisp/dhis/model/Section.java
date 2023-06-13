@@ -3,21 +3,17 @@ package org.hisp.dhis.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-@Getter
-@Setter
-@NoArgsConstructor
-public class DataElementGroup
+public class Section
     extends NameableObject
 {
+    @JsonProperty
+    private DataSet dataSet;
+
     @JsonProperty
     private List<DataElement> dataElements = new ArrayList<>();
 
     @JsonProperty
-    private List<DataElementGroupSet> groupSets = new ArrayList<>();
+    private List<Indicator> indicators = new ArrayList<>();
 }
