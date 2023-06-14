@@ -44,6 +44,9 @@ public class Objects
     private List<CategoryCombo> categoryCombos = new ArrayList<>();
 
     @JsonProperty
+    private List<CategoryOptionCombo> categoryOptionCombos = new ArrayList<>();
+
+    @JsonProperty
     private List<OptionSet> optionSets = new ArrayList<>();
 
     @JsonProperty
