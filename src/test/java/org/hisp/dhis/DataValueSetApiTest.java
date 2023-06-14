@@ -1,5 +1,6 @@
 package org.hisp.dhis;
 
+import static org.hisp.dhis.util.CollectionUtils.list;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -18,9 +19,9 @@ public class DataValueSetApiTest
         Dhis2 dhis2 = new Dhis2( TestFixture.DEFAULT_CONFIG );
 
         DataValueSetQuery query = DataValueSetQuery.instance()
-            .addDataSets( "lyLU2wR22tC" )
-            .addPeriods( "202211" )
-            .addOrgUnits( "ImspTQPwCqd" )
+            .addDataSets( list( "lyLU2wR22tC" ) )
+            .addPeriods( list( "202211" ) )
+            .addOrgUnits( list( "ImspTQPwCqd" ) )
             .setChildren( true );
 
         DataValueSet dataValueSet = dhis2.getDataValueSet( query );

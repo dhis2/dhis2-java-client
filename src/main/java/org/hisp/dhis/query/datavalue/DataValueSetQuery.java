@@ -72,45 +72,45 @@ public class DataValueSetQuery
         return new DataValueSetQuery();
     }
 
-    public DataValueSetQuery addDataElements( String... dataElements )
+    public DataValueSetQuery addDataElements( List<String> dataElements )
     {
-        this.dataElements.addAll( Arrays.asList( dataElements ) );
+        this.dataElements.addAll( dataElements );
         return this;
     }
 
-    public DataValueSetQuery addOrgUnits( String... orgUnits )
+    public DataValueSetQuery addOrgUnits( List<String> orgUnits )
     {
-        this.orgUnits.addAll( Arrays.asList( orgUnits ) );
+        this.orgUnits.addAll( orgUnits );
         return this;
     }
 
-    public DataValueSetQuery addPeriods( String... periods )
+    public DataValueSetQuery addPeriods( List<String> periods )
     {
-        this.periods.addAll( Arrays.asList( periods ) );
+        this.periods.addAll( periods );
         return this;
     }
 
-    public DataValueSetQuery addDataSets( String... dataSets )
+    public DataValueSetQuery addDataSets( List<String> dataSets )
     {
-        this.dataSets.addAll( Arrays.asList( dataSets ) );
+        this.dataSets.addAll( dataSets );
         return this;
     }
 
-    public DataValueSetQuery addDataElementGroups( String... dataElementGroups )
+    public DataValueSetQuery addDataElementGroups( List<String> dataElementGroups )
     {
-        this.dataElementGroups.addAll( Arrays.asList( dataElementGroups ) );
+        this.dataElementGroups.addAll( dataElementGroups );
         return this;
     }
 
-    public DataValueSetQuery addOrgUnitGroups( String... orgUnitGroups )
+    public DataValueSetQuery addOrgUnitGroups( List<String> orgUnitGroups )
     {
-        this.orgUnitGroups.addAll( Arrays.asList( orgUnitGroups ) );
+        this.orgUnitGroups.addAll( orgUnitGroups );
         return this;
     }
 
-    public DataValueSetQuery addAttributeOptionCombos( String... attributeOptionCombos )
+    public DataValueSetQuery addAttributeOptionCombos( List<String> attributeOptionCombos )
     {
-        this.attributeOptionCombos.addAll( Arrays.asList( attributeOptionCombos ) );
+        this.attributeOptionCombos.addAll( attributeOptionCombos );
         return this;
     }
 }

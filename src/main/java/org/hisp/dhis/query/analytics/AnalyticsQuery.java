@@ -58,6 +58,11 @@ public class AnalyticsQuery
         return addDimension( new Dimension( dimension, new ArrayList<>( Arrays.asList( items ) ) ) );
     }
 
+    public AnalyticsQuery addDimension( String dimension, List<String> items )
+    {
+        return addDimension( new Dimension( dimension, items ) );
+    }
+
     public AnalyticsQuery addFilter( Dimension filter )
     {
         this.filters.add( filter );

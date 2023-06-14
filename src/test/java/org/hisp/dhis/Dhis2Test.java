@@ -1,5 +1,6 @@
 package org.hisp.dhis;
 
+import static org.hisp.dhis.util.CollectionUtils.list;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.net.URI;
@@ -105,9 +106,9 @@ public class Dhis2Test
         URIBuilder uriBuilder = config.getResolvedUriBuilder().appendPath( "dataValueSets.json" );
 
         DataValueSetQuery query = DataValueSetQuery.instance()
-            .addDataElements( "N9vniUuCcqY" )
-            .addPeriods( "202211" )
-            .addOrgUnits( "ImspTQPwCqd" )
+            .addDataElements( list( "N9vniUuCcqY" ) )
+            .addPeriods( list( "202211" ) )
+            .addOrgUnits( list( "ImspTQPwCqd" ) )
             .setChildren( true );
 
         String expected = "https://dhis2.org/api/dataValueSets.json?" +
