@@ -25,6 +25,7 @@ import org.hisp.dhis.auth.CookieAuthentication;
 import org.hisp.dhis.model.Category;
 import org.hisp.dhis.model.CategoryCombo;
 import org.hisp.dhis.model.CategoryOption;
+import org.hisp.dhis.model.CategoryOptionCombo;
 import org.hisp.dhis.model.CategoryOptionGroupSet;
 import org.hisp.dhis.model.DataElement;
 import org.hisp.dhis.model.DataElementGroup;
@@ -910,6 +911,39 @@ public class Dhis2
     }
 
     // -------------------------------------------------------------------------
+    // Category option combo
+    // -------------------------------------------------------------------------
+
+    /**
+     * Retrieves an {@link CategoryOptionCombo}.
+     *
+     * @param id the object identifier.
+     * @return the {@link CategoryOptionCombo}.
+     * @throws Dhis2ClientException if the object does not exist.
+     */
+    public CategoryOptionCombo getCategoryOptionCombo( String id )
+    {
+        return getObject( config.getResolvedUriBuilder()
+            .appendPath( "categoryOptionCombos" )
+            .appendPath( id )
+            .addParameter( "fields", NAME_FIELDS ), Query.instance(), CategoryOptionCombo.class );
+    }
+
+    /**
+     * Retrieves a list of {@link CategoryOptionCombo}.
+     *
+     * @param query the {@link Query}.
+     * @return list of {@link CategoryOptionCombo}.
+     */
+    public List<CategoryOptionCombo> getCategoryOptionCombos( Query query )
+    {
+        return getObject( config.getResolvedUriBuilder()
+            .appendPath( "categoryOptionCombos" )
+            .addParameter( "fields", NAME_FIELDS ), query, Objects.class )
+                .getCategoryOptionCombos();
+    }
+
+    // -------------------------------------------------------------------------
     // Data element
     // -------------------------------------------------------------------------
 
@@ -1121,6 +1155,12 @@ public class Dhis2
     // Indicator
     // -------------------------------------------------------------------------
 
+    /**
+     * Retrieves an {@link Indicator}.
+     *
+     * @param id the object identifier.
+     * @return the {@link Indicator}.
+     */
     public Indicator getIndicator( String id )
     {
         return getObject( config.getResolvedUriBuilder()
@@ -1129,6 +1169,12 @@ public class Dhis2
             .addParameter( "fields", INDICATOR_FIELDS ), Query.instance(), Indicator.class );
     }
 
+    /**
+     * Retrieves a list of {@link Indicator}.
+     *
+     * @param query the {@link Query}.
+     * @return list of {@link Indicator}.
+     */
     public List<Indicator> getIndicators( Query query )
     {
         return getObject( config.getResolvedUriBuilder()
@@ -1141,6 +1187,12 @@ public class Dhis2
     // Indicator Type
     // -------------------------------------------------------------------------
 
+    /**
+     * Retrieves an {@link IndicatorType}.
+     *
+     * @param id the object identifier.
+     * @return the {@link IndicatorType}.
+     */
     public IndicatorType getIndicatorType( String id )
     {
         return getObject( config.getResolvedUriBuilder()
@@ -1149,6 +1201,12 @@ public class Dhis2
             .addParameter( "fields", INDICATOR_TYPE_FIELDS ), Query.instance(), IndicatorType.class );
     }
 
+    /**
+     * Retrieves a list of {@link IndicatorType}.
+     *
+     * @param query the {@link Query}.
+     * @return list of {@link IndicatorType}.
+     */
     public List<IndicatorType> getIndicatorTypes( Query query )
     {
         return getObject( config.getResolvedUriBuilder()
@@ -1161,6 +1219,12 @@ public class Dhis2
     // DataSet
     // -------------------------------------------------------------------------
 
+    /**
+     * Retrieves an {@link DataSet}.
+     *
+     * @param id the object identifier.
+     * @return the {@link DataSet}.
+     */
     public DataSet getDataSet( String id )
     {
         String fieldsParam = String.format(
@@ -1173,6 +1237,12 @@ public class Dhis2
             .addParameter( "fields", fieldsParam ), Query.instance(), DataSet.class );
     }
 
+    /**
+     * Retrieves a list of {@link DataSet}.
+     *
+     * @param query the {@link Query}.
+     * @return list of {@link DataSet}.
+     */
     public List<DataSet> getDataSets( Query query )
     {
         String fieldsParam = query.isExpandAssociations()

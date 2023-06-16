@@ -3,6 +3,8 @@ package org.hisp.dhis;
 import static org.hisp.dhis.util.CollectionUtils.list;
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.List;
+
 import org.hisp.dhis.model.DataElement;
 import org.hisp.dhis.model.DataElementGroup;
 import org.hisp.dhis.model.DataElementGroupSet;
@@ -12,8 +14,6 @@ import org.hisp.dhis.query.Order;
 import org.hisp.dhis.query.Query;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-
-import java.util.List;
 
 @Tag( "integration" )
 public class DataElementsApiTest

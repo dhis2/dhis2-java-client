@@ -11,8 +11,10 @@ import org.hisp.dhis.model.FormType;
 import org.hisp.dhis.query.Filter;
 import org.hisp.dhis.query.Order;
 import org.hisp.dhis.query.Query;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
+@Tag( "integration" )
 public class DataSetApiTest
 {
     @Test
