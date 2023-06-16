@@ -1,6 +1,8 @@
 package org.hisp.dhis.query.datavalue;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -72,43 +74,43 @@ public class DataValueSetQuery
         return new DataValueSetQuery();
     }
 
-    public DataValueSetQuery addDataElements( List<String> dataElements )
+    public DataValueSetQuery addDataElements( Collection<String> dataElements )
     {
         this.dataElements.addAll( dataElements );
         return this;
     }
 
-    public DataValueSetQuery addOrgUnits( List<String> orgUnits )
+    public DataValueSetQuery addOrgUnits( Collection<String> orgUnits )
     {
         this.orgUnits.addAll( orgUnits );
         return this;
     }
 
-    public DataValueSetQuery addPeriods( List<String> periods )
+    public DataValueSetQuery addPeriods( Collection<String> periods )
     {
         this.periods.addAll( periods );
         return this;
     }
 
-    public DataValueSetQuery addDataSets( List<String> dataSets )
+    public DataValueSetQuery addDataSets( Collection<String> dataSets )
     {
         this.dataSets.addAll( dataSets );
         return this;
     }
 
-    public DataValueSetQuery addDataElementGroups( List<String> dataElementGroups )
+    public DataValueSetQuery addDataElementGroups( Collection<String> dataElementGroups )
     {
         this.dataElementGroups.addAll( dataElementGroups );
         return this;
     }
 
-    public DataValueSetQuery addOrgUnitGroups( List<String> orgUnitGroups )
+    public DataValueSetQuery addOrgUnitGroups( Collection<String> orgUnitGroups )
     {
         this.orgUnitGroups.addAll( orgUnitGroups );
         return this;
     }
 
-    public DataValueSetQuery addAttributeOptionCombos( List<String> attributeOptionCombos )
+    public DataValueSetQuery addAttributeOptionCombos( Collection<String> attributeOptionCombos )
     {
         this.attributeOptionCombos.addAll( attributeOptionCombos );
         return this;

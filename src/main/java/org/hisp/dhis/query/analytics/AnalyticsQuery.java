@@ -1,7 +1,6 @@
 package org.hisp.dhis.query.analytics;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import lombok.Getter;
@@ -51,11 +50,6 @@ public class AnalyticsQuery
     {
         this.dimensions.add( dimension );
         return this;
-    }
-
-    public AnalyticsQuery addDimension( String dimension, String... items )
-    {
-        return addDimension( new Dimension( dimension, new ArrayList<>( Arrays.asList( items ) ) ) );
     }
 
     public AnalyticsQuery addDimension( String dimension, List<String> items )
