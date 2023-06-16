@@ -52,6 +52,7 @@ import org.hisp.dhis.query.Query;
 import org.hisp.dhis.query.RootJunction;
 import org.hisp.dhis.query.analytics.AnalyticsQuery;
 import org.hisp.dhis.query.analytics.Dimension;
+import org.hisp.dhis.query.datavalue.DataValueSetQuery;
 import org.hisp.dhis.query.event.EventsQuery;
 import org.hisp.dhis.response.BaseHttpResponse;
 import org.hisp.dhis.response.Dhis2ClientException;
@@ -229,6 +230,22 @@ public class BaseDhis2
     }
 
     /**
+     * Retrieves a dataValueSet object using HTTP GET.
+     *
+     * @param uriBuilder the URI builder.
+     * @param query the {@link DataValueSetQuery} filters to apply.
+     * @param type the class type of the object.
+     * @param <T> type.
+     * @return the object.
+     */
+    protected <T> T getDataValueSetResponse( URIBuilder uriBuilder, DataValueSetQuery query, Class<T> type )
+    {
+        URI url = getDataValueSetQuery( uriBuilder, query );
+
+        return getObjectFromUrl( url, type );
+    }
+
+    /**
      * Retrieves an analytics object using HTTP GET.
      *
      * @param uriBuilder the URI builder.
@@ -340,6 +357,74 @@ public class BaseDhis2
         addParameter( uriBuilder, "programIdScheme", query.getProgramIdScheme() );
         addParameter( uriBuilder, "programStageIdScheme", query.getProgramStageIdScheme() );
         addParameter( uriBuilder, "idScheme", query.getIdScheme() );
+
+        return HttpUtils.build( uriBuilder );
+    }
+
+    /**
+     * Returns a {@link URI} based on the given dataValueSet query.
+     *
+     * @param uriBuilder the URI builder.
+     * @param query the {@link DataValueSetQuery}.
+     * @return a URI.
+     */
+    public URI getDataValueSetQuery( URIBuilder uriBuilder, DataValueSetQuery query )
+    {
+        for ( String dataElement : query.getDataElements() )
+        {
+            addParameter( uriBuilder, "dataElement", dataElement );
+        }
+
+        for ( String orgUnit : query.getOrgUnits() )
+        {
+            addParameter( uriBuilder, "orgUnit", orgUnit );
+        }
+
+        for ( String period : query.getPeriods() )
+        {
+            addParameter( uriBuilder, "period", period );
+        }
+
+        for ( String dataSet : query.getDataSets() )
+        {
+            addParameter( uriBuilder, "dataSet", dataSet );
+        }
+
+        for ( String dataElementGroup : query.getDataElementGroups() )
+        {
+            addParameter( uriBuilder, "dataElementGroup", dataElementGroup );
+        }
+
+        for ( String orgUnitGroup : query.getOrgUnitGroups() )
+        {
+            addParameter( uriBuilder, "orgUnitGroup", orgUnitGroup );
+        }
+
+        for ( String attributeOptionCombo : query.getAttributeOptionCombos() )
+        {
+            addParameter( uriBuilder, "attributeOptionCombo", attributeOptionCombo );
+        }
+
+        addParameter( uriBuilder, "startDate", query.getStartDate() );
+        addParameter( uriBuilder, "endDate", query.getEndDate() );
+        addParameter( uriBuilder, "children", query.getChildren() );
+        addParameter( uriBuilder, "includeDeleted", query.getIncludeDeleted() );
+        addParameter( uriBuilder, "lastUpdated", query.getLastUpdated() );
+        addParameter( uriBuilder, "lastUpdatedDuration", query.getLastUpdatedDuration() );
+        addParameter( uriBuilder, "limit", query.getLimit() );
+        addParameter( uriBuilder, "dataElementIdScheme", query.getDataElementIdScheme() );
+        addParameter( uriBuilder, "orgUnitIdScheme", query.getOrgUnitIdScheme() );
+        addParameter( uriBuilder, "categoryOptionComboIdScheme", query.getCategoryOptionComboIdScheme() );
+        addParameter( uriBuilder, "attributeOptionComboIdScheme", query.getAttributeOptionComboIdScheme() );
+        addParameter( uriBuilder, "dataSetIdScheme", query.getDataSetIdScheme() );
+        addParameter( uriBuilder, "categoryIdScheme", query.getCategoryIdScheme() );
+        addParameter( uriBuilder, "categoryOptionIdScheme", query.getCategoryOptionIdScheme() );
+        addParameter( uriBuilder, "idScheme", query.getIdScheme() );
+        addParameter( uriBuilder, "inputOrgUnitIdScheme", query.getInputOrgUnitIdScheme() );
+        addParameter( uriBuilder, "inputDataSetIdScheme", query.getInputDataSetIdScheme() );
+        addParameter( uriBuilder, "inputDataElementGroupIdScheme", query.getInputDataElementGroupIdScheme() );
+        addParameter( uriBuilder, "inputDataElementIdScheme", query.getInputDataElementIdScheme() );
+        addParameter( uriBuilder, "inputIdScheme", query.getInputIdScheme() );
 
         return HttpUtils.build( uriBuilder );
     }
