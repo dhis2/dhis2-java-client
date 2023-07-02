@@ -8,6 +8,7 @@ import java.util.List;
 import org.hisp.dhis.model.DataElement;
 import org.hisp.dhis.model.DataElementGroup;
 import org.hisp.dhis.model.DataElementGroupSet;
+import org.hisp.dhis.model.DataSetElement;
 import org.hisp.dhis.model.OptionSet;
 import org.hisp.dhis.query.Filter;
 import org.hisp.dhis.query.Order;
@@ -43,10 +44,10 @@ public class DataElementsApiTest
         Dhis2 dhis2 = new Dhis2( TestFixture.DEFAULT_CONFIG );
 
         List<DataElement> dataElements = dhis2.getDataElements( Query.instance().withExpandAssociations()
-            .addFilter( Filter.in( "id", list( "WO8yRIZb7nb", "eMyVanycQSC" ) ) )
+            .addFilter( Filter.in( "id", list( "fazCI2ygYkq", "eMyVanycQSC", "FTRrcoaog83" ) ) )
             .setOrder( Order.asc( "id" ) ) );
 
-        assertEquals( 2, dataElements.size() );
+        assertEquals( 3, dataElements.size() );
 
         DataElement de1 = dataElements.get( 0 );
         DataElementGroup deg1 = de1.getDataElementGroups().get( 0 );
@@ -59,5 +60,11 @@ public class DataElementsApiTest
 
         DataElement de2 = dataElements.get( 1 );
         assertTrue( de2.getDataElementGroups().isEmpty() );
+
+        List<DataSetElement> dataSetElements = dataElements.get( 2 ).getDataSetElements();
+
+        assertEquals( 3, dataSetElements.size() );
+        assertEquals( "rIUL3hYOjJc", dataSetElements.get( 0 ).getDataSet().getWorkflow().getId() );
+        assertEquals( "Monthly", dataSetElements.get( 1 ).getDataSet().getPeriodType() );
     }
 }
