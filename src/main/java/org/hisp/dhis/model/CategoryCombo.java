@@ -16,5 +16,11 @@ public class CategoryCombo
     private DataDimensionType dataDimensionType;
 
     @JsonProperty
+    private Boolean skipTotal;
+
+    @JsonProperty
     private List<Category> categories;
+
+    @JsonProperty
+    private List<CategoryOptionCombo> categoryOptionCombos;
 }
