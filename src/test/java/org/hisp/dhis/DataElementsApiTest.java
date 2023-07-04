@@ -8,6 +8,7 @@ import java.util.List;
 import org.hisp.dhis.model.DataElement;
 import org.hisp.dhis.model.DataElementGroup;
 import org.hisp.dhis.model.DataElementGroupSet;
+import org.hisp.dhis.model.DataSet;
 import org.hisp.dhis.model.DataSetElement;
 import org.hisp.dhis.model.OptionSet;
 import org.hisp.dhis.query.Filter;
@@ -63,8 +64,12 @@ public class DataElementsApiTest
 
         List<DataSetElement> dataSetElements = dataElements.get( 2 ).getDataSetElements();
 
+        DataSet workflowDataSet = dataSetElements.stream()
+            .filter( dse -> dse.getDataSet().getWorkflow() != null )
+            .findFirst().get().getDataSet();
+
         assertEquals( 3, dataSetElements.size() );
-        assertEquals( "rIUL3hYOjJc", dataSetElements.get( 0 ).getDataSet().getWorkflow().getId() );
+        assertEquals( "rIUL3hYOjJc", workflowDataSet.getWorkflow().getId() );
         assertEquals( "Monthly", dataSetElements.get( 1 ).getDataSet().getPeriodType() );
     }
 }
