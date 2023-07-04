@@ -17,11 +17,5 @@ public class CategoryOptionCombo
     private Boolean ignoreApproval;
 
     @JsonProperty
-    private CategoryCombo categoryCombo;
-
-    @JsonProperty
-    private String dimensionItem;
-
-    @JsonProperty
     private Set<CategoryOption> categoryOptions = new HashSet<>();
 }
