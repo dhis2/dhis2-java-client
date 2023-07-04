@@ -88,9 +88,7 @@ public class BaseDhis2
         "%1$s,shortName,startDate,endDate,formName,categories[%1$s],organisationUnits[%1$s]", ID_FIELDS );
 
     protected static final String CATEGORY_OPTION_COMBO_FIELDS = String.format(
-        "%1$s,dataDimensionType,aggregationType,ignoreApproval,dimensionItem,categoryCombo[%1$s]," +
-            "categoryOptions[%1$s],legendSets[%1$s]",
-        ID_FIELDS );
+        "%1$s,ignoreApproval,dimensionItem,categoryCombo[%1$s],categoryOptions[%1$s]", ID_FIELDS );
 
     protected static final String CATEGORY_COMBO_FIELDS = String.format(
         "%1$s,dataDimensionType,skipTotal,categories[%1$s],categoryOptionCombos[%2$s]", ID_FIELDS,

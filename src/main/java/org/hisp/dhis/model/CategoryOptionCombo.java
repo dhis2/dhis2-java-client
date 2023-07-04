@@ -14,12 +14,6 @@ public class CategoryOptionCombo
     extends NameableObject
 {
     @JsonProperty
-    private AggregationType aggregationType;
-
-    @JsonProperty
-    private DimensionItemType dimensionItemType;
-
-    @JsonProperty
     private Boolean ignoreApproval;
 
     @JsonProperty
@@ -27,9 +21,6 @@ public class CategoryOptionCombo
 
     @JsonProperty
     private String dimensionItem;
-
-    @JsonProperty
-    private Set<LegendSet> legendSets = new HashSet<>();
 
     @JsonProperty
     private Set<CategoryOption> categoryOptions = new HashSet<>();
