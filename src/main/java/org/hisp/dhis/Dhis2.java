@@ -894,7 +894,7 @@ public class Dhis2
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "categoryCombos" )
             .appendPath( id )
-            .addParameter( "fields", NAME_FIELDS ), Query.instance(), CategoryCombo.class );
+            .addParameter( "fields", CATEGORY_COMBO_FIELDS ), Query.instance(), CategoryCombo.class );
     }
 
     /**
@@ -907,7 +907,7 @@ public class Dhis2
     {
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "categoryCombos" )
-            .addParameter( "fields", NAME_FIELDS ), query, Objects.class )
+            .addParameter( "fields", CATEGORY_COMBO_FIELDS ), query, Objects.class )
                 .getCategoryCombos();
     }
 
@@ -927,7 +927,7 @@ public class Dhis2
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "categoryOptionCombos" )
             .appendPath( id )
-            .addParameter( "fields", NAME_FIELDS ), Query.instance(), CategoryOptionCombo.class );
+            .addParameter( "fields", CATEGORY_OPTION_COMBO_FIELDS ), Query.instance(), CategoryOptionCombo.class );
     }
 
     /**
@@ -940,7 +940,7 @@ public class Dhis2
     {
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "categoryOptionCombos" )
-            .addParameter( "fields", NAME_FIELDS ), query, Objects.class )
+            .addParameter( "fields", CATEGORY_OPTION_COMBO_FIELDS ), query, Objects.class )
                 .getCategoryOptionCombos();
     }
 
