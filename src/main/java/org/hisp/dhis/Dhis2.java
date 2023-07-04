@@ -1137,7 +1137,7 @@ public class Dhis2
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "dataElementGroupSets" )
             .appendPath( id )
-            .addParameter( "fields", NAME_FIELDS ), Query.instance(), DataElementGroupSet.class );
+            .addParameter( "fields", DATA_ELEMENT_GROUP_SET_FIELDS ), Query.instance(), DataElementGroupSet.class );
     }
 
     /**
@@ -1150,7 +1150,7 @@ public class Dhis2
     {
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "dataElementGroupSets" )
-            .addParameter( "fields", NAME_FIELDS ), query, Objects.class )
+            .addParameter( "fields", DATA_ELEMENT_GROUP_SET_FIELDS ), query, Objects.class )
                 .getDataElementGroupSets();
     }
 
