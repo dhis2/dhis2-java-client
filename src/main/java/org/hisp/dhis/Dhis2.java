@@ -26,6 +26,7 @@ import org.hisp.dhis.model.Category;
 import org.hisp.dhis.model.CategoryCombo;
 import org.hisp.dhis.model.CategoryOption;
 import org.hisp.dhis.model.CategoryOptionCombo;
+import org.hisp.dhis.model.CategoryOptionGroup;
 import org.hisp.dhis.model.CategoryOptionGroupSet;
 import org.hisp.dhis.model.DataElement;
 import org.hisp.dhis.model.DataElementGroup;
@@ -563,7 +564,7 @@ public class Dhis2
     public List<OrgUnitGroup> getOrgUnitGroups( Query query )
     {
         String fieldsParams = query.isExpandAssociations() ? String.format(
-            "%1$s,organisationUnits[%2$s]", NAME_FIELDS, ORG_UNIT_FIELDS )
+            "%1$s,organisationUnits[id,code,name]", NAME_FIELDS )
             : NAME_FIELDS;
 
         return getObject( config.getResolvedUriBuilder()
@@ -1137,7 +1138,7 @@ public class Dhis2
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "dataElementGroupSets" )
             .appendPath( id )
-            .addParameter( "fields", NAME_FIELDS ), Query.instance(), DataElementGroupSet.class );
+            .addParameter( "fields", DATA_ELEMENT_GROUP_SET_FIELDS ), Query.instance(), DataElementGroupSet.class );
     }
 
     /**
@@ -1150,7 +1151,7 @@ public class Dhis2
     {
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "dataElementGroupSets" )
-            .addParameter( "fields", NAME_FIELDS ), query, Objects.class )
+            .addParameter( "fields", DATA_ELEMENT_GROUP_SET_FIELDS ), query, Objects.class )
                 .getDataElementGroupSets();
     }
 
@@ -1333,6 +1334,39 @@ public class Dhis2
     }
 
     // -------------------------------------------------------------------------
+    // Category option group
+    // -------------------------------------------------------------------------
+
+    /**
+     * Retrieves an {@link CategoryOptionGroup}.
+     *
+     * @param id the object identifier.
+     * @return the {@link CategoryOptionGroup}.
+     * @throws Dhis2ClientException if the object does not exist.
+     */
+    public CategoryOptionGroup getCategoryOptionGroup( String id )
+    {
+        return getObject( config.getResolvedUriBuilder()
+            .appendPath( "categoryOptionGroups" )
+            .appendPath( id )
+            .addParameter( "fields", CATEGORY_OPTION_GROUP_FIELDS ), Query.instance(), CategoryOptionGroup.class );
+    }
+
+    /**
+     * Retrieves a list of {@link CategoryOptionGroup}.
+     *
+     * @param query the {@link Query}.
+     * @return list of {@link CategoryOptionGroup}.
+     */
+    public List<CategoryOptionGroup> getCategoryOptionGroups( Query query )
+    {
+        return getObject( config.getResolvedUriBuilder()
+            .appendPath( "categoryOptionGroups" )
+            .addParameter( "fields", CATEGORY_OPTION_GROUP_FIELDS ), query, Objects.class )
+                .getCategoryOptionGroups();
+    }
+
+    // -------------------------------------------------------------------------
     // Category option group set
     // -------------------------------------------------------------------------
 
@@ -1348,7 +1382,8 @@ public class Dhis2
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "categoryOptionGroupSets" )
             .appendPath( id )
-            .addParameter( "fields", NAME_FIELDS ), Query.instance(), CategoryOptionGroupSet.class );
+            .addParameter( "fields", CATEGORY_OPTION_GROUP_SET_FIELDS ), Query.instance(),
+            CategoryOptionGroupSet.class );
     }
 
     /**
@@ -1361,7 +1396,7 @@ public class Dhis2
     {
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "categoryOptionGroupSets" )
-            .addParameter( "fields", NAME_FIELDS ), query, Objects.class )
+            .addParameter( "fields", CATEGORY_OPTION_GROUP_SET_FIELDS ), query, Objects.class )
                 .getCategoryOptionGroupSets();
     }
 

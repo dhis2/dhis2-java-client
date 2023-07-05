@@ -65,6 +65,9 @@ public class Objects
     private List<Program> programs = new ArrayList<>();
 
     @JsonProperty
+    private List<CategoryOptionGroup> categoryOptionGroups = new ArrayList<>();
+
+    @JsonProperty
     private List<CategoryOptionGroupSet> categoryOptionGroupSets = new ArrayList<>();
 
     @JsonProperty

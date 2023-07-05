@@ -84,18 +84,27 @@ public class BaseDhis2
     protected static final String DATA_ELEMENT_FIELDS = String.format(
         "%1$s,aggregationType,valueType,domainType,legendSets[%1$s],optionSet[%2$s]", NAME_FIELDS, OPTION_SET_FIELDS );
 
+    protected static final String DATA_ELEMENT_GROUP_SET_FIELDS = String.format(
+        "%1$s,compulsory,dataDimension,dimensionType,dataElementGroups[%1$s]", NAME_FIELDS );
+
     protected static final String CATEGORY_OPTION_FIELDS = String.format(
         "%1$s,shortName,startDate,endDate,formName,categories[%1$s],organisationUnits[%1$s]", ID_FIELDS );
 
     protected static final String CATEGORY_OPTION_COMBO_FIELDS = String.format(
-        "%1$s,ignoreApproval,dimensionItem,categoryCombo[%1$s],categoryOptions[%1$s]", ID_FIELDS );
+        "%1$s,ignoreApproval,dimensionItem,categoryOptions[%1$s]", ID_FIELDS );
+
+    protected static final String CATEGORY_OPTION_GROUP_FIELDS = String.format(
+        "%1$s,dataDimensionType,dimensionItemType,categoryOptions[%2$s],groupSets[%2$s]", NAME_FIELDS, ID_FIELDS );
+
+    protected static final String CATEGORY_OPTION_GROUP_SET_FIELDS = String.format(
+        "%1$s,dataDimension,dataDimensionType,categoryOptionGroups[%2$s]", NAME_FIELDS, ID_FIELDS );
 
     protected static final String CATEGORY_COMBO_FIELDS = String.format(
         "%1$s,dataDimensionType,skipTotal,categories[%1$s],categoryOptionCombos[%2$s]", ID_FIELDS,
         CATEGORY_OPTION_COMBO_FIELDS );
 
     protected static final String CATEGORY_FIELDS = String.format(
-        "%s,dataDimensionType,dataDimension", NAME_FIELDS );
+        "%1$s,dataDimensionType,dataDimension,categoryOptions[%2$s]", NAME_FIELDS, ID_FIELDS );
 
     protected static final String INDICATOR_TYPE_FIELDS = String.format(
         "%s,factor,number", NAME_FIELDS );

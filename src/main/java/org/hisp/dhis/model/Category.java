@@ -1,5 +1,8 @@
 package org.hisp.dhis.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,6 +19,9 @@ public class Category
 
     @JsonProperty
     private Boolean dataDimension;
+
+    @JsonProperty
+    private List<CategoryOption> categoryOptions = new ArrayList<>();
 
     @JsonIgnore
     public boolean isDataDimension()

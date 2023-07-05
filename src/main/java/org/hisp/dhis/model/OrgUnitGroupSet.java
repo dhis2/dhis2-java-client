@@ -16,6 +16,12 @@ public class OrgUnitGroupSet
     extends NameableObject
 {
     @JsonProperty
+    private Boolean dataDimension;
+
+    @JsonProperty
+    private Boolean compulsory;
+
+    @JsonProperty
     private Set<OrgUnitGroup> organisationUnitGroups = new HashSet<>();
 
     public OrgUnitGroupSet( String id, String name )
