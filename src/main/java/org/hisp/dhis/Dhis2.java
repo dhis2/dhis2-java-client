@@ -44,6 +44,7 @@ import org.hisp.dhis.model.OrgUnitGroupSet;
 import org.hisp.dhis.model.OrgUnitLevel;
 import org.hisp.dhis.model.PeriodType;
 import org.hisp.dhis.model.Program;
+import org.hisp.dhis.model.ProgramIndicator;
 import org.hisp.dhis.model.SystemInfo;
 import org.hisp.dhis.model.SystemSettings;
 import org.hisp.dhis.model.TableHook;
@@ -646,7 +647,7 @@ public class Dhis2
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "organisationUnitGroupSets" )
             .appendPath( id )
-            .addParameter( "fields", String.format( "%s,organisationUnitGroups[%s]", NAME_FIELDS, NAME_FIELDS ) ),
+            .addParameter( "fields", ORG_UNIT_GROUP_SET_FIELDS ),
             Query.instance(), OrgUnitGroupSet.class );
     }
 
@@ -660,7 +661,7 @@ public class Dhis2
     {
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "organisationUnitGroupSets" )
-            .addParameter( "fields", String.format( "%s,organisationUnitGroups[%s]", NAME_FIELDS, NAME_FIELDS ) ),
+            .addParameter( "fields", ORG_UNIT_GROUP_SET_FIELDS ),
             query, Objects.class )
                 .getOrganisationUnitGroupSets();
     }
@@ -1331,6 +1332,38 @@ public class Dhis2
     public Response addOrgUnitToProgram( String program, String orgUnit )
     {
         return addToCollection( "programs", program, "organisationUnits", orgUnit );
+    }
+
+    // -------------------------------------------------------------------------
+    // Program indicators.
+    // -------------------------------------------------------------------------
+
+    /**
+     * Retrieves a {@link ProgramIndicator}.
+     *
+     * @param id the object identifier.
+     * @return the {@link ProgramIndicator}.
+     */
+    public ProgramIndicator getProgramIndicator( String id )
+    {
+        return getObject( config.getResolvedUriBuilder()
+            .appendPath( "programIndicators" )
+            .appendPath( id )
+            .addParameter( "fields", NAME_FIELDS ), Query.instance(), ProgramIndicator.class );
+    }
+
+    /**
+     * Retrieves a list of {@link ProgramIndicator}.
+     *
+     * @param query the {@link Query}.
+     * @return list of {@link ProgramIndicator}.
+     */
+    public List<ProgramIndicator> getProgramIndicators( Query query )
+    {
+        return getObject( config.getResolvedUriBuilder()
+            .appendPath( "programIndicators" )
+            .addParameter( "fields", NAME_FIELDS ), query, Objects.class )
+                .getProgramIndicators();
     }
 
     // -------------------------------------------------------------------------
