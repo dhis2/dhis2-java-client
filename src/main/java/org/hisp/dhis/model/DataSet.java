@@ -38,6 +38,9 @@ public class DataSet
     private DataApprovalWorkflow workflow;
 
     @JsonProperty
+    private DataEntryForm dataEntryForm;
+
+    @JsonProperty
     private String dimensionItem;
 
     @JsonProperty
@@ -45,6 +48,9 @@ public class DataSet
 
     @JsonProperty
     private Integer expiryDays;
+
+    @JsonProperty
+    private Integer openPeriodsAfterCoEndDate;
 
     @JsonProperty
     private Integer timelyDays;

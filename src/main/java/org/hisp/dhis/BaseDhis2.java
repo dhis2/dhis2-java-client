@@ -118,13 +118,17 @@ public class BaseDhis2
         "%1$s,formName,displayFormName,categoryCombo[%1$s],dataSetElements,dimensionItem,openFuturePeriods, " +
             "expiryDays,timelyDays,url,formType,periodType,version,dimensionItemType,aggregationType,favorite," +
             "compulsoryFieldsCompleteOnly,skipOffline,validCompleteOnly,dataElementDecoration," +
-            "notifyCompletingUser,noValueRequiresComment,fieldCombinationRequired,mobile",
-        NAME_FIELDS );
+            "openPeriodsAfterCoEndDate,notifyCompletingUser,noValueRequiresComment,fieldCombinationRequired,mobile," +
+            "dataEntryForm[%2$s]",
+        NAME_FIELDS, ID_FIELDS );
 
     protected static final String ORG_UNIT_FIELDS = String.format(
         "%s,path,level,parent[%s],openingDate,closedDate,comment," +
             "url,contactPerson,address,email,phoneNumber",
         NAME_FIELDS, NAME_FIELDS );
+
+    protected static final String ORG_UNIT_GROUP_SET_FIELDS = String.format(
+        "%1$s,dataDimension,compulsory,organisationUnitGroups[%2$s]", NAME_FIELDS, ID_FIELDS );
 
     protected static final String TE_ATTRIBUTE_FIELDS = String.format(
         "%s,valueType,confidential,unique", NAME_FIELDS );
