@@ -1,6 +1,6 @@
 package org.hisp.dhis.model;
 
-public enum Style
+public enum FormStyle
 {
     COMFORTABLE,
     NORMAL,

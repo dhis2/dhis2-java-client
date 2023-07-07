@@ -17,5 +17,5 @@ public class DataEntryForm
     private Integer format;
 
     @JsonProperty
-    private Style style;
+    private FormStyle style;
 }
