@@ -24,6 +24,9 @@ public class DataElement
     private DataDomain domainType;
 
     @JsonProperty
+    private String url;
+
+    @JsonProperty
     private List<LegendSet> legendSets = new ArrayList<>();
 
     @JsonProperty

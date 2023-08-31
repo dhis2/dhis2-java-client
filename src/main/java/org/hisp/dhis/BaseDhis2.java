@@ -82,7 +82,8 @@ public class BaseDhis2
         "%s,valueType,version", ID_FIELDS );
 
     protected static final String DATA_ELEMENT_FIELDS = String.format(
-        "%1$s,aggregationType,valueType,domainType,legendSets[%1$s],optionSet[%2$s]", NAME_FIELDS, OPTION_SET_FIELDS );
+        "%1$s,aggregationType,valueType,domainType,url,legendSets[%1$s],optionSet[%2$s]",
+        NAME_FIELDS, OPTION_SET_FIELDS );
 
     protected static final String DATA_ELEMENT_GROUP_SET_FIELDS = String.format(
         "%1$s,compulsory,dataDimension,dimensionType,dataElementGroups[%1$s]", NAME_FIELDS );
@@ -100,8 +101,8 @@ public class BaseDhis2
         "%1$s,dataDimension,dataDimensionType,categoryOptionGroups[%2$s]", NAME_FIELDS, ID_FIELDS );
 
     protected static final String CATEGORY_COMBO_FIELDS = String.format(
-        "%1$s,dataDimensionType,skipTotal,categories[%1$s],categoryOptionCombos[%2$s]", ID_FIELDS,
-        CATEGORY_OPTION_COMBO_FIELDS );
+        "%1$s,dataDimensionType,skipTotal,categories[%1$s],categoryOptionCombos[%2$s]",
+        ID_FIELDS, CATEGORY_OPTION_COMBO_FIELDS );
 
     protected static final String CATEGORY_FIELDS = String.format(
         "%1$s,dataDimensionType,dataDimension,categoryOptions[%2$s]", NAME_FIELDS, ID_FIELDS );
