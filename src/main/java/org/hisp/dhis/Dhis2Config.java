@@ -2,11 +2,11 @@ package org.hisp.dhis;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Objects;
 
 import lombok.Getter;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.Validate;
 import org.apache.hc.core5.net.URIBuilder;
 import org.hisp.dhis.auth.AccessTokenAuthentication;
 import org.hisp.dhis.auth.Authentication;
@@ -36,9 +36,9 @@ public class Dhis2Config
      */
     public Dhis2Config( String url, String username, String password )
     {
-        Validate.notNull( url );
-        Validate.notNull( username );
-        Validate.notNull( password );
+        Objects.requireNonNull( url );
+        Objects.requireNonNull( username );
+        Objects.requireNonNull( password );
         this.url = normalizeUrl( url );
         this.authentication = new BasicAuthentication( username, password );
     }
@@ -54,8 +54,8 @@ public class Dhis2Config
      */
     public Dhis2Config( String url, Authentication authentication )
     {
-        Validate.notNull( url );
-        Validate.notNull( authentication );
+        Objects.requireNonNull( url );
+        Objects.requireNonNull( authentication );
         this.url = normalizeUrl( url );
         this.authentication = authentication;
     }
@@ -79,7 +79,7 @@ public class Dhis2Config
      */
     public URI getResolvedUrl( String path )
     {
-        Validate.notNull( path );
+        Objects.requireNonNull( path );
 
         try
         {

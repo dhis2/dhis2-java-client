@@ -436,8 +436,6 @@ public class Dhis2
      */
     public List<OrgUnit> getOrgUnitSubHierarchy( String id, Integer level, Query query )
     {
-        Validate.notNull( level );
-
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "organisationUnits" )
             .appendPath( id )

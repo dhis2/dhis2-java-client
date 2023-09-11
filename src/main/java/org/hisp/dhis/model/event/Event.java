@@ -3,14 +3,13 @@ package org.hisp.dhis.model.event;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-
-import org.apache.commons.lang3.Validate;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -133,8 +132,8 @@ public class Event
      */
     public void addDataValue( EventDataValue dataValue )
     {
-        Validate.notNull( dataValue );
-        Validate.notNull( dataValue.getDataElement() );
+        Objects.requireNonNull( dataValue );
+        Objects.requireNonNull( dataValue.getDataElement() );
 
         this.dataValues.removeIf( dv -> dv.getDataElement().equals( dataValue.getDataElement() ) );
         this.dataValues.add( dataValue );

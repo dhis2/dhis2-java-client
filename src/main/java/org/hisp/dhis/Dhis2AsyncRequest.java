@@ -5,11 +5,11 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 import lombok.extern.slf4j.Slf4j;
 
-import org.apache.commons.lang3.Validate;
 import org.apache.hc.client5.http.classic.methods.HttpGet;
 import org.apache.hc.client5.http.classic.methods.HttpPost;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
@@ -42,9 +42,9 @@ public class Dhis2AsyncRequest
 
     public Dhis2AsyncRequest( Dhis2Config config, CloseableHttpClient httpClient, ObjectMapper objectMapper )
     {
-        Validate.notNull( config );
-        Validate.notNull( httpClient );
-        Validate.notNull( objectMapper );
+        Objects.requireNonNull( config );
+        Objects.requireNonNull( httpClient );
+        Objects.requireNonNull( objectMapper );
         this.config = config;
         this.httpClient = httpClient;
         this.objectMapper = objectMapper;
