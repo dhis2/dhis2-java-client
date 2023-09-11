@@ -10,6 +10,10 @@ import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor( access = AccessLevel.PRIVATE )
 public class CollectionUtils
 {
     /**

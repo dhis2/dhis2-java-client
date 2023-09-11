@@ -1,7 +1,5 @@
 package org.hisp.dhis.model;
 
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Set;
 
 public enum ValueType
@@ -35,30 +33,30 @@ public enum ValueType
     IMAGE,
     GEOJSON;
 
-    public static final Set<ValueType> INTEGER_TYPES = new HashSet<>( Arrays.asList(
-        INTEGER, INTEGER_POSITIVE, INTEGER_NEGATIVE, INTEGER_ZERO_OR_POSITIVE ) );
+    public static final Set<ValueType> INTEGER_TYPES = Set.of(
+        INTEGER, INTEGER_POSITIVE, INTEGER_NEGATIVE, INTEGER_ZERO_OR_POSITIVE );
 
-    public static final Set<ValueType> DECIMAL_TYPES = new HashSet<>( Arrays.asList(
-        NUMBER, UNIT_INTERVAL, PERCENTAGE ) );
+    public static final Set<ValueType> DECIMAL_TYPES = Set.of(
+        NUMBER, UNIT_INTERVAL, PERCENTAGE );
 
-    public static final Set<ValueType> BOOLEAN_TYPES = new HashSet<>( Arrays.asList(
-        BOOLEAN, TRUE_ONLY ) );
+    public static final Set<ValueType> BOOLEAN_TYPES = Set.of(
+        BOOLEAN, TRUE_ONLY );
 
-    public static final Set<ValueType> TEXT_TYPES = new HashSet<>( Arrays.asList(
-        TEXT, LONG_TEXT, LETTER, TIME, USERNAME, EMAIL, PHONE_NUMBER, URL ) );
+    public static final Set<ValueType> TEXT_TYPES = Set.of(
+        TEXT, LONG_TEXT, LETTER, TIME, USERNAME, EMAIL, PHONE_NUMBER, URL );
 
-    public static final Set<ValueType> DATE_TYPES = new HashSet<>( Arrays.asList(
-        DATE, DATETIME, AGE ) );
+    public static final Set<ValueType> DATE_TYPES = Set.of(
+        DATE, DATETIME, AGE );
 
-    public static final Set<ValueType> FILE_TYPES = new HashSet<>( Arrays.asList(
-        FILE_RESOURCE, IMAGE ) );
+    public static final Set<ValueType> FILE_TYPES = Set.of(
+        FILE_RESOURCE, IMAGE );
 
-    public static final Set<ValueType> GEO_TYPES = new HashSet<>( Arrays.asList(
-        COORDINATE ) );
+    public static final Set<ValueType> GEO_TYPES = Set.of(
+        COORDINATE );
 
-    public static final Set<ValueType> NUMERIC_TYPES = new HashSet<>( Arrays.asList(
+    public static final Set<ValueType> NUMERIC_TYPES = Set.of(
         INTEGER, INTEGER_POSITIVE, INTEGER_NEGATIVE, INTEGER_ZERO_OR_POSITIVE,
-        NUMBER, UNIT_INTERVAL, PERCENTAGE ) );
+        NUMBER, UNIT_INTERVAL, PERCENTAGE );
 
     public boolean isInteger()
     {

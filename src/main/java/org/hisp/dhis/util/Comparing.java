@@ -1,8 +1,12 @@
 package org.hisp.dhis.util;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
 /**
  * Generic utility class for null-safe comparison.
  */
+@NoArgsConstructor( access = AccessLevel.PRIVATE )
 public class Comparing
 {
     /**

@@ -3,6 +3,10 @@ package org.hisp.dhis.util;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.regex.Pattern;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor( access = AccessLevel.PRIVATE )
 public class UidUtils
 {
     private static final String letters = "abcdefghijklmnopqrstuvwxyz"
