@@ -74,7 +74,7 @@
     <dependency>
       <groupId>org.apache.maven</groupId>
       <artifactId>maven-artifact</artifactId>
-      <version>3.8.4</version>
+      <version>${maven-artifact.version}</version>
     </dependency>
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
@@ -333,6 +333,7 @@
     <maven-artifact.version>3.9.1</maven-artifact.version>
     <httpclient5.version>5.1.4</httpclient5.version>
     <junit-jupiter.version>5.9.3</junit-jupiter.version>
+    <maven-artifact.version>3.9.4</maven-artifact.version>
     <commons-io.version>2.11.0</commons-io.version>
     <commons-lang3.version>3.12.0</commons-lang3.version>
   </properties>
