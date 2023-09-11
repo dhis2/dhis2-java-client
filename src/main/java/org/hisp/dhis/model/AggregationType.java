@@ -24,7 +24,9 @@ public enum AggregationType
     MAX,
     MIN_SUM_ORG_UNIT,
     MAX_SUM_ORG_UNIT,
-    NONE;
+    NONE,
+    CUSTOM,
+    DEFAULT;
 
     public static final Set<AggregationType> AVERAGE_TYPES = new HashSet<>( Arrays.asList(
         AVERAGE, AVERAGE_SUM_ORG_UNIT, LAST_AVERAGE_ORG_UNIT ) );

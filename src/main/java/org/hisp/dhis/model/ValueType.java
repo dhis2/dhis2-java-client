@@ -8,6 +8,7 @@ public enum ValueType
 {
     TEXT,
     LONG_TEXT,
+    MULTI_TEXT,
     LETTER,
     PHONE_NUMBER,
     EMAIL,
@@ -27,10 +28,12 @@ public enum ValueType
     USERNAME,
     COORDINATE,
     ORGANISATION_UNIT,
+    REFERENCE,
     AGE,
     URL,
     FILE_RESOURCE,
-    IMAGE;
+    IMAGE,
+    GEOJSON;
 
     public static final Set<ValueType> INTEGER_TYPES = new HashSet<>( Arrays.asList(
         INTEGER, INTEGER_POSITIVE, INTEGER_NEGATIVE, INTEGER_ZERO_OR_POSITIVE ) );
