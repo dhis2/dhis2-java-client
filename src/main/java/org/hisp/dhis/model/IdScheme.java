@@ -29,15 +29,15 @@ public class IdScheme
     {
         this.objectProperty = objectProperty;
         this.attribute = null;
-        Validate.notNull( objectProperty );
+        Objects.requireNonNull( objectProperty );
     }
 
     private IdScheme( ObjectProperty objectProperty, String attribute )
     {
         this.objectProperty = objectProperty;
         this.attribute = attribute;
-        Validate.notNull( objectProperty );
-        Validate.notNull( attribute );
+        Objects.requireNonNull( objectProperty );
+        Objects.requireNonNull( attribute );
     }
 
     public IdScheme( String idScheme )
@@ -45,7 +45,7 @@ public class IdScheme
         IdScheme scheme = IdScheme.createIdScheme( idScheme );
         this.objectProperty = scheme.objectProperty;
         this.attribute = scheme.attribute;
-        Validate.notNull( objectProperty );
+        Objects.requireNonNull( objectProperty );
     }
 
     // -------------------------------------------------------------------------
