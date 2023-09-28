@@ -1,14 +1,15 @@
 package org.hisp.dhis;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import java.util.List;
 
 import org.hisp.dhis.model.CategoryCombo;
 import org.hisp.dhis.model.CategoryOptionCombo;
 import org.hisp.dhis.model.DataDimensionType;
-import org.junit.Test;
 import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
 
 @Tag( "integration" )
 public class CategoryComboApiTest

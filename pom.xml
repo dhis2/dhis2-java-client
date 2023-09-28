@@ -5,7 +5,7 @@
 
   <groupId>org.hisp</groupId>
   <artifactId>dhis2-java-client</artifactId>
-  <version>1.6.20-SNAPSHOT</version>
+  <version>1.6.21-SNAPSHOT</version>
   <packaging>jar</packaging>
 
   <name>DHIS 2 API client for Java</name>
@@ -326,10 +326,10 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <jackson.version>2.11.2</jackson.version>
-    <jts-io-common.version>1.16.0</jts-io-common.version>
-    <slf4j.version>1.7.30</slf4j.version>
-    <lombok.version>1.18.28</lombok.version>
+    <jackson.version>2.13.5</jackson.version>
+    <jts-io-common.version>1.19.0</jts-io-common.version>
+    <slf4j.version>2.0.9</slf4j.version>
+    <lombok.version>1.18.30</lombok.version>
     <maven-artifact.version>3.9.1</maven-artifact.version>
     <httpclient5.version>5.1.4</httpclient5.version>
     <junit-jupiter.version>5.10.0</junit-jupiter.version>
