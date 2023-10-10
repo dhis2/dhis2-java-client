@@ -73,6 +73,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Slf4j
 public class BaseDhis2
 {
+    protected static final String FIELDS_PARAM = "fields";
+
     protected static final String ID_FIELDS = "id,code,name,created,lastUpdated,attributeValues";
 
     protected static final String NAME_FIELDS = String.format(
