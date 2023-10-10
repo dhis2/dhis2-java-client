@@ -10,6 +10,9 @@ import org.hisp.dhis.model.AggregationType;
 import org.hisp.dhis.model.IdScheme;
 import org.hisp.dhis.model.datavalueset.DataValueSetImportOptions;
 import org.hisp.dhis.model.event.ProgramStatus;
+import org.hisp.dhis.query.Filter;
+import org.hisp.dhis.query.Order;
+import org.hisp.dhis.query.Query;
 import org.hisp.dhis.query.analytics.AnalyticsQuery;
 import org.hisp.dhis.query.datavalue.DataValueSetQuery;
 import org.hisp.dhis.query.event.EventsQuery;
@@ -20,17 +23,40 @@ public class Dhis2Test
     @Test
     void testGetDhis2()
     {
-        Dhis2Config config = new Dhis2Config( "https://play.dhis2.org/demo", "admin", "district" );
+        Dhis2Config config = getDhis2Config();
 
         Dhis2 dhis2 = new Dhis2( config );
 
-        assertEquals( "https://play.dhis2.org/demo", dhis2.getDhis2Url() );
+        assertEquals( "https://dhis2.org", dhis2.getDhis2Url() );
+    }
+
+    @Test
+    void testGetObjectQuery()
+    {
+        Dhis2Config config = getDhis2Config();
+
+        Dhis2 dhis2 = new Dhis2( config );
+
+        URIBuilder uriBuilder = config.getResolvedUriBuilder().appendPath( "dataElements" );
+
+        Query query = Query.instance()
+            .addFilter( Filter.like( "name", "Immunization" ) )
+            .addFilter( Filter.eq( "valueType", "NUMBER" ) )
+            .setOrder( Order.desc( "code" ) )
+            .setPaging( 2, 100 );
+
+        URI uri = dhis2.getObjectQuery( uriBuilder, query );
+
+        String expected = "https://dhis2.org/api/dataElements?" +
+            "filter=name%3Alike%3AImmunization&filter=valueType%3Aeq%3ANUMBER&page=2&pageSize=100&order=code%3Adesc";
+
+        assertEquals( expected, uri.toString() );
     }
 
     @Test
     void testGetDataValueSetImportQuery()
     {
-        Dhis2Config config = new Dhis2Config( "https://dhis2.org", "admin", "district" );
+        Dhis2Config config = getDhis2Config();
 
         Dhis2 dhis2 = new Dhis2( config );
 
@@ -53,7 +79,7 @@ public class Dhis2Test
     @Test
     void testGetAnalyticsQuery()
     {
-        Dhis2Config config = new Dhis2Config( "https://dhis2.org", "admin", "district" );
+        Dhis2Config config = getDhis2Config();
 
         Dhis2 dhis2 = new Dhis2( config );
 
@@ -76,7 +102,7 @@ public class Dhis2Test
     @Test
     void testGetEventsQuery()
     {
-        Dhis2Config config = new Dhis2Config( "https://dhis2.org", "admin", "district" );
+        Dhis2Config config = getDhis2Config();
 
         Dhis2 dhis2 = new Dhis2( config );
 
@@ -99,7 +125,7 @@ public class Dhis2Test
     @Test
     void testGetDataValueSetQuery()
     {
-        Dhis2Config config = new Dhis2Config( "https://dhis2.org", "admin", "district" );
+        Dhis2Config config = getDhis2Config();
 
         Dhis2 dhis2 = new Dhis2( config );
 
@@ -117,5 +143,10 @@ public class Dhis2Test
         URI uri = dhis2.getDataValueSetQuery( uriBuilder, query );
 
         assertEquals( expected, uri.toString() );
+    }
+
+    private Dhis2Config getDhis2Config()
+    {
+        return new Dhis2Config( "https://dhis2.org", "admin", "district" );
     }
 }
