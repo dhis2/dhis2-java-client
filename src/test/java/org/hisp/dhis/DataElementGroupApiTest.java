@@ -11,11 +11,12 @@ import java.util.stream.Collectors;
 import org.hisp.dhis.model.DataElement;
 import org.hisp.dhis.model.DataElementGroup;
 import org.hisp.dhis.model.IdentifiableObject;
+import org.hisp.dhis.support.TestTags;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
-@Tag( "integration" )
-public class DataElementGroupApiTest
+@Tag( TestTags.INTEGRATION )
+class DataElementGroupApiTest
 {
     @Test
     void testGetDataElementGroup()

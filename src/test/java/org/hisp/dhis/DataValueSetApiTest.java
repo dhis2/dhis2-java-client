@@ -9,9 +9,12 @@ import java.util.List;
 import org.hisp.dhis.model.datavalueset.DataValue;
 import org.hisp.dhis.model.datavalueset.DataValueSet;
 import org.hisp.dhis.query.datavalue.DataValueSetQuery;
+import org.hisp.dhis.support.TestTags;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
-public class DataValueSetApiTest
+@Tag( TestTags.INTEGRATION )
+class DataValueSetApiTest
 {
     @Test
     void testGetDataValueSets()

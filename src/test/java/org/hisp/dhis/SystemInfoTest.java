@@ -7,7 +7,7 @@ import org.hisp.dhis.model.SystemInfo;
 import org.hisp.dhis.model.SystemVersion;
 import org.junit.jupiter.api.Test;
 
-public class SystemInfoTest
+class SystemInfoTest
 {
     @Test
     void testVersionComparison()

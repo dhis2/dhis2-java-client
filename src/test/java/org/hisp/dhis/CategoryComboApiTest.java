@@ -8,14 +8,15 @@ import java.util.List;
 import org.hisp.dhis.model.CategoryCombo;
 import org.hisp.dhis.model.CategoryOptionCombo;
 import org.hisp.dhis.model.DataDimensionType;
+import org.hisp.dhis.support.TestTags;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
-@Tag( "integration" )
-public class CategoryComboApiTest
+@Tag( TestTags.INTEGRATION )
+class CategoryComboApiTest
 {
     @Test
-    public void testGetCategoryCombo()
+    void testGetCategoryCombo()
     {
         Dhis2 dhis2 = new Dhis2( TestFixture.DEFAULT_CONFIG );
 

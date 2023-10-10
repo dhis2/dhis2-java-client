@@ -18,7 +18,7 @@ import org.hisp.dhis.query.datavalue.DataValueSetQuery;
 import org.hisp.dhis.query.event.EventsQuery;
 import org.junit.jupiter.api.Test;
 
-public class Dhis2Test
+class Dhis2Test
 {
     @Test
     void testGetDhis2()

@@ -9,11 +9,12 @@ import java.util.List;
 import org.hisp.dhis.model.Dashboard;
 import org.hisp.dhis.query.Filter;
 import org.hisp.dhis.query.Query;
+import org.hisp.dhis.support.TestTags;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
-@Tag( "integration" )
-public class DashboardApiTest
+@Tag( TestTags.INTEGRATION )
+class DashboardApiTest
 {
     @Test
     void testGetDashboard()

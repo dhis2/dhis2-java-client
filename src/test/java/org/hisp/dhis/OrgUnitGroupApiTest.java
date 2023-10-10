@@ -8,11 +8,12 @@ import java.util.List;
 
 import org.hisp.dhis.model.OrgUnit;
 import org.hisp.dhis.model.OrgUnitGroup;
+import org.hisp.dhis.support.TestTags;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
-@Tag( "integration" )
-public class OrgUnitGroupApiTest
+@Tag( TestTags.INTEGRATION )
+class OrgUnitGroupApiTest
 {
     @Test
     void testGetOrgUnitGroup()

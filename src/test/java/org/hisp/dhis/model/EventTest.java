@@ -9,7 +9,7 @@ import org.hisp.dhis.model.event.Event;
 import org.hisp.dhis.model.event.EventDataValue;
 import org.junit.jupiter.api.Test;
 
-public class EventTest
+class EventTest
 {
     @Test
     void testAddEventDataValue()

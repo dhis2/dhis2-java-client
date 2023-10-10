@@ -15,12 +15,13 @@ import org.hisp.dhis.response.Status;
 import org.hisp.dhis.response.object.ErrorReport;
 import org.hisp.dhis.response.object.ObjectReport;
 import org.hisp.dhis.response.objects.ObjectsResponse;
+import org.hisp.dhis.support.TestTags;
 import org.hisp.dhis.util.UidUtils;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
-@Tag( "integration" )
-public class OrgUnitsApiTest
+@Tag( TestTags.INTEGRATION )
+class OrgUnitsApiTest
 {
     @Test
     void testSaveOrgUnitsWithUids()
