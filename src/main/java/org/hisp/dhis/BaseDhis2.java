@@ -172,7 +172,7 @@ public class BaseDhis2
      */
     protected <T> T getObject( URIBuilder uriBuilder, Query query, Class<T> type )
     {
-        URI url = getQuery( uriBuilder, query );
+        URI url = getObjectQuery( uriBuilder, query );
 
         return getObjectFromUrl( url, type );
     }
@@ -204,7 +204,7 @@ public class BaseDhis2
      * @param query the {@link Query} filters to apply.
      * @return a URI.
      */
-    protected URI getQuery( URIBuilder uriBuilder, Query query )
+    protected URI getObjectQuery( URIBuilder uriBuilder, Query query )
     {
         for ( Filter filter : query.getFilters() )
         {
