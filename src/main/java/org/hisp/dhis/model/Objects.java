@@ -17,6 +17,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Objects
 {
     @JsonProperty
+    private List<Dashboard> dashboards = new ArrayList<>();
+
+    @JsonProperty
     private List<DataElement> dataElements = new ArrayList<>();
 
     @JsonProperty
