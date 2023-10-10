@@ -10,11 +10,12 @@ import java.util.List;
 import org.hisp.dhis.model.Option;
 import org.hisp.dhis.model.OptionSet;
 import org.hisp.dhis.query.Query;
+import org.hisp.dhis.support.TestTags;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
-@Tag( "integration" )
-public class OptionSetsApiTest
+@Tag( TestTags.INTEGRATION )
+class OptionSetsApiTest
 {
     @Test
     void testGetOptionSet()

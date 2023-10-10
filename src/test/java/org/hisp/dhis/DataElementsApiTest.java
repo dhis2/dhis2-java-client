@@ -1,7 +1,9 @@
 package org.hisp.dhis;
 
 import static org.hisp.dhis.util.CollectionUtils.list;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 
@@ -14,11 +16,12 @@ import org.hisp.dhis.model.OptionSet;
 import org.hisp.dhis.query.Filter;
 import org.hisp.dhis.query.Order;
 import org.hisp.dhis.query.Query;
+import org.hisp.dhis.support.TestTags;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
-@Tag( "integration" )
-public class DataElementsApiTest
+@Tag( TestTags.INTEGRATION )
+class DataElementsApiTest
 {
     @Test
     void testGetDataElement()

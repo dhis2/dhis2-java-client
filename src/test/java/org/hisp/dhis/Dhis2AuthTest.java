@@ -14,12 +14,13 @@ import org.hisp.dhis.auth.Authentication;
 import org.hisp.dhis.auth.BasicAuthentication;
 import org.hisp.dhis.auth.CookieAuthentication;
 import org.hisp.dhis.query.Query;
+import org.hisp.dhis.support.TestTags;
 import org.hisp.dhis.util.HttpUtils;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
-@Tag( "integration" )
-public class Dhis2AuthTest
+@Tag( TestTags.INTEGRATION )
+class Dhis2AuthTest
 {
     @Test
     void testBasicAuthConstructor()

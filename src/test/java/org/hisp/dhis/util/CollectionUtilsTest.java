@@ -13,7 +13,7 @@ import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
-public class CollectionUtilsTest
+class CollectionUtilsTest
 {
     @Test
     void testFirstMatch()

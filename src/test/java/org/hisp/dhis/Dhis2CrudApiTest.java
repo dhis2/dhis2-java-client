@@ -16,12 +16,13 @@ import org.hisp.dhis.response.Dhis2ClientException;
 import org.hisp.dhis.response.HttpStatus;
 import org.hisp.dhis.response.Status;
 import org.hisp.dhis.response.object.ObjectResponse;
+import org.hisp.dhis.support.TestTags;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 @Slf4j
-@Tag( "integration" )
-public class Dhis2CrudApiTest
+@Tag( TestTags.INTEGRATION )
+class Dhis2CrudApiTest
 {
     @Test
     void testCategoryOption()

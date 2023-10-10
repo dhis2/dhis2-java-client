@@ -9,11 +9,12 @@ import java.util.List;
 import org.hisp.dhis.model.datastore.EntryMetadata;
 import org.hisp.dhis.response.Response;
 import org.hisp.dhis.response.Status;
+import org.hisp.dhis.support.TestTags;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
-@Tag( "integration" )
-public class DataStoreApiTest
+@Tag( TestTags.INTEGRATION )
+class DataStoreApiTest
 {
     @Test
     void testCrud()

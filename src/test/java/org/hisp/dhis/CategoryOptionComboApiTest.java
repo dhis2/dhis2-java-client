@@ -4,11 +4,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import org.hisp.dhis.model.CategoryOptionCombo;
+import org.hisp.dhis.support.TestTags;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
-@Tag( "integration" )
-public class CategoryOptionComboApiTest
+@Tag( TestTags.INTEGRATION )
+class CategoryOptionComboApiTest
 {
     @Test
     void testGetCategoryOptionCombo()

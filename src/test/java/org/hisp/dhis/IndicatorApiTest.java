@@ -6,11 +6,12 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.hisp.dhis.model.Indicator;
 import org.hisp.dhis.model.IndicatorType;
+import org.hisp.dhis.support.TestTags;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
-@Tag( "integration" )
-public class IndicatorApiTest
+@Tag( TestTags.INTEGRATION )
+class IndicatorApiTest
 {
     @Test
     void testGetIndicator()

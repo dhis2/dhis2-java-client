@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.hisp.dhis.response.Dhis2ClientException;
 import org.junit.jupiter.api.Test;
 
-public class Dhis2ConfigTest
+class Dhis2ConfigTest
 {
     @Test
     void testGetResolvedUriBuilder()

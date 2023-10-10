@@ -15,7 +15,7 @@ import org.hisp.dhis.auth.BasicAuthentication;
 import org.hisp.dhis.auth.CookieAuthentication;
 import org.junit.jupiter.api.Test;
 
-public class HttpUtilsTest
+class HttpUtilsTest
 {
     private final String DEV_URL = "https://play.dhis2.org/dev";
 

@@ -18,12 +18,13 @@ import org.hisp.dhis.query.RootJunction;
 import org.hisp.dhis.response.Response;
 import org.hisp.dhis.response.Status;
 import org.hisp.dhis.response.object.ObjectResponse;
+import org.hisp.dhis.support.TestTags;
 import org.hisp.dhis.util.UidUtils;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
-@Tag( "integration" )
-public class OrgUnitApiTest
+@Tag( TestTags.INTEGRATION )
+class OrgUnitApiTest
 {
     @Test
     void testGetOrgUnit()

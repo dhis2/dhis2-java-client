@@ -17,12 +17,13 @@ import org.hisp.dhis.response.Dhis2ClientException;
 import org.hisp.dhis.response.Status;
 import org.hisp.dhis.response.event.ErrorReport;
 import org.hisp.dhis.response.event.EventResponse;
+import org.hisp.dhis.support.TestTags;
 import org.hisp.dhis.util.UidUtils;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
-@Tag( "integration" )
-public class EventsApiTest
+@Tag( TestTags.INTEGRATION )
+class EventsApiTest
 {
     @Test
     void testSaveGetRemoveEvents()

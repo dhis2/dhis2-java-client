@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.apache.hc.core5.net.URIBuilder;
 import org.junit.jupiter.api.Test;
 
-public class UriBuilderTest
+class UriBuilderTest
 {
     @Test
     void testConstructor()

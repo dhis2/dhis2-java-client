@@ -12,7 +12,7 @@ import java.util.Date;
 
 import org.junit.jupiter.api.Test;
 
-public class DateTimeUtilsTest
+class DateTimeUtilsTest
 {
     @Test
     void testGetLocalDate()
