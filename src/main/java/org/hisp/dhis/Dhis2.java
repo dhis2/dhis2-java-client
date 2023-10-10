@@ -409,7 +409,7 @@ public class Dhis2
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "organisationUnits" )
             .appendPath( id )
-            .addParameter( "fields", ORG_UNIT_FIELDS ), Query.instance(), OrgUnit.class );
+            .addParameter( FIELDS_PARAM, ORG_UNIT_FIELDS ), Query.instance(), OrgUnit.class );
     }
 
     /**
@@ -440,7 +440,7 @@ public class Dhis2
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "organisationUnits" )
             .appendPath( id )
-            .addParameter( "fields", ORG_UNIT_FIELDS )
+            .addParameter( FIELDS_PARAM, ORG_UNIT_FIELDS )
             .addParameter( "level", String.valueOf( level ) ), query, Objects.class )
                 .getOrganisationUnits();
     }
@@ -455,7 +455,7 @@ public class Dhis2
     {
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "organisationUnits" )
-            .addParameter( "fields", ORG_UNIT_FIELDS ), query, Objects.class )
+            .addParameter( FIELDS_PARAM, ORG_UNIT_FIELDS ), query, Objects.class )
                 .getOrganisationUnits();
     }
 
@@ -552,7 +552,7 @@ public class Dhis2
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "organisationUnitGroups" )
             .appendPath( id )
-            .addParameter( "fields", fieldsParams ), Query.instance(), OrgUnitGroup.class );
+            .addParameter( FIELDS_PARAM, fieldsParams ), Query.instance(), OrgUnitGroup.class );
     }
 
     /**
@@ -569,7 +569,7 @@ public class Dhis2
 
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "organisationUnitGroups" )
-            .addParameter( "fields", fieldsParams ), query, Objects.class )
+            .addParameter( FIELDS_PARAM, fieldsParams ), query, Objects.class )
                 .getOrganisationUnitGroups();
     }
 
@@ -646,7 +646,7 @@ public class Dhis2
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "organisationUnitGroupSets" )
             .appendPath( id )
-            .addParameter( "fields", ORG_UNIT_GROUP_SET_FIELDS ),
+            .addParameter( FIELDS_PARAM, ORG_UNIT_GROUP_SET_FIELDS ),
             Query.instance(), OrgUnitGroupSet.class );
     }
 
@@ -660,7 +660,7 @@ public class Dhis2
     {
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "organisationUnitGroupSets" )
-            .addParameter( "fields", ORG_UNIT_GROUP_SET_FIELDS ),
+            .addParameter( FIELDS_PARAM, ORG_UNIT_GROUP_SET_FIELDS ),
             query, Objects.class )
                 .getOrganisationUnitGroupSets();
     }
@@ -681,7 +681,8 @@ public class Dhis2
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "organisationUnitLevels" )
             .appendPath( id )
-            .addParameter( "fields", String.format( "%s,level", ID_FIELDS ) ), Query.instance(), OrgUnitLevel.class );
+            .addParameter( FIELDS_PARAM, String.format( "%s,level", ID_FIELDS ) ), Query.instance(),
+            OrgUnitLevel.class );
     }
 
     /**
@@ -694,7 +695,7 @@ public class Dhis2
     {
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "organisationUnitLevels" )
-            .addParameter( "fields", String.format( "%s,level", ID_FIELDS ) ), query, Objects.class )
+            .addParameter( FIELDS_PARAM, String.format( "%s,level", ID_FIELDS ) ), query, Objects.class )
                 .getOrganisationUnitLevels();
     }
 
@@ -772,7 +773,7 @@ public class Dhis2
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "categoryOptions" )
             .appendPath( id )
-            .addParameter( "fields", CATEGORY_OPTION_FIELDS ), Query.instance(), CategoryOption.class );
+            .addParameter( FIELDS_PARAM, CATEGORY_OPTION_FIELDS ), Query.instance(), CategoryOption.class );
     }
 
     /**
@@ -785,7 +786,7 @@ public class Dhis2
     {
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "categoryOptions" )
-            .addParameter( "fields", CATEGORY_OPTION_FIELDS ), query, Objects.class )
+            .addParameter( FIELDS_PARAM, CATEGORY_OPTION_FIELDS ), query, Objects.class )
                 .getCategoryOptions();
     }
 
@@ -849,7 +850,7 @@ public class Dhis2
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "categories" )
             .appendPath( id )
-            .addParameter( "fields", CATEGORY_FIELDS ), Query.instance(), Category.class );
+            .addParameter( FIELDS_PARAM, CATEGORY_FIELDS ), Query.instance(), Category.class );
     }
 
     /**
@@ -875,7 +876,7 @@ public class Dhis2
     {
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "categories" )
-            .addParameter( "fields", CATEGORY_FIELDS ), query, Objects.class )
+            .addParameter( FIELDS_PARAM, CATEGORY_FIELDS ), query, Objects.class )
                 .getCategories();
     }
 
@@ -895,7 +896,7 @@ public class Dhis2
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "categoryCombos" )
             .appendPath( id )
-            .addParameter( "fields", CATEGORY_COMBO_FIELDS ), Query.instance(), CategoryCombo.class );
+            .addParameter( FIELDS_PARAM, CATEGORY_COMBO_FIELDS ), Query.instance(), CategoryCombo.class );
     }
 
     /**
@@ -908,7 +909,7 @@ public class Dhis2
     {
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "categoryCombos" )
-            .addParameter( "fields", CATEGORY_COMBO_FIELDS ), query, Objects.class )
+            .addParameter( FIELDS_PARAM, CATEGORY_COMBO_FIELDS ), query, Objects.class )
                 .getCategoryCombos();
     }
 
@@ -928,7 +929,7 @@ public class Dhis2
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "categoryOptionCombos" )
             .appendPath( id )
-            .addParameter( "fields", CATEGORY_OPTION_COMBO_FIELDS ), Query.instance(), CategoryOptionCombo.class );
+            .addParameter( FIELDS_PARAM, CATEGORY_OPTION_COMBO_FIELDS ), Query.instance(), CategoryOptionCombo.class );
     }
 
     /**
@@ -941,7 +942,7 @@ public class Dhis2
     {
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "categoryOptionCombos" )
-            .addParameter( "fields", CATEGORY_OPTION_COMBO_FIELDS ), query, Objects.class )
+            .addParameter( FIELDS_PARAM, CATEGORY_OPTION_COMBO_FIELDS ), query, Objects.class )
                 .getCategoryOptionCombos();
     }
 
@@ -1005,7 +1006,7 @@ public class Dhis2
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "dataElements" )
             .appendPath( id )
-            .addParameter( "fields", DATA_ELEMENT_FIELDS ), Query.instance(), DataElement.class );
+            .addParameter( FIELDS_PARAM, DATA_ELEMENT_FIELDS ), Query.instance(), DataElement.class );
     }
 
     /**
@@ -1035,7 +1036,7 @@ public class Dhis2
             : DATA_ELEMENT_FIELDS;
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "dataElements" )
-            .addParameter( "fields", fieldsParam ), query, Objects.class )
+            .addParameter( FIELDS_PARAM, fieldsParam ), query, Objects.class )
                 .getDataElements();
     }
 
@@ -1103,7 +1104,7 @@ public class Dhis2
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "dataElementGroups" )
             .appendPath( id )
-            .addParameter( "fields", fieldsParams ), Query.instance(), DataElementGroup.class );
+            .addParameter( FIELDS_PARAM, fieldsParams ), Query.instance(), DataElementGroup.class );
     }
 
     /**
@@ -1119,7 +1120,7 @@ public class Dhis2
             : NAME_FIELDS;
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "dataElementGroups" )
-            .addParameter( "fields", fieldsParams ), query, Objects.class )
+            .addParameter( FIELDS_PARAM, fieldsParams ), query, Objects.class )
                 .getDataElementGroups();
     }
 
@@ -1138,7 +1139,7 @@ public class Dhis2
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "dataElementGroupSets" )
             .appendPath( id )
-            .addParameter( "fields", DATA_ELEMENT_GROUP_SET_FIELDS ), Query.instance(), DataElementGroupSet.class );
+            .addParameter( FIELDS_PARAM, DATA_ELEMENT_GROUP_SET_FIELDS ), Query.instance(), DataElementGroupSet.class );
     }
 
     /**
@@ -1151,7 +1152,7 @@ public class Dhis2
     {
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "dataElementGroupSets" )
-            .addParameter( "fields", DATA_ELEMENT_GROUP_SET_FIELDS ), query, Objects.class )
+            .addParameter( FIELDS_PARAM, DATA_ELEMENT_GROUP_SET_FIELDS ), query, Objects.class )
                 .getDataElementGroupSets();
     }
 
@@ -1170,7 +1171,7 @@ public class Dhis2
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "indicators" )
             .appendPath( id )
-            .addParameter( "fields", INDICATOR_FIELDS ), Query.instance(), Indicator.class );
+            .addParameter( FIELDS_PARAM, INDICATOR_FIELDS ), Query.instance(), Indicator.class );
     }
 
     /**
@@ -1183,7 +1184,7 @@ public class Dhis2
     {
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "indicators" )
-            .addParameter( "fields", INDICATOR_FIELDS ), query, Objects.class )
+            .addParameter( FIELDS_PARAM, INDICATOR_FIELDS ), query, Objects.class )
                 .getIndicators();
     }
 
@@ -1202,7 +1203,7 @@ public class Dhis2
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "indicatorTypes" )
             .appendPath( id )
-            .addParameter( "fields", INDICATOR_TYPE_FIELDS ), Query.instance(), IndicatorType.class );
+            .addParameter( FIELDS_PARAM, INDICATOR_TYPE_FIELDS ), Query.instance(), IndicatorType.class );
     }
 
     /**
@@ -1215,7 +1216,7 @@ public class Dhis2
     {
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "indicators" )
-            .addParameter( "fields", INDICATOR_FIELDS ), query, Objects.class )
+            .addParameter( FIELDS_PARAM, INDICATOR_FIELDS ), query, Objects.class )
                 .getIndicatorTypes();
     }
 
@@ -1238,7 +1239,7 @@ public class Dhis2
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "dataSets" )
             .appendPath( id )
-            .addParameter( "fields", fieldsParam ), Query.instance(), DataSet.class );
+            .addParameter( FIELDS_PARAM, fieldsParam ), Query.instance(), DataSet.class );
     }
 
     /**
@@ -1256,7 +1257,7 @@ public class Dhis2
 
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "dataSets" )
-            .addParameter( "fields", fieldsParam ), query, Objects.class )
+            .addParameter( FIELDS_PARAM, fieldsParam ), query, Objects.class )
                 .getDataSets();
     }
 
@@ -1282,7 +1283,7 @@ public class Dhis2
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "programs" )
             .appendPath( id )
-            .addParameter( "fields", fieldsParam ), Query.instance(), Program.class );
+            .addParameter( FIELDS_PARAM, fieldsParam ), Query.instance(), Program.class );
     }
 
     /**
@@ -1317,7 +1318,7 @@ public class Dhis2
 
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "programs" )
-            .addParameter( "fields", fieldsParam ), query, Objects.class )
+            .addParameter( FIELDS_PARAM, fieldsParam ), query, Objects.class )
                 .getPrograms();
     }
 
@@ -1348,7 +1349,7 @@ public class Dhis2
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "programIndicators" )
             .appendPath( id )
-            .addParameter( "fields", NAME_FIELDS ), Query.instance(), ProgramIndicator.class );
+            .addParameter( FIELDS_PARAM, NAME_FIELDS ), Query.instance(), ProgramIndicator.class );
     }
 
     /**
@@ -1361,7 +1362,7 @@ public class Dhis2
     {
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "programIndicators" )
-            .addParameter( "fields", NAME_FIELDS ), query, Objects.class )
+            .addParameter( FIELDS_PARAM, NAME_FIELDS ), query, Objects.class )
                 .getProgramIndicators();
     }
 
@@ -1381,7 +1382,7 @@ public class Dhis2
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "categoryOptionGroups" )
             .appendPath( id )
-            .addParameter( "fields", CATEGORY_OPTION_GROUP_FIELDS ), Query.instance(), CategoryOptionGroup.class );
+            .addParameter( FIELDS_PARAM, CATEGORY_OPTION_GROUP_FIELDS ), Query.instance(), CategoryOptionGroup.class );
     }
 
     /**
@@ -1394,7 +1395,7 @@ public class Dhis2
     {
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "categoryOptionGroups" )
-            .addParameter( "fields", CATEGORY_OPTION_GROUP_FIELDS ), query, Objects.class )
+            .addParameter( FIELDS_PARAM, CATEGORY_OPTION_GROUP_FIELDS ), query, Objects.class )
                 .getCategoryOptionGroups();
     }
 
@@ -1414,7 +1415,7 @@ public class Dhis2
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "categoryOptionGroupSets" )
             .appendPath( id )
-            .addParameter( "fields", CATEGORY_OPTION_GROUP_SET_FIELDS ), Query.instance(),
+            .addParameter( FIELDS_PARAM, CATEGORY_OPTION_GROUP_SET_FIELDS ), Query.instance(),
             CategoryOptionGroupSet.class );
     }
 
@@ -1428,7 +1429,7 @@ public class Dhis2
     {
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "categoryOptionGroupSets" )
-            .addParameter( "fields", CATEGORY_OPTION_GROUP_SET_FIELDS ), query, Objects.class )
+            .addParameter( FIELDS_PARAM, CATEGORY_OPTION_GROUP_SET_FIELDS ), query, Objects.class )
                 .getCategoryOptionGroupSets();
     }
 
@@ -1450,7 +1451,7 @@ public class Dhis2
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "optionSets" )
             .appendPath( id )
-            .addParameter( "fields", fieldsParam ), Query.instance(), OptionSet.class );
+            .addParameter( FIELDS_PARAM, fieldsParam ), Query.instance(), OptionSet.class );
     }
 
     /**
@@ -1467,7 +1468,7 @@ public class Dhis2
 
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "optionSets" )
-            .addParameter( "fields", fieldsParam ), query, Objects.class )
+            .addParameter( FIELDS_PARAM, fieldsParam ), query, Objects.class )
                 .getOptionSets();
     }
 
@@ -1541,7 +1542,7 @@ public class Dhis2
     {
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "analyticsTableHooks" )
-            .addParameter( "fields", ID_FIELDS ), query, Objects.class )
+            .addParameter( FIELDS_PARAM, ID_FIELDS ), query, Objects.class )
                 .getAnalyticsTableHooks();
     }
 
@@ -1554,14 +1555,14 @@ public class Dhis2
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "dashboards" )
             .appendPath( id )
-            .addParameter( "fields", NAME_FIELDS ), Query.instance(), Dashboard.class );
+            .addParameter( FIELDS_PARAM, NAME_FIELDS ), Query.instance(), Dashboard.class );
     }
 
     public List<Dashboard> getDashboards( Query query )
     {
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "dashboards" )
-            .addParameter( "fields", NAME_FIELDS ), query, Objects.class )
+            .addParameter( FIELDS_PARAM, NAME_FIELDS ), query, Objects.class )
                 .getDashboards();
     }
 
@@ -1580,7 +1581,7 @@ public class Dhis2
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "dimensions" )
             .appendPath( id )
-            .addParameter( "fields", String.format( "%s,dimensionType", ID_FIELDS ) ), Query.instance(),
+            .addParameter( FIELDS_PARAM, String.format( "%s,dimensionType", ID_FIELDS ) ), Query.instance(),
             Dimension.class );
     }
 
@@ -1594,7 +1595,7 @@ public class Dhis2
     {
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "dimensions" )
-            .addParameter( "fields", String.format( "%s,dimensionType", ID_FIELDS ) ), query, Objects.class )
+            .addParameter( FIELDS_PARAM, String.format( "%s,dimensionType", ID_FIELDS ) ), query, Objects.class )
                 .getDimensions();
     }
 
@@ -1612,7 +1613,7 @@ public class Dhis2
     {
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "periodTypes" )
-            .addParameter( "fields", "frequencyOrder,name,isoDuration,isoFormat" ), query, Objects.class )
+            .addParameter( FIELDS_PARAM, "frequencyOrder,name,isoDuration,isoFormat" ), query, Objects.class )
                 .getPeriodTypes();
     }
 
