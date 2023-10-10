@@ -208,8 +208,10 @@ public class BaseDhis2
     {
         for ( Filter filter : query.getFilters() )
         {
-            String filterValue = filter.getProperty() + ":" + filter.getOperator().value() + ":"
-                + getQueryValue( filter );
+            String filterValue = String.format( "%s:%s:%s",
+                filter.getProperty(),
+                filter.getOperator().value(),
+                getQueryValue( filter ) );
 
             uriBuilder.addParameter( "filter", filterValue );
         }

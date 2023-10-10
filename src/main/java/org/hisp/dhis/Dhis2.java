@@ -28,6 +28,7 @@ import org.hisp.dhis.model.CategoryOption;
 import org.hisp.dhis.model.CategoryOptionCombo;
 import org.hisp.dhis.model.CategoryOptionGroup;
 import org.hisp.dhis.model.CategoryOptionGroupSet;
+import org.hisp.dhis.model.Dashboard;
 import org.hisp.dhis.model.DataElement;
 import org.hisp.dhis.model.DataElementGroup;
 import org.hisp.dhis.model.DataElementGroupSet;
@@ -1542,6 +1543,26 @@ public class Dhis2
             .appendPath( "analyticsTableHooks" )
             .addParameter( "fields", ID_FIELDS ), query, Objects.class )
                 .getAnalyticsTableHooks();
+    }
+
+    // -------------------------------------------------------------------------
+    // Dashboard
+    // -------------------------------------------------------------------------
+
+    public Dashboard getDashboard( String id )
+    {
+        return getObject( config.getResolvedUriBuilder()
+            .appendPath( "dashboards" )
+            .appendPath( id )
+            .addParameter( "fields", NAME_FIELDS ), Query.instance(), Dashboard.class );
+    }
+
+    public List<Dashboard> getDashboards( Query query )
+    {
+        return getObject( config.getResolvedUriBuilder()
+            .appendPath( "dashboards" )
+            .addParameter( "fields", NAME_FIELDS ), query, Objects.class )
+                .getDashboards();
     }
 
     // -------------------------------------------------------------------------
