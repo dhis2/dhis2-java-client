@@ -236,29 +236,29 @@ public class Dhis2
     // -------------------------------------------------------------------------
 
     /**
-     * Saves a data store entry. The given object will be serialized to JSON
-     * using <code>Jackson</code>.
+     * Saves a data store entry.
      *
      * @param namespace the namespace.
      * @param key the key.
      * @param object the object.
+     * @param <T> the object type.
      * @return {@link Response} holding information about the operation.
      */
-    public Response saveDataStoreEntry( String namespace, String key, Object object )
+    public <T> Response saveDataStoreEntry( String namespace, String key, T object )
     {
         return saveObject( getDataStorePath( namespace, key ), object, Response.class );
     }
 
     /**
-     * Updates a data store entry. The given object will be serialized to JSON
-     * using <code>Jackson</code>.
+     * Updates a data store entry.
      *
      * @param namespace the namespace.
      * @param key the key.
      * @param object the object.
+     * @param <T> the object type.
      * @return {@link Response} holding information about the operation.
      */
-    public Response updateDataStoreEntry( String namespace, String key, Object object )
+    public <T> Response updateDataStoreEntry( String namespace, String key, T object )
     {
         return updateObject( getDataStorePath( namespace, key ), object, Response.class );
     }
@@ -292,7 +292,7 @@ public class Dhis2
      * @param namespace the namespace.
      * @param key the key.
      * @param type the class type of the object to retrieve.
-     * @param <T> the class type.
+     * @param <T> the object type.
      * @return the object associated with the given namespace and key.
      */
     public <T> T getDataStoreEntry( String namespace, String key, Class<T> type )
