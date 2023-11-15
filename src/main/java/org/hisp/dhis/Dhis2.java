@@ -5,6 +5,7 @@ import static org.hisp.dhis.util.CollectionUtils.list;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ import org.apache.hc.client5.http.classic.methods.HttpPost;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
 import org.apache.hc.core5.http.ContentType;
 import org.apache.hc.core5.http.io.entity.FileEntity;
+import org.apache.hc.core5.http.io.entity.InputStreamEntity;
 import org.apache.hc.core5.http.io.entity.StringEntity;
 import org.hisp.dhis.auth.AccessTokenAuthentication;
 import org.hisp.dhis.auth.BasicAuthentication;
@@ -1672,6 +1674,27 @@ public class Dhis2
             .appendPath( "dataValueSets" ), options );
 
         HttpPost request = getPostRequest( url, new FileEntity( file, ContentType.APPLICATION_JSON ) );
+
+        Dhis2AsyncRequest asyncRequest = new Dhis2AsyncRequest( config, httpClient, objectMapper );
+
+        return asyncRequest.post( request, DataValueSetResponse.class );
+    }
+
+    /**
+     * Saves a data value set payload in JSON format represented by the given
+     * input stream.
+     *
+     * @param inputStream the input stream representing the data value set JSON payload.
+     * @param options the {@link DataValueSetImportOptions}.
+     * @return {@link DataValueSetResponse} holding information about the
+     *         operation.
+     */
+    public DataValueSetResponse saveDataValueSet( InputStream inputStream, DataValueSetImportOptions options )
+    {
+        URI url = getDataValueSetImportQuery( config.getResolvedUriBuilder()
+            .appendPath( "dataValueSets" ), options );
+
+        HttpPost request = getPostRequest( url, new InputStreamEntity( inputStream, ContentType.APPLICATION_JSON ) );
 
         Dhis2AsyncRequest asyncRequest = new Dhis2AsyncRequest( config, httpClient, objectMapper );
 
