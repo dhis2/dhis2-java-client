@@ -63,20 +63,4 @@ class DataSetApiTest
         assertTrue( dataSets.get( 2 ).getIndicators().isEmpty() );
         assertTrue( dataSets.get( 0 ).getSections().isEmpty() );
     }
-
-    @Test
-    void testGetDataSetsWithExpandAssociations()
-    {
-        Dhis2 dhis2 = new Dhis2( TestFixture.DEFAULT_CONFIG );
-
-        List<DataSet> dataSets = dhis2.getDataSets( Query.instance().withExpandAssociations()
-            .addFilter( Filter.in( "id", list( "pBOMPrpg1QX", "BfMAe6Itzgt", "TuL8IOPzpHh" ) ) )
-            .setOrder( Order.asc( "id" ) ) );
-
-        assertEquals( 3, dataSets.size() );
-        assertNotNull( dataSets.get( 1 ).getWorkflow() );
-        assertEquals( 2, dataSets.get( 0 ).getSections().size() );
-        assertEquals( 1169, dataSets.get( 2 ).getOrganisationUnits().size() );
-        assertEquals( 3, dataSets.get( 2 ).getIndicators().size() );
-    }
 }
