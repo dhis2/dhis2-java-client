@@ -39,6 +39,7 @@ import org.hisp.dhis.model.Dimension;
 import org.hisp.dhis.model.ImportStrategy;
 import org.hisp.dhis.model.Indicator;
 import org.hisp.dhis.model.IndicatorType;
+import org.hisp.dhis.model.Me;
 import org.hisp.dhis.model.Objects;
 import org.hisp.dhis.model.OptionSet;
 import org.hisp.dhis.model.OrgUnit;
@@ -231,6 +232,18 @@ public class Dhis2
     public List<String> getUserAuthorization()
     {
         return getObject( "me/authorization", List.class );
+    }
+
+    /**
+     * Retrieves information about the current authenticated user.
+     *
+     * @return the current authenticated user.
+     */
+    public Me getMe()
+    {
+        return getObject( config.getResolvedUriBuilder()
+            .appendPath( "me" )
+            .addParameter( FIELDS_PARAM, ME_FIELDS ), Query.instance(), Me.class );
     }
 
     // -------------------------------------------------------------------------
@@ -1684,7 +1697,8 @@ public class Dhis2
      * Saves a data value set payload in JSON format represented by the given
      * input stream.
      *
-     * @param inputStream the input stream representing the data value set JSON payload.
+     * @param inputStream the input stream representing the data value set JSON
+     *        payload.
      * @param options the {@link DataValueSetImportOptions}.
      * @return {@link DataValueSetResponse} holding information about the
      *         operation.
