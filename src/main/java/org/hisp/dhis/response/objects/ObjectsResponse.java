@@ -1,5 +1,7 @@
 package org.hisp.dhis.response.objects;
 
+import static org.hisp.dhis.util.CollectionUtils.notEmpty;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,7 +45,9 @@ public class ObjectsResponse
     @JsonIgnore
     public TypeReport getTypeReport()
     {
-        return typeReports != null && !typeReports.isEmpty() ? typeReports.get( 0 ) : new TypeReport();
+        List<TypeReport> reports = getTypeReports();
+
+        return notEmpty( reports ) ? reports.get( 0 ) : new TypeReport();
     }
 
     private boolean hasResponse()

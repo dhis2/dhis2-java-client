@@ -126,4 +126,16 @@ public class CollectionUtils
             .filter( predicate )
             .collect( Collectors.toList() );
     }
+
+    /**
+     * Indicates if the given collection is not null and not empty.
+     *
+     * @param <T>
+     * @param collection the collection.
+     * @return true if the given collection is not null and not empty.
+     */
+    public static <T> boolean notEmpty( Collection<T> collection )
+    {
+        return collection != null && !collection.isEmpty();
+    }
 }
