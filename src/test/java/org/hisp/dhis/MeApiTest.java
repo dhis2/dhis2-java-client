@@ -17,8 +17,6 @@ class MeApiTest
 
         Me me = dhis2.getMe();
 
-        System.out.println( me );
-
         assertNotNull( me.getUsername() );
         assertNotNull( me.getFirstName() );
         assertNotNull( me.getSurname() );
