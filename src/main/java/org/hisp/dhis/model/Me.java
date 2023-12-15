@@ -26,6 +26,9 @@ public class Me
     private String email;
 
     @JsonProperty
+    private UserSettings settings;
+
+    @JsonProperty
     private Set<String> programs = new HashSet<>();
 
     @JsonProperty
