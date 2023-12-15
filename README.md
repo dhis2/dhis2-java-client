@@ -347,6 +347,12 @@ Run integration tests:
 mvn test -P integration
 ```
 
+Run specific integration test:
+
+```
+mvn test -P integration -Dtest=Dhis2ApiTest
+```
+
 ## Deployment
 
 The artifact will be deployed through a GitHub action to the OSSRH Maven repository when detecting a commit to master 
