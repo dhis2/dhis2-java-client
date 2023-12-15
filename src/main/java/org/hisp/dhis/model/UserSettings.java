@@ -11,9 +11,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @NoArgsConstructor
 public class UserSettings
 {
-    @JsonProperty
-    private String keyUiLocale;
+    @JsonProperty( value = "keyUiLocale" )
+    private String uiLocale;
 
-    @JsonProperty
-    private String keyDbLocale;
+    @JsonProperty( value = "keyDbLocale" )
+    private String dbLocale;
 }

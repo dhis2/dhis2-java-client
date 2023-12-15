@@ -21,7 +21,7 @@ class MeApiTest
         assertNotNull( me.getFirstName() );
         assertNotNull( me.getSurname() );
         assertNotNull( me.getSettings() );
-        assertNotNull( me.getSettings().getKeyUiLocale() );
-        assertNotNull( me.getSettings().getKeyDbLocale() );
+        assertNotNull( me.getSettings().getUiLocale() );
+        assertNotNull( me.getSettings().getDbLocale() );
     }
 }
