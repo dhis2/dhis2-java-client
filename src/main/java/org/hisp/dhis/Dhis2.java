@@ -322,7 +322,6 @@ public class Dhis2
      *
      * @param namespace the namespace.
      * @param fields the list of fields, must not be empty.
-     * @param type the class type of the object to retrieve.
      * @return a list of data store entries.
      */
     public List<Map<String, Object>> getDatastoreEntries( String namespace, List<String> fields )

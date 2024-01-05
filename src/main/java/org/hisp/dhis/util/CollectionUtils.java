@@ -86,7 +86,7 @@ public class CollectionUtils
      * Converts the given array to an {@link ArrayList}.
      *
      * @param array the array.
-     * @param <T> class.
+     * @param <T> type.
      * @return a list.
      */
     public static <T> List<T> asList( T[] array )
@@ -130,7 +130,7 @@ public class CollectionUtils
     /**
      * Indicates if the given collection is not null and not empty.
      *
-     * @param <T>
+     * @param <T> type.
      * @param collection the collection.
      * @return true if the given collection is not null and not empty.
      */
