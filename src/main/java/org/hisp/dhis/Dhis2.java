@@ -336,8 +336,7 @@ public class Dhis2
             .appendPath( namespace )
             .addParameter( FIELDS_PARAM, fieldsValue ),
             Query.instance()
-                // Temporary solution for consistent response format, see
-                // DHIS2-16422
+                // Temporary solution consistent response format see DHIS2-16422
                 .setPaging( 1, 100_000 ),
             DataStoreEntries.class )
                 .getEntries();
