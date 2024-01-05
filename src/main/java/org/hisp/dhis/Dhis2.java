@@ -11,6 +11,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang3.Validate;
 import org.apache.hc.client5.http.HttpResponseException;
@@ -52,6 +53,7 @@ import org.hisp.dhis.model.ProgramIndicator;
 import org.hisp.dhis.model.SystemInfo;
 import org.hisp.dhis.model.SystemSettings;
 import org.hisp.dhis.model.TableHook;
+import org.hisp.dhis.model.datastore.DataStoreEntries;
 import org.hisp.dhis.model.datastore.EntryMetadata;
 import org.hisp.dhis.model.datavalueset.DataValueSet;
 import org.hisp.dhis.model.datavalueset.DataValueSetImportOptions;
@@ -313,6 +315,32 @@ public class Dhis2
     public <T> T getDataStoreEntry( String namespace, String key, Class<T> type )
     {
         return getObject( getDataStorePath( namespace, key ), type );
+    }
+
+    /**
+     * Retrieves a list of data store entries.
+     *
+     * @param namespace the namespace.
+     * @param fields the list of fields, must not be empty.
+     * @param type the class type of the object to retrieve.
+     * @return a list of data store entries.
+     */
+    public List<Map<String, Object>> getDatastoreEntries( String namespace, List<String> fields )
+    {
+        Validate.notEmpty( fields );
+
+        String fieldsValue = String.join( ",", fields );
+
+        return getObject( config.getResolvedUriBuilder()
+            .appendPath( "dataStore" )
+            .appendPath( namespace )
+            .addParameter( FIELDS_PARAM, fieldsValue ),
+            Query.instance()
+                // Temporary solution for consistent response format, see
+                // DHIS2-16422
+                .setPaging( 1, 100_000 ),
+            DataStoreEntries.class )
+                .getEntries();
     }
 
     /**
