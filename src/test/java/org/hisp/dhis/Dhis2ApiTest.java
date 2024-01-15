@@ -53,6 +53,7 @@ class Dhis2ApiTest
         assertNotNull( categoryOptions.get( 0 ).getId() );
         assertNotNull( categoryOptions.get( 0 ).getName() );
         assertFalse( categoryOptions.get( 0 ).getCategories().isEmpty() );
+        assertNotNull( categoryOptions.get( 0 ).getSharing() );
     }
 
     @Test

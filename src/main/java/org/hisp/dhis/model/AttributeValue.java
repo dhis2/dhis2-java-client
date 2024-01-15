@@ -100,7 +100,7 @@ public class AttributeValue
             return true;
         }
 
-        if ( o == null || attribute == null)
+        if ( o == null || attribute == null )
         {
             return false;
         }

@@ -91,7 +91,7 @@ public class BaseDhis2
         "%1$s,compulsory,dataDimension,dimensionType,dataElementGroups[%1$s]", NAME_FIELDS );
 
     protected static final String CATEGORY_OPTION_FIELDS = String.format(
-        "%1$s,shortName,startDate,endDate,formName,categories[%1$s],organisationUnits[%1$s]", ID_FIELDS );
+        "%1$s,shortName,startDate,endDate,formName,categories[%1$s],organisationUnits[%1$s],sharing", ID_FIELDS );
 
     protected static final String CATEGORY_OPTION_COMBO_FIELDS = String.format(
         "%1$s,ignoreApproval,dimensionItem,categoryOptions[%1$s]", ID_FIELDS );

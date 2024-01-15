@@ -7,6 +7,8 @@ import java.util.Set;
 import lombok.Getter;
 import lombok.Setter;
 
+import org.hisp.dhis.model.user.sharing.Sharing;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Getter
@@ -28,4 +30,7 @@ public class CategoryOption
 
     @JsonProperty
     private Set<OrgUnit> organisationUnits = new HashSet<>();
+
+    @JsonProperty
+    private Sharing sharing;
 }
