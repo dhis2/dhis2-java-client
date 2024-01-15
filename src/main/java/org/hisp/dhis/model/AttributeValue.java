@@ -89,7 +89,7 @@ public class AttributeValue
     @Override
     public int hashCode()
     {
-        return Objects.hash( attribute.getId() );
+        return attribute != null ? Objects.hash( attribute.getId() ) : 0;
     }
 
     @Override
@@ -100,7 +100,7 @@ public class AttributeValue
             return true;
         }
 
-        if ( o == null )
+        if ( o == null || attribute == null)
         {
             return false;
         }

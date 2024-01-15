@@ -316,6 +316,17 @@ SystemVersion version = info.getSystemVersion();
 boolean isHigher = version.isHigher( "2.37.0" );
 ```
 
+### Get current user
+
+To get current user:
+
+```java
+Me me = dhis2.getMe();
+
+String username = me.getUsername();
+String dbLocale = me.getSettings().getDbLocale();
+```
+
 ## Development
 
 Package:
@@ -334,6 +345,12 @@ Run integration tests:
 
 ```
 mvn test -P integration
+```
+
+Run specific integration test:
+
+```
+mvn test -P integration -Dtest=Dhis2ApiTest
 ```
 
 ## Deployment

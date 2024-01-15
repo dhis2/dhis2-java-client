@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.List;
+import java.util.Map;
 
 import org.hisp.dhis.model.datastore.EntryMetadata;
 import org.hisp.dhis.response.Response;
@@ -56,6 +57,15 @@ class DataStoreApiTest
 
         assertNotNull( keys );
         assertFalse( keys.isEmpty() );
+
+        List<Map<String, Object>> fruits = dhis2
+            .getDatastoreEntries( "fruits", List.of( "name", "color" ) );
+
+        assertNotNull( fruits );
+        assertEquals( 2, fruits.size() );
+        assertNotNull( fruits.get( 0 ) );
+        assertNotNull( fruits.get( 0 ).get( "name" ) );
+        assertNotNull( fruits.get( 0 ).get( "color" ) );
 
         // Update
 

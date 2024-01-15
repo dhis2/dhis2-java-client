@@ -5,11 +5,13 @@ import static org.hisp.dhis.util.CollectionUtils.list;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang3.Validate;
 import org.apache.hc.client5.http.HttpResponseException;
@@ -18,6 +20,7 @@ import org.apache.hc.client5.http.classic.methods.HttpPost;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
 import org.apache.hc.core5.http.ContentType;
 import org.apache.hc.core5.http.io.entity.FileEntity;
+import org.apache.hc.core5.http.io.entity.InputStreamEntity;
 import org.apache.hc.core5.http.io.entity.StringEntity;
 import org.hisp.dhis.auth.AccessTokenAuthentication;
 import org.hisp.dhis.auth.BasicAuthentication;
@@ -37,6 +40,7 @@ import org.hisp.dhis.model.Dimension;
 import org.hisp.dhis.model.ImportStrategy;
 import org.hisp.dhis.model.Indicator;
 import org.hisp.dhis.model.IndicatorType;
+import org.hisp.dhis.model.Me;
 import org.hisp.dhis.model.Objects;
 import org.hisp.dhis.model.OptionSet;
 import org.hisp.dhis.model.OrgUnit;
@@ -49,6 +53,7 @@ import org.hisp.dhis.model.ProgramIndicator;
 import org.hisp.dhis.model.SystemInfo;
 import org.hisp.dhis.model.SystemSettings;
 import org.hisp.dhis.model.TableHook;
+import org.hisp.dhis.model.datastore.DataStoreEntries;
 import org.hisp.dhis.model.datastore.EntryMetadata;
 import org.hisp.dhis.model.datavalueset.DataValueSet;
 import org.hisp.dhis.model.datavalueset.DataValueSetImportOptions;
@@ -231,6 +236,18 @@ public class Dhis2
         return getObject( "me/authorization", List.class );
     }
 
+    /**
+     * Retrieves information about the current authenticated user.
+     *
+     * @return the current authenticated user.
+     */
+    public Me getMe()
+    {
+        return getObject( config.getResolvedUriBuilder()
+            .appendPath( "me" )
+            .addParameter( FIELDS_PARAM, ME_FIELDS ), Query.instance(), Me.class );
+    }
+
     // -------------------------------------------------------------------------
     // Data store
     // -------------------------------------------------------------------------
@@ -298,6 +315,30 @@ public class Dhis2
     public <T> T getDataStoreEntry( String namespace, String key, Class<T> type )
     {
         return getObject( getDataStorePath( namespace, key ), type );
+    }
+
+    /**
+     * Retrieves a list of data store entries.
+     *
+     * @param namespace the namespace.
+     * @param fields the list of fields, must not be empty.
+     * @return a list of data store entries.
+     */
+    public List<Map<String, Object>> getDatastoreEntries( String namespace, List<String> fields )
+    {
+        Validate.notEmpty( fields );
+
+        String fieldsValue = String.join( ",", fields );
+
+        return getObject( config.getResolvedUriBuilder()
+            .appendPath( "dataStore" )
+            .appendPath( namespace )
+            .addParameter( FIELDS_PARAM, fieldsValue ),
+            Query.instance()
+                // Temporary solution consistent response format see DHIS2-16422
+                .setPaging( 1, 100_000 ),
+            DataStoreEntries.class )
+                .getEntries();
     }
 
     /**
@@ -1672,6 +1713,28 @@ public class Dhis2
             .appendPath( "dataValueSets" ), options );
 
         HttpPost request = getPostRequest( url, new FileEntity( file, ContentType.APPLICATION_JSON ) );
+
+        Dhis2AsyncRequest asyncRequest = new Dhis2AsyncRequest( config, httpClient, objectMapper );
+
+        return asyncRequest.post( request, DataValueSetResponse.class );
+    }
+
+    /**
+     * Saves a data value set payload in JSON format represented by the given
+     * input stream.
+     *
+     * @param inputStream the input stream representing the data value set JSON
+     *        payload.
+     * @param options the {@link DataValueSetImportOptions}.
+     * @return {@link DataValueSetResponse} holding information about the
+     *         operation.
+     */
+    public DataValueSetResponse saveDataValueSet( InputStream inputStream, DataValueSetImportOptions options )
+    {
+        URI url = getDataValueSetImportQuery( config.getResolvedUriBuilder()
+            .appendPath( "dataValueSets" ), options );
+
+        HttpPost request = getPostRequest( url, new InputStreamEntity( inputStream, ContentType.APPLICATION_JSON ) );
 
         Dhis2AsyncRequest asyncRequest = new Dhis2AsyncRequest( config, httpClient, objectMapper );
 

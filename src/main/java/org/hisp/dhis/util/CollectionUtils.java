@@ -86,7 +86,7 @@ public class CollectionUtils
      * Converts the given array to an {@link ArrayList}.
      *
      * @param array the array.
-     * @param <T> class.
+     * @param <T> type.
      * @return a list.
      */
     public static <T> List<T> asList( T[] array )
@@ -125,5 +125,17 @@ public class CollectionUtils
         return collection.stream()
             .filter( predicate )
             .collect( Collectors.toList() );
+    }
+
+    /**
+     * Indicates if the given collection is not null and not empty.
+     *
+     * @param <T> type.
+     * @param collection the collection.
+     * @return true if the given collection is not null and not empty.
+     */
+    public static <T> boolean notEmpty( Collection<T> collection )
+    {
+        return collection != null && !collection.isEmpty();
     }
 }
