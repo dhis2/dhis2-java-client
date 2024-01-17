@@ -277,7 +277,7 @@ public class Dhis2
      */
     public <T> Response updateDataStoreEntry( String namespace, String key, T object )
     {
-        return updateObject( getDataStorePath( namespace, key ), object, Response.class );
+        return updateObject( getDataStorePath( namespace, key ), Map.of(), object, Response.class );
     }
 
     /**

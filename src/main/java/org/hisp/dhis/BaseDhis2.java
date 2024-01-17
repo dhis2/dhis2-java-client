@@ -14,7 +14,9 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
+import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -38,6 +40,7 @@ import org.apache.hc.core5.http.HttpResponse;
 import org.apache.hc.core5.http.ParseException;
 import org.apache.hc.core5.http.io.entity.EntityUtils;
 import org.apache.hc.core5.http.io.entity.StringEntity;
+import org.apache.hc.core5.http.message.BasicNameValuePair;
 import org.apache.hc.core5.net.URIBuilder;
 import org.hisp.dhis.model.IdentifiableObject;
 import org.hisp.dhis.model.Objects;
@@ -74,6 +77,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class BaseDhis2
 {
     protected static final String FIELDS_PARAM = "fields";
+
+    protected static final String SKIP_SHARING_PARAM = "skipSharing";
 
     protected static final String ID_FIELDS = "id,code,name,created,lastUpdated,attributeValues";
 
@@ -900,23 +905,36 @@ public class BaseDhis2
      */
     protected ObjectResponse updateMetadataObject( String path, IdentifiableObject object )
     {
-        return updateObject( path, object, ObjectResponse.class );
+        return updateObject( path, Map.of( SKIP_SHARING_PARAM, true ), object, ObjectResponse.class );
     }
 
     /**
      * Updates an object using HTTP PUT.
      *
      * @param path the URL path relative to the API end point.
+     * @param queryParams the map of query parameters to include in the URL.
      * @param object the object to save.
      * @param type the class type for the response entity.
      * @param <T> class.
      * @return object holding information about the operation.
      */
-    protected <T extends BaseHttpResponse> T updateObject( String path, Object object, Class<T> type )
+    protected <T extends BaseHttpResponse> T updateObject( String path, Map<String, Object> queryParams, Object object,
+        Class<T> type )
     {
-        URI url = config.getResolvedUrl( path );
+        try
+        {
+            URI url = config.getResolvedUriBuilder().appendPath( path )
+                .addParameters( queryParams.entrySet().stream()
+                    .map( param -> new BasicNameValuePair( param.getKey(), param.getValue().toString() ) ).collect(
+                        Collectors.toList() ) )
+                .build();
 
-        return executeJsonPostPutRequest( new HttpPut( url ), object, type );
+            return executeJsonPostPutRequest( new HttpPut( url ), object, type );
+        }
+        catch ( URISyntaxException ex )
+        {
+            throw new Dhis2ClientException( "Invalid URI syntax", ex );
+        }
     }
 
     /**
