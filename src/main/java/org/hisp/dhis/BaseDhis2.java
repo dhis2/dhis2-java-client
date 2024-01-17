@@ -14,6 +14,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -37,6 +38,7 @@ import org.apache.hc.core5.http.ContentType;
 import org.apache.hc.core5.http.HttpEntity;
 import org.apache.hc.core5.http.HttpHeaders;
 import org.apache.hc.core5.http.HttpResponse;
+import org.apache.hc.core5.http.NameValuePair;
 import org.apache.hc.core5.http.ParseException;
 import org.apache.hc.core5.http.io.entity.EntityUtils;
 import org.apache.hc.core5.http.io.entity.StringEntity;
@@ -905,28 +907,30 @@ public class BaseDhis2
      */
     protected ObjectResponse updateMetadataObject( String path, IdentifiableObject object )
     {
-        return updateObject( path, Map.of( SKIP_SHARING_PARAM, true ), object, ObjectResponse.class );
+        Map<String, String> params = Map.of( SKIP_SHARING_PARAM, "true" );
+
+        return updateObject( path, params, object, ObjectResponse.class );
     }
 
     /**
      * Updates an object using HTTP PUT.
      *
      * @param path the URL path relative to the API end point.
-     * @param queryParams the map of query parameters to include in the URL.
+     * @param params the map of query parameter names and values to include in
+     *        the URL.
      * @param object the object to save.
      * @param type the class type for the response entity.
      * @param <T> class.
      * @return object holding information about the operation.
      */
-    protected <T extends BaseHttpResponse> T updateObject( String path, Map<String, Object> queryParams, Object object,
-        Class<T> type )
+    protected <T extends BaseHttpResponse> T updateObject( String path,
+        Map<String, String> params, Object object, Class<T> type )
     {
         try
         {
-            URI url = config.getResolvedUriBuilder().appendPath( path )
-                .addParameters( queryParams.entrySet().stream()
-                    .map( param -> new BasicNameValuePair( param.getKey(), param.getValue().toString() ) ).collect(
-                        Collectors.toList() ) )
+            URI url = config.getResolvedUriBuilder()
+                .appendPath( path )
+                .addParameters( toNameValuePairs( params ) )
                 .build();
 
             return executeJsonPostPutRequest( new HttpPut( url ), object, type );
@@ -974,6 +978,19 @@ public class BaseDhis2
     protected <T> T getObject( String path, Class<T> type )
     {
         return getObjectFromUrl( config.getResolvedUrl( path ), type );
+    }
+
+    /**
+     * Converts the given map of query parameters to a list of name value pairs.
+     *
+     * @param params the {@link Map} with query parameter names and values.
+     * @return a list of {@link NameValuePair}.
+     */
+    protected List<NameValuePair> toNameValuePairs( Map<String, String> params )
+    {
+        return params.entrySet().stream()
+            .map( p -> new BasicNameValuePair( p.getKey(), p.getValue() ) )
+            .collect( Collectors.toList() );
     }
 
     /**
