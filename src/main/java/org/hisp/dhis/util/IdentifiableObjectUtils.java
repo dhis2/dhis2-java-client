@@ -16,14 +16,28 @@ public class IdentifiableObjectUtils
     /**
      * Returns a list of object identifiers.
      *
-     * @param objects the list of {@link IdentifiableObject}.
+     * @param objects the collection of {@link IdentifiableObject}.
      * @return a list of object identifiers.
      */
-    public <T extends IdentifiableObject> List<String> getIds( Collection<T> objects )
+    public static <T extends IdentifiableObject> List<String> toIdentifiers( Collection<T> objects )
     {
         return objects.stream()
             .filter( Objects::nonNull )
             .map( IdentifiableObject::getId )
+            .collect( Collectors.toList() );
+    }
+
+    /**
+     * Returns a list of object codes.
+     *
+     * @param objects the collection of {@link IdentifiableObject}.
+     * @return a list of object codes.
+     */
+    public static <T extends IdentifiableObject> List<String> toCodes( Collection<T> objects )
+    {
+        return objects.stream()
+            .filter( Objects::nonNull )
+            .map( IdentifiableObject::getCode )
             .collect( Collectors.toList() );
     }
 }
