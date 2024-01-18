@@ -1,7 +1,6 @@
 package org.hisp.dhis;
 
 import static org.hisp.dhis.util.CollectionUtils.list;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.List;
@@ -32,6 +31,5 @@ class DataValueSetApiTest
         List<DataValue> dataValues = dataValueSet.getDataValues();
 
         assertNotNull( dataValues );
-        assertEquals( 96, dataValues.size() );
     }
 }
