@@ -40,6 +40,7 @@ import org.hisp.dhis.model.Dimension;
 import org.hisp.dhis.model.ImportStrategy;
 import org.hisp.dhis.model.Indicator;
 import org.hisp.dhis.model.IndicatorGroup;
+import org.hisp.dhis.model.IndicatorGroupSet;
 import org.hisp.dhis.model.IndicatorType;
 import org.hisp.dhis.model.Me;
 import org.hisp.dhis.model.Objects;
@@ -1246,12 +1247,12 @@ public class Dhis2
     }
 
     /**
-     * Retrieves a list of {@link DataElementGroup}.
+     * Retrieves a list of {@link IndicatorGroup}.
      *
      * @param query the {@link Query}.
-     * @return list of {@link DataElementGroup}.
+     * @return list of {@link IndicatorGroup}.
      */
-    public List<DataElementGroup> getIndicatorGroups( Query query )
+    public List<IndicatorGroup> getIndicatorGroups( Query query )
     {
         String fieldsParams = query.isExpandAssociations() ? String.format(
             "%1$s,indicators[%2$s]", NAME_FIELDS, INDICATOR_FIELDS )
@@ -1259,7 +1260,39 @@ public class Dhis2
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "indicatorGroups" )
             .addParameter( FIELDS_PARAM, fieldsParams ), query, Objects.class )
-                .getDataElementGroups();
+                .getIndicatorGroups();
+    }
+
+    // -------------------------------------------------------------------------
+    // Indicator group set
+    // -------------------------------------------------------------------------
+
+    /**
+     * Retrieves an {@link IndicatorGroupSet}.
+     *
+     * @param id the object identifier.
+     * @return the {@link IndicatorGroupSet}.
+     */
+    public IndicatorGroupSet getIndicatorGroupSet( String id )
+    {
+        return getObject( config.getResolvedUriBuilder()
+            .appendPath( "indicatorGroupSets" )
+            .appendPath( id )
+            .addParameter( FIELDS_PARAM, INDICATOR_GROUP_SET_FIELDS ), Query.instance(), IndicatorGroupSet.class );
+    }
+
+    /**
+     * Retrieves a list of {@link DataElementGroupSet}.
+     *
+     * @param query the {@link Query}.
+     * @return list of {@link DataElementGroupSet}.
+     */
+    public List<IndicatorGroupSet> getIndicatorGroupSets( Query query )
+    {
+        return getObject( config.getResolvedUriBuilder()
+            .appendPath( "indicatorGroupSets" )
+            .addParameter( FIELDS_PARAM, INDICATOR_GROUP_SET_FIELDS ), query, Objects.class )
+                .getIndicatorGroupSets();
     }
 
     // -------------------------------------------------------------------------
