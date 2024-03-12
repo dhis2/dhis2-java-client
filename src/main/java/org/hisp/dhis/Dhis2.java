@@ -39,6 +39,7 @@ import org.hisp.dhis.model.DataSet;
 import org.hisp.dhis.model.Dimension;
 import org.hisp.dhis.model.ImportStrategy;
 import org.hisp.dhis.model.Indicator;
+import org.hisp.dhis.model.IndicatorGroup;
 import org.hisp.dhis.model.IndicatorType;
 import org.hisp.dhis.model.Me;
 import org.hisp.dhis.model.Objects;
@@ -1230,6 +1231,38 @@ public class Dhis2
     }
 
     // -------------------------------------------------------------------------
+    // Indicator group
+    // -------------------------------------------------------------------------
+
+    public IndicatorGroup getIndicatorGroup( String id )
+    {
+        String fieldsParams = String.format(
+            "%1$s,indicators[%2$s]", NAME_FIELDS, INDICATOR_FIELDS );
+
+        return getObject( config.getResolvedUriBuilder()
+            .appendPath( "indicatorGroups" )
+            .appendPath( id )
+            .addParameter( FIELDS_PARAM, fieldsParams ), Query.instance(), IndicatorGroup.class );
+    }
+
+    /**
+     * Retrieves a list of {@link DataElementGroup}.
+     *
+     * @param query the {@link Query}.
+     * @return list of {@link DataElementGroup}.
+     */
+    public List<DataElementGroup> getIndicatorGroups( Query query )
+    {
+        String fieldsParams = query.isExpandAssociations() ? String.format(
+            "%1$s,indicators[%2$s]", NAME_FIELDS, INDICATOR_FIELDS )
+            : NAME_FIELDS;
+        return getObject( config.getResolvedUriBuilder()
+            .appendPath( "indicatorGroups" )
+            .addParameter( FIELDS_PARAM, fieldsParams ), query, Objects.class )
+                .getDataElementGroups();
+    }
+
+    // -------------------------------------------------------------------------
     // Indicator Type
     // -------------------------------------------------------------------------
 
@@ -1376,7 +1409,7 @@ public class Dhis2
     }
 
     // -------------------------------------------------------------------------
-    // Program indicators.
+    // Program indicators
     // -------------------------------------------------------------------------
 
     /**
