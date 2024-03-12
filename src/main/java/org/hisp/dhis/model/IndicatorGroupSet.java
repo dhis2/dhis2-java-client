@@ -16,5 +16,8 @@ public class IndicatorGroupSet
     extends NameableObject
 {
     @JsonProperty
+    private Boolean compulsory;
+
+    @JsonProperty
     private List<IndicatorGroup> indicatorGroups = new ArrayList<>();
 }
