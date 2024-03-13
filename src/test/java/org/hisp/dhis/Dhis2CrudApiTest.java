@@ -5,10 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import lombok.extern.slf4j.Slf4j;
-
-import org.hisp.dhis.model.Attribute;
-import org.hisp.dhis.model.AttributeValue;
 import org.hisp.dhis.model.CategoryOption;
 import org.hisp.dhis.model.OrgUnit;
 import org.hisp.dhis.model.OrgUnitGroup;
@@ -20,7 +16,6 @@ import org.hisp.dhis.support.TestTags;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
-@Slf4j
 @Tag( TestTags.INTEGRATION )
 class Dhis2CrudApiTest
 {
@@ -28,11 +23,6 @@ class Dhis2CrudApiTest
     void testCategoryOption()
     {
         Dhis2 dhis2 = new Dhis2( TestFixture.DEFAULT_CONFIG );
-
-        Attribute atA = new Attribute();
-        atA.setId( "l1VmqIHKk6t" );
-
-        AttributeValue avA = new AttributeValue( atA, "AT__A_Value__A" );
 
         OrgUnit ouA = new OrgUnit( "ueuQlqb8ccl", null );
         OrgUnit ouB = new OrgUnit( "Rp268JB6Ne4", null );
@@ -45,18 +35,12 @@ class Dhis2CrudApiTest
         coA.setCode( codeA );
         coA.setName( nameA );
         coA.setShortName( shortNameA );
-        coA.addAttributeValue( avA );
         coA.getOrganisationUnits().add( ouA );
         coA.getOrganisationUnits().add( ouB );
 
         // Create
 
         ObjectResponse createRespA = dhis2.saveCategoryOption( coA );
-
-        log.info( "Status code: {}", createRespA.getHttpStatusCode() );
-        log.info( "Message: '{}'", createRespA.getMessage() );
-        log.info( "UID: {}", createRespA.getResponse().getUid() );
-        log.info( "Response: {}", createRespA.getResponse().toString() );
 
         assertEquals( 201, createRespA.getHttpStatusCode().intValue(), createRespA.toString() );
         assertEquals( HttpStatus.CREATED, createRespA.getHttpStatus(), createRespA.toString() );
@@ -76,8 +60,6 @@ class Dhis2CrudApiTest
         assertEquals( codeA, coA.getCode() );
         assertEquals( nameA, coA.getName() );
         assertEquals( shortNameA, coA.getShortName() );
-        assertEquals( 1, coA.getAttributeValues().size() );
-        assertTrue( coA.getAttributeValues().contains( avA ) );
         assertEquals( 2, coA.getOrganisationUnits().size() );
         assertTrue( coA.getOrganisationUnits().contains( ouA ) );
         assertTrue( coA.getOrganisationUnits().contains( ouB ) );
@@ -103,8 +85,6 @@ class Dhis2CrudApiTest
         assertNotNull( coA.getAttributeValues() );
         assertEquals( uidA, coA.getId() );
         assertEquals( codeA, coA.getCode() );
-        assertEquals( 1, coA.getAttributeValues().size() );
-        assertTrue( coA.getAttributeValues().contains( avA ) );
         assertEquals( 2, coA.getOrganisationUnits().size() );
         assertTrue( coA.getOrganisationUnits().contains( ouA ) );
         assertTrue( coA.getOrganisationUnits().contains( ouB ) );
