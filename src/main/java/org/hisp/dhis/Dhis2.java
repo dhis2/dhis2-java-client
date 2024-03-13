@@ -1235,6 +1235,13 @@ public class Dhis2
     // Indicator group
     // -------------------------------------------------------------------------
 
+    /**
+     * Retrieves an {@link IndicatorGroup}.
+     *
+     * @param id the object identifier.
+     * @return the {@link IndicatorGroup}.
+     * @throws Dhis2ClientException if the object does not exist.
+     */
     public IndicatorGroup getIndicatorGroup( String id )
     {
         String fieldsParams = String.format(
@@ -1282,10 +1289,10 @@ public class Dhis2
     }
 
     /**
-     * Retrieves a list of {@link DataElementGroupSet}.
+     * Retrieves a list of {@link IndicatorGroupSet}.
      *
      * @param query the {@link Query}.
-     * @return list of {@link DataElementGroupSet}.
+     * @return list of {@link IndicatorGroupSet}.
      */
     public List<IndicatorGroupSet> getIndicatorGroupSets( Query query )
     {
