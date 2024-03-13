@@ -20,10 +20,10 @@ class IndicatorGroupSetApiTest
     {
         Dhis2 dhis2 = new Dhis2( TestFixture.DEFAULT_CONFIG );
 
-        IndicatorGroupSet groupSet = dhis2.getIndicatorGroupSet( "tOwnTs7TL3Y" );
+        IndicatorGroupSet groupSet = dhis2.getIndicatorGroupSet( "kO23KcpBwro" );
 
         assertNotNull( groupSet );
-        assertEquals( "tOwnTs7TL3Y", groupSet.getId() );
+        assertEquals( "kO23KcpBwro", groupSet.getId() );
         assertFalse( groupSet.getIndicatorGroups().isEmpty() );
     }
 
