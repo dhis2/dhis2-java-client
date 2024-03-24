@@ -62,6 +62,12 @@ public class Objects
     private List<Indicator> indicators = new ArrayList<>();
 
     @JsonProperty
+    private List<IndicatorGroup> indicatorGroups = new ArrayList<>();
+
+    @JsonProperty
+    private List<IndicatorGroupSet> indicatorGroupSets = new ArrayList<>();
+
+    @JsonProperty
     private List<DataSet> dataSets = new ArrayList<>();
 
     @JsonProperty
