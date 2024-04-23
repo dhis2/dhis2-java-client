@@ -36,6 +36,9 @@ public class Response
     @JsonProperty
     protected String devMessage;
 
+    @JsonProperty
+    protected Object data;
+
     public Response( Status status, Integer httpStatusCode, String message )
     {
         this.status = status;
