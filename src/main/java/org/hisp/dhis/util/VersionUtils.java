@@ -3,11 +3,11 @@ package org.hisp.dhis.util;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
-
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
+
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 @NoArgsConstructor( access = AccessLevel.PRIVATE )
 public class VersionUtils

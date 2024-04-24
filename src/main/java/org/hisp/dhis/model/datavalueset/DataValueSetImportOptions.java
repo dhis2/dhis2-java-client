@@ -1,11 +1,11 @@
 package org.hisp.dhis.model.datavalueset;
 
+import org.hisp.dhis.model.IdScheme;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
-
-import org.hisp.dhis.model.IdScheme;
 
 @Getter
 @Setter

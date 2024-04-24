@@ -2,14 +2,14 @@ package org.hisp.dhis.response.job;
 
 import java.util.Date;
 
+import org.hisp.dhis.response.NotificationLevel;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-
-import org.hisp.dhis.response.NotificationLevel;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Getter
 @Setter

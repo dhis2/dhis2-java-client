@@ -340,7 +340,7 @@ public class Dhis2
                 // Temporary solution consistent response format see DHIS2-16422
                 .setPaging( 1, 100_000 ),
             DataStoreEntries.class )
-                .getEntries();
+            .getEntries();
     }
 
     /**
@@ -485,7 +485,7 @@ public class Dhis2
             .appendPath( id )
             .addParameter( FIELDS_PARAM, ORG_UNIT_FIELDS )
             .addParameter( "level", String.valueOf( level ) ), query, Objects.class )
-                .getOrganisationUnits();
+            .getOrganisationUnits();
     }
 
     /**
@@ -499,7 +499,7 @@ public class Dhis2
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "organisationUnits" )
             .addParameter( FIELDS_PARAM, ORG_UNIT_FIELDS ), query, Objects.class )
-                .getOrganisationUnits();
+            .getOrganisationUnits();
     }
 
     // -------------------------------------------------------------------------
@@ -613,7 +613,7 @@ public class Dhis2
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "organisationUnitGroups" )
             .addParameter( FIELDS_PARAM, fieldsParams ), query, Objects.class )
-                .getOrganisationUnitGroups();
+            .getOrganisationUnitGroups();
     }
 
     /**
@@ -705,7 +705,7 @@ public class Dhis2
             .appendPath( "organisationUnitGroupSets" )
             .addParameter( FIELDS_PARAM, ORG_UNIT_GROUP_SET_FIELDS ),
             query, Objects.class )
-                .getOrganisationUnitGroupSets();
+            .getOrganisationUnitGroupSets();
     }
 
     // -------------------------------------------------------------------------
@@ -739,7 +739,7 @@ public class Dhis2
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "organisationUnitLevels" )
             .addParameter( FIELDS_PARAM, String.format( "%s,level", ID_FIELDS ) ), query, Objects.class )
-                .getOrganisationUnitLevels();
+            .getOrganisationUnitLevels();
     }
 
     /**
@@ -830,7 +830,7 @@ public class Dhis2
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "categoryOptions" )
             .addParameter( FIELDS_PARAM, CATEGORY_OPTION_FIELDS ), query, Objects.class )
-                .getCategoryOptions();
+            .getCategoryOptions();
     }
 
     // -------------------------------------------------------------------------
@@ -920,7 +920,7 @@ public class Dhis2
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "categories" )
             .addParameter( FIELDS_PARAM, CATEGORY_FIELDS ), query, Objects.class )
-                .getCategories();
+            .getCategories();
     }
 
     // -------------------------------------------------------------------------
@@ -953,7 +953,7 @@ public class Dhis2
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "categoryCombos" )
             .addParameter( FIELDS_PARAM, CATEGORY_COMBO_FIELDS ), query, Objects.class )
-                .getCategoryCombos();
+            .getCategoryCombos();
     }
 
     // -------------------------------------------------------------------------
@@ -986,7 +986,7 @@ public class Dhis2
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "categoryOptionCombos" )
             .addParameter( FIELDS_PARAM, CATEGORY_OPTION_COMBO_FIELDS ), query, Objects.class )
-                .getCategoryOptionCombos();
+            .getCategoryOptionCombos();
     }
 
     // -------------------------------------------------------------------------
@@ -1080,7 +1080,7 @@ public class Dhis2
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "dataElements" )
             .addParameter( FIELDS_PARAM, fieldsParam ), query, Objects.class )
-                .getDataElements();
+            .getDataElements();
     }
 
     // -------------------------------------------------------------------------
@@ -1164,7 +1164,7 @@ public class Dhis2
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "dataElementGroups" )
             .addParameter( FIELDS_PARAM, fieldsParams ), query, Objects.class )
-                .getDataElementGroups();
+            .getDataElementGroups();
     }
 
     // -------------------------------------------------------------------------
@@ -1196,7 +1196,7 @@ public class Dhis2
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "dataElementGroupSets" )
             .addParameter( FIELDS_PARAM, DATA_ELEMENT_GROUP_SET_FIELDS ), query, Objects.class )
-                .getDataElementGroupSets();
+            .getDataElementGroupSets();
     }
 
     // -------------------------------------------------------------------------
@@ -1228,7 +1228,7 @@ public class Dhis2
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "indicators" )
             .addParameter( FIELDS_PARAM, INDICATOR_FIELDS ), query, Objects.class )
-                .getIndicators();
+            .getIndicators();
     }
 
     // -------------------------------------------------------------------------
@@ -1267,7 +1267,7 @@ public class Dhis2
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "indicatorGroups" )
             .addParameter( FIELDS_PARAM, fieldsParams ), query, Objects.class )
-                .getIndicatorGroups();
+            .getIndicatorGroups();
     }
 
     // -------------------------------------------------------------------------
@@ -1299,7 +1299,7 @@ public class Dhis2
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "indicatorGroupSets" )
             .addParameter( FIELDS_PARAM, INDICATOR_GROUP_SET_FIELDS ), query, Objects.class )
-                .getIndicatorGroupSets();
+            .getIndicatorGroupSets();
     }
 
     // -------------------------------------------------------------------------
@@ -1331,7 +1331,7 @@ public class Dhis2
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "indicators" )
             .addParameter( FIELDS_PARAM, INDICATOR_FIELDS ), query, Objects.class )
-                .getIndicatorTypes();
+            .getIndicatorTypes();
     }
 
     // -------------------------------------------------------------------------
@@ -1372,7 +1372,7 @@ public class Dhis2
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "dataSets" )
             .addParameter( FIELDS_PARAM, fieldsParam ), query, Objects.class )
-                .getDataSets();
+            .getDataSets();
     }
 
     // -------------------------------------------------------------------------
@@ -1433,7 +1433,7 @@ public class Dhis2
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "programs" )
             .addParameter( FIELDS_PARAM, fieldsParam ), query, Objects.class )
-                .getPrograms();
+            .getPrograms();
     }
 
     /**
@@ -1477,7 +1477,7 @@ public class Dhis2
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "programIndicators" )
             .addParameter( FIELDS_PARAM, NAME_FIELDS ), query, Objects.class )
-                .getProgramIndicators();
+            .getProgramIndicators();
     }
 
     // -------------------------------------------------------------------------
@@ -1510,7 +1510,7 @@ public class Dhis2
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "categoryOptionGroups" )
             .addParameter( FIELDS_PARAM, CATEGORY_OPTION_GROUP_FIELDS ), query, Objects.class )
-                .getCategoryOptionGroups();
+            .getCategoryOptionGroups();
     }
 
     // -------------------------------------------------------------------------
@@ -1544,7 +1544,7 @@ public class Dhis2
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "categoryOptionGroupSets" )
             .addParameter( FIELDS_PARAM, CATEGORY_OPTION_GROUP_SET_FIELDS ), query, Objects.class )
-                .getCategoryOptionGroupSets();
+            .getCategoryOptionGroupSets();
     }
 
     // -------------------------------------------------------------------------
@@ -1583,7 +1583,7 @@ public class Dhis2
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "optionSets" )
             .addParameter( FIELDS_PARAM, fieldsParam ), query, Objects.class )
-                .getOptionSets();
+            .getOptionSets();
     }
 
     // -------------------------------------------------------------------------
@@ -1657,7 +1657,7 @@ public class Dhis2
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "analyticsTableHooks" )
             .addParameter( FIELDS_PARAM, ID_FIELDS ), query, Objects.class )
-                .getAnalyticsTableHooks();
+            .getAnalyticsTableHooks();
     }
 
     // -------------------------------------------------------------------------
@@ -1677,7 +1677,7 @@ public class Dhis2
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "dashboards" )
             .addParameter( FIELDS_PARAM, NAME_FIELDS ), query, Objects.class )
-                .getDashboards();
+            .getDashboards();
     }
 
     // -------------------------------------------------------------------------
@@ -1710,7 +1710,7 @@ public class Dhis2
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "dimensions" )
             .addParameter( FIELDS_PARAM, String.format( "%s,dimensionType", ID_FIELDS ) ), query, Objects.class )
-                .getDimensions();
+            .getDimensions();
     }
 
     // -------------------------------------------------------------------------
@@ -1728,7 +1728,7 @@ public class Dhis2
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "periodTypes" )
             .addParameter( FIELDS_PARAM, "frequencyOrder,name,isoDuration,isoFormat" ), query, Objects.class )
-                .getPeriodTypes();
+            .getPeriodTypes();
     }
 
     // -------------------------------------------------------------------------

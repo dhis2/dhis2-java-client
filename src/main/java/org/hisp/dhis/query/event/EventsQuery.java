@@ -2,13 +2,13 @@ package org.hisp.dhis.query.event;
 
 import java.util.Date;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.experimental.Accessors;
-
 import org.hisp.dhis.model.IdScheme;
 import org.hisp.dhis.model.event.EventStatus;
 import org.hisp.dhis.model.event.ProgramStatus;
+
+import lombok.Getter;
+import lombok.Setter;
+import lombok.experimental.Accessors;
 
 @Getter
 @Setter
