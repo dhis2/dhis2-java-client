@@ -66,9 +66,28 @@ Dhis2 dhis2 = Dhis2.withCookieAuth(
 
 The name of the session cookie used by the DHIS 2 API is `JSESSIONID`. The value can typically be retrieved from the `Cookie` HTTP request header sent with DHIS 2 API requests.
 
-## Usage
+### Get current user
 
-This section explains the basic usage of the client.
+To get the current user:
+
+```java
+Me me = dhis2.getMe();
+
+String username = me.getUsername();
+String dbLocale = me.getSettings().getDbLocale();
+```
+
+### Get user authentication
+
+To retrieve the list of authorities granted to the authenticated user:
+
+```java
+List<String> authorities = dhis2.getUserAuthorization();
+```
+
+## Metadata
+
+This section explains operations for DHIS 2 metadata objects.
 
 ### Query objects
 
@@ -173,6 +192,10 @@ Status status = response.getStatus();
 boolean success = response.getHttpStatus().is2xxSuccessful();
 ```
 
+## System settings
+
+This section explains operations for DHIS 2 system settings.
+
 ### Get system settings
 
 To get system settings:
@@ -180,6 +203,10 @@ To get system settings:
 ```java
 SystemSettings settings = dhis2.getSystemSettings();
 ```
+
+## Events
+
+This section explains operations for DHIS 2 events.
 
 ### Save events
 
@@ -223,6 +250,10 @@ To remove an event:
 EventResponse response = dhis2.removeEvent( event );
 ```
 
+## Data values
+
+This section explains operations for DHIS 2 data values.
+
 ### Save data value set
 
 To save a data value set:
@@ -262,6 +293,10 @@ DataValueSetImportOptions options = DataValueSetImportOptions.instance();
 DataValueSetResponse response = dhis2.saveDataValueSet( file, options );
 ```
 
+## Analytics
+
+This section explains operations for the analytics engine.
+
 ### Get analytics data value set
 
 To retrieve analytics data in the data value set format:
@@ -288,13 +323,9 @@ File file = new File( "/tmp/data-value-set.json" );
 dhis2.writeAnalyticsDataValueSet( query, file );
 ```
 
-### Get user authentication
+## System
 
-To retrieve the list of authorities granted to the authenticated user:
-
-```java
-List<String> authorities = dhis2.getUserAuthorization();
-```
+This section explains system operations.
 
 ### Get system info
 
@@ -316,18 +347,9 @@ SystemVersion version = info.getSystemVersion();
 boolean isHigher = version.isHigher( "2.37.0" );
 ```
 
-### Get current user
-
-To get current user:
-
-```java
-Me me = dhis2.getMe();
-
-String username = me.getUsername();
-String dbLocale = me.getSettings().getDbLocale();
-```
-
 ## Development
+
+This section covers development of the DHIS 2 Java client.
 
 Package:
 
