@@ -408,7 +408,7 @@ public class BaseDhis2
      * @param query the {@link DataValueSetQuery}.
      * @return a URI.
      */
-    public URI getDataValueSetQuery( URIBuilder uriBuilder, DataValueSetQuery query )
+    protected URI getDataValueSetQuery( URIBuilder uriBuilder, DataValueSetQuery query )
     {
         for ( String dataElement : query.getDataElements() )
         {
