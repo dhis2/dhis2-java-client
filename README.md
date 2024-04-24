@@ -428,6 +428,15 @@ SystemVersion version = info.getSystemVersion();
 boolean isHigher = version.isHigher( "2.37.0" );
 ```
 
+### Get job notifications
+
+To retrieve job notifications for a job category and job identifier:
+
+```java
+List<JobNotification> notifications = dhis2.
+    getJobNotifications( JobCategory.ANALYTICS_TABLE, "GxTz2OVPcYk" );
+```
+
 ## Development
 
 This section covers development of the DHIS 2 Java client.
