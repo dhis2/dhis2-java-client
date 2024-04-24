@@ -375,7 +375,9 @@ Dashboard dashboard = dhis2.getDataStoreEntry( "dashboards", "attendance", Dashb
 To retrieve a list of data store entries for a namespace and entry fields:
 
 ```java
-List<Map<String, Object>> entries = dhis2.getDatastoreEntries( "dashboards", List.of( "id", "name" ) );
+List<String> fields = List.of( "id", "code", "name" );
+
+List<Map<String, Object>> entries = dhis2.getDatastoreEntries( "dashboards", fields );
 ```
 
 ### Get metadata for entry
