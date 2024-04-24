@@ -334,7 +334,7 @@ To save a data store entry:
 ```java
 Dashboard dashboard = new Dashboard();
 
-Response response = dhis2.saveDataStoreEntry( "dashboards", "student-attendance", dashboard );
+Response response = dhis2.saveDataStoreEntry( "dashboards", "attendance", dashboard );
 ```
 
 ### Update entry
@@ -343,7 +343,7 @@ To update a data store entry:
 
 ```java
 
-Response response = dhis2.updateDataStoreEntry( "dashboards", "student-attendance", dashboard );
+Response response = dhis2.updateDataStoreEntry( "dashboards", "attendance", dashboard );
 ```
 
 ### Get namespaces
@@ -367,7 +367,7 @@ List<String> keys = dhis2.getDataStoreKeys( "dashboards" );
 To retrieve an entry for a namespace and key:
 
 ```java
-Dashboard dashboard = dhis2.getDataStoreEntry( "dashboards", "student-attendance", Dashboard.class );
+Dashboard dashboard = dhis2.getDataStoreEntry( "dashboards", "attendance", Dashboard.class );
 ```
 
 ### Get data store entries
@@ -383,7 +383,7 @@ List<Map<String, Object>> entries = dhis2.getDatastoreEntries( "dashboards", Lis
 To retrieve metadata for a data store entry:
 
 ```java
-EntryMetadata metadata = dhis2.getDataStoreEntryMetadata( "dashboards", "student-attendance" );
+EntryMetadata metadata = dhis2.getDataStoreEntryMetadata( "dashboards", "attendance" );
 ```
 
 ### Remove entry
@@ -391,7 +391,7 @@ EntryMetadata metadata = dhis2.getDataStoreEntryMetadata( "dashboards", "student
 To remove a data store entry:
 
 ```java
-Response response = dhis2.removeDataStoreEntry( "dashboards", "student-attendance" );
+Response response = dhis2.removeDataStoreEntry( "dashboards", "attendance" );
 ```
 
 ### Remove namespace
