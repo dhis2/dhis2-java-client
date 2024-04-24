@@ -433,8 +433,8 @@ boolean isHigher = version.isHigher( "2.37.0" );
 To retrieve job notifications for a job category and job identifier:
 
 ```java
-List<JobNotification> notifications = dhis2.
-    getJobNotifications( JobCategory.ANALYTICS_TABLE, "GxTz2OVPcYk" );
+List<JobNotification> notifications = dhis2
+    .getJobNotifications( JobCategory.ANALYTICS_TABLE, "GxTz2OVPcYk" );
 ```
 
 ## Development
