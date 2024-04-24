@@ -323,6 +323,85 @@ File file = new File( "/tmp/data-value-set.json" );
 dhis2.writeAnalyticsDataValueSet( query, file );
 ```
 
+## Data store
+
+This section explains data store operations.
+
+### Save entry
+
+To save a data store entry:
+
+```java
+Dashboard dashboard = new Dashboard();
+
+Response response = dhis2.saveDataStoreEntry( "dashboards", "student-attendance", dashboard );
+```
+
+### Update entry
+
+To update a data store entry:
+
+```java
+
+Response response = dhis2.updateDataStoreEntry( "dashboards", "student-attendance", dashboard );
+```
+
+### Get namespaces
+
+To retrieve data store namespaces:
+
+```java
+List<String> namespaces = dhis2.getDataStoreNamespaces();
+```
+
+### Get keys in namespace
+
+To retrieve keys for a namespace:
+
+```java
+List<String> keys = dhis2.getDataStoreKeys( "dashboards" );
+```
+
+### Get data store entry
+
+To retrieve an entry for a namespace and key:
+
+```java
+Dashboard dashboard = dhis2.getDataStoreEntry( "dashboards", "student-attendance", Dashboard.class );
+```
+
+### Get data store entries
+
+To retrieve a list of data store entries for a namespace and entry fields:
+
+```java
+List<Map<String, Object>> entries = dhis2.getDatastoreEntries( "dashboards", List.of( "id", "name" ) );
+```
+
+### Get metadata for entry
+
+To retrieve metadata for a data store entry:
+
+```java
+EntryMetadata metadata = dhis2.getDataStoreEntryMetadata( "dashboards", "student-attendance" );
+```
+
+### Remove entry
+
+To remove a data store entry:
+
+```java
+Response response = dhis2.removeDataStoreEntry( "dashboards", "student-attendance" );
+```
+
+### Remove namespace
+
+To remove a data store namespace including all entries:
+
+```java
+Response response = dhis2.removeDataStoreNamespace( "dashboards" );
+```
+
 ## System
 
 This section explains system operations.
