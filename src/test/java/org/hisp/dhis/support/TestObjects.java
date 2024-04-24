@@ -2,11 +2,11 @@ package org.hisp.dhis.support;
 
 import java.util.Date;
 
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
-
 import org.hisp.dhis.model.NameableObject;
 import org.hisp.dhis.util.UidUtils;
+
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 @NoArgsConstructor( access = AccessLevel.PRIVATE )
 public class TestObjects

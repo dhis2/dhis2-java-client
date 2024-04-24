@@ -19,8 +19,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import lombok.extern.slf4j.Slf4j;
-
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.Validate;
@@ -71,6 +69,8 @@ import org.hisp.dhis.util.HttpUtils;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author Lars Helge Overland
@@ -128,7 +128,8 @@ public class BaseDhis2
         "%1$s,compulsory,indicatorGroups[%1$s]", NAME_FIELDS );
 
     protected static final String DATA_SET_FIELDS = String.format(
-        "%1$s,formName,displayFormName,categoryCombo[%1$s],dataSetElements,dimensionItem,openFuturePeriods, " +
+        "%1$s,formName,displayFormName,categoryCombo[%1$s]," +
+            "dataSetElements[dataSet[%1$s],dataElement[%1$s],categoryCombo[%1$s]],dimensionItem,openFuturePeriods," +
             "expiryDays,timelyDays,url,formType,periodType,version,dimensionItemType,aggregationType,favorite," +
             "compulsoryFieldsCompleteOnly,skipOffline,validCompleteOnly,dataElementDecoration," +
             "openPeriodsAfterCoEndDate,notifyCompletingUser,noValueRequiresComment,fieldCombinationRequired,mobile," +

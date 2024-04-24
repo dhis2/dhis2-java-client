@@ -1,10 +1,10 @@
 package org.hisp.dhis.auth;
 
+import org.apache.hc.core5.http.HttpHeaders;
+
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-
-import org.apache.hc.core5.http.HttpHeaders;
 
 @Getter
 @RequiredArgsConstructor

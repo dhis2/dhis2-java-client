@@ -2,13 +2,13 @@ package org.hisp.dhis.model.datastore;
 
 import java.util.Date;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-
 import org.hisp.dhis.model.UserMetadata;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter

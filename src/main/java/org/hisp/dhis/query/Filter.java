@@ -2,9 +2,9 @@ package org.hisp.dhis.query;
 
 import java.util.List;
 
-import lombok.RequiredArgsConstructor;
-
 import org.apache.commons.lang3.StringUtils;
+
+import lombok.RequiredArgsConstructor;
 
 /**
  * Query filter.

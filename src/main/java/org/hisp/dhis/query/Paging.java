@@ -1,8 +1,8 @@
 package org.hisp.dhis.query;
 
-import lombok.Getter;
-
 import org.apache.commons.lang3.Validate;
+
+import lombok.Getter;
 
 /**
  * Query paging.

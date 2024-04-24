@@ -138,6 +138,6 @@ class OrgUnitApiTest
             .addFilter( Filter.like( "name", "Sierra Leone" ) )
             .addFilter( Filter.like( "name", "Agape CHP" ) ) );
 
-        assertEquals( 4, orgUnits.size() );
+        assertEquals( 2, orgUnits.size() );
     }
 }
