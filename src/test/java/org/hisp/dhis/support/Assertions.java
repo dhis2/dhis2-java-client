@@ -129,4 +129,16 @@ public class Assertions
         assertNotNull( actual, NULL_MESSAGE );
         assertTrue( actual.stream().anyMatch( predicate ), "No item in actual matches predicate" );
     }
+
+    /**
+     * Asserts that the given string neither null, a length of zero nor
+     * whitespace only.
+     *
+     * @param actual the string.
+     */
+    public static void assertNotBlank( String actual )
+    {
+        assertNotNull( actual );
+        assertTrue( !actual.isBlank() );
+    }
 }

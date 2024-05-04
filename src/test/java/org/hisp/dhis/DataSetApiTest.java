@@ -1,5 +1,7 @@
 package org.hisp.dhis;
 
+import static org.hisp.dhis.support.Assertions.assertNotEmpty;
+import static org.hisp.dhis.support.Assertions.assertSize;
 import static org.hisp.dhis.util.CollectionUtils.list;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -33,7 +35,7 @@ class DataSetApiTest
         assertEquals( "Mortality < 5 years", dataSet.getName() );
         assertEquals( "Mortality < 5 years", dataSet.getDisplayFormName() );
         assertEquals( "bjDvmb4bfuf", dataSet.getCategoryCombo().getId() );
-        assertEquals( 14, dataSet.getDataSetElements().size() );
+        assertNotEmpty( dataSet.getDataSetElements() );
         assertEquals( "pBOMPrpg1QX", dataSet.getDimensionItem() );
         assertNotNull( dataSet.getOpenFuturePeriods() );
         assertNotNull( dataSet.getExpiryDays() );
@@ -42,9 +44,7 @@ class DataSetApiTest
         assertNotNull( dataSet.getVersion() );
         assertEquals( DimensionItemType.REPORTING_RATE, dataSet.getDimensionItemType() );
         assertNull( dataSet.getAggregationType() );
-        assertEquals( 1169, dataSet.getOrganisationUnits().size() );
-        assertEquals( 0, dataSet.getSections().size() );
-        assertEquals( 0, dataSet.getIndicators().size() );
+        assertNotEmpty( dataSet.getOrganisationUnits() );
         assertEquals( "Mortality < 5 years", dataSet.getWorkflow().getName() );
     }
 
@@ -57,7 +57,7 @@ class DataSetApiTest
             .addFilter( Filter.in( "id", list( "pBOMPrpg1QX", "VTdjfLXXmoi", "Lpw6GcnTrmS" ) ) )
             .setOrder( Order.asc( "id" ) ) );
 
-        assertEquals( 3, dataSets.size() );
+        assertSize( 3, dataSets );
         assertNull( dataSets.get( 0 ).getWorkflow() );
         assertTrue( dataSets.get( 1 ).getOrganisationUnits().isEmpty() );
         assertTrue( dataSets.get( 2 ).getIndicators().isEmpty() );

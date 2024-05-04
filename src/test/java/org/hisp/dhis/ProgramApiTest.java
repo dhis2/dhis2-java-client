@@ -1,9 +1,11 @@
 package org.hisp.dhis;
 
+import static org.hisp.dhis.support.Assertions.assertNotEmpty;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.hisp.dhis.model.Program;
+import org.hisp.dhis.model.ProgramType;
 import org.hisp.dhis.support.TestTags;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -20,6 +22,8 @@ public class ProgramApiTest
 
         assertNotNull( program );
         assertEquals( "IpHINAT79UW", program.getId() );
+        assertEquals( ProgramType.WITH_REGISTRATION, program.getProgramType() );
+        assertNotEmpty( program.getProgramStages() );
     }
 
 }
