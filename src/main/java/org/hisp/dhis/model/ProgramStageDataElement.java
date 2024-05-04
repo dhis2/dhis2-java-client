@@ -12,4 +12,16 @@ public class ProgramStageDataElement
 {
     @JsonProperty
     private DataElement dataElement;
+
+    @JsonProperty
+    private Boolean compulsory;
+
+    @JsonProperty
+    private Boolean displayInReports;
+
+    @JsonProperty
+    private Boolean skipSynchronization;
+
+    @JsonProperty
+    private Boolean skipAnalytics;
 }

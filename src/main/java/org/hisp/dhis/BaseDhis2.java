@@ -146,6 +146,10 @@ public class BaseDhis2
     protected static final String TE_ATTRIBUTE_FIELDS = String.format(
         "%s,valueType,confidential,unique", NAME_FIELDS );
 
+    protected static final String PROGRAM_STAGE_DATA_ELEMENT_FIELDS = String.format(
+        "%s,dataElement[%s],compulsory,displayInReports,skipSynchronization,skipAnalytics",
+        NAME_FIELDS, DATA_ELEMENT_FIELDS );
+
     protected static final String ME_FIELDS = String.format(
         "%1$s,username,surname,firstName,email,settings,programs,dataSets,authorities,organisationUnits[%2$s]",
         ID_FIELDS, ORG_UNIT_FIELDS );
