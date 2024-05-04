@@ -1,3 +1,30 @@
+/*
+ * Copyright (c) 2004-2024, University of Oslo
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ * Redistributions of source code must retain the above copyright notice, this
+ * list of conditions and the following disclaimer.
+ *
+ * Redistributions in binary form must reproduce the above copyright notice,
+ * this list of conditions and the following disclaimer in the documentation
+ * and/or other materials provided with the distribution.
+ * Neither the name of the HISP project nor the names of its contributors may
+ * be used to endorse or promote products derived from this software without
+ * specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
+ * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+ * ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
 package org.hisp.dhis.model;
 
 import static org.hisp.dhis.support.TestObjects.set;
@@ -8,170 +35,162 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-class AttributeValueTest
-{
-    @Test
-    void testAddGetAttributeValues()
-    {
-        Attribute atA = set( new Attribute(), 'A' );
-        Attribute atB = set( new Attribute(), 'B' );
-        Attribute atC = set( new Attribute(), 'C' );
+class AttributeValueTest {
+  @Test
+  void testAddGetAttributeValues() {
+    Attribute atA = set(new Attribute(), 'A');
+    Attribute atB = set(new Attribute(), 'B');
+    Attribute atC = set(new Attribute(), 'C');
 
-        AttributeValue avA = new AttributeValue( atA, "ValA" );
-        AttributeValue avB = new AttributeValue( atB, "ValB" );
-        AttributeValue avC = new AttributeValue( atC, "ValC" );
+    AttributeValue avA = new AttributeValue(atA, "ValA");
+    AttributeValue avB = new AttributeValue(atB, "ValB");
+    AttributeValue avC = new AttributeValue(atC, "ValC");
 
-        OrgUnit orgUnit = set( new OrgUnit(), 'A' );
-        orgUnit.addAttributeValue( avA );
-        orgUnit.addAttributeValue( avB );
-        orgUnit.addAttributeValue( avC );
+    OrgUnit orgUnit = set(new OrgUnit(), 'A');
+    orgUnit.addAttributeValue(avA);
+    orgUnit.addAttributeValue(avB);
+    orgUnit.addAttributeValue(avC);
 
-        assertEquals( 3, orgUnit.getAttributeValues().size() );
-        assertTrue( orgUnit.getAttributeValues().contains( avA ) );
-        assertTrue( orgUnit.getAttributeValues().contains( avB ) );
-        assertTrue( orgUnit.getAttributeValues().contains( avC ) );
-    }
+    assertEquals(3, orgUnit.getAttributeValues().size());
+    assertTrue(orgUnit.getAttributeValues().contains(avA));
+    assertTrue(orgUnit.getAttributeValues().contains(avB));
+    assertTrue(orgUnit.getAttributeValues().contains(avC));
+  }
 
-    @Test
-    void testGetAttributeValue()
-    {
-        Attribute atA = set( new Attribute(), 'A' );
-        Attribute atB = set( new Attribute(), 'B' );
-        Attribute atC = set( new Attribute(), 'C' );
+  @Test
+  void testGetAttributeValue() {
+    Attribute atA = set(new Attribute(), 'A');
+    Attribute atB = set(new Attribute(), 'B');
+    Attribute atC = set(new Attribute(), 'C');
 
-        AttributeValue avA = new AttributeValue( atA, "ValA" );
-        AttributeValue avB = new AttributeValue( atB, "ValB" );
-        AttributeValue avC = new AttributeValue( atC, "ValC" );
+    AttributeValue avA = new AttributeValue(atA, "ValA");
+    AttributeValue avB = new AttributeValue(atB, "ValB");
+    AttributeValue avC = new AttributeValue(atC, "ValC");
 
-        OrgUnit orgUnit = set( new OrgUnit(), 'A' );
-        orgUnit.addAttributeValue( avA );
-        orgUnit.addAttributeValue( avB );
-        orgUnit.addAttributeValue( avC );
+    OrgUnit orgUnit = set(new OrgUnit(), 'A');
+    orgUnit.addAttributeValue(avA);
+    orgUnit.addAttributeValue(avB);
+    orgUnit.addAttributeValue(avC);
 
-        assertEquals( avA, orgUnit.getAttributeValue( atA.getId() ) );
-        assertEquals( avB, orgUnit.getAttributeValue( atB.getId() ) );
-        assertEquals( avC, orgUnit.getAttributeValue( atC.getId() ) );
+    assertEquals(avA, orgUnit.getAttributeValue(atA.getId()));
+    assertEquals(avB, orgUnit.getAttributeValue(atB.getId()));
+    assertEquals(avC, orgUnit.getAttributeValue(atC.getId()));
 
-        assertEquals( "ValA", orgUnit.getAttributeValue( atA.getId() ).getValue() );
-        assertEquals( "ValB", orgUnit.getAttributeValue( atB.getId() ).getValue() );
-        assertEquals( "ValC", orgUnit.getAttributeValue( atC.getId() ).getValue() );
-    }
+    assertEquals("ValA", orgUnit.getAttributeValue(atA.getId()).getValue());
+    assertEquals("ValB", orgUnit.getAttributeValue(atB.getId()).getValue());
+    assertEquals("ValC", orgUnit.getAttributeValue(atC.getId()).getValue());
+  }
 
-    @Test
-    void testHasAttributeValue()
-    {
-        Attribute atA = set( new Attribute(), 'A' );
-        Attribute atB = set( new Attribute(), 'B' );
-        Attribute atC = set( new Attribute(), 'C' );
+  @Test
+  void testHasAttributeValue() {
+    Attribute atA = set(new Attribute(), 'A');
+    Attribute atB = set(new Attribute(), 'B');
+    Attribute atC = set(new Attribute(), 'C');
 
-        AttributeValue avA = new AttributeValue( atA, "ValA" );
-        AttributeValue avB = new AttributeValue( atB, "ValB" );
+    AttributeValue avA = new AttributeValue(atA, "ValA");
+    AttributeValue avB = new AttributeValue(atB, "ValB");
 
-        OrgUnit orgUnit = set( new OrgUnit(), 'A' );
-        orgUnit.addAttributeValue( avA );
-        orgUnit.addAttributeValue( avB );
+    OrgUnit orgUnit = set(new OrgUnit(), 'A');
+    orgUnit.addAttributeValue(avA);
+    orgUnit.addAttributeValue(avB);
 
-        assertTrue( orgUnit.hasAttributeValue( atA.getId() ) );
-        assertTrue( orgUnit.hasAttributeValue( atB.getId() ) );
-        assertFalse( orgUnit.hasAttributeValue( atC.getId() ) );
-    }
+    assertTrue(orgUnit.hasAttributeValue(atA.getId()));
+    assertTrue(orgUnit.hasAttributeValue(atB.getId()));
+    assertFalse(orgUnit.hasAttributeValue(atC.getId()));
+  }
 
-    @Test
-    void testUpdateAttributeValue()
-    {
-        Attribute atA = set( new Attribute(), 'A' );
-        Attribute atB = set( new Attribute(), 'B' );
+  @Test
+  void testUpdateAttributeValue() {
+    Attribute atA = set(new Attribute(), 'A');
+    Attribute atB = set(new Attribute(), 'B');
 
-        AttributeValue avA = new AttributeValue( atA, "ValA" );
-        AttributeValue avB = new AttributeValue( atB, "ValB" );
+    AttributeValue avA = new AttributeValue(atA, "ValA");
+    AttributeValue avB = new AttributeValue(atB, "ValB");
 
-        OrgUnit orgUnit = set( new OrgUnit(), 'A' );
-        orgUnit.addAttributeValue( avA );
-        orgUnit.addAttributeValue( avB );
+    OrgUnit orgUnit = set(new OrgUnit(), 'A');
+    orgUnit.addAttributeValue(avA);
+    orgUnit.addAttributeValue(avB);
 
-        assertEquals( "ValA", orgUnit.getAttributeValue( atA.getId() ).getValue() );
-        assertEquals( "ValB", orgUnit.getAttributeValue( atB.getId() ).getValue() );
+    assertEquals("ValA", orgUnit.getAttributeValue(atA.getId()).getValue());
+    assertEquals("ValB", orgUnit.getAttributeValue(atB.getId()).getValue());
 
-        avA.setValue( "ValX" );
+    avA.setValue("ValX");
 
-        orgUnit.updateAttributeValue( avA );
+    orgUnit.updateAttributeValue(avA);
 
-        assertEquals( "ValX", orgUnit.getAttributeValue( atA.getId() ).getValue() );
-    }
+    assertEquals("ValX", orgUnit.getAttributeValue(atA.getId()).getValue());
+  }
 
-    @Test
-    void testRemoveAttributeValue()
-    {
-        Attribute atA = set( new Attribute(), 'A' );
-        Attribute atB = set( new Attribute(), 'B' );
-        Attribute atC = set( new Attribute(), 'C' );
+  @Test
+  void testRemoveAttributeValue() {
+    Attribute atA = set(new Attribute(), 'A');
+    Attribute atB = set(new Attribute(), 'B');
+    Attribute atC = set(new Attribute(), 'C');
 
-        AttributeValue avA = new AttributeValue( atA, "ValA" );
-        AttributeValue avB = new AttributeValue( atB, "ValB" );
-        AttributeValue avC = new AttributeValue( atC, "ValC" );
+    AttributeValue avA = new AttributeValue(atA, "ValA");
+    AttributeValue avB = new AttributeValue(atB, "ValB");
+    AttributeValue avC = new AttributeValue(atC, "ValC");
 
-        OrgUnit orgUnit = set( new OrgUnit(), 'A' );
-        orgUnit.addAttributeValue( avA );
-        orgUnit.addAttributeValue( avB );
-        orgUnit.addAttributeValue( avC );
+    OrgUnit orgUnit = set(new OrgUnit(), 'A');
+    orgUnit.addAttributeValue(avA);
+    orgUnit.addAttributeValue(avB);
+    orgUnit.addAttributeValue(avC);
 
-        assertEquals( 3, orgUnit.getAttributeValues().size() );
-        assertTrue( orgUnit.getAttributeValues().contains( avA ) );
-        assertTrue( orgUnit.getAttributeValues().contains( avB ) );
-        assertTrue( orgUnit.getAttributeValues().contains( avC ) );
+    assertEquals(3, orgUnit.getAttributeValues().size());
+    assertTrue(orgUnit.getAttributeValues().contains(avA));
+    assertTrue(orgUnit.getAttributeValues().contains(avB));
+    assertTrue(orgUnit.getAttributeValues().contains(avC));
 
-        orgUnit.removeAttributeValue( atA.getId() );
+    orgUnit.removeAttributeValue(atA.getId());
 
-        assertEquals( 2, orgUnit.getAttributeValues().size() );
-        assertFalse( orgUnit.getAttributeValues().contains( avA ) );
-        assertTrue( orgUnit.getAttributeValues().contains( avB ) );
-        assertTrue( orgUnit.getAttributeValues().contains( avC ) );
+    assertEquals(2, orgUnit.getAttributeValues().size());
+    assertFalse(orgUnit.getAttributeValues().contains(avA));
+    assertTrue(orgUnit.getAttributeValues().contains(avB));
+    assertTrue(orgUnit.getAttributeValues().contains(avC));
 
-        orgUnit.removeAttributeValue( atB.getId() );
+    orgUnit.removeAttributeValue(atB.getId());
 
-        assertEquals( 1, orgUnit.getAttributeValues().size() );
-        assertFalse( orgUnit.getAttributeValues().contains( avA ) );
-        assertFalse( orgUnit.getAttributeValues().contains( avB ) );
-        assertTrue( orgUnit.getAttributeValues().contains( avC ) );
-    }
+    assertEquals(1, orgUnit.getAttributeValues().size());
+    assertFalse(orgUnit.getAttributeValues().contains(avA));
+    assertFalse(orgUnit.getAttributeValues().contains(avB));
+    assertTrue(orgUnit.getAttributeValues().contains(avC));
+  }
 
-    @Test
-    void testGetValueAsInteger()
-    {
-        Attribute atA = set( new Attribute(), 'A' );
-        AttributeValue avA = new AttributeValue( atA, "142" );
+  @Test
+  void testGetValueAsInteger() {
+    Attribute atA = set(new Attribute(), 'A');
+    AttributeValue avA = new AttributeValue(atA, "142");
 
-        assertTrue( avA.isInteger() );
-        assertEquals( 142, avA.getIntegerValue() );
+    assertTrue(avA.isInteger());
+    assertEquals(142, avA.getIntegerValue());
 
-        avA = new AttributeValue( atA, "14.73" );
+    avA = new AttributeValue(atA, "14.73");
 
-        assertFalse( avA.isInteger() );
-        assertNull( avA.getIntegerValue() );
+    assertFalse(avA.isInteger());
+    assertNull(avA.getIntegerValue());
 
-        avA = new AttributeValue( atA, null );
+    avA = new AttributeValue(atA, null);
 
-        assertFalse( avA.isInteger() );
-        assertNull( avA.getIntegerValue() );
-    }
+    assertFalse(avA.isInteger());
+    assertNull(avA.getIntegerValue());
+  }
 
-    @Test
-    void testGetValueAsDouble()
-    {
-        Attribute atA = set( new Attribute(), 'A' );
-        AttributeValue avA = new AttributeValue( atA, "18.52" );
+  @Test
+  void testGetValueAsDouble() {
+    Attribute atA = set(new Attribute(), 'A');
+    AttributeValue avA = new AttributeValue(atA, "18.52");
 
-        assertTrue( avA.isDouble() );
-        assertEquals( 18.52, avA.getDoubleValue() );
+    assertTrue(avA.isDouble());
+    assertEquals(18.52, avA.getDoubleValue());
 
-        avA = new AttributeValue( atA, "Yes" );
+    avA = new AttributeValue(atA, "Yes");
 
-        assertFalse( avA.isDouble() );
-        assertNull( avA.getDoubleValue() );
+    assertFalse(avA.isDouble());
+    assertNull(avA.getDoubleValue());
 
-        avA = new AttributeValue( atA, null );
+    avA = new AttributeValue(atA, null);
 
-        assertFalse( avA.isDouble() );
-        assertNull( avA.getDoubleValue() );
-    }
+    assertFalse(avA.isDouble());
+    assertNull(avA.getDoubleValue());
+  }
 }
