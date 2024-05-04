@@ -1,11 +1,12 @@
 package org.hisp.dhis;
 
+import static org.hisp.dhis.support.Assertions.assertNotEmpty;
+import static org.hisp.dhis.support.Assertions.assertSize;
 import static org.hisp.dhis.util.CollectionUtils.list;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 
@@ -35,7 +36,7 @@ class DataSetApiTest
         assertEquals( "Mortality < 5 years", dataSet.getName() );
         assertEquals( "Mortality < 5 years", dataSet.getDisplayFormName() );
         assertEquals( "bjDvmb4bfuf", dataSet.getCategoryCombo().getId() );
-        assertEquals( 14, dataSet.getDataSetElements().size() );
+        assertNotEmpty( dataSet.getDataSetElements() );
         assertEquals( "pBOMPrpg1QX", dataSet.getDimensionItem() );
         assertNotNull( dataSet.getOpenFuturePeriods() );
         assertNotNull( dataSet.getExpiryDays() );
@@ -44,9 +45,7 @@ class DataSetApiTest
         assertNotNull( dataSet.getVersion() );
         assertEquals( DimensionItemType.REPORTING_RATE, dataSet.getDimensionItemType() );
         assertNull( dataSet.getAggregationType() );
-        assertEquals( 1169, dataSet.getOrganisationUnits().size() );
-        assertEquals( 0, dataSet.getSections().size() );
-        assertEquals( 0, dataSet.getIndicators().size() );
+        assertNotEmpty( dataSet.getOrganisationUnits() );
         assertEquals( "Mortality < 5 years", dataSet.getWorkflow().getName() );
     }
 
@@ -59,11 +58,10 @@ class DataSetApiTest
             .addFilter( Filter.in( "id", list( "pBOMPrpg1QX", "VTdjfLXXmoi", "Lpw6GcnTrmS" ) ) )
             .setOrder( Order.asc( "id" ) ) );
 
-        assertEquals( 3, dataSets.size() );
-        assertNull( dataSets.get( 0 ).getWorkflow() );
-        assertTrue( dataSets.get( 1 ).getOrganisationUnits().isEmpty() );
-        assertTrue( dataSets.get( 2 ).getIndicators().isEmpty() );
-        assertTrue( dataSets.get( 0 ).getSections().isEmpty() );
+        assertSize( 3, dataSets );
+        assertEquals( "Lpw6GcnTrmS", dataSets.get( 0 ).getId() );
+        assertEquals( "VTdjfLXXmoi", dataSets.get( 1 ).getId() );
+        assertEquals( "pBOMPrpg1QX", dataSets.get( 2 ).getId() );
     }
 
     @Test

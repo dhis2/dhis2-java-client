@@ -1390,9 +1390,9 @@ public class Dhis2
     {
         String fieldsParam = String.format(
             "%1$s,programType,categoryCombo[%1$s,categories[%2$s]]," +
-                "programStages[%1$s,programStageDataElements[%1$s,dataElement[%3$s]]]," +
+                "programStages[%1$s,programStageDataElements[%3$s]]," +
                 "programTrackedEntityAttributes[id,code,name,trackedEntityAttribute[%4$s]]",
-            NAME_FIELDS, CATEGORY_FIELDS, DATA_ELEMENT_FIELDS, TE_ATTRIBUTE_FIELDS );
+            NAME_FIELDS, CATEGORY_FIELDS, PROGRAM_STAGE_DATA_ELEMENT_FIELDS, TE_ATTRIBUTE_FIELDS );
 
         return getObject( config.getResolvedUriBuilder()
             .appendPath( "programs" )
@@ -1423,9 +1423,9 @@ public class Dhis2
     {
         String fieldsParam = query.isExpandAssociations() ? String.format(
             "%1$s,programType,categoryCombo[%1$s,categories[%2$s]]," +
-                "programStages[%1$s,programStageDataElements[%1$s,dataElement[%3$s]]]," +
+                "programStages[%1$s,programStageDataElements[%3$s]]," +
                 "programTrackedEntityAttributes[id,code,name,trackedEntityAttribute[%4$s]]",
-            NAME_FIELDS, CATEGORY_FIELDS, DATA_ELEMENT_FIELDS, TE_ATTRIBUTE_FIELDS )
+            NAME_FIELDS, CATEGORY_FIELDS, PROGRAM_STAGE_DATA_ELEMENT_FIELDS, TE_ATTRIBUTE_FIELDS )
             : String.format(
                 "%1$s,programType,categoryCombo[%1$s],programStages[%1$s],programTrackedEntityAttributes[%1$s]",
                 NAME_FIELDS );
