@@ -6,7 +6,6 @@ import static org.hisp.dhis.util.CollectionUtils.list;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 
@@ -58,9 +57,8 @@ class DataSetApiTest
             .setOrder( Order.asc( "id" ) ) );
 
         assertSize( 3, dataSets );
-        assertNull( dataSets.get( 0 ).getWorkflow() );
-        assertTrue( dataSets.get( 1 ).getOrganisationUnits().isEmpty() );
-        assertTrue( dataSets.get( 2 ).getIndicators().isEmpty() );
-        assertTrue( dataSets.get( 0 ).getSections().isEmpty() );
+        assertEquals( "Lpw6GcnTrmS", dataSets.get( 0 ).getId() );
+        assertEquals( "VTdjfLXXmoi", dataSets.get( 1 ).getId() );
+        assertEquals( "pBOMPrpg1QX", dataSets.get( 2 ).getId() );
     }
 }
