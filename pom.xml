@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>org.hisp</groupId>
@@ -17,6 +16,13 @@
     <url>http://www.dhis2.org</url>
   </organization>
 
+  <licenses>
+    <license>
+      <name>BSD</name>
+      <url>https://opensource.org/license/BSD-3-Clause</url>
+    </license>
+  </licenses>
+
   <developers>
     <developer>
       <name>Lars Helge Overland</name>
@@ -25,13 +31,6 @@
       <organizationUrl>http://www.uio.no/</organizationUrl>
     </developer>
   </developers>
-
-  <licenses>
-    <license>
-      <name>BSD</name>
-      <url>https://opensource.org/license/BSD-3-Clause</url>
-    </license>
-  </licenses>
 
   <scm>
     <connection>scm:git:git@github.com:dhis2/dhis2-java-client.git</connection>
@@ -43,6 +42,34 @@
     <system>GitHub</system>
     <url>https://github.com/dhis2/dhis2-java-client</url>
   </issueManagement>
+
+  <distributionManagement>
+    <repository>
+      <id>ossrh</id>
+      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
+    </repository>
+    <snapshotRepository>
+      <id>ossrh</id>
+      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+    </snapshotRepository>
+  </distributionManagement>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <maven.compiler.release>11</maven.compiler.release>
+    <jackson.version>2.13.5</jackson.version>
+    <jts-io-common.version>1.19.0</jts-io-common.version>
+    <slf4j.version>2.0.13</slf4j.version>
+    <lombok.version>1.18.30</lombok.version>
+    <maven-artifact.version>3.9.1</maven-artifact.version>
+    <httpclient5.version>5.1.4</httpclient5.version>
+    <junit-jupiter.version>5.10.2</junit-jupiter.version>
+    <maven-artifact.version>3.9.4</maven-artifact.version>
+    <commons-io.version>2.16.1</commons-io.version>
+    <commons-lang3.version>3.14.0</commons-lang3.version>
+    <spotless.version>2.43.0</spotless.version>
+  </properties>
 
   <dependencies>
     <dependency>
@@ -112,17 +139,14 @@
 
   <repositories>
     <repository>
-      <id>MavenCentral</id>
-      <name>Maven repository</name>
-      <url>https://repo1.maven.org/maven2</url>
       <snapshots>
         <enabled>false</enabled>
       </snapshots>
+      <id>MavenCentral</id>
+      <name>Maven repository</name>
+      <url>https://repo1.maven.org/maven2</url>
     </repository>
     <repository>
-      <id>ossrh</id>
-      <name>Sonatype OSS</name>
-      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
       <releases>
         <enabled>false</enabled>
       </releases>
@@ -130,19 +154,11 @@
         <enabled>true</enabled>
         <updatePolicy>always</updatePolicy>
       </snapshots>
+      <id>ossrh</id>
+      <name>Sonatype OSS</name>
+      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
     </repository>
   </repositories>
-
-  <distributionManagement>
-    <snapshotRepository>
-      <id>ossrh</id>
-      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-    </snapshotRepository>
-    <repository>
-      <id>ossrh</id>
-      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
-    </repository>
-  </distributionManagement>
 
   <!-- Note: Maven config file exists at .mvn/jvm.config -->
 
@@ -197,19 +213,28 @@
         <artifactId>spotless-maven-plugin</artifactId>
         <version>${spotless.version}</version>
         <configuration>
+          <upToDateChecking>
+            <enabled>true</enabled>
+          </upToDateChecking>
           <java>
-            <eclipse>
-              <file>codestyle.xml</file>
-              <version>4.26</version>
-            </eclipse>
+            <googleJavaFormat/>
             <trimTrailingWhitespace/>
-            <removeUnusedImports/>
-            <importOrder>
-              <order>
-                java,javax,org,com,io,lombok,reactor
-              </order>
-            </importOrder>
+            <licenseHeader>
+              <file>license-header</file>
+            </licenseHeader>
           </java>
+          <pom>
+            <toggleOffOn>
+              <off>@formatter:off</off>
+                <on>@formatter:on</on>
+            </toggleOffOn>
+            <includes>
+              <include>pom.xml</include>
+            </includes>
+            <sortPom>
+              <expandEmptyElements>false</expandEmptyElements>
+            </sortPom>
+          </pom>
           <lineEndings>UNIX</lineEndings>
         </configuration>
       </plugin>
@@ -229,7 +254,7 @@
     <profile>
       <id>integration</id>
       <properties>
-        <test.excluded.groups></test.excluded.groups>
+        <test.excluded.groups/>
       </properties>
     </profile>
     <profile>
@@ -304,10 +329,10 @@
             <executions>
               <execution>
                 <id>sign-artifacts</id>
-                <phase>verify</phase>
                 <goals>
                   <goal>sign</goal>
                 </goals>
+                <phase>verify</phase>
                 <!-- Prevent gpg from using pinentry programs -->
                 <configuration>
                   <gpgArguments>
@@ -322,22 +347,5 @@
       </build>
     </profile>
   </profiles>
-
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <maven.compiler.release>11</maven.compiler.release>
-    <jackson.version>2.13.5</jackson.version>
-    <jts-io-common.version>1.19.0</jts-io-common.version>
-    <slf4j.version>2.0.13</slf4j.version>
-    <lombok.version>1.18.30</lombok.version>
-    <maven-artifact.version>3.9.1</maven-artifact.version>
-    <httpclient5.version>5.1.4</httpclient5.version>
-    <junit-jupiter.version>5.10.2</junit-jupiter.version>
-    <maven-artifact.version>3.9.4</maven-artifact.version>
-    <commons-io.version>2.16.1</commons-io.version>
-    <commons-lang3.version>3.14.0</commons-lang3.version>
-    <spotless.version>2.43.0</spotless.version>
-  </properties>
 
 </project>
