@@ -27,13 +27,13 @@
  */
 package org.hisp.dhis.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import static org.apache.commons.lang3.BooleanUtils.isFalse;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -50,15 +50,27 @@ public class ProgramStage extends NameableObject {
   }
 
   /**
-   * Returns all data elements part of this program stage as a read-only set.
+   * Returns all data elements part of this program stage.
    *
-   * @return a set of {@link DataElement}.
+   * @return an immutable set of {@link DataElement}.
    */
   @JsonIgnore
   public Set<DataElement> getDataElements() {
     return programStageDataElements.stream()
         .map(ProgramStageDataElement::getDataElement)
-        .filter(Objects::nonNull)
-        .collect(Collectors.toSet());
+        .collect(Collectors.toUnmodifiableSet());
+  }
+
+  /**
+   * Returns all data elements part of this program stage as an immutable set.
+   *
+   * @return an immutable set of {@link DataElement}.
+   */
+  @JsonIgnore
+  public Set<DataElement> getAnalyticsDataElements() {
+    return programStageDataElements.stream()
+        .filter(psde -> isFalse(psde.getSkipAnalytics()))
+        .map(ProgramStageDataElement::getDataElement)
+        .collect(Collectors.toUnmodifiableSet());
   }
 }
