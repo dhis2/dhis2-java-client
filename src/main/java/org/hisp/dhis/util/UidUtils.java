@@ -75,7 +75,7 @@ public class UidUtils {
    * @param codeSize the number of characters in the code.
    * @return the code.
    */
-  private static String generateCode(int codeSize) {
+  public static String generateCode(int codeSize) {
     ThreadLocalRandom r = ThreadLocalRandom.current();
 
     char[] randomChars = new char[codeSize];

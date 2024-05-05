@@ -27,6 +27,7 @@
  */
 package org.hisp.dhis.model;
 
+import static org.hisp.dhis.util.CollectionUtils.notEmpty;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -56,7 +57,7 @@ public class Program extends NameableObject {
   }
 
   /**
-   * Returns all tracked entity attributes which are part of the program. 
+   * Returns all tracked entity attributes which are part of the program.
    *
    * @return an immutable list of {@link TrackedEntityAttribute}.
    */
@@ -91,15 +92,28 @@ public class Program extends NameableObject {
   }
 
   /**
-   * Returns data elements which are part of the stages of this program which have a legend set and
+   * Returns data elements enabled for analytics which are part of the stages of this program.
+   *
+   * @return an immutable set of {@link DataElement}.
+   */
+  @JsonIgnore
+  public Set<DataElement> getAnalyticsDataElements() {
+    return programStages.stream()
+        .flatMap(ps -> ps.getAnalyticsDataElements().stream())
+        .collect(Collectors.toUnmodifiableSet());
+  }
+
+  /**
+   * Returns data elements enabled for analytics which are part of the stages of this program which have a legend set and
    * is of numeric value type.
    *
    * @return an immutable set of {@link DataElement}.
    */
   @JsonIgnore
-  public Set<DataElement> getDataElementsWithLegendSet() {
-    return getDataElements().stream()
-        .filter(de -> !de.getLegendSets().isEmpty() && de.getValueType().isNumeric())
+  public Set<DataElement> getAnalyticsDataElementsWithLegendSet() {
+    return programStages.stream()
+        .flatMap(ps -> ps.getAnalyticsDataElements().stream())
+        .filter(de -> notEmpty(de.getLegendSets()) && de.getValueType().isNumeric())
         .collect(Collectors.toUnmodifiableSet());
   }
 

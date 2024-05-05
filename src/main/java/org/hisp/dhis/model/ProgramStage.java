@@ -62,7 +62,7 @@ public class ProgramStage extends NameableObject {
   }
 
   /**
-   * Returns all data elements part of this program stage as an immutable set.
+   * Returns data elements enabled for analytics part of this program stage as an immutable set.
    *
    * @return an immutable set of {@link DataElement}.
    */
