@@ -28,12 +28,13 @@
 package org.hisp.dhis.model;
 
 import static org.hisp.dhis.util.CollectionUtils.notEmpty;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -104,8 +105,8 @@ public class Program extends NameableObject {
   }
 
   /**
-   * Returns data elements enabled for analytics which are part of the stages of this program which have a legend set and
-   * is of numeric value type.
+   * Returns data elements enabled for analytics which are part of the stages of this program which
+   * have a legend set and is of numeric value type.
    *
    * @return an immutable set of {@link DataElement}.
    */

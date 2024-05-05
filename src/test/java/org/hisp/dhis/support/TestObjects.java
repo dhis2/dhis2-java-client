@@ -28,16 +28,16 @@
 package org.hisp.dhis.support;
 
 import java.util.Date;
-import org.hisp.dhis.model.NameableObject;
-import org.hisp.dhis.util.UidUtils;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.hisp.dhis.model.NameableObject;
+import org.hisp.dhis.util.UidUtils;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class TestObjects {
   /**
    * Sets nameable properties on the given object.
-   * 
+   *
    * @param <T>
    * @param object the {@link NameableObject}.
    * @param chr the character to use for names and codes.
