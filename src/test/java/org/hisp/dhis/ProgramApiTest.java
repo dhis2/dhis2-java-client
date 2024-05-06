@@ -32,6 +32,7 @@ import static org.hisp.dhis.support.Assertions.assertNotEmpty;
 import static org.hisp.dhis.support.Assertions.assertSize;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import java.util.List;
 import org.hisp.dhis.model.DataElement;
 import org.hisp.dhis.model.Program;
@@ -81,7 +82,7 @@ public class ProgramApiTest {
     assertNotBlank(ps.getId());
     assertNotBlank(ps.getName());
     assertNotEmpty(ps.getProgramStageDataElements());
-    
+
     assertNotEmpty(ps.getDataElements());
     assertNotEmpty(ps.getAnalyticsDataElements());
 
@@ -101,7 +102,7 @@ public class ProgramApiTest {
     assertNotBlank(de.getId());
     assertNotBlank(de.getShortName());
     assertNotBlank(de.getName());
-    
+
     assertNotEmpty(pr.getTrackedEntityAttributes());
     assertNotEmpty(pr.getNonConfidentialTrackedEntityAttributes());
     assertNotEmpty(pr.getDataElements());
