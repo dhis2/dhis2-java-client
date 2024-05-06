@@ -33,6 +33,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 import lombok.Getter;
@@ -64,6 +65,7 @@ public class Program extends NameableObject {
    */
   public List<TrackedEntityAttribute> getTrackedEntityAttributes() {
     return programTrackedEntityAttributes.stream()
+        .filter(Objects::nonNull)
         .map(ProgramTrackedEntityAttribute::getTrackedEntityAttribute)
         .collect(Collectors.toUnmodifiableList());
   }
@@ -75,6 +77,7 @@ public class Program extends NameableObject {
    */
   public List<TrackedEntityAttribute> getNonConfidentialTrackedEntityAttributes() {
     return programTrackedEntityAttributes.stream()
+        .filter(Objects::nonNull)
         .map(ProgramTrackedEntityAttribute::getTrackedEntityAttribute)
         .filter(tea -> (tea.getConfidential() == null || tea.getConfidential() == false))
         .collect(Collectors.toUnmodifiableList());
@@ -88,6 +91,7 @@ public class Program extends NameableObject {
   @JsonIgnore
   public Set<DataElement> getDataElements() {
     return programStages.stream()
+        .filter(Objects::nonNull)
         .flatMap(ps -> ps.getDataElements().stream())
         .collect(Collectors.toUnmodifiableSet());
   }
@@ -100,6 +104,7 @@ public class Program extends NameableObject {
   @JsonIgnore
   public Set<DataElement> getAnalyticsDataElements() {
     return programStages.stream()
+        .filter(Objects::nonNull)
         .flatMap(ps -> ps.getAnalyticsDataElements().stream())
         .collect(Collectors.toUnmodifiableSet());
   }
@@ -113,6 +118,7 @@ public class Program extends NameableObject {
   @JsonIgnore
   public Set<DataElement> getAnalyticsDataElementsWithLegendSet() {
     return programStages.stream()
+        .filter(Objects::nonNull)
         .flatMap(ps -> ps.getAnalyticsDataElements().stream())
         .filter(de -> notEmpty(de.getLegendSets()) && de.getValueType().isNumeric())
         .collect(Collectors.toUnmodifiableSet());
