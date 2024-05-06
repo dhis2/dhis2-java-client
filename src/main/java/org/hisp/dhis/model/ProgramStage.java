@@ -28,14 +28,12 @@
 package org.hisp.dhis.model;
 
 import static org.apache.commons.lang3.BooleanUtils.isFalse;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -59,7 +57,6 @@ public class ProgramStage extends NameableObject {
   @JsonIgnore
   public Set<DataElement> getDataElements() {
     return programStageDataElements.stream()
-        .filter(Objects::nonNull)
         .map(ProgramStageDataElement::getDataElement)
         .collect(Collectors.toUnmodifiableSet());
   }
@@ -72,7 +69,6 @@ public class ProgramStage extends NameableObject {
   @JsonIgnore
   public Set<DataElement> getAnalyticsDataElements() {
     return programStageDataElements.stream()
-        .filter(Objects::nonNull)
         .filter(psde -> isFalse(psde.getSkipAnalytics()))
         .map(ProgramStageDataElement::getDataElement)
         .collect(Collectors.toUnmodifiableSet());
