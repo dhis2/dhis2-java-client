@@ -29,6 +29,7 @@ package org.hisp.dhis;
 
 import static org.hisp.dhis.util.CollectionUtils.asList;
 import static org.hisp.dhis.util.CollectionUtils.list;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -1499,8 +1500,7 @@ public class Dhis2 extends BaseDhis2 {
             : String.format(
                 "%1$s,programType,categoryCombo[%1$s],programStages[%1$s],"
                     + "programTrackedEntityAttributes[id,code,name,trackedEntityAttribute[%2$s]]",
-                NAME_FIELDS, 
-                TE_ATTRIBUTE_FIELDS);
+                NAME_FIELDS, TE_ATTRIBUTE_FIELDS);
 
     return getObject(
             config
