@@ -32,13 +32,14 @@ import static org.hisp.dhis.support.Assertions.assertNotEmpty;
 import static org.hisp.dhis.support.Assertions.assertSize;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-
 import java.util.List;
 import org.hisp.dhis.model.DataElement;
 import org.hisp.dhis.model.Program;
 import org.hisp.dhis.model.ProgramStage;
 import org.hisp.dhis.model.ProgramStageDataElement;
+import org.hisp.dhis.model.ProgramTrackedEntityAttribute;
 import org.hisp.dhis.model.ProgramType;
+import org.hisp.dhis.model.TrackedEntityAttribute;
 import org.hisp.dhis.query.Filter;
 import org.hisp.dhis.query.Order;
 import org.hisp.dhis.query.Query;
@@ -61,7 +62,18 @@ public class ProgramApiTest {
     assertNotNull(pr.getCreated());
     assertNotNull(pr.getLastUpdated());
     assertEquals(ProgramType.WITH_REGISTRATION, pr.getProgramType());
+    assertNotEmpty(pr.getProgramTrackedEntityAttributes());
     assertNotEmpty(pr.getProgramStages());
+
+    ProgramTrackedEntityAttribute ptea = pr.getProgramTrackedEntityAttributes().iterator().next();
+
+    assertNotNull(ptea);
+    assertNotBlank(ptea.getId());
+
+    TrackedEntityAttribute tea = ptea.getTrackedEntityAttribute();
+
+    assertNotNull(tea);
+    assertNotBlank(tea.getId());
 
     ProgramStage ps = pr.getProgramStages().iterator().next();
 
@@ -69,6 +81,9 @@ public class ProgramApiTest {
     assertNotBlank(ps.getId());
     assertNotBlank(ps.getName());
     assertNotEmpty(ps.getProgramStageDataElements());
+    
+    assertNotEmpty(ps.getDataElements());
+    assertNotEmpty(ps.getAnalyticsDataElements());
 
     ProgramStageDataElement psde = ps.getProgramStageDataElements().iterator().next();
 
@@ -86,6 +101,11 @@ public class ProgramApiTest {
     assertNotBlank(de.getId());
     assertNotBlank(de.getShortName());
     assertNotBlank(de.getName());
+    
+    assertNotEmpty(pr.getTrackedEntityAttributes());
+    assertNotEmpty(pr.getNonConfidentialTrackedEntityAttributes());
+    assertNotEmpty(pr.getDataElements());
+    assertNotEmpty(pr.getAnalyticsDataElements());
   }
 
   @Test

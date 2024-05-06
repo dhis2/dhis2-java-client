@@ -1498,8 +1498,9 @@ public class Dhis2 extends BaseDhis2 {
                 PROGRAM_STAGE_DATA_ELEMENT_FIELDS,
                 TE_ATTRIBUTE_FIELDS)
             : String.format(
-                "%1$s,programType,categoryCombo[%1$s],programStages[%1$s],programTrackedEntityAttributes[%1$s]",
-                NAME_FIELDS);
+                "%1$s,programType,categoryCombo[%1$s],programStages[%1$s],"
+                    + "programTrackedEntityAttributes[id,code,name,trackedEntityAttribute[%2$s]]",
+                NAME_FIELDS, TE_ATTRIBUTE_FIELDS);
 
     return getObject(
             config
