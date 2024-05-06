@@ -64,14 +64,14 @@ public class ProgramApiTest {
     assertEquals(ProgramType.WITH_REGISTRATION, pr.getProgramType());
     assertNotEmpty(pr.getProgramTrackedEntityAttributes());
     assertNotEmpty(pr.getProgramStages());
-    
+
     ProgramTrackedEntityAttribute ptea = pr.getProgramTrackedEntityAttributes().iterator().next();
-    
+
     assertNotNull(ptea);
     assertNotBlank(ptea.getId());
-    
+
     TrackedEntityAttribute tea = ptea.getTrackedEntityAttribute();
-    
+
     assertNotNull(tea);
     assertNotBlank(tea.getId());
 
@@ -81,6 +81,9 @@ public class ProgramApiTest {
     assertNotBlank(ps.getId());
     assertNotBlank(ps.getName());
     assertNotEmpty(ps.getProgramStageDataElements());
+    
+    assertNotEmpty(ps.getDataElements());
+    assertNotEmpty(ps.getAnalyticsDataElements());
 
     ProgramStageDataElement psde = ps.getProgramStageDataElements().iterator().next();
 
@@ -97,7 +100,12 @@ public class ProgramApiTest {
     assertNotNull(de);
     assertNotBlank(de.getId());
     assertNotBlank(de.getShortName());
-    assertNotBlank(de.getName());    
+    assertNotBlank(de.getName());
+    
+    assertNotEmpty(pr.getTrackedEntityAttributes());
+    assertNotEmpty(pr.getNonConfidentialTrackedEntityAttributes());
+    assertNotEmpty(pr.getDataElements());
+    assertNotEmpty(pr.getAnalyticsDataElements());
   }
 
   @Test
