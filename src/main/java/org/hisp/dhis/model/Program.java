@@ -29,12 +29,14 @@ package org.hisp.dhis.model;
 
 import static org.hisp.dhis.util.CollectionUtils.notEmpty;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -120,8 +122,27 @@ public class Program extends NameableObject {
         .collect(Collectors.toUnmodifiableSet());
   }
 
+  /**
+   * Indicates whether this program has a category combination.
+   */
   @JsonIgnore
   public boolean hasCategoryCombo() {
     return categoryCombo != null;
+  }
+
+  /**
+   * Indicates whether this program is with registration, i.e. a tracker program.
+   */
+  @JsonIgnore
+  public boolean isTrackerProgram() {
+    return ProgramType.WITH_REGISTRATION == programType;
+  }
+
+  /**
+   * Indicates whether this program is without registration, i.e. an event program.
+   */
+  @JsonIgnore
+  public boolean isEventProgram() {
+    return ProgramType.WITHOUT_REGISTRATION == programType;
   }
 }
