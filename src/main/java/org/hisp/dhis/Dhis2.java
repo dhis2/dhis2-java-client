@@ -48,6 +48,7 @@ import org.apache.hc.core5.http.ContentType;
 import org.apache.hc.core5.http.io.entity.FileEntity;
 import org.apache.hc.core5.http.io.entity.InputStreamEntity;
 import org.apache.hc.core5.http.io.entity.StringEntity;
+import org.apache.hc.core5.net.URIBuilder;
 import org.hisp.dhis.auth.AccessTokenAuthentication;
 import org.hisp.dhis.auth.BasicAuthentication;
 import org.hisp.dhis.auth.CookieAuthentication;
@@ -1872,9 +1873,9 @@ public class Dhis2 extends BaseDhis2 {
    */
   public DataValueSetResponse saveDataValueSet(
       DataValueSet dataValueSet, DataValueSetImportOptions options) {
-    URI url =
-        getDataValueSetImportQuery(
-            config.getResolvedUriBuilder().appendPath("dataValueSets"), options);
+    URIBuilder builder = config.getResolvedUriBuilder().appendPath("dataValueSets");
+
+    URI url = getDataValueSetImportQuery(builder, options);
 
     HttpPost request =
         getPostRequest(url, new StringEntity(toJsonString(dataValueSet), StandardCharsets.UTF_8));
@@ -1892,9 +1893,9 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link DataValueSetResponse} holding information about the operation.
    */
   public DataValueSetResponse saveDataValueSet(File file, DataValueSetImportOptions options) {
-    URI url =
-        getDataValueSetImportQuery(
-            config.getResolvedUriBuilder().appendPath("dataValueSets"), options);
+    URIBuilder builder = config.getResolvedUriBuilder().appendPath("dataValueSets");
+
+    URI url = getDataValueSetImportQuery(builder, options);
 
     HttpPost request = getPostRequest(url, new FileEntity(file, ContentType.APPLICATION_JSON));
 
@@ -1912,9 +1913,9 @@ public class Dhis2 extends BaseDhis2 {
    */
   public DataValueSetResponse saveDataValueSet(
       InputStream inputStream, DataValueSetImportOptions options) {
-    URI url =
-        getDataValueSetImportQuery(
-            config.getResolvedUriBuilder().appendPath("dataValueSets"), options);
+    URIBuilder builder = config.getResolvedUriBuilder().appendPath("dataValueSets");
+
+    URI url = getDataValueSetImportQuery(builder, options);
 
     HttpPost request =
         getPostRequest(url, new InputStreamEntity(inputStream, ContentType.APPLICATION_JSON));
