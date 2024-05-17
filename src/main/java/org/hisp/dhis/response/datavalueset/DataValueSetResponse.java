@@ -27,15 +27,21 @@
  */
 package org.hisp.dhis.response.datavalueset;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.List;
-import lombok.Getter;
-import lombok.Setter;
+
 import org.hisp.dhis.response.BaseHttpResponse;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class DataValueSetResponse extends BaseHttpResponse {
   @JsonProperty private Status status;
 
@@ -47,7 +53,13 @@ public class DataValueSetResponse extends BaseHttpResponse {
 
   @JsonProperty private String dataSetComplete;
 
-  public DataValueSetResponse() {}
+  /**
+   * Indicates whether an import count exists.
+   */
+  @JsonIgnore
+  public boolean hasImportCount() {
+      return importCount != null;
+  }
 
   @Override
   public String toString() {
