@@ -56,6 +56,26 @@ public class DataValueSetResponse extends BaseHttpResponse {
     return importCount != null;
   }
 
+  /**
+   * Returns the total count including imported, updated, deleted and ignored data values.
+   *
+   * @return a total count.
+   */
+  @JsonIgnore
+  private long getTotalCount() {
+    long rowCount = 0;
+
+    if (hasImportCount()) {
+      rowCount =
+          importCount.getImported()
+              + importCount.getUpdated()
+              + importCount.getDeleted()
+              + importCount.getIgnored();
+    }
+
+    return rowCount;
+  }
+
   @Override
   public String toString() {
     return new StringBuilder("[")
