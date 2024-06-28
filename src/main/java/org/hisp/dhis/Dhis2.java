@@ -938,6 +938,16 @@ public class Dhis2 extends BaseDhis2 {
   // -------------------------------------------------------------------------
 
   /**
+   * Saves a {@link CategoryCombo}.
+   *
+   * @param category the object to save.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse saveCategoryCombo(CategoryCombo categoryCombo) {
+    return saveMetadataObject("categoryCombos", categoryCombo);
+  }
+
+  /**
    * Retrieves an {@link CategoryCombo}.
    *
    * @param id the object identifier.
@@ -970,6 +980,16 @@ public class Dhis2 extends BaseDhis2 {
             query,
             Objects.class)
         .getCategoryCombos();
+  }
+
+  /**
+   * Removes a {@link CategoryCombo}.
+   *
+   * @param id the identifier of the object to remove.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse removeCategoryCombo(String id) {
+    return removeMetadataObject(String.format("categoryCombos/%s", id));
   }
 
   // -------------------------------------------------------------------------
