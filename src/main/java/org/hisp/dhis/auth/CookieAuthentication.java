@@ -32,6 +32,7 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.apache.hc.core5.http.HttpHeaders;
 
+/** Class representing cookie authentication. */
 @Getter
 @RequiredArgsConstructor
 public class CookieAuthentication implements Authentication {

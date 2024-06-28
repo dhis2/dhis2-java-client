@@ -33,6 +33,7 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.apache.hc.core5.http.HttpHeaders;
 
+/** Class representing basic authentication. */
 @Getter
 @RequiredArgsConstructor
 public class BasicAuthentication implements Authentication {

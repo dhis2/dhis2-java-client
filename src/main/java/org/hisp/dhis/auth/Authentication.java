@@ -27,8 +27,19 @@
  */
 package org.hisp.dhis.auth;
 
+/** Authentication interface. */
 public interface Authentication {
+  /**
+   * Returns the name of the HTTP header to use for authentication.
+   *
+   * @return the name of the HTTP header to use for authentication.
+   */
   String getHttpHeaderAuthName();
 
+  /**
+   * Returns the value of the HTTP header to use for authentication.
+   *
+   * @return the value of the HTTP header to use for authentication.
+   */
   String getHttpHeaderAuthValue();
 }

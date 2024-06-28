@@ -32,6 +32,7 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.apache.hc.core5.http.HttpHeaders;
 
+/** Class representing access token authentication. */
 @Getter
 @RequiredArgsConstructor
 public class AccessTokenAuthentication implements Authentication {
