@@ -29,7 +29,6 @@ package org.hisp.dhis;
 
 import static org.hisp.dhis.util.CollectionUtils.asList;
 import static org.hisp.dhis.util.CollectionUtils.list;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -951,6 +950,16 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   /**
+   * Removes a {@link CategoryCombo}.
+   *
+   * @param id the identifier of the object to remove.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse removeCategoryCombo(String id) {
+    return removeMetadataObject(String.format("categoryCombos/%s", id));
+  }
+
+  /**
    * Retrieves an {@link CategoryCombo}.
    *
    * @param id the object identifier.
@@ -983,16 +992,6 @@ public class Dhis2 extends BaseDhis2 {
             query,
             Objects.class)
         .getCategoryCombos();
-  }
-
-  /**
-   * Removes a {@link CategoryCombo}.
-   *
-   * @param id the identifier of the object to remove.
-   * @return {@link ObjectResponse} holding information about the operation.
-   */
-  public ObjectResponse removeCategoryCombo(String id) {
-    return removeMetadataObject(String.format("categoryCombos/%s", id));
   }
 
   // -------------------------------------------------------------------------
@@ -1222,6 +1221,16 @@ public class Dhis2 extends BaseDhis2 {
   // -------------------------------------------------------------------------
 
   /**
+   * Removes a {@link DataElementGroupSet}.
+   *
+   * @param id the identifier of the object to remove.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse removeDataElementGroupSet(String id) {
+    return removeMetadataObject(String.format("dataElementGroupSets/%s", id));
+  }
+
+  /**
    * Retrieves an {@link DataElementGroupSet}.
    *
    * @param id the object identifier.
@@ -1260,6 +1269,16 @@ public class Dhis2 extends BaseDhis2 {
   // -------------------------------------------------------------------------
 
   /**
+   * Removes an {@link Indicator}.
+   *
+   * @param id the identifier of the object to remove.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse removeIndicator(String id) {
+    return removeMetadataObject(String.format("indicators/%s", id));
+  }
+
+  /**
    * Retrieves an {@link Indicator}.
    *
    * @param id the object identifier.
@@ -1296,6 +1315,16 @@ public class Dhis2 extends BaseDhis2 {
   // -------------------------------------------------------------------------
   // Indicator group
   // -------------------------------------------------------------------------
+
+  /**
+   * Removes an {@link IndicatorGroup}.
+   *
+   * @param id the identifier of the object to remove.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse removeIndicatorGroup(String id) {
+    return removeMetadataObject(String.format("indicatorGroups/%s", id));
+  }
 
   /**
    * Retrieves an {@link IndicatorGroup}.
@@ -1343,6 +1372,16 @@ public class Dhis2 extends BaseDhis2 {
   // -------------------------------------------------------------------------
 
   /**
+   * Removes an {@link IndicatorGroupSet}.
+   *
+   * @param id the identifier of the object to remove.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse removeIndicatorGroupSet(String id) {
+    return removeMetadataObject(String.format("indicatorGroupSets/%s", id));
+  }
+
+  /**
    * Retrieves an {@link IndicatorGroupSet}.
    *
    * @param id the object identifier.
@@ -1381,6 +1420,16 @@ public class Dhis2 extends BaseDhis2 {
   // -------------------------------------------------------------------------
 
   /**
+   * Removes an {@link IndicatorType}.
+   *
+   * @param id the identifier of the object to remove.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse removeIndicatorType(String id) {
+    return removeMetadataObject(String.format("indicatorTypes/%s", id));
+  }
+
+  /**
    * Retrieves an {@link IndicatorType}.
    *
    * @param id the object identifier.
@@ -1417,6 +1466,16 @@ public class Dhis2 extends BaseDhis2 {
   // -------------------------------------------------------------------------
   // DataSet
   // -------------------------------------------------------------------------
+
+  /**
+   * Removes a {@link DataSet}.
+   *
+   * @param id the identifier of the object to remove.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse removeDataSet(String id) {
+    return removeMetadataObject(String.format("dataSets/%s", id));
+  }
 
   /**
    * Retrieves an {@link DataSet}.
@@ -1468,6 +1527,16 @@ public class Dhis2 extends BaseDhis2 {
   // -------------------------------------------------------------------------
   // Program
   // -------------------------------------------------------------------------
+
+  /**
+   * Removes a {@link Program}.
+   *
+   * @param id the identifier of the object to remove.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse removeProgram(String id) {
+    return removeMetadataObject(String.format("programs/%s", id));
+  }
 
   /**
    * Retrieves a {@link Program}.
@@ -1552,6 +1621,16 @@ public class Dhis2 extends BaseDhis2 {
   // -------------------------------------------------------------------------
 
   /**
+   * Removes a {@link ProgramIndicator}.
+   *
+   * @param id the identifier of the object to remove.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse removeProgramIndicator(String id) {
+    return removeMetadataObject(String.format("programIndicators/%s", id));
+  }
+
+  /**
    * Retrieves a {@link ProgramIndicator}.
    *
    * @param id the object identifier.
@@ -1588,6 +1667,16 @@ public class Dhis2 extends BaseDhis2 {
   // -------------------------------------------------------------------------
   // Category option group
   // -------------------------------------------------------------------------
+
+  /**
+   * Removes a {@link CategoryOptionGroup}.
+   *
+   * @param id the identifier of the object to remove.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse removeCategoryOptionGroup(String id) {
+    return removeMetadataObject(String.format("categoryOptionGroups/%s", id));
+  }
 
   /**
    * Retrieves an {@link CategoryOptionGroup}.
@@ -1629,6 +1718,16 @@ public class Dhis2 extends BaseDhis2 {
   // -------------------------------------------------------------------------
 
   /**
+   * Removes a {@link CategoryOptionGroupSet}.
+   *
+   * @param id the identifier of the object to remove.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse removeCategoryOptionGroupSet(String id) {
+    return removeMetadataObject(String.format("categoryOptionGroupSets/%s", id));
+  }
+
+  /**
    * Retrieves an {@link CategoryOptionGroupSet}.
    *
    * @param id the object identifier.
@@ -1666,6 +1765,16 @@ public class Dhis2 extends BaseDhis2 {
   // -------------------------------------------------------------------------
   // Option sets
   // -------------------------------------------------------------------------
+
+  /**
+   * Removes an {@link OptionSet}.
+   *
+   * @param id the identifier of the object to remove.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse removeOptionSet(String id) {
+    return removeMetadataObject(String.format("optionSets/%s", id));
+  }
 
   /**
    * Retrieves an {@link OptionSet}.
@@ -1786,6 +1895,23 @@ public class Dhis2 extends BaseDhis2 {
   // Dashboard
   // -------------------------------------------------------------------------
 
+  /**
+   * Removes a {@link Dashboard}.
+   *
+   * @param id the identifier of the object to remove.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse removeDashboard(String id) {
+    return removeMetadataObject(String.format("dashboards/%s", id));
+  }
+
+  /**
+   * Retrieves an {@link Dashboard}.
+   *
+   * @param id the object identifier.
+   * @return the {@link Dashboard}.
+   * @throws Dhis2ClientException if the object does not exist.
+   */
   public Dashboard getDashboard(String id) {
     return getObject(
         config
@@ -1797,6 +1923,12 @@ public class Dhis2 extends BaseDhis2 {
         Dashboard.class);
   }
 
+  /**
+   * Retrieves a list of {@link Dashboard}.
+   *
+   * @param query the {@link Query}.
+   * @return list of {@link Dashboard}.
+   */
   public List<Dashboard> getDashboards(Query query) {
     return getObject(
             config
