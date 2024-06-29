@@ -110,6 +110,9 @@ import org.hisp.dhis.util.HttpUtils;
  * DHIS 2 API client for HTTP requests and responses. Request and response bodies are in JSON
  * format. Client is tread-safe and suitable for reuse.
  *
+ * <p>Methods generally throw {@link Dhis2ClientException} for status code {@code 401}, {@code 403}
+ * and {@code 404} in HTTP responses.
+ *
  * @author Lars Helge Overland
  */
 public class Dhis2 extends BaseDhis2 {
