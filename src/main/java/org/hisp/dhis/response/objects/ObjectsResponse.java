@@ -28,16 +28,17 @@
 package org.hisp.dhis.response.objects;
 
 import static org.hisp.dhis.util.CollectionUtils.notEmpty;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.hisp.dhis.response.BaseHttpResponse;
 import org.hisp.dhis.response.Status;
 import org.hisp.dhis.response.objects.internal.Response;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Setter
 @NoArgsConstructor

@@ -27,15 +27,15 @@
  */
 package org.hisp.dhis.response.datavalueset;
 
-import java.util.ArrayList;
-import java.util.List;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.hisp.dhis.response.BaseHttpResponse;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.hisp.dhis.response.BaseHttpResponse;
 
 @Getter
 @Setter
