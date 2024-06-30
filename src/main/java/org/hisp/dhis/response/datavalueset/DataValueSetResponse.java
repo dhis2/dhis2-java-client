@@ -27,14 +27,15 @@
  */
 package org.hisp.dhis.response.datavalueset;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.hisp.dhis.response.BaseHttpResponse;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hisp.dhis.response.BaseHttpResponse;
 
 @Getter
 @Setter
@@ -73,7 +74,7 @@ public class DataValueSetResponse extends BaseHttpResponse {
 
   @Override
   public String toString() {
-    return new StringBuilder("[")
+    return new ToStringBuilder(this)
         .append("status: ")
         .append(status)
         .append(", ")
@@ -91,7 +92,6 @@ public class DataValueSetResponse extends BaseHttpResponse {
         .append(", ")
         .append("httpStatusCode: ")
         .append(httpStatusCode)
-        .append("]")
         .toString();
   }
 }

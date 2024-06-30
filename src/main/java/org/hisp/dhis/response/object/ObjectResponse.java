@@ -27,12 +27,13 @@
  */
 package org.hisp.dhis.response.object;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.hisp.dhis.response.Response;
+import org.hisp.dhis.response.Status;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hisp.dhis.response.Response;
-import org.hisp.dhis.response.Status;
 
 @Getter
 @Setter
@@ -46,22 +47,21 @@ public class ObjectResponse extends Response {
 
   @Override
   public String toString() {
-    return new StringBuilder("[")
+    return new ToStringBuilder(this)
         .append("status: ")
         .append(status)
-        .append(", ")
-        .append("code: ")
-        .append(code)
         .append(", ")
         .append("httpStatusCode: ")
         .append(httpStatusCode)
         .append(", ")
-        .append("devMessage: ")
-        .append(devMessage)
+        .append("errorCode: ")
+        .append(errorCode)
+        .append(", ")
+        .append("message: ")
+        .append(message)
         .append(", ")
         .append("response:")
         .append(response)
-        .append("]")
         .toString();
   }
 }
