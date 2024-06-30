@@ -75,23 +75,12 @@ public class DataValueSetResponse extends BaseHttpResponse {
   @Override
   public String toString() {
     return new ToStringBuilder(this)
-        .append("status: ")
-        .append(status)
-        .append(", ")
-        .append("description: ")
-        .append(description)
-        .append(", ")
-        .append("importCount: ")
-        .append(importCount)
-        .append(", ")
-        .append("conflicts: ")
-        .append(conflicts)
-        .append(", ")
-        .append("dataSetComplete: ")
-        .append(dataSetComplete)
-        .append(", ")
-        .append("httpStatusCode: ")
-        .append(httpStatusCode)
+        .append("status", status)
+        .append("description", description)
+        .append("importCount", importCount)
+        .append("conflicts", conflicts)
+        .append("dataSetComplete", dataSetComplete)
+        .append("httpStatusCode", httpStatusCode)
         .toString();
   }
 }

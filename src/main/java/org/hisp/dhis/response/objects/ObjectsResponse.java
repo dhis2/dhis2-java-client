@@ -72,17 +72,10 @@ public class ObjectsResponse extends BaseHttpResponse {
   @Override
   public String toString() {
     return new ToStringBuilder(this)
-        .append("status: ")
-        .append(status)
-        .append(", ")
-        .append("httpStatusCode: ")
-        .append(httpStatusCode)
-        .append(", ")
-        .append("stats: ")
-        .append(stats)
-        .append(",")
-        .append("typeReport: ")
-        .append(getTypeReport())
+        .append("status", status)
+        .append("httpStatusCode", httpStatusCode)
+        .append("stats", stats)
+        .append("typeReport", getTypeReport())
         .toString();
   }
 

@@ -48,20 +48,11 @@ public class ObjectResponse extends Response {
   @Override
   public String toString() {
     return new ToStringBuilder(this)
-        .append("status: ")
-        .append(status)
-        .append(", ")
-        .append("httpStatusCode: ")
-        .append(httpStatusCode)
-        .append(", ")
-        .append("errorCode: ")
-        .append(errorCode)
-        .append(", ")
-        .append("message: ")
-        .append(message)
-        .append(", ")
-        .append("response:")
-        .append(response)
+        .append("status", status)
+        .append("httpStatusCode", httpStatusCode)
+        .append("errorCode", errorCode)
+        .append("message", message)
+        .append("response", response)
         .toString();
   }
 }
