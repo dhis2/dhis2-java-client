@@ -34,7 +34,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
-
 import java.util.List;
 import org.hisp.dhis.model.DataSet;
 import org.hisp.dhis.model.DataSetElement;
@@ -85,8 +84,8 @@ class DataSetApiTest {
 
     assertSize(3, dataSets);
     assertEquals("Lpw6GcnTrmS", dataSets.get(0).getId());
-    assertEquals("VTdjfLXXmoi", dataSets.get(1).getId());
-    assertEquals("pBOMPrpg1QX", dataSets.get(2).getId());
+    assertEquals("pBOMPrpg1QX", dataSets.get(1).getId());
+    assertEquals("VTdjfLXXmoi", dataSets.get(2).getId());
   }
 
   @Test
