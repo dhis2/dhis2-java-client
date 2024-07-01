@@ -549,7 +549,7 @@ public class BaseDhis2 {
     validateRequestObject(object);
 
     String requestBody = toJsonString(object);
-    
+
     log("Request URI: '{}', body: '{}'", getUriAsString(request), requestBody);
 
     HttpEntity entity = new StringEntity(requestBody, StandardCharsets.UTF_8);
@@ -967,14 +967,19 @@ public class BaseDhis2 {
 
     return new Response(status, response.getHttpStatusCode(), response.getMessage());
   }
-  
+
   /**
    * Logs the message at debug level.
-   * 
+   *
    * @param format the message format.
    * @param arguments the message arguments.
    */
-  private void log(String format, Object... arguments) {
-    log.debug(format, arguments);
+  protected void log(String format, Object... arguments) {
+    if ("info".equalsIgnoreCase(System.getProperty("log.level.dhis2"))) {
+      log.info(format, arguments);
+    }
+    else {
+      log.debug(format, arguments);
+    }
   }
 }
