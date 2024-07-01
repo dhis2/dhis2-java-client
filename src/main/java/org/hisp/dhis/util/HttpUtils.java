@@ -32,12 +32,13 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
 import org.apache.hc.client5.http.classic.methods.HttpUriRequestBase;
+import org.apache.hc.core5.http.message.BasicHttpRequest;
 import org.apache.hc.core5.net.URIBuilder;
 import org.hisp.dhis.Dhis2Config;
 import org.hisp.dhis.auth.Authentication;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class HttpUtils {
@@ -81,6 +82,21 @@ public class HttpUtils {
       return URLDecoder.decode(uri.toString(), StandardCharsets.UTF_8.toString());
     } catch (UnsupportedEncodingException ex) {
       throw new RuntimeException(ex);
+    }
+  }
+  
+  /**
+   * Returns the string representing the URI the given HTTP request. The URI is decoded.
+   * 
+   * @param request the {@link BasicHttpRequest}.
+   * @return a URI string.
+   */
+  public static String getUriAsString(BasicHttpRequest request) {
+    try {
+      return asString(request.getUri());
+    }
+    catch (URISyntaxException ex) {
+      throw new RuntimeException(ex);      
     }
   }
 }

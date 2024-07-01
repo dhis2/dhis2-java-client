@@ -31,7 +31,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import java.util.Date;
 import java.util.List;
 import org.hisp.dhis.model.Attribute;
@@ -127,7 +126,7 @@ class OrgUnitApiTest {
 
     assertEquals(Status.OK, ouResp.getStatus(), ouResp.toString());
 
-    OrgUnitGroup oug = new OrgUnitGroup(ougId, ougId);
+    OrgUnitGroup oug = new OrgUnitGroup(ougId, ougId, ougId);
 
     ObjectResponse ougResp = dhis2.saveOrgUnitGroup(oug);
 
