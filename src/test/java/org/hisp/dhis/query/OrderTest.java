@@ -27,42 +27,18 @@
  */
 package org.hisp.dhis.query;
 
-/**
- * Query response ordering.
- *
- * @author Lars Helge Overland
- */
-public class Order {
-  private final String property;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-  private final Direction direction;
+import org.junit.jupiter.api.Test;
 
-  protected Order(String property, Direction direction) {
-    this.property = property;
-    this.direction = direction;
-  }
+class OrderTest {
 
-  public static Order asc(String property) {
-    return new Order(property, Direction.ASC);
-  }
+  @Test
+  void testOrderToValue() {
+    Order oA = Order.asc("uid");
+    Order oB = Order.desc("name");
 
-  public static Order desc(String property) {
-    return new Order(property, Direction.DESC);
-  }
-
-  public String getProperty() {
-    return property;
-  }
-
-  public Direction getDirection() {
-    return direction;
-  }
-
-  public boolean hasOrder() {
-    return property != null && direction != null;
-  }
-
-  public String toValue() {
-    return property + ":" + direction.name().toLowerCase();
+    assertEquals("uid:asc", oA.toValue());
+    assertEquals("name:desc", oB.toValue());
   }
 }

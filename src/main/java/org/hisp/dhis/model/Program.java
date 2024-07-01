@@ -33,7 +33,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -88,10 +87,11 @@ public class Program extends NameableObject {
    * @return an immutable set of {@link DataElement}.
    */
   @JsonIgnore
-  public Set<DataElement> getDataElements() {
+  public List<DataElement> getDataElements() {
     return programStages.stream()
         .flatMap(ps -> ps.getDataElements().stream())
-        .collect(Collectors.toUnmodifiableSet());
+        .distinct()
+        .collect(Collectors.toUnmodifiableList());
   }
 
   /**
@@ -100,10 +100,11 @@ public class Program extends NameableObject {
    * @return an immutable set of {@link DataElement}.
    */
   @JsonIgnore
-  public Set<DataElement> getAnalyticsDataElements() {
+  public List<DataElement> getAnalyticsDataElements() {
     return programStages.stream()
         .flatMap(ps -> ps.getAnalyticsDataElements().stream())
-        .collect(Collectors.toUnmodifiableSet());
+        .distinct()
+        .collect(Collectors.toUnmodifiableList());
   }
 
   /**
@@ -113,11 +114,12 @@ public class Program extends NameableObject {
    * @return an immutable set of {@link DataElement}.
    */
   @JsonIgnore
-  public Set<DataElement> getAnalyticsDataElementsWithLegendSet() {
+  public List<DataElement> getAnalyticsDataElementsWithLegendSet() {
     return programStages.stream()
         .flatMap(ps -> ps.getAnalyticsDataElements().stream())
         .filter(de -> notEmpty(de.getLegendSets()) && de.getValueType().isNumeric())
-        .collect(Collectors.toUnmodifiableSet());
+        .distinct()
+        .collect(Collectors.toUnmodifiableList());
   }
 
   /** Indicates whether this program has a category combination. */

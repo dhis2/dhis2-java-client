@@ -55,7 +55,7 @@ class Dhis2Test {
   }
 
   @Test
-  void testGetObjectQuery() {
+  void testGetObjectQueryA() {
     Dhis2Config config = getDhis2Config();
 
     Dhis2 dhis2 = new Dhis2(config);
@@ -74,6 +74,53 @@ class Dhis2Test {
     String expected =
         "https://dhis2.org/api/dataElements?"
             + "filter=name%3Alike%3AImmunization&filter=valueType%3Aeq%3ANUMBER&page=2&pageSize=100&order=code%3Adesc";
+
+    assertEquals(expected, uri.toString());
+  }
+
+  @Test
+  void testGetObjectQueryB() {
+    Dhis2Config config = getDhis2Config();
+
+    Dhis2 dhis2 = new Dhis2(config);
+
+    URIBuilder uriBuilder = config.getResolvedUriBuilder().appendPath("indicators");
+
+    Query query =
+        Query.instance()
+            .addFilter(Filter.like("name", "ANC"))
+            .addOrder(Order.asc("name"))
+            .addOrder(Order.desc("uid"))
+            .setPaging(4, 50);
+
+    URI uri = dhis2.getObjectQuery(uriBuilder, query);
+
+    String expected =
+        "https://dhis2.org/api/indicators?"
+            + "filter=name%3Alike%3AANC&page=4&pageSize=50&order=name%3Aasc%2Cuid%3Adesc";
+
+    assertEquals(expected, uri.toString());
+  }
+
+  @Test
+  void testGetObjectQueryC() {
+    Dhis2Config config = getDhis2Config();
+
+    Dhis2 dhis2 = new Dhis2(config);
+
+    URIBuilder uriBuilder = config.getResolvedUriBuilder().appendPath("dataSets");
+
+    Query query =
+        Query.instance()
+            .addFilter(Filter.like("name", "ANC"))
+            .addOrder(Order.asc("id"))
+            .setPaging(1, 50);
+
+    URI uri = dhis2.getObjectQuery(uriBuilder, query);
+
+    String expected =
+        "https://dhis2.org/api/dataSets?"
+            + "filter=name%3Alike%3AANC&page=1&pageSize=50&order=id%3Aasc";
 
     assertEquals(expected, uri.toString());
   }

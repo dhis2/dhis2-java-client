@@ -127,7 +127,7 @@ class OrgUnitApiTest {
 
     assertEquals(Status.OK, ouResp.getStatus(), ouResp.toString());
 
-    OrgUnitGroup oug = new OrgUnitGroup(ougId, ougId);
+    OrgUnitGroup oug = new OrgUnitGroup(ougId, ougId, ougId);
 
     ObjectResponse ougResp = dhis2.saveOrgUnitGroup(oug);
 

@@ -32,11 +32,15 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class TestFixture {
-  public static final String DEFAULT_URL = "https://play.dhis2.org/2.39.4.1";
+  public static final String DEV_URL = "https://play.im.dhis2.org/dev";
 
-  public static final String DEV_URL = "https://play.dhis2.org/dev";
+  public static final String V41_URL = "https://play.im.dhis2.org/stable-2-40-3-2";
+
+  public static final String V39_URL = "https://play.im.dhis2.org/stable-2-39-5";
 
   public static final String LOCAL_URL = "https://localhost/dhis";
+
+  public static final String DEFAULT_URL = V39_URL;
 
   public static final Dhis2Config DEFAULT_CONFIG =
       new Dhis2Config(DEFAULT_URL, "system", "System123");

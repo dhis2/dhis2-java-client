@@ -38,9 +38,9 @@ import java.util.List;
 public class Query {
   private final List<Filter> filters = new ArrayList<>();
 
-  private Paging paging;
+  private final List<Order> order = new ArrayList<>();
 
-  private Order order;
+  private Paging paging;
 
   private RootJunction rootJunction;
 
@@ -66,6 +66,38 @@ public class Query {
   public Query addFilter(Filter filter) {
     this.filters.add(filter);
     return this;
+  }
+
+  /**
+   * Enables ordering for this query.
+   *
+   * @param order the {@link Order}.
+   * @return this {@link Query}.
+   */
+  public Query addOrder(Order order) {
+    this.order.add(order);
+    return this;
+  }
+
+  /**
+   * Sets ordering for this query.
+   *
+   * @param order the {@link Order}.
+   * @return this {@link Query}.
+   */
+  public Query setOrder(Order order) {
+    this.order.clear();
+    this.order.add(order);
+    return this;
+  }
+
+  /**
+   * Returns the order of this query.
+   *
+   * @return the {@link Order}.
+   */
+  public List<Order> getOrder() {
+    return order;
   }
 
   /**
@@ -96,26 +128,6 @@ public class Query {
    */
   public Paging getPaging() {
     return paging != null ? paging : new Paging(null, null);
-  }
-
-  /**
-   * Enables ordering for this query.
-   *
-   * @param order the {@link Order}.
-   * @return this {@link Query}.
-   */
-  public Query setOrder(Order order) {
-    this.order = order;
-    return this;
-  }
-
-  /**
-   * Returns the order of this query.
-   *
-   * @return the {@link Order}.
-   */
-  public Order getOrder() {
-    return order != null ? order : new Order(null, null);
   }
 
   /**
