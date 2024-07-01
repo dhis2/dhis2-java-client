@@ -25,19 +25,19 @@ This section describes configuration and authentication of the client.
 A minimal configuration of `dhis2-java-client` where the configuration parameters refer to the base URL, username and password for the DHIS 2 instance to connect to can be specified like this. The default authentication mechanism is *Basic authentication*. Note that you should *not* include the `api` part nor a trailing `/` in the base URL:
 
 ```java
-Dhis2Config config = new Dhis2Config( 
+Dhis2Config config = new Dhis2Config(
     "https://play.dhis2.org/2.39.0", 
-    "admin", "district" );
+    "admin", "district");
 
-Dhis2 dhis2 = new Dhis2( config );
+Dhis2 dhis2 = new Dhis2(config);
 ```
 
 Alternatively, to use Basic authentication you can specify the username and password of the DHIS 2 account together with the base URL of the DHIS 2 instance:
 
 ```java
-Dhis2 dhis2 = Dhis2.withBasicAuth( 
+Dhis2 dhis2 = Dhis2.withBasicAuth(
     "https://play.dhis2.org/2.39.0", 
-    "admin", "district" );
+    "admin", "district");
 ```
 
 You can use the username and password of a regular DHIS 2 user account.
@@ -47,9 +47,9 @@ You can use the username and password of a regular DHIS 2 user account.
 To use personal access token (PAT)-based authentication you can specify the access token:
 
 ```java
-Dhis2 dhis2 = Dhis2.withAccessTokenAuth( 
+Dhis2 dhis2 = Dhis2.withAccessTokenAuth(
     "https://play.dhis2.org/2.39.0", 
-    "d2pat_2bBQecgNcxrS4EPhBJuRlQkwiLr2ATnC2557514242" );
+    "d2pat_2bBQecgNcxrS4EPhBJuRlQkwiLr2ATnC2557514242");
 ```
 
 PATs can be created through the API or the user interface by going to Profile > Settings > Personal access tokens.
@@ -59,9 +59,9 @@ PATs can be created through the API or the user interface by going to Profile > 
 To use cookie-based authentication you can specify the session identifier:
 
 ```java
-Dhis2 dhis2 = Dhis2.withCookieAuth( 
+Dhis2 dhis2 = Dhis2.withCookieAuth(
     "https://play.dhis2.org/2.39.0", 
-    "5EC557E60D7E5CE8D78EEC1389592D3E" );
+    "5EC557E60D7E5CE8D78EEC1389592D3E");
 ```
 
 The name of the session cookie used by the DHIS 2 API is `JSESSIONID`. The value can typically be retrieved from the `Cookie` HTTP request header sent with DHIS 2 API requests.
@@ -100,24 +100,24 @@ List<OrgUnitGroup> orgUnitGroups = dhis2.getOrgUnitGroups();
 To retrieve org units with a filter on the level in a paged way:
 
 ```java
-List<OrgUnit> orgUnits = dhis2.getOrgUnits( Query.instance()
-    .addFilter( Filter.eq( "level", 4 ) )
-    .addFilter( Filter.like( "code", "fac" ) )
-    .setPaging( 1, 200 ) );
+List<OrgUnit> orgUnits = dhis2.getOrgUnits(Query.instance()
+    .addFilter(Filter.eq("level", 4))
+    .addFilter(Filter.like("code", "fac"))
+    .setPaging(1, 200));
 ```
 
 To retrieve all org units ordered descending on the name property:
 
 ```java
-List<OrgUnit> orgUnits = dhis2.getOrgUnits( Query.instance()
-    .setOrder( Order.desc( "name" ) ) );
+List<OrgUnit> orgUnits = dhis2.getOrgUnits(Query.instance()
+    .setOrder(Order.desc("name")));
 ```
 
 When retrieving lists of objects, associations to other objects will not be populated in the response by default. You can expand associations in object lists through the query object like this, e.g. for programs:
 
 ```java
-List<Program> programs = dhis2.getPrograms( Query.instance()
-    .withExpandAssociations() );
+List<Program> programs = dhis2.getPrograms(Query.instance()
+    .withExpandAssociations());
 ```
 
 ### Get object
@@ -125,7 +125,7 @@ List<Program> programs = dhis2.getPrograms( Query.instance()
 To retrieve a single org unit by identifier:
 
 ```java
-OrgUnit orgUnit = dhis2.getOrgUnit( "j7gkH3hf83k" );
+OrgUnit orgUnit = dhis2.getOrgUnit("j7gkH3hf83k");
 ```
 
 ### Create object
@@ -134,10 +134,10 @@ To create an org unit:
 
 ```java
 OrgUnit orgUnit = new OrgUnit();
-orgUnit.setName( "Ngelehun" );
-orgUnit.setCode( "NGLH" );
+orgUnit.setName("Ngelehun");
+orgUnit.setCode("NGLH");
 
-ObjectResponse response = dhis2.saveOrgUnit( orgUnit );
+ObjectResponse response = dhis2.saveOrgUnit(orgUnit);
 ```
 
 ### Create multiple objects
@@ -145,11 +145,11 @@ ObjectResponse response = dhis2.saveOrgUnit( orgUnit );
 To create or update multiple objects:
 
 ```java
-List<OrgUnit> orgUnits = CollectionUtils.list( 
-    new OrgUnit( "nEt3lFHOqYP", "Ngelehun"),
-    new OrgUnit( "gnAOCDoZUVO", "Kailahun" ) );
+List<OrgUnit> orgUnits = CollectionUtils.list(
+    new OrgUnit("nEt3lFHOqYP", "Ngelehun"),
+    new OrgUnit("gnAOCDoZUVO", "Kailahun"));
 
-ObjectsResponse response = dhis2.saveOrgUnits( orgUnits );
+ObjectsResponse response = dhis2.saveOrgUnits(orgUnits);
 ```
 
 ### Update object
@@ -158,11 +158,11 @@ To update an org unit (note that the ID property must be set):
 
 ```java
 OrgUnit orgUnit = new OrgUnit();
-orgUnit.setId( "cDw53Ej8rjT" );
-orgUnit.setName( "Ngelehun" );
-orgUnit.setCode( "NGLH" );
+orgUnit.setId("cDw53Ej8rjT");
+orgUnit.setName("Ngelehun");
+orgUnit.setCode("NGLH");
 
-ObjectResponse response = dhis2.updateOrgUnit( orgUnit );
+ObjectResponse response = dhis2.updateOrgUnit(orgUnit);
 ```
 
 ### Check if object exists
@@ -170,7 +170,7 @@ ObjectResponse response = dhis2.updateOrgUnit( orgUnit );
 To check if an object exists:
 
 ```java
-boolean exists = dhis2.isOrgUnit( "O6uvpzGd5pu" );
+boolean exists = dhis2.isOrgUnit("O6uvpzGd5pu");
 ```
 
 ### Remove object
@@ -178,7 +178,7 @@ boolean exists = dhis2.isOrgUnit( "O6uvpzGd5pu" );
 To remove an org unit:
 
 ```java
-ObjectResponse response = dhis2.removeOrgUnit( "j7gkH3hf83k" );
+ObjectResponse response = dhis2.removeOrgUnit("j7gkH3hf83k");
 ```
 
 ### Get response message
@@ -186,7 +186,7 @@ ObjectResponse response = dhis2.removeOrgUnit( "j7gkH3hf83k" );
 The various metadata object save and update methods return an instance of `ObjectResponse` which holds information about the operation, such as status, HTTP status, HTTP status code and a message describing the outcome.
 
 ```java
-ObjectResponse response = dhis2.saveDataElement( dataElement );
+ObjectResponse response = dhis2.saveDataElement(dataElement);
 
 Status status = response.getStatus();
 Integer statusCode = response.getHttpStatusCode();
@@ -216,24 +216,24 @@ To save a list of events:
 
 ```java
 List<EventDataValue> dataValues = CollectionUtils.list(
-    new EventDataValue( "oZg33kd9taw", "Male" ),
-    new EventDataValue( "qrur9Dvnyt5", "45" ),
-    new EventDataValue( "GieVkTxp4HH", "143" ),
-    new EventDataValue( "eMyVanycQSC", "2021-07-02" ),
-    new EventDataValue( "msodh3rEMJa", "2021-08-05" ),
-    new EventDataValue( "K6uUAvq500H", "A010" ),
-    new EventDataValue( "fWIAEtYVEGk", "MODDISCH" ) );
+    new EventDataValue("oZg33kd9taw", "Male"),
+    new EventDataValue("qrur9Dvnyt5", "45"),
+    new EventDataValue("GieVkTxp4HH", "143"),
+    new EventDataValue("eMyVanycQSC", "2021-07-02"),
+    new EventDataValue("msodh3rEMJa", "2021-08-05"),
+    new EventDataValue("K6uUAvq500H", "A010"),
+    new EventDataValue("fWIAEtYVEGk", "MODDISCH"));
 
-Event event = new Event( "EHlOLNtR4J0" );
-event.setProgram( "eBAyeGv0exc" );
-event.setProgramStage( "Zj7UnCAulEk" );
-event.setOrgUnit( "DiszpKrYNg8" );
-event.setOccurredAt( DateTimeUtils.getDate( 2021, 7, 12 ) );
-event.setDataValues( dataValues );
+Event event = new Event("EHlOLNtR4J0");
+event.setProgram("eBAyeGv0exc");
+event.setProgramStage("Zj7UnCAulEk");
+event.setOrgUnit("DiszpKrYNg8");
+event.setOccurredAt(DateTimeUtils.getDate(2021, 7, 12));
+event.setDataValues(dataValues);
 
-Events events = new Events( CollectionUtils.list( event ) );
+Events events = new Events(CollectionUtils.list(event));
 
-EventResponse response = dhis2.saveEvents( events );
+EventResponse response = dhis2.saveEvents(events);
 ```
 
 ### Get event
@@ -241,7 +241,7 @@ EventResponse response = dhis2.saveEvents( events );
 To retrieve an event:
 
 ```java
-Event event = dhis2.getEvent( "EHlOLNtR4J0" );
+Event event = dhis2.getEvent("EHlOLNtR4J0");
 ```
 
 ### Remove event
@@ -249,7 +249,7 @@ Event event = dhis2.getEvent( "EHlOLNtR4J0" );
 To remove an event:
 
 ```java
-EventResponse response = dhis2.removeEvent( event );
+EventResponse response = dhis2.removeEvent(event);
 ```
 
 ## Data values
@@ -262,25 +262,25 @@ To save a data value set:
 
 ```java
 DataValue dv1 = new DataValue();
-dv1.setDataElement( "f7n9E0hX8qk" );
-dv1.setValue( "12" );
+dv1.setDataElement("f7n9E0hX8qk");
+dv1.setValue("12");
 
 DataValue dv2 = new DataValue();
-dv2.setDataElement( "Ix2HsbDMLea" );
-dv2.setValue( "13" );
+dv2.setDataElement("Ix2HsbDMLea");
+dv2.setValue("13");
 
 DataValueSet dvs = new DataValueSet();
-dvs.setDataSet( "pBOMPrpg1QX" );
-dvs.setCompleteDate( "2014-02-03" );
-dvs.setPeriod( "201910" );
-dvs.setOrgUnit( "DiszpKrYNg8" );
+dvs.setDataSet("pBOMPrpg1QX");
+dvs.setCompleteDate("2014-02-03");
+dvs.setPeriod("201910");
+dvs.setOrgUnit("DiszpKrYNg8");
 
-dvs.addDataValue( dv1 );
-dvs.addDataValue( dv2 );
+dvs.addDataValue(dv1);
+dvs.addDataValue(dv2);
 
 DataValueSetImportOptions options = DataValueSetImportOptions.instance();
 
-DataValueSetResponse response = dhis2.saveDataValueSet( dvs, options );
+DataValueSetResponse response = dhis2.saveDataValueSet(dvs, options);
 ```
 
 ### Save data value set from file
@@ -288,11 +288,11 @@ DataValueSetResponse response = dhis2.saveDataValueSet( dvs, options );
 To read a data value set from a file and save it:
 
 ```java
-File file = new File( "/tmp/datavalueset.json" );
+File file = new File("/tmp/datavalueset.json");
 
 DataValueSetImportOptions options = DataValueSetImportOptions.instance();
 
-DataValueSetResponse response = dhis2.saveDataValueSet( file, options );
+DataValueSetResponse response = dhis2.saveDataValueSet(file, options);
 ```
 
 ## Analytics
@@ -304,10 +304,10 @@ This section explains operations for the analytics engine.
 To retrieve analytics data in the data value set format:
 
 ```java
-DataValueSet dvs = dhis2.getAnalyticsDataValueSet( AnalyticsQuery.instance()
-    .addDimension( Dimension.DIMENSION_DX, "cYeuwXTCPkU", "Jtf34kNZhzP" )
-    .addDimension( Dimension.DIMENSION_OU, "O6uvpzGd5pu", "fdc6uOvgoji" )
-    .addDimension( Dimension.DIMENSION_PE, "202007", "202008" ) );
+DataValueSet dvs = dhis2.getAnalyticsDataValueSet(AnalyticsQuery.instance()
+    .addDimension(Dimension.DIMENSION_DX, "cYeuwXTCPkU", "Jtf34kNZhzP")
+    .addDimension(Dimension.DIMENSION_OU, "O6uvpzGd5pu", "fdc6uOvgoji")
+    .addDimension(Dimension.DIMENSION_PE, "202007", "202008"));
 ```
 
 ### Write analytics data value set to file
@@ -316,13 +316,13 @@ To retrieve analytics data and write the content to the file:
 
 ```java
 AnalyticsQuery query = AnalyticsQuery.instance()
-    .addDimension( Dimension.DIMENSION_DX, "cYeuwXTCPkU", "Jtf34kNZhzP" )
-    .addDimension( Dimension.DIMENSION_OU, "O6uvpzGd5pu", "fdc6uOvgoji" )
-    .addDimension( Dimension.DIMENSION_PE, "202007", "202008" );
+    .addDimension(Dimension.DIMENSION_DX, "cYeuwXTCPkU", "Jtf34kNZhzP")
+    .addDimension(Dimension.DIMENSION_OU, "O6uvpzGd5pu", "fdc6uOvgoji")
+    .addDimension(Dimension.DIMENSION_PE, "202007", "202008");
 
-File file = new File( "/tmp/data-value-set.json" );
+File file = new File("/tmp/data-value-set.json");
     
-dhis2.writeAnalyticsDataValueSet( query, file );
+dhis2.writeAnalyticsDataValueSet(query, file);
 ```
 
 ## Data store
@@ -336,7 +336,7 @@ To save a data store entry:
 ```java
 Dashboard dashboard = new Dashboard();
 
-Response response = dhis2.saveDataStoreEntry( "dashboards", "attendance", dashboard );
+Response response = dhis2.saveDataStoreEntry("dashboards", "attendance", dashboard);
 ```
 
 ### Update entry
@@ -345,7 +345,7 @@ To update a data store entry:
 
 ```java
 
-Response response = dhis2.updateDataStoreEntry( "dashboards", "attendance", dashboard );
+Response response = dhis2.updateDataStoreEntry("dashboards", "attendance", dashboard);
 ```
 
 ### Get namespaces
@@ -361,7 +361,7 @@ List<String> namespaces = dhis2.getDataStoreNamespaces();
 To retrieve keys for a namespace:
 
 ```java
-List<String> keys = dhis2.getDataStoreKeys( "dashboards" );
+List<String> keys = dhis2.getDataStoreKeys("dashboards");
 ```
 
 ### Get data store entry
@@ -369,7 +369,7 @@ List<String> keys = dhis2.getDataStoreKeys( "dashboards" );
 To retrieve an entry for a namespace and key:
 
 ```java
-Dashboard dashboard = dhis2.getDataStoreEntry( "dashboards", "attendance", Dashboard.class );
+Dashboard dashboard = dhis2.getDataStoreEntry("dashboards", "attendance", Dashboard.class);
 ```
 
 ### Get data store entries
@@ -377,9 +377,9 @@ Dashboard dashboard = dhis2.getDataStoreEntry( "dashboards", "attendance", Dashb
 To retrieve a list of data store entries for a namespace and entry fields:
 
 ```java
-List<String> fields = List.of( "id", "code", "name" );
+List<String> fields = List.of("id", "code", "name");
 
-List<Map<String, Object>> entries = dhis2.getDatastoreEntries( "dashboards", fields );
+List<Map<String, Object>> entries = dhis2.getDatastoreEntries("dashboards", fields);
 ```
 
 ### Get metadata for entry
@@ -387,7 +387,7 @@ List<Map<String, Object>> entries = dhis2.getDatastoreEntries( "dashboards", fie
 To retrieve metadata for a data store entry:
 
 ```java
-EntryMetadata metadata = dhis2.getDataStoreEntryMetadata( "dashboards", "attendance" );
+EntryMetadata metadata = dhis2.getDataStoreEntryMetadata("dashboards", "attendance");
 ```
 
 ### Remove entry
@@ -395,7 +395,7 @@ EntryMetadata metadata = dhis2.getDataStoreEntryMetadata( "dashboards", "attenda
 To remove a data store entry:
 
 ```java
-Response response = dhis2.removeDataStoreEntry( "dashboards", "attendance" );
+Response response = dhis2.removeDataStoreEntry("dashboards", "attendance");
 ```
 
 ### Remove namespace
@@ -403,7 +403,7 @@ Response response = dhis2.removeDataStoreEntry( "dashboards", "attendance" );
 To remove a data store namespace including all entries:
 
 ```java
-Response response = dhis2.removeDataStoreNamespace( "dashboards" );
+Response response = dhis2.removeDataStoreNamespace("dashboards");
 ```
 
 ## System
@@ -427,7 +427,7 @@ SystemInfo info = dhis2.getSystemInfo();
 
 SystemVersion version = info.getSystemVersion();
 
-boolean isHigher = version.isHigher( "2.37.0" );
+boolean isHigher = version.isHigher("2.37.0");
 ```
 
 ### Get job notifications
@@ -436,7 +436,7 @@ To retrieve job notifications for a job category and job identifier:
 
 ```java
 List<JobNotification> notifications = dhis2
-    .getJobNotifications( JobCategory.ANALYTICS_TABLE, "GxTz2OVPcYk" );
+    .getJobNotifications(JobCategory.ANALYTICS_TABLE, "GxTz2OVPcYk");
 ```
 
 ## Development
