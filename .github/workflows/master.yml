@@ -38,5 +38,4 @@ jobs:
           nexus_password: ${{ secrets.SONATYPE_OSSRH_PASSWORD }}
           gpg_private_key: ${{ secrets.PGP_PRIVATE_KEY }}
           gpg_passphrase: ${{ secrets.PGP_PASSPHRASE }}
-          maven_profiles: "master"
-          maven_args: -Dgroups=\!integration
+          maven_profiles: "deploy"
