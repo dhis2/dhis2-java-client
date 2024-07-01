@@ -30,8 +30,11 @@ package org.hisp.dhis;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.apache.hc.core5.net.URIBuilder;
+import org.hisp.dhis.support.TestTags;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
+@Tag(TestTags.UNIT)
 class UriBuilderTest {
   @Test
   void testConstructor() throws Exception {

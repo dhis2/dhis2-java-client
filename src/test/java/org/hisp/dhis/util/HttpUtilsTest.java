@@ -39,8 +39,11 @@ import org.hisp.dhis.Dhis2Config;
 import org.hisp.dhis.auth.AccessTokenAuthentication;
 import org.hisp.dhis.auth.BasicAuthentication;
 import org.hisp.dhis.auth.CookieAuthentication;
+import org.hisp.dhis.support.TestTags;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
+@Tag(TestTags.UNIT)
 class HttpUtilsTest {
   private final String DEV_URL = "https://play.dhis2.org/dev";
 

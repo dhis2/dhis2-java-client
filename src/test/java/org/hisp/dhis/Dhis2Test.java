@@ -42,8 +42,11 @@ import org.hisp.dhis.query.Query;
 import org.hisp.dhis.query.analytics.AnalyticsQuery;
 import org.hisp.dhis.query.datavalue.DataValueSetQuery;
 import org.hisp.dhis.query.event.EventsQuery;
+import org.hisp.dhis.support.TestTags;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
+@Tag(TestTags.UNIT)
 class Dhis2Test {
   @Test
   void testGetDhis2() {

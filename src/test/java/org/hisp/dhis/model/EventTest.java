@@ -34,8 +34,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.hisp.dhis.model.event.Event;
 import org.hisp.dhis.model.event.EventDataValue;
+import org.hisp.dhis.support.TestTags;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
+@Tag(TestTags.UNIT)
 class EventTest {
   @Test
   void testAddEventDataValue() {
