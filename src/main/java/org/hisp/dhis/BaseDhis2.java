@@ -196,6 +196,10 @@ public class BaseDhis2 {
   protected static final String RESOURCE_SYSTEM_INFO = "system/info";
 
   protected static final String DATE_FORMAT = "yyyy-MM-dd";
+  
+  private static final String LOG_LEVEL_SYSTEM_PROPERTY = "log.level.dhis2";
+
+  private static final String LOG_LEVEL_INFO = "info";
 
   private static final Set<Integer> ERROR_STATUS_CODES =
       set(SC_UNAUTHORIZED, SC_FORBIDDEN, SC_NOT_FOUND);
@@ -974,11 +978,10 @@ public class BaseDhis2 {
    * @param format the message format.
    * @param arguments the message arguments.
    */
-  protected void log(String format, Object... arguments) {
-    if ("info".equalsIgnoreCase(System.getProperty("log.level.dhis2"))) {
+  private void log(String format, Object... arguments) {
+    if (LOG_LEVEL_INFO.equalsIgnoreCase(System.getProperty(LOG_LEVEL_SYSTEM_PROPERTY))) {
       log.info(format, arguments);
-    }
-    else {
+    } else {
       log.debug(format, arguments);
     }
   }
