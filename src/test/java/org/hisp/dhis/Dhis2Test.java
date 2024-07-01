@@ -29,7 +29,6 @@ package org.hisp.dhis;
 
 import static org.hisp.dhis.util.CollectionUtils.list;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import java.net.URI;
 import org.apache.hc.core5.net.URIBuilder;
 import org.hisp.dhis.model.AggregationType;
@@ -98,6 +97,29 @@ class Dhis2Test {
     String expected =
         "https://dhis2.org/api/indicators?"
             + "filter=name%3Alike%3AANC&page=4&pageSize=50&order=name%3Aasc%2Cuid%3Adesc";
+
+    assertEquals(expected, uri.toString());
+  }
+
+  @Test
+  void testGetObjectQueryC() {
+    Dhis2Config config = getDhis2Config();
+
+    Dhis2 dhis2 = new Dhis2(config);
+
+    URIBuilder uriBuilder = config.getResolvedUriBuilder().appendPath("dataSets");
+
+    Query query =
+        Query.instance()
+            .addFilter(Filter.like("name", "ANC"))
+            .addOrder(Order.asc("id"))
+            .setPaging(1, 50);
+
+    URI uri = dhis2.getObjectQuery(uriBuilder, query);
+
+    String expected =
+        "https://dhis2.org/api/dataSets?"
+            + "filter=name%3Alike%3AANC&page=1&pageSize=50&order=id%3Aasc";
 
     assertEquals(expected, uri.toString());
   }

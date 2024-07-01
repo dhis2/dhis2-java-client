@@ -467,6 +467,12 @@ Run specific integration test:
 mvn test -P integration -Dtest=Dhis2ApiTest
 ```
 
+To log at info level during tests:
+
+```
+mvn test -Dlog.level.dhis2=info
+```
+
 ## Deployment
 
 The artifact will be deployed through a GitHub action to the OSSRH Maven repository when detecting a commit to master 
