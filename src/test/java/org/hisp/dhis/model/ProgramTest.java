@@ -31,10 +31,12 @@ import static org.hisp.dhis.support.Assertions.assertContainsExactly;
 import static org.hisp.dhis.support.TestObjects.set;
 
 import java.util.List;
+import org.hisp.dhis.support.TestTags;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
+@Tag(TestTags.UNIT)
 class ProgramTest {
-
   @Test
   void testGetAnalyticsDataElements() {
     DataElement deA = set(new DataElement(), 'A');
