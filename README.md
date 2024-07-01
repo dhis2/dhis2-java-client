@@ -189,7 +189,9 @@ The various metadata object save and update methods return an instance of `Objec
 ObjectResponse response = dhis2.saveDataElement( dataElement );
 
 Status status = response.getStatus();
+Integer statusCode = response.getHttpStatusCode();
 boolean success = response.getHttpStatus().is2xxSuccessful();
+String message = response.getMessage();
 ```
 
 ## System settings
