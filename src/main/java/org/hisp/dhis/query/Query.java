@@ -39,7 +39,7 @@ public class Query {
   private final List<Filter> filters = new ArrayList<>();
 
   private final List<Order> order = new ArrayList<>();
-  
+
   private Paging paging;
 
   private RootJunction rootJunction;

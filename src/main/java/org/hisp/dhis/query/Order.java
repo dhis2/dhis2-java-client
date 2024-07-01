@@ -61,7 +61,7 @@ public class Order {
   public boolean hasOrder() {
     return property != null && direction != null;
   }
-  
+
   public String toValue() {
     return property + ":" + direction.name().toLowerCase();
   }

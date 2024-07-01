@@ -29,6 +29,7 @@ package org.hisp.dhis;
 
 import static org.hisp.dhis.util.CollectionUtils.list;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.net.URI;
 import org.apache.hc.core5.net.URIBuilder;
 import org.hisp.dhis.model.AggregationType;
@@ -76,7 +77,7 @@ class Dhis2Test {
 
     assertEquals(expected, uri.toString());
   }
-  
+
   @Test
   void testGetObjectQueryB() {
     Dhis2Config config = getDhis2Config();

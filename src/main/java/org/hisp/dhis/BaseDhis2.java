@@ -287,9 +287,8 @@ public class BaseDhis2 {
     List<Order> orders = query.getOrder();
 
     if (!orders.isEmpty()) {
-      String orderValue = query.getOrder().stream()
-          .map(Order::toValue)
-          .collect(Collectors.joining(","));
+      String orderValue =
+          query.getOrder().stream().map(Order::toValue).collect(Collectors.joining(","));
 
       uriBuilder.addParameter("order", orderValue);
     }
@@ -550,7 +549,7 @@ public class BaseDhis2 {
 
     String requestBody = toJsonString(object);
 
-    log.debug("Request body: '{}'", requestBody);
+    log.info("Request body: '{}'", requestBody);
 
     HttpEntity entity = new StringEntity(requestBody, StandardCharsets.UTF_8);
 
