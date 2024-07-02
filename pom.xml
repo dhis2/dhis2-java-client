@@ -292,6 +292,8 @@
       </build>
     </profile>
     <profile>
+      <!-- Profile used for OSSHR deployment -->
+      <!-- See file 'master.yml' and property 'maven_profiles' -->
       <id>deploy</id>
       <properties>
         <test.excluded.groups>integration</test.excluded.groups>
