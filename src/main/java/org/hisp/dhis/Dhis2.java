@@ -943,7 +943,7 @@ public class Dhis2 extends BaseDhis2 {
   /**
    * Saves a {@link CategoryCombo}.
    *
-   * @param category the object to save.
+   * @param categoryCombo the object to save.
    * @return {@link ObjectResponse} holding information about the operation.
    */
   public ObjectResponse saveCategoryCombo(CategoryCombo categoryCombo) {

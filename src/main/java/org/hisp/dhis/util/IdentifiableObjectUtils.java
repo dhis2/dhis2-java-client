@@ -40,6 +40,7 @@ public class IdentifiableObjectUtils {
   /**
    * Returns a list of object identifiers.
    *
+   * @param <T> the type.
    * @param objects the collection of {@link IdentifiableObject}.
    * @return a list of object identifiers.
    */
@@ -53,6 +54,7 @@ public class IdentifiableObjectUtils {
   /**
    * Returns a list of object codes.
    *
+   * @param <T> the type.
    * @param objects the collection of {@link IdentifiableObject}.
    * @return a list of object codes.
    */

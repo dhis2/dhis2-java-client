@@ -153,6 +153,7 @@ public class Query {
   /**
    * Determines the logic to use when combining filters.
    *
+   * @param rootJunction the {@link RootJunction}.
    * @return this {@link Query}
    */
   public Query withRootJunction(RootJunction rootJunction) {

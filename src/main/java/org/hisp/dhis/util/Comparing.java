@@ -38,7 +38,7 @@ public class Comparing {
    * first object is less than, equal to, or greater than the second object. Any of the objects can
    * be null. A null value is considered to be less than a non-null value.
    *
-   * @param <T>
+   * @param <T> the type.
    * @param a the first object.
    * @param b the second object.
    * @return an integer value.
@@ -56,7 +56,7 @@ public class Comparing {
    * first object is less than, equal to, or greater than the second object. Any of the objects can
    * be null. A null value is considered to be greater than a non-null value.
    *
-   * @param <T>
+   * @param <T> the type.
    * @param a the first object.
    * @param b the second object.
    * @return an integer value.

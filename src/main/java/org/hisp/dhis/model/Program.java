@@ -122,19 +122,31 @@ public class Program extends NameableObject {
         .collect(Collectors.toUnmodifiableList());
   }
 
-  /** Indicates whether this program has a category combination. */
+  /**
+   * Indicates whether this program has a category combination.
+   *
+   * @return true if this program has a category combination.
+   */
   @JsonIgnore
   public boolean hasCategoryCombo() {
     return categoryCombo != null;
   }
 
-  /** Indicates whether this program is with registration, i.e. a tracker program. */
+  /**
+   * Indicates whether this program is with registration, i.e. a tracker program.
+   *
+   * @return true if this program is with registration.
+   */
   @JsonIgnore
   public boolean isTrackerProgram() {
     return ProgramType.WITH_REGISTRATION == programType;
   }
 
-  /** Indicates whether this program is without registration, i.e. an event program. */
+  /**
+   * Indicates whether this program is without registration, i.e. an event program.
+   *
+   * @return true if this program is without registration.
+   */
   @JsonIgnore
   public boolean isEventProgram() {
     return ProgramType.WITHOUT_REGISTRATION == programType;

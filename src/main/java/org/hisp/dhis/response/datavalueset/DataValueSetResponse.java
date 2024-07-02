@@ -51,7 +51,11 @@ public class DataValueSetResponse extends BaseHttpResponse {
 
   @JsonProperty private String dataSetComplete;
 
-  /** Indicates whether an import count exists. */
+  /**
+   * Indicates whether an import count exists.
+   *
+   * @return true if an import count exists.
+   */
   @JsonIgnore
   public boolean hasImportCount() {
     return importCount != null;

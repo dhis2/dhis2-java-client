@@ -29,9 +29,7 @@ package org.hisp.dhis.model;
 
 import java.util.Set;
 
-/**
- * Enumeration for aggregation type.
- */
+/** Enumeration for aggregation type. */
 public enum AggregationType {
   SUM,
   AVERAGE,
@@ -62,7 +60,7 @@ public enum AggregationType {
 
   /**
    * Indicates whether the aggregation type is average.
-   * 
+   *
    * @return true if average.
    */
   public boolean isAverage() {
