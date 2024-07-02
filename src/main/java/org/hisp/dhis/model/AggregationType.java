@@ -29,6 +29,9 @@ package org.hisp.dhis.model;
 
 import java.util.Set;
 
+/**
+ * Enumeration for aggregation type.
+ */
 public enum AggregationType {
   SUM,
   AVERAGE,
@@ -57,6 +60,11 @@ public enum AggregationType {
 
   public static final Set<AggregationType> LAST_TYPES = Set.of(LAST, LAST_AVERAGE_ORG_UNIT);
 
+  /**
+   * Indicates whether the aggregation type is average.
+   * 
+   * @return true if average.
+   */
   public boolean isAverage() {
     return AVERAGE_TYPES.contains(this);
   }
