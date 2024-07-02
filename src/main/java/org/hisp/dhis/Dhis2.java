@@ -29,7 +29,6 @@ package org.hisp.dhis;
 
 import static org.hisp.dhis.util.CollectionUtils.asList;
 import static org.hisp.dhis.util.CollectionUtils.list;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -1929,7 +1928,7 @@ public class Dhis2 extends BaseDhis2 {
    * Retrieves a list of {@link Visualization}.
    *
    * @param query the {@link Query}.
-   * @return list of {@link Dashboard}.
+   * @return list of {@link Visualization}.
    */
   public List<Visualization> getVisualizations(Query query) {
     return getObject(
