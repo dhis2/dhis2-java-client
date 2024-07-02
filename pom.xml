@@ -255,12 +255,6 @@
       </properties>
     </profile>
     <profile>
-      <id>deploy</id>
-      <properties>
-        <test.excluded.groups>integration</test.excluded.groups>
-      </properties>
-    </profile>
-    <profile>
       <id>integration</id>
       <properties>
         <test.excluded.groups/>
@@ -268,6 +262,9 @@
     </profile>
     <profile>
       <id>branch</id>
+      <properties>
+        <test.excluded.groups>integration</test.excluded.groups>
+      </properties>
       <build>
         <plugins>
           <plugin>
@@ -296,6 +293,9 @@
     </profile>
     <profile>
       <id>master</id>
+      <properties>
+        <test.excluded.groups>integration</test.excluded.groups>
+      </properties>
       <build>
         <plugins>
           <plugin>
