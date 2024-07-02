@@ -292,7 +292,7 @@
       </build>
     </profile>
     <profile>
-      <id>master</id>
+      <id>deploy</id>
       <properties>
         <test.excluded.groups>integration</test.excluded.groups>
       </properties>

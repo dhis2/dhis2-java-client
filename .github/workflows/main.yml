@@ -31,4 +31,4 @@ jobs:
         with:
           nexus_username: ${{ secrets.SONATYPE_OSSRH_USERNAME }}
           nexus_password: ${{ secrets.SONATYPE_OSSRH_PASSWORD }}
-          maven_profiles: "main"
+          maven_profiles: "branch"
