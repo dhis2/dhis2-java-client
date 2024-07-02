@@ -82,6 +82,7 @@ import org.hisp.dhis.model.ProgramIndicator;
 import org.hisp.dhis.model.SystemInfo;
 import org.hisp.dhis.model.SystemSettings;
 import org.hisp.dhis.model.TableHook;
+import org.hisp.dhis.model.Visualization;
 import org.hisp.dhis.model.datastore.DataStoreEntries;
 import org.hisp.dhis.model.datastore.EntryMetadata;
 import org.hisp.dhis.model.datavalueset.DataValueSet;
@@ -1890,6 +1891,55 @@ public class Dhis2 extends BaseDhis2 {
             query,
             Objects.class)
         .getAnalyticsTableHooks();
+  }
+
+  // -------------------------------------------------------------------------
+  // Visualization
+  // -------------------------------------------------------------------------
+
+  /**
+   * Removes a {@link Visualization}.
+   *
+   * @param id the identifier of the object to remove.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse removeVisualization(String id) {
+    return removeMetadataObject(String.format("visualizations/%s", id));
+  }
+
+  /**
+   * Retrieves an {@link Visualization}.
+   *
+   * @param id the object identifier.
+   * @return the {@link Visualization}.
+   * @throws Dhis2ClientException if the object does not exist.
+   */
+  public Visualization getVisualization(String id) {
+    return getObject(
+        config
+            .getResolvedUriBuilder()
+            .appendPath("visualizations")
+            .appendPath(id)
+            .addParameter(FIELDS_PARAM, NAME_FIELDS),
+        Query.instance(),
+        Visualization.class);
+  }
+
+  /**
+   * Retrieves a list of {@link Visualization}.
+   *
+   * @param query the {@link Query}.
+   * @return list of {@link Dashboard}.
+   */
+  public List<Visualization> getVisualizations(Query query) {
+    return getObject(
+            config
+                .getResolvedUriBuilder()
+                .appendPath("visualizations")
+                .addParameter(FIELDS_PARAM, NAME_FIELDS),
+            query,
+            Objects.class)
+        .getVisualizations();
   }
 
   // -------------------------------------------------------------------------

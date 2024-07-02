@@ -89,4 +89,6 @@ public class Objects {
   @JsonProperty private List<Dimension> dimensions = new ArrayList<>();
 
   @JsonProperty private List<PeriodType> periodTypes = new ArrayList<>();
+
+  @JsonProperty private List<Visualization> visualizations = new ArrayList<>();
 }
