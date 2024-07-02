@@ -34,8 +34,9 @@ jobs:
       - name: Release Maven package
         uses: samuelmeuli/action-maven-publish@v1
         with:
-          nexus_username: ${{ secrets.SONATYPE_OSSRH_USERNAME }}
-          nexus_password: ${{ secrets.SONATYPE_OSSRH_PASSWORD }}
           gpg_private_key: ${{ secrets.PGP_PRIVATE_KEY }}
           gpg_passphrase: ${{ secrets.PGP_PASSPHRASE }}
-          maven_profiles: "deploy"
+          nexus_username: ${{ secrets.SONATYPE_OSSRH_USERNAME }}
+          nexus_password: ${{ secrets.SONATYPE_OSSRH_PASSWORD }}
+          maven_goals: 'clean deploy'
+          maven_options: '-P deploy -DskipTests=true'
