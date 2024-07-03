@@ -110,57 +110,70 @@ public class BaseDhis2 {
 
   protected static final String NAME_FIELDS = String.format("%s,shortName,description", ID_FIELDS);
 
+  /** Option set fields. */
   protected static final String OPTION_SET_FIELDS =
       String.format("%s,valueType,version", ID_FIELDS);
 
+  /** Data element fields. */
   protected static final String DATA_ELEMENT_FIELDS =
       String.format(
           "%1$s,aggregationType,valueType,domainType,url,legendSets[%1$s],optionSet[%2$s]",
           NAME_FIELDS, OPTION_SET_FIELDS);
 
+  /** Data element group set fields. */
   protected static final String DATA_ELEMENT_GROUP_SET_FIELDS =
       String.format(
           "%1$s,compulsory,dataDimension,dimensionType,dataElementGroups[%1$s]", NAME_FIELDS);
 
+  /** Category option fields. */
   protected static final String CATEGORY_OPTION_FIELDS =
       String.format(
           "%1$s,shortName,startDate,endDate,formName,categories[%1$s],organisationUnits[%1$s]",
           ID_FIELDS);
 
+  /** Category option combo fields. */
   protected static final String CATEGORY_OPTION_COMBO_FIELDS =
       String.format("%1$s,ignoreApproval,dimensionItem,categoryOptions[%1$s]", ID_FIELDS);
 
+  /** Category option group fields. */
   protected static final String CATEGORY_OPTION_GROUP_FIELDS =
       String.format(
           "%1$s,dataDimensionType,dimensionItemType,categoryOptions[%2$s],groupSets[%2$s]",
           NAME_FIELDS, ID_FIELDS);
 
+  /** Category option group set fields. */
   protected static final String CATEGORY_OPTION_GROUP_SET_FIELDS =
       String.format(
           "%1$s,dataDimension,dataDimensionType,categoryOptionGroups[%2$s]",
           NAME_FIELDS, ID_FIELDS);
 
+  /** Category combo fields. */
   protected static final String CATEGORY_COMBO_FIELDS =
       String.format(
           "%1$s,dataDimensionType,skipTotal,categories[%1$s],categoryOptionCombos[%2$s]",
           ID_FIELDS, CATEGORY_OPTION_COMBO_FIELDS);
 
+  /** Category fields. */
   protected static final String CATEGORY_FIELDS =
       String.format(
           "%1$s,dataDimensionType,dataDimension,categoryOptions[%2$s]", NAME_FIELDS, ID_FIELDS);
 
+  /** Indicator type fields. */
   protected static final String INDICATOR_TYPE_FIELDS =
       String.format("%s,factor,number", NAME_FIELDS);
 
+  /** Indicator fields. */
   protected static final String INDICATOR_FIELDS =
       String.format(
           "%1$s,annualized,numerator,numeratorDescription,denominator,denominatorDescription,url,"
               + "indicatorType[%2$s]",
           NAME_FIELDS, INDICATOR_TYPE_FIELDS);
 
+  /** Indicator group set fields. */
   protected static final String INDICATOR_GROUP_SET_FIELDS =
       String.format("%1$s,compulsory,indicatorGroups[%1$s]", NAME_FIELDS);
 
+  /** Data set fields. */
   protected static final String DATA_SET_FIELDS =
       String.format(
           "%1$s,formName,displayFormName,categoryCombo[%1$s],"
@@ -171,37 +184,44 @@ public class BaseDhis2 {
               + "dataEntryForm[%2$s]",
           NAME_FIELDS, ID_FIELDS);
 
+  /** Org unit fields. */
   protected static final String ORG_UNIT_FIELDS =
       String.format(
           "%s,path,level,parent[%s],openingDate,closedDate,comment,"
               + "url,contactPerson,address,email,phoneNumber",
           NAME_FIELDS, NAME_FIELDS);
 
+  /** Org unit group set fields. */
   protected static final String ORG_UNIT_GROUP_SET_FIELDS =
       String.format(
           "%1$s,dataDimension,compulsory,organisationUnitGroups[%2$s]", NAME_FIELDS, ID_FIELDS);
 
+  /** Tracked entity attribute fields. */
   protected static final String TE_ATTRIBUTE_FIELDS =
       String.format("%s,valueType,confidential,unique", NAME_FIELDS);
 
+  /** Program stage data element fields. */
   protected static final String PROGRAM_STAGE_DATA_ELEMENT_FIELDS =
       String.format(
           "%s,dataElement[%s],compulsory,displayInReports,skipSynchronization,skipAnalytics",
           NAME_FIELDS, DATA_ELEMENT_FIELDS);
 
+  /** Me / current user fields. */
   protected static final String ME_FIELDS =
       String.format(
           "%1$s,username,surname,firstName,email,settings,programs,dataSets,authorities,organisationUnits[%2$s]",
           ID_FIELDS, ORG_UNIT_FIELDS);
 
-  protected static final String RESOURCE_SYSTEM_INFO = "system/info";
-
+  /** Default date format. */
   protected static final String DATE_FORMAT = "yyyy-MM-dd";
 
+  /** Log level system property. */
   private static final String LOG_LEVEL_SYSTEM_PROPERTY = "log.level.dhis2";
 
+  /** Info log level. */
   private static final String LOG_LEVEL_INFO = "info";
 
+  /** Error status codes. */
   private static final Set<Integer> ERROR_STATUS_CODES =
       set(SC_UNAUTHORIZED, SC_FORBIDDEN, SC_NOT_FOUND);
 

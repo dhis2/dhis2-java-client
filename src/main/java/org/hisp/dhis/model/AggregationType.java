@@ -31,31 +31,54 @@ import java.util.Set;
 
 /** Enumeration for aggregation type. */
 public enum AggregationType {
+  /** Sum of values. */
   SUM,
+  /** Average of values. */
   AVERAGE,
+  /** Average of sums across organizational units. */
   AVERAGE_SUM_ORG_UNIT,
+  /** Last value in the set. */
   LAST,
+  /** Last average calculated for each organizational unit. */
   LAST_AVERAGE_ORG_UNIT,
+  /** Last value for each organizational unit. */
   LAST_LAST_ORG_UNIT,
+  /** Last value within a specified period. */
   LAST_IN_PERIOD,
+  /** Average of the last values within each organizational unit in a specified period. */
   LAST_IN_PERIOD_AVERAGE_ORG_UNIT,
+  /** First value in the set. */
   FIRST,
+  /** First average calculated for each organizational unit. */
   FIRST_AVERAGE_ORG_UNIT,
+  /** First value for each organizational unit. */
   FIRST_FIRST_ORG_UNIT,
+  /** Count of values. */
   COUNT,
+  /** Standard deviation of values. */
   STDDEV,
+  /** Variance of values. */
   VARIANCE,
+  /** Minimum value in the set. */
   MIN,
+  /** Maximum value in the set. */
   MAX,
+  /** Minimum of sums across organizational units. */
   MIN_SUM_ORG_UNIT,
+  /** Maximum of sums across organizational units. */
   MAX_SUM_ORG_UNIT,
+  /** No aggregation. */
   NONE,
+  /** Custom aggregation, defined elsewhere. */
   CUSTOM,
+  /** Default aggregation, specifics depend on context. */
   DEFAULT;
 
+  /** Average aggregation types. */
   public static final Set<AggregationType> AVERAGE_TYPES =
       Set.of(AVERAGE, AVERAGE_SUM_ORG_UNIT, LAST_AVERAGE_ORG_UNIT);
 
+  /** Last aggregation types. */
   public static final Set<AggregationType> LAST_TYPES = Set.of(LAST, LAST_AVERAGE_ORG_UNIT);
 
   /**

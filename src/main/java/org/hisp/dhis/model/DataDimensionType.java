@@ -28,6 +28,8 @@
 package org.hisp.dhis.model;
 
 public enum DataDimensionType {
+  /** Disaggregation type. */
   DISAGGREGATION,
+  /** Attribute type. */
   ATTRIBUTE;
 }
