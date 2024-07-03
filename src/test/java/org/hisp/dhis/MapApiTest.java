@@ -32,7 +32,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.List;
-import org.hisp.dhis.model.Visualization;
+import org.hisp.dhis.model.GeoMap;
 import org.hisp.dhis.query.Filter;
 import org.hisp.dhis.query.Query;
 import org.hisp.dhis.support.TestTags;
@@ -40,24 +40,24 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 @Tag(TestTags.INTEGRATION)
-class VisualizationApiTest {
+class MapApiTest {
   @Test
-  void testGetVisualization() {
+  void testGetMap() {
     Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
 
-    Visualization visualization = dhis2.getVisualization("UlfTKWZWV4u");
+    GeoMap map = dhis2.getMap("ytkZY3ChM6J");
 
-    assertNotNull(visualization);
-    assertEquals("UlfTKWZWV4u", visualization.getId());
-    assertNotNull(visualization.getName());
+    assertNotNull(map);
+    assertEquals("ytkZY3ChM6J", map.getId());
+    assertNotNull(map.getName());
   }
 
   @Test
-  void testGetVisualizations() {
+  void testGetMaps() {
     Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
 
-    List<Visualization> visualizations =
-        dhis2.getVisualizations(Query.instance().addFilter(Filter.like("name", "ANC")));
+    List<GeoMap> visualizations =
+        dhis2.getMaps(Query.instance().addFilter(Filter.like("name", "ANC")));
 
     assertFalse(visualizations.isEmpty());
     assertNotNull(visualizations.get(0).getId());

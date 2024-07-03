@@ -29,6 +29,7 @@ package org.hisp.dhis;
 
 import static org.hisp.dhis.util.CollectionUtils.asList;
 import static org.hisp.dhis.util.CollectionUtils.list;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -63,6 +64,7 @@ import org.hisp.dhis.model.DataElementGroup;
 import org.hisp.dhis.model.DataElementGroupSet;
 import org.hisp.dhis.model.DataSet;
 import org.hisp.dhis.model.Dimension;
+import org.hisp.dhis.model.GeoMap;
 import org.hisp.dhis.model.ImportStrategy;
 import org.hisp.dhis.model.Indicator;
 import org.hisp.dhis.model.IndicatorGroup;
@@ -1907,7 +1909,7 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   /**
-   * Retrieves an {@link Visualization}.
+   * Retrieves a {@link Visualization}.
    *
    * @param id the object identifier.
    * @return the {@link Visualization}.
@@ -1942,6 +1944,55 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   // -------------------------------------------------------------------------
+  // Maps
+  // -------------------------------------------------------------------------
+
+  /**
+   * Removes a {@link GeoMap}.
+   *
+   * @param id the identifier of the object to remove.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse removeMap(String id) {
+    return removeMetadataObject(String.format("maps/%s", id));
+  }
+
+  /**
+   * Retrieves a {@link GeoMap}.
+   *
+   * @param id the object identifier.
+   * @return the {@link GeoMap}.
+   * @throws Dhis2ClientException if the object does not exist.
+   */
+  public GeoMap getMap(String id) {
+    return getObject(
+        config
+            .getResolvedUriBuilder()
+            .appendPath("maps")
+            .appendPath(id)
+            .addParameter(FIELDS_PARAM, NAME_FIELDS),
+        Query.instance(),
+        GeoMap.class);
+  }
+
+  /**
+   * Retrieves a list of {@link GeoMap}.
+   *
+   * @param query the {@link Query}.
+   * @return list of {@link GeoMap}.
+   */
+  public List<GeoMap> getMaps(Query query) {
+    return getObject(
+            config
+                .getResolvedUriBuilder()
+                .appendPath("maps")
+                .addParameter(FIELDS_PARAM, NAME_FIELDS),
+            query,
+            Objects.class)
+        .getMaps();
+  }
+
+  // -------------------------------------------------------------------------
   // Dashboard
   // -------------------------------------------------------------------------
 
@@ -1956,7 +2007,7 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   /**
-   * Retrieves an {@link Dashboard}.
+   * Retrieves a {@link Dashboard}.
    *
    * @param id the object identifier.
    * @return the {@link Dashboard}.

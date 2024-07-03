@@ -62,9 +62,11 @@ public class Objects {
 
   @JsonProperty private List<CategoryOptionCombo> categoryOptionCombos = new ArrayList<>();
 
-  @JsonProperty private List<OptionSet> optionSets = new ArrayList<>();
-
   @JsonProperty private List<DataElementGroupSet> dataElementGroupSets = new ArrayList<>();
+
+  @JsonProperty private List<DataSet> dataSets = new ArrayList<>();
+
+  @JsonProperty private List<GeoMap> maps = new ArrayList<GeoMap>();
 
   @JsonProperty private List<IndicatorType> indicatorTypes = new ArrayList<>();
 
@@ -74,7 +76,7 @@ public class Objects {
 
   @JsonProperty private List<IndicatorGroupSet> indicatorGroupSets = new ArrayList<>();
 
-  @JsonProperty private List<DataSet> dataSets = new ArrayList<>();
+  @JsonProperty private List<OptionSet> optionSets = new ArrayList<>();
 
   @JsonProperty private List<Program> programs = new ArrayList<>();
 
