@@ -31,6 +31,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import java.util.List;
+
+import org.hisp.dhis.model.Category;
 import org.hisp.dhis.model.CategoryCombo;
 import org.hisp.dhis.model.CategoryOptionCombo;
 import org.hisp.dhis.model.DataDimensionType;
@@ -50,7 +52,12 @@ class CategoryComboApiTest {
     assertEquals(DataDimensionType.DISAGGREGATION, categoryCombo.getDataDimensionType());
     assertFalse(categoryCombo.getSkipTotal());
 
+    List<Category> categories = categoryCombo.getCategories();
+    assertFalse(categories.isEmpty());
+    
+    
     List<CategoryOptionCombo> categoryOptionCombos = categoryCombo.getCategoryOptionCombos();
+    assertFalse(categoryOptionCombos.isEmpty());
     assertFalse(categoryOptionCombos.get(0).getIgnoreApproval());
     assertFalse(categoryOptionCombos.get(0).getCategoryOptions().isEmpty());
   }
