@@ -30,7 +30,9 @@ package org.hisp.dhis.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -42,6 +44,8 @@ public class Category extends NameableObject {
   @JsonProperty private Boolean dataDimension;
 
   @JsonProperty private List<CategoryOption> categoryOptions = new ArrayList<>();
+
+  @JsonProperty private Set<CategoryCombo> categoryCombos = new HashSet<>();
 
   @JsonIgnore
   public boolean isDataDimension() {

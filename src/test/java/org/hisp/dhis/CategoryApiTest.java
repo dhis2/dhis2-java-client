@@ -28,39 +28,43 @@
 package org.hisp.dhis;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Date;
-import org.hisp.dhis.model.CategoryOption;
+import java.util.List;
+import org.hisp.dhis.model.Category;
+import org.hisp.dhis.query.Query;
 import org.hisp.dhis.support.TestTags;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 @Tag(TestTags.INTEGRATION)
-class CategoryOptionTest {
+class CategoryApiTest {
   @Test
-  void testGetCategoryOption() {
+  void getCategoryOption() {
     Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
 
-    CategoryOption categoryOption = dhis2.getCategoryOption("jRbMi0aBjYn");
+    Category category = dhis2.getCategory("EC40NXmsTVu");
 
-    assertEquals("Male", categoryOption.getName());
-    assertEquals("MLE", categoryOption.getCode());
+    assertNotNull(category);
+    assertEquals("EC40NXmsTVu", category.getId());
+    assertFalse(category.getCategoryOptions().isEmpty());
+    assertFalse(category.getCategoryCombos().isEmpty());
   }
 
   @Test
-  void testUpdateCategoryOption() {
+  void testCategories() {
     Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
 
-    Date startDate =
-        Date.from(LocalDate.now().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
-    CategoryOption categoryOption = dhis2.getCategoryOption("jRbMi0aBjYn");
-    categoryOption.setStartDate(startDate);
+    List<Category> categories = dhis2.getCategories(Query.instance());
 
-    dhis2.updateCategoryOption(categoryOption);
+    assertNotNull(categories);
+    assertFalse(categories.isEmpty());
 
-    categoryOption = dhis2.getCategoryOption("jRbMi0aBjYn");
-    assertEquals(startDate, categoryOption.getStartDate());
+    Category category = categories.get(0);
+
+    assertNotNull(category.getId());
+    assertFalse(category.getCategoryOptions().isEmpty());
+    assertFalse(category.getCategoryCombos().isEmpty());
   }
 }

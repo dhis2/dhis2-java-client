@@ -27,12 +27,10 @@
  */
 package org.hisp.dhis.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -48,6 +46,6 @@ public class CategoryOption extends NameableObject {
   @JsonProperty private Set<Category> categories = new HashSet<>();
 
   @JsonProperty private Set<CategoryOptionCombo> categoryOptionCombos = new HashSet<>();
-  
+
   @JsonProperty private Set<OrgUnit> organisationUnits = new HashSet<>();
 }
