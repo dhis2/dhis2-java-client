@@ -33,7 +33,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
-
 import org.hisp.dhis.model.CategoryOption;
 import org.hisp.dhis.query.Query;
 import org.hisp.dhis.response.Status;
@@ -75,7 +74,7 @@ class CategoryOptionApiTest {
 
     assertTrue(categoryOptions.size() > 50);
   }
-  
+
   @Test
   void testGetCategoryOption() {
     Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
@@ -91,7 +90,7 @@ class CategoryOptionApiTest {
     Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
 
     CategoryOption categoryOption = dhis2.getCategoryOption("jRbMi0aBjYn");
-    assertNotNull(categoryOption);    
+    assertNotNull(categoryOption);
     categoryOption.setDescription("Male gender");
 
     ObjectResponse response = dhis2.updateCategoryOption(categoryOption);
