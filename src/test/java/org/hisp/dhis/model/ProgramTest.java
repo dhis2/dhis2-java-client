@@ -27,7 +27,7 @@
  */
 package org.hisp.dhis.model;
 
-import static org.hisp.dhis.support.Assertions.assertContainsExactly;
+import static org.hisp.dhis.support.Assertions.assertContainsExactlyInOrder;
 import static org.hisp.dhis.support.TestObjects.set;
 
 import java.util.List;
@@ -37,6 +37,28 @@ import org.junit.jupiter.api.Test;
 
 @Tag(TestTags.UNIT)
 class ProgramTest {
+  @Test
+  void testGetDataElements() {
+    DataElement deA = set(new DataElement(), 'A');
+    DataElement deB = set(new DataElement(), 'B');
+    DataElement deC = set(new DataElement(), 'C');
+
+    ProgramStageDataElement psdeA = new ProgramStageDataElement();
+    psdeA.setDataElement(deA);
+    ProgramStageDataElement psdeB = new ProgramStageDataElement();
+    psdeB.setDataElement(deB);
+    ProgramStageDataElement psdeC = new ProgramStageDataElement();
+    psdeC.setDataElement(deC);
+
+    ProgramStage psA = set(new ProgramStage(), 'A');
+    psA.getProgramStageDataElements().addAll(List.of(psdeA, psdeB, psdeC));
+
+    Program prA = set(new Program(), 'A');
+    prA.getProgramStages().add(psA);
+
+    assertContainsExactlyInOrder(prA.getDataElements(), deA, deB, deC);
+  }
+
   @Test
   void testGetAnalyticsDataElements() {
     DataElement deA = set(new DataElement(), 'A');
@@ -59,7 +81,7 @@ class ProgramTest {
     Program prA = set(new Program(), 'A');
     prA.getProgramStages().add(psA);
 
-    assertContainsExactly(prA.getAnalyticsDataElements(), deA, deC);
+    assertContainsExactlyInOrder(prA.getAnalyticsDataElements(), deA, deC);
   }
 
   @Test
@@ -90,6 +112,6 @@ class ProgramTest {
     Program prA = set(new Program(), 'A');
     prA.getProgramStages().add(psA);
 
-    assertContainsExactly(prA.getAnalyticsDataElementsWithLegendSet(), deC);
+    assertContainsExactlyInOrder(prA.getAnalyticsDataElementsWithLegendSet(), deC);
   }
 }
