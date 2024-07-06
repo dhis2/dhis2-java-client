@@ -66,6 +66,31 @@ public class Assertions {
   }
 
   /**
+   * Asserts that the actual collection contains exactly the expected items in the same order.
+   *
+   * @param <E>
+   * @param actual the collection.
+   * @param expected the items.
+   */
+  @SafeVarargs
+  public static <E> void assertContainsExactlyInOrder(List<E> actual, E... expected) {
+    assertNotNull(actual, NULL_MESSAGE);
+    assertContainsExactly(actual, expected);
+
+    List<E> expected_ = CollectionUtils.list(expected);
+
+    for (int i = 0; i < actual.size(); i++) {
+      E item = actual.get(i);
+      String message =
+          format(
+              "Actual item is not present in expected: '%s' (expected size: %d)",
+              item, expected_.size());
+
+      assertEquals(expected_.get(i), item, message);
+    }
+  }
+
+  /**
    * Asserts that the actual collection contains the expected items.
    *
    * @param <E>
