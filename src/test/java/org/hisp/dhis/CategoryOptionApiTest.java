@@ -67,7 +67,7 @@ class CategoryOptionApiTest {
   }
 
   @Test
-  void testPagingFalseByDefalt() {
+  void testPagingFalseByDefault() {
     Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
 
     List<CategoryOption> categoryOptions = dhis2.getCategoryOptions(Query.instance());
