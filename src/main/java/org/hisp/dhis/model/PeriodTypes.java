@@ -27,20 +27,28 @@
  */
 package org.hisp.dhis.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import java.util.List;
 
-@Getter
-@Setter
-@AllArgsConstructor
-public class PeriodType {
-  @JsonProperty private String name;
-
-  @JsonProperty private Integer frequencyOrder;
-
-  @JsonProperty private String isoDuration;
-
-  @JsonProperty private String isoFormat;
+public class PeriodTypes {
+  public static final List<PeriodType> PERIOD_TYPES =
+      List.of(
+          new PeriodType("Daily", 1, "P1D", "yyyyMMdd"),
+          new PeriodType("Weekly", 7, "P7D", "yyyyWn"),
+          new PeriodType("WeeklyWednesday", 7, "P7D", "yyyyWedWn"),
+          new PeriodType("WeeklyThursday", 7, "P7D", "yyyyThuWn"),
+          new PeriodType("WeeklySaturday", 7, "P7D", "yyyySatWn"),
+          new PeriodType("WeeklySunday", 7, "P7D", "yyyySunWn"),
+          new PeriodType("BiWeekly", 14, "P14D", "yyyyBiWn"),
+          new PeriodType("Monthly", 30, "P1M", "yyyyMM"),
+          new PeriodType("BiMonthly", 61, "P2M", "yyyyMMB"),
+          new PeriodType("Quarterly", 91, "P3M", "yyyyQn"),
+          new PeriodType("QuarterlyNov", 91, "P3M", "yyyyNovQn"),
+          new PeriodType("SixMonthly", 182, "P6M", "yyyySn"),
+          new PeriodType("SixMonthlyApril", 182, "P6M", "yyyyAprilSn"),
+          new PeriodType("SixMonthlyNov", 182, "P6M", "yyyyNovSn"),
+          new PeriodType("Yearly", 365, "P1Y", "yyyy"),
+          new PeriodType("FinancialApril", 365, "P1Y", "yyyyApril"),
+          new PeriodType("FinancialJuly", 365, "P1Y", "yyyyJuly"),
+          new PeriodType("FinancialOct", 365, "P1Y", "yyyyOct"),
+          new PeriodType("FinancialNov", 365, "P1Y", "yyyyNov"));
 }
