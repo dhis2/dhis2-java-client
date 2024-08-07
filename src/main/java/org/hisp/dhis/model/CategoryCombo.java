@@ -27,13 +27,17 @@
  */
 package org.hisp.dhis.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class CategoryCombo extends NameableObject {
   @JsonProperty private DataDimensionType dataDimensionType;
 

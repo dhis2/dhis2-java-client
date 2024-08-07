@@ -27,4 +27,7 @@
  */
 package org.hisp.dhis.model;
 
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
 public class Attribute extends NameableObject {}

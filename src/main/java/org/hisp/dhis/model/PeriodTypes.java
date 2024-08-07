@@ -29,6 +29,11 @@ package org.hisp.dhis.model;
 
 import java.util.List;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
+
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class PeriodTypes {
   public static final List<PeriodType> PERIOD_TYPES =
       List.of(

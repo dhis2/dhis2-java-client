@@ -28,7 +28,9 @@
 package org.hisp.dhis.model.datavalueset;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
@@ -36,6 +38,7 @@ import lombok.experimental.Accessors;
 @Getter
 @Setter
 @ToString
+@NoArgsConstructor
 @Accessors(chain = true)
 public class DataValue {
   @JsonProperty private String dataElement;
@@ -61,6 +64,4 @@ public class DataValue {
   @JsonProperty private Boolean followup;
 
   @JsonProperty private Boolean deleted;
-
-  public DataValue() {}
 }

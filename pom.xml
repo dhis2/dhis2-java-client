@@ -4,7 +4,7 @@
 
   <groupId>org.hisp</groupId>
   <artifactId>dhis2-java-client</artifactId>
-  <version>1.9.5</version>
+  <version>1.9.6</version>
   <packaging>jar</packaging>
 
   <name>DHIS 2 API client for Java</name>

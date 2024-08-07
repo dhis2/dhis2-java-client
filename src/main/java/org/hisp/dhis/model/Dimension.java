@@ -28,10 +28,12 @@
 package org.hisp.dhis.model;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class Dimension extends IdentifiableObject {
   private String shortName;
 
