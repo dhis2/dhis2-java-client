@@ -842,9 +842,9 @@ public class Dhis2 extends BaseDhis2 {
     String fieldsParam =
         query.isExpandAssociations()
             ? String.format(
-            "%1$s,categories[id,name],categoryOptionCombos[id,name]"
-                + ",organisationUnits[id,name]",
-            CATEGORY_OPTION_FIELDS)
+                "%1$s,categories[id,name],categoryOptionCombos[id,name]"
+                    + ",organisationUnits[id,name]",
+                CATEGORY_OPTION_FIELDS)
             : CATEGORY_OPTION_FIELDS;
     return getObject(
             config

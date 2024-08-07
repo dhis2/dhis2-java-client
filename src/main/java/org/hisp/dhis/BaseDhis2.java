@@ -127,8 +127,7 @@ public class BaseDhis2 {
 
   /** Category option fields. */
   protected static final String CATEGORY_OPTION_FIELDS =
-      String.format(
-          "%1$s,shortName,startDate,endDate,formName",ID_FIELDS);
+      String.format("%1$s,shortName,startDate,endDate,formName", ID_FIELDS);
 
   /** Category option combo fields. */
   protected static final String CATEGORY_OPTION_COMBO_FIELDS =
