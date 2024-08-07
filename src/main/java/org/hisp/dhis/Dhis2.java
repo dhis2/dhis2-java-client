@@ -839,11 +839,18 @@ public class Dhis2 extends BaseDhis2 {
    * @return list of {@link CategoryOption}.
    */
   public List<CategoryOption> getCategoryOptions(Query query) {
+    String fieldsParam =
+        query.isExpandAssociations()
+            ? String.format(
+            "%1$s,categories[id,name],categoryOptionCombos[id,name]"
+                + ",organisationUnits[id,name]",
+            CATEGORY_OPTION_FIELDS)
+            : CATEGORY_OPTION_FIELDS;
     return getObject(
             config
                 .getResolvedUriBuilder()
                 .appendPath("categoryOptions")
-                .addParameter(FIELDS_PARAM, CATEGORY_OPTION_FIELDS),
+                .addParameter(FIELDS_PARAM, fieldsParam),
             query,
             Objects.class)
         .getCategoryOptions();
