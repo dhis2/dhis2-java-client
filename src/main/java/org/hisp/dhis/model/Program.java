@@ -37,6 +37,8 @@ import java.util.stream.Collectors;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hisp.dhis.model.trackedentity.ProgramTrackedEntityAttribute;
+import org.hisp.dhis.model.trackedentity.TrackedEntityAttribute;
 
 @Getter
 @Setter

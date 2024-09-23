@@ -34,6 +34,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import org.hisp.dhis.model.trackedentity.TrackedEntityType;
 
 @Getter
 @Setter
@@ -81,6 +82,8 @@ public class Objects {
   @JsonProperty private List<Program> programs = new ArrayList<>();
 
   @JsonProperty private List<ProgramIndicator> programIndicators = new ArrayList<>();
+
+  @JsonProperty private List<TrackedEntityType> trackedEntityTypes = new ArrayList<>();
 
   @JsonProperty private List<CategoryOptionGroup> categoryOptionGroups = new ArrayList<>();
 

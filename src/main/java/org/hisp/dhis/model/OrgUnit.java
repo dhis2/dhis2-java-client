@@ -27,10 +27,8 @@
  */
 package org.hisp.dhis.model;
 
-import java.util.Date;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
-
+import java.util.Date;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
