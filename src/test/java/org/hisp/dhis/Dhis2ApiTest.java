@@ -42,7 +42,7 @@ import org.hisp.dhis.model.Program;
 import org.hisp.dhis.model.ProgramStage;
 import org.hisp.dhis.model.ProgramStageDataElement;
 import org.hisp.dhis.model.ProgramType;
-import org.hisp.dhis.model.TrackedEntityAttribute;
+import org.hisp.dhis.model.trackedentity.TrackedEntityAttribute;
 import org.hisp.dhis.query.Filter;
 import org.hisp.dhis.query.Query;
 import org.hisp.dhis.response.Dhis2ClientException;

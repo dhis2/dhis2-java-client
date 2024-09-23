@@ -25,20 +25,17 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.hisp.dhis.model;
+package org.hisp.dhis.model.trackedentity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hisp.dhis.model.IdentifiableObject;
 
 @Getter
 @Setter
 @NoArgsConstructor
-public class DataEntryForm extends NameableObject {
-  @JsonProperty private String htmlCode;
-
-  @JsonProperty private Integer format;
-
-  @JsonProperty private FormStyle style;
+public class ProgramTrackedEntityAttribute extends IdentifiableObject {
+  @JsonProperty private TrackedEntityAttribute trackedEntityAttribute;
 }

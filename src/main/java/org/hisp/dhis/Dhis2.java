@@ -91,6 +91,7 @@ import org.hisp.dhis.model.datavalueset.DataValueSetImportOptions;
 import org.hisp.dhis.model.event.Event;
 import org.hisp.dhis.model.event.Events;
 import org.hisp.dhis.model.event.EventsResult;
+import org.hisp.dhis.model.trackedentity.TrackedEntityType;
 import org.hisp.dhis.query.Query;
 import org.hisp.dhis.query.analytics.AnalyticsQuery;
 import org.hisp.dhis.query.datavalue.DataValueSetQuery;
@@ -1561,7 +1562,10 @@ public class Dhis2 extends BaseDhis2 {
             "%1$s,programType,categoryCombo[%1$s,categories[%2$s]],"
                 + "programStages[%1$s,programStageDataElements[%3$s]],"
                 + "programTrackedEntityAttributes[id,code,name,trackedEntityAttribute[%4$s]]",
-            NAME_FIELDS, CATEGORY_FIELDS, PROGRAM_STAGE_DATA_ELEMENT_FIELDS, TE_ATTRIBUTE_FIELDS);
+            NAME_FIELDS,
+            CATEGORY_FIELDS,
+            PROGRAM_STAGE_DATA_ELEMENT_FIELDS,
+            TRACKED_ENTITY_ATTRIBUTE_FIELDS);
 
     return getObject(
         config
@@ -1599,11 +1603,11 @@ public class Dhis2 extends BaseDhis2 {
                 NAME_FIELDS,
                 CATEGORY_FIELDS,
                 PROGRAM_STAGE_DATA_ELEMENT_FIELDS,
-                TE_ATTRIBUTE_FIELDS)
+                TRACKED_ENTITY_ATTRIBUTE_FIELDS)
             : String.format(
                 "%1$s,programType,categoryCombo[%1$s],programStages[%1$s],"
                     + "programTrackedEntityAttributes[id,code,name,trackedEntityAttribute[%2$s]]",
-                NAME_FIELDS, TE_ATTRIBUTE_FIELDS);
+                NAME_FIELDS, TRACKED_ENTITY_ATTRIBUTE_FIELDS);
 
     return getObject(
             config
@@ -1672,6 +1676,44 @@ public class Dhis2 extends BaseDhis2 {
             query,
             Objects.class)
         .getProgramIndicators();
+  }
+
+  // -------------------------------------------------------------------------
+  // Tracked entity type
+  // -------------------------------------------------------------------------
+
+  /**
+   * Retrieves a {@link TrackedEntityType}.
+   *
+   * @param id the object identifier.
+   * @return the {@link TrackedEntityType}.
+   */
+  public TrackedEntityType getTrackedEntityType(String id) {
+    return getObject(
+        config
+            .getResolvedUriBuilder()
+            .appendPath("trackedEntityTypes")
+            .appendPath(id)
+            .addParameter(FIELDS_PARAM, TRACKED_ENTITY_TYPE_FIELDS),
+        Query.instance(),
+        TrackedEntityType.class);
+  }
+
+  /**
+   * Retrieves a list of {@link TrackedEntityType}.
+   *
+   * @param query the {@link Query}.
+   * @return list of {@link TrackedEntityType}.
+   */
+  public List<TrackedEntityType> getTrackedEntityTypes(Query query) {
+    return getObject(
+            config
+                .getResolvedUriBuilder()
+                .appendPath("trackedEntityTypes")
+                .addParameter(FIELDS_PARAM, TRACKED_ENTITY_TYPE_FIELDS),
+            query,
+            Objects.class)
+        .getTrackedEntityTypes();
   }
 
   // -------------------------------------------------------------------------

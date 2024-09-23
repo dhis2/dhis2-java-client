@@ -196,7 +196,7 @@ public class BaseDhis2 {
           "%1$s,dataDimension,compulsory,organisationUnitGroups[%2$s]", NAME_FIELDS, ID_FIELDS);
 
   /** Tracked entity attribute fields. */
-  protected static final String TE_ATTRIBUTE_FIELDS =
+  protected static final String TRACKED_ENTITY_ATTRIBUTE_FIELDS =
       String.format("%s,valueType,confidential,unique", NAME_FIELDS);
 
   /** Program stage data element fields. */
@@ -204,6 +204,11 @@ public class BaseDhis2 {
       String.format(
           "%s,dataElement[%s],compulsory,displayInReports,skipSynchronization,skipAnalytics",
           NAME_FIELDS, DATA_ELEMENT_FIELDS);
+
+  protected static final String TRACKED_ENTITY_TYPE_FIELDS =
+      String.format(
+          "%s,trackedEntityTypeAttributes[trackedEntityAttribute[%s],displayInList,mandatory,searchable]",
+          NAME_FIELDS, TRACKED_ENTITY_ATTRIBUTE_FIELDS);
 
   /** Me / current user fields. */
   protected static final String ME_FIELDS =
