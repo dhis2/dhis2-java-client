@@ -28,6 +28,8 @@
 package org.hisp.dhis.query;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.hisp.dhis.support.TestTags;
 import org.junit.jupiter.api.Tag;
@@ -51,5 +53,20 @@ class PagingTest {
 
     paging = new Paging(null, null);
     assertEquals(0, paging.getOffset());
+  }
+
+  @Test
+  void testGetEmpty() {
+    Paging paging = Paging.empty();
+    assertFalse(paging.hasPaging());
+  }
+
+  @Test
+  void testHasPaging() {
+    Paging paging = Paging.empty();
+    assertFalse(paging.hasPaging());
+
+    paging = new Paging(5, 50);
+    assertTrue(paging.hasPaging());
   }
 }

@@ -65,6 +65,15 @@ public class Paging {
     this.pageSize = pageSize;
   }
 
+  /**
+   * Returns a {@link Paging} with page and page size set to <code>null</code>.
+   *
+   * @return a {@link Paging}.
+   */
+  public static Paging empty() {
+    return new Paging(null, null);
+  }
+
   public boolean hasPage() {
     return page != null && page >= 0;
   }
