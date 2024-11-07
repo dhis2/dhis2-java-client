@@ -27,39 +27,29 @@
  */
 package org.hisp.dhis.util;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.util.List;
+import org.junit.jupiter.api.Test;
 
-public class ListBuilder<T> {
-  private final List<T> list;
+class ListBuilderTest {
+  @Test
+  void testAdd() {
+    List<String> actual =
+        new ListBuilder<String>().add("one").addAll(List.of("two", "three")).build();
 
-  public ListBuilder() {
-    list = new ArrayList<>();
+    List<String> expected = List.of("one", "two", "three");
+
+    assertEquals(expected, actual);
   }
 
-  public ListBuilder(List<T> initial) {
-    list = new ArrayList<>(initial);
-  }
+  @Test
+  void testAddWithInitial() {
+    List<String> actual =
+        new ListBuilder<String>(List.of("one")).addAll(List.of("two", "three")).build();
 
-  public final ListBuilder<T> addAll(List<T> items) {
-    this.list.addAll(items);
-    return this;
-  }
+    List<String> expected = List.of("one", "two", "three");
 
-  @SafeVarargs
-  public final ListBuilder<T> add(T... items) {
-    this.list.addAll(Arrays.asList(items));
-    return this;
-  }
-
-  public final ListBuilder<T> add(T item) {
-    this.list.add(item);
-    return this;
-  }
-
-  public List<T> build() {
-    return Collections.unmodifiableList(list);
+    assertEquals(expected, actual);
   }
 }
