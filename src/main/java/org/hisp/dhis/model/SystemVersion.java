@@ -90,6 +90,12 @@ public class SystemVersion {
     return compareThisTo(version) < 0;
   }
 
+  /**
+   * Compares this version against the given version.
+   *
+   * @param version the version.
+   * @return the outcome of <code>compareTo</code>.
+   */
   private int compareThisTo(String version) {
     return new ComparableVersion(this.version).compareTo(new ComparableVersion(version));
   }
