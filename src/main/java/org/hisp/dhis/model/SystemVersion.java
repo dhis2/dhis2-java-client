@@ -28,10 +28,16 @@
 package org.hisp.dhis.model;
 
 import java.io.Serializable;
-import lombok.Getter;
+
 import org.apache.maven.artifact.versioning.ComparableVersion;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
+
 @Getter
+@ToString
+@EqualsAndHashCode
 public class SystemVersion implements Serializable {
   private final String version;
 
