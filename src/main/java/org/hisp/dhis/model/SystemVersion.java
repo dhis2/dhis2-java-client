@@ -28,12 +28,10 @@
 package org.hisp.dhis.model;
 
 import java.io.Serializable;
-
-import org.apache.maven.artifact.versioning.ComparableVersion;
-
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
+import org.apache.maven.artifact.versioning.ComparableVersion;
 
 @Getter
 @ToString
