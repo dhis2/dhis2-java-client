@@ -27,9 +27,8 @@
  */
 package org.hisp.dhis.model;
 
-import org.apache.maven.artifact.versioning.ComparableVersion;
-
 import lombok.Getter;
+import org.apache.maven.artifact.versioning.ComparableVersion;
 
 @Getter
 public class SystemVersion {
@@ -37,7 +36,7 @@ public class SystemVersion {
 
   /**
    * Constructor.
-   * 
+   *
    * @param version the version string.
    */
   public SystemVersion(String version) {
@@ -46,14 +45,14 @@ public class SystemVersion {
 
   /**
    * Creates a {@link SystemVersion} from the given version string.
-   * 
+   *
    * @param version the version string.
    * @return a {@link SystemVersion}.
    */
   public static SystemVersion of(String version) {
-      return new SystemVersion(version);
+    return new SystemVersion(version);
   }
-  
+
   /**
    * Indicates whether this system version is higher than the given version.
    *
