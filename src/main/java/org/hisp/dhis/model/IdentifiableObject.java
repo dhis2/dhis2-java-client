@@ -29,6 +29,7 @@ package org.hisp.dhis.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Objects;
@@ -40,7 +41,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class IdentifiableObject {
+public class IdentifiableObject implements Serializable {
   @JsonProperty protected String id;
 
   @JsonProperty protected String code;

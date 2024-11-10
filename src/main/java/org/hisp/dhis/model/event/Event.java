@@ -28,6 +28,7 @@
 package org.hisp.dhis.model.event;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -43,7 +44,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @ToString(onlyExplicitlyIncluded = true)
-public class Event {
+public class Event implements Serializable {
   @EqualsAndHashCode.Include
   @ToString.Include
   @JsonProperty(value = "event")

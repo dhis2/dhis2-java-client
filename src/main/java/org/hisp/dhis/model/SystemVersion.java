@@ -27,11 +27,12 @@
  */
 package org.hisp.dhis.model;
 
+import java.io.Serializable;
 import lombok.Getter;
 import org.apache.maven.artifact.versioning.ComparableVersion;
 
 @Getter
-public class SystemVersion {
+public class SystemVersion implements Serializable {
   private final String version;
 
   /**

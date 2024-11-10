@@ -27,6 +27,7 @@
  */
 package org.hisp.dhis.auth;
 
+import java.io.Serializable;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -35,7 +36,7 @@ import org.apache.hc.core5.http.HttpHeaders;
 /** Class representing access token authentication. */
 @Getter
 @RequiredArgsConstructor
-public class AccessTokenAuthentication implements Authentication {
+public class AccessTokenAuthentication implements Authentication, Serializable {
   @NonNull private final String accessToken;
 
   @Override

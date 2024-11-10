@@ -27,6 +27,7 @@
  */
 package org.hisp.dhis.model.datavalueset;
 
+import java.io.Serializable;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -37,7 +38,7 @@ import org.hisp.dhis.model.IdScheme;
 @Setter
 @ToString
 @Accessors(chain = true)
-public class DataValueSetImportOptions {
+public class DataValueSetImportOptions implements Serializable {
   private IdScheme dataElementIdScheme;
 
   private IdScheme orgUnitIdScheme;

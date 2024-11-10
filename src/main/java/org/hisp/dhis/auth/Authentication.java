@@ -27,8 +27,10 @@
  */
 package org.hisp.dhis.auth;
 
+import java.io.Serializable;
+
 /** Authentication interface. */
-public interface Authentication {
+public interface Authentication extends Serializable {
   /**
    * Returns the name of the HTTP header to use for authentication.
    *

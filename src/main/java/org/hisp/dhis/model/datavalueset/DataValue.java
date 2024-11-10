@@ -28,6 +28,7 @@
 package org.hisp.dhis.model.datavalueset;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.io.Serializable;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -39,7 +40,7 @@ import lombok.experimental.Accessors;
 @ToString
 @NoArgsConstructor
 @Accessors(chain = true)
-public class DataValue {
+public class DataValue implements Serializable {
   @JsonProperty private String dataElement;
 
   @JsonProperty private String period;

@@ -28,6 +28,7 @@
 package org.hisp.dhis.model.datavalueset;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
@@ -41,7 +42,7 @@ import lombok.experimental.Accessors;
 @ToString
 @NoArgsConstructor
 @Accessors(chain = true)
-public class DataValueSet {
+public class DataValueSet implements Serializable {
   @JsonProperty private String dataSet;
 
   @JsonProperty private String completeDate;
