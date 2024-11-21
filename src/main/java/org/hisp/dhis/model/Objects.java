@@ -34,6 +34,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import org.hisp.dhis.model.dashboard.Dashboard;
 import org.hisp.dhis.model.trackedentity.TrackedEntityType;
 
 @Getter
