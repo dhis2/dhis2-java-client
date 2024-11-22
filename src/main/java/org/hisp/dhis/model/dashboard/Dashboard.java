@@ -27,6 +27,7 @@
  */
 package org.hisp.dhis.model.dashboard;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -43,4 +44,9 @@ public class Dashboard extends NameableObject {
    * @since DHIS 2.42.
    */
   private EmbeddedDashboard embedded;
+
+  @JsonIgnore
+  public boolean isEmbedded() {
+    return embedded != null;
+  }
 }
