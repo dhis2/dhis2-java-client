@@ -33,7 +33,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
-
 import org.hisp.dhis.model.CategoryOption;
 import org.hisp.dhis.query.Query;
 import org.hisp.dhis.response.Status;
