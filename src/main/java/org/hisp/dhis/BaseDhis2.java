@@ -130,7 +130,7 @@ public class BaseDhis2 {
 
   /** Category option fields. */
   protected static final String CATEGORY_OPTION_FIELDS =
-      String.format("%1$s,shortName,startDate,endDate,formName", ID_FIELDS);
+      String.format("%1$s,shortName,startDate,endDate,formName,categories[%1$s]", NAME_FIELDS);
 
   /** Category option combo fields. */
   protected static final String CATEGORY_OPTION_COMBO_FIELDS =
@@ -214,9 +214,7 @@ public class BaseDhis2 {
           NAME_FIELDS, TRACKED_ENTITY_ATTRIBUTE_FIELDS);
 
   /** Data element group set fields. */
-  protected static final String DASHBOARD_FIELDS =
-      String.format(
-          "%1$s,embedded[*]]", NAME_FIELDS);
+  protected static final String DASHBOARD_FIELDS = String.format("%1$s,embedded[*]", NAME_FIELDS);
 
   /** Me / current user fields. */
   protected static final String ME_FIELDS =

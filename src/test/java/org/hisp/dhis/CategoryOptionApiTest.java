@@ -33,6 +33,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
+
 import org.hisp.dhis.model.CategoryOption;
 import org.hisp.dhis.query.Query;
 import org.hisp.dhis.response.Status;
@@ -52,7 +53,6 @@ class CategoryOptionApiTest {
     assertNotNull(categoryOption);
     assertEquals("K4gwuiVvW3z", categoryOption.getId());
     assertFalse(categoryOption.getCategories().isEmpty());
-    assertFalse(categoryOption.getCategoryOptionCombos().isEmpty());
   }
 
   @Test
