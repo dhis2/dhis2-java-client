@@ -39,6 +39,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+
 import org.apache.commons.lang3.Validate;
 import org.apache.hc.client5.http.HttpResponseException;
 import org.apache.hc.client5.http.classic.methods.HttpGet;
@@ -2068,7 +2069,7 @@ public class Dhis2 extends BaseDhis2 {
             .getResolvedUriBuilder()
             .appendPath("dashboards")
             .appendPath(id)
-            .addParameter(FIELDS_PARAM, NAME_FIELDS),
+            .addParameter(FIELDS_PARAM, DASHBOARD_FIELDS),
         Query.instance(),
         Dashboard.class);
   }
@@ -2084,7 +2085,7 @@ public class Dhis2 extends BaseDhis2 {
             config
                 .getResolvedUriBuilder()
                 .appendPath("dashboards")
-                .addParameter(FIELDS_PARAM, NAME_FIELDS),
+                .addParameter(FIELDS_PARAM, DASHBOARD_FIELDS),
             query,
             Objects.class)
         .getDashboards();

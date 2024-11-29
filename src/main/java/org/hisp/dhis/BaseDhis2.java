@@ -34,9 +34,6 @@ import static org.hisp.dhis.util.CollectionUtils.asList;
 import static org.hisp.dhis.util.CollectionUtils.set;
 import static org.hisp.dhis.util.HttpUtils.getUriAsString;
 
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -49,7 +46,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
-import lombok.extern.slf4j.Slf4j;
+
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.Validate;
@@ -96,6 +93,12 @@ import org.hisp.dhis.response.Status;
 import org.hisp.dhis.response.object.ObjectResponse;
 import org.hisp.dhis.response.objects.ObjectsResponse;
 import org.hisp.dhis.util.HttpUtils;
+
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author Lars Helge Overland
@@ -209,6 +212,11 @@ public class BaseDhis2 {
       String.format(
           "%s,trackedEntityTypeAttributes[trackedEntityAttribute[%s],displayInList,mandatory,searchable]",
           NAME_FIELDS, TRACKED_ENTITY_ATTRIBUTE_FIELDS);
+
+  /** Data element group set fields. */
+  protected static final String DASHBOARD_FIELDS =
+      String.format(
+          "%1$s,embedded[*]]", NAME_FIELDS);
 
   /** Me / current user fields. */
   protected static final String ME_FIELDS =
