@@ -86,6 +86,7 @@ import org.hisp.dhis.query.Query;
 import org.hisp.dhis.query.RootJunction;
 import org.hisp.dhis.query.analytics.AnalyticsQuery;
 import org.hisp.dhis.query.analytics.Dimension;
+import org.hisp.dhis.query.datavalue.DataValueQuery;
 import org.hisp.dhis.query.datavalue.DataValueSetQuery;
 import org.hisp.dhis.query.event.EventsQuery;
 import org.hisp.dhis.response.BaseHttpResponse;
@@ -341,8 +342,20 @@ public class BaseDhis2 {
   protected <T> T getDataValueSetResponse(
       URIBuilder uriBuilder, DataValueSetQuery query, Class<T> type) {
     URI url = getDataValueSetQuery(uriBuilder, query);
-
     return getObjectFromUrl(url, type);
+  }
+
+  /**
+   * Retrieves a dataValue object using HTTP GET.
+   *
+   * @param uriBuilder the URI builder.
+   * @param query the {@link DataValueSetQuery} filters to apply.
+   * @return the object.
+   */
+  protected String getDataValueFileResponse(
+          URIBuilder uriBuilder, DataValueQuery query) {
+    URI url = getDataValueQuery(uriBuilder, query);
+    return getObjectFromUrl(url);
   }
 
   /**
@@ -519,6 +532,26 @@ public class BaseDhis2 {
   }
 
   /**
+   * Returns a {@link URI} based on the given dataValue query.
+   *
+   * @param uriBuilder the URI builder.
+   * @param query the {@link DataValueQuery}.
+   * @return a URI.
+   */
+  protected URI getDataValueQuery(URIBuilder uriBuilder, DataValueQuery query) {
+
+    addParameter(uriBuilder, "de", query.getDe());
+    addParameter(uriBuilder, "pe", query.getPe());
+    addParameter(uriBuilder, "ou", query.getOu());
+    addParameter(uriBuilder, "co", query.getCo());
+    addParameter(uriBuilder, "cc", query.getCc());
+    addParameter(uriBuilder, "cp", query.getCp());
+    addParameter(uriBuilder, "ds", query.getDs());
+
+    return HttpUtils.build(uriBuilder);
+  }
+
+  /**
    * Adds a query parameter to the given {@link URIBuilder} if the given parameter value is not
    * null.
    *
@@ -684,6 +717,29 @@ public class BaseDhis2 {
       log("Response body: '{}'", responseBody);
 
       return objectMapper.readValue(responseBody, type);
+    } catch (IOException ex) {
+      throw new Dhis2ClientException("Failed to fetch object", ex);
+    } catch (ParseException ex) {
+      throw new Dhis2ClientException("HTTP response could not be parsed", ex);
+    }
+  }
+
+  /**
+   * Retrieves an object using HTTP GET.
+   *
+   * @param url the fully qualified URL.
+   * @return the response.
+   * @throws Dhis2ClientException if access denied or resource not found.
+   */
+  protected String getObjectFromUrl(URI url) {
+    try (CloseableHttpResponse response = getJsonHttpResponse(url)) {
+      handleErrors(response, url.toString());
+
+      String responseBody = EntityUtils.toString(response.getEntity());
+
+      log("Response body: '{}'", responseBody);
+
+      return responseBody;
     } catch (IOException ex) {
       throw new Dhis2ClientException("Failed to fetch object", ex);
     } catch (ParseException ex) {

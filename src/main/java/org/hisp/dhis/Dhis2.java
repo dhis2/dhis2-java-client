@@ -57,6 +57,7 @@ import org.hisp.dhis.model.*;
 import org.hisp.dhis.model.dashboard.Dashboard;
 import org.hisp.dhis.model.datastore.DataStoreEntries;
 import org.hisp.dhis.model.datastore.EntryMetadata;
+import org.hisp.dhis.model.datavalueset.DataValue;
 import org.hisp.dhis.model.datavalueset.DataValueSet;
 import org.hisp.dhis.model.datavalueset.DataValueSetImportOptions;
 import org.hisp.dhis.model.event.Event;
@@ -65,6 +66,7 @@ import org.hisp.dhis.model.event.EventsResult;
 import org.hisp.dhis.model.trackedentity.TrackedEntityType;
 import org.hisp.dhis.query.Query;
 import org.hisp.dhis.query.analytics.AnalyticsQuery;
+import org.hisp.dhis.query.datavalue.DataValueQuery;
 import org.hisp.dhis.query.datavalue.DataValueSetQuery;
 import org.hisp.dhis.query.event.EventsQuery;
 import org.hisp.dhis.request.orgunit.OrgUnitMergeRequest;
@@ -2213,6 +2215,17 @@ public class Dhis2 extends BaseDhis2 {
                 config.getResolvedUriBuilder().appendPath("dataValueSets.json"), query, DataValueSet.class);
     }
 
+    /**
+     * Retrieves the content of a file resource from a {@link DataValue}.
+     *
+     * @param query the {@link DataValueQuery}.
+     * @return The content of a file resource referenced in a {@link DataValue}.
+     */
+    public String getDataValueFile(DataValueQuery query) {
+        return getDataValueFileResponse(
+                config.getResolvedUriBuilder().appendPath("dataValues/files"), query).toString();
+    }
+
     // -------------------------------------------------------------------------
     // Analytics data value set
     // -------------------------------------------------------------------------
@@ -2382,5 +2395,5 @@ public class Dhis2 extends BaseDhis2 {
                 Query.instance(),
                 FileResource.class);
     }
-
+    
 }
