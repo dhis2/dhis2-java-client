@@ -2223,7 +2223,7 @@ public class Dhis2 extends BaseDhis2 {
      */
     public String getDataValueFile(DataValueQuery query) {
         return getDataValueFileResponse(
-                config.getResolvedUriBuilder().appendPath("dataValues/files"), query).toString();
+                config.getResolvedUriBuilder().appendPath("dataValues/files"), query);
     }
 
     // -------------------------------------------------------------------------

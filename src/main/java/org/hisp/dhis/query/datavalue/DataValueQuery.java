@@ -30,7 +30,6 @@ package org.hisp.dhis.query.datavalue;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import org.hisp.dhis.model.IdScheme;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -50,7 +49,12 @@ public class DataValueQuery {
 
     private String cc;
 
-    private String cp;
+    private final Set<String> cp = new HashSet<>();
 
     private String ds;
+
+    public DataValueQuery addAttributeCategoryOptions(Collection<String> attributeCategoryOptions) {
+        cp.addAll(attributeCategoryOptions);
+        return this;
+    }
 }

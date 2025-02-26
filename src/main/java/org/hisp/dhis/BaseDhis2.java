@@ -545,7 +545,11 @@ public class BaseDhis2 {
     addParameter(uriBuilder, "ou", query.getOu());
     addParameter(uriBuilder, "co", query.getCo());
     addParameter(uriBuilder, "cc", query.getCc());
-    addParameter(uriBuilder, "cp", query.getCp());
+
+    if(!query.getCp().isEmpty()) {
+      addParameter(uriBuilder, "cp", String.join(";", query.getCp()));
+    }
+
     addParameter(uriBuilder, "ds", query.getDs());
 
     return HttpUtils.build(uriBuilder);
