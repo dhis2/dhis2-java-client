@@ -38,6 +38,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import static org.hisp.dhis.util.DateTimeUtils.JSON_DATE_TIME_FORMAT;
+
 @Getter
 @Setter
 @ToString
@@ -49,11 +51,11 @@ public class IdentifiableObject implements Serializable {
   @JsonProperty protected String name;
 
   @JsonProperty
-  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'hh:mm:ss")
+  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = JSON_DATE_TIME_FORMAT)
   protected Date created;
 
   @JsonProperty
-  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'hh:mm:ss")
+  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = JSON_DATE_TIME_FORMAT)
   protected Date lastUpdated;
 
   @JsonProperty protected Set<AttributeValue> attributeValues = new HashSet<>();
