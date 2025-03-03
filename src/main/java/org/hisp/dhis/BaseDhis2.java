@@ -731,8 +731,6 @@ public class BaseDhis2 {
       return resp;
     } catch (IOException ex) {
       throw newDhis2ClientException(ex);
-    } catch (ParseException ex) {
-      throw new Dhis2ClientException("HTTP response could not be parsed", ex);
     }
   }
 
@@ -762,6 +760,7 @@ public class BaseDhis2 {
   protected <T> T getObjectFromUrl(URI url, Class<T> type) {
     try (CloseableHttpResponse response = getJsonHttpResponse(url)) {
       handleErrors(response, url.toString());
+      handleErrorsForGet(response, url.toString());
 
       String responseBody = EntityUtils.toString(response.getEntity());
 
@@ -795,13 +794,13 @@ public class BaseDhis2 {
   }
 
   /**
-   * Handles error status codes, currently <code>401/403/404</code> and <code>409</code>.
+   * Handles error status codes, currently <code>401/403</code> and <code>404</code>.
    *
    * @param response {@link HttpResponse}.
    * @param url the request URL.
    * @throws Dhis2ClientException
    */
-  private void handleErrors(CloseableHttpResponse response, String url) throws IOException, ParseException {
+  private void handleErrors(CloseableHttpResponse response, String url) {
     final int code = response.getCode();
 
     if (ERROR_STATUS_CODES.contains(code)) {
@@ -811,7 +810,17 @@ public class BaseDhis2 {
 
       throw new Dhis2ClientException(message, code);
     }
+  }
 
+  /**
+   * Handles <code>409</code> errors status code for HTTP GET
+   *
+   * @param response {@link HttpResponse}.
+   * @param url the request URL.
+   * @throws Dhis2ClientException
+   */
+  private void handleErrorsForGet(CloseableHttpResponse response, String url) throws IOException, ParseException {
+    final int code = response.getCode();
     if(SC_CONFLICT == code) {
       String responseBody = EntityUtils.toString(response.getEntity());
 
