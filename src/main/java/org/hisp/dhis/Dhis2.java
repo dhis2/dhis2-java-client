@@ -39,6 +39,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+
 import org.apache.commons.lang3.Validate;
 import org.apache.hc.client5.http.HttpResponseException;
 import org.apache.hc.client5.http.classic.methods.HttpGet;
@@ -2353,7 +2355,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link EventResponse} holding information about the operation.
    */
   public EventResponse removeEvent(Event event) {
-    Validate.notNull(event.getId(), "Event identifier must be specified");
+    Objects.requireNonNull(event.getId(), "Event identifier must be specified");
 
     Events events = new Events(list(event));
 
