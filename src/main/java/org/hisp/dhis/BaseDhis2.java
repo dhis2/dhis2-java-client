@@ -35,9 +35,6 @@ import static org.hisp.dhis.util.CollectionUtils.asList;
 import static org.hisp.dhis.util.CollectionUtils.set;
 import static org.hisp.dhis.util.HttpUtils.getUriAsString;
 
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -48,12 +45,12 @@ import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
-import lombok.extern.slf4j.Slf4j;
+
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang3.Validate;
 import org.apache.hc.client5.http.HttpResponseException;
 import org.apache.hc.client5.http.classic.methods.HttpDelete;
 import org.apache.hc.client5.http.classic.methods.HttpGet;
@@ -74,8 +71,8 @@ import org.apache.hc.core5.http.io.entity.EntityUtils;
 import org.apache.hc.core5.http.io.entity.StringEntity;
 import org.apache.hc.core5.http.message.BasicNameValuePair;
 import org.apache.hc.core5.net.URIBuilder;
+import org.hisp.dhis.model.Dhis2Objects;
 import org.hisp.dhis.model.IdentifiableObject;
-import org.hisp.dhis.model.Objects;
 import org.hisp.dhis.model.completedatasetregistration.CompleteDataSetRegistrationImportOptions;
 import org.hisp.dhis.model.datavalueset.DataValueSetImportOptions;
 import org.hisp.dhis.model.event.Events;
@@ -100,6 +97,12 @@ import org.hisp.dhis.response.completedatasetregistration.CompleteDataSetRegistr
 import org.hisp.dhis.response.object.ObjectResponse;
 import org.hisp.dhis.response.objects.ObjectsResponse;
 import org.hisp.dhis.util.HttpUtils;
+
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author Lars Helge Overland
@@ -243,7 +246,7 @@ public class BaseDhis2 {
   protected final CloseableHttpClient httpClient;
 
   public BaseDhis2(Dhis2Config config) {
-    Validate.notNull(config, "Config must be specified");
+    Objects.requireNonNull(config, "Config must be specified");
 
     this.config = config;
 
@@ -974,10 +977,10 @@ public class BaseDhis2 {
   /**
    * Saves or updates metadata objects.
    *
-   * @param objects the {@link Objects}.
+   * @param objects the {@link Dhis2Objects}.
    * @return {@link ObjectsResponse} holding information about the operation.
    */
-  protected ObjectsResponse saveMetadataObjects(Objects objects) {
+  protected ObjectsResponse saveMetadataObjects(Dhis2Objects objects) {
     URI url = config.getResolvedUrl("metadata");
 
     return executeJsonPostPutRequest(new HttpPost(url), objects, ObjectsResponse.class);

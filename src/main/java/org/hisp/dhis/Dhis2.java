@@ -39,6 +39,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+
 import org.apache.commons.lang3.Validate;
 import org.apache.hc.client5.http.HttpResponseException;
 import org.apache.hc.client5.http.classic.methods.HttpGet;
@@ -62,6 +64,7 @@ import org.hisp.dhis.model.DataElement;
 import org.hisp.dhis.model.DataElementGroup;
 import org.hisp.dhis.model.DataElementGroupSet;
 import org.hisp.dhis.model.DataSet;
+import org.hisp.dhis.model.Dhis2Objects;
 import org.hisp.dhis.model.Dimension;
 import org.hisp.dhis.model.GeoMap;
 import org.hisp.dhis.model.ImportStrategy;
@@ -70,7 +73,6 @@ import org.hisp.dhis.model.IndicatorGroup;
 import org.hisp.dhis.model.IndicatorGroupSet;
 import org.hisp.dhis.model.IndicatorType;
 import org.hisp.dhis.model.Me;
-import org.hisp.dhis.model.Objects;
 import org.hisp.dhis.model.OptionSet;
 import org.hisp.dhis.model.OrgUnit;
 import org.hisp.dhis.model.OrgUnitGroup;
@@ -420,7 +422,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectsResponse} holding information about the operation.
    */
   public ObjectsResponse saveOrgUnits(List<OrgUnit> orgUnits) {
-    return saveMetadataObjects(new Objects().setOrganisationUnits(orgUnits));
+    return saveMetadataObjects(new Dhis2Objects().setOrganisationUnits(orgUnits));
   }
 
   /**
@@ -491,7 +493,7 @@ public class Dhis2 extends BaseDhis2 {
                 .addParameter(FIELDS_PARAM, ORG_UNIT_FIELDS)
                 .addParameter("level", String.valueOf(level)),
             query,
-            Objects.class)
+            Dhis2Objects.class)
         .getOrganisationUnits();
   }
 
@@ -508,7 +510,7 @@ public class Dhis2 extends BaseDhis2 {
                 .appendPath("organisationUnits")
                 .addParameter(FIELDS_PARAM, ORG_UNIT_FIELDS),
             query,
-            Objects.class)
+            Dhis2Objects.class)
         .getOrganisationUnits();
   }
 
@@ -561,7 +563,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectsResponse} holding information about the operation.
    */
   public ObjectsResponse saveOrgUnitGroups(List<OrgUnitGroup> orgUnitGroups) {
-    return saveMetadataObjects(new Objects().setOrganisationUnitGroups(orgUnitGroups));
+    return saveMetadataObjects(new Dhis2Objects().setOrganisationUnitGroups(orgUnitGroups));
   }
 
   /**
@@ -624,7 +626,7 @@ public class Dhis2 extends BaseDhis2 {
                 .appendPath("organisationUnitGroups")
                 .addParameter(FIELDS_PARAM, fieldsParams),
             query,
-            Objects.class)
+            Dhis2Objects.class)
         .getOrganisationUnitGroups();
   }
 
@@ -660,7 +662,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectsResponse} holding information about the operation.
    */
   public ObjectsResponse saveOrgUnitGroupSets(List<OrgUnitGroupSet> orgUnitGroupSets) {
-    return saveMetadataObjects(new Objects().setOrganisationUnitGroupSets(orgUnitGroupSets));
+    return saveMetadataObjects(new Dhis2Objects().setOrganisationUnitGroupSets(orgUnitGroupSets));
   }
 
   /**
@@ -715,7 +717,7 @@ public class Dhis2 extends BaseDhis2 {
                 .appendPath("organisationUnitGroupSets")
                 .addParameter(FIELDS_PARAM, ORG_UNIT_GROUP_SET_FIELDS),
             query,
-            Objects.class)
+            Dhis2Objects.class)
         .getOrganisationUnitGroupSets();
   }
 
@@ -754,7 +756,7 @@ public class Dhis2 extends BaseDhis2 {
                 .appendPath("organisationUnitLevels")
                 .addParameter(FIELDS_PARAM, String.format("%s,level", ID_FIELDS)),
             query,
-            Objects.class)
+            Dhis2Objects.class)
         .getOrganisationUnitLevels();
   }
 
@@ -795,7 +797,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectsResponse} holding information about the operation.
    */
   public ObjectsResponse saveCategoryOptions(List<CategoryOption> categoryOptions) {
-    return saveMetadataObjects(new Objects().setCategoryOptions(categoryOptions));
+    return saveMetadataObjects(new Dhis2Objects().setCategoryOptions(categoryOptions));
   }
 
   /**
@@ -856,7 +858,7 @@ public class Dhis2 extends BaseDhis2 {
                 .appendPath("categoryOptions")
                 .addParameter(FIELDS_PARAM, fieldsParam),
             query,
-            Objects.class)
+            Dhis2Objects.class)
         .getCategoryOptions();
   }
 
@@ -881,7 +883,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectsResponse} holding information about the operation.
    */
   public ObjectsResponse saveCategories(List<Category> categories) {
-    return saveMetadataObjects(new Objects().setCategories(categories));
+    return saveMetadataObjects(new Dhis2Objects().setCategories(categories));
   }
 
   /**
@@ -945,7 +947,7 @@ public class Dhis2 extends BaseDhis2 {
                 .appendPath("categories")
                 .addParameter(FIELDS_PARAM, CATEGORY_FIELDS),
             query,
-            Objects.class)
+            Dhis2Objects.class)
         .getCategories();
   }
 
@@ -1004,7 +1006,7 @@ public class Dhis2 extends BaseDhis2 {
                 .appendPath("categoryCombos")
                 .addParameter(FIELDS_PARAM, CATEGORY_COMBO_FIELDS),
             query,
-            Objects.class)
+            Dhis2Objects.class)
         .getCategoryCombos();
   }
 
@@ -1043,7 +1045,7 @@ public class Dhis2 extends BaseDhis2 {
                 .appendPath("categoryOptionCombos")
                 .addParameter(FIELDS_PARAM, CATEGORY_OPTION_COMBO_FIELDS),
             query,
-            Objects.class)
+            Dhis2Objects.class)
         .getCategoryOptionCombos();
   }
 
@@ -1068,7 +1070,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectsResponse} holding information about the operation.
    */
   public ObjectsResponse saveDataElements(List<DataElement> dataElements) {
-    return saveMetadataObjects(new Objects().setDataElements(dataElements));
+    return saveMetadataObjects(new Dhis2Objects().setDataElements(dataElements));
   }
 
   /**
@@ -1139,7 +1141,7 @@ public class Dhis2 extends BaseDhis2 {
                 .appendPath("dataElements")
                 .addParameter(FIELDS_PARAM, fieldsParam),
             query,
-            Objects.class)
+            Dhis2Objects.class)
         .getDataElements();
   }
 
@@ -1164,7 +1166,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectsResponse} holding information about the operation.
    */
   public ObjectsResponse saveDataElementGroups(List<DataElementGroup> dataElementGroups) {
-    return saveMetadataObjects(new Objects().setDataElementGroups(dataElementGroups));
+    return saveMetadataObjects(new Dhis2Objects().setDataElementGroups(dataElementGroups));
   }
 
   /**
@@ -1226,7 +1228,7 @@ public class Dhis2 extends BaseDhis2 {
                 .appendPath("dataElementGroups")
                 .addParameter(FIELDS_PARAM, fieldsParams),
             query,
-            Objects.class)
+            Dhis2Objects.class)
         .getDataElementGroups();
   }
 
@@ -1274,7 +1276,7 @@ public class Dhis2 extends BaseDhis2 {
                 .appendPath("dataElementGroupSets")
                 .addParameter(FIELDS_PARAM, DATA_ELEMENT_GROUP_SET_FIELDS),
             query,
-            Objects.class)
+            Dhis2Objects.class)
         .getDataElementGroupSets();
   }
 
@@ -1322,7 +1324,7 @@ public class Dhis2 extends BaseDhis2 {
                 .appendPath("indicators")
                 .addParameter(FIELDS_PARAM, INDICATOR_FIELDS),
             query,
-            Objects.class)
+            Dhis2Objects.class)
         .getIndicators();
   }
 
@@ -1377,7 +1379,7 @@ public class Dhis2 extends BaseDhis2 {
                 .appendPath("indicatorGroups")
                 .addParameter(FIELDS_PARAM, fieldsParams),
             query,
-            Objects.class)
+            Dhis2Objects.class)
         .getIndicatorGroups();
   }
 
@@ -1425,7 +1427,7 @@ public class Dhis2 extends BaseDhis2 {
                 .appendPath("indicatorGroupSets")
                 .addParameter(FIELDS_PARAM, INDICATOR_GROUP_SET_FIELDS),
             query,
-            Objects.class)
+            Dhis2Objects.class)
         .getIndicatorGroupSets();
   }
 
@@ -1473,7 +1475,7 @@ public class Dhis2 extends BaseDhis2 {
                 .appendPath("indicators")
                 .addParameter(FIELDS_PARAM, INDICATOR_FIELDS),
             query,
-            Objects.class)
+            Dhis2Objects.class)
         .getIndicatorTypes();
   }
 
@@ -1534,7 +1536,7 @@ public class Dhis2 extends BaseDhis2 {
                 .appendPath("dataSets")
                 .addParameter(FIELDS_PARAM, fieldsParam),
             query,
-            Objects.class)
+            Dhis2Objects.class)
         .getDataSets();
   }
 
@@ -1681,7 +1683,7 @@ public class Dhis2 extends BaseDhis2 {
                 .appendPath("programs")
                 .addParameter(FIELDS_PARAM, fieldsParam),
             query,
-            Objects.class)
+            Dhis2Objects.class)
         .getPrograms();
   }
 
@@ -1740,7 +1742,7 @@ public class Dhis2 extends BaseDhis2 {
                 .appendPath("programIndicators")
                 .addParameter(FIELDS_PARAM, NAME_FIELDS),
             query,
-            Objects.class)
+            Dhis2Objects.class)
         .getProgramIndicators();
   }
 
@@ -1778,7 +1780,7 @@ public class Dhis2 extends BaseDhis2 {
                 .appendPath("trackedEntityTypes")
                 .addParameter(FIELDS_PARAM, TRACKED_ENTITY_TYPE_FIELDS),
             query,
-            Objects.class)
+            Dhis2Objects.class)
         .getTrackedEntityTypes();
   }
 
@@ -1827,7 +1829,7 @@ public class Dhis2 extends BaseDhis2 {
                 .appendPath("categoryOptionGroups")
                 .addParameter(FIELDS_PARAM, CATEGORY_OPTION_GROUP_FIELDS),
             query,
-            Objects.class)
+            Dhis2Objects.class)
         .getCategoryOptionGroups();
   }
 
@@ -1876,7 +1878,7 @@ public class Dhis2 extends BaseDhis2 {
                 .appendPath("categoryOptionGroupSets")
                 .addParameter(FIELDS_PARAM, CATEGORY_OPTION_GROUP_SET_FIELDS),
             query,
-            Objects.class)
+            Dhis2Objects.class)
         .getCategoryOptionGroupSets();
   }
 
@@ -1932,7 +1934,7 @@ public class Dhis2 extends BaseDhis2 {
                 .appendPath("optionSets")
                 .addParameter(FIELDS_PARAM, fieldsParam),
             query,
-            Objects.class)
+            Dhis2Objects.class)
         .getOptionSets();
   }
 
@@ -1957,7 +1959,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectsResponse} holding information about the operation.
    */
   public ObjectsResponse saveTableHooks(List<TableHook> tableHooks) {
-    return saveMetadataObjects(new Objects().setAnalyticsTableHooks(tableHooks));
+    return saveMetadataObjects(new Dhis2Objects().setAnalyticsTableHooks(tableHooks));
   }
 
   /**
@@ -2005,7 +2007,7 @@ public class Dhis2 extends BaseDhis2 {
                 .appendPath("analyticsTableHooks")
                 .addParameter(FIELDS_PARAM, ID_FIELDS),
             query,
-            Objects.class)
+            Dhis2Objects.class)
         .getAnalyticsTableHooks();
   }
 
@@ -2054,7 +2056,7 @@ public class Dhis2 extends BaseDhis2 {
                 .appendPath("visualizations")
                 .addParameter(FIELDS_PARAM, NAME_FIELDS),
             query,
-            Objects.class)
+            Dhis2Objects.class)
         .getVisualizations();
   }
 
@@ -2103,7 +2105,7 @@ public class Dhis2 extends BaseDhis2 {
                 .appendPath("maps")
                 .addParameter(FIELDS_PARAM, NAME_FIELDS),
             query,
-            Objects.class)
+            Dhis2Objects.class)
         .getMaps();
   }
 
@@ -2152,7 +2154,7 @@ public class Dhis2 extends BaseDhis2 {
                 .appendPath("dashboards")
                 .addParameter(FIELDS_PARAM, DASHBOARD_FIELDS),
             query,
-            Objects.class)
+            Dhis2Objects.class)
         .getDashboards();
   }
 
@@ -2190,7 +2192,7 @@ public class Dhis2 extends BaseDhis2 {
                 .appendPath("dimensions")
                 .addParameter(FIELDS_PARAM, String.format("%s,dimensionType", ID_FIELDS)),
             query,
-            Objects.class)
+            Dhis2Objects.class)
         .getDimensions();
   }
 
@@ -2211,7 +2213,7 @@ public class Dhis2 extends BaseDhis2 {
                 .appendPath("periodTypes")
                 .addParameter(FIELDS_PARAM, "frequencyOrder,name,isoDuration,isoFormat"),
             query,
-            Objects.class)
+            Dhis2Objects.class)
         .getPeriodTypes();
   }
 
@@ -2420,7 +2422,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link EventResponse} holding information about the operation.
    */
   public EventResponse removeEvent(Event event) {
-    Validate.notNull(event.getId(), "Event identifier must be specified");
+    Objects.requireNonNull(event.getId(), "Event identifier must be specified");
 
     Events events = new Events(list(event));
 
