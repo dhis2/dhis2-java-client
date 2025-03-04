@@ -800,7 +800,7 @@ public class BaseDhis2 {
    * @param url the request URL.
    * @throws Dhis2ClientException
    */
-  private void handleErrors(CloseableHttpResponse response, String url) {
+  private void handleErrors(HttpResponse response, String url) {
     final int code = response.getCode();
 
     if (ERROR_STATUS_CODES.contains(code)) {
