@@ -1551,13 +1551,13 @@ public class Dhis2 extends BaseDhis2 {
    * @return list of {@link CompleteDataSetRegistration}.
    */
   public List<CompleteDataSetRegistration> getCompleteDataSetRegistrations(CompleteDataSetRegistrationQuery query) {
-    Validate.notNull(query, "query must be specified");
+    Objects.requireNonNull(query, "query must be specified");
 
     URIBuilder uriBuilder = config.getResolvedUriBuilder().appendPath("completeDataSetRegistrations");
 
     URI uri = getCompleteDataSetRegistrationQuery(uriBuilder, query);
 
-    return getObjectFromUrl(uri, Objects.class).getCompleteDataSetRegistrations();
+    return getObjectFromUrl(uri, Dhis2Objects.class).getCompleteDataSetRegistrations();
   }
 
   /**
@@ -1569,7 +1569,7 @@ public class Dhis2 extends BaseDhis2 {
    */
   public CompleteDataSetRegistrationResponse saveCompleteDataSetRegistrations(List<CompleteDataSetRegistration> completeDataSetRegistrations,
                                                                               CompleteDataSetRegistrationImportOptions options) {
-    Objects entityObject = new Objects().setCompleteDataSetRegistrations(completeDataSetRegistrations);
+    Dhis2Objects entityObject = new Dhis2Objects().setCompleteDataSetRegistrations(completeDataSetRegistrations);
 
     StringEntity entity = new StringEntity(toJsonString(entityObject), StandardCharsets.UTF_8);
 
