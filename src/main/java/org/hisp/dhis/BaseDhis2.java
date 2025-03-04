@@ -73,8 +73,8 @@ import org.apache.hc.core5.http.io.entity.EntityUtils;
 import org.apache.hc.core5.http.io.entity.StringEntity;
 import org.apache.hc.core5.http.message.BasicNameValuePair;
 import org.apache.hc.core5.net.URIBuilder;
+import org.hisp.dhis.model.Dhis2Objects;
 import org.hisp.dhis.model.IdentifiableObject;
-import org.hisp.dhis.model.Objects;
 import org.hisp.dhis.model.datavalueset.DataValueSetImportOptions;
 import org.hisp.dhis.model.event.Events;
 import org.hisp.dhis.model.event.EventsResult;
@@ -871,10 +871,10 @@ public class BaseDhis2 {
   /**
    * Saves or updates metadata objects.
    *
-   * @param objects the {@link Objects}.
+   * @param objects the {@link Dhis2Objects}.
    * @return {@link ObjectsResponse} holding information about the operation.
    */
-  protected ObjectsResponse saveMetadataObjects(Objects objects) {
+  protected ObjectsResponse saveMetadataObjects(Dhis2Objects objects) {
     URI url = config.getResolvedUrl("metadata");
 
     return executeJsonPostPutRequest(new HttpPost(url), objects, ObjectsResponse.class);

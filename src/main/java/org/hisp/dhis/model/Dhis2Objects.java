@@ -41,7 +41,7 @@ import org.hisp.dhis.model.trackedentity.TrackedEntityType;
 @Setter
 @Accessors(chain = true)
 @NoArgsConstructor
-public class Objects {
+public class Dhis2Objects {
   @JsonProperty private List<Dashboard> dashboards = new ArrayList<>();
 
   @JsonProperty private List<DataElement> dataElements = new ArrayList<>();
