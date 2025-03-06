@@ -89,6 +89,7 @@ import org.hisp.dhis.query.analytics.Dimension;
 import org.hisp.dhis.query.datavalue.DataValueQuery;
 import org.hisp.dhis.query.datavalue.DataValueSetQuery;
 import org.hisp.dhis.query.event.EventsQuery;
+import org.hisp.dhis.query.validations.DataSetValidationQuery;
 import org.hisp.dhis.response.BaseHttpResponse;
 import org.hisp.dhis.response.Dhis2ClientException;
 import org.hisp.dhis.response.HttpStatus;
@@ -233,6 +234,13 @@ public class BaseDhis2 {
   private static final Set<Integer> ERROR_STATUS_CODES =
       set(SC_UNAUTHORIZED, SC_FORBIDDEN, SC_NOT_FOUND);
 
+  /** Validation Rules fields. */
+  protected static final String DATA_SET_PARAM = "dataSet";
+
+  protected static final String VALIDATION_RULES_FIELDS = String.format(
+          "%1$s,id,importance,operator,leftSide,rightSide",NAME_FIELDS
+  );
+
   protected final Dhis2Config config;
 
   protected final ObjectMapper objectMapper;
@@ -342,6 +350,21 @@ public class BaseDhis2 {
   protected <T> T getDataValueSetResponse(
       URIBuilder uriBuilder, DataValueSetQuery query, Class<T> type) {
     URI url = getDataValueSetQuery(uriBuilder, query);
+    return getObjectFromUrl(url, type);
+  }
+
+  /**
+   * Retrieves a Validation object using HTTP GET.
+   *
+   * @param uriBuilder the URI builder.
+   * @param query the {@link DataSetValidationQuery} filters to apply.
+   * @param type the class type of the object.
+   * @param <T> type.
+   * @return the object.
+   */
+  protected <T> T getDataSetValidationResponse(
+          URIBuilder uriBuilder, DataSetValidationQuery query, Class<T> type) {
+    URI url = getDataSetValidationQuery(uriBuilder, query);
     return getObjectFromUrl(url, type);
   }
 
@@ -551,6 +574,20 @@ public class BaseDhis2 {
     }
 
     addParameter(uriBuilder, "ds", query.getDs());
+
+    return HttpUtils.build(uriBuilder);
+  }
+
+  /**
+   * Returns a {@link URI} based on the given dataSetValidation query.
+   *
+   * @param uriBuilder the URI builder.
+   * @param query the {@link DataSetValidationQuery}.
+   * @return a URI.
+   */
+  protected URI getDataSetValidationQuery(URIBuilder uriBuilder, DataSetValidationQuery query) {
+    addParameter(uriBuilder, "pe", query.getPe());
+    addParameter(uriBuilder, "ou", query.getOu());
 
     return HttpUtils.build(uriBuilder);
   }

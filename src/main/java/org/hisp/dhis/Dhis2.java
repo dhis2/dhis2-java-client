@@ -64,11 +64,15 @@ import org.hisp.dhis.model.event.Event;
 import org.hisp.dhis.model.event.Events;
 import org.hisp.dhis.model.event.EventsResult;
 import org.hisp.dhis.model.trackedentity.TrackedEntityType;
+import org.hisp.dhis.model.validation.Period;
+import org.hisp.dhis.model.validation.Validation;
+import org.hisp.dhis.model.validation.ValidationRule;
 import org.hisp.dhis.query.Query;
 import org.hisp.dhis.query.analytics.AnalyticsQuery;
 import org.hisp.dhis.query.datavalue.DataValueQuery;
 import org.hisp.dhis.query.datavalue.DataValueSetQuery;
 import org.hisp.dhis.query.event.EventsQuery;
+import org.hisp.dhis.query.validations.DataSetValidationQuery;
 import org.hisp.dhis.request.orgunit.OrgUnitMergeRequest;
 import org.hisp.dhis.request.orgunit.OrgUnitSplitRequest;
 import org.hisp.dhis.response.Dhis2ClientException;
@@ -2395,5 +2399,38 @@ public class Dhis2 extends BaseDhis2 {
                 Query.instance(),
                 FileResource.class);
     }
-    
+
+    /**
+     * Retrieves the validation results of a {@link DataSet} in a particular {@link Period} and {@Link OrgUnit}.
+     *
+     * @param query the {@link DataSetValidationQuery}.
+     * @return The content of a file resource referenced in a {@link DataValue}.
+     */
+    public Validation getDataSetValidation(DataSetValidationQuery query) {
+        return getDataSetValidationResponse(
+                config.getResolvedUriBuilder()
+                        .appendPath("validation/dataSet")
+                        .appendPath(query.getDataSet()),
+                query,
+                Validation.class
+        );
+    }
+
+    /**
+     * Retrieves a list of {@link ValidationRule}.
+     *
+     * @param dataSet the object identifier of the Data Set where the validations apply.
+     * @return list of {@link ValidationRule}.
+     */
+    public List<ValidationRule> getValidationRules(String dataSet) {
+        return getObject(
+                config
+                        .getResolvedUriBuilder()
+                        .appendPath("validationRules")
+                        .addParameter(DATA_SET_PARAM, dataSet)
+                        .addParameter(FIELDS_PARAM, "*"),
+                Query.instance(),
+                Objects.class)
+                .getValidationRules();
+    }
 }

@@ -8,6 +8,7 @@ import org.hisp.dhis.model.IdentifiableObject;
 import org.hisp.dhis.model.datavalueset.DataValue;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Getter
@@ -23,5 +24,13 @@ public class Validation {
 
     public boolean addCommentRequiredViolation(IdentifiableObject commentRequiredViolation) {
         return this.commentRequiredViolations.add(commentRequiredViolation);
+    }
+
+    public boolean addAllValidationRuleViolation(Collection<ValidationRuleViolation> validationRuleViolations) {
+        return this.validationRuleViolations.addAll(validationRuleViolations);
+    }
+
+    public boolean addAllCommentRequiredViolation(Collection<IdentifiableObject> commentRequiredViolations) {
+        return this.commentRequiredViolations.addAll(commentRequiredViolations);
     }
 }
