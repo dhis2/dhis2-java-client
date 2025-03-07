@@ -9,6 +9,7 @@ import lombok.Setter;
 public class ValidationSide {
     @JsonProperty private String expression;
     @JsonProperty private String description;
+    @JsonProperty private String displayDescription;
     @JsonProperty private Boolean slidingWindow;
     @JsonProperty private String missingValueStrategy;
 }

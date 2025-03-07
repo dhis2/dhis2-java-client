@@ -2410,7 +2410,8 @@ public class Dhis2 extends BaseDhis2 {
         return getDataSetValidationResponse(
                 config.getResolvedUriBuilder()
                         .appendPath("validation/dataSet")
-                        .appendPath(query.getDataSet()),
+                        .appendPath(query.getDataSet())
+                        .addParameter(FIELDS_PARAM, "*,organisationUnit[*],validationRule[*]"),
                 query,
                 Validation.class
         );

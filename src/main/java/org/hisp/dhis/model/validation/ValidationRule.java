@@ -19,6 +19,10 @@ public class ValidationRule extends NameableObject {
     @JsonProperty private String importance;
     @JsonProperty private String periodType;
 
+    @JsonProperty private String displayDescription;
+    @JsonProperty private String displayInstruction;
+    @JsonProperty private String displayName;
+
     @JsonProperty private ValidationSide leftSide;
     @JsonProperty private String operator;
     @JsonProperty private ValidationSide rightSide;

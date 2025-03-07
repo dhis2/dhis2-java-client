@@ -12,10 +12,10 @@ public class ValidationRuleViolation {
     @JsonProperty private Integer id;
     @JsonProperty private ValidationRule validationRule;
     @JsonProperty private Period period;
-    @JsonProperty private OrgUnit orgUnit;
+    @JsonProperty private OrgUnit organisationUnit;
     @JsonProperty private CategoryOptionCombo attributeOptionCombo;
-    @JsonProperty private Integer leftsideValue;
-    @JsonProperty private Integer rightsideValue;
+    @JsonProperty private String leftsideValue;
+    @JsonProperty private String rightsideValue;
     @JsonProperty private Integer dayInPeriod;
     @JsonProperty private Boolean notificationSent;
 }
