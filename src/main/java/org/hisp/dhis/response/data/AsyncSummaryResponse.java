@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004-2024, University of Oslo
+ * Copyright (c) 2004-2025, University of Oslo
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,24 +25,66 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.hisp.dhis.response.datavalueset;
+package org.hisp.dhis.response.data;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.hisp.dhis.response.BaseHttpResponse;
 
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
-public class ImportCount {
-  @JsonProperty private int imported;
+public abstract class AsyncSummaryResponse extends BaseHttpResponse {
+  @JsonProperty protected Status status;
 
-  @JsonProperty private int updated;
+  @JsonProperty protected String description;
 
-  @JsonProperty private int ignored;
+  @JsonProperty protected ImportCount importCount;
 
-  @JsonProperty private int deleted;
+  @JsonProperty protected List<Conflict> conflicts = new ArrayList<>();
+
+  @JsonProperty private String dataSetComplete;
+
+  /**
+   * Indicates whether an import count exists.
+   *
+   * @return true if an import count exists.
+   */
+  @JsonIgnore
+  public boolean hasImportCount() {
+    return importCount != null;
+  }
+
+  /**
+   * Returns the total count including imported, updated, deleted and ignored data values.
+   *
+   * @return a total count.
+   */
+  @JsonIgnore
+  private long getTotalCount() {
+    return hasImportCount()
+        ? (importCount.getImported()
+            + importCount.getUpdated()
+            + importCount.getDeleted()
+            + importCount.getIgnored())
+        : 0;
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringBuilder(this)
+        .append("status", status)
+        .append("description", description)
+        .append("importCount", importCount)
+        .append("conflicts", conflicts)
+        .append("dataSetComplete", dataSetComplete)
+        .append("httpStatusCode", httpStatusCode)
+        .toString();
+  }
 }

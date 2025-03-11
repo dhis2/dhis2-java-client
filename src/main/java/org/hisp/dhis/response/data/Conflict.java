@@ -25,16 +25,20 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.hisp.dhis.response.datavalueset;
+package org.hisp.dhis.response.data;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hisp.dhis.response.data.AsyncSummaryResponse;
+import lombok.Setter;
+import lombok.ToString;
 
+@Getter
+@Setter
+@ToString
 @NoArgsConstructor
-public class DataValueSetResponse extends AsyncSummaryResponse {
+public class Conflict {
+  @JsonProperty private String object;
 
-  @Override
-  public String toString() {
-    return super.toString();
-  }
+  @JsonProperty private String value;
 }

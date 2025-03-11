@@ -34,6 +34,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import org.hisp.dhis.model.completedatasetregistration.CompleteDataSetRegistration;
 import org.hisp.dhis.model.dashboard.Dashboard;
 import org.hisp.dhis.model.trackedentity.TrackedEntityType;
 
@@ -67,6 +68,9 @@ public class Dhis2Objects {
   @JsonProperty private List<DataElementGroupSet> dataElementGroupSets = new ArrayList<>();
 
   @JsonProperty private List<DataSet> dataSets = new ArrayList<>();
+
+  @JsonProperty
+  private List<CompleteDataSetRegistration> completeDataSetRegistrations = new ArrayList<>();
 
   @JsonProperty private List<GeoMap> maps = new ArrayList<GeoMap>();
 

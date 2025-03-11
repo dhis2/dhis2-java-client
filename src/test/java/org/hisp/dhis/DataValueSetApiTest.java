@@ -28,12 +28,17 @@
 package org.hisp.dhis;
 
 import static org.hisp.dhis.util.CollectionUtils.list;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
 import org.hisp.dhis.model.datavalueset.DataValue;
 import org.hisp.dhis.model.datavalueset.DataValueSet;
+import org.hisp.dhis.model.datavalueset.DataValueSetImportOptions;
 import org.hisp.dhis.query.datavalue.DataValueSetQuery;
+import org.hisp.dhis.response.Dhis2ClientException;
+import org.hisp.dhis.response.data.ImportCount;
+import org.hisp.dhis.response.data.Status;
+import org.hisp.dhis.response.datavalueset.DataValueSetResponse;
 import org.hisp.dhis.support.TestTags;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -56,5 +61,57 @@ class DataValueSetApiTest {
     List<DataValue> dataValues = dataValueSet.getDataValues();
 
     assertNotNull(dataValues);
+  }
+
+  @Test
+  void testGetDataValueSetsWithoutOrgUnitThrowsException() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    DataValueSetQuery query =
+        DataValueSetQuery.instance().addDataSets(list("lyLU2wR22tC")).addPeriods(list("202211"));
+
+    Dhis2ClientException error =
+        assertThrows(Dhis2ClientException.class, () -> dhis2.getDataValueSet(query));
+
+    assertNotNull(error);
+    assertEquals(
+        "At least one organisation unit or organisation unit group must be specified",
+        error.getMessage());
+  }
+
+  @Test
+  void testSaveDataValueSets() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.LOCAL_CONFIG);
+
+    DataValueSet dataValueSet = getDataValueSet();
+    DataValueSetImportOptions importOptions = DataValueSetImportOptions.instance();
+    DataValueSetResponse response = dhis2.saveDataValueSet(dataValueSet, importOptions);
+
+    assertNotNull(response);
+    assertEquals(Status.SUCCESS, response.getStatus());
+
+    ImportCount importCount = response.getImportCount();
+    assertNotNull(importCount);
+  }
+
+  private DataValueSet getDataValueSet() {
+    DataValueSet dataValueSet = new DataValueSet();
+    dataValueSet.setDataSet("lyLU2wR22tC");
+    dataValueSet.setPeriod("202411");
+    dataValueSet.setOrgUnit("ImspTQPwCqd");
+    dataValueSet.addDataValue(getDataValue());
+    return dataValueSet;
+  }
+
+  private DataValue getDataValue() {
+    DataValue dataValue = new DataValue();
+    dataValue.setDataElement("BOSZApCrBni");
+    dataValue.setPeriod("202411");
+    dataValue.setOrgUnit("ImspTQPwCqd");
+    dataValue.setAttributeOptionCombo("");
+    dataValue.setValue("23");
+    dataValue.setStoredBy("system");
+    dataValue.setFollowup(false);
+    return dataValue;
   }
 }

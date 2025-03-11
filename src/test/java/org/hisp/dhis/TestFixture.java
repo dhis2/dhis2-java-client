@@ -34,13 +34,13 @@ import lombok.NoArgsConstructor;
 public final class TestFixture {
   public static final String DEV_URL = "https://play.im.dhis2.org/dev";
 
-  public static final String V40_URL = "https://play.im.dhis2.org/stable-2-41-2";
+  public static final String V40_URL = "https://play.im.dhis2.org/stable-2-41-3";
 
-  public static final String V39_URL = "https://play.im.dhis2.org/stable-2-39-7";
+  public static final String V39_URL = "https://play.im.dhis2.org/stable-2-39-8";
 
   public static final String LOCAL_URL = "https://localhost/dhis";
 
-  public static final String DEFAULT_URL = V39_URL;
+  public static final String DEFAULT_URL = V40_URL;
 
   public static final Dhis2Config DEFAULT_CONFIG =
       new Dhis2Config(DEFAULT_URL, "system", "System123");
