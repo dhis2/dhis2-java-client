@@ -237,9 +237,9 @@ public class BaseDhis2 {
   /** Validation Rules fields. */
   protected static final String DATA_SET_PARAM = "dataSet";
 
-  protected static final String VALIDATION_RULES_FIELDS = String.format(
-          "%1$s,id,importance,operator,leftSide,rightSide",NAME_FIELDS
-  );
+  protected static final String VALIDATION_RULES_FIELDS =
+          "id,leftsideValue,rightsideValue,dayInPeriod,notificationSent," +
+                  "validationRule[*],period[*],organisationUnit[*],attributeOptionCombo[*]";
 
   protected final Dhis2Config config;
 

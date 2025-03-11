@@ -2411,7 +2411,7 @@ public class Dhis2 extends BaseDhis2 {
                 config.getResolvedUriBuilder()
                         .appendPath("validation/dataSet")
                         .appendPath(query.getDataSet())
-                        .addParameter(FIELDS_PARAM, "*,organisationUnit[*],validationRule[*]"),
+                        .addParameter(FIELDS_PARAM, VALIDATION_RULES_FIELDS),
                 query,
                 Validation.class
         );
