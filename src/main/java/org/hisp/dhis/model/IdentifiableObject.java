@@ -27,6 +27,8 @@
  */
 package org.hisp.dhis.model;
 
+import static org.hisp.dhis.util.DateTimeUtils.JSON_DATE_TIME_FORMAT;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
@@ -37,8 +39,6 @@ import java.util.Set;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-
-import static org.hisp.dhis.util.DateTimeUtils.JSON_DATE_TIME_FORMAT;
 
 @Getter
 @Setter

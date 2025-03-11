@@ -27,6 +27,10 @@
  */
 package org.hisp.dhis;
 
+import static org.hisp.dhis.util.CollectionUtils.list;
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.List;
 import org.hisp.dhis.model.datavalueset.DataValue;
 import org.hisp.dhis.model.datavalueset.DataValueSet;
 import org.hisp.dhis.model.datavalueset.DataValueSetImportOptions;
@@ -38,11 +42,6 @@ import org.hisp.dhis.response.datavalueset.DataValueSetResponse;
 import org.hisp.dhis.support.TestTags;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-
-import java.util.List;
-
-import static org.hisp.dhis.util.CollectionUtils.list;
-import static org.junit.jupiter.api.Assertions.*;
 
 @Tag(TestTags.INTEGRATION)
 class DataValueSetApiTest {
@@ -69,14 +68,15 @@ class DataValueSetApiTest {
     Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
 
     DataValueSetQuery query =
-            DataValueSetQuery.instance()
-                    .addDataSets(list("lyLU2wR22tC"))
-                    .addPeriods(list("202211"));
+        DataValueSetQuery.instance().addDataSets(list("lyLU2wR22tC")).addPeriods(list("202211"));
 
-    Dhis2ClientException error = assertThrows(Dhis2ClientException.class, () -> dhis2.getDataValueSet(query));
+    Dhis2ClientException error =
+        assertThrows(Dhis2ClientException.class, () -> dhis2.getDataValueSet(query));
 
     assertNotNull(error);
-    assertEquals("At least one organisation unit or organisation unit group must be specified", error.getMessage());
+    assertEquals(
+        "At least one organisation unit or organisation unit group must be specified",
+        error.getMessage());
   }
 
   @Test

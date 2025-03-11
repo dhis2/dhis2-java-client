@@ -40,7 +40,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-
 import org.apache.commons.lang3.Validate;
 import org.apache.hc.client5.http.HttpResponseException;
 import org.apache.hc.client5.http.classic.methods.HttpGet;
@@ -85,6 +84,8 @@ import org.hisp.dhis.model.SystemInfo;
 import org.hisp.dhis.model.SystemSettings;
 import org.hisp.dhis.model.TableHook;
 import org.hisp.dhis.model.Visualization;
+import org.hisp.dhis.model.completedatasetregistration.CompleteDataSetRegistration;
+import org.hisp.dhis.model.completedatasetregistration.CompleteDataSetRegistrationImportOptions;
 import org.hisp.dhis.model.dashboard.Dashboard;
 import org.hisp.dhis.model.datastore.DataStoreEntries;
 import org.hisp.dhis.model.datastore.EntryMetadata;
@@ -94,8 +95,6 @@ import org.hisp.dhis.model.event.Event;
 import org.hisp.dhis.model.event.Events;
 import org.hisp.dhis.model.event.EventsResult;
 import org.hisp.dhis.model.trackedentity.TrackedEntityType;
-import org.hisp.dhis.model.completedatasetregistration.CompleteDataSetRegistration;
-import org.hisp.dhis.model.completedatasetregistration.CompleteDataSetRegistrationImportOptions;
 import org.hisp.dhis.query.Query;
 import org.hisp.dhis.query.analytics.AnalyticsQuery;
 import org.hisp.dhis.query.completedatasetregistration.CompleteDataSetRegistrationQuery;
@@ -1550,10 +1549,12 @@ public class Dhis2 extends BaseDhis2 {
    * @param query the {@link Query}.
    * @return list of {@link CompleteDataSetRegistration}.
    */
-  public List<CompleteDataSetRegistration> getCompleteDataSetRegistrations(CompleteDataSetRegistrationQuery query) {
+  public List<CompleteDataSetRegistration> getCompleteDataSetRegistrations(
+      CompleteDataSetRegistrationQuery query) {
     Objects.requireNonNull(query, "query must be specified");
 
-    URIBuilder uriBuilder = config.getResolvedUriBuilder().appendPath("completeDataSetRegistrations");
+    URIBuilder uriBuilder =
+        config.getResolvedUriBuilder().appendPath("completeDataSetRegistrations");
 
     URI uri = getCompleteDataSetRegistrationQuery(uriBuilder, query);
 
@@ -1567,9 +1568,11 @@ public class Dhis2 extends BaseDhis2 {
    * @param options import options {@link CompleteDataSetRegistrationImportOptions}.
    * @return {@link CompleteDataSetRegistrationResponse} holding information about the operation.
    */
-  public CompleteDataSetRegistrationResponse saveCompleteDataSetRegistrations(List<CompleteDataSetRegistration> completeDataSetRegistrations,
-                                                                              CompleteDataSetRegistrationImportOptions options) {
-    Dhis2Objects entityObject = new Dhis2Objects().setCompleteDataSetRegistrations(completeDataSetRegistrations);
+  public CompleteDataSetRegistrationResponse saveCompleteDataSetRegistrations(
+      List<CompleteDataSetRegistration> completeDataSetRegistrations,
+      CompleteDataSetRegistrationImportOptions options) {
+    Dhis2Objects entityObject =
+        new Dhis2Objects().setCompleteDataSetRegistrations(completeDataSetRegistrations);
 
     StringEntity entity = new StringEntity(toJsonString(entityObject), StandardCharsets.UTF_8);
 
@@ -1583,22 +1586,26 @@ public class Dhis2 extends BaseDhis2 {
    * @param options the {@link CompleteDataSetRegistrationImportOptions}.
    * @return {@link CompleteDataSetRegistrationResponse} holding information about the operation.
    */
-  public CompleteDataSetRegistrationResponse saveCompleteDataSetRegistrations(File file, CompleteDataSetRegistrationImportOptions options) {
+  public CompleteDataSetRegistrationResponse saveCompleteDataSetRegistrations(
+      File file, CompleteDataSetRegistrationImportOptions options) {
     FileEntity fileEntity = new FileEntity(file, ContentType.APPLICATION_JSON);
 
     return saveCompleteDataSetRegistrations(fileEntity, options);
   }
 
   /**
-   * Saves a complete data set registration payload in JSON format represented by the given input stream.
+   * Saves a complete data set registration payload in JSON format represented by the given input
+   * stream.
    *
-   * @param inputStream the input stream representing the complete data set registration JSON payload.
+   * @param inputStream the input stream representing the complete data set registration JSON
+   *     payload.
    * @param options the {@link DataValueSetImportOptions}.
    * @return {@link CompleteDataSetRegistrationResponse} holding information about the operation.
    */
   public CompleteDataSetRegistrationResponse saveCompleteDataSetRegistrations(
-          InputStream inputStream, CompleteDataSetRegistrationImportOptions options) {
-    InputStreamEntity inputStreamEntity = new InputStreamEntity(inputStream, ContentType.APPLICATION_JSON);
+      InputStream inputStream, CompleteDataSetRegistrationImportOptions options) {
+    InputStreamEntity inputStreamEntity =
+        new InputStreamEntity(inputStream, ContentType.APPLICATION_JSON);
 
     return saveCompleteDataSetRegistrations(inputStreamEntity, options);
   }

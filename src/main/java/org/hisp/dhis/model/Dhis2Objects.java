@@ -69,7 +69,8 @@ public class Dhis2Objects {
 
   @JsonProperty private List<DataSet> dataSets = new ArrayList<>();
 
-  @JsonProperty private List<CompleteDataSetRegistration> completeDataSetRegistrations = new ArrayList<>();
+  @JsonProperty
+  private List<CompleteDataSetRegistration> completeDataSetRegistrations = new ArrayList<>();
 
   @JsonProperty private List<GeoMap> maps = new ArrayList<GeoMap>();
 

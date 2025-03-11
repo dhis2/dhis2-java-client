@@ -27,14 +27,17 @@
  */
 package org.hisp.dhis;
 
+import static org.apache.hc.core5.http.HttpStatus.SC_CONFLICT;
 import static org.apache.hc.core5.http.HttpStatus.SC_FORBIDDEN;
 import static org.apache.hc.core5.http.HttpStatus.SC_NOT_FOUND;
 import static org.apache.hc.core5.http.HttpStatus.SC_UNAUTHORIZED;
-import static org.apache.hc.core5.http.HttpStatus.SC_CONFLICT;
 import static org.hisp.dhis.util.CollectionUtils.asList;
 import static org.hisp.dhis.util.CollectionUtils.set;
 import static org.hisp.dhis.util.HttpUtils.getUriAsString;
 
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -48,7 +51,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
-
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.hc.client5.http.HttpResponseException;
@@ -97,12 +100,6 @@ import org.hisp.dhis.response.completedatasetregistration.CompleteDataSetRegistr
 import org.hisp.dhis.response.object.ObjectResponse;
 import org.hisp.dhis.response.objects.ObjectsResponse;
 import org.hisp.dhis.util.HttpUtils;
-
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author Lars Helge Overland
@@ -419,12 +416,15 @@ public class BaseDhis2 {
   }
 
   /**
-   * Save complete data set registrations according to complete data set registration import options.
+   * Save complete data set registrations according to complete data set registration import
+   * options.
+   *
    * @param entity the POST body {@link HttpEntity}.
    * @param options the {@link CompleteDataSetRegistrationImportOptions} import options.
    * @return POST response body {@link CompleteDataSetRegistrationResponse}.
    */
-  protected CompleteDataSetRegistrationResponse saveCompleteDataSetRegistrations(HttpEntity entity, CompleteDataSetRegistrationImportOptions options) {
+  protected CompleteDataSetRegistrationResponse saveCompleteDataSetRegistrations(
+      HttpEntity entity, CompleteDataSetRegistrationImportOptions options) {
     URIBuilder builder = config.getResolvedUriBuilder().appendPath("completeDataSetRegistrations");
 
     URI url = getCompleteDataSetRegistrationsImportQuery(builder, options);
@@ -550,7 +550,8 @@ public class BaseDhis2 {
    * @param query the {@link CompleteDataSetRegistrationQuery}.
    * @return a URI.
    */
-  protected URI getCompleteDataSetRegistrationQuery(URIBuilder uriBuilder, CompleteDataSetRegistrationQuery query) {
+  protected URI getCompleteDataSetRegistrationQuery(
+      URIBuilder uriBuilder, CompleteDataSetRegistrationQuery query) {
     for (String dataSet : query.getDataSets()) {
       addParameter(uriBuilder, "dataSet", dataSet);
     }
@@ -575,7 +576,7 @@ public class BaseDhis2 {
     addParameter(uriBuilder, "orgUnitIdScheme", query.getOrgUnitIdScheme());
     addParameter(uriBuilder, "dataSetIdScheme", query.getDataSetIdScheme());
     addParameter(
-            uriBuilder, "attributeOptionComboIdScheme", query.getAttributeOptionComboIdScheme());
+        uriBuilder, "attributeOptionComboIdScheme", query.getAttributeOptionComboIdScheme());
 
     return HttpUtils.build(uriBuilder);
   }
@@ -588,12 +589,12 @@ public class BaseDhis2 {
    * @return a URI.
    */
   private URI getCompleteDataSetRegistrationsImportQuery(
-          URIBuilder uriBuilder, CompleteDataSetRegistrationImportOptions options) {
+      URIBuilder uriBuilder, CompleteDataSetRegistrationImportOptions options) {
     addParameter(uriBuilder, "async", "true"); // Always use async
     addParameter(uriBuilder, "dataSetIdScheme", options.getDataSetIdScheme());
     addParameter(uriBuilder, "orgUnitIdScheme", options.getOrgUnitIdScheme());
     addParameter(
-            uriBuilder, "attributeOptionComboIdScheme", options.getAttributeOptionComboIdScheme());
+        uriBuilder, "attributeOptionComboIdScheme", options.getAttributeOptionComboIdScheme());
     addParameter(uriBuilder, "idScheme", options.getIdScheme());
     addParameter(uriBuilder, "preheatCache", options.getPreheatCache());
     addParameter(uriBuilder, "dryRun", options.getDryRun());
@@ -822,9 +823,10 @@ public class BaseDhis2 {
    * @param url the request URL.
    * @throws Dhis2ClientException
    */
-  private void handleErrorsForGet(CloseableHttpResponse response, String url) throws IOException, ParseException {
+  private void handleErrorsForGet(CloseableHttpResponse response, String url)
+      throws IOException, ParseException {
     final int code = response.getCode();
-    if(SC_CONFLICT == code) {
+    if (SC_CONFLICT == code) {
       String responseBody = EntityUtils.toString(response.getEntity());
 
       log("Conflict Error Response body: '{}'", responseBody);

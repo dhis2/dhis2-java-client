@@ -47,6 +47,7 @@ public class DateTimeUtils {
   public static final String JSON_DATE_FORMAT = DATE_FORMAT;
 
   public static final String JSON_DATE_TIME_FORMAT = "yyyy-MM-dd'T'hh:mm:ss";
+
   /**
    * Returns a date.
    *
