@@ -32,7 +32,6 @@ import static org.hisp.dhis.util.DateTimeUtils.getDate;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-
 import java.util.List;
 import org.hisp.dhis.model.event.Event;
 import org.hisp.dhis.model.event.EventDataValue;
@@ -253,10 +252,10 @@ class EventsApiTest {
     EventsResult events = dhis2.getEvents(query);
 
     assertNotNull(events);
-    assertNotNull(events.getInstances());
-    assertEquals(50, events.getInstances().size());
+    assertNotNull(events.getEvents());
+    assertEquals(50, events.getEvents().size());
 
-    Event event = events.getInstances().get(0);
+    Event event = events.getEvents().get(0);
 
     assertNotNull(event.getId());
     assertNotNull(event.getProgram());
