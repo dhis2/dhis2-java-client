@@ -1130,8 +1130,9 @@ public class Dhis2 extends BaseDhis2 {
     String fieldsParam =
         query.isExpandAssociations()
             ? String.format(
-                "%1$s,dataElementGroups[id,code,name,groupSets[id,code,name]],"
-                    + "dataSetElements[dataSet[id,name,periodType,workflow[id,name]]]",
+                """
+                %1$s,dataElementGroups[id,code,name,groupSets[id,code,name]],\
+                dataSetElements[dataSet[id,name,periodType,workflow[id,name]]]""",
                 DATA_ELEMENT_FIELDS)
             : DATA_ELEMENT_FIELDS;
     return getObject(
@@ -1524,8 +1525,9 @@ public class Dhis2 extends BaseDhis2 {
     String fieldsParam =
         query.isExpandAssociations()
             ? String.format(
-                "%1$s,organisationUnits[%2$s],workflow[%2$s],indicators[%2$s],sections[%2$s],"
-                    + "legendSets[%2$s]",
+                """
+                %1$s,organisationUnits[%2$s],workflow[%2$s],indicators[%2$s],sections[%2$s],\
+                legendSets[%2$s]""",
                 DATA_SET_FIELDS, NAME_FIELDS)
             : DATA_SET_FIELDS;
 
@@ -1663,8 +1665,9 @@ public class Dhis2 extends BaseDhis2 {
         query.isExpandAssociations()
             ? PROGRAM_FIELDS
             : String.format(
-                "%1$s,programType,trackedEntityType[%1$s],categoryCombo[%1$s],programStages[%1$s],"
-                    + "programTrackedEntityAttributes[id,code,name,trackedEntityAttribute[%2$s]]",
+                """
+                %1$s,programType,trackedEntityType[%1$s],categoryCombo[%1$s],programStages[%1$s],\
+                programTrackedEntityAttributes[id,code,name,trackedEntityAttribute[%2$s]]""",
                 NAME_FIELDS, TRACKED_ENTITY_ATTRIBUTE_FIELDS);
 
     return getObject(

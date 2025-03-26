@@ -32,7 +32,6 @@ import static org.apache.hc.core5.http.HttpStatus.SC_FORBIDDEN;
 import static org.apache.hc.core5.http.HttpStatus.SC_NOT_FOUND;
 import static org.apache.hc.core5.http.HttpStatus.SC_UNAUTHORIZED;
 import static org.hisp.dhis.util.CollectionUtils.asList;
-import static org.hisp.dhis.util.CollectionUtils.set;
 import static org.hisp.dhis.util.HttpUtils.getUriAsString;
 
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -131,7 +130,9 @@ public class BaseDhis2 {
 
   /** Category option fields. */
   protected static final String CATEGORY_OPTION_FIELDS =
-      String.format("%1$s,shortName,startDate,endDate,formName,categories[%1$s]", NAME_FIELDS);
+      String.format(
+          "%1$s,shortName,startDate,endDate,formName,categories[%1$s],organisationUnits[%1$s]",
+          NAME_FIELDS);
 
   /** Category option combo fields. */
   protected static final String CATEGORY_OPTION_COMBO_FIELDS =
@@ -168,8 +169,9 @@ public class BaseDhis2 {
   /** Indicator fields. */
   protected static final String INDICATOR_FIELDS =
       String.format(
-          "%1$s,annualized,numerator,numeratorDescription,denominator,denominatorDescription,url,"
-              + "indicatorType[%2$s]",
+          """
+          %1$s,annualized,numerator,numeratorDescription,denominator,denominatorDescription,url,\
+          indicatorType[%2$s]""",
           NAME_FIELDS, INDICATOR_TYPE_FIELDS);
 
   /** Indicator group set fields. */
@@ -179,19 +181,21 @@ public class BaseDhis2 {
   /** Data set fields. */
   protected static final String DATA_SET_FIELDS =
       String.format(
-          "%1$s,formName,displayFormName,categoryCombo[%1$s],"
-              + "dataSetElements[dataSet[%1$s],dataElement[%1$s],categoryCombo[%1$s]],dimensionItem,openFuturePeriods,"
-              + "expiryDays,timelyDays,url,formType,periodType,version,dimensionItemType,aggregationType,favorite,"
-              + "compulsoryFieldsCompleteOnly,skipOffline,validCompleteOnly,dataElementDecoration,"
-              + "openPeriodsAfterCoEndDate,notifyCompletingUser,noValueRequiresComment,fieldCombinationRequired,mobile,"
-              + "dataEntryForm[%2$s]",
+          """
+          %1$s,formName,displayFormName,categoryCombo[%1$s],\
+          dataSetElements[dataSet[%1$s],dataElement[%1$s],categoryCombo[%1$s]],dimensionItem,openFuturePeriods,\
+          expiryDays,timelyDays,url,formType,periodType,version,dimensionItemType,aggregationType,favorite,\
+          compulsoryFieldsCompleteOnly,skipOffline,validCompleteOnly,dataElementDecoration,\
+          openPeriodsAfterCoEndDate,notifyCompletingUser,noValueRequiresComment,fieldCombinationRequired,mobile,\
+          dataEntryForm[%2$s]""",
           NAME_FIELDS, ID_FIELDS);
 
   /** Org unit fields. */
   protected static final String ORG_UNIT_FIELDS =
       String.format(
-          "%s,path,level,parent[%s],openingDate,closedDate,comment,"
-              + "url,contactPerson,address,email,phoneNumber",
+          """
+          %s,path,level,parent[%s],openingDate,closedDate,comment,\
+          url,contactPerson,address,email,phoneNumber""",
           NAME_FIELDS, NAME_FIELDS);
 
   /** Org unit group set fields. */
@@ -218,9 +222,10 @@ public class BaseDhis2 {
   /** Program fields. */
   protected static final String PROGRAM_FIELDS =
       String.format(
-          "%1$s,programType,trackedEntityType[%1$s],categoryCombo[%1$s,categories[%2$s]],"
-              + "programStages[%1$s,programStageDataElements[%3$s]],"
-              + "programTrackedEntityAttributes[id,code,name,trackedEntityAttribute[%4$s]]",
+          """
+          %1$s,programType,trackedEntityType[%1$s],categoryCombo[%1$s,categories[%2$s]],\
+          programStages[%1$s,programStageDataElements[%3$s]],\
+          programTrackedEntityAttributes[id,code,name,trackedEntityAttribute[%4$s]]""",
           NAME_FIELDS,
           CATEGORY_FIELDS,
           PROGRAM_STAGE_DATA_ELEMENT_FIELDS,
@@ -246,7 +251,7 @@ public class BaseDhis2 {
 
   /** Error status codes. */
   private static final Set<Integer> ERROR_STATUS_CODES =
-      set(SC_UNAUTHORIZED, SC_FORBIDDEN, SC_NOT_FOUND);
+      Set.of(SC_UNAUTHORIZED, SC_FORBIDDEN, SC_NOT_FOUND);
 
   protected final Dhis2Config config;
 
