@@ -249,6 +249,9 @@ public class BaseDhis2 {
   /** Info log level. */
   private static final String LOG_LEVEL_INFO = "info";
 
+  /** Warn log level. */
+  private static final String LOG_LEVEL_WARN = "warn";
+
   /** Error status codes. */
   private static final Set<Integer> ERROR_STATUS_CODES =
       Set.of(SC_UNAUTHORIZED, SC_FORBIDDEN, SC_NOT_FOUND);
@@ -1124,14 +1127,19 @@ public class BaseDhis2 {
   }
 
   /**
-   * Logs the message at debug level.
+   * Logs the message at debug level, or if system property {@link
+   * BaseDhis2#LOG_LEVEL_SYSTEM_PROPERTY} is set, at the info or warn level.
    *
    * @param format the message format.
    * @param arguments the message arguments.
    */
   private void log(String format, Object... arguments) {
-    if (LOG_LEVEL_INFO.equalsIgnoreCase(System.getProperty(LOG_LEVEL_SYSTEM_PROPERTY))) {
+    String logLevel = System.getProperty(LOG_LEVEL_SYSTEM_PROPERTY);
+
+    if (LOG_LEVEL_INFO.equalsIgnoreCase(logLevel)) {
       log.info(format, arguments);
+    } else if (LOG_LEVEL_WARN.equalsIgnoreCase(logLevel)) {
+      log.warn(format, arguments);
     } else {
       log.debug(format, arguments);
     }
