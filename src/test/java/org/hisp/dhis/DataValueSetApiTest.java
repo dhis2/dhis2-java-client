@@ -28,7 +28,9 @@
 package org.hisp.dhis;
 
 import static org.hisp.dhis.util.CollectionUtils.list;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.List;
 import org.hisp.dhis.model.datavalueset.DataValue;
@@ -81,7 +83,7 @@ class DataValueSetApiTest {
 
   @Test
   void testSaveDataValueSets() {
-    Dhis2 dhis2 = new Dhis2(TestFixture.LOCAL_CONFIG);
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
 
     DataValueSet dataValueSet = getDataValueSet();
     DataValueSetImportOptions importOptions = DataValueSetImportOptions.instance();

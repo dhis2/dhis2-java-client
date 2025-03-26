@@ -99,7 +99,7 @@ class CompleteDataSetRegistrationApiTest {
 
   @Test
   void testSaveCompleteDataSetRegistrationsWithCreated() {
-    Dhis2 dhis2 = new Dhis2(TestFixture.LOCAL_CONFIG);
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
 
     CompleteDataSetRegistration cdsr = getCompleteDataSetRegistration();
     CompleteDataSetRegistrationImportOptions importOptions =
