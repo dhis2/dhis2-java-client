@@ -58,14 +58,15 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <maven.compiler.release>17</maven.compiler.release>
-    <jackson.version>2.13.5</jackson.version>
-    <jts-io-common.version>1.19.0</jts-io-common.version>
+    <jackson.version>2.18.3</jackson.version>
+    <jts-io-common.version>1.20.0</jts-io-common.version>
     <slf4j.version>2.0.17</slf4j.version>
-    <lombok.version>1.18.30</lombok.version>
-    <maven-artifact.version>3.9.1</maven-artifact.version>
-    <httpclient5.version>5.1.4</httpclient5.version>
+    <lombok.version>1.18.36</lombok.version>
+    <maven-artifact.version>3.9.9</maven-artifact.version>
+    <httpclient5.version>5.3.1</httpclient5.version>
     <junit-jupiter.version>5.12.1</junit-jupiter.version>
     <maven-artifact.version>3.9.4</maven-artifact.version>
+    <maven-surefire-plugin.version>3.5.2</maven-surefire-plugin.version>
     <commons-io.version>2.18.0</commons-io.version>
     <commons-lang3.version>3.17.0</commons-lang3.version>
     <spotless.version>2.43.0</spotless.version>
@@ -205,7 +206,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
-        <version>2.22.2</version>
+        <version>${maven-surefire-plugin.version}</version>
         <configuration>
           <excludedGroups>${test.excluded.groups}</excludedGroups>
           <trimStackTrace>false</trimStackTrace>
