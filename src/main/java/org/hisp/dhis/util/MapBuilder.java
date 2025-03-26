@@ -30,9 +30,7 @@ package org.hisp.dhis.util;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Builder of maps.
- */
+/** Builder of maps. */
 public class MapBuilder<K, V> {
   private final Map<K, V> map;
 
