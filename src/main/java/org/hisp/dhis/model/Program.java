@@ -39,12 +39,19 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hisp.dhis.model.trackedentity.ProgramTrackedEntityAttribute;
 import org.hisp.dhis.model.trackedentity.TrackedEntityAttribute;
+import org.hisp.dhis.model.trackedentity.TrackedEntityType;
 
 @Getter
 @Setter
 @NoArgsConstructor
 public class Program extends NameableObject {
   @JsonProperty private ProgramType programType;
+
+  /**
+   * Only relevant for {@link ProgramType#WITH_REGISTRATION}, null for {@link
+   * ProgramType#WITHOUT_REGISTRATION}.
+   */
+  @JsonProperty private TrackedEntityType trackedEntityType;
 
   @JsonProperty private CategoryCombo categoryCombo;
 
