@@ -60,14 +60,14 @@
     <maven.compiler.release>17</maven.compiler.release>
     <jackson.version>2.13.5</jackson.version>
     <jts-io-common.version>1.19.0</jts-io-common.version>
-    <slf4j.version>2.0.13</slf4j.version>
+    <slf4j.version>2.0.17</slf4j.version>
     <lombok.version>1.18.30</lombok.version>
     <maven-artifact.version>3.9.1</maven-artifact.version>
     <httpclient5.version>5.1.4</httpclient5.version>
-    <junit-jupiter.version>5.10.2</junit-jupiter.version>
+    <junit-jupiter.version>5.12.1</junit-jupiter.version>
     <maven-artifact.version>3.9.4</maven-artifact.version>
-    <commons-io.version>2.16.1</commons-io.version>
-    <commons-lang3.version>3.14.0</commons-lang3.version>
+    <commons-io.version>2.18.0</commons-io.version>
+    <commons-lang3.version>3.17.0</commons-lang3.version>
     <spotless.version>2.43.0</spotless.version>
   </properties>
 
