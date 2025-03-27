@@ -2401,10 +2401,10 @@ public class Dhis2 extends BaseDhis2 {
     }
 
     /**
-     * Retrieves the validation results of a {@link DataSet} in a particular {@link Period} and {@Link OrgUnit}.
+     * Retrieves the validation results of a {@link DataSet} in a particular {@link Period} and {@link OrgUnit}.
      *
      * @param query the {@link DataSetValidationQuery}.
-     * @return The content of a file resource referenced in a {@link DataValue}.
+     * @return The validation results of the {@link DataSet} in the specified {@link Period} and {@link OrgUnit}.
      */
     public Validation getDataSetValidation(DataSetValidationQuery query) {
         return getDataSetValidationResponse(
