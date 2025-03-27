@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hisp.dhis.model.IdentifiableObject;
-import org.hisp.dhis.model.datavalueset.DataValue;
 
 import java.util.ArrayList;
 import java.util.Collection;
