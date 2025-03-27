@@ -32,7 +32,6 @@ import static org.hisp.dhis.support.Assertions.assertNotEmpty;
 import static org.hisp.dhis.support.Assertions.assertSize;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-
 import java.util.List;
 import org.hisp.dhis.model.DataElement;
 import org.hisp.dhis.model.Program;
@@ -65,6 +64,10 @@ public class ProgramApiTest {
     assertNotNull(pr.getCreated());
     assertNotNull(pr.getLastUpdated());
     assertEquals(ProgramType.WITH_REGISTRATION, pr.getProgramType());
+    assertNotEmpty(pr.getTrackedEntityTypeAttributes());
+    assertNotEmpty(pr.getNonConfidentialTrackedEntityAttributes());
+    assertNotEmpty(pr.getTrackedEntityAttributes());
+    assertNotEmpty(pr.getNonConfidentialTrackedEntityAttributes());
 
     TrackedEntityType tet = pr.getTrackedEntityType();
     assertNotNull(tet);
