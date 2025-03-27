@@ -28,17 +28,18 @@
 package org.hisp.dhis.model;
 
 import static org.hisp.dhis.util.CollectionUtils.notEmpty;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import org.hisp.dhis.model.trackedentity.ProgramTrackedEntityAttribute;
-import org.hisp.dhis.model.trackedentity.TrackedEntityAttribute;
-import org.hisp.dhis.model.trackedentity.TrackedEntityType;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hisp.dhis.model.trackedentity.ProgramTrackedEntityAttribute;
+import org.hisp.dhis.model.trackedentity.TrackedEntityAttribute;
+import org.hisp.dhis.model.trackedentity.TrackedEntityType;
 
 @Getter
 @Setter
@@ -139,10 +140,10 @@ public class Program extends NameableObject {
   public boolean hasCategoryCombo() {
     return categoryCombo != null;
   }
-  
+
   /**
    * Indicates whether this program has a tracked entity type.
-   * 
+   *
    * @return true if this program has a tracked entity type.
    */
   @JsonIgnore

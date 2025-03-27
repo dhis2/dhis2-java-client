@@ -215,17 +215,18 @@ public class BaseDhis2 {
   /** Tracked entity type fields. */
   protected static final String TRACKED_ENTITY_TYPE_FIELDS =
       String.format(
-          "%s,trackedEntityTypeAttributes[trackedEntityAttribute[%s],displayInList,mandatory,searchable]",
+          "%s,trackedEntityTypeAttributes[id,trackedEntityAttribute[%s],displayInList,mandatory,searchable]",
           NAME_FIELDS, TRACKED_ENTITY_ATTRIBUTE_FIELDS);
 
   /** Program fields. */
   protected static final String PROGRAM_FIELDS =
       String.format(
           """
-          %1$s,programType,trackedEntityType[%1$s],categoryCombo[%1$s,categories[%2$s]],\
-          programStages[%1$s,programStageDataElements[%3$s]],\
-          programTrackedEntityAttributes[id,code,name,trackedEntityAttribute[%4$s]]""",
+          %1$s,programType,trackedEntityType[%2$s],categoryCombo[%1$s,categories[%3$s]],\
+          programStages[%1$s,programStageDataElements[%4$s]],\
+          programTrackedEntityAttributes[id,code,name,trackedEntityAttribute[%5$s]]""",
           NAME_FIELDS,
+          TRACKED_ENTITY_TYPE_FIELDS,
           CATEGORY_FIELDS,
           PROGRAM_STAGE_DATA_ELEMENT_FIELDS,
           TRACKED_ENTITY_ATTRIBUTE_FIELDS);

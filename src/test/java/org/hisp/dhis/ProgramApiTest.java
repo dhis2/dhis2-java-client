@@ -41,6 +41,8 @@ import org.hisp.dhis.model.ProgramStageDataElement;
 import org.hisp.dhis.model.ProgramType;
 import org.hisp.dhis.model.trackedentity.ProgramTrackedEntityAttribute;
 import org.hisp.dhis.model.trackedentity.TrackedEntityAttribute;
+import org.hisp.dhis.model.trackedentity.TrackedEntityType;
+import org.hisp.dhis.model.trackedentity.TrackedEntityTypeAttribute;
 import org.hisp.dhis.query.Filter;
 import org.hisp.dhis.query.Order;
 import org.hisp.dhis.query.Query;
@@ -63,9 +65,21 @@ public class ProgramApiTest {
     assertNotNull(pr.getCreated());
     assertNotNull(pr.getLastUpdated());
     assertEquals(ProgramType.WITH_REGISTRATION, pr.getProgramType());
-    assertNotNull(pr.getTrackedEntityType());
-    assertEquals("nEenWmSyUEp", pr.getTrackedEntityType().getId());
-    assertNotBlank(pr.getTrackedEntityType().getName());
+
+    TrackedEntityType tet = pr.getTrackedEntityType();
+    assertNotNull(tet);
+    assertEquals("nEenWmSyUEp", tet.getId());
+    assertNotBlank(tet.getName());
+    assertNotEmpty(tet.getTrackedEntityTypeAttributes());
+
+    TrackedEntityTypeAttribute teta = tet.getTrackedEntityTypeAttributes().iterator().next();
+    assertNotNull(teta);
+    assertEquals("Jdd8hMStmvF", teta.getId());
+    assertNotNull(teta.getTrackedEntityAttribute());
+    assertEquals("lZGmxYbs97q", teta.getTrackedEntityAttribute().getId());
+    assertEquals("MMD_PER_ID", teta.getTrackedEntityAttribute().getCode());
+    assertNotBlank(teta.getTrackedEntityAttribute().getName());
+
     assertNotEmpty(pr.getProgramTrackedEntityAttributes());
     assertNotEmpty(pr.getProgramStages());
 
