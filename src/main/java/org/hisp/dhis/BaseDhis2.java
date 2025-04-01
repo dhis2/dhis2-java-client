@@ -238,8 +238,8 @@ public class BaseDhis2 {
   protected static final String DATA_SET_PARAM = "dataSet";
 
   protected static final String VALIDATION_RULES_FIELDS =
-          "id,leftsideValue,rightsideValue,dayInPeriod,notificationSent," +
-                  "validationRule[*],period[*],organisationUnit[*],attributeOptionCombo[*]";
+      "id,leftsideValue,rightsideValue,dayInPeriod,notificationSent,"
+          + "validationRule[*],period[*],organisationUnit[*],attributeOptionCombo[*]";
 
   protected final Dhis2Config config;
 
@@ -363,7 +363,7 @@ public class BaseDhis2 {
    * @return the object.
    */
   protected <T> T getDataSetValidationResponse(
-          URIBuilder uriBuilder, DataSetValidationQuery query, Class<T> type) {
+      URIBuilder uriBuilder, DataSetValidationQuery query, Class<T> type) {
     URI url = getDataSetValidationQuery(uriBuilder, query);
     return getObjectFromUrl(url, type);
   }
@@ -375,8 +375,7 @@ public class BaseDhis2 {
    * @param query the {@link DataValueSetQuery} filters to apply.
    * @return the object.
    */
-  protected String getDataValueFileResponse(
-          URIBuilder uriBuilder, DataValueQuery query) {
+  protected String getDataValueFileResponse(URIBuilder uriBuilder, DataValueQuery query) {
     URI url = getDataValueQuery(uriBuilder, query);
     return getObjectFromUrl(url);
   }
@@ -569,7 +568,7 @@ public class BaseDhis2 {
     addParameter(uriBuilder, "co", query.getCo());
     addParameter(uriBuilder, "cc", query.getCc());
 
-    if(!query.getCp().isEmpty()) {
+    if (!query.getCp().isEmpty()) {
       addParameter(uriBuilder, "cp", String.join(";", query.getCp()));
     }
 

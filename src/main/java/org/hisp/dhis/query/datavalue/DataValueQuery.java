@@ -27,34 +27,33 @@
  */
 package org.hisp.dhis.query.datavalue;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.experimental.Accessors;
-
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.experimental.Accessors;
 
 @Getter
 @Setter
 @Accessors(chain = true)
 public class DataValueQuery {
-    private String de;
+  private String de;
 
-    private String pe;
+  private String pe;
 
-    private String ou;
+  private String ou;
 
-    private String co;
+  private String co;
 
-    private String cc;
+  private String cc;
 
-    private final Set<String> cp = new HashSet<>();
+  private final Set<String> cp = new HashSet<>();
 
-    private String ds;
+  private String ds;
 
-    public DataValueQuery addAttributeCategoryOptions(Collection<String> attributeCategoryOptions) {
-        cp.addAll(attributeCategoryOptions);
-        return this;
-    }
+  public DataValueQuery addAttributeCategoryOptions(Collection<String> attributeCategoryOptions) {
+    cp.addAll(attributeCategoryOptions);
+    return this;
+  }
 }
