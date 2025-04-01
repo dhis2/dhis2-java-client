@@ -87,8 +87,8 @@ import org.hisp.dhis.query.Query;
 import org.hisp.dhis.query.RootJunction;
 import org.hisp.dhis.query.analytics.AnalyticsQuery;
 import org.hisp.dhis.query.analytics.Dimension;
-import org.hisp.dhis.query.datavalue.DataValueQuery;
 import org.hisp.dhis.query.completedatasetregistration.CompleteDataSetRegistrationQuery;
+import org.hisp.dhis.query.datavalue.DataValueQuery;
 import org.hisp.dhis.query.datavalue.DataValueSetQuery;
 import org.hisp.dhis.query.event.EventsQuery;
 import org.hisp.dhis.query.validations.DataSetValidationQuery;
@@ -171,9 +171,7 @@ public class BaseDhis2 {
   /** Indicator fields. */
   protected static final String INDICATOR_FIELDS =
       String.format(
-          """
-          %1$s,annualized,numerator,numeratorDescription,denominator,denominatorDescription,url,\
-          indicatorType[%2$s]""",
+          "%1$s,annualized,numerator,numeratorDescription,denominator,denominatorDescription,url,indicatorType[%2$s]",
           NAME_FIELDS, INDICATOR_TYPE_FIELDS);
 
   /** Indicator group set fields. */
@@ -183,21 +181,13 @@ public class BaseDhis2 {
   /** Data set fields. */
   protected static final String DATA_SET_FIELDS =
       String.format(
-          """
-          %1$s,formName,displayFormName,categoryCombo[%1$s],\
-          dataSetElements[dataSet[%1$s],dataElement[%1$s],categoryCombo[%1$s]],dimensionItem,openFuturePeriods,\
-          expiryDays,timelyDays,url,formType,periodType,version,dimensionItemType,aggregationType,favorite,\
-          compulsoryFieldsCompleteOnly,skipOffline,validCompleteOnly,dataElementDecoration,\
-          openPeriodsAfterCoEndDate,notifyCompletingUser,noValueRequiresComment,fieldCombinationRequired,mobile,\
-          dataEntryForm[%2$s]""",
+          "%1$s,formName,displayFormName,categoryCombo[%1$s],dataSetElements[dataSet[%1$s],dataElement[%1$s],categoryCombo[%1$s]],dimensionItem,openFuturePeriods,expiryDays,timelyDays,url,formType,periodType,version,dimensionItemType,aggregationType,favorite,compulsoryFieldsCompleteOnly,skipOffline,validCompleteOnly,dataElementDecoration,openPeriodsAfterCoEndDate,notifyCompletingUser,noValueRequiresComment,fieldCombinationRequired,mobile,dataEntryForm[%2$s]",
           NAME_FIELDS, ID_FIELDS);
 
   /** Org unit fields. */
   protected static final String ORG_UNIT_FIELDS =
       String.format(
-          """
-          %s,path,level,parent[%s],openingDate,closedDate,comment,\
-          url,contactPerson,address,email,phoneNumber""",
+          "%s,path,level,parent[%s],openingDate,closedDate,comment,url,contactPerson,address,email,phoneNumber",
           NAME_FIELDS, NAME_FIELDS);
 
   /** Org unit group set fields. */
@@ -224,10 +214,7 @@ public class BaseDhis2 {
   /** Program fields. */
   protected static final String PROGRAM_FIELDS =
       String.format(
-          """
-          %1$s,programType,trackedEntityType[%2$s],categoryCombo[%1$s,categories[%3$s]],\
-          programStages[%1$s,programStageDataElements[%4$s]],\
-          programTrackedEntityAttributes[id,code,name,trackedEntityAttribute[%5$s]]""",
+          "%1$s,programType,trackedEntityType[%2$s],categoryCombo[%1$s,categories[%3$s]],programStages[%1$s,programStageDataElements[%4$s]],programTrackedEntityAttributes[id,code,name,trackedEntityAttribute[%5$s]]",
           NAME_FIELDS,
           TRACKED_ENTITY_TYPE_FIELDS,
           CATEGORY_FIELDS,

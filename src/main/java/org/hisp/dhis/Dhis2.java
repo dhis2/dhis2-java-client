@@ -65,6 +65,7 @@ import org.hisp.dhis.model.DataElementGroupSet;
 import org.hisp.dhis.model.DataSet;
 import org.hisp.dhis.model.Dhis2Objects;
 import org.hisp.dhis.model.Dimension;
+import org.hisp.dhis.model.FileResource;
 import org.hisp.dhis.model.GeoMap;
 import org.hisp.dhis.model.ImportStrategy;
 import org.hisp.dhis.model.Indicator;
@@ -101,8 +102,8 @@ import org.hisp.dhis.model.validation.Validation;
 import org.hisp.dhis.model.validation.ValidationRule;
 import org.hisp.dhis.query.Query;
 import org.hisp.dhis.query.analytics.AnalyticsQuery;
-import org.hisp.dhis.query.datavalue.DataValueQuery;
 import org.hisp.dhis.query.completedatasetregistration.CompleteDataSetRegistrationQuery;
+import org.hisp.dhis.query.datavalue.DataValueQuery;
 import org.hisp.dhis.query.datavalue.DataValueSetQuery;
 import org.hisp.dhis.query.event.EventsQuery;
 import org.hisp.dhis.query.validations.DataSetValidationQuery;
@@ -1136,9 +1137,7 @@ public class Dhis2 extends BaseDhis2 {
     String fieldsParam =
         query.isExpandAssociations()
             ? String.format(
-                """
-                %1$s,dataElementGroups[id,code,name,groupSets[id,code,name]],\
-                dataSetElements[dataSet[id,name,periodType,workflow[id,name]]]""",
+                "%1$s,dataElementGroups[id,code,name,groupSets[id,code,name]],dataSetElements[dataSet[id,name,periodType,workflow[id,name]]]",
                 DATA_ELEMENT_FIELDS)
             : DATA_ELEMENT_FIELDS;
     return getObject(
@@ -1531,9 +1530,7 @@ public class Dhis2 extends BaseDhis2 {
     String fieldsParam =
         query.isExpandAssociations()
             ? String.format(
-                """
-                %1$s,organisationUnits[%2$s],workflow[%2$s],indicators[%2$s],sections[%2$s],\
-                legendSets[%2$s]""",
+                "%1$s,organisationUnits[%2$s],workflow[%2$s],indicators[%2$s],sections[%2$s],legendSets[%2$s]",
                 DATA_SET_FIELDS, NAME_FIELDS)
             : DATA_SET_FIELDS;
 
@@ -1671,9 +1668,7 @@ public class Dhis2 extends BaseDhis2 {
         query.isExpandAssociations()
             ? PROGRAM_FIELDS
             : String.format(
-                """
-                %1$s,programType,trackedEntityType[%1$s],categoryCombo[%1$s],programStages[%1$s],\
-                programTrackedEntityAttributes[id,code,name,trackedEntityAttribute[%2$s]]""",
+                "%1$s,programType,trackedEntityType[%1$s],categoryCombo[%1$s],programStages[%1$s],programTrackedEntityAttributes[id,code,name,trackedEntityAttribute[%2$s]]",
                 NAME_FIELDS, TRACKED_ENTITY_ATTRIBUTE_FIELDS);
 
     return getObject(
@@ -2519,7 +2514,7 @@ public class Dhis2 extends BaseDhis2 {
                 .addParameter(DATA_SET_PARAM, dataSet)
                 .addParameter(FIELDS_PARAM, "*"),
             Query.instance(),
-            Objects.class)
+            Dhis2Objects.class)
         .getValidationRules();
   }
 }
