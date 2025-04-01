@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004-2024, University of Oslo
+ * Copyright (c) 2004-2025, University of Oslo
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,33 +25,16 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.hisp.dhis.model.trackedentity;
+package org.hisp.dhis.response.completedatasetregistration;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.hisp.dhis.model.NameableObject;
-import org.hisp.dhis.model.ValueType;
+import org.hisp.dhis.response.data.AsyncSummaryResponse;
 
-@Getter
-@Setter
 @NoArgsConstructor
-public class TrackedEntityAttribute extends NameableObject {
-  @JsonProperty private ValueType valueType;
+public class CompleteDataSetRegistrationResponse extends AsyncSummaryResponse {
 
-  @JsonProperty private Boolean confidential = false;
-
-  @JsonProperty private Boolean unique = false;
-
-  @JsonIgnore
-  public boolean isConfidentialNullSafe() {
-    return confidential != null && confidential;
-  }
-
-  @JsonIgnore
-  public boolean isUniqueNullSafe() {
-    return unique != null && unique;
+  @Override
+  public String toString() {
+    return super.toString();
   }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004-2024, University of Oslo
+ * Copyright (c) 2004-2025, University of Oslo
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,33 +25,47 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.hisp.dhis.model.trackedentity;
+package org.hisp.dhis.model.completedatasetregistration;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hisp.dhis.model.NameableObject;
-import org.hisp.dhis.model.ValueType;
+import org.hisp.dhis.model.IdScheme;
+import org.hisp.dhis.model.ImportStrategy;
 
 @Getter
 @Setter
-@NoArgsConstructor
-public class TrackedEntityAttribute extends NameableObject {
-  @JsonProperty private ValueType valueType;
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public class CompleteDataSetRegistrationImportOptions {
+  /** Identifier property used for data sets in the response. Overrides idScheme. */
+  private IdScheme dataSetIdScheme;
 
-  @JsonProperty private Boolean confidential = false;
+  /** Identifier property used for organisation units in the response. Overrides idScheme. */
+  private IdScheme orgUnitIdScheme;
 
-  @JsonProperty private Boolean unique = false;
+  /** Identifier property used for attribute option combos in the response. Overrides idScheme. */
+  private IdScheme attributeOptionComboIdScheme;
 
-  @JsonIgnore
-  public boolean isConfidentialNullSafe() {
-    return confidential != null && confidential;
-  }
+  /** Identifier property used for metadata objects in the response. */
+  private IdScheme idScheme;
 
-  @JsonIgnore
-  public boolean isUniqueNullSafe() {
-    return unique != null && unique;
+  /** Whether to save changes on the server or just return the import summary. */
+  private Boolean preheatCache;
+
+  /** Whether registration applies to sub units. */
+  private Boolean dryRun;
+
+  /** Save objects of all, new or update import status on the server. */
+  private ImportStrategy importStrategy;
+
+  /**
+   * Skip checks for existing complete registrations. Improves performance. Only use for empty
+   * databases or when the registrations to import do not exist already.
+   */
+  private Boolean skipExistingCheck;
+
+  public static CompleteDataSetRegistrationImportOptions instance() {
+    return new CompleteDataSetRegistrationImportOptions();
   }
 }

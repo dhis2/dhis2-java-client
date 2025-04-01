@@ -25,33 +25,20 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.hisp.dhis.model.trackedentity;
+package org.hisp.dhis.response.data;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hisp.dhis.model.NameableObject;
-import org.hisp.dhis.model.ValueType;
+import lombok.ToString;
 
 @Getter
 @Setter
+@ToString
 @NoArgsConstructor
-public class TrackedEntityAttribute extends NameableObject {
-  @JsonProperty private ValueType valueType;
+public class Conflict {
+  @JsonProperty private String object;
 
-  @JsonProperty private Boolean confidential = false;
-
-  @JsonProperty private Boolean unique = false;
-
-  @JsonIgnore
-  public boolean isConfidentialNullSafe() {
-    return confidential != null && confidential;
-  }
-
-  @JsonIgnore
-  public boolean isUniqueNullSafe() {
-    return unique != null && unique;
-  }
+  @JsonProperty private String value;
 }

@@ -27,11 +27,11 @@
  */
 package org.hisp.dhis;
 
+import static org.apache.hc.core5.http.HttpStatus.SC_CONFLICT;
 import static org.apache.hc.core5.http.HttpStatus.SC_FORBIDDEN;
 import static org.apache.hc.core5.http.HttpStatus.SC_NOT_FOUND;
 import static org.apache.hc.core5.http.HttpStatus.SC_UNAUTHORIZED;
 import static org.hisp.dhis.util.CollectionUtils.asList;
-import static org.hisp.dhis.util.CollectionUtils.set;
 import static org.hisp.dhis.util.HttpUtils.getUriAsString;
 
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -47,12 +47,12 @@ import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang3.Validate;
 import org.apache.hc.client5.http.HttpResponseException;
 import org.apache.hc.client5.http.classic.methods.HttpDelete;
 import org.apache.hc.client5.http.classic.methods.HttpGet;
@@ -73,8 +73,9 @@ import org.apache.hc.core5.http.io.entity.EntityUtils;
 import org.apache.hc.core5.http.io.entity.StringEntity;
 import org.apache.hc.core5.http.message.BasicNameValuePair;
 import org.apache.hc.core5.net.URIBuilder;
+import org.hisp.dhis.model.Dhis2Objects;
 import org.hisp.dhis.model.IdentifiableObject;
-import org.hisp.dhis.model.Objects;
+import org.hisp.dhis.model.completedatasetregistration.CompleteDataSetRegistrationImportOptions;
 import org.hisp.dhis.model.datavalueset.DataValueSetImportOptions;
 import org.hisp.dhis.model.event.Events;
 import org.hisp.dhis.model.event.EventsResult;
@@ -87,6 +88,7 @@ import org.hisp.dhis.query.RootJunction;
 import org.hisp.dhis.query.analytics.AnalyticsQuery;
 import org.hisp.dhis.query.analytics.Dimension;
 import org.hisp.dhis.query.datavalue.DataValueQuery;
+import org.hisp.dhis.query.completedatasetregistration.CompleteDataSetRegistrationQuery;
 import org.hisp.dhis.query.datavalue.DataValueSetQuery;
 import org.hisp.dhis.query.event.EventsQuery;
 import org.hisp.dhis.query.validations.DataSetValidationQuery;
@@ -95,6 +97,7 @@ import org.hisp.dhis.response.Dhis2ClientException;
 import org.hisp.dhis.response.HttpStatus;
 import org.hisp.dhis.response.Response;
 import org.hisp.dhis.response.Status;
+import org.hisp.dhis.response.completedatasetregistration.CompleteDataSetRegistrationResponse;
 import org.hisp.dhis.response.object.ObjectResponse;
 import org.hisp.dhis.response.objects.ObjectsResponse;
 import org.hisp.dhis.util.HttpUtils;
@@ -129,7 +132,9 @@ public class BaseDhis2 {
 
   /** Category option fields. */
   protected static final String CATEGORY_OPTION_FIELDS =
-      String.format("%1$s,shortName,startDate,endDate,formName,categories[%1$s]", NAME_FIELDS);
+      String.format(
+          "%1$s,shortName,startDate,endDate,formName,categories[%1$s],organisationUnits[%1$s]",
+          NAME_FIELDS);
 
   /** Category option combo fields. */
   protected static final String CATEGORY_OPTION_COMBO_FIELDS =
@@ -166,8 +171,9 @@ public class BaseDhis2 {
   /** Indicator fields. */
   protected static final String INDICATOR_FIELDS =
       String.format(
-          "%1$s,annualized,numerator,numeratorDescription,denominator,denominatorDescription,url,"
-              + "indicatorType[%2$s]",
+          """
+          %1$s,annualized,numerator,numeratorDescription,denominator,denominatorDescription,url,\
+          indicatorType[%2$s]""",
           NAME_FIELDS, INDICATOR_TYPE_FIELDS);
 
   /** Indicator group set fields. */
@@ -177,19 +183,21 @@ public class BaseDhis2 {
   /** Data set fields. */
   protected static final String DATA_SET_FIELDS =
       String.format(
-          "%1$s,formName,displayFormName,categoryCombo[%1$s],"
-              + "dataSetElements[dataSet[%1$s],dataElement[%1$s],categoryCombo[%1$s]],dimensionItem,openFuturePeriods,"
-              + "expiryDays,timelyDays,url,formType,periodType,version,dimensionItemType,aggregationType,favorite,"
-              + "compulsoryFieldsCompleteOnly,skipOffline,validCompleteOnly,dataElementDecoration,"
-              + "openPeriodsAfterCoEndDate,notifyCompletingUser,noValueRequiresComment,fieldCombinationRequired,mobile,"
-              + "dataEntryForm[%2$s]",
+          """
+          %1$s,formName,displayFormName,categoryCombo[%1$s],\
+          dataSetElements[dataSet[%1$s],dataElement[%1$s],categoryCombo[%1$s]],dimensionItem,openFuturePeriods,\
+          expiryDays,timelyDays,url,formType,periodType,version,dimensionItemType,aggregationType,favorite,\
+          compulsoryFieldsCompleteOnly,skipOffline,validCompleteOnly,dataElementDecoration,\
+          openPeriodsAfterCoEndDate,notifyCompletingUser,noValueRequiresComment,fieldCombinationRequired,mobile,\
+          dataEntryForm[%2$s]""",
           NAME_FIELDS, ID_FIELDS);
 
   /** Org unit fields. */
   protected static final String ORG_UNIT_FIELDS =
       String.format(
-          "%s,path,level,parent[%s],openingDate,closedDate,comment,"
-              + "url,contactPerson,address,email,phoneNumber",
+          """
+          %s,path,level,parent[%s],openingDate,closedDate,comment,\
+          url,contactPerson,address,email,phoneNumber""",
           NAME_FIELDS, NAME_FIELDS);
 
   /** Org unit group set fields. */
@@ -207,10 +215,24 @@ public class BaseDhis2 {
           "%s,dataElement[%s],compulsory,displayInReports,skipSynchronization,skipAnalytics",
           NAME_FIELDS, DATA_ELEMENT_FIELDS);
 
+  /** Tracked entity type fields. */
   protected static final String TRACKED_ENTITY_TYPE_FIELDS =
       String.format(
-          "%s,trackedEntityTypeAttributes[trackedEntityAttribute[%s],displayInList,mandatory,searchable]",
+          "%s,trackedEntityTypeAttributes[id,trackedEntityAttribute[%s],displayInList,mandatory,searchable]",
           NAME_FIELDS, TRACKED_ENTITY_ATTRIBUTE_FIELDS);
+
+  /** Program fields. */
+  protected static final String PROGRAM_FIELDS =
+      String.format(
+          """
+          %1$s,programType,trackedEntityType[%2$s],categoryCombo[%1$s,categories[%3$s]],\
+          programStages[%1$s,programStageDataElements[%4$s]],\
+          programTrackedEntityAttributes[id,code,name,trackedEntityAttribute[%5$s]]""",
+          NAME_FIELDS,
+          TRACKED_ENTITY_TYPE_FIELDS,
+          CATEGORY_FIELDS,
+          PROGRAM_STAGE_DATA_ELEMENT_FIELDS,
+          TRACKED_ENTITY_ATTRIBUTE_FIELDS);
 
   /** Data element group set fields. */
   protected static final String DASHBOARD_FIELDS = String.format("%1$s,embedded[*]", NAME_FIELDS);
@@ -230,9 +252,12 @@ public class BaseDhis2 {
   /** Info log level. */
   private static final String LOG_LEVEL_INFO = "info";
 
+  /** Warn log level. */
+  private static final String LOG_LEVEL_WARN = "warn";
+
   /** Error status codes. */
   private static final Set<Integer> ERROR_STATUS_CODES =
-      set(SC_UNAUTHORIZED, SC_FORBIDDEN, SC_NOT_FOUND);
+      Set.of(SC_UNAUTHORIZED, SC_FORBIDDEN, SC_NOT_FOUND);
 
   /** Validation Rules fields. */
   protected static final String DATA_SET_PARAM = "dataSet";
@@ -248,7 +273,7 @@ public class BaseDhis2 {
   protected final CloseableHttpClient httpClient;
 
   public BaseDhis2(Dhis2Config config) {
-    Validate.notNull(config, "Config must be specified");
+    Objects.requireNonNull(config, "Config must be specified");
 
     this.config = config;
 
@@ -447,6 +472,27 @@ public class BaseDhis2 {
   }
 
   /**
+   * Save complete data set registrations according to complete data set registration import
+   * options.
+   *
+   * @param entity the POST body {@link HttpEntity}.
+   * @param options the {@link CompleteDataSetRegistrationImportOptions} import options.
+   * @return POST response body {@link CompleteDataSetRegistrationResponse}.
+   */
+  protected CompleteDataSetRegistrationResponse saveCompleteDataSetRegistrations(
+      HttpEntity entity, CompleteDataSetRegistrationImportOptions options) {
+    URIBuilder builder = config.getResolvedUriBuilder().appendPath("completeDataSetRegistrations");
+
+    URI url = getCompleteDataSetRegistrationsImportQuery(builder, options);
+
+    HttpPost request = getPostRequest(url, entity);
+
+    Dhis2AsyncRequest asyncRequest = new Dhis2AsyncRequest(config, httpClient, objectMapper);
+
+    return asyncRequest.post(request, CompleteDataSetRegistrationResponse.class);
+  }
+
+  /**
    * Retrieves events using HTTP GET.
    *
    * @param uriBuilder the URI builder.
@@ -592,6 +638,67 @@ public class BaseDhis2 {
   }
 
   /**
+   * Returns a {@link URI} based on the given complete dataset registration query.
+   *
+   * @param uriBuilder the URI builder.
+   * @param query the {@link CompleteDataSetRegistrationQuery}.
+   * @return a URI.
+   */
+  protected URI getCompleteDataSetRegistrationQuery(
+      URIBuilder uriBuilder, CompleteDataSetRegistrationQuery query) {
+    for (String dataSet : query.getDataSets()) {
+      addParameter(uriBuilder, "dataSet", dataSet);
+    }
+
+    for (String period : query.getPeriods()) {
+      addParameter(uriBuilder, "period", period);
+    }
+
+    addParameter(uriBuilder, "startDate", query.getStartDate());
+    addParameter(uriBuilder, "endDate", query.getEndDate());
+    addParameter(uriBuilder, "created", query.getCreated());
+    addParameter(uriBuilder, "createdDuration", query.getCreatedDuration());
+
+    for (String orgUnit : query.getOrgUnits()) {
+      addParameter(uriBuilder, "orgUnit", orgUnit);
+    }
+
+    addParameter(uriBuilder, "orgUnitGroup", query.getOrgUnitGroup());
+    addParameter(uriBuilder, "children", query.getChildren());
+    addParameter(uriBuilder, "limit", query.getLimit());
+    addParameter(uriBuilder, "idScheme", query.getIdScheme());
+    addParameter(uriBuilder, "orgUnitIdScheme", query.getOrgUnitIdScheme());
+    addParameter(uriBuilder, "dataSetIdScheme", query.getDataSetIdScheme());
+    addParameter(
+        uriBuilder, "attributeOptionComboIdScheme", query.getAttributeOptionComboIdScheme());
+
+    return HttpUtils.build(uriBuilder);
+  }
+
+  /**
+   * Returns a {@link URI} based on the complete data set registration import options.
+   *
+   * @param uriBuilder the URI builder.
+   * @param options the {@link CompleteDataSetRegistrationImportOptions} to apply.
+   * @return a URI.
+   */
+  private URI getCompleteDataSetRegistrationsImportQuery(
+      URIBuilder uriBuilder, CompleteDataSetRegistrationImportOptions options) {
+    addParameter(uriBuilder, "async", "true"); // Always use async
+    addParameter(uriBuilder, "dataSetIdScheme", options.getDataSetIdScheme());
+    addParameter(uriBuilder, "orgUnitIdScheme", options.getOrgUnitIdScheme());
+    addParameter(
+        uriBuilder, "attributeOptionComboIdScheme", options.getAttributeOptionComboIdScheme());
+    addParameter(uriBuilder, "idScheme", options.getIdScheme());
+    addParameter(uriBuilder, "preheatCache", options.getPreheatCache());
+    addParameter(uriBuilder, "dryRun", options.getDryRun());
+    addParameter(uriBuilder, "importStrategy", options.getImportStrategy());
+    addParameter(uriBuilder, "skipExistingCheck", options.getSkipExistingCheck());
+
+    return HttpUtils.build(uriBuilder);
+  }
+
+  /**
    * Adds a query parameter to the given {@link URIBuilder} if the given parameter value is not
    * null.
    *
@@ -681,7 +788,7 @@ public class BaseDhis2 {
 
       String responseBody = EntityUtils.toString(response.getEntity());
 
-      log.debug("Response body: '{}'", responseBody);
+      log("Response body: '{}'", responseBody);
 
       T responseMessage = objectMapper.readValue(responseBody, type);
 
@@ -751,6 +858,7 @@ public class BaseDhis2 {
   protected <T> T getObjectFromUrl(URI url, Class<T> type) {
     try (CloseableHttpResponse response = getJsonHttpResponse(url)) {
       handleErrors(response, url.toString());
+      handleErrorsForGet(response, url.toString());
 
       String responseBody = EntityUtils.toString(response.getEntity());
 
@@ -822,6 +930,27 @@ public class BaseDhis2 {
       log("Error URL: '{}'", url);
 
       throw new Dhis2ClientException(message, code);
+    }
+  }
+
+  /**
+   * Handles <code>409</code> errors status code for HTTP GET
+   *
+   * @param response {@link HttpResponse}.
+   * @param url the request URL.
+   * @throws Dhis2ClientException
+   */
+  private void handleErrorsForGet(CloseableHttpResponse response, String url)
+      throws IOException, ParseException {
+    final int code = response.getCode();
+    if (SC_CONFLICT == code) {
+      String responseBody = EntityUtils.toString(response.getEntity());
+
+      log("Conflict response body: '{}'", responseBody);
+
+      Response objectResponse = objectMapper.readValue(responseBody, Response.class);
+
+      throw new Dhis2ClientException(objectResponse.getMessage(), code);
     }
   }
 
@@ -967,10 +1096,10 @@ public class BaseDhis2 {
   /**
    * Saves or updates metadata objects.
    *
-   * @param objects the {@link Objects}.
+   * @param objects the {@link Dhis2Objects}.
    * @return {@link ObjectsResponse} holding information about the operation.
    */
-  protected ObjectsResponse saveMetadataObjects(Objects objects) {
+  protected ObjectsResponse saveMetadataObjects(Dhis2Objects objects) {
     URI url = config.getResolvedUrl("metadata");
 
     return executeJsonPostPutRequest(new HttpPost(url), objects, ObjectsResponse.class);
@@ -1095,14 +1224,19 @@ public class BaseDhis2 {
   }
 
   /**
-   * Logs the message at debug level.
+   * Logs the message at debug level, or if system property {@link
+   * BaseDhis2#LOG_LEVEL_SYSTEM_PROPERTY} is set, at the info or warn level.
    *
    * @param format the message format.
    * @param arguments the message arguments.
    */
   private void log(String format, Object... arguments) {
-    if (LOG_LEVEL_INFO.equalsIgnoreCase(System.getProperty(LOG_LEVEL_SYSTEM_PROPERTY))) {
+    String logLevel = System.getProperty(LOG_LEVEL_SYSTEM_PROPERTY);
+
+    if (LOG_LEVEL_INFO.equalsIgnoreCase(logLevel)) {
       log.info(format, arguments);
+    } else if (LOG_LEVEL_WARN.equalsIgnoreCase(logLevel)) {
+      log.warn(format, arguments);
     } else {
       log.debug(format, arguments);
     }

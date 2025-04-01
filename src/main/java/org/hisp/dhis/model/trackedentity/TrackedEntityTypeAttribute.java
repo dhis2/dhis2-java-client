@@ -36,6 +36,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class TrackedEntityTypeAttribute {
+  @JsonProperty private String id;
+
   @JsonProperty private TrackedEntityAttribute trackedEntityAttribute;
 
   @JsonProperty private Boolean displayInList;
