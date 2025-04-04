@@ -32,7 +32,6 @@ import static org.apache.hc.core5.http.HttpStatus.SC_FORBIDDEN;
 import static org.apache.hc.core5.http.HttpStatus.SC_NOT_FOUND;
 import static org.apache.hc.core5.http.HttpStatus.SC_UNAUTHORIZED;
 import static org.hisp.dhis.util.CollectionUtils.asList;
-import static org.hisp.dhis.util.CollectionUtils.set;
 import static org.hisp.dhis.util.HttpUtils.getUriAsString;
 
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -131,7 +130,9 @@ public class BaseDhis2 {
 
   /** Category option fields. */
   protected static final String CATEGORY_OPTION_FIELDS =
-      String.format("%1$s,shortName,startDate,endDate,formName,categories[%1$s]", NAME_FIELDS);
+      String.format(
+          "%1$s,shortName,startDate,endDate,formName,categories[%1$s],organisationUnits[%1$s]",
+          NAME_FIELDS);
 
   /** Category option combo fields. */
   protected static final String CATEGORY_OPTION_COMBO_FIELDS =
@@ -168,8 +169,9 @@ public class BaseDhis2 {
   /** Indicator fields. */
   protected static final String INDICATOR_FIELDS =
       String.format(
-          "%1$s,annualized,numerator,numeratorDescription,denominator,denominatorDescription,url,"
-              + "indicatorType[%2$s]",
+          """
+          %1$s,annualized,numerator,numeratorDescription,denominator,denominatorDescription,url,\
+          indicatorType[%2$s]""",
           NAME_FIELDS, INDICATOR_TYPE_FIELDS);
 
   /** Indicator group set fields. */
@@ -179,19 +181,21 @@ public class BaseDhis2 {
   /** Data set fields. */
   protected static final String DATA_SET_FIELDS =
       String.format(
-          "%1$s,formName,displayFormName,categoryCombo[%1$s],"
-              + "dataSetElements[dataSet[%1$s],dataElement[%1$s],categoryCombo[%1$s]],dimensionItem,openFuturePeriods,"
-              + "expiryDays,timelyDays,url,formType,periodType,version,dimensionItemType,aggregationType,favorite,"
-              + "compulsoryFieldsCompleteOnly,skipOffline,validCompleteOnly,dataElementDecoration,"
-              + "openPeriodsAfterCoEndDate,notifyCompletingUser,noValueRequiresComment,fieldCombinationRequired,mobile,"
-              + "dataEntryForm[%2$s]",
+          """
+          %1$s,formName,displayFormName,categoryCombo[%1$s],\
+          dataSetElements[dataSet[%1$s],dataElement[%1$s],categoryCombo[%1$s]],dimensionItem,openFuturePeriods,\
+          expiryDays,timelyDays,url,formType,periodType,version,dimensionItemType,aggregationType,favorite,\
+          compulsoryFieldsCompleteOnly,skipOffline,validCompleteOnly,dataElementDecoration,\
+          openPeriodsAfterCoEndDate,notifyCompletingUser,noValueRequiresComment,fieldCombinationRequired,mobile,\
+          dataEntryForm[%2$s]""",
           NAME_FIELDS, ID_FIELDS);
 
   /** Org unit fields. */
   protected static final String ORG_UNIT_FIELDS =
       String.format(
-          "%s,path,level,parent[%s],openingDate,closedDate,comment,"
-              + "url,contactPerson,address,email,phoneNumber",
+          """
+          %s,path,level,parent[%s],openingDate,closedDate,comment,\
+          url,contactPerson,address,email,phoneNumber""",
           NAME_FIELDS, NAME_FIELDS);
 
   /** Org unit group set fields. */
@@ -209,10 +213,24 @@ public class BaseDhis2 {
           "%s,dataElement[%s],compulsory,displayInReports,skipSynchronization,skipAnalytics",
           NAME_FIELDS, DATA_ELEMENT_FIELDS);
 
+  /** Tracked entity type fields. */
   protected static final String TRACKED_ENTITY_TYPE_FIELDS =
       String.format(
-          "%s,trackedEntityTypeAttributes[trackedEntityAttribute[%s],displayInList,mandatory,searchable]",
+          "%s,trackedEntityTypeAttributes[id,trackedEntityAttribute[%s],displayInList,mandatory,searchable]",
           NAME_FIELDS, TRACKED_ENTITY_ATTRIBUTE_FIELDS);
+
+  /** Program fields. */
+  protected static final String PROGRAM_FIELDS =
+      String.format(
+          """
+          %1$s,programType,trackedEntityType[%2$s],categoryCombo[%1$s,categories[%3$s]],\
+          programStages[%1$s,programStageDataElements[%4$s]],\
+          programTrackedEntityAttributes[id,code,name,trackedEntityAttribute[%5$s]]""",
+          NAME_FIELDS,
+          TRACKED_ENTITY_TYPE_FIELDS,
+          CATEGORY_FIELDS,
+          PROGRAM_STAGE_DATA_ELEMENT_FIELDS,
+          TRACKED_ENTITY_ATTRIBUTE_FIELDS);
 
   /** Data element group set fields. */
   protected static final String DASHBOARD_FIELDS = String.format("%1$s,embedded[*]", NAME_FIELDS);
@@ -232,9 +250,12 @@ public class BaseDhis2 {
   /** Info log level. */
   private static final String LOG_LEVEL_INFO = "info";
 
+  /** Warn log level. */
+  private static final String LOG_LEVEL_WARN = "warn";
+
   /** Error status codes. */
   private static final Set<Integer> ERROR_STATUS_CODES =
-      set(SC_UNAUTHORIZED, SC_FORBIDDEN, SC_NOT_FOUND);
+      Set.of(SC_UNAUTHORIZED, SC_FORBIDDEN, SC_NOT_FOUND);
 
   protected final Dhis2Config config;
 
@@ -694,7 +715,7 @@ public class BaseDhis2 {
 
       String responseBody = EntityUtils.toString(response.getEntity());
 
-      log.debug("Response body: '{}'", responseBody);
+      log("Response body: '{}'", responseBody);
 
       T responseMessage = objectMapper.readValue(responseBody, type);
 
@@ -829,7 +850,7 @@ public class BaseDhis2 {
     if (SC_CONFLICT == code) {
       String responseBody = EntityUtils.toString(response.getEntity());
 
-      log("Conflict Error Response body: '{}'", responseBody);
+      log("Conflict response body: '{}'", responseBody);
 
       Response objectResponse = objectMapper.readValue(responseBody, Response.class);
 
@@ -1107,14 +1128,19 @@ public class BaseDhis2 {
   }
 
   /**
-   * Logs the message at debug level.
+   * Logs the message at debug level, or if system property {@link
+   * BaseDhis2#LOG_LEVEL_SYSTEM_PROPERTY} is set, at the info or warn level.
    *
    * @param format the message format.
    * @param arguments the message arguments.
    */
   private void log(String format, Object... arguments) {
-    if (LOG_LEVEL_INFO.equalsIgnoreCase(System.getProperty(LOG_LEVEL_SYSTEM_PROPERTY))) {
+    String logLevel = System.getProperty(LOG_LEVEL_SYSTEM_PROPERTY);
+
+    if (LOG_LEVEL_INFO.equalsIgnoreCase(logLevel)) {
       log.info(format, arguments);
+    } else if (LOG_LEVEL_WARN.equalsIgnoreCase(logLevel)) {
+      log.warn(format, arguments);
     } else {
       log.debug(format, arguments);
     }

@@ -39,12 +39,20 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hisp.dhis.model.trackedentity.ProgramTrackedEntityAttribute;
 import org.hisp.dhis.model.trackedentity.TrackedEntityAttribute;
+import org.hisp.dhis.model.trackedentity.TrackedEntityType;
+import org.hisp.dhis.model.trackedentity.TrackedEntityTypeAttribute;
 
 @Getter
 @Setter
 @NoArgsConstructor
 public class Program extends NameableObject {
   @JsonProperty private ProgramType programType;
+
+  /**
+   * Only relevant for {@link ProgramType#WITH_REGISTRATION}, null for {@link
+   * ProgramType#WITHOUT_REGISTRATION}.
+   */
+  @JsonProperty private TrackedEntityType trackedEntityType;
 
   @JsonProperty private CategoryCombo categoryCombo;
 
@@ -59,7 +67,40 @@ public class Program extends NameableObject {
   }
 
   /**
-   * Returns all tracked entity attributes which are part of the program.
+   * Returns tracked entity attributes which are part of the tracked entity type of the program.
+   *
+   * @return an immutable list of {@link TrackedEntityAttribute}.
+   */
+  @JsonIgnore
+  public List<TrackedEntityAttribute> getTrackedEntityTypeAttributes() {
+    if (ProgramType.WITHOUT_REGISTRATION == programType || trackedEntityType == null) {
+      return List.of();
+    }
+
+    return trackedEntityType.getTrackedEntityTypeAttributes().stream()
+        .map(TrackedEntityTypeAttribute::getTrackedEntityAttribute)
+        .collect(Collectors.toUnmodifiableList());
+  }
+
+  /**
+   * Returns tracked entity attributes which are not confidential and part of the tracked entity
+   * type of the program.
+   *
+   * @return an immutable list of {@link TrackedEntityAttribute}.
+   */
+  public List<TrackedEntityAttribute> getNonConfidentialTrackedEntityTypeAttributes() {
+    if (ProgramType.WITHOUT_REGISTRATION == programType || trackedEntityType == null) {
+      return List.of();
+    }
+
+    return trackedEntityType.getTrackedEntityTypeAttributes().stream()
+        .map(TrackedEntityTypeAttribute::getTrackedEntityAttribute)
+        .filter(tea -> !tea.isConfidentialNullSafe())
+        .collect(Collectors.toUnmodifiableList());
+  }
+
+  /**
+   * Returns tracked entity attributes which are part of the program.
    *
    * @return an immutable list of {@link TrackedEntityAttribute}.
    */
@@ -71,7 +112,7 @@ public class Program extends NameableObject {
   }
 
   /**
-   * Returns all tracked entity attributes which are not confidential and part of the program.
+   * Returns tracked entity attributes which are not confidential and part of the program.
    *
    * @return an immutable list of {@link TrackedEntityAttribute}.
    */
@@ -79,7 +120,7 @@ public class Program extends NameableObject {
   public List<TrackedEntityAttribute> getNonConfidentialTrackedEntityAttributes() {
     return programTrackedEntityAttributes.stream()
         .map(ProgramTrackedEntityAttribute::getTrackedEntityAttribute)
-        .filter(tea -> (tea.getConfidential() == null || tea.getConfidential() == false))
+        .filter(tea -> !tea.isConfidentialNullSafe())
         .collect(Collectors.toUnmodifiableList());
   }
 
@@ -132,6 +173,16 @@ public class Program extends NameableObject {
   @JsonIgnore
   public boolean hasCategoryCombo() {
     return categoryCombo != null;
+  }
+
+  /**
+   * Indicates whether this program has a tracked entity type.
+   *
+   * @return true if this program has a tracked entity type.
+   */
+  @JsonIgnore
+  public boolean hasTrackedEntityType() {
+    return trackedEntityType != null;
   }
 
   /**

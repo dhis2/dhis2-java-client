@@ -27,6 +27,7 @@
  */
 package org.hisp.dhis.model.trackedentity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -43,4 +44,14 @@ public class TrackedEntityAttribute extends NameableObject {
   @JsonProperty private Boolean confidential = false;
 
   @JsonProperty private Boolean unique = false;
+
+  @JsonIgnore
+  public boolean isConfidentialNullSafe() {
+    return confidential != null && confidential;
+  }
+
+  @JsonIgnore
+  public boolean isUniqueNullSafe() {
+    return unique != null && unique;
+  }
 }
