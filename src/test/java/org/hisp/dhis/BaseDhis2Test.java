@@ -28,9 +28,13 @@
 package org.hisp.dhis;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.io.IOException;
+import org.hisp.dhis.model.AggregationType;
+import org.hisp.dhis.model.DataDomain;
 import org.hisp.dhis.model.DataElement;
+import org.hisp.dhis.model.ValueType;
 import org.junit.jupiter.api.Test;
 
 class BaseDhis2Test {
@@ -38,7 +42,14 @@ class BaseDhis2Test {
   void testDeserializeString() throws IOException {
     Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
 
-    assertEquals("HkSu7IWlvrM", dhis2.readValue("HkSu7IWlvrM", String.class));
+    String content =
+        """
+        "HkSu7IWlvrM"
+        """;
+
+    String string = dhis2.readValue(content, String.class);
+
+    assertEquals("HkSu7IWlvrM", string);
   }
 
   @Test
@@ -51,9 +62,9 @@ class BaseDhis2Test {
           "id": "fbfJHSPpUQD",
           "code": "DE_359596",
           "name": "ANC 1st visit",
+          "shortName": "ANC 1",
           "created": "2010-02-05T10:58:43.646",
           "lastUpdated": "2022-03-22T08:59:44.053",
-          "shortName": "ANC 1st visit",
           "aggregationType": "SUM",
           "valueType": "NUMBER",
           "domainType": "AGGREGATE"
@@ -61,5 +72,15 @@ class BaseDhis2Test {
         """;
 
     DataElement object = dhis2.readValue(content, DataElement.class);
+
+    assertEquals("fbfJHSPpUQD", object.getId());
+    assertEquals("DE_359596", object.getCode());
+    assertEquals("ANC 1st visit", object.getName());
+    assertEquals("ANC 1", object.getShortName());
+    assertNotNull(object.getCreated());
+    assertNotNull(object.getLastUpdated());
+    assertEquals(AggregationType.SUM, object.getAggregationType());
+    assertEquals(ValueType.NUMBER, object.getValueType());
+    assertEquals(DataDomain.AGGREGATE, object.getDomainType());
   }
 }
