@@ -258,9 +258,22 @@ public class BaseDhis2 {
   /** Validation Rules fields. */
   protected static final String DATA_SET_PARAM = "dataSet";
 
-  protected static final String VALIDATION_RULES_FIELDS =
-      "id,leftsideValue,rightsideValue,dayInPeriod,notificationSent,"
-          + "validationRule[*],period[*],organisationUnit[*],attributeOptionCombo[*]";
+  protected static final String VALIDATION_SIDE_FIELDS =
+      "expression,description,displayDescription,slidingWindow,missingValueStrategy";
+
+  protected static final String VALIDATION_RULE_FIELDS =
+      String.format(
+          """
+          %1$s,dimensionItem,instruction,importance,periodType,displayDescription,displayInstruction,displayName,\
+          leftSide[%2$s],operator,rightSide[%2$s],skipFormValidation,legendSets""",
+          NAME_FIELDS, VALIDATION_SIDE_FIELDS);
+
+  protected static final String DATA_SET_VALIDATION_FIELDS =
+      String.format(
+          """
+      id,leftsideValue,rightsideValue,dayInPeriod,notificationSent,\
+      validationRule[%1$s],period[%2$s],organisationUnit[%2$s],attributeOptionCombo[%2$s]""",
+          VALIDATION_RULE_FIELDS, ID_FIELDS);
 
   protected final Dhis2Config config;
 

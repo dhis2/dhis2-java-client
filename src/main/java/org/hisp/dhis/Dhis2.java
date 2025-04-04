@@ -2495,7 +2495,7 @@ public class Dhis2 extends BaseDhis2 {
             .getResolvedUriBuilder()
             .appendPath("validation/dataSet")
             .appendPath(query.getDataSet())
-            .addParameter(FIELDS_PARAM, VALIDATION_RULES_FIELDS),
+            .addParameter(FIELDS_PARAM, DATA_SET_VALIDATION_FIELDS),
         query);
   }
 
@@ -2511,7 +2511,7 @@ public class Dhis2 extends BaseDhis2 {
                 .getResolvedUriBuilder()
                 .appendPath("validationRules")
                 .addParameter(DATA_SET_PARAM, dataSet)
-                .addParameter(FIELDS_PARAM, "*"),
+                .addParameter(FIELDS_PARAM, VALIDATION_RULE_FIELDS),
             Query.instance(),
             Dhis2Objects.class)
         .getValidationRules();
