@@ -29,7 +29,6 @@ package org.hisp.dhis;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-
 import java.io.IOException;
 import org.hisp.dhis.model.AggregationType;
 import org.hisp.dhis.model.DataDomain;
@@ -38,6 +37,9 @@ import org.hisp.dhis.model.ValueType;
 import org.junit.jupiter.api.Test;
 
 class BaseDhis2Test {
+  /**
+   * Test deserialize to string. Note that strings are considered valid JSON primitives when quoted.
+   */
   @Test
   void testDeserializeString() throws IOException {
     Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
@@ -52,6 +54,9 @@ class BaseDhis2Test {
     assertEquals("HkSu7IWlvrM", string);
   }
 
+  /**
+   * Test deserialize to data element.
+   */
   @Test
   void testDeserializeObject() throws IOException {
     Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
