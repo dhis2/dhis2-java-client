@@ -29,6 +29,7 @@ package org.hisp.dhis;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import java.io.IOException;
 import org.hisp.dhis.model.AggregationType;
 import org.hisp.dhis.model.DataDomain;
@@ -54,9 +55,7 @@ class BaseDhis2Test {
     assertEquals("HkSu7IWlvrM", string);
   }
 
-  /**
-   * Test deserialize to data element.
-   */
+  /** Test deserialize to data element. */
   @Test
   void testDeserializeObject() throws IOException {
     Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
