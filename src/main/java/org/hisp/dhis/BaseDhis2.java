@@ -79,6 +79,7 @@ import org.hisp.dhis.model.completedatasetregistration.CompleteDataSetRegistrati
 import org.hisp.dhis.model.datavalueset.DataValueSetImportOptions;
 import org.hisp.dhis.model.event.Events;
 import org.hisp.dhis.model.event.EventsResult;
+import org.hisp.dhis.model.validation.Validation;
 import org.hisp.dhis.query.Filter;
 import org.hisp.dhis.query.Operator;
 import org.hisp.dhis.query.Order;
@@ -181,7 +182,12 @@ public class BaseDhis2 {
   /** Data set fields. */
   protected static final String DATA_SET_FIELDS =
       String.format(
-          "%1$s,formName,displayFormName,categoryCombo[%1$s],dataSetElements[dataSet[%1$s],dataElement[%1$s],categoryCombo[%1$s]],dimensionItem,openFuturePeriods,expiryDays,timelyDays,url,formType,periodType,version,dimensionItemType,aggregationType,favorite,compulsoryFieldsCompleteOnly,skipOffline,validCompleteOnly,dataElementDecoration,openPeriodsAfterCoEndDate,notifyCompletingUser,noValueRequiresComment,fieldCombinationRequired,mobile,dataEntryForm[%2$s]",
+          """
+          %1$s,formName,displayFormName,categoryCombo[%1$s],dataSetElements[dataSet[%1$s],dataElement[%1$s],\
+          categoryCombo[%1$s]],dimensionItem,openFuturePeriods,expiryDays,timelyDays,url,formType,periodType,version,\
+          dimensionItemType,aggregationType,favorite,compulsoryFieldsCompleteOnly,skipOffline,validCompleteOnly,\
+          dataElementDecoration,openPeriodsAfterCoEndDate,notifyCompletingUser,noValueRequiresComment,\
+          fieldCombinationRequired,mobile,dataEntryForm[%2$s]""",
           NAME_FIELDS, ID_FIELDS);
 
   /** Org unit fields. */
@@ -214,7 +220,10 @@ public class BaseDhis2 {
   /** Program fields. */
   protected static final String PROGRAM_FIELDS =
       String.format(
-          "%1$s,programType,trackedEntityType[%2$s],categoryCombo[%1$s,categories[%3$s]],programStages[%1$s,programStageDataElements[%4$s]],programTrackedEntityAttributes[id,code,name,trackedEntityAttribute[%5$s]]",
+          """
+          %1$s,programType,trackedEntityType[%2$s],categoryCombo[%1$s,categories[%3$s]],\
+          programStages[%1$s,programStageDataElements[%4$s]],\
+          programTrackedEntityAttributes[id,code,name,trackedEntityAttribute[%5$s]]""",
           NAME_FIELDS,
           TRACKED_ENTITY_TYPE_FIELDS,
           CATEGORY_FIELDS,
@@ -366,18 +375,16 @@ public class BaseDhis2 {
   }
 
   /**
-   * Retrieves a Validation object using HTTP GET.
+   * Retrieves a {@link Validation} object using HTTP GET.
    *
    * @param uriBuilder the URI builder.
    * @param query the {@link DataSetValidationQuery} filters to apply.
-   * @param type the class type of the object.
-   * @param <T> type.
    * @return the object.
    */
-  protected <T> T getDataSetValidationResponse(
-      URIBuilder uriBuilder, DataSetValidationQuery query, Class<T> type) {
+  protected Validation getDataSetValidationResponse(
+      URIBuilder uriBuilder, DataSetValidationQuery query) {
     URI url = getDataSetValidationQuery(uriBuilder, query);
-    return getObjectFromUrl(url, type);
+    return getObjectFromUrl(url, Validation.class);
   }
 
   /**
@@ -389,7 +396,7 @@ public class BaseDhis2 {
    */
   protected String getDataValueFileResponse(URIBuilder uriBuilder, DataValueQuery query) {
     URI url = getDataValueQuery(uriBuilder, query);
-    return getObjectFromUrl(url);
+    return getObjectFromUrl(url, String.class);
   }
 
   /**
@@ -851,30 +858,13 @@ public class BaseDhis2 {
 
       log("Response body: '{}'", responseBody);
 
+      if (type == String.class) {
+        @SuppressWarnings("unchecked")
+        T result = (T) responseBody;
+        return result;
+      }
+
       return objectMapper.readValue(responseBody, type);
-    } catch (IOException ex) {
-      throw new Dhis2ClientException("Failed to fetch object", ex);
-    } catch (ParseException ex) {
-      throw new Dhis2ClientException("HTTP response could not be parsed", ex);
-    }
-  }
-
-  /**
-   * Retrieves an object using HTTP GET.
-   *
-   * @param url the fully qualified URL.
-   * @return the response.
-   * @throws Dhis2ClientException if access denied or resource not found.
-   */
-  protected String getObjectFromUrl(URI url) {
-    try (CloseableHttpResponse response = getJsonHttpResponse(url)) {
-      handleErrors(response, url.toString());
-
-      String responseBody = EntityUtils.toString(response.getEntity());
-
-      log("Response body: '{}'", responseBody);
-
-      return responseBody;
     } catch (IOException ex) {
       throw new Dhis2ClientException("Failed to fetch object", ex);
     } catch (ParseException ex) {

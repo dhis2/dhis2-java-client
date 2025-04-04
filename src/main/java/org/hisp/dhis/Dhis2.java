@@ -2307,7 +2307,7 @@ public class Dhis2 extends BaseDhis2 {
    * Retrieves the content of a file resource from a {@link DataValue}.
    *
    * @param query the {@link DataValueQuery}.
-   * @return The content of a file resource referenced in a {@link DataValue}.
+   * @return the content of a file resource referenced in a {@link DataValue}.
    */
   public String getDataValueFile(DataValueQuery query) {
     return getDataValueFileResponse(
@@ -2486,7 +2486,7 @@ public class Dhis2 extends BaseDhis2 {
    * OrgUnit}.
    *
    * @param query the {@link DataSetValidationQuery}.
-   * @return The validation results of the {@link DataSet} in the specified {@link Period} and
+   * @return the validation results of the {@link DataSet} in the specified {@link Period} and
    *     {@link OrgUnit}.
    */
   public Validation getDataSetValidation(DataSetValidationQuery query) {
@@ -2496,8 +2496,7 @@ public class Dhis2 extends BaseDhis2 {
             .appendPath("validation/dataSet")
             .appendPath(query.getDataSet())
             .addParameter(FIELDS_PARAM, VALIDATION_RULES_FIELDS),
-        query,
-        Validation.class);
+        query);
   }
 
   /**
