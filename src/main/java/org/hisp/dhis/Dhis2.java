@@ -1137,7 +1137,9 @@ public class Dhis2 extends BaseDhis2 {
     String fieldsParam =
         query.isExpandAssociations()
             ? String.format(
-                "%1$s,dataElementGroups[id,code,name,groupSets[id,code,name]],dataSetElements[dataSet[id,name,periodType,workflow[id,name]]]",
+                """
+                %1$s,dataElementGroups[id,code,name,groupSets[id,code,name]],\
+                dataSetElements[dataSet[id,name,periodType,workflow[id,name]]]""",
                 DATA_ELEMENT_FIELDS)
             : DATA_ELEMENT_FIELDS;
     return getObject(
