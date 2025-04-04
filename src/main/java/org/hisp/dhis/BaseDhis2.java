@@ -33,10 +33,6 @@ import static org.apache.hc.core5.http.HttpStatus.SC_NOT_FOUND;
 import static org.apache.hc.core5.http.HttpStatus.SC_UNAUTHORIZED;
 import static org.hisp.dhis.util.CollectionUtils.asList;
 import static org.hisp.dhis.util.HttpUtils.getUriAsString;
-
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -50,7 +46,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.hc.client5.http.HttpResponseException;
@@ -99,6 +94,10 @@ import org.hisp.dhis.response.completedatasetregistration.CompleteDataSetRegistr
 import org.hisp.dhis.response.object.ObjectResponse;
 import org.hisp.dhis.response.objects.ObjectsResponse;
 import org.hisp.dhis.util.HttpUtils;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author Lars Helge Overland
@@ -776,9 +775,9 @@ public class BaseDhis2 {
   /**
    * Retrieves an object using HTTP GET.
    *
+   * @param <T> type.
    * @param url the fully qualified URL.
    * @param type the class type of the object.
-   * @param <T> type.
    * @return the object.
    * @throws Dhis2ClientException if access denied or resource not found.
    */
@@ -791,7 +790,7 @@ public class BaseDhis2 {
 
       log("Response body: '{}'", responseBody);
 
-      return objectMapper.readValue(responseBody, type);
+      return deserialize(responseBody, type);
     } catch (IOException ex) {
       throw new Dhis2ClientException("Failed to fetch object", ex);
     } catch (ParseException ex) {
@@ -852,10 +851,24 @@ public class BaseDhis2 {
 
       log("Conflict response body: '{}'", responseBody);
 
-      Response objectResponse = objectMapper.readValue(responseBody, Response.class);
+      Response objectResponse = deserialize(responseBody, Response.class);
 
       throw new Dhis2ClientException(objectResponse.getMessage(), code);
     }
+  }
+
+  /**
+   * Deserializes the given JSON content to an object of the given type.
+   * 
+   * @param <T> type.
+   * @param content the JSON content.
+   * @param type the object type.
+   * @return an object.
+   * @throws IOException
+   */
+  private <T> T deserialize(String content, Class<T> type)
+    throws IOException {
+    return objectMapper.readValue(content, type);
   }
 
   /**
