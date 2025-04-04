@@ -33,10 +33,6 @@ import static org.apache.hc.core5.http.HttpStatus.SC_NOT_FOUND;
 import static org.apache.hc.core5.http.HttpStatus.SC_UNAUTHORIZED;
 import static org.hisp.dhis.util.CollectionUtils.asList;
 import static org.hisp.dhis.util.HttpUtils.getUriAsString;
-
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -50,7 +46,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.hc.client5.http.HttpResponseException;
@@ -79,6 +74,7 @@ import org.hisp.dhis.model.completedatasetregistration.CompleteDataSetRegistrati
 import org.hisp.dhis.model.datavalueset.DataValueSetImportOptions;
 import org.hisp.dhis.model.event.Events;
 import org.hisp.dhis.model.event.EventsResult;
+import org.hisp.dhis.model.validation.Validation;
 import org.hisp.dhis.query.Filter;
 import org.hisp.dhis.query.Operator;
 import org.hisp.dhis.query.Order;
@@ -88,8 +84,10 @@ import org.hisp.dhis.query.RootJunction;
 import org.hisp.dhis.query.analytics.AnalyticsQuery;
 import org.hisp.dhis.query.analytics.Dimension;
 import org.hisp.dhis.query.completedatasetregistration.CompleteDataSetRegistrationQuery;
+import org.hisp.dhis.query.datavalue.DataValueQuery;
 import org.hisp.dhis.query.datavalue.DataValueSetQuery;
 import org.hisp.dhis.query.event.EventsQuery;
+import org.hisp.dhis.query.validations.DataSetValidationQuery;
 import org.hisp.dhis.response.BaseHttpResponse;
 import org.hisp.dhis.response.Dhis2ClientException;
 import org.hisp.dhis.response.HttpStatus;
@@ -99,6 +97,10 @@ import org.hisp.dhis.response.completedatasetregistration.CompleteDataSetRegistr
 import org.hisp.dhis.response.object.ObjectResponse;
 import org.hisp.dhis.response.objects.ObjectsResponse;
 import org.hisp.dhis.util.HttpUtils;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author Lars Helge Overland
@@ -169,9 +171,7 @@ public class BaseDhis2 {
   /** Indicator fields. */
   protected static final String INDICATOR_FIELDS =
       String.format(
-          """
-          %1$s,annualized,numerator,numeratorDescription,denominator,denominatorDescription,url,\
-          indicatorType[%2$s]""",
+          "%1$s,annualized,numerator,numeratorDescription,denominator,denominatorDescription,url,indicatorType[%2$s]",
           NAME_FIELDS, INDICATOR_TYPE_FIELDS);
 
   /** Indicator group set fields. */
@@ -182,20 +182,17 @@ public class BaseDhis2 {
   protected static final String DATA_SET_FIELDS =
       String.format(
           """
-          %1$s,formName,displayFormName,categoryCombo[%1$s],\
-          dataSetElements[dataSet[%1$s],dataElement[%1$s],categoryCombo[%1$s]],dimensionItem,openFuturePeriods,\
-          expiryDays,timelyDays,url,formType,periodType,version,dimensionItemType,aggregationType,favorite,\
-          compulsoryFieldsCompleteOnly,skipOffline,validCompleteOnly,dataElementDecoration,\
-          openPeriodsAfterCoEndDate,notifyCompletingUser,noValueRequiresComment,fieldCombinationRequired,mobile,\
-          dataEntryForm[%2$s]""",
+          %1$s,formName,displayFormName,categoryCombo[%1$s],dataSetElements[dataSet[%1$s],dataElement[%1$s],\
+          categoryCombo[%1$s]],dimensionItem,openFuturePeriods,expiryDays,timelyDays,url,formType,periodType,version,\
+          dimensionItemType,aggregationType,favorite,compulsoryFieldsCompleteOnly,skipOffline,validCompleteOnly,\
+          dataElementDecoration,openPeriodsAfterCoEndDate,notifyCompletingUser,noValueRequiresComment,\
+          fieldCombinationRequired,mobile,dataEntryForm[%2$s]""",
           NAME_FIELDS, ID_FIELDS);
 
   /** Org unit fields. */
   protected static final String ORG_UNIT_FIELDS =
       String.format(
-          """
-          %s,path,level,parent[%s],openingDate,closedDate,comment,\
-          url,contactPerson,address,email,phoneNumber""",
+          "%s,path,level,parent[%s],openingDate,closedDate,comment,url,contactPerson,address,email,phoneNumber",
           NAME_FIELDS, NAME_FIELDS);
 
   /** Org unit group set fields. */
@@ -256,6 +253,26 @@ public class BaseDhis2 {
   /** Error status codes. */
   private static final Set<Integer> ERROR_STATUS_CODES =
       Set.of(SC_UNAUTHORIZED, SC_FORBIDDEN, SC_NOT_FOUND);
+
+  /** Validation Rules fields. */
+  protected static final String DATA_SET_PARAM = "dataSet";
+
+  protected static final String VALIDATION_SIDE_FIELDS =
+      "expression,description,displayDescription,slidingWindow,missingValueStrategy";
+
+  protected static final String VALIDATION_RULE_FIELDS =
+      String.format(
+          """
+          %1$s,dimensionItem,instruction,importance,periodType,displayDescription,displayInstruction,displayName,\
+          leftSide[%2$s],operator,rightSide[%2$s],skipFormValidation,legendSets""",
+          NAME_FIELDS, VALIDATION_SIDE_FIELDS);
+
+  protected static final String DATA_SET_VALIDATION_FIELDS =
+      String.format(
+          """
+      id,leftsideValue,rightsideValue,dayInPeriod,notificationSent,\
+      validationRule[%1$s],period[%2$s],organisationUnit[%2$s],attributeOptionCombo[%2$s]""",
+          VALIDATION_RULE_FIELDS, ID_FIELDS);
 
   protected final Dhis2Config config;
 
@@ -366,8 +383,32 @@ public class BaseDhis2 {
   protected <T> T getDataValueSetResponse(
       URIBuilder uriBuilder, DataValueSetQuery query, Class<T> type) {
     URI url = getDataValueSetQuery(uriBuilder, query);
-
     return getObjectFromUrl(url, type);
+  }
+
+  /**
+   * Retrieves a {@link Validation} object using HTTP GET.
+   *
+   * @param uriBuilder the URI builder.
+   * @param query the {@link DataSetValidationQuery} filters to apply.
+   * @return the object.
+   */
+  protected Validation getDataSetValidationResponse(
+      URIBuilder uriBuilder, DataSetValidationQuery query) {
+    URI url = getDataSetValidationQuery(uriBuilder, query);
+    return getObjectFromUrl(url, Validation.class);
+  }
+
+  /**
+   * Retrieves a dataValue object using HTTP GET.
+   *
+   * @param uriBuilder the URI builder.
+   * @param query the {@link DataValueSetQuery} filters to apply.
+   * @return the object.
+   */
+  protected String getDataValueFileResponse(URIBuilder uriBuilder, DataValueQuery query) {
+    URI url = getDataValueQuery(uriBuilder, query);
+    return getObjectFromUrl(url, String.class);
   }
 
   /**
@@ -560,6 +601,44 @@ public class BaseDhis2 {
         uriBuilder, "inputDataElementGroupIdScheme", query.getInputDataElementGroupIdScheme());
     addParameter(uriBuilder, "inputDataElementIdScheme", query.getInputDataElementIdScheme());
     addParameter(uriBuilder, "inputIdScheme", query.getInputIdScheme());
+
+    return HttpUtils.build(uriBuilder);
+  }
+
+  /**
+   * Returns a {@link URI} based on the given dataValue query.
+   *
+   * @param uriBuilder the URI builder.
+   * @param query the {@link DataValueQuery}.
+   * @return a URI.
+   */
+  protected URI getDataValueQuery(URIBuilder uriBuilder, DataValueQuery query) {
+
+    addParameter(uriBuilder, "de", query.getDe());
+    addParameter(uriBuilder, "pe", query.getPe());
+    addParameter(uriBuilder, "ou", query.getOu());
+    addParameter(uriBuilder, "co", query.getCo());
+    addParameter(uriBuilder, "cc", query.getCc());
+
+    if (!query.getCp().isEmpty()) {
+      addParameter(uriBuilder, "cp", String.join(";", query.getCp()));
+    }
+
+    addParameter(uriBuilder, "ds", query.getDs());
+
+    return HttpUtils.build(uriBuilder);
+  }
+
+  /**
+   * Returns a {@link URI} based on the given dataSetValidation query.
+   *
+   * @param uriBuilder the URI builder.
+   * @param query the {@link DataSetValidationQuery}.
+   * @return a URI.
+   */
+  protected URI getDataSetValidationQuery(URIBuilder uriBuilder, DataSetValidationQuery query) {
+    addParameter(uriBuilder, "pe", query.getPe());
+    addParameter(uriBuilder, "ou", query.getOu());
 
     return HttpUtils.build(uriBuilder);
   }
@@ -790,6 +869,12 @@ public class BaseDhis2 {
       String responseBody = EntityUtils.toString(response.getEntity());
 
       log("Response body: '{}'", responseBody);
+
+      if (type == String.class) {
+        @SuppressWarnings("unchecked")
+        T result = (T) responseBody;
+        return result;
+      }
 
       return readValue(responseBody, type);
     } catch (IOException ex) {

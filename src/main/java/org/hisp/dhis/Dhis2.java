@@ -65,6 +65,7 @@ import org.hisp.dhis.model.DataElementGroupSet;
 import org.hisp.dhis.model.DataSet;
 import org.hisp.dhis.model.Dhis2Objects;
 import org.hisp.dhis.model.Dimension;
+import org.hisp.dhis.model.FileResource;
 import org.hisp.dhis.model.GeoMap;
 import org.hisp.dhis.model.ImportStrategy;
 import org.hisp.dhis.model.Indicator;
@@ -89,17 +90,23 @@ import org.hisp.dhis.model.completedatasetregistration.CompleteDataSetRegistrati
 import org.hisp.dhis.model.dashboard.Dashboard;
 import org.hisp.dhis.model.datastore.DataStoreEntries;
 import org.hisp.dhis.model.datastore.EntryMetadata;
+import org.hisp.dhis.model.datavalueset.DataValue;
 import org.hisp.dhis.model.datavalueset.DataValueSet;
 import org.hisp.dhis.model.datavalueset.DataValueSetImportOptions;
 import org.hisp.dhis.model.event.Event;
 import org.hisp.dhis.model.event.Events;
 import org.hisp.dhis.model.event.EventsResult;
 import org.hisp.dhis.model.trackedentity.TrackedEntityType;
+import org.hisp.dhis.model.validation.Period;
+import org.hisp.dhis.model.validation.Validation;
+import org.hisp.dhis.model.validation.ValidationRule;
 import org.hisp.dhis.query.Query;
 import org.hisp.dhis.query.analytics.AnalyticsQuery;
 import org.hisp.dhis.query.completedatasetregistration.CompleteDataSetRegistrationQuery;
+import org.hisp.dhis.query.datavalue.DataValueQuery;
 import org.hisp.dhis.query.datavalue.DataValueSetQuery;
 import org.hisp.dhis.query.event.EventsQuery;
+import org.hisp.dhis.query.validations.DataSetValidationQuery;
 import org.hisp.dhis.request.orgunit.OrgUnitMergeRequest;
 import org.hisp.dhis.request.orgunit.OrgUnitSplitRequest;
 import org.hisp.dhis.response.Dhis2ClientException;
@@ -1130,9 +1137,7 @@ public class Dhis2 extends BaseDhis2 {
     String fieldsParam =
         query.isExpandAssociations()
             ? String.format(
-                """
-                %1$s,dataElementGroups[id,code,name,groupSets[id,code,name]],\
-                dataSetElements[dataSet[id,name,periodType,workflow[id,name]]]""",
+                "%1$s,dataElementGroups[id,code,name,groupSets[id,code,name]],dataSetElements[dataSet[id,name,periodType,workflow[id,name]]]",
                 DATA_ELEMENT_FIELDS)
             : DATA_ELEMENT_FIELDS;
     return getObject(
@@ -1525,9 +1530,7 @@ public class Dhis2 extends BaseDhis2 {
     String fieldsParam =
         query.isExpandAssociations()
             ? String.format(
-                """
-                %1$s,organisationUnits[%2$s],workflow[%2$s],indicators[%2$s],sections[%2$s],\
-                legendSets[%2$s]""",
+                "%1$s,organisationUnits[%2$s],workflow[%2$s],indicators[%2$s],sections[%2$s],legendSets[%2$s]",
                 DATA_SET_FIELDS, NAME_FIELDS)
             : DATA_SET_FIELDS;
 
@@ -1665,9 +1668,7 @@ public class Dhis2 extends BaseDhis2 {
         query.isExpandAssociations()
             ? PROGRAM_FIELDS
             : String.format(
-                """
-                %1$s,programType,trackedEntityType[%1$s],categoryCombo[%1$s],programStages[%1$s],\
-                programTrackedEntityAttributes[id,code,name,trackedEntityAttribute[%2$s]]""",
+                "%1$s,programType,trackedEntityType[%1$s],categoryCombo[%1$s],programStages[%1$s],programTrackedEntityAttributes[id,code,name,trackedEntityAttribute[%2$s]]",
                 NAME_FIELDS, TRACKED_ENTITY_ATTRIBUTE_FIELDS);
 
     return getObject(
@@ -2302,6 +2303,17 @@ public class Dhis2 extends BaseDhis2 {
         config.getResolvedUriBuilder().appendPath("dataValueSets.json"), query, DataValueSet.class);
   }
 
+  /**
+   * Retrieves the content of a file resource from a {@link DataValue}.
+   *
+   * @param query the {@link DataValueQuery}.
+   * @return the content of a file resource referenced in a {@link DataValue}.
+   */
+  public String getDataValueFile(DataValueQuery query) {
+    return getDataValueFileResponse(
+        config.getResolvedUriBuilder().appendPath("dataValues/files"), query);
+  }
+
   // -------------------------------------------------------------------------
   // Analytics data value set
   // -------------------------------------------------------------------------
@@ -2453,5 +2465,55 @@ public class Dhis2 extends BaseDhis2 {
             JobNotification[].class);
 
     return new ArrayList<>(Arrays.asList(response));
+  }
+
+  /**
+   * Retrieves a {@link FileResource}.
+   *
+   * @param id the object identifier.
+   * @return the {@link FileResource}.
+   * @throws Dhis2ClientException if the object does not exist.
+   */
+  public FileResource getFileResource(String id) {
+    return getObject(
+        config.getResolvedUriBuilder().appendPath("fileResources").appendPath(id),
+        Query.instance(),
+        FileResource.class);
+  }
+
+  /**
+   * Retrieves the validation results of a {@link DataSet} in a particular {@link Period} and {@link
+   * OrgUnit}.
+   *
+   * @param query the {@link DataSetValidationQuery}.
+   * @return the validation results of the {@link DataSet} in the specified {@link Period} and
+   *     {@link OrgUnit}.
+   */
+  public Validation getDataSetValidation(DataSetValidationQuery query) {
+    return getDataSetValidationResponse(
+        config
+            .getResolvedUriBuilder()
+            .appendPath("validation/dataSet")
+            .appendPath(query.getDataSet())
+            .addParameter(FIELDS_PARAM, DATA_SET_VALIDATION_FIELDS),
+        query);
+  }
+
+  /**
+   * Retrieves a list of {@link ValidationRule}.
+   *
+   * @param dataSet the object identifier of the Data Set where the validations apply.
+   * @return list of {@link ValidationRule}.
+   */
+  public List<ValidationRule> getValidationRules(String dataSet) {
+    return getObject(
+            config
+                .getResolvedUriBuilder()
+                .appendPath("validationRules")
+                .addParameter(DATA_SET_PARAM, dataSet)
+                .addParameter(FIELDS_PARAM, VALIDATION_RULE_FIELDS),
+            Query.instance(),
+            Dhis2Objects.class)
+        .getValidationRules();
   }
 }
