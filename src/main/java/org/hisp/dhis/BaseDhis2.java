@@ -271,8 +271,8 @@ public class BaseDhis2 {
   protected static final String DATA_SET_VALIDATION_FIELDS =
       String.format(
           """
-      id,leftsideValue,rightsideValue,dayInPeriod,notificationSent,\
-      validationRule[%1$s],period[%2$s],organisationUnit[%2$s],attributeOptionCombo[%2$s]""",
+          id,leftsideValue,rightsideValue,dayInPeriod,notificationSent,\
+          validationRule[%1$s],period[%2$s],organisationUnit[%2$s],attributeOptionCombo[%2$s]""",
           VALIDATION_RULE_FIELDS, ID_FIELDS);
 
   protected final Dhis2Config config;
@@ -862,6 +862,7 @@ public class BaseDhis2 {
    * @return the object.
    * @throws Dhis2ClientException if access denied or resource not found.
    */
+  @SuppressWarnings("unchecked")
   protected <T> T getObjectFromUrl(URI url, Class<T> type) {
     try (CloseableHttpResponse response = getJsonHttpResponse(url)) {
       handleErrors(response, url.toString());
@@ -872,9 +873,7 @@ public class BaseDhis2 {
       log("Response body: '{}'", responseBody);
 
       if (type == String.class) {
-        @SuppressWarnings("unchecked")
-        T result = (T) responseBody;
-        return result;
+        return (T) responseBody;
       }
 
       return readValue(responseBody, type);
