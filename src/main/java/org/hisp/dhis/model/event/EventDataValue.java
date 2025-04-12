@@ -54,13 +54,22 @@ public class EventDataValue implements Serializable {
 
   @ToString.Include @JsonProperty private String value;
 
+  /** Default false. */
   @JsonProperty private Boolean providedElsewhere;
 
+  /** Read-only. */
   @JsonProperty private Date createdAt;
 
+  /** Read-only. */
   @JsonProperty private Date updatedAt;
 
   @JsonProperty private String storedBy;
+
+  /** Read-only. */
+  @JsonProperty private String createdBy;
+
+  /** Read-only. */
+  @JsonProperty private String updatedBy;
 
   public EventDataValue(String dataElement, String value) {
     this.dataElement = dataElement;
