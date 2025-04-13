@@ -50,22 +50,27 @@ public class Event implements Serializable {
   @JsonProperty(value = "event")
   private String id;
 
+  /** Read-only. */
   @JsonProperty private String program;
+
+  /** Read-only. */
+  @JsonProperty private String trackedEntity;
 
   @ToString.Include @JsonProperty private String programStage;
 
-  @ToString.Include @JsonProperty private String enrollment;
+  @ToString.Include @JsonProperty private String orgUnit;
 
+  /** Default. */
   @ToString.Include @JsonProperty private String attributeOptionCombo;
 
   @JsonProperty private EventStatus status = EventStatus.ACTIVE;
 
-  @ToString.Include @JsonProperty private String orgUnit;
-
+  /** Read-only. */
   @JsonProperty private Date createdAt;
 
   @JsonProperty private Date createdAtClient;
 
+  /** Read-only. */
   @JsonProperty private Date updatedAt;
 
   @JsonProperty private Date updatedAtClient;
@@ -74,15 +79,26 @@ public class Event implements Serializable {
 
   @JsonProperty private Date occurredAt;
 
+  @JsonProperty private Date completedAt;
+
+  /** Read-only. */
   @JsonProperty private String completedBy;
 
   @JsonProperty private String storedBy;
 
+  /** Read-only. */
+  @JsonProperty private String createdBy;
+
+  /** Read-only. */
+  @JsonProperty private String updatedBy;
+
+  /** Read-only. */
   @JsonProperty private Boolean followUp;
 
+  /** Read-only. */
   @JsonProperty private Boolean deleted;
 
-  private List<EventDataValue> dataValues = new ArrayList<>();
+  @JsonProperty private List<EventDataValue> dataValues = new ArrayList<>();
 
   public Event(String id) {
     this.id = id;
@@ -90,15 +106,15 @@ public class Event implements Serializable {
 
   public Event(
       String id,
-      String program,
       String programStage,
       String orgUnit,
+      EventStatus status,
       Date occurredAt,
       List<EventDataValue> dataValues) {
     this(id);
-    this.program = program;
     this.programStage = programStage;
     this.orgUnit = orgUnit;
+    this.status = status;
     this.occurredAt = occurredAt;
     this.dataValues = dataValues;
   }
