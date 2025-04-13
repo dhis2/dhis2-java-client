@@ -31,6 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -260,7 +261,7 @@ class DateTimeUtilsTest {
     assertEquals("2001-11-23", date1.toString());
     assertEquals("2021-04-04", date2.toString());
   }
-  
+
   private Date getDate(int year, int month, int dayOfMonth, int hour, int minute, int second) {
     Calendar cal = Calendar.getInstance();
     cal.clear();
