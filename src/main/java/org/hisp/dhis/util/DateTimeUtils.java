@@ -212,6 +212,16 @@ public class DateTimeUtils {
   }
 
   /**
+   * Returns the {@link LocalDateTime} from a given {@link Instant}.
+   *
+   * @param instant the {@link Instant}.
+   * @return the {@link LocalDateTime}.
+   */
+  public static LocalDateTime toLocalDateTime(Instant instant) {
+    return instant.atZone(ZoneId.systemDefault()).toLocalDateTime();
+  }
+
+  /**
    * Returns a {@link java.util.Date} from a {@link java.time.LocalDate}.
    *
    * @param date the {@link java.time.LocalDate}.
