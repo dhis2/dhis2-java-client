@@ -27,12 +27,12 @@
  */
 package org.hisp.dhis.model.event;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -85,12 +85,6 @@ public class Event implements Serializable {
   @JsonProperty private String completedBy;
 
   @JsonProperty private String storedBy;
-
-  /** Read-only. */
-  @JsonProperty private String createdBy;
-
-  /** Read-only. */
-  @JsonProperty private String updatedBy;
 
   /** Read-only. */
   @JsonProperty private Boolean followUp;
