@@ -32,6 +32,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.UncheckedIOException;
 import java.text.SimpleDateFormat;
 import lombok.AccessLevel;
@@ -84,6 +85,22 @@ public class JacksonUtils {
   public static <T> T fromJson(String string, Class<T> type) {
     try {
       return OBJECT_MAPPER.readValue(string, type);
+    } catch (IOException ex) {
+      throw new UncheckedIOException(ex);
+    }
+  }
+
+  /**
+   * Deserializes JSON from the given {@link InputStream} into an object of the specified type.
+   *
+   * @param input the {@link InputStream} containing JSON data.
+   * @param type the class of the target type.
+   * @param <T> the type of the object to return.
+   * @return an object of type T.
+   */
+  public static <T> T fromJson(InputStream input, Class<T> type) {
+    try {
+      return OBJECT_MAPPER.readValue(input, type);
     } catch (IOException ex) {
       throw new UncheckedIOException(ex);
     }
