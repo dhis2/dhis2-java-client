@@ -34,10 +34,7 @@ import static org.apache.hc.core5.http.HttpStatus.SC_UNAUTHORIZED;
 import static org.hisp.dhis.util.CollectionUtils.asList;
 import static org.hisp.dhis.util.HttpUtils.getUriAsString;
 
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -45,7 +42,6 @@ import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
-import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -103,6 +99,7 @@ import org.hisp.dhis.response.completedatasetregistration.CompleteDataSetRegistr
 import org.hisp.dhis.response.object.ObjectResponse;
 import org.hisp.dhis.response.objects.ObjectsResponse;
 import org.hisp.dhis.util.HttpUtils;
+import org.hisp.dhis.util.JacksonUtils;
 
 /**
  * @author Lars Helge Overland
@@ -240,9 +237,6 @@ public class BaseDhis2 {
           "%1$s,username,surname,firstName,email,settings,programs,dataSets,authorities,organisationUnits[%2$s]",
           ID_FIELDS, ORG_UNIT_FIELDS);
 
-  /** Default date format. */
-  protected static final String DATE_FORMAT = "yyyy-MM-dd";
-
   /** Log level system property. */
   private static final String LOG_LEVEL_SYSTEM_PROPERTY = "log.level.dhis2";
 
@@ -284,15 +278,8 @@ public class BaseDhis2 {
 
   public BaseDhis2(Dhis2Config config) {
     Objects.requireNonNull(config, "Config must be specified");
-
     this.config = config;
-
-    this.objectMapper = new ObjectMapper();
-    objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
-    objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-    objectMapper.setSerializationInclusion(Include.NON_NULL);
-    objectMapper.setDateFormat(new SimpleDateFormat(DATE_FORMAT));
-
+    this.objectMapper = JacksonUtils.getObjectMapper();
     this.httpClient = HttpClients.createDefault();
   }
 
