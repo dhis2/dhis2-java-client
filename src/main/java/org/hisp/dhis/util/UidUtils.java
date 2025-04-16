@@ -71,20 +71,19 @@ public class UidUtils {
   /**
    * Generates a pseudo random string with alphanumeric characters.
    *
-   * @param codeSize the number of characters in the code.
+   * @param length the number of characters in the code.
    * @return the code.
    */
-  public static String generateCode(int codeSize) {
-    ThreadLocalRandom r = ThreadLocalRandom.current();
+  public static String generateCode(int length) {
+    ThreadLocalRandom rand = ThreadLocalRandom.current();
 
-    char[] randomChars = new char[codeSize];
+    char[] randomChars = new char[length];
 
-    // First char should be a letter
+    // First char must be a letter
+    randomChars[0] = ALPHABET.charAt(rand.nextInt(ALPHABET.length()));
 
-    randomChars[0] = ALPHABET.charAt(r.nextInt(ALPHABET.length()));
-
-    for (int i = 1; i < codeSize; ++i) {
-      randomChars[i] = ALLOWED_CHARS.charAt(r.nextInt(CHAR_LENGTH));
+    for (int i = 1; i < length; ++i) {
+      randomChars[i] = ALLOWED_CHARS.charAt(rand.nextInt(CHAR_LENGTH));
     }
 
     return new String(randomChars);
