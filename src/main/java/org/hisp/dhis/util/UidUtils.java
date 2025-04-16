@@ -27,6 +27,10 @@
  */
 package org.hisp.dhis.util;
 
+import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.regex.Pattern;
 import lombok.AccessLevel;
@@ -44,7 +48,7 @@ public class UidUtils {
   private static final Pattern UID_PATTERN = Pattern.compile("^[a-zA-Z]{1}[a-zA-Z0-9]{10}$");
 
   /**
-   * Generates a UID according to the following rules.
+   * Generates a DHIS2 UID according to the following rules.
    *
    * <ul>
    *   <li>Alphanumeric characters only.
@@ -52,7 +56,7 @@ public class UidUtils {
    *   <li>First character is alphabetic.
    * </ul>
    *
-   * @return a UID string.
+   * @return a DHIS2 UID string.
    */
   public static String generateUid() {
     return generateCode(UID_LENGTH);
@@ -87,5 +91,71 @@ public class UidUtils {
     }
 
     return new String(randomChars);
+  }
+
+  /**
+   * Generates a DHIS2 UID from an input string. The algorithm is deterministic and minimizes risk
+   * of collisions.
+   *
+   * @param input the input string.
+   * @return a DHIS2 UID. Returns null if the input is invalid. Returns an empty string if the input
+   *     string is empty.
+   */
+  public static String generateDHIS2UID(String input) {
+    if (input == null) {
+      return null;
+    }
+    if (input.isEmpty()) {
+      return "";
+    }
+
+    if (input.length() < 20 || input.length() > 40) {
+      throw new IllegalArgumentException("Input string must be between 20 and 40 characters long.");
+    }
+
+    try {
+      // Hash input string using SHA-256
+      MessageDigest digest = MessageDigest.getInstance("SHA-256");
+      byte[] hashBytes = digest.digest(input.getBytes(StandardCharsets.UTF_8));
+
+      // Convert hash to a BigInteger.
+      BigInteger bigInteger = new BigInteger(1, hashBytes);
+
+      // Convert BigInteger to Base62
+      String base62 = fromBigInteger(bigInteger, ALPHABET, UID_LENGTH);
+
+      // Ensure the UID starts with a letter
+      if (Character.isDigit(base62.charAt(0))) {
+        // If first character is a digit, shift Base62 string by one character
+        // Move first char to the end and append 'A'
+        base62 = base62.substring(1) + ALPHABET.charAt(0);
+      }
+      return base62;
+
+    } catch (NoSuchAlgorithmException ex) {
+      throw new RuntimeException("SHA-256 algorithm not found", ex);
+    }
+  }
+
+  /**
+   * Converts a BigInteger to a Base62 string of a specified length.
+   *
+   * @param value the BigInteger to convert.
+   * @param alphabet the Base62 alphabet.
+   * @param length the desired length of the Base62 string.
+   * @return a Base62 string of the specified length.
+   */
+  private static String fromBigInteger(BigInteger value, String alphabet, int length) {
+    StringBuilder sb = new StringBuilder();
+    BigInteger base = BigInteger.valueOf(alphabet.length());
+
+    for (int i = 0; i < length; i++) {
+      BigInteger[] qr = value.divideAndRemainder(base);
+      value = qr[0];
+      BigInteger remainder = qr[1];
+      sb.insert(0, alphabet.charAt(remainder.intValue()));
+    }
+
+    return sb.toString();
   }
 }
