@@ -34,18 +34,17 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class UidUtils {
-  private static final String letters = "abcdefghijklmnopqrstuvwxyz" + "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  private static final String ALPHABET = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  private static final String DIGITS = "0123456789";
+  private static final String ALLOWED_CHARS = ALPHABET + DIGITS;
 
-  private static final String ALLOWED_CHARS = "0123456789" + letters;
-
-  private static final int NUMBER_OF_CODEPOINTS = ALLOWED_CHARS.length();
+  private static final int CHAR_LENGTH = ALLOWED_CHARS.length();
+  private static final int UID_LENGTH = 11;
 
   private static final Pattern UID_PATTERN = Pattern.compile("^[a-zA-Z]{1}[a-zA-Z0-9]{10}$");
 
-  private static final int CODESIZE = 11;
-
   /**
-   * Generates a UID according to the following rules:
+   * Generates a UID according to the following rules.
    *
    * <ul>
    *   <li>Alphanumeric characters only.
@@ -53,10 +52,10 @@ public class UidUtils {
    *   <li>First character is alphabetic.
    * </ul>
    *
-   * @return a UID.
+   * @return a UID string.
    */
   public static String generateUid() {
-    return generateCode(CODESIZE);
+    return generateCode(UID_LENGTH);
   }
 
   /**
@@ -82,10 +81,10 @@ public class UidUtils {
 
     // First char should be a letter
 
-    randomChars[0] = letters.charAt(r.nextInt(letters.length()));
+    randomChars[0] = ALPHABET.charAt(r.nextInt(ALPHABET.length()));
 
     for (int i = 1; i < codeSize; ++i) {
-      randomChars[i] = ALLOWED_CHARS.charAt(r.nextInt(NUMBER_OF_CODEPOINTS));
+      randomChars[i] = ALLOWED_CHARS.charAt(r.nextInt(CHAR_LENGTH));
     }
 
     return new String(randomChars);
