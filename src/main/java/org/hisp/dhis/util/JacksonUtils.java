@@ -36,7 +36,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.UncheckedIOException;
 import java.text.SimpleDateFormat;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class JacksonUtils {
   /** Default date format. */
   private static final String DATE_FORMAT = "yyyy-MM-dd";

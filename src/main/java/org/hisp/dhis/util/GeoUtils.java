@@ -45,6 +45,6 @@ public class GeoUtils {
    * @return a {@link Point}
    */
   public static Point toPoint(double longitude, double latitude) {
-    return GEO_FACTORY.createPoint(new Coordinate(10.752, 59.914));
+    return GEO_FACTORY.createPoint(new Coordinate(longitude, latitude));
   }
 }
