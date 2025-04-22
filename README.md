@@ -136,6 +136,7 @@ To create an org unit:
 OrgUnit orgUnit = new OrgUnit();
 orgUnit.setName("Ngelehun");
 orgUnit.setCode("NGLH");
+orgUnit.setPointGeometry(-11.452, 8.057);
 
 ObjectResponse response = dhis2.saveOrgUnit(orgUnit);
 ```
