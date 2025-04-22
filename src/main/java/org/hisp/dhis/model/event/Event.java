@@ -141,7 +141,7 @@ public class Event implements Serializable {
   /**
    * Indicates whether geometry is of the given type.
    *
-   * @param the type, use {@link Geometry} > {@code TYPENAME} constant values.
+   * @param type the type, use {@link Geometry} {@code TYPENAME} constant values.
    * @return true if geometry is of the given type.
    */
   public boolean isGeometryType(String type) {
