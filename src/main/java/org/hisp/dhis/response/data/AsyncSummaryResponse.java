@@ -37,6 +37,7 @@ import lombok.Setter;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.hisp.dhis.response.BaseHttpResponse;
 
+/** Asynchronous import summary response. */
 @Getter
 @Setter
 @NoArgsConstructor

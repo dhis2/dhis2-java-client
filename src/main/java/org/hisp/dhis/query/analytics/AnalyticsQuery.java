@@ -35,6 +35,7 @@ import lombok.experimental.Accessors;
 import org.hisp.dhis.model.AggregationType;
 import org.hisp.dhis.model.IdScheme;
 
+/** Analytics data query. */
 @Getter
 @Setter
 @Accessors(chain = true)
@@ -63,19 +64,43 @@ public class AnalyticsQuery {
 
   private AnalyticsQuery() {}
 
+  /**
+   * Creates a new instance of this query.
+   *
+   * @return an {@link AnalyticsQuery}.
+   */
   public static AnalyticsQuery instance() {
     return new AnalyticsQuery();
   }
 
+  /**
+   * Adds a dimension to this query.
+   *
+   * @param dimension the {@link Dimension}.
+   * @return this {@link AnalyticsQuery}.
+   */
   public AnalyticsQuery addDimension(Dimension dimension) {
     this.dimensions.add(dimension);
     return this;
   }
 
+  /**
+   * Adds a dimension and items to this query.
+   *
+   * @param dimension the dimension identifier.
+   * @param items the list of dimension items.
+   * @return this {@link AnalyticsQuery}.
+   */
   public AnalyticsQuery addDimension(String dimension, List<String> items) {
     return addDimension(new Dimension(dimension, items));
   }
 
+  /**
+   * Adds a filter to this query.
+   *
+   * @param filter the {@link Dimension}.
+   * @return this {@link AnalyticsQuery}.
+   */
   public AnalyticsQuery addFilter(Dimension filter) {
     this.filters.add(filter);
     return this;
