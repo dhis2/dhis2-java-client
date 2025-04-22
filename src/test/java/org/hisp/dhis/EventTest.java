@@ -44,7 +44,6 @@ import org.locationtech.jts.geom.PrecisionModel;
 class EventTest {
   @Test
   void testSetPointGeometry() {
-
     PrecisionModel precision = new PrecisionModel(PrecisionModel.FLOATING);
 
     Event event = new Event("fq7DInE403B");
