@@ -31,9 +31,10 @@ import static org.hisp.dhis.util.DateTimeUtils.getDate;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import org.hisp.dhis.model.event.Event;
+import org.hisp.dhis.model.event.EventStatus;
 import org.hisp.dhis.support.TestTags;
+import org.hisp.dhis.util.JacksonUtils;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.locationtech.jts.geom.Geometry;
@@ -61,7 +62,47 @@ class EventTest {
 
     assertEquals(10.752, point.getX());
     assertEquals(59.914, point.getY());
-    assertEquals("Point", point.getGeometryType());
+    assertEquals(Geometry.TYPENAME_POINT, point.getGeometryType());
     assertEquals(precision, point.getPrecisionModel());
+  }
+
+  @Test
+  void testSerializeGeometryPoint() {
+    Event event = new Event("fq7DInE403B");
+    event.setPointGeometry(10.752, 59.914);
+    
+    String actual = JacksonUtils.toJsonString(event);
+    
+    String expected = """
+        {\
+        "status":"ACTIVE",\
+        "geometry":{"type":"Point","coordinates":[10.752,59.914]},\
+        "dataValues":[],\
+        "event":"fq7DInE403B"}""";
+    
+    assertEquals(expected, actual);
+  }
+  
+  @Test
+  void testDeserializeGeometryPoint() {
+    String json = """
+        {\
+        "status":"ACTIVE",\
+        "geometry":{"type":"Point","coordinates":[10.752,59.914]},\
+        "dataValues":[],\
+        "event":"fq7DInE403B"}""";
+    
+    Event event = JacksonUtils.fromJson(json, Event.class);
+
+    assertNotNull(event);
+    assertEquals("fq7DInE403B", event.getId());
+    assertEquals(EventStatus.ACTIVE, event.getStatus());
+    assertTrue(event.isGeometryPoint());
+    
+    Point point = (Point) event.getGeometry();
+    
+    assertNotNull(point);
+    assertEquals(10.752, point.getX());
+    assertEquals(59.914, point.getY());    
   }
 }

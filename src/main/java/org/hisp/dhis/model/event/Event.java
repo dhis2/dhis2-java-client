@@ -27,19 +27,20 @@
  */
 package org.hisp.dhis.model.event;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import org.hisp.dhis.util.GeoUtils;
+import org.locationtech.jts.geom.Geometry;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.hisp.dhis.util.GeoUtils;
-import org.locationtech.jts.geom.Geometry;
 
 @Getter
 @Setter
@@ -125,6 +126,27 @@ public class Event implements Serializable {
    */
   public void setPointGeometry(double longitude, double latitude) {
     this.geometry = GeoUtils.toPoint(longitude, latitude);
+  }
+
+  /**
+   * Indicates whether geometry is of type {@code Point}.
+   * 
+   * @return true if geometry is of type {@code Point}.
+   */
+  @JsonIgnore
+  public boolean isGeometryPoint() {
+    return isGeometryType(Geometry.TYPENAME_POINT);
+  }
+
+  /**
+   * Indicates whether geometry is of the given type.
+   * 
+   * @param the type, use {@link Geometry} > {@code TYPENAME} constant values.
+   * @return true if geometry is of the given type.
+   */
+  public boolean isGeometryType(String type) {
+    Objects.requireNonNull(type);
+    return geometry != null && type.equals(geometry.getGeometryType());
   }
 
   /**
