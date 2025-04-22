@@ -59,11 +59,12 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <maven.compiler.release>17</maven.compiler.release>
     <jackson.version>2.18.3</jackson.version>
-    <jts-io-common.version>1.20.0</jts-io-common.version>
+    <jts.version>1.20.0</jts.version>
     <slf4j.version>2.0.17</slf4j.version>
     <lombok.version>1.18.36</lombok.version>
     <maven-artifact.version>3.9.9</maven-artifact.version>
     <httpclient5.version>5.3.1</httpclient5.version>
+    <jackson-datatype-jts.version>2.14</jackson-datatype-jts.version>
     <junit-jupiter.version>5.12.1</junit-jupiter.version>
     <maven-artifact.version>3.9.4</maven-artifact.version>
     <maven-surefire-plugin.version>3.5.2</maven-surefire-plugin.version>
@@ -122,7 +123,17 @@
     <dependency>
       <groupId>org.locationtech.jts.io</groupId>
       <artifactId>jts-io-common</artifactId>
-      <version>${jts-io-common.version}</version>
+      <version>${jts.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.locationtech.jts</groupId>
+      <artifactId>jts-core</artifactId>
+      <version>${jts.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.graphhopper.external</groupId>
+      <artifactId>jackson-datatype-jts</artifactId>
+      <version>${jackson-datatype-jts.version}</version>
     </dependency>
     <dependency>
       <groupId>org.projectlombok</groupId>
