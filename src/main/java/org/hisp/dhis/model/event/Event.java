@@ -38,6 +38,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.hisp.dhis.util.GeoUtils;
+import org.locationtech.jts.geom.Geometry;
 
 @Getter
 @Setter
@@ -89,6 +91,8 @@ public class Event implements Serializable {
   /** Read-only. */
   @JsonProperty private Boolean followUp;
 
+  @JsonProperty private Geometry geometry;
+
   /** Read-only. */
   @JsonProperty private Boolean deleted;
 
@@ -111,6 +115,16 @@ public class Event implements Serializable {
     this.status = status;
     this.occurredAt = occurredAt;
     this.dataValues = dataValues;
+  }
+
+  /**
+   * Sets the geometry field to a point based on the given longitude and latitude.
+   *
+   * @param longitude the longitude (x value).
+   * @param latitude the latitude (y value).
+   */
+  public void setPointGeometry(double longitude, double latitude) {
+    this.geometry = GeoUtils.toPoint(longitude, latitude);
   }
 
   /**
