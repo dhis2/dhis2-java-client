@@ -50,7 +50,7 @@ class EventTest {
     event.setProgramStage("Zj7UnCAulEk");
     event.setOrgUnit("DiszpKrYNg8");
     event.setOccurredAt(getDate(2021, 7, 12));
-    event.setPointGeometry(10.7522, 59.9139);
+    event.setPointGeometry(10.752, 59.914);
 
     Geometry geometry = event.getGeometry();
 
