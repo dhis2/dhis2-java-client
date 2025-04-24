@@ -201,4 +201,13 @@ public class Event implements Serializable {
   public void addDataValue(String dataElement, String value) {
     addDataValue(new EventDataValue(dataElement, value));
   }
+
+  /**
+   * Adds the givene list of event data values.
+   *
+   * @param dataValues the list of {@link EventDataValue}.
+   */
+  public void addDataValues(List<EventDataValue> dataValues) {
+    this.dataValues.addAll(dataValues);
+  }
 }

@@ -159,7 +159,7 @@ public class CollectionUtils {
    * @return an item or null.
    */
   public static <T> T get(List<T> list, int index) {
-    if (list != null && index >= 0 && index < list.size()) {
+    if (index >= 0 && list != null && index < list.size()) {
       return list.get(index);
     }
 
