@@ -30,7 +30,18 @@ package org.hisp.dhis.util;
 import java.util.HashMap;
 import java.util.Map;
 
-/** Builder of maps. */
+/**
+ * Builder of maps.
+ *
+ * <p>Example usage:
+ *
+ * <pre>{@code
+ * Map<K, V> = new MapBuilder<K, V>()
+ *   .put(key, value)
+ *   .putIfAbsent(key, value)
+ *   .build();
+ * }</pre>
+ */
 public class MapBuilder<K, V> {
   private final Map<K, V> map;
 
