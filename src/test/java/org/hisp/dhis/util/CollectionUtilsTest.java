@@ -28,6 +28,7 @@
 package org.hisp.dhis.util;
 
 import static org.hisp.dhis.util.CollectionUtils.firstMatch;
+import static org.hisp.dhis.util.CollectionUtils.get;
 import static org.hisp.dhis.util.CollectionUtils.list;
 import static org.hisp.dhis.util.CollectionUtils.mutableList;
 import static org.hisp.dhis.util.CollectionUtils.mutableSet;
@@ -78,5 +79,18 @@ class CollectionUtilsTest {
     List<String> list = mutableList("a", null, "b");
 
     assertEquals(3, list.size());
+  }
+
+  @Test
+  void testGetAtIndex() {
+    List<String> list = list("a", "b", "c");
+
+    assertEquals("a", get(list, 0));
+    assertEquals("b", get(list, 1));
+    assertEquals("c", get(list, 2));
+
+    assertNull(get(list, -1));
+    assertNull(get(list, 3));
+    assertNull(get(list, 9));
   }
 }

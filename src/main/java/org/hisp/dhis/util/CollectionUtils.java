@@ -148,4 +148,21 @@ public class CollectionUtils {
   public static <T> boolean notEmpty(Collection<T> collection) {
     return collection != null && !collection.isEmpty();
   }
+
+  /**
+   * Returns the item at the given index in the given list. Returns null if the index is out of
+   * bounds.
+   *
+   * @param <T>
+   * @param list the list.
+   * @param index the index.
+   * @return an item or null.
+   */
+  public static <T> T get(List<T> list, int index) {
+    if (list != null && index >= 0 && index < list.size()) {
+      return list.get(index);
+    }
+
+    return null;
+  }
 }
