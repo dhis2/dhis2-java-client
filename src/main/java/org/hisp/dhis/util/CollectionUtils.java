@@ -104,8 +104,8 @@ public class CollectionUtils {
   }
 
   /**
-   * Maps the given list of objects of type <U> to a list of objects of type <T>. Null objects are
-   * not allowed.
+   * Maps the given list of objects of type U to a list of objects of type T. Null objects are not
+   * allowed.
    *
    * @param <T> type.
    * @param <U> type.
@@ -169,7 +169,7 @@ public class CollectionUtils {
    * Returns the item at the given index in the given list. Returns null if the index is out of
    * bounds.
    *
-   * @param <T>
+   * @param <T> type.
    * @param list the list.
    * @param index the index.
    * @return an item or null.
