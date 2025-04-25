@@ -40,9 +40,7 @@ import java.util.stream.Collectors;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
-/**
- * Utilities for collections.
- */
+/** Utilities for collections. */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class CollectionUtils {
   /**
@@ -104,10 +102,11 @@ public class CollectionUtils {
 
     return list;
   }
-  
+
   /**
-   * Maps the given list of objects of type <U> to a list of objects of type <T>. Null objects are not allowed.
-   * 
+   * Maps the given list of objects of type <U> to a list of objects of type <T>. Null objects are
+   * not allowed.
+   *
    * @param <T> type.
    * @param <U> type.
    * @param objects the objects of type <U>.
@@ -115,9 +114,7 @@ public class CollectionUtils {
    * @return a list of objects of type <T>.
    */
   public static <T, U> List<T> mapToList(List<U> objects, Function<U, T> mapper) {
-    return objects.stream()
-        .map(mapper)
-        .toList();
+    return objects.stream().map(mapper).toList();
   }
 
   /**

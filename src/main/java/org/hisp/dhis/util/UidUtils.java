@@ -32,9 +32,7 @@ import java.util.regex.Pattern;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
-/**
- * Utilities for UID.
- */
+/** Utilities for UID. */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class UidUtils {
   private static final String ALPHABET = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";

@@ -31,13 +31,11 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
-import org.hisp.dhis.model.IdentifiableObject;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.hisp.dhis.model.IdentifiableObject;
 
-/**
- * Utilities for {@link IdentifiableObject}.
- */
+/** Utilities for {@link IdentifiableObject}. */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class IdentifiableObjectUtils {
   /**

@@ -34,7 +34,7 @@ import java.util.List;
 
 /**
  * Builder of lists.
- * 
+ *
  * <p>Example usage:
  *
  * <pre>{@code

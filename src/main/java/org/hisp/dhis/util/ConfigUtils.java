@@ -31,14 +31,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-import org.apache.commons.lang3.ObjectUtils;
-import org.apache.commons.lang3.StringUtils;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 
-/**
- * Utilities for configuration.
- */
+/** Utilities for configuration. */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ConfigUtils {
   /**

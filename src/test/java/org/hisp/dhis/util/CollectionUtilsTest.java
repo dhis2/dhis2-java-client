@@ -36,6 +36,7 @@ import static org.hisp.dhis.util.CollectionUtils.mutableSet;
 import static org.hisp.dhis.util.CollectionUtils.set;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+
 import java.util.List;
 import java.util.Set;
 import org.hisp.dhis.model.DataElement;
@@ -103,11 +104,11 @@ class CollectionUtilsTest {
     deB.setId("qEiCafULhoW");
     DataElement deC = new DataElement();
     deC.setId("wOahXFjLq4V");
-    
+
     List<DataElement> list = List.of(deA, deB, deC);
-    
+
     List<String> expected = List.of("jUb6fnbZPhV", "qEiCafULhoW", "wOahXFjLq4V");
-    
+
     assertEquals(expected, mapToList(list, DataElement::getId));
   }
 }

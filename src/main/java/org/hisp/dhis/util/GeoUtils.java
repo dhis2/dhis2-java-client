@@ -27,15 +27,13 @@
  */
 package org.hisp.dhis.util;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.geom.Point;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
 
-/**
- * Utilities for geospatial objects.
- */
+/** Utilities for geospatial objects. */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class GeoUtils {
   private static final GeometryFactory GEO_FACTORY = new GeometryFactory();
