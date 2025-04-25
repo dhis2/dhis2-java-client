@@ -29,11 +29,14 @@ package org.hisp.dhis.util;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
+/**
+ * Utilities for version.
+ */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class VersionUtils {
   private static final Pattern PATTERN_MAJOR_VERSION = Pattern.compile("\\d\\.(\\d{2}).*$");

@@ -34,11 +34,15 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
+/**
+ * Utilities for collections.
+ */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class CollectionUtils {
   /**
@@ -99,6 +103,21 @@ public class CollectionUtils {
     }
 
     return list;
+  }
+  
+  /**
+   * Maps the given list of objects of type <U> to a list of objects of type <T>. Null objects are not allowed.
+   * 
+   * @param <T> type.
+   * @param <U> type.
+   * @param objects the objects of type <U>.
+   * @param mapper the mapping function.
+   * @return a list of objects of type <T>.
+   */
+  public static <T, U> List<T> mapToList(List<U> objects, Function<U, T> mapper) {
+    return objects.stream()
+        .map(mapper)
+        .toList();
   }
 
   /**

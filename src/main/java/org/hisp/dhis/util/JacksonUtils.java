@@ -27,18 +27,21 @@
  */
 package org.hisp.dhis.util;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.UncheckedIOException;
+import java.text.SimpleDateFormat;
 import com.bedatadriven.jackson.datatype.jts.JtsModule;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.UncheckedIOException;
-import java.text.SimpleDateFormat;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
+/**
+ * Utilities for JSON parsing and serialization.
+ */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class JacksonUtils {
   /** Default date format. */

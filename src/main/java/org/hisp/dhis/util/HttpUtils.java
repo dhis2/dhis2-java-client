@@ -32,14 +32,17 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
 import org.apache.hc.client5.http.classic.methods.HttpUriRequestBase;
 import org.apache.hc.core5.http.message.BasicHttpRequest;
 import org.apache.hc.core5.net.URIBuilder;
 import org.hisp.dhis.Dhis2Config;
 import org.hisp.dhis.auth.Authentication;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
+/**
+ * Utilities for HTTP communication.
+ */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class HttpUtils {
   /**
