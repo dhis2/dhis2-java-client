@@ -27,6 +27,7 @@
  */
 package org.hisp.dhis.model.analytics;
 
+import org.hisp.dhis.model.ValueType;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -40,7 +41,7 @@ public class AnalyticsHeader {
 
   @JsonProperty private String column;
 
-  @JsonProperty private String valueType;
+  @JsonProperty private ValueType valueType;
 
   @JsonProperty private Boolean hidden;
 
