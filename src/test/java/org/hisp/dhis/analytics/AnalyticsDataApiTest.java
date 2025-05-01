@@ -28,16 +28,20 @@
 package org.hisp.dhis.analytics;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
+import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
 import org.hisp.dhis.Dhis2;
 import org.hisp.dhis.TestFixture;
 import org.hisp.dhis.model.ValueType;
 import org.hisp.dhis.model.analytics.AnalyticsData;
 import org.hisp.dhis.model.analytics.AnalyticsHeader;
+import org.hisp.dhis.model.analytics.AnalyticsMetaData;
+import org.hisp.dhis.model.analytics.MetaDataItem;
 import org.hisp.dhis.query.analytics.AnalyticsQuery;
 import org.hisp.dhis.support.TestTags;
 import org.junit.jupiter.api.Disabled;
@@ -56,7 +60,10 @@ class AnalyticsDataApiTest {
         AnalyticsQuery.instance()
             .addDataDimension(List.of("fbfJHSPpUQD", "cYeuwXTCPkU", "Jtf34kNZhzP"))
             .addPeriodDimension(List.of("202501", "202502", "202503"))
-            .addOrgUnitFilter(List.of("ImspTQPwCqd"));
+            .addOrgUnitFilter(List.of("ImspTQPwCqd"))
+            .setSkipData(false)
+            .setSkipMeta(false)
+            .setIncludeMetadataDetails(true);
 
     AnalyticsData data = dhis2.getAnalyticsData(query);
 
@@ -78,6 +85,28 @@ class AnalyticsDataApiTest {
     assertEquals("dx", firstHeader.getName());
     assertEquals("Data", firstHeader.getColumn());
     assertEquals(ValueType.TEXT, firstHeader.getValueType());
+
+    AnalyticsMetaData metaData = data.getMetaData();
+
+    Map<String, MetaDataItem> items = metaData.getItems();
+
+    assertNotNull(items);
+    assertFalse(items.keySet().isEmpty());
+
+    MetaDataItem dxItem = items.get("dx");
+
+    assertNotNull(dxItem);
+    assertEquals("dx", dxItem.getUid());
+    assertEquals("Data", dxItem.getName());
+
+    Map<String, List<String>> dimensions = metaData.getDimensions();
+
+    assertNotNull(dimensions);
+    assertTrue(dimensions.containsKey("dx"));
+    assertTrue(dimensions.containsKey("pe"));
+    assertTrue(dimensions.containsKey("ou"));
+
+    assertNotNull(metaData);
 
     List<String> firstRow = data.getRows().get(0);
 

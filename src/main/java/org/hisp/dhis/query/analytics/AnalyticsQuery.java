@@ -62,6 +62,8 @@ public class AnalyticsQuery {
 
   private Boolean includeNumDen;
 
+  private Boolean includeMetadataDetails;
+
   private IdScheme outputIdScheme;
 
   private IdScheme outputOrgUnitIdScheme;

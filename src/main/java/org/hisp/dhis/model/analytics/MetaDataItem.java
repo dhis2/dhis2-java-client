@@ -28,7 +28,6 @@
 package org.hisp.dhis.model.analytics;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -38,16 +37,26 @@ import lombok.ToString;
 @Setter
 @ToString
 @NoArgsConstructor
-public class AnalyticsData {
-  @JsonProperty private List<AnalyticsHeader> headers;
+public class MetaDataItem {
+  @JsonProperty private String uid;
 
-  @JsonProperty private AnalyticsMetaData metaData;
+  @JsonProperty private String name;
 
-  @JsonProperty private List<List<String>> rows;
+  @JsonProperty private String dimensionType;
 
-  @JsonProperty private Integer height;
+  @JsonProperty private String code;
 
-  @JsonProperty private Integer width;
+  @JsonProperty private String dimensionItemType;
 
-  @JsonProperty private Integer headerWidth;
+  @JsonProperty private String valueType;
+
+  @JsonProperty private String totalAggregationType;
+
+  @JsonProperty private String startDate;
+
+  @JsonProperty private String endDate;
+
+  @JsonProperty private String legendSet;
+
+  @JsonProperty private String aggregationType;
 }

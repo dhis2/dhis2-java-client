@@ -441,6 +441,7 @@ public class BaseDhis2 {
     addParameter(uriBuilder, "ignoreLimit", query.getIgnoreLimit());
     addParameter(uriBuilder, "showHierarchy", query.getShowHierarchy());
     addParameter(uriBuilder, "includeNumDen", query.getIncludeNumDen());
+    addParameter(uriBuilder, "includeMetadataDetails", query.getIncludeMetadataDetails());
     addParameter(uriBuilder, "outputIdScheme", query.getOutputIdScheme());
     addParameter(uriBuilder, "outputOrgUnitIdScheme", query.getOutputOrgUnitIdScheme());
     addParameter(uriBuilder, "outputDataElementIdScheme", query.getOutputDataElementIdScheme());
