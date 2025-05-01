@@ -31,10 +31,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import java.util.List;
 import java.util.Map;
-import lombok.extern.slf4j.Slf4j;
 import org.hisp.dhis.Dhis2;
 import org.hisp.dhis.TestFixture;
 import org.hisp.dhis.model.ValueType;
@@ -47,12 +45,13 @@ import org.hisp.dhis.support.TestTags;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Tag(TestTags.INTEGRATION)
 class AnalyticsDataApiTest {
   @Test
-  @Disabled
+  @Disabled("Using local environment")
   void testGetAnalyticsData() {
     Dhis2 dhis2 = new Dhis2(TestFixture.LOCAL_CONFIG);
 
