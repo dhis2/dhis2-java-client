@@ -27,14 +27,16 @@
  */
 package org.hisp.dhis.model.analytics;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
+@ToString
 @NoArgsConstructor
 public class AnalyticsData {
   @JsonProperty private List<AnalyticsHeader> headers;

@@ -27,31 +27,60 @@
  */
 package org.hisp.dhis.analytics;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.List;
 import org.hisp.dhis.Dhis2;
 import org.hisp.dhis.TestFixture;
+import org.hisp.dhis.model.ValueType;
 import org.hisp.dhis.model.analytics.AnalyticsData;
+import org.hisp.dhis.model.analytics.AnalyticsHeader;
 import org.hisp.dhis.query.analytics.AnalyticsQuery;
 import org.hisp.dhis.support.TestTags;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Tag(TestTags.INTEGRATION)
 class AnalyticsDataApiTest {
   @Test
   @Disabled
   void testGetAnalyticsData() {
     Dhis2 dhis2 = new Dhis2(TestFixture.LOCAL_CONFIG);
-    
-    AnalyticsQuery query = AnalyticsQuery.instance()
-        .addDataDimension(List.of("fbfJHSPpUQD", "cYeuwXTCPkU", "Jtf34kNZhzP"))
-        .addPeriodDimension(List.of("202501", "202502", "202503"))
-        .addOrgUnitFilter(List.of("ImspTQPwCqd"));
-    
+
+    AnalyticsQuery query =
+        AnalyticsQuery.instance()
+            .addDataDimension(List.of("fbfJHSPpUQD", "cYeuwXTCPkU", "Jtf34kNZhzP"))
+            .addPeriodDimension(List.of("202501", "202502", "202503"))
+            .addOrgUnitFilter(List.of("ImspTQPwCqd"));
+
     AnalyticsData data = dhis2.getAnalyticsData(query);
+
+    log.info(data.toString());
     
     assertNotNull(data);
+    assertEquals(3, data.getWidth());
+    assertEquals(3, data.getHeaderWidth());
+    assertTrue(data.getHeight() > 0, String.valueOf(data.getHeight()));
+    
+    List<AnalyticsHeader> headers = data.getHeaders();
+    
+    assertNotNull(headers);
+    assertEquals(3, headers.size());
+    
+    AnalyticsHeader firstHeader = headers.get(0);
+    
+    assertNotNull(firstHeader);
+    assertEquals("dx", firstHeader.getName());
+    assertEquals("Data", firstHeader.getColumn());
+    assertEquals(ValueType.TEXT, firstHeader.getValueType());
+    
+    List<String> firstRow = data.getRows().get(0);
+    
+    assertNotNull(firstRow);
+    assertEquals(3, firstRow.size());
   }
 }
