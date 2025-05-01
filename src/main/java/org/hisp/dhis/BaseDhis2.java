@@ -944,7 +944,7 @@ public class BaseDhis2 {
    * @param content the JSON content.
    * @param type the object type.
    * @return an object.
-   * @throws IOException
+   * @throws IOException if reading failed.
    */
   protected <T> T readValue(String content, Class<T> type) throws IOException {
     return objectMapper.readValue(content, type);

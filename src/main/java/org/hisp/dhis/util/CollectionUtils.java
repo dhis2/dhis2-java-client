@@ -109,9 +109,9 @@ public class CollectionUtils {
    *
    * @param <T> type.
    * @param <U> type.
-   * @param objects the objects of type <U>.
+   * @param objects the objects of U.
    * @param mapper the mapping function.
-   * @return a list of objects of type <T>.
+   * @return a list of objects of type T.
    */
   public static <T, U> List<T> mapToList(List<U> objects, Function<U, T> mapper) {
     return objects.stream().map(mapper).toList();
