@@ -29,11 +29,11 @@ package org.hisp.dhis.query.analytics;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.hisp.dhis.model.AggregationType;
+import org.hisp.dhis.model.IdScheme;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import org.hisp.dhis.model.AggregationType;
-import org.hisp.dhis.model.IdScheme;
 
 /** Analytics data query. */
 @Getter
@@ -103,6 +103,36 @@ public class AnalyticsQuery {
     return addDimension(new Dimension(dimension, items));
   }
 
+  /**
+   * Adds a data dimension and items to this query.
+   *
+   * @param items the list of dimension items.
+   * @return this {@link AnalyticsQuery}.
+   */
+  public AnalyticsQuery addDataDimension(List<String> items) {
+    return addDimension(Dimension.DIMENSION_DX, items);
+  }
+
+  /**
+   * Adds a period dimension and items to this query.
+   *
+   * @param items the list of dimension items.
+   * @return this {@link AnalyticsQuery}.
+   */
+  public AnalyticsQuery addPeridDimension(List<String> items) {
+    return addDimension(Dimension.DIMENSION_PE, items);
+  }
+
+  /**
+   * Adds an org unit dimension and items to this query.
+   *
+   * @param items the list of dimension items.
+   * @return this {@link AnalyticsQuery}.
+   */
+  public AnalyticsQuery addOrgUnitDimension(List<String> items) {
+    return addDimension(Dimension.DIMENSION_OU, items);
+  }
+  
   /**
    * Adds a filter to this query.
    *
