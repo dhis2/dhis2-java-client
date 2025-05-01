@@ -25,25 +25,14 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.hisp.dhis.model.analytics;
+package org.hisp.dhis.analytics;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.hisp.dhis.model.ValueType;
+import org.hisp.dhis.support.TestTags;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
 
-@Getter
-@Setter
-@NoArgsConstructor
-public class AnalyticsHeader {
-  @JsonProperty private String name;
-
-  @JsonProperty private String column;
-
-  @JsonProperty private ValueType valueType;
-
-  @JsonProperty private Boolean hidden;
-
-  @JsonProperty private Boolean meta;
+@Tag(TestTags.INTEGRATION)
+class AnalyticsDataApiTest {
+  @Test
+  void testGetAnalyticsData() {}
 }
