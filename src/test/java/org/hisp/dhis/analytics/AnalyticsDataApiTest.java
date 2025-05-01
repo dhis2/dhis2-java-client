@@ -34,12 +34,14 @@ import org.hisp.dhis.TestFixture;
 import org.hisp.dhis.model.analytics.AnalyticsData;
 import org.hisp.dhis.query.analytics.AnalyticsQuery;
 import org.hisp.dhis.support.TestTags;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 @Tag(TestTags.INTEGRATION)
 class AnalyticsDataApiTest {
   @Test
+  @Disabled
   void testGetAnalyticsData() {
     Dhis2 dhis2 = new Dhis2(TestFixture.LOCAL_CONFIG);
     

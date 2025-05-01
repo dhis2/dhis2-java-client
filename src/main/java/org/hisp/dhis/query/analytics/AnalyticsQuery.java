@@ -29,11 +29,11 @@ package org.hisp.dhis.query.analytics;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.hisp.dhis.model.AggregationType;
-import org.hisp.dhis.model.IdScheme;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import org.hisp.dhis.model.AggregationType;
+import org.hisp.dhis.model.IdScheme;
 
 /** Analytics data query. */
 @Getter
@@ -143,10 +143,10 @@ public class AnalyticsQuery {
     this.filters.add(filter);
     return this;
   }
-  
+
   /**
    * Adds a filter and items to this query.
-   * 
+   *
    * @param filter the filter identifier.
    * @param items the filter items.
    * @return this {@link AnalyticsQuery}.
@@ -157,7 +157,7 @@ public class AnalyticsQuery {
 
   /**
    * Adds a data filter and items to this query.
-   * 
+   *
    * @param items the filter items.
    * @return this {@link AnalyticsQuery}.
    */
@@ -167,7 +167,7 @@ public class AnalyticsQuery {
 
   /**
    * Adds a period filter and items to this query.
-   * 
+   *
    * @param items the filter items.
    * @return this {@link AnalyticsQuery}.
    */
@@ -177,7 +177,7 @@ public class AnalyticsQuery {
 
   /**
    * Adds an org unit filter and items to this query.
-   * 
+   *
    * @param items the filter items.
    * @return this {@link AnalyticsQuery}.
    */
