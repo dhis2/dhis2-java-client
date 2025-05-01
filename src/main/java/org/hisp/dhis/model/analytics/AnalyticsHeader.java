@@ -27,12 +27,12 @@
  */
 package org.hisp.dhis.model.analytics;
 
-import org.hisp.dhis.model.ValueType;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.hisp.dhis.model.ValueType;
 
 @Getter
 @Setter
