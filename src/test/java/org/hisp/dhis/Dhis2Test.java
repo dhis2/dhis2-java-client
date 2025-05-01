@@ -75,8 +75,11 @@ class Dhis2Test {
     URI uri = dhis2.getObjectQuery(uriBuilder, query);
 
     String expected =
-        "https://dhis2.org/api/dataElements?"
-            + "filter=name%3Alike%3AImmunization&filter=valueType%3Aeq%3ANUMBER&page=2&pageSize=100&order=code%3Adesc";
+        """
+        https://dhis2.org/api/dataElements\
+        ?filter=name%3Alike%3AImmunization\
+        &filter=valueType%3Aeq%3ANUMBER\
+        &page=2&pageSize=100&order=code%3Adesc""";
 
     assertEquals(expected, uri.toString());
   }
@@ -99,8 +102,10 @@ class Dhis2Test {
     URI uri = dhis2.getObjectQuery(uriBuilder, query);
 
     String expected =
-        "https://dhis2.org/api/indicators?"
-            + "filter=name%3Alike%3AANC&page=4&pageSize=50&order=name%3Aasc%2Cuid%3Adesc";
+        """
+        https://dhis2.org/api/indicators\
+        ?filter=name%3Alike%3AANC\
+        &page=4&pageSize=50&order=name%3Aasc%2Cuid%3Adesc""";
 
     assertEquals(expected, uri.toString());
   }
@@ -170,8 +175,12 @@ class Dhis2Test {
     URI uri = dhis2.getAnalyticsQuery(uriBuilder, query);
 
     String expected =
-        "https://dhis2.org/api/analytics?"
-            + "aggregationType=AVERAGE&ignoreLimit=true&inputIdScheme=code&outputIdScheme=uid";
+        """
+        https://dhis2.org/api/analytics?\
+        aggregationType=AVERAGE\
+        &ignoreLimit=true\
+        &outputIdScheme=uid\
+        &inputIdScheme=code""";
 
     assertEquals(expected, uri.toString());
   }

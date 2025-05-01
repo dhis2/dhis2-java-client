@@ -439,8 +439,13 @@ public class BaseDhis2 {
     addParameter(uriBuilder, "skipData", query.getSkipData());
     addParameter(uriBuilder, "skipRounding", query.getSkipRounding());
     addParameter(uriBuilder, "ignoreLimit", query.getIgnoreLimit());
-    addParameter(uriBuilder, "inputIdScheme", query.getInputIdScheme());
+    addParameter(uriBuilder, "showHierarchy", query.getShowHierarchy());
+    addParameter(uriBuilder, "includeNumDen", query.getIncludeNumDen());
+    addParameter(uriBuilder, "includeMetadataDetails", query.getIncludeMetadataDetails());
     addParameter(uriBuilder, "outputIdScheme", query.getOutputIdScheme());
+    addParameter(uriBuilder, "outputOrgUnitIdScheme", query.getOutputOrgUnitIdScheme());
+    addParameter(uriBuilder, "outputDataElementIdScheme", query.getOutputDataElementIdScheme());
+    addParameter(uriBuilder, "inputIdScheme", query.getInputIdScheme());
 
     return HttpUtils.build(uriBuilder);
   }
@@ -939,7 +944,7 @@ public class BaseDhis2 {
    * @param content the JSON content.
    * @param type the object type.
    * @return an object.
-   * @throws IOException
+   * @throws IOException if reading failed.
    */
   protected <T> T readValue(String content, Class<T> type) throws IOException {
     return objectMapper.readValue(content, type);
