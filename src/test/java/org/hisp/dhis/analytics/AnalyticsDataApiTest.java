@@ -27,6 +27,12 @@
  */
 package org.hisp.dhis.analytics;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import java.util.List;
+import org.hisp.dhis.Dhis2;
+import org.hisp.dhis.TestFixture;
+import org.hisp.dhis.model.analytics.AnalyticsData;
+import org.hisp.dhis.query.analytics.AnalyticsQuery;
 import org.hisp.dhis.support.TestTags;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -34,5 +40,16 @@ import org.junit.jupiter.api.Test;
 @Tag(TestTags.INTEGRATION)
 class AnalyticsDataApiTest {
   @Test
-  void testGetAnalyticsData() {}
+  void testGetAnalyticsData() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.LOCAL_CONFIG);
+    
+    AnalyticsQuery query = AnalyticsQuery.instance()
+        .addDataDimension(List.of("fbfJHSPpUQD", "cYeuwXTCPkU", "Jtf34kNZhzP"))
+        .addPeriodDimension(List.of("202501", "202502", "202503"))
+        .addOrgUnitFilter(List.of("ImspTQPwCqd"));
+    
+    AnalyticsData data = dhis2.getAnalyticsData(query);
+    
+    assertNotNull(data);
+  }
 }
