@@ -29,6 +29,7 @@ package org.hisp.dhis;
 
 import static org.hisp.dhis.util.CollectionUtils.list;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.net.URI;
 import org.apache.hc.core5.net.URIBuilder;
 import org.hisp.dhis.model.AggregationType;
@@ -73,7 +74,8 @@ class Dhis2Test {
 
     URI uri = dhis2.getObjectQuery(uriBuilder, query);
 
-    String expected = """
+    String expected =
+        """
         https://dhis2.org/api/dataElements\
         ?filter=name%3Alike%3AImmunization\
         &filter=valueType%3Aeq%3ANUMBER\
@@ -99,7 +101,8 @@ class Dhis2Test {
 
     URI uri = dhis2.getObjectQuery(uriBuilder, query);
 
-    String expected = """
+    String expected =
+        """
         https://dhis2.org/api/indicators\
         ?filter=name%3Alike%3AANC\
         &page=4&pageSize=50&order=name%3Aasc%2Cuid%3Adesc""";
@@ -171,7 +174,8 @@ class Dhis2Test {
 
     URI uri = dhis2.getAnalyticsQuery(uriBuilder, query);
 
-    String expected = """
+    String expected =
+        """
         https://dhis2.org/api/analytics?\
         aggregationType=AVERAGE\
         &ignoreLimit=true\
