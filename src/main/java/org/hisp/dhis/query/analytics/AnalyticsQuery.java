@@ -29,11 +29,11 @@ package org.hisp.dhis.query.analytics;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.hisp.dhis.model.AggregationType;
-import org.hisp.dhis.model.IdScheme;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import org.hisp.dhis.model.AggregationType;
+import org.hisp.dhis.model.IdScheme;
 
 /** Analytics data query. */
 @Getter
@@ -57,15 +57,15 @@ public class AnalyticsQuery {
   private Boolean skipRounding;
 
   private Boolean ignoreLimit;
-  
+
   private Boolean showHierarchy;
-  
+
   private Boolean includeNumDen;
 
   private IdScheme outputIdScheme;
-  
+
   private IdScheme outputOrgUnitIdScheme;
-  
+
   private IdScheme outputDataElementIdScheme;
 
   private IdScheme inputIdScheme;
