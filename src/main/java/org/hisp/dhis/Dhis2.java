@@ -85,6 +85,7 @@ import org.hisp.dhis.model.SystemInfo;
 import org.hisp.dhis.model.SystemSettings;
 import org.hisp.dhis.model.TableHook;
 import org.hisp.dhis.model.Visualization;
+import org.hisp.dhis.model.analytics.AnalyticsData;
 import org.hisp.dhis.model.completedatasetregistration.CompleteDataSetRegistration;
 import org.hisp.dhis.model.completedatasetregistration.CompleteDataSetRegistrationImportOptions;
 import org.hisp.dhis.model.dashboard.Dashboard;
@@ -2316,6 +2317,21 @@ public class Dhis2 extends BaseDhis2 {
   public String getDataValueFile(DataValueQuery query) {
     return getDataValueFileResponse(
         config.getResolvedUriBuilder().appendPath("dataValues/files"), query);
+  }
+
+  // -------------------------------------------------------------------------
+  // Analytics data
+  // -------------------------------------------------------------------------
+
+  /**
+   * Retrieves a {@link AnalyticsData}.
+   *
+   * @param query the {@link AnalyticsQuery}.
+   * @return {@link AnalyticsData}.
+   */
+  public AnalyticsData getAnalyticsData(AnalyticsQuery query) {
+    return getAnalyticsResponse(
+        config.getResolvedUriBuilder().appendPath("analytics"), query, AnalyticsData.class);
   }
 
   // -------------------------------------------------------------------------
