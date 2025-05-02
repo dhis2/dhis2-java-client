@@ -99,8 +99,7 @@ public class UidUtils {
    * of collisions.
    *
    * @param input the input string.
-   * @return a DHIS2 UID. Returns null if the input is invalid. Returns an empty string if the input
-   *     string is empty.
+   * @return a DHIS2 UID. Returns null if the input is invalid, empty string if input is empty.
    */
   public static String generateDHIS2UID(String input) {
     if (input == null) {
@@ -111,7 +110,7 @@ public class UidUtils {
     }
 
     if (input.length() < 20 || input.length() > 40) {
-      throw new IllegalArgumentException("Input string must be between 20 and 40 characters long.");
+      throw new IllegalArgumentException("Input string must be between 20 and 40 characters long");
     }
 
     try {
