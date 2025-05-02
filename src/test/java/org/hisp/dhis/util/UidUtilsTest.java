@@ -94,8 +94,9 @@ class UidUtilsTest {
    *
    * @param uid
    */
-  private void assertToUid(String id) {
-    String msg = String.format("UID not valid: '%s'", id);
-    assertTrue(UidUtils.isValidUid(UidUtils.toUid(id)), msg);
+  private void assertToUid(String input) {
+    String output = UidUtils.toUid(input);
+    String msg = String.format("Output: '%s' not valid for input: '%s'", output, input);
+    assertTrue(UidUtils.isValidUid(output), msg);
   }
 }
