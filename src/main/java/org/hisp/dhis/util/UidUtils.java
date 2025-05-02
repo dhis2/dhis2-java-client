@@ -33,11 +33,11 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.regex.Pattern;
+import org.apache.commons.lang3.StringUtils;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import org.apache.commons.lang3.StringUtils;
 
-/** Utilities for UID. */
+/** Utilities for DHIS2 UID generation. */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class UidUtils {
   private static final String ALPHABET = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -102,7 +102,7 @@ public class UidUtils {
    * @param input the input string.
    * @return a DHIS2 UID. Returns null if the input is invalid, empty string if input is empty.
    */
-  public static String generateDHIS2UID(String input) {
+  public static String toUid(String input) {
     if (input == null) {
       return null;
     }

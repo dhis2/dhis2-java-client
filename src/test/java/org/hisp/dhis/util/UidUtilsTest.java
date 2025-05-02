@@ -31,7 +31,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import org.hisp.dhis.support.TestTags;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -55,5 +54,10 @@ class UidUtilsTest {
     assertFalse(UidUtils.isValidUid("1T1hdSWjfDC"));
     assertFalse(UidUtils.isValidUid("QX4LpiTZmUHg"));
     assertFalse(UidUtils.isValidUid("1T1hdS_WjfD"));
+  }
+
+  @Test
+  void testToUid() {
+    UidUtils.toUid("");
   }
 }
