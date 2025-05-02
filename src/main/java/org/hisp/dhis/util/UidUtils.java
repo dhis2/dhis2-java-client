@@ -134,7 +134,7 @@ public class UidUtils {
       return base62;
 
     } catch (NoSuchAlgorithmException ex) {
-      throw new RuntimeException("SHA-256 algorithm not found", ex);
+      throw new IllegalArgumentException("SHA-256 algorithm not found", ex);
     }
   }
 
