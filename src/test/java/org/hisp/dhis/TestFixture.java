@@ -36,7 +36,7 @@ public final class TestFixture {
 
   public static final String V41_URL = "https://play.im.dhis2.org/stable-2-41-3-1";
 
-  public static final String LOCAL_URL = "https://localhost/dhis";
+  public static final String LOCAL_URL = "http://localhost/dhis";
 
   public static final String DEFAULT_URL = V41_URL;
 

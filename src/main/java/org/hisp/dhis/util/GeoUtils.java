@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004-2024, University of Oslo
+ * Copyright (c) 2004-2025, University of Oslo
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -27,59 +27,25 @@
  */
 package org.hisp.dhis.util;
 
-import java.util.HashMap;
-import java.util.Map;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+import org.locationtech.jts.geom.Coordinate;
+import org.locationtech.jts.geom.GeometryFactory;
+import org.locationtech.jts.geom.Point;
 
-/**
- * Builder of maps.
- *
- * <p>Example usage:
- *
- * <pre>{@code
- * Map<K, V> = new MapBuilder<K, V>()
- *   .put(key, value)
- *   .putIfAbsent(key, value)
- *   .build();
- * }</pre>
- */
-public class MapBuilder<K, V> {
-  private final Map<K, V> map;
-
-  public MapBuilder() {
-    map = new HashMap<>();
-  }
+/** Utilities for geospatial objects. */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public class GeoUtils {
+  private static final GeometryFactory GEO_FACTORY = new GeometryFactory();
 
   /**
-   * Associates the specified value with the specified key in this map.
+   * Creates a {@link Point} based on the given longitude (x) and latitude (y).
    *
-   * @param key the key.
-   * @param value the value.
-   * @return this {@link MapBuilder}.
+   * @param longitude the longitude (x value).
+   * @param latitude the latitude (y value).
+   * @return a {@link Point}
    */
-  public MapBuilder<K, V> put(K key, V value) {
-    this.map.put(key, value);
-    return this;
-  }
-
-  /**
-   * If the specified key is not already associated with a value (or is mapped to null) associates
-   * it with the given value and returns null, else returns the current value.
-   *
-   * @param key the key.
-   * @param value the value.
-   * @return this {@link MapBuilder}.
-   */
-  public MapBuilder<K, V> putIfAbsent(K key, V value) {
-    this.map.putIfAbsent(key, value);
-    return this;
-  }
-
-  /**
-   * Builds the map.
-   *
-   * @return the {@link Map}.
-   */
-  public Map<K, V> build() {
-    return this.map;
+  public static Point toPoint(double longitude, double latitude) {
+    return GEO_FACTORY.createPoint(new Coordinate(longitude, latitude));
   }
 }

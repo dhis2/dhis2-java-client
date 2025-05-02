@@ -114,6 +114,8 @@ public class BaseDhis2 {
 
   protected static final String NAME_FIELDS = String.format("%s,shortName,description", ID_FIELDS);
 
+  private static final String SEP_DIM = ";";
+
   /** Option set fields. */
   protected static final String OPTION_SET_FIELDS =
       String.format("%s,valueType,version", ID_FIELDS);
@@ -170,7 +172,9 @@ public class BaseDhis2 {
   /** Indicator fields. */
   protected static final String INDICATOR_FIELDS =
       String.format(
-          "%1$s,annualized,numerator,numeratorDescription,denominator,denominatorDescription,url,indicatorType[%2$s]",
+          """
+          %1$s,annualized,numerator,numeratorDescription,\
+          denominator,denominatorDescription,url,indicatorType[%2$s]""",
           NAME_FIELDS, INDICATOR_TYPE_FIELDS);
 
   /** Indicator group set fields. */
@@ -234,7 +238,9 @@ public class BaseDhis2 {
   /** Me / current user fields. */
   protected static final String ME_FIELDS =
       String.format(
-          "%1$s,username,surname,firstName,email,settings,programs,dataSets,authorities,organisationUnits[%2$s]",
+          """
+          %1$s,username,surname,firstName,email,settings,programs,\
+          dataSets,authorities,organisationUnits[%2$s]""",
           ID_FIELDS, ORG_UNIT_FIELDS);
 
   /** Log level system property. */
@@ -259,8 +265,8 @@ public class BaseDhis2 {
   protected static final String VALIDATION_RULE_FIELDS =
       String.format(
           """
-          %1$s,dimensionItem,instruction,importance,periodType,displayDescription,displayInstruction,displayName,\
-          leftSide[%2$s],operator,rightSide[%2$s],skipFormValidation,legendSets""",
+          %1$s,dimensionItem,instruction,importance,periodType,displayDescription,displayInstruction,\
+          displayName,leftSide[%2$s],operator,rightSide[%2$s],skipFormValidation,legendSets""",
           NAME_FIELDS, VALIDATION_SIDE_FIELDS);
 
   protected static final String DATA_SET_VALIDATION_FIELDS =
@@ -439,8 +445,22 @@ public class BaseDhis2 {
     addParameter(uriBuilder, "skipData", query.getSkipData());
     addParameter(uriBuilder, "skipRounding", query.getSkipRounding());
     addParameter(uriBuilder, "ignoreLimit", query.getIgnoreLimit());
-    addParameter(uriBuilder, "inputIdScheme", query.getInputIdScheme());
+    addParameter(uriBuilder, "tableLayout", query.getTableLayout());
+    addParameter(uriBuilder, "showHierarchy", query.getShowHierarchy());
+    addParameter(uriBuilder, "includeNumDen", query.getIncludeNumDen());
+    addParameter(uriBuilder, "includeMetadataDetails", query.getIncludeMetadataDetails());
     addParameter(uriBuilder, "outputIdScheme", query.getOutputIdScheme());
+    addParameter(uriBuilder, "outputOrgUnitIdScheme", query.getOutputOrgUnitIdScheme());
+    addParameter(uriBuilder, "outputDataElementIdScheme", query.getOutputDataElementIdScheme());
+    addParameter(uriBuilder, "inputIdScheme", query.getInputIdScheme());
+
+    if (query.hasColumns()) {
+      addParameter(uriBuilder, "columns", String.join(SEP_DIM, query.getColumns()));
+    }
+
+    if (query.hasRows()) {
+      addParameter(uriBuilder, "rows", String.join(SEP_DIM, query.getRows()));
+    }
 
     return HttpUtils.build(uriBuilder);
   }
@@ -939,7 +959,7 @@ public class BaseDhis2 {
    * @param content the JSON content.
    * @param type the object type.
    * @return an object.
-   * @throws IOException
+   * @throws IOException if reading failed.
    */
   protected <T> T readValue(String content, Class<T> type) throws IOException {
     return objectMapper.readValue(content, type);

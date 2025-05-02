@@ -85,6 +85,7 @@ import org.hisp.dhis.model.SystemInfo;
 import org.hisp.dhis.model.SystemSettings;
 import org.hisp.dhis.model.TableHook;
 import org.hisp.dhis.model.Visualization;
+import org.hisp.dhis.model.analytics.AnalyticsData;
 import org.hisp.dhis.model.completedatasetregistration.CompleteDataSetRegistration;
 import org.hisp.dhis.model.completedatasetregistration.CompleteDataSetRegistrationImportOptions;
 import org.hisp.dhis.model.dashboard.Dashboard;
@@ -2319,6 +2320,21 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   // -------------------------------------------------------------------------
+  // Analytics data
+  // -------------------------------------------------------------------------
+
+  /**
+   * Retrieves a {@link AnalyticsData}.
+   *
+   * @param query the {@link AnalyticsQuery}.
+   * @return {@link AnalyticsData}.
+   */
+  public AnalyticsData getAnalyticsData(AnalyticsQuery query) {
+    return getAnalyticsResponse(
+        config.getResolvedUriBuilder().appendPath("analytics"), query, AnalyticsData.class);
+  }
+
+  // -------------------------------------------------------------------------
   // Analytics data value set
   // -------------------------------------------------------------------------
 
@@ -2373,6 +2389,27 @@ public class Dhis2 extends BaseDhis2 {
             .setParameter("importStrategy", ImportStrategy.CREATE_AND_UPDATE.name()),
         events,
         EventResponse.class);
+  }
+
+  /**
+   * Saves an {@link Events}. The operation is synchronous.
+   *
+   * <p>Requires DHIS 2 version 2.40 or later.
+   *
+   * @param inputStream the input stream representing the data value set JSON payload.
+   * @return {@link EventResponse} holding information about the operation.
+   */
+  public EventResponse saveEvents(InputStream inputStream) {
+    URIBuilder builder = config.getResolvedUriBuilder().appendPath("tracker");
+
+    HttpPost request =
+        getPostRequest(
+            HttpUtils.build(builder),
+            new InputStreamEntity(inputStream, ContentType.APPLICATION_JSON));
+
+    Dhis2AsyncRequest asyncRequest = new Dhis2AsyncRequest(config, httpClient, objectMapper);
+
+    return asyncRequest.post(request, EventResponse.class);
   }
 
   /**

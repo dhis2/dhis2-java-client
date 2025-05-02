@@ -31,6 +31,7 @@ import static org.hisp.dhis.util.CollectionUtils.list;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.net.URI;
+import java.util.List;
 import org.apache.hc.core5.net.URIBuilder;
 import org.hisp.dhis.model.AggregationType;
 import org.hisp.dhis.model.IdScheme;
@@ -47,7 +48,7 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 @Tag(TestTags.UNIT)
-class Dhis2Test {
+class QueryTest {
   @Test
   void testGetDhis2() {
     Dhis2Config config = getDhis2Config();
@@ -75,8 +76,11 @@ class Dhis2Test {
     URI uri = dhis2.getObjectQuery(uriBuilder, query);
 
     String expected =
-        "https://dhis2.org/api/dataElements?"
-            + "filter=name%3Alike%3AImmunization&filter=valueType%3Aeq%3ANUMBER&page=2&pageSize=100&order=code%3Adesc";
+        """
+        https://dhis2.org/api/dataElements\
+        ?filter=name%3Alike%3AImmunization\
+        &filter=valueType%3Aeq%3ANUMBER\
+        &page=2&pageSize=100&order=code%3Adesc""";
 
     assertEquals(expected, uri.toString());
   }
@@ -99,8 +103,10 @@ class Dhis2Test {
     URI uri = dhis2.getObjectQuery(uriBuilder, query);
 
     String expected =
-        "https://dhis2.org/api/indicators?"
-            + "filter=name%3Alike%3AANC&page=4&pageSize=50&order=name%3Aasc%2Cuid%3Adesc";
+        """
+        https://dhis2.org/api/indicators\
+        ?filter=name%3Alike%3AANC\
+        &page=4&pageSize=50&order=name%3Aasc%2Cuid%3Adesc""";
 
     assertEquals(expected, uri.toString());
   }
@@ -122,8 +128,10 @@ class Dhis2Test {
     URI uri = dhis2.getObjectQuery(uriBuilder, query);
 
     String expected =
-        "https://dhis2.org/api/dataSets?"
-            + "filter=name%3Alike%3AANC&page=1&pageSize=50&order=id%3Aasc";
+        """
+        https://dhis2.org/api/dataSets?\
+        filter=name%3Alike%3AANC\
+        &page=1&pageSize=50&order=id%3Aasc""";
 
     assertEquals(expected, uri.toString());
   }
@@ -146,8 +154,10 @@ class Dhis2Test {
     URI uri = dhis2.getDataValueSetImportQuery(uriBuilder, options);
 
     String expected =
-        "https://dhis2.org/api/dataValueSets?"
-            + "async=true&dataElementIdScheme=code&dryRun=true&preheatCache=true&skipAudit=true";
+        """
+        https://dhis2.org/api/dataValueSets?\
+        async=true&dataElementIdScheme=code&\
+        dryRun=true&preheatCache=true&skipAudit=true""";
 
     assertEquals(expected, uri.toString());
   }
@@ -165,13 +175,19 @@ class Dhis2Test {
             .setAggregationType(AggregationType.AVERAGE)
             .setIgnoreLimit(true)
             .setInputIdScheme(IdScheme.CODE)
-            .setOutputIdScheme(IdScheme.UID);
+            .setOutputIdScheme(IdScheme.UID)
+            .setColumns(List.of("dx", "pe"));
 
     URI uri = dhis2.getAnalyticsQuery(uriBuilder, query);
 
     String expected =
-        "https://dhis2.org/api/analytics?"
-            + "aggregationType=AVERAGE&ignoreLimit=true&inputIdScheme=code&outputIdScheme=uid";
+        """
+        https://dhis2.org/api/analytics?\
+        aggregationType=AVERAGE\
+        &ignoreLimit=true\
+        &outputIdScheme=uid\
+        &inputIdScheme=code\
+        &columns=dx%3Bpe""";
 
     assertEquals(expected, uri.toString());
   }
@@ -195,8 +211,10 @@ class Dhis2Test {
     URI uri = dhis2.getEventsQuery(uriBuilder, query);
 
     String expected =
-        "https://dhis2.org/api/tracker/events?"
-            + "program=hJhgt5cDs7j&programStatus=ACTIVE&followUp=true&idScheme=code";
+        """
+        https://dhis2.org/api/tracker/events?\
+        program=hJhgt5cDs7j&programStatus=ACTIVE\
+        &followUp=true&idScheme=code""";
 
     assertEquals(expected, uri.toString());
   }
@@ -217,8 +235,10 @@ class Dhis2Test {
             .setChildren(true);
 
     String expected =
-        "https://dhis2.org/api/dataValueSets.json?"
-            + "dataElement=N9vniUuCcqY&orgUnit=ImspTQPwCqd&period=202211&children=true";
+        """
+        https://dhis2.org/api/dataValueSets.json?\
+        dataElement=N9vniUuCcqY&orgUnit=ImspTQPwCqd\
+        &period=202211&children=true""";
 
     URI uri = dhis2.getDataValueSetQuery(uriBuilder, query);
 

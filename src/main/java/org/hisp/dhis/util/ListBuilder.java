@@ -32,6 +32,19 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Builder of lists.
+ *
+ * <p>Example usage:
+ *
+ * <pre>{@code
+ * List<T> = new ListBuilder<T>()
+ *   .add(valueA)
+ *   .add(valueB, valueC)
+ *   .addAll(List.of(valueD, valueE))
+ *   .build();
+ * }</pre>
+ */
 public class ListBuilder<T> {
   private final List<T> list;
 

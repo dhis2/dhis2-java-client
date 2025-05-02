@@ -35,6 +35,7 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.hisp.dhis.model.IdentifiableObject;
 
+/** Utilities for {@link IdentifiableObject}. */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class IdentifiableObjectUtils {
   /**

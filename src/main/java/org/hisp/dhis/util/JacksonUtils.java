@@ -27,6 +27,7 @@
  */
 package org.hisp.dhis.util;
 
+import com.bedatadriven.jackson.datatype.jts.JtsModule;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -38,13 +39,18 @@ import java.text.SimpleDateFormat;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
+/** Utilities for JSON parsing and serialization. */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class JacksonUtils {
-  /** Static JSON object mapper. */
-  private static final ObjectMapper OBJECT_MAPPER = getObjectMapper();
-
   /** Default date format. */
   private static final String DATE_FORMAT = "yyyy-MM-dd";
+
+  /** Static JSON object mapper. */
+  private static final ObjectMapper OBJECT_MAPPER;
+
+  static {
+    OBJECT_MAPPER = getObjectMapperInternal();
+  }
 
   /**
    * Returns an {@link ObjectMapper}.
@@ -52,7 +58,17 @@ public class JacksonUtils {
    * @return an {@link ObjectMapper}.
    */
   public static ObjectMapper getObjectMapper() {
+    return OBJECT_MAPPER;
+  }
+
+  /**
+   * Returns a new instance of an {@link ObjectMapper}.
+   *
+   * @return an {@link ObjectMapper}.
+   */
+  private static ObjectMapper getObjectMapperInternal() {
     ObjectMapper objectMapper = new ObjectMapper();
+    objectMapper.registerModule(new JtsModule());
     objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
     objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
     objectMapper.setSerializationInclusion(Include.NON_NULL);

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004-2024, University of Oslo
+ * Copyright (c) 2004-2025, University of Oslo
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -27,59 +27,61 @@
  */
 package org.hisp.dhis.util;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Builder of maps.
- *
- * <p>Example usage:
- *
- * <pre>{@code
- * Map<K, V> = new MapBuilder<K, V>()
- *   .put(key, value)
- *   .putIfAbsent(key, value)
- *   .build();
- * }</pre>
- */
-public class MapBuilder<K, V> {
-  private final Map<K, V> map;
+/** Duplicate value finder. */
+public class DuplicateFinder {
 
-  public MapBuilder() {
-    map = new HashMap<>();
+  private Map<String, Integer> valueCounts;
+
+  /** Constructor. */
+  public DuplicateFinder() {
+    this.valueCounts = new HashMap<>();
   }
 
   /**
-   * Associates the specified value with the specified key in this map.
+   * Constructor.
    *
-   * @param key the key.
+   * @param values the collection of values.
+   */
+  public DuplicateFinder(Collection<String> values) {
+    this();
+    addAll(values);
+  }
+
+  /**
+   * Adds a value.
+   *
    * @param value the value.
-   * @return this {@link MapBuilder}.
    */
-  public MapBuilder<K, V> put(K key, V value) {
-    this.map.put(key, value);
-    return this;
+  public void add(String value) {
+    valueCounts.put(value, valueCounts.getOrDefault(value, 0) + 1);
   }
 
   /**
-   * If the specified key is not already associated with a value (or is mapped to null) associates
-   * it with the given value and returns null, else returns the current value.
+   * Adds a collection of values.
    *
-   * @param key the key.
-   * @param value the value.
-   * @return this {@link MapBuilder}.
+   * @param values the values.
    */
-  public MapBuilder<K, V> putIfAbsent(K key, V value) {
-    this.map.putIfAbsent(key, value);
-    return this;
+  public void addAll(Collection<String> values) {
+    values.forEach(value -> add(value));
   }
 
   /**
-   * Builds the map.
+   * Returns the duplicates as a map, where the key is the duplicate value and the value is the
+   * number of occurrences.
    *
-   * @return the {@link Map}.
+   * @return the duplicates as a map.
    */
-  public Map<K, V> build() {
-    return this.map;
+  public Map<String, Integer> getDuplicates() {
+    Map<String, Integer> duplicates = new HashMap<>();
+    for (Map.Entry<String, Integer> entry : valueCounts.entrySet()) {
+      if (entry.getValue() > 1) {
+        duplicates.put(entry.getKey(), entry.getValue());
+      }
+    }
+    return duplicates;
   }
 }

@@ -27,6 +27,8 @@
  */
 package org.hisp.dhis.query.analytics;
 
+import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
+
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
@@ -35,6 +37,7 @@ import lombok.experimental.Accessors;
 import org.hisp.dhis.model.AggregationType;
 import org.hisp.dhis.model.IdScheme;
 
+/** Analytics data query. */
 @Getter
 @Setter
 @Accessors(chain = true)
@@ -57,27 +60,156 @@ public class AnalyticsQuery {
 
   private Boolean ignoreLimit;
 
+  private Boolean tableLayout;
+
+  private Boolean showHierarchy;
+
+  private Boolean includeNumDen;
+
+  private Boolean includeMetadataDetails;
+
   private IdScheme outputIdScheme;
+
+  private IdScheme outputOrgUnitIdScheme;
+
+  private IdScheme outputDataElementIdScheme;
 
   private IdScheme inputIdScheme;
 
+  private List<String> columns = new ArrayList<>();
+
+  private List<String> rows = new ArrayList<>();
+
   private AnalyticsQuery() {}
 
+  /**
+   * Creates a new instance of this query.
+   *
+   * @return an {@link AnalyticsQuery}.
+   */
   public static AnalyticsQuery instance() {
     return new AnalyticsQuery();
   }
 
+  /**
+   * Adds a dimension to this query.
+   *
+   * @param dimension the {@link Dimension}.
+   * @return this {@link AnalyticsQuery}.
+   */
   public AnalyticsQuery addDimension(Dimension dimension) {
     this.dimensions.add(dimension);
     return this;
   }
 
+  /**
+   * Adds a dimension and items to this query.
+   *
+   * @param dimension the dimension identifier.
+   * @param items the list of dimension items.
+   * @return this {@link AnalyticsQuery}.
+   */
   public AnalyticsQuery addDimension(String dimension, List<String> items) {
     return addDimension(new Dimension(dimension, items));
   }
 
+  /**
+   * Adds a data dimension and items to this query.
+   *
+   * @param items the list of dimension items.
+   * @return this {@link AnalyticsQuery}.
+   */
+  public AnalyticsQuery addDataDimension(List<String> items) {
+    return addDimension(Dimension.DIMENSION_DX, items);
+  }
+
+  /**
+   * Adds a period dimension and items to this query.
+   *
+   * @param items the list of dimension items.
+   * @return this {@link AnalyticsQuery}.
+   */
+  public AnalyticsQuery addPeriodDimension(List<String> items) {
+    return addDimension(Dimension.DIMENSION_PE, items);
+  }
+
+  /**
+   * Adds an org unit dimension and items to this query.
+   *
+   * @param items the list of dimension items.
+   * @return this {@link AnalyticsQuery}.
+   */
+  public AnalyticsQuery addOrgUnitDimension(List<String> items) {
+    return addDimension(Dimension.DIMENSION_OU, items);
+  }
+
+  /**
+   * Adds a filter to this query.
+   *
+   * @param filter the {@link Dimension}.
+   * @return this {@link AnalyticsQuery}.
+   */
   public AnalyticsQuery addFilter(Dimension filter) {
     this.filters.add(filter);
     return this;
+  }
+
+  /**
+   * Adds a filter and items to this query.
+   *
+   * @param filter the filter identifier.
+   * @param items the filter items.
+   * @return this {@link AnalyticsQuery}.
+   */
+  public AnalyticsQuery addFilter(String filter, List<String> items) {
+    return addFilter(new Dimension(filter, items));
+  }
+
+  /**
+   * Adds a data filter and items to this query.
+   *
+   * @param items the filter items.
+   * @return this {@link AnalyticsQuery}.
+   */
+  public AnalyticsQuery addDataFilter(List<String> items) {
+    return addFilter(new Dimension(Dimension.DIMENSION_DX, items));
+  }
+
+  /**
+   * Adds a period filter and items to this query.
+   *
+   * @param items the filter items.
+   * @return this {@link AnalyticsQuery}.
+   */
+  public AnalyticsQuery addPeriodFilter(List<String> items) {
+    return addFilter(new Dimension(Dimension.DIMENSION_PE, items));
+  }
+
+  /**
+   * Adds an org unit filter and items to this query.
+   *
+   * @param items the filter items.
+   * @return this {@link AnalyticsQuery}.
+   */
+  public AnalyticsQuery addOrgUnitFilter(List<String> items) {
+    return addFilter(new Dimension(Dimension.DIMENSION_OU, items));
+  }
+
+  /**
+   * Indicates whether any columns exist.
+   *
+   * @return true if any columns exist.
+   */
+  public boolean hasColumns() {
+    return isNotEmpty(columns);
+  }
+
+  /**
+   * Indicates whether any rows exist.
+   *
+   * @return true if any rows exist.
+   */
+  public boolean hasRows() {
+    return isNotEmpty(rows);
   }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004-2024, University of Oslo
+ * Copyright (c) 2004-2025, University of Oslo
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,61 +25,29 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.hisp.dhis.util;
+package org.hisp.dhis.model.analytics;
 
-import java.util.HashMap;
-import java.util.Map;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.List;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
-/**
- * Builder of maps.
- *
- * <p>Example usage:
- *
- * <pre>{@code
- * Map<K, V> = new MapBuilder<K, V>()
- *   .put(key, value)
- *   .putIfAbsent(key, value)
- *   .build();
- * }</pre>
- */
-public class MapBuilder<K, V> {
-  private final Map<K, V> map;
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
+public class AnalyticsData {
+  @JsonProperty private List<AnalyticsHeader> headers;
 
-  public MapBuilder() {
-    map = new HashMap<>();
-  }
+  @JsonProperty private AnalyticsMetaData metaData;
 
-  /**
-   * Associates the specified value with the specified key in this map.
-   *
-   * @param key the key.
-   * @param value the value.
-   * @return this {@link MapBuilder}.
-   */
-  public MapBuilder<K, V> put(K key, V value) {
-    this.map.put(key, value);
-    return this;
-  }
+  @JsonProperty private List<List<String>> rows;
 
-  /**
-   * If the specified key is not already associated with a value (or is mapped to null) associates
-   * it with the given value and returns null, else returns the current value.
-   *
-   * @param key the key.
-   * @param value the value.
-   * @return this {@link MapBuilder}.
-   */
-  public MapBuilder<K, V> putIfAbsent(K key, V value) {
-    this.map.putIfAbsent(key, value);
-    return this;
-  }
+  @JsonProperty private Integer height;
 
-  /**
-   * Builds the map.
-   *
-   * @return the {@link Map}.
-   */
-  public Map<K, V> build() {
-    return this.map;
-  }
+  @JsonProperty private Integer width;
+
+  @JsonProperty private Integer headerWidth;
 }

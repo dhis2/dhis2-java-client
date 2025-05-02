@@ -36,6 +36,7 @@ import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 
+/** Utilities for configuration. */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ConfigUtils {
   /**
