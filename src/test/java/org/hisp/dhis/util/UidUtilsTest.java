@@ -81,7 +81,7 @@ class UidUtilsTest {
     String input = UidUtils.toUid("fDv!oHopG7F8asPsvAU8c3MK8$#H7iwW");
     String output = "WpFckPBZBnO";
 
-    IntStream.of(10)
+    IntStream.range(0, 10)
         .forEach(
             i -> {
               String msg = String.format("Index: %d, input: '%s', output: '%s'", i, input, output);
