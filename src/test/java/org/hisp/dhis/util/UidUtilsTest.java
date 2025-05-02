@@ -32,7 +32,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import java.util.stream.IntStream;
 import org.hisp.dhis.support.TestTags;
 import org.junit.jupiter.api.Tag;
@@ -41,11 +40,16 @@ import org.junit.jupiter.api.Test;
 @Tag(TestTags.UNIT)
 class UidUtilsTest {
   @Test
-  void testGetUid() {
+  void testGenerateUid() {
     String uid = UidUtils.generateUid();
 
     assertNotNull(uid);
     assertEquals(11, uid.length());
+  }
+  
+  @Test
+  void testGenerateUids() {
+    assertEquals(3, UidUtils.generateUids(3).size());
   }
 
   @Test
