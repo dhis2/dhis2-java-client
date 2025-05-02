@@ -119,7 +119,7 @@ public class UidUtils {
       MessageDigest digest = MessageDigest.getInstance("SHA-256");
       byte[] hashBytes = digest.digest(input.getBytes(StandardCharsets.UTF_8));
 
-      // Convert hash to a BigInteger.
+      // Convert hash to a BigInteger
       BigInteger bigInteger = new BigInteger(1, hashBytes);
 
       // Convert BigInteger to Base62
