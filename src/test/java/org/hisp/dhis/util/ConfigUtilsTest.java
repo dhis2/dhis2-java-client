@@ -28,13 +28,12 @@
 package org.hisp.dhis.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
 public class ConfigUtilsTest {
   @Test
-  void testGetAsListA() {
+  void testGetAsList() {
     List<String> expected =
         List.of("http://localhost", "http://localhost:3000", "https://localhost:3000");
 
