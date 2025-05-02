@@ -33,9 +33,9 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.regex.Pattern;
-import org.apache.commons.lang3.StringUtils;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 
 /** Utilities for DHIS2 UID generation. */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -127,8 +127,8 @@ public class UidUtils {
 
       // Ensure the UID starts with a letter
       if (Character.isDigit(base62.charAt(0))) {
-        // If first character is a digit, shift Base62 string by one character
-        // Move first char to the end and append 'A'
+        // If first character is a digit, shift Base62 string by one character by moving first char
+        // to the end and append 'A'
         base62 = base62.substring(1) + ALPHABET.charAt(0);
       }
       return base62;

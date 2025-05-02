@@ -31,6 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.hisp.dhis.support.TestTags;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -58,6 +59,21 @@ class UidUtilsTest {
 
   @Test
   void testToUid() {
-    UidUtils.toUid("");
+    assertToUid("PpZ!m3thN#sm8QVcOdwTcil4");
+    assertToUid("5$tiq7K9zMmUX$9VFXaQLFK6d&ShHQUw");
+    assertToUid("9ceyjK4b^Xoc0&lKCn0Bqz5xAsYz&$heWypB");
+    assertToUid("B5*GfX&Yklr!OHIK1KdaGeXGUt97&#1U4hTAE*bA**ce7@#oO2lB^0Rs9E#G8sJe");
+    assertToUid("!OGvawSH8fKIUtIpVl$9^TfMV%V08vHm%uDeT1hnh6d22q7OQSjS7csF05bFRATeUIN&8wX2");
+    assertToUid("yjZ2ec#*s9RMpmt^svZN8LyBJUOt&mY8&7nHZ3u%13^ObekBDA!a8ov&enxPE$EuE$GPh1xiy6parm");
+  }
+
+  /**
+   * Asserts that the method generates a valid UID based on the given identifier.
+   *
+   * @param uid
+   */
+  private void assertToUid(String id) {
+    String msg = String.format("UID not valid: '%s'", id);
+    assertTrue(UidUtils.isValidUid(UidUtils.toUid(id)), msg);
   }
 }
