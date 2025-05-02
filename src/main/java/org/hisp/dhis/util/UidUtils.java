@@ -35,6 +35,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.regex.Pattern;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 
 /** Utilities for UID. */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -106,7 +107,7 @@ public class UidUtils {
       return null;
     }
     if (input.isEmpty()) {
-      return "";
+      return StringUtils.EMPTY;
     }
 
     if (input.length() < 20 || input.length() > 40) {
