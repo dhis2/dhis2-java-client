@@ -110,8 +110,8 @@ public class UidUtils {
       return StringUtils.EMPTY;
     }
 
-    if (input.length() < 20 || input.length() > 40) {
-      throw new IllegalArgumentException("Input string must be between 20 and 40 characters long");
+    if (input.length() < 3 || input.length() > 1024) {
+      throw new IllegalArgumentException("Input string must be between 3 and 1024 characters long");
     }
 
     try {
