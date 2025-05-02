@@ -97,20 +97,20 @@ public class UidUtils {
 
   /**
    * Generates a DHIS2 UID from an input string. The algorithm is deterministic and minimizes risk
-   * of collisions.
+   * of collisions. The input must be between 2 and 1024 characters long.
    *
    * @param input the input string.
-   * @return a DHIS2 UID. Returns null if the input is invalid, empty string if input is empty.
+   * @return a DHIS2 UID. Returns null if the input is invalid, empty string if input is blank.
    */
   public static String toUid(String input) {
     if (input == null) {
       return null;
     }
-    if (input.isEmpty()) {
+    if (input.isBlank()) {
       return StringUtils.EMPTY;
     }
 
-    if (input.length() < 3 || input.length() > 1024) {
+    if (input.length() < 2 || input.length() > 1024) {
       throw new IllegalArgumentException("Input string must be between 3 and 1024 characters long");
     }
 

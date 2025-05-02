@@ -30,8 +30,10 @@ package org.hisp.dhis.util;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.stream.IntStream;
 import org.hisp.dhis.support.TestTags;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -65,6 +67,26 @@ class UidUtilsTest {
     assertToUid("B5*GfX&Yklr!OHIK1KdaGeXGUt97&#1U4hTAE*bA**ce7@#oO2lB^0Rs9E#G8sJe");
     assertToUid("!OGvawSH8fKIUtIpVl$9^TfMV%V08vHm%uDeT1hnh6d22q7OQSjS7csF05bFRATeUIN&8wX2");
     assertToUid("yjZ2ec#*s9RMpmt^svZN8LyBJUOt&mY8&7nHZ3u%13^ObekBDA!a8ov&enxPE$EuE$GPh1xiy6parm");
+  }
+
+  @Test
+  void testToUidNullAndBlank() {
+    assertNull(UidUtils.toUid(null));
+    assertEquals("", UidUtils.toUid(" "));
+    assertEquals("", UidUtils.toUid(""));
+  }
+
+  @Test
+  void testToDeterminisism() {
+    String input = UidUtils.toUid("fDv!oHopG7F8asPsvAU8c3MK8$#H7iwW");
+    String output = "WpFckPBZBnO";
+
+    IntStream.of(10)
+        .forEach(
+            i -> {
+              String msg = String.format("Index: %d, input: '%s', output: '%s'", i, input, output);
+              assertEquals(output, UidUtils.toUid(input), msg);
+            });
   }
 
   /**
