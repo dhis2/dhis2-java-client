@@ -77,7 +77,7 @@ class UidUtilsTest {
   }
 
   @Test
-  void testToDeterminisism() {
+  void testToUidDeterminisism() {
     String input = UidUtils.toUid("fDv!oHopG7F8asPsvAU8c3MK8$#H7iwW");
     String output = "WpFckPBZBnO";
 
