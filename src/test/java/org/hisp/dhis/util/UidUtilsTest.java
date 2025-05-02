@@ -30,8 +30,10 @@ package org.hisp.dhis.util;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.stream.IntStream;
 import org.hisp.dhis.support.TestTags;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -55,5 +57,46 @@ class UidUtilsTest {
     assertFalse(UidUtils.isValidUid("1T1hdSWjfDC"));
     assertFalse(UidUtils.isValidUid("QX4LpiTZmUHg"));
     assertFalse(UidUtils.isValidUid("1T1hdS_WjfD"));
+  }
+
+  @Test
+  void testToUid() {
+    assertToUid("PpZ!m3thN#sm8QVcOdwTcil4");
+    assertToUid("5$tiq7K9zMmUX$9VFXaQLFK6d&ShHQUw");
+    assertToUid("9ceyjK4b^Xoc0&lKCn0Bqz5xAsYz&$heWypB");
+    assertToUid("B5*GfX&Yklr!OHIK1KdaGeXGUt97&#1U4hTAE*bA**ce7@#oO2lB^0Rs9E#G8sJe");
+    assertToUid("!OGvawSH8fKIUtIpVl$9^TfMV%V08vHm%uDeT1hnh6d22q7OQSjS7csF05bFRATeUIN&8wX2");
+    assertToUid("yjZ2ec#*s9RMpmt^svZN8LyBJUOt&mY8&7nHZ3u%13^ObekBDA!a8ov&enxPE$EuE$GPh1xiy6parm");
+  }
+
+  @Test
+  void testToUidNullAndBlank() {
+    assertNull(UidUtils.toUid(null));
+    assertEquals("", UidUtils.toUid(" "));
+    assertEquals("", UidUtils.toUid(""));
+  }
+
+  @Test
+  void testToUidDeterminisism() {
+    String input = UidUtils.toUid("fDv!oHopG7F8asPsvAU8c3MK8$#H7iwW");
+    String output = "WpFckPBZBnO";
+
+    IntStream.range(0, 10)
+        .forEach(
+            i -> {
+              String msg = String.format("Index: %d, input: '%s', output: '%s'", i, input, output);
+              assertEquals(output, UidUtils.toUid(input), msg);
+            });
+  }
+
+  /**
+   * Asserts that the method generates a valid UID based on the given identifier.
+   *
+   * @param uid
+   */
+  private void assertToUid(String input) {
+    String output = UidUtils.toUid(input);
+    String msg = String.format("Output: '%s' not valid for input: '%s'", output, input);
+    assertTrue(UidUtils.isValidUid(output), msg);
   }
 }
