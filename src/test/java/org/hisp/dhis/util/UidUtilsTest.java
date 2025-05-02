@@ -32,7 +32,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import java.util.stream.IntStream;
 import org.hisp.dhis.support.TestTags;
 import org.junit.jupiter.api.Tag;
@@ -92,7 +91,7 @@ class UidUtilsTest {
   /**
    * Asserts that the method generates a valid UID based on the given identifier.
    *
-   * @param uid
+   * @param input the input string.
    */
   private void assertToUid(String input) {
     String output = UidUtils.toUid(input);
