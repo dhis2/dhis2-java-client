@@ -2392,6 +2392,27 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   /**
+   * Saves an {@link Events}. The operation is synchronous.
+   *
+   * <p>Requires DHIS 2 version 2.40 or later.
+   *
+   * @param inputStream the input stream representing the data value set JSON payload.
+   * @return {@link EventResponse} holding information about the operation.
+   */
+  public EventResponse saveEvents(InputStream inputStream) {
+    URIBuilder builder = config.getResolvedUriBuilder().appendPath("tracker");
+
+    HttpPost request =
+        getPostRequest(
+            HttpUtils.build(builder),
+            new InputStreamEntity(inputStream, ContentType.APPLICATION_JSON));
+
+    Dhis2AsyncRequest asyncRequest = new Dhis2AsyncRequest(config, httpClient, objectMapper);
+
+    return asyncRequest.post(request, EventResponse.class);
+  }
+
+  /**
    * Retrieves an {@link Event}.
    *
    * <p>Requires DHIS 2 version 2.36 or later.
