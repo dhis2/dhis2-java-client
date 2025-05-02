@@ -37,7 +37,11 @@ import lombok.experimental.Accessors;
 import org.hisp.dhis.model.AggregationType;
 import org.hisp.dhis.model.IdScheme;
 
-/** Analytics data query. */
+/**
+ * Analytics data query.
+ *
+ * @author Lars Helge Overland
+ */
 @Getter
 @Setter
 @Accessors(chain = true)

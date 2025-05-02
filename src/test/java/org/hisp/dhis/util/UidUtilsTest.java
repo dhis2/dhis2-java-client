@@ -92,7 +92,7 @@ class UidUtilsTest {
   /**
    * Asserts that the method generates a valid UID based on the given identifier.
    *
-   * @param uid
+   * @param input the input string.
    */
   private void assertToUid(String input) {
     String output = UidUtils.toUid(input);
