@@ -27,6 +27,8 @@
  */
 package org.hisp.dhis.query.analytics;
 
+import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
+
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
@@ -58,6 +60,8 @@ public class AnalyticsQuery {
 
   private Boolean ignoreLimit;
 
+  private Boolean tableLayout;
+
   private Boolean showHierarchy;
 
   private Boolean includeNumDen;
@@ -71,6 +75,10 @@ public class AnalyticsQuery {
   private IdScheme outputDataElementIdScheme;
 
   private IdScheme inputIdScheme;
+
+  private List<String> columns = new ArrayList<>();
+
+  private List<String> rows = new ArrayList<>();
 
   private AnalyticsQuery() {}
 
@@ -185,5 +193,23 @@ public class AnalyticsQuery {
    */
   public AnalyticsQuery addOrgUnitFilter(List<String> items) {
     return addFilter(new Dimension(Dimension.DIMENSION_OU, items));
+  }
+
+  /**
+   * Indicates whether any columns exist.
+   *
+   * @return true if any columns exist.
+   */
+  public boolean hasColumns() {
+    return isNotEmpty(columns);
+  }
+
+  /**
+   * Indicates whether any rows exist.
+   *
+   * @return true if any rows exist.
+   */
+  public boolean hasRows() {
+    return isNotEmpty(rows);
   }
 }
