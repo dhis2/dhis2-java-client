@@ -41,11 +41,16 @@ import org.junit.jupiter.api.Test;
 @Tag(TestTags.UNIT)
 class UidUtilsTest {
   @Test
-  void testGetUid() {
+  void testGenerateUid() {
     String uid = UidUtils.generateUid();
 
     assertNotNull(uid);
     assertEquals(11, uid.length());
+  }
+
+  @Test
+  void testGenerateUids() {
+    assertEquals(3, UidUtils.generateUids(3).size());
   }
 
   @Test

@@ -31,8 +31,10 @@ import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.regex.Pattern;
+import java.util.stream.IntStream;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
@@ -62,6 +64,16 @@ public class UidUtils {
    */
   public static String generateUid() {
     return generateCode(UID_LENGTH);
+  }
+
+  /**
+   * Generates the given number of DHIS2 UIDs.
+   *
+   * @param n the number of UIDs to generate.
+   * @return a list of DHIS2 UID strings.
+   */
+  public static List<String> generateUids(int n) {
+    return IntStream.range(0, n).mapToObj(i -> generateUid()).toList();
   }
 
   /**
