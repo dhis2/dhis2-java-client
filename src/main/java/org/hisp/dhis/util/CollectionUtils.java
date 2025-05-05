@@ -34,11 +34,13 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
+/** Utilities for collections. */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class CollectionUtils {
   /**
@@ -102,6 +104,20 @@ public class CollectionUtils {
   }
 
   /**
+   * Maps the given list of objects of type U to a list of objects of type T. Null objects are not
+   * allowed.
+   *
+   * @param <T> type.
+   * @param <U> type.
+   * @param objects the objects of U.
+   * @param mapper the mapping function.
+   * @return a list of objects of type T.
+   */
+  public static <T, U> List<T> mapToList(List<U> objects, Function<U, T> mapper) {
+    return objects.stream().map(mapper).toList();
+  }
+
+  /**
    * Converts the given array to an {@link ArrayList}.
    *
    * @param array the array.
@@ -147,5 +163,22 @@ public class CollectionUtils {
    */
   public static <T> boolean notEmpty(Collection<T> collection) {
     return collection != null && !collection.isEmpty();
+  }
+
+  /**
+   * Returns the item at the given index in the given list. Returns null if the index is out of
+   * bounds.
+   *
+   * @param <T> type.
+   * @param list the list.
+   * @param index the index.
+   * @return an item or null.
+   */
+  public static <T> T get(List<T> list, int index) {
+    if (index >= 0 && list != null && index < list.size()) {
+      return list.get(index);
+    }
+
+    return null;
   }
 }

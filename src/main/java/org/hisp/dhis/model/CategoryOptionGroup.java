@@ -31,10 +31,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class CategoryOptionGroup extends NameableObject {
   @JsonProperty private DataDimensionType dataDimensionType;
 

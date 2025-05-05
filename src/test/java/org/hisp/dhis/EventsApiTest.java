@@ -73,6 +73,7 @@ class EventsApiTest {
     evA.setProgramStage("Zj7UnCAulEk");
     evA.setOrgUnit("DiszpKrYNg8");
     evA.setOccurredAt(getDate(2021, 7, 12));
+    evA.setPointGeometry(18.066, 59.333);
     evA.setDataValues(dvA);
 
     List<EventDataValue> dvB =
@@ -91,6 +92,7 @@ class EventsApiTest {
     evB.setProgramStage("Zj7UnCAulEk");
     evB.setOrgUnit("DiszpKrYNg8");
     evB.setOccurredAt(getDate(2021, 7, 14));
+    evB.setPointGeometry(24.946, 60.192);
     evB.setDataValues(dvB);
 
     Events events = new Events(list(evA, evB));
@@ -109,12 +111,14 @@ class EventsApiTest {
     assertNotNull(evA);
     assertEquals("eBAyeGv0exc", evA.getProgram());
     assertEquals("DiszpKrYNg8", evA.getOrgUnit());
+    assertNotNull(evA.getGeometry());
 
     evB = dhis2.getEvent(uidB);
 
     assertNotNull(evB);
     assertEquals("eBAyeGv0exc", evB.getProgram());
     assertEquals("DiszpKrYNg8", evB.getOrgUnit());
+    assertNotNull(evB.getGeometry());
 
     response = dhis2.removeEvent(evA);
 
@@ -158,6 +162,7 @@ class EventsApiTest {
     evA.setProgramStage("Zj7UnCAulEk");
     evA.setOrgUnit("DiszpKrYNg8");
     evA.setOccurredAt(getDate(2021, 7, 12));
+    evA.setPointGeometry(18.066, 59.333);
     evA.setDataValues(dvA);
 
     List<EventDataValue> dvB =
@@ -176,6 +181,7 @@ class EventsApiTest {
     evB.setProgramStage("Zj7UnCAulEk");
     evB.setOrgUnit("DiszpKrYNg8");
     evB.setOccurredAt(getDate(2021, 7, 14));
+    evB.setPointGeometry(24.946, 60.192);
     evB.setDataValues(dvB);
 
     Events events = new Events(list(evA, evB));
@@ -253,10 +259,10 @@ class EventsApiTest {
     EventsResult events = dhis2.getEvents(query);
 
     assertNotNull(events);
-    assertNotNull(events.getInstances());
-    assertEquals(50, events.getInstances().size());
+    assertNotNull(events.getEvents());
+    assertEquals(50, events.getEvents().size());
 
-    Event event = events.getInstances().get(0);
+    Event event = events.getEvents().get(0);
 
     assertNotNull(event.getId());
     assertNotNull(event.getProgram());

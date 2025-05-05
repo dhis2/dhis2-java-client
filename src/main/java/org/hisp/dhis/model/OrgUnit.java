@@ -30,10 +30,12 @@ package org.hisp.dhis.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Date;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class OrgUnit extends NameableObject {
   @JsonProperty private String path;
 
@@ -56,8 +58,6 @@ public class OrgUnit extends NameableObject {
   @Setter @JsonProperty private String email;
 
   @Setter @JsonProperty private String phoneNumber;
-
-  public OrgUnit() {}
 
   public OrgUnit(String id, String name) {
     this.id = id;

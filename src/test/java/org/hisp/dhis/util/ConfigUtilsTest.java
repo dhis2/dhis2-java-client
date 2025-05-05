@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004-2024, University of Oslo
+ * Copyright (c) 2004-2025, University of Oslo
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,10 +25,31 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.hisp.dhis.response.datavalueset;
+package org.hisp.dhis.util;
 
-public enum Status {
-  SUCCESS,
-  WARNING,
-  ERROR
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.util.List;
+import org.junit.jupiter.api.Test;
+
+public class ConfigUtilsTest {
+  @Test
+  void testGetAsListA() {
+    List<String> expected =
+        List.of("http://localhost", "http://localhost:3000", "https://localhost:3000");
+
+    String actual = "http://localhost,http://localhost:3000, ,, https://localhost:3000";
+
+    assertEquals(expected, ConfigUtils.getAsList(actual));
+    assertEquals(List.of(), ConfigUtils.getAsList(null));
+    assertEquals(List.of(), ConfigUtils.getAsList(""));
+  }
+
+  @Test
+  void testGetAsArray() {
+    String actual = "http://localhost,http://localhost:3000, ,, https://localhost:3000";
+
+    assertEquals(3, ConfigUtils.getAsArray(actual).length);
+    assertEquals("http://localhost", ConfigUtils.getAsArray(actual)[0]);
+  }
 }

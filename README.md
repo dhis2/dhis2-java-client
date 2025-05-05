@@ -1,6 +1,6 @@
 # DHIS 2 Java Client
 
-DHIS 2 API client for Java. The client allows you to create, update and retrieve information from DHIS 2. The client is compatible with Java 8 and later JDK versions.
+DHIS 2 API client for Java. The client allows you to create, update and retrieve information from DHIS 2. The client is compatible with Java 17 and later JDK versions.
 
 ## Getting started
 
@@ -136,6 +136,7 @@ To create an org unit:
 OrgUnit orgUnit = new OrgUnit();
 orgUnit.setName("Ngelehun");
 orgUnit.setCode("NGLH");
+orgUnit.setPointGeometry(-11.452, 8.057);
 
 ObjectResponse response = dhis2.saveOrgUnit(orgUnit);
 ```
@@ -299,15 +300,32 @@ DataValueSetResponse response = dhis2.saveDataValueSet(file, options);
 
 This section explains operations for the analytics engine.
 
+### Get analytics data
+
+To retrieve analytics data:
+
+```java
+AnalyticsQuery query = AnalyticsQuery.instance()
+    .addDataDimension(List.of("fbfJHSPpUQD", "cYeuwXTCPkU", "Jtf34kNZhzP"))
+    .addPeriodDimension(List.of("202501", "202502", "202503"))
+    .addDimension("fMZEcRHuamy", List.of("qkPbeWaFsnU", "wbrDrL2aYEc"))
+    .addOrgUnitFilter(List.of("ImspTQPwCqd"))
+    .setIncludeMetadataDetails(true);
+
+AnalyticsData data = dhis2.getAnalyticsData(query);
+```
+
 ### Get analytics data value set
 
 To retrieve analytics data in the data value set format:
 
 ```java
-DataValueSet dvs = dhis2.getAnalyticsDataValueSet(AnalyticsQuery.instance()
+AnalyticsQuery query = AnalyticsQuery.instance()
     .addDimension(Dimension.DIMENSION_DX, "cYeuwXTCPkU", "Jtf34kNZhzP")
     .addDimension(Dimension.DIMENSION_OU, "O6uvpzGd5pu", "fdc6uOvgoji")
-    .addDimension(Dimension.DIMENSION_PE, "202007", "202008"));
+    .addDimension(Dimension.DIMENSION_PE, "202007", "202008");
+
+DataValueSet dvs = dhis2.getAnalyticsDataValueSet(query);
 ```
 
 ### Write analytics data value set to file
@@ -321,7 +339,7 @@ AnalyticsQuery query = AnalyticsQuery.instance()
     .addDimension(Dimension.DIMENSION_PE, "202007", "202008");
 
 File file = new File("/tmp/data-value-set.json");
-    
+
 dhis2.writeAnalyticsDataValueSet(query, file);
 ```
 

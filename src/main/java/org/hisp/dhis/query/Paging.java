@@ -28,6 +28,7 @@
 package org.hisp.dhis.query;
 
 import lombok.Getter;
+import lombok.ToString;
 import org.apache.commons.lang3.Validate;
 
 /**
@@ -36,6 +37,7 @@ import org.apache.commons.lang3.Validate;
  * @author Lars Helge Overland
  */
 @Getter
+@ToString
 public class Paging {
   private static final int DEFAULT_PAGE_SIZE = 50;
 
@@ -63,6 +65,15 @@ public class Paging {
         !(pageSize != null && pageSize < 1), "Page size must be greater than zero if specified");
     this.page = page;
     this.pageSize = pageSize;
+  }
+
+  /**
+   * Returns a {@link Paging} with page and page size set to <code>null</code>.
+   *
+   * @return a {@link Paging}.
+   */
+  public static Paging empty() {
+    return new Paging(null, null);
   }
 
   public boolean hasPage() {

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004-2024, University of Oslo
+ * Copyright (c) 2004-2025, University of Oslo
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -29,14 +29,17 @@ package org.hisp.dhis.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class TrackedEntityAttribute extends NameableObject {
-  @JsonProperty private ValueType valueType;
-
-  @JsonProperty private Boolean confidential = false;
-
-  @JsonProperty private Boolean unique = false;
+@NoArgsConstructor
+public class FileResource extends NameableObject {
+  @JsonProperty private String contentType;
+  @JsonProperty private Integer contentLength;
+  @JsonProperty private String contentMd5;
+  @JsonProperty private String domain;
+  @JsonProperty private String hasMultipleStorageFiles;
+  @JsonProperty private String storageStatus;
 }

@@ -28,7 +28,9 @@
 package org.hisp.dhis.query;
 
 import java.util.List;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -36,6 +38,8 @@ import org.apache.commons.lang3.StringUtils;
  *
  * @author Lars Helge Overland
  */
+@Getter
+@ToString
 @RequiredArgsConstructor
 public class Filter {
   private final String property;
@@ -161,17 +165,5 @@ public class Filter {
    */
   public static Filter in(String property, List<String> values) {
     return new Filter(property, Operator.IN, StringUtils.join(values, ','));
-  }
-
-  public String getProperty() {
-    return property;
-  }
-
-  public Operator getOperator() {
-    return operator;
-  }
-
-  public Object getValue() {
-    return value;
   }
 }

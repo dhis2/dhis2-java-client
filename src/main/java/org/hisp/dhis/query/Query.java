@@ -29,12 +29,17 @@ package org.hisp.dhis.query;
 
 import java.util.ArrayList;
 import java.util.List;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 /**
  * Metadata query.
  *
  * @author Lars Helge Overland
  */
+@ToString
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Query {
   private final List<Filter> filters = new ArrayList<>();
 
@@ -45,8 +50,6 @@ public class Query {
   private RootJunction rootJunction;
 
   private boolean expandAssociations = false;
-
-  private Query() {}
 
   /**
    * Produces a query instance.

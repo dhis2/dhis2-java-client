@@ -27,17 +27,42 @@
  */
 package org.hisp.dhis.model;
 
+import java.io.Serializable;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import org.apache.maven.artifact.versioning.ComparableVersion;
 
-public class SystemVersion {
+@ToString
+@EqualsAndHashCode
+public class SystemVersion implements Serializable {
   private final String version;
 
+  /**
+   * Constructor.
+   *
+   * @param version the version string.
+   */
   public SystemVersion(String version) {
     this.version = version;
   }
 
-  public String getVersion() {
+  /**
+   * Returns the version as a string.
+   *
+   * @return the version string.
+   */
+  public String version() {
     return version;
+  }
+
+  /**
+   * Creates a {@link SystemVersion} from the given version string.
+   *
+   * @param version the version string.
+   * @return a {@link SystemVersion}.
+   */
+  public static SystemVersion of(String version) {
+    return new SystemVersion(version);
   }
 
   /**
@@ -90,6 +115,12 @@ public class SystemVersion {
     return compareThisTo(version) < 0;
   }
 
+  /**
+   * Compares this version against the given version.
+   *
+   * @param version the version.
+   * @return the outcome of <code>compareTo</code>.
+   */
   private int compareThisTo(String version) {
     return new ComparableVersion(this.version).compareTo(new ComparableVersion(version));
   }

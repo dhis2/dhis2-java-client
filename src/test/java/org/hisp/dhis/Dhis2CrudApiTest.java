@@ -40,6 +40,7 @@ import org.hisp.dhis.response.HttpStatus;
 import org.hisp.dhis.response.Status;
 import org.hisp.dhis.response.object.ObjectResponse;
 import org.hisp.dhis.support.TestTags;
+import org.hisp.dhis.util.UidUtils;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
@@ -49,12 +50,13 @@ class Dhis2CrudApiTest {
   void testCategoryOption() {
     Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
 
+    String uid = UidUtils.generateUid();
     OrgUnit ouA = new OrgUnit("ueuQlqb8ccl", null);
     OrgUnit ouB = new OrgUnit("Rp268JB6Ne4", null);
 
-    String codeA = "CAT_OPT__A";
-    String nameA = "Category option name__A";
-    String shortNameA = "Category option short name__A";
+    String codeA = "CAT_OPT__" + uid;
+    String nameA = "Category option name__" + uid;
+    String shortNameA = "Category option short name__" + uid;
 
     CategoryOption coA = new CategoryOption();
     coA.setCode(codeA);

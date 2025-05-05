@@ -44,6 +44,7 @@ import org.apache.hc.core5.http.ParseException;
 import org.apache.hc.core5.http.io.entity.EntityUtils;
 import org.hisp.dhis.response.BaseHttpResponse;
 import org.hisp.dhis.response.Dhis2ClientException;
+import org.hisp.dhis.response.job.JobCategory;
 import org.hisp.dhis.response.job.JobInfo;
 import org.hisp.dhis.response.job.JobInfoResponse;
 import org.hisp.dhis.response.job.JobNotification;
@@ -89,11 +90,37 @@ public class Dhis2AsyncRequest {
 
     JobInfo jobInfo = message.getResponse();
 
+    return getJobSummary(klass, message, jobInfo);
+  }
+
+  /**
+   * Executes the given HTTP POST request. The request must be a DHIS 2 async request. The method
+   * will use the DHIS 2 tasks and task summary API endpoints to poll for the task status, and
+   * eventually return a task summary when the task is complete. The DHIS 2 /tracker async response
+   * does not include the JobCategory. We need to inject it here.
+   *
+   * @param request the {@link HttpPost}.
+   * @param klass the class type.
+   * @param <T> the class type.
+   * @return a response message.
+   * @throws Dhis2ClientException if the POST operation failed.
+   */
+  public <T extends BaseHttpResponse> T postEvent(HttpPost request, Class<T> klass) {
+    JobInfoResponse message = postAsyncRequest(request);
+
+    JobInfo jobInfo = message.getResponse();
+
+    jobInfo.setJobType(JobCategory.TRACKER_IMPORT_JOB);
+
+    return getJobSummary(klass, message, jobInfo);
+  }
+
+  private <T extends BaseHttpResponse> T getJobSummary(Class<T> klass, JobInfoResponse message, JobInfo jobInfo) {
     log.info(
         "Push response: '{}', '{}', job: '{}'",
         message.getHttpStatus(),
         message.getMessage(),
-        jobInfo);
+            jobInfo);
 
     JobNotification notification = waitForCompletion(jobInfo);
 

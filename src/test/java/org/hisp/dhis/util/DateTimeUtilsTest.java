@@ -32,6 +32,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Calendar;
@@ -250,6 +251,15 @@ class DateTimeUtilsTest {
     string = DateTimeUtils.getUtcDateTimeString(dateTime);
 
     assertNotNull(string);
+  }
+
+  @Test
+  void testToLocalDateFromInstant() {
+    LocalDate date1 = DateTimeUtils.toLocalDate(Instant.ofEpochSecond(1006511400L));
+    LocalDate date2 = DateTimeUtils.toLocalDate(Instant.ofEpochSecond(1617532200L));
+
+    assertEquals("2001-11-23", date1.toString());
+    assertEquals("2021-04-04", date2.toString());
   }
 
   private Date getDate(int year, int month, int dayOfMonth, int hour, int minute, int second) {

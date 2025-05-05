@@ -29,6 +29,7 @@ package org.hisp.dhis.util;
 
 import java.text.SimpleDateFormat;
 import java.time.DateTimeException;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -38,11 +39,16 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 
+/** Utilities for date and time. */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class DateTimeUtils {
   private static final String DATE_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS";
 
   private static final String DATE_FORMAT = "yyyy-MM-dd";
+
+  public static final String JSON_DATE_FORMAT = DATE_FORMAT;
+
+  public static final String JSON_DATE_TIME_FORMAT = "yyyy-MM-dd'T'hh:mm:ss";
 
   /**
    * Returns a date.
@@ -183,5 +189,76 @@ public class DateTimeUtils {
    */
   public static String getUtcDateTimeString(Date dateTime) {
     return String.format("%sZ", new SimpleDateFormat(DATE_TIME_FORMAT).format(dateTime));
+  }
+
+  /**
+   * Returns the {@link Instant} of received date param. if data is null, it also returns null
+   * Instant.
+   *
+   * @param date the {@link Date}.
+   * @return the {@link Instant} of received date param.
+   */
+  public static Instant toInstant(Date date) {
+    return date != null ? date.toInstant() : null;
+  }
+
+  /**
+   * Returns the {@link LocalDate} from a given {@link Instant}.
+   *
+   * @param instant the {@link Instant}.
+   * @return the {@link LocalDate}.
+   */
+  public static LocalDate toLocalDate(Instant instant) {
+    return instant.atZone(ZoneId.systemDefault()).toLocalDate();
+  }
+
+  /**
+   * Returns the {@link LocalDateTime} from a given {@link Instant}.
+   *
+   * @param instant the {@link Instant}.
+   * @return the {@link LocalDateTime}.
+   */
+  public static LocalDateTime toLocalDateTime(Instant instant) {
+    return instant.atZone(ZoneId.systemDefault()).toLocalDateTime();
+  }
+
+  /**
+   * Returns a {@link java.util.Date} from a {@link java.time.LocalDate}.
+   *
+   * @param date the {@link java.time.LocalDate}.
+   * @return the {@link java.util.Date}.
+   */
+  public static Date toDate(LocalDate date) {
+    return Date.from(date.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
+  }
+
+  /**
+   * Returns a {@link java.util.Date} from a {@link java.time.LocalDateTime}.
+   *
+   * @param dateTime the {@link java.time.LocalDateTime}.
+   * @return the {@link java.util.Date}.
+   */
+  public static Date toDate(LocalDateTime dateTime) {
+    return Date.from(dateTime.atZone(ZoneId.systemDefault()).toInstant());
+  }
+
+  /**
+   * Converts the given {@link Date} to a {@link LocalDate}.
+   *
+   * @param date the {@link Date}.
+   * @return a {@link LocalDate}.
+   */
+  public static LocalDate toLocalDate(Date date) {
+    return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+  }
+
+  /**
+   * Converts the given {@link Date} to a {@link LocalDateTime}.
+   *
+   * @param date the {@link Date}.
+   * @return a {@link LocalDateTime}.
+   */
+  public static LocalDateTime toLocalDateTime(Date date) {
+    return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
   }
 }

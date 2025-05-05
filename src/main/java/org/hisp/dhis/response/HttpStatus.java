@@ -86,7 +86,9 @@ public enum HttpStatus {
   LOOP_DETECTED(508, "Loop Detected"),
   BANDWIDTH_LIMIT_EXCEEDED(509, "Bandwidth Limit Exceeded"),
   NOT_EXTENDED(510, "Not Extended"),
-  NETWORK_AUTHENTICATION_REQUIRED(511, "Network Authentication Required");
+  NETWORK_AUTHENTICATION_REQUIRED(511, "Network Authentication Required"),
+  UNKNOWN_REASON_0(0, "Unknown reason (0)"),
+  UNKNOWN_REASON_1(-1, "Unknown reason (-1)");
 
   private final int value;
 

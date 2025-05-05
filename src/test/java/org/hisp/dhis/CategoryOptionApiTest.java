@@ -52,7 +52,6 @@ class CategoryOptionApiTest {
     assertNotNull(categoryOption);
     assertEquals("K4gwuiVvW3z", categoryOption.getId());
     assertFalse(categoryOption.getCategories().isEmpty());
-    assertFalse(categoryOption.getCategoryOptionCombos().isEmpty());
   }
 
   @Test

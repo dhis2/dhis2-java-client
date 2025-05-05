@@ -40,6 +40,7 @@ import org.apache.hc.core5.net.URIBuilder;
 import org.hisp.dhis.Dhis2Config;
 import org.hisp.dhis.auth.Authentication;
 
+/** Utilities for HTTP communication. */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class HttpUtils {
   /**

@@ -25,24 +25,44 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.hisp.dhis.response.datavalueset;
+package org.hisp.dhis.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@Getter
-@Setter
-@ToString
-@NoArgsConstructor
-public class ImportCount {
-  @JsonProperty private int imported;
+import org.junit.jupiter.api.Test;
 
-  @JsonProperty private int updated;
+class SystemVersionTest {
+  private final SystemVersion v_2_39 = SystemVersion.of("2.39");
+  private final SystemVersion v_2_39_2 = SystemVersion.of("2.39.2");
+  private final SystemVersion v_2_39_2_1 = SystemVersion.of("2.39.2.1");
+  private final SystemVersion v_2_40 = SystemVersion.of("2.40");
+  private final SystemVersion v_2_40_0 = SystemVersion.of("2.40.0");
+  private final SystemVersion v_2_40_1 = SystemVersion.of("2.40.1");
 
-  @JsonProperty private int ignored;
+  @Test
+  void testIsHigher() {
+    assertTrue(v_2_39_2.isHigher(v_2_39.version()));
+    assertTrue(v_2_40.isHigher(v_2_39_2_1.version()));
+    assertFalse(v_2_39_2.isHigher(v_2_39_2.version()));
+    assertFalse(v_2_39_2_1.isHigher(v_2_40.version()));
+  }
 
-  @JsonProperty private int deleted;
+  @Test
+  void testIsHigherOrEqual() {
+    assertTrue(v_2_40.isHigherOrEqual(v_2_40.version()));
+    assertTrue(v_2_40_0.isHigherOrEqual(v_2_39_2_1.version()));
+    assertFalse(v_2_39_2_1.isHigherOrEqual(v_2_40.version()));
+    assertFalse(v_2_39_2.isHigherOrEqual(v_2_39_2_1.version()));
+  }
+
+  @Test
+  void testEquals() {
+    assertEquals(v_2_39_2, SystemVersion.of("2.39.2"));
+    assertEquals(v_2_39_2_1, SystemVersion.of("2.39.2.1"));
+    assertNotEquals(v_2_40_1, SystemVersion.of("2.40.0"));
+    assertNotEquals(v_2_39_2_1, SystemVersion.of("2.39.2"));
+  }
 }

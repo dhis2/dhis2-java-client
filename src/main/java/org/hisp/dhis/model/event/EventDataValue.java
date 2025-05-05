@@ -29,6 +29,7 @@ package org.hisp.dhis.model.event;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -44,7 +45,7 @@ import org.hisp.dhis.util.DateTimeUtils;
 @Setter
 @NoArgsConstructor
 @ToString(onlyExplicitlyIncluded = true)
-public class EventDataValue {
+public class EventDataValue implements Serializable {
   public static final String VALUE_TRUE = "true";
 
   public static final String VALUE_FALSE = "false";
@@ -53,13 +54,22 @@ public class EventDataValue {
 
   @ToString.Include @JsonProperty private String value;
 
+  /** Default false. */
   @JsonProperty private Boolean providedElsewhere;
 
+  /** Read-only. */
   @JsonProperty private Date createdAt;
 
+  /** Read-only. */
   @JsonProperty private Date updatedAt;
 
   @JsonProperty private String storedBy;
+
+  /** Read-only. */
+  @JsonProperty private String createdBy;
+
+  /** Read-only. */
+  @JsonProperty private String updatedBy;
 
   public EventDataValue(String dataElement, String value) {
     this.dataElement = dataElement;

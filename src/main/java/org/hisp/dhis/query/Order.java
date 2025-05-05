@@ -27,20 +27,20 @@
  */
 package org.hisp.dhis.query;
 
+import lombok.RequiredArgsConstructor;
+import lombok.ToString;
+
 /**
  * Query response ordering.
  *
  * @author Lars Helge Overland
  */
+@ToString
+@RequiredArgsConstructor
 public class Order {
   private final String property;
 
   private final Direction direction;
-
-  protected Order(String property, Direction direction) {
-    this.property = property;
-    this.direction = direction;
-  }
 
   public static Order asc(String property) {
     return new Order(property, Direction.ASC);

@@ -27,7 +27,9 @@
  */
 package org.hisp.dhis.model.event;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -37,34 +39,41 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.hisp.dhis.util.GeoUtils;
+import org.locationtech.jts.geom.Geometry;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @ToString(onlyExplicitlyIncluded = true)
-public class Event {
+public class Event implements Serializable {
   @EqualsAndHashCode.Include
   @ToString.Include
   @JsonProperty(value = "event")
   private String id;
 
+  /** Read-only. */
   @JsonProperty private String program;
+
+  /** Read-only. */
+  @JsonProperty private String trackedEntity;
 
   @ToString.Include @JsonProperty private String programStage;
 
-  @ToString.Include @JsonProperty private String enrollment;
+  @ToString.Include @JsonProperty private String orgUnit;
 
+  /** Default. */
   @ToString.Include @JsonProperty private String attributeOptionCombo;
 
   @JsonProperty private EventStatus status = EventStatus.ACTIVE;
 
-  @ToString.Include @JsonProperty private String orgUnit;
-
+  /** Read-only. */
   @JsonProperty private Date createdAt;
 
   @JsonProperty private Date createdAtClient;
 
+  /** Read-only. */
   @JsonProperty private Date updatedAt;
 
   @JsonProperty private Date updatedAtClient;
@@ -73,15 +82,22 @@ public class Event {
 
   @JsonProperty private Date occurredAt;
 
+  @JsonProperty private Date completedAt;
+
+  /** Read-only. */
   @JsonProperty private String completedBy;
 
   @JsonProperty private String storedBy;
 
+  /** Read-only. */
   @JsonProperty private Boolean followUp;
 
+  @JsonProperty private Geometry geometry;
+
+  /** Read-only. */
   @JsonProperty private Boolean deleted;
 
-  private List<EventDataValue> dataValues = new ArrayList<>();
+  @JsonProperty private List<EventDataValue> dataValues = new ArrayList<>();
 
   public Event(String id) {
     this.id = id;
@@ -89,17 +105,48 @@ public class Event {
 
   public Event(
       String id,
-      String program,
       String programStage,
       String orgUnit,
+      EventStatus status,
       Date occurredAt,
       List<EventDataValue> dataValues) {
     this(id);
-    this.program = program;
     this.programStage = programStage;
     this.orgUnit = orgUnit;
+    this.status = status;
     this.occurredAt = occurredAt;
     this.dataValues = dataValues;
+  }
+
+  /**
+   * Sets the geometry field to a point based on the given longitude and latitude.
+   *
+   * @param longitude the longitude (x value).
+   * @param latitude the latitude (y value).
+   */
+  public void setPointGeometry(double longitude, double latitude) {
+    this.geometry = GeoUtils.toPoint(longitude, latitude);
+  }
+
+  /**
+   * Indicates whether geometry is of type {@code Point}.
+   *
+   * @return true if geometry is of type {@code Point}.
+   */
+  @JsonIgnore
+  public boolean isGeometryPoint() {
+    return isGeometryType(Geometry.TYPENAME_POINT);
+  }
+
+  /**
+   * Indicates whether geometry is of the given type.
+   *
+   * @param type the type, use {@link Geometry} {@code TYPENAME} constant values.
+   * @return true if geometry is of the given type.
+   */
+  public boolean isGeometryType(String type) {
+    Objects.requireNonNull(type);
+    return geometry != null && type.equals(geometry.getGeometryType());
   }
 
   /**
@@ -153,5 +200,14 @@ public class Event {
    */
   public void addDataValue(String dataElement, String value) {
     addDataValue(new EventDataValue(dataElement, value));
+  }
+
+  /**
+   * Adds the givene list of event data values.
+   *
+   * @param dataValues the list of {@link EventDataValue}.
+   */
+  public void addDataValues(List<EventDataValue> dataValues) {
+    this.dataValues.addAll(dataValues);
   }
 }

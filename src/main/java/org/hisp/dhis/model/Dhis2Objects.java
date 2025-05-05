@@ -34,12 +34,16 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import org.hisp.dhis.model.completedatasetregistration.CompleteDataSetRegistration;
+import org.hisp.dhis.model.dashboard.Dashboard;
+import org.hisp.dhis.model.trackedentity.TrackedEntityType;
+import org.hisp.dhis.model.validation.ValidationRule;
 
 @Getter
 @Setter
 @Accessors(chain = true)
 @NoArgsConstructor
-public class Objects {
+public class Dhis2Objects {
   @JsonProperty private List<Dashboard> dashboards = new ArrayList<>();
 
   @JsonProperty private List<DataElement> dataElements = new ArrayList<>();
@@ -66,6 +70,9 @@ public class Objects {
 
   @JsonProperty private List<DataSet> dataSets = new ArrayList<>();
 
+  @JsonProperty
+  private List<CompleteDataSetRegistration> completeDataSetRegistrations = new ArrayList<>();
+
   @JsonProperty private List<GeoMap> maps = new ArrayList<GeoMap>();
 
   @JsonProperty private List<IndicatorType> indicatorTypes = new ArrayList<>();
@@ -82,6 +89,8 @@ public class Objects {
 
   @JsonProperty private List<ProgramIndicator> programIndicators = new ArrayList<>();
 
+  @JsonProperty private List<TrackedEntityType> trackedEntityTypes = new ArrayList<>();
+
   @JsonProperty private List<CategoryOptionGroup> categoryOptionGroups = new ArrayList<>();
 
   @JsonProperty private List<CategoryOptionGroupSet> categoryOptionGroupSets = new ArrayList<>();
@@ -93,4 +102,6 @@ public class Objects {
   @JsonProperty private List<PeriodType> periodTypes = new ArrayList<>();
 
   @JsonProperty private List<Visualization> visualizations = new ArrayList<>();
+
+  @JsonProperty private List<ValidationRule> validationRules = new ArrayList<>();
 }

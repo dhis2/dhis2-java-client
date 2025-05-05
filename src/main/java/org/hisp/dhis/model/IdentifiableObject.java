@@ -27,8 +27,11 @@
  */
 package org.hisp.dhis.model;
 
+import static org.hisp.dhis.util.DateTimeUtils.JSON_DATE_TIME_FORMAT;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Objects;
@@ -40,7 +43,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class IdentifiableObject {
+public class IdentifiableObject implements Serializable {
   @JsonProperty protected String id;
 
   @JsonProperty protected String code;
@@ -48,11 +51,11 @@ public class IdentifiableObject {
   @JsonProperty protected String name;
 
   @JsonProperty
-  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'hh:mm:ss")
+  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = JSON_DATE_TIME_FORMAT)
   protected Date created;
 
   @JsonProperty
-  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'hh:mm:ss")
+  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = JSON_DATE_TIME_FORMAT)
   protected Date lastUpdated;
 
   @JsonProperty protected Set<AttributeValue> attributeValues = new HashSet<>();
