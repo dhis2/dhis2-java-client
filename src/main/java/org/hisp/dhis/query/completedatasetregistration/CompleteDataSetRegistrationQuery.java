@@ -35,6 +35,7 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 import org.hisp.dhis.model.IdScheme;
 
+/** Complete data set registration. */
 @Getter
 @Setter
 @Accessors(chain = true)
