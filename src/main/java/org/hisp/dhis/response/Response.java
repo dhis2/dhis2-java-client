@@ -72,7 +72,7 @@ public class Response extends BaseHttpResponse {
       return HttpStatus.valueOf(httpStatusCode);
     }
 
-    return HttpStatus.UNKNOWN_REASON_0;
+    return null;
   }
 
   /**
