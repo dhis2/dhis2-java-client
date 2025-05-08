@@ -54,7 +54,7 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 @Tag(TestTags.INTEGRATION)
-public class ProgramApiTest {
+class ProgramApiTest {
   @Test
   void testGetProgramChildProgram() {
     Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);

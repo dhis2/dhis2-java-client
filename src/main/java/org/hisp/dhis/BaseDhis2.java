@@ -245,6 +245,14 @@ public class BaseDhis2 {
           dataSets,authorities,organisationUnits[%2$s]""",
           ID_FIELDS, ORG_UNIT_FIELDS);
 
+  /** User fields. */
+  protected static final String USER_FIELDS =
+      String.format(
+          """
+          %1$s,username,firstName,surname,email,phoneNumber,externalAuth,lastLogin,\
+          organisationUnits[%2$s],dataViewOrganisationUnits[%2$s],teiSearchOrganisationUnits[%2$s]""",
+          ID_FIELDS, NAME_FIELDS);
+
   /** Log level system property. */
   private static final String LOG_LEVEL_SYSTEM_PROPERTY = "log.level.dhis2";
 

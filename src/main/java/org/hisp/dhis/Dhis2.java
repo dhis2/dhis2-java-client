@@ -98,6 +98,7 @@ import org.hisp.dhis.model.event.Event;
 import org.hisp.dhis.model.event.Events;
 import org.hisp.dhis.model.event.EventsResult;
 import org.hisp.dhis.model.trackedentity.TrackedEntityType;
+import org.hisp.dhis.model.user.User;
 import org.hisp.dhis.model.validation.Period;
 import org.hisp.dhis.model.validation.Validation;
 import org.hisp.dhis.model.validation.ValidationRule;
@@ -2155,6 +2156,45 @@ public class Dhis2 extends BaseDhis2 {
             query,
             Dhis2Objects.class)
         .getDashboards();
+  }
+
+  // -------------------------------------------------------------------------
+  // User
+  // -------------------------------------------------------------------------
+
+  /**
+   * Retrieves a {@link User}.
+   *
+   * @param id the object identifier.
+   * @return the {@link User}.
+   * @throws Dhis2ClientException if the object does not exist.
+   */
+  public User getUser(String id) {
+    return getObject(
+        config
+            .getResolvedUriBuilder()
+            .appendPath("users")
+            .appendPath(id)
+            .addParameter(FIELDS_PARAM, USER_FIELDS),
+        Query.instance(),
+        User.class);
+  }
+
+  /**
+   * Retrieves a list of {@link User}.
+   *
+   * @param query the {@link Query}.
+   * @return list of {@link User}.
+   */
+  public List<User> getUsers(Query query) {
+    return getObject(
+            config
+                .getResolvedUriBuilder()
+                .appendPath("users")
+                .addParameter(FIELDS_PARAM, USER_FIELDS),
+            query,
+            Dhis2Objects.class)
+        .getUsers();
   }
 
   // -------------------------------------------------------------------------

@@ -47,7 +47,6 @@ import org.junit.jupiter.api.Test;
 
 @Tag(TestTags.INTEGRATION)
 class CompleteDataSetRegistrationApiTest {
-
   @Test
   void testGetCompleteDataSetRegistrationsWithStartEndDates() {
     CompleteDataSetRegistrationQuery query =
