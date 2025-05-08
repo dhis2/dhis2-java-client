@@ -2409,7 +2409,7 @@ public class Dhis2 extends BaseDhis2 {
 
     Dhis2AsyncRequest asyncRequest = new Dhis2AsyncRequest(config, httpClient, objectMapper);
 
-    return asyncRequest.post(request, EventResponse.class);
+    return asyncRequest.postEvent(request, EventResponse.class);
   }
 
   /**
