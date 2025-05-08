@@ -28,19 +28,18 @@
 package org.hisp.dhis.model;
 
 import static org.hisp.dhis.util.CollectionUtils.notEmpty;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.hisp.dhis.model.trackedentity.ProgramTrackedEntityAttribute;
 import org.hisp.dhis.model.trackedentity.TrackedEntityAttribute;
 import org.hisp.dhis.model.trackedentity.TrackedEntityType;
 import org.hisp.dhis.model.trackedentity.TrackedEntityTypeAttribute;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @Setter
@@ -79,7 +78,7 @@ public class Program extends NameableObject {
 
     return trackedEntityType.getTrackedEntityTypeAttributes().stream()
         .map(TrackedEntityTypeAttribute::getTrackedEntityAttribute)
-        .collect(Collectors.toUnmodifiableList());
+        .toList();
   }
 
   /**
@@ -108,7 +107,7 @@ public class Program extends NameableObject {
   public List<TrackedEntityAttribute> getTrackedEntityAttributes() {
     return programTrackedEntityAttributes.stream()
         .map(ProgramTrackedEntityAttribute::getTrackedEntityAttribute)
-        .collect(Collectors.toUnmodifiableList());
+        .toList();
   }
 
   /**
@@ -121,7 +120,7 @@ public class Program extends NameableObject {
     return programTrackedEntityAttributes.stream()
         .map(ProgramTrackedEntityAttribute::getTrackedEntityAttribute)
         .filter(tea -> !tea.isConfidentialNullSafe())
-        .collect(Collectors.toUnmodifiableList());
+        .toList();
   }
 
   /**
@@ -131,10 +130,7 @@ public class Program extends NameableObject {
    */
   @JsonIgnore
   public List<DataElement> getDataElements() {
-    return programStages.stream()
-        .flatMap(ps -> ps.getDataElements().stream())
-        .distinct()
-        .collect(Collectors.toUnmodifiableList());
+    return programStages.stream().flatMap(ps -> ps.getDataElements().stream()).distinct().toList();
   }
 
   /**
@@ -147,7 +143,7 @@ public class Program extends NameableObject {
     return programStages.stream()
         .flatMap(ps -> ps.getAnalyticsDataElements().stream())
         .distinct()
-        .collect(Collectors.toUnmodifiableList());
+        .toList();
   }
 
   /**
@@ -162,7 +158,17 @@ public class Program extends NameableObject {
         .flatMap(ps -> ps.getAnalyticsDataElements().stream())
         .filter(de -> notEmpty(de.getLegendSets()) && de.getValueType().isNumeric())
         .distinct()
-        .collect(Collectors.toUnmodifiableList());
+        .toList();
+  }
+
+  /**
+   * Returns program stage sections which are part of the stages of this program.
+   *
+   * @return an immutable set of {@link ProgramStageSection}.
+   */
+  @JsonIgnore
+  public List<ProgramStageSection> getProgramStageSections() {
+    return programStages.stream().flatMap(ps -> ps.getProgramStageSections().stream()).toList();
   }
 
   /**

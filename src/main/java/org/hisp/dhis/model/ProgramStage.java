@@ -44,6 +44,8 @@ import lombok.Setter;
 public class ProgramStage extends NameableObject {
   @JsonProperty private List<ProgramStageDataElement> programStageDataElements = new ArrayList<>();
 
+  @JsonProperty private List<ProgramStageSection> programStageSections = new ArrayList<>();
+
   public ProgramStage(String id, String name) {
     this.id = id;
     this.name = name;
