@@ -27,18 +27,18 @@
  */
 package org.hisp.dhis.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.Accessors;
 import org.hisp.dhis.model.completedatasetregistration.CompleteDataSetRegistration;
 import org.hisp.dhis.model.dashboard.Dashboard;
 import org.hisp.dhis.model.trackedentity.TrackedEntityType;
 import org.hisp.dhis.model.user.User;
 import org.hisp.dhis.model.validation.ValidationRule;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.experimental.Accessors;
 
 @Getter
 @Setter
@@ -107,7 +107,7 @@ public class Dhis2Objects {
   @JsonProperty private List<PeriodType> periodTypes = new ArrayList<>();
 
   @JsonProperty private List<User> users = new ArrayList<>();
-  
+
   @JsonProperty private List<Visualization> visualizations = new ArrayList<>();
 
   @JsonProperty private List<ValidationRule> validationRules = new ArrayList<>();

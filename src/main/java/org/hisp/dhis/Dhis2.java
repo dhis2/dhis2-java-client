@@ -29,6 +29,7 @@ package org.hisp.dhis;
 
 import static org.hisp.dhis.util.CollectionUtils.asList;
 import static org.hisp.dhis.util.CollectionUtils.list;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -2195,7 +2196,7 @@ public class Dhis2 extends BaseDhis2 {
             Dhis2Objects.class)
         .getUsers();
   }
-  
+
   // -------------------------------------------------------------------------
   // Dimension
   // -------------------------------------------------------------------------
