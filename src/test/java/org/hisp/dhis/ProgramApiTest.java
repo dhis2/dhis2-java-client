@@ -33,7 +33,6 @@ import static org.hisp.dhis.support.Assertions.assertSize;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-
 import java.util.List;
 import org.hisp.dhis.model.DataElement;
 import org.hisp.dhis.model.Program;
@@ -145,7 +144,7 @@ public class ProgramApiTest {
     assertNotBlank(pr.getShortName());
     assertNotNull(pr.getProgramStages());
     assertNotNull(pr.getProgramStageSections());
-    assertFalse(pr.getProgramStageSections().isEmpty());
+    assertFalse (pr.getProgramStageSections().isEmpty());
 
     ProgramStage ps = pr.getProgramStages().get(0);
 
