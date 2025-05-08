@@ -25,35 +25,20 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.hisp.dhis.model;
+package org.hisp.dhis.model.user;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.HashSet;
-import java.util.Set;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hisp.dhis.model.user.UserSettings;
 
 @Getter
 @Setter
 @NoArgsConstructor
-public class Me extends IdentifiableObject {
-  @JsonProperty private String username;
+public class UserSettings {
+  @JsonProperty(value = "keyUiLocale")
+  private String uiLocale;
 
-  @JsonProperty private String surname;
-
-  @JsonProperty private String firstName;
-
-  @JsonProperty private String email;
-
-  @JsonProperty private UserSettings settings;
-
-  @JsonProperty private Set<String> programs = new HashSet<>();
-
-  @JsonProperty private Set<String> dataSets = new HashSet<>();
-
-  @JsonProperty private Set<String> authorities = new HashSet<>();
-
-  @JsonProperty private Set<OrgUnit> organisationUnits = new HashSet<>();
+  @JsonProperty(value = "keyDbLocale")
+  private String dbLocale;
 }
