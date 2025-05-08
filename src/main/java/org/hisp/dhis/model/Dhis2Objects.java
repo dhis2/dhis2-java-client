@@ -87,6 +87,10 @@ public class Dhis2Objects {
 
   @JsonProperty private List<Program> programs = new ArrayList<>();
 
+  @JsonProperty private List<ProgramStage> programStages = new ArrayList<>();
+
+  @JsonProperty private List<ProgramStageSection> programStageSections = new ArrayList<>();
+
   @JsonProperty private List<ProgramIndicator> programIndicators = new ArrayList<>();
 
   @JsonProperty private List<TrackedEntityType> trackedEntityTypes = new ArrayList<>();
