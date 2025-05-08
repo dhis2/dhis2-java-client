@@ -130,10 +130,7 @@ public class Program extends NameableObject {
    */
   @JsonIgnore
   public List<DataElement> getDataElements() {
-    return programStages.stream()
-        .flatMap(ps -> ps.getDataElements().stream())
-        .distinct()
-        .toList();
+    return programStages.stream().flatMap(ps -> ps.getDataElements().stream()).distinct().toList();
   }
 
   /**
@@ -163,16 +160,15 @@ public class Program extends NameableObject {
         .distinct()
         .toList();
   }
-  
+
   /**
    * Returns program stage sections which are part of the stages of this program.
-   * 
+   *
    * @return an immutable set of {@link ProgramStageSection}.
    */
+  @JsonIgnore
   public List<ProgramStageSection> getProgramStageSections() {
-    return programStages.stream()
-        .flatMap(ps -> ps.getProgramStageSections().stream())
-        .toList();
+    return programStages.stream().flatMap(ps -> ps.getProgramStageSections().stream()).toList();
   }
 
   /**
