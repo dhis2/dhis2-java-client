@@ -68,7 +68,7 @@ public class Response extends BaseHttpResponse {
   }
 
   public HttpStatus getHttpStatus() {
-    if (httpStatusCode != null){
+    if (httpStatusCode != null) {
       return HttpStatus.valueOf(httpStatusCode);
     }
 
