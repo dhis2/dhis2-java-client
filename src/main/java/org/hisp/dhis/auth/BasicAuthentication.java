@@ -27,11 +27,11 @@
  */
 package org.hisp.dhis.auth;
 
-import java.util.Base64;
+import org.apache.hc.core5.http.HttpHeaders;
+import org.hisp.dhis.util.HttpUtils;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import org.apache.hc.core5.http.HttpHeaders;
 
 /** Class representing basic authentication. */
 @Getter
@@ -48,8 +48,6 @@ public class BasicAuthentication implements Authentication {
 
   @Override
   public String getHttpHeaderAuthValue() {
-    String value = String.format("%s:%s", username, password);
-
-    return "Basic " + Base64.getEncoder().encodeToString(value.getBytes());
+    return HttpUtils.getBasicAuthString(username, password);
   }
 }
