@@ -35,19 +35,19 @@ import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import org.apache.hc.client5.http.classic.methods.HttpUriRequestBase;
 import org.apache.hc.core5.http.message.BasicHttpRequest;
 import org.apache.hc.core5.net.URIBuilder;
 import org.hisp.dhis.Dhis2Config;
 import org.hisp.dhis.auth.Authentication;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
 
 /** Utilities for HTTP communication. */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class HttpUtils {
   private static final Pattern PATTERN_BEARER = Pattern.compile("^Bearer\\s+(.+)$");
-  
+
   /**
    * Adds a HTTP header for authentication based on the {@link Authentication} of the given {@link
    * Dhis2Config}.
@@ -138,20 +138,21 @@ public class HttpUtils {
   public static String getBearerTokenAuthString(String token) {
     return String.format("Bearer %s", token);
   }
-  
+
   /**
-   * Returns a session token authentication string, on the format <code>JSESSIONID={session-id}</code>.
-   * 
+   * Returns a session token authentication string, on the format <code>JSESSIONID={session-id}
+   * </code>.
+   *
    * @param sessionId the session identifier.
    * @return an authentication session string.
    */
   public static String getSessionIdString(String sessionId) {
     return String.format("JSESSIONID=%s", sessionId);
   }
-  
+
   /**
    * Returns the bearer token value from the given authorization bearer token header value.
-   * 
+   *
    * @param value the header value.
    * @return a bearer token.
    */
@@ -159,8 +160,8 @@ public class HttpUtils {
     if (value == null) {
       return null;
     }
-    
-    Matcher matcher = PATTERN_BEARER.matcher(value);    
+
+    Matcher matcher = PATTERN_BEARER.matcher(value);
     return matcher.matches() ? matcher.group(1) : null;
   }
 }

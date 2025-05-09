@@ -28,6 +28,7 @@
 package org.hisp.dhis.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
@@ -100,7 +101,7 @@ class HttpUtilsTest {
 
     assertEquals("JSESSIONID=KJH8KJ24fRD3FK491", post.getHeader(HttpHeaders.COOKIE).getValue());
   }
-  
+
   @Test
   void testGetBasicAuthString() {
     assertEquals("Basic YWRtaW46ZGlzdHJpY3Q=", HttpUtils.getBasicAuthString("admin", "district"));
@@ -108,23 +109,29 @@ class HttpUtilsTest {
 
   @Test
   void testGetApiTokenAuthString() {
-    assertEquals("ApiToken eyJzdWIiOiIxMjM0NTY3ODkwIn0", 
+    assertEquals(
+        "ApiToken eyJzdWIiOiIxMjM0NTY3ODkwIn0",
         HttpUtils.getApiTokenAuthString("eyJzdWIiOiIxMjM0NTY3ODkwIn0"));
   }
 
   @Test
   void testGetBearerTokenAuthString() {
-    assertEquals("Bearer iOlsiYWRtaW4iLCJ1c2VyIl0sIm", HttpUtils.getBearerTokenAuthString("iOlsiYWRtaW4iLCJ1c2VyIl0sIm"));
+    assertEquals(
+        "Bearer iOlsiYWRtaW4iLCJ1c2VyIl0sIm",
+        HttpUtils.getBearerTokenAuthString("iOlsiYWRtaW4iLCJ1c2VyIl0sIm"));
   }
 
   @Test
   void testGetSessionIdString() {
-    assertEquals("JSESSIONID=hbWUiOiJFeGFtcGxlIFVzZXIiLC", 
+    assertEquals(
+        "JSESSIONID=hbWUiOiJFeGFtcGxlIFVzZXIiLC",
         HttpUtils.getSessionIdString("hbWUiOiJFeGFtcGxlIFVzZXIiLC"));
   }
 
   @Test
   void testGetBearerToken() {
-    assertEquals("iOlsiYWRtaW4iLCJ1c2VyIl0sIm", HttpUtils.getBearerToken("Bearer iOlsiYWRtaW4iLCJ1c2VyIl0sIm"));
+    assertEquals(
+        "iOlsiYWRtaW4iLCJ1c2VyIl0sIm",
+        HttpUtils.getBearerToken("Bearer iOlsiYWRtaW4iLCJ1c2VyIl0sIm"));
   }
 }
