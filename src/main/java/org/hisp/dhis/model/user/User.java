@@ -64,14 +64,23 @@ public class User extends IdentifiableObject {
   @JsonProperty private List<OrgUnit> dataViewOrganisationUnits = new ArrayList<>();
 
   @JsonProperty private List<OrgUnit> teiSearchOrganisationUnits = new ArrayList<>();
-  
+
   /**
    * Indicates whether at least one organisation unit exists.
-   * 
+   *
    * @return true if at least one organisation unit exists.
    */
   @JsonIgnore
   public boolean hasOrganisationUnits() {
     return isNotEmpty(organisationUnits);
+  }
+  
+  /**
+   * Returns the first {@link OrgUnit}, or null if none exist.
+   * 
+   * @return the first {@link OrgUnit}.
+   */
+  public OrgUnit getFirstOrganisationUnit() {
+    return isNotEmpty(organisationUnits) ? organisationUnits.get(0) : null;
   }
 }
