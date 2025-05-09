@@ -32,6 +32,7 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.apache.hc.core5.http.HttpHeaders;
+import org.hisp.dhis.util.HttpUtils;
 
 /** Class representing access token authentication. */
 @Getter
@@ -46,6 +47,6 @@ public class AccessTokenAuthentication implements Authentication, Serializable {
 
   @Override
   public String getHttpHeaderAuthValue() {
-    return String.format("ApiToken %s", accessToken);
+    return HttpUtils.getApiTokenAuthString(accessToken);
   }
 }

@@ -101,4 +101,37 @@ class HttpUtilsTest {
 
     assertEquals("JSESSIONID=KJH8KJ24fRD3FK491", post.getHeader(HttpHeaders.COOKIE).getValue());
   }
+
+  @Test
+  void testGetBasicAuthString() {
+    assertEquals("Basic YWRtaW46ZGlzdHJpY3Q=", HttpUtils.getBasicAuthString("admin", "district"));
+  }
+
+  @Test
+  void testGetApiTokenAuthString() {
+    assertEquals(
+        "ApiToken eyJzdWIiOiIxMjM0NTY3ODkwIn0",
+        HttpUtils.getApiTokenAuthString("eyJzdWIiOiIxMjM0NTY3ODkwIn0"));
+  }
+
+  @Test
+  void testGetBearerTokenAuthString() {
+    assertEquals(
+        "Bearer iOlsiYWRtaW4iLCJ1c2VyIl0sIm",
+        HttpUtils.getBearerTokenAuthString("iOlsiYWRtaW4iLCJ1c2VyIl0sIm"));
+  }
+
+  @Test
+  void testGetSessionIdString() {
+    assertEquals(
+        "JSESSIONID=hbWUiOiJFeGFtcGxlIFVzZXIiLC",
+        HttpUtils.getSessionIdString("hbWUiOiJFeGFtcGxlIFVzZXIiLC"));
+  }
+
+  @Test
+  void testGetBearerToken() {
+    assertEquals(
+        "iOlsiYWRtaW4iLCJ1c2VyIl0sIm",
+        HttpUtils.getBearerToken("Bearer iOlsiYWRtaW4iLCJ1c2VyIl0sIm"));
+  }
 }
