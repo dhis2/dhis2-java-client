@@ -27,15 +27,17 @@
  */
 package org.hisp.dhis.model.user;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import org.hisp.dhis.model.IdentifiableObject;
+import org.hisp.dhis.model.OrgUnit;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hisp.dhis.model.IdentifiableObject;
-import org.hisp.dhis.model.OrgUnit;
 
 @Getter
 @Setter
@@ -62,4 +64,14 @@ public class User extends IdentifiableObject {
   @JsonProperty private List<OrgUnit> dataViewOrganisationUnits = new ArrayList<>();
 
   @JsonProperty private List<OrgUnit> teiSearchOrganisationUnits = new ArrayList<>();
+  
+  /**
+   * Indicates whether at least one organisation unit exists.
+   * 
+   * @return true if at least one organisation unit exists.
+   */
+  @JsonIgnore
+  public boolean hasOrganisationUnits() {
+    return isNotEmpty(organisationUnits);
+  }
 }
