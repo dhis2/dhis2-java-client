@@ -28,16 +28,17 @@
 package org.hisp.dhis.model.user;
 
 import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import org.hisp.dhis.model.IdentifiableObject;
-import org.hisp.dhis.model.OrgUnit;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hisp.dhis.model.IdentifiableObject;
+import org.hisp.dhis.model.OrgUnit;
 
 @Getter
 @Setter
@@ -74,10 +75,10 @@ public class User extends IdentifiableObject {
   public boolean hasOrganisationUnits() {
     return isNotEmpty(organisationUnits);
   }
-  
+
   /**
    * Returns the first {@link OrgUnit}, or null if none exist.
-   * 
+   *
    * @return the first {@link OrgUnit}.
    */
   public OrgUnit getFirstOrganisationUnit() {
