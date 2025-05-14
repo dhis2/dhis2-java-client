@@ -34,6 +34,7 @@ import static org.hisp.dhis.util.CollectionUtils.mapToList;
 import static org.hisp.dhis.util.CollectionUtils.mutableList;
 import static org.hisp.dhis.util.CollectionUtils.mutableSet;
 import static org.hisp.dhis.util.CollectionUtils.set;
+import static org.hisp.dhis.util.CollectionUtils.toCommaSeparated;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
@@ -110,5 +111,18 @@ class CollectionUtilsTest {
     List<String> expected = List.of("jUb6fnbZPhV", "qEiCafULhoW", "wOahXFjLq4V");
 
     assertEquals(expected, mapToList(list, DataElement::getId));
+  }
+
+  @Test
+  void testToCommaSeparatedNullEmpty() {
+    assertNull(toCommaSeparated(null));
+    assertNull(toCommaSeparated(List.of()));
+  }
+
+  @Test
+  void testToCommaSeparated() {
+    assertEquals(
+        "jUb6fnbZPhV,qEiCafULhoW,wOahXFjLq4V",
+        toCommaSeparated(List.of("jUb6fnbZPhV", "qEiCafULhoW", "wOahXFjLq4V")));
   }
 }

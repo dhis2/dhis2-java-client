@@ -184,13 +184,16 @@ public class CollectionUtils {
 
   /**
    * Converts the given collection to a comma separated string value of the joined string
-   * representation of each item.
+   * representation of each item. Returns null if the given collection is null or empty.
    *
    * @param <T> type.
    * @param collection the collection.
    * @return a comma separated string.
    */
   public static <T> String toCommaSeparated(Collection<T> collection) {
+    if (collection == null || collection.isEmpty()) {
+      return null;
+    }
     return collection.stream().map(Object::toString).collect(Collectors.joining(","));
   }
 }
