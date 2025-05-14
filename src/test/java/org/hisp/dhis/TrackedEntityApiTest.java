@@ -28,6 +28,7 @@
 package org.hisp.dhis;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.hisp.dhis.model.trackedentity.TrackedEntity;
@@ -46,5 +47,9 @@ class TrackedEntityApiTest {
     assertNotNull(trackedEntity);
     assertNotNull(trackedEntity.getAttributes());
     assertEquals("kfwLSxq7mXk", trackedEntity.getTrackedEntity());
+    assertNotNull(trackedEntity.getCreatedAt());
+    assertNotNull(trackedEntity.getUpdatedAt());
+    assertNotNull(trackedEntity.getOrgUnit());
+    assertFalse(trackedEntity.getAttributes().isEmpty());
   }
 }
