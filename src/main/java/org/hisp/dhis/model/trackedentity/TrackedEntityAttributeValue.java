@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004-2024, University of Oslo
+ * Copyright (c) 2004-2025, University of Oslo
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -27,33 +27,28 @@
  */
 package org.hisp.dhis.model.trackedentity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Date;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.hisp.dhis.model.NameableObject;
 import org.hisp.dhis.model.ValueType;
 
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
-public class TrackedEntityAttribute extends NameableObject {
+public class TrackedEntityAttributeValue {
+  @JsonProperty private String attribute;
+
+  @JsonProperty private String displayName;
+
+  @JsonProperty private Date createdAt;
+
+  @JsonProperty private Date updatedAt;
+
   @JsonProperty private ValueType valueType;
 
-  @JsonProperty private Boolean confidential = false;
-
-  @JsonProperty private Boolean unique = false;
-
-  @JsonIgnore
-  public boolean isConfidentialNullSafe() {
-    return confidential != null && confidential;
-  }
-
-  @JsonIgnore
-  public boolean isUniqueNullSafe() {
-    return unique != null && unique;
-  }
+  @JsonProperty private String value;
 }

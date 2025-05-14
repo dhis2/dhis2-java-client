@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004-2024, University of Oslo
+ * Copyright (c) 2004-2025, University of Oslo
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,35 +25,74 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.hisp.dhis.model.trackedentity;
+package org.hisp.dhis.query.trackedentity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
-import org.hisp.dhis.model.NameableObject;
-import org.hisp.dhis.model.ValueType;
+import lombok.experimental.Accessors;
+import org.hisp.dhis.model.IdScheme;
+import org.hisp.dhis.model.enrollment.EnrollmentStatus;
+import org.hisp.dhis.model.event.EventStatus;
+import org.hisp.dhis.query.event.OrgUnitSelectionMode;
 
 @Getter
 @Setter
-@ToString
-@NoArgsConstructor
-public class TrackedEntityAttribute extends NameableObject {
-  @JsonProperty private ValueType valueType;
+@Accessors(chain = true)
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public class TrackedEntityQuery {
+  private List<String> orgUnits = new ArrayList<>();
 
-  @JsonProperty private Boolean confidential = false;
+  private OrgUnitSelectionMode orgUnitMode;
 
-  @JsonProperty private Boolean unique = false;
+  private String program;
 
-  @JsonIgnore
-  public boolean isConfidentialNullSafe() {
-    return confidential != null && confidential;
+  private String programStage;
+
+  private Boolean followUp;
+
+  private Date updatedAfter;
+
+  private Date updatedBefore;
+
+  private EnrollmentStatus enrollmentStatus;
+
+  private Date enrollmentEnrolledAfter;
+
+  private Date enrollmentEnrolledBefore;
+
+  private Date enrollmentOccurredAfter;
+
+  private Date enrollmentOccurredBefore;
+
+  private String trackedEntityType;
+
+  private List<String> trackedEntities = new ArrayList<>();
+
+  private EventStatus eventStatus;
+
+  private Date eventOccurredAfter;
+
+  private Date eventOccurredBefore;
+
+  private Boolean includeDeleted;
+
+  private Boolean potentialDuplicate;
+
+  private IdScheme idScheme;
+
+  private IdScheme orgUnitIdScheme;
+
+  public TrackedEntityQuery setOrgUnit(String orgUnit) {
+    this.orgUnits = List.of(orgUnit);
+    return this;
   }
 
-  @JsonIgnore
-  public boolean isUniqueNullSafe() {
-    return unique != null && unique;
+  public static TrackedEntityQuery instance() {
+    return new TrackedEntityQuery();
   }
 }

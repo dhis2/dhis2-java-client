@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004-2024, University of Oslo
+ * Copyright (c) 2004-2025, University of Oslo
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,63 +25,21 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.hisp.dhis.query.event;
+package org.hisp.dhis.model.trackedentity;
 
-import java.util.Date;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.experimental.Accessors;
-import org.hisp.dhis.model.IdScheme;
-import org.hisp.dhis.model.event.EventStatus;
-import org.hisp.dhis.model.event.ProgramStatus;
+import lombok.ToString;
 
 @Getter
 @Setter
-@Accessors(chain = true)
-public class EventsQuery {
-  private String program;
-
-  private String programStage;
-
-  private ProgramStatus programStatus;
-
-  private Boolean followUp;
-
-  private String trackedEntityInstance;
-
-  private String orgUnit;
-
-  private OrgUnitSelectionMode ouMode;
-
-  private EventStatus status;
-
-  private Date occurredAfter;
-
-  private Date occurredBefore;
-
-  private Date scheduledAfter;
-
-  private Date scheduledBefore;
-
-  private Date updatedAfter;
-
-  private Date updatedBefore;
-
-  private IdScheme dataElementIdScheme;
-
-  private IdScheme categoryOptionComboIdScheme;
-
-  private IdScheme orgUnitIdScheme;
-
-  private IdScheme programIdScheme;
-
-  private IdScheme programStageIdScheme;
-
-  private IdScheme idScheme;
-
-  private EventsQuery() {}
-
-  public static EventsQuery instance() {
-    return new EventsQuery();
-  }
+@ToString
+@NoArgsConstructor
+public class TrackedEntitiesResult implements Serializable {
+  @JsonProperty private final List<TrackedEntity> trackedEntities = new ArrayList<>();
 }

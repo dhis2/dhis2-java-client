@@ -97,6 +97,8 @@ import org.hisp.dhis.model.datavalueset.DataValueSetImportOptions;
 import org.hisp.dhis.model.event.Event;
 import org.hisp.dhis.model.event.Events;
 import org.hisp.dhis.model.event.EventsResult;
+import org.hisp.dhis.model.trackedentity.TrackedEntitiesResult;
+import org.hisp.dhis.model.trackedentity.TrackedEntity;
 import org.hisp.dhis.model.trackedentity.TrackedEntityType;
 import org.hisp.dhis.model.user.User;
 import org.hisp.dhis.model.validation.Period;
@@ -107,7 +109,8 @@ import org.hisp.dhis.query.analytics.AnalyticsQuery;
 import org.hisp.dhis.query.completedatasetregistration.CompleteDataSetRegistrationQuery;
 import org.hisp.dhis.query.datavalue.DataValueQuery;
 import org.hisp.dhis.query.datavalue.DataValueSetQuery;
-import org.hisp.dhis.query.event.EventsQuery;
+import org.hisp.dhis.query.event.EventQuery;
+import org.hisp.dhis.query.trackedentity.TrackedEntityQuery;
 import org.hisp.dhis.query.validations.DataSetValidationQuery;
 import org.hisp.dhis.request.orgunit.OrgUnitMergeRequest;
 import org.hisp.dhis.request.orgunit.OrgUnitSplitRequest;
@@ -121,6 +124,7 @@ import org.hisp.dhis.response.job.JobCategory;
 import org.hisp.dhis.response.job.JobNotification;
 import org.hisp.dhis.response.object.ObjectResponse;
 import org.hisp.dhis.response.objects.ObjectsResponse;
+import org.hisp.dhis.response.trackedentity.TrackedEntityResponse;
 import org.hisp.dhis.util.HttpUtils;
 
 /**
@@ -2468,15 +2472,15 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   /**
-   * Retrieves an {@link Events}.
+   * Retrieves an {@link EventsResult}.
    *
    * <p>Requires DHIS 2 version 2.36 or later.
    *
-   * @param query the {@link EventsQuery}.
-   * @return the {@link Events}.
+   * @param query the {@link EventQuery}.
+   * @return the {@link EventsResult}.
    */
-  public EventsResult getEvents(EventsQuery query) {
-    return getEventsResponse(
+  public EventsResult getEvents(EventQuery query) {
+    return getEventsResult(
         config.getResolvedUriBuilder().appendPath("tracker").appendPath("events"), query);
   }
 
@@ -2486,7 +2490,7 @@ public class Dhis2 extends BaseDhis2 {
    * <p>Requires DHIS 2 version 2.36 or later.
    *
    * @param events the {@link Events}.
-   * @return {@link EventResponse} holding information about the operation.
+   * @return the {@link EventResponse} holding information about the operation.
    */
   public EventResponse removeEvents(Events events) {
     return saveObject(
@@ -2505,7 +2509,7 @@ public class Dhis2 extends BaseDhis2 {
    * <p>Requires DHIS 2 version 2.36 or later.
    *
    * @param event the {@link Event}.
-   * @return {@link EventResponse} holding information about the operation.
+   * @return the {@link EventResponse} holding information about the operation.
    */
   public EventResponse removeEvent(Event event) {
     Objects.requireNonNull(event.getId(), "Event identifier must be specified");
@@ -2520,6 +2524,42 @@ public class Dhis2 extends BaseDhis2 {
             .setParameter("importStrategy", "DELETE"),
         events,
         EventResponse.class);
+  }
+
+  // -------------------------------------------------------------------------
+  // Tracked entity
+  // -------------------------------------------------------------------------
+
+  /**
+   * Retrieves an {@link TrackedEntity}.
+   *
+   * <p>Requires DHIS 2 version 2.36 or later.
+   *
+   * @param id the event identifier.
+   * @return the {@link TrackedEntity}.
+   */
+  public TrackedEntity getTrackedEntity(String id) {
+    return getObject(
+        config
+            .getResolvedUriBuilder()
+            .appendPath("tracker")
+            .appendPath("trackedEntities")
+            .appendPath(id),
+        Query.instance(),
+        TrackedEntity.class);
+  }
+
+  /**
+   * Retrieves a {@link TrackedEntityResponse}.
+   *
+   * <p>Requires DHIS 2 version 2.36 or later.
+   *
+   * @param query the {@link EventQuery}.
+   * @return the {@link TrackedEntitiesResult}.
+   */
+  public TrackedEntitiesResult getTrackedEntities(TrackedEntityQuery query) {
+    return getTrackedEntitiesResult(
+        config.getResolvedUriBuilder().appendPath("tracker").appendPath("trackedEntities"), query);
   }
 
   // -------------------------------------------------------------------------

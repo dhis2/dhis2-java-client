@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004-2024, University of Oslo
+ * Copyright (c) 2004-2025, University of Oslo
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,35 +25,10 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.hisp.dhis.model.trackedentity;
+package org.hisp.dhis.model.enrollment;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
-import org.hisp.dhis.model.NameableObject;
-import org.hisp.dhis.model.ValueType;
-
-@Getter
-@Setter
-@ToString
-@NoArgsConstructor
-public class TrackedEntityAttribute extends NameableObject {
-  @JsonProperty private ValueType valueType;
-
-  @JsonProperty private Boolean confidential = false;
-
-  @JsonProperty private Boolean unique = false;
-
-  @JsonIgnore
-  public boolean isConfidentialNullSafe() {
-    return confidential != null && confidential;
-  }
-
-  @JsonIgnore
-  public boolean isUniqueNullSafe() {
-    return unique != null && unique;
-  }
+public enum EnrollmentStatus {
+  ACTIVE,
+  COMPLETED,
+  CANCELLED;
 }
