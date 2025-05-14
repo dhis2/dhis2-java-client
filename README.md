@@ -504,7 +504,7 @@ Run specific integration test:
 mvn test -P integration -Dtest=Dhis2ApiTest
 ```
 
-To log at info level during tests:
+To log internal messages at info level during tests:
 
 ```
 mvn test -Dlog.level.dhis2=info

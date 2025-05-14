@@ -35,8 +35,6 @@ import static org.apache.hc.core5.http.HttpStatus.SC_UNAUTHORIZED;
 import static org.hisp.dhis.util.CollectionUtils.asList;
 import static org.hisp.dhis.util.CollectionUtils.toCommaSeparated;
 import static org.hisp.dhis.util.HttpUtils.getUriAsString;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -49,7 +47,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.hc.client5.http.HttpResponseException;
@@ -78,6 +75,7 @@ import org.hisp.dhis.model.completedatasetregistration.CompleteDataSetRegistrati
 import org.hisp.dhis.model.datavalueset.DataValueSetImportOptions;
 import org.hisp.dhis.model.event.Events;
 import org.hisp.dhis.model.event.EventsResult;
+import org.hisp.dhis.model.trackedentity.TrackedEntitiesResult;
 import org.hisp.dhis.model.validation.Validation;
 import org.hisp.dhis.query.Filter;
 import org.hisp.dhis.query.Operator;
@@ -101,9 +99,10 @@ import org.hisp.dhis.response.Status;
 import org.hisp.dhis.response.completedatasetregistration.CompleteDataSetRegistrationResponse;
 import org.hisp.dhis.response.object.ObjectResponse;
 import org.hisp.dhis.response.objects.ObjectsResponse;
-import org.hisp.dhis.response.trackedentity.TrackedEntityResponse;
 import org.hisp.dhis.util.HttpUtils;
 import org.hisp.dhis.util.JacksonUtils;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author Lars Helge Overland
@@ -529,7 +528,7 @@ public class BaseDhis2 {
    * @param query the {@link EventQuery}.
    * @return the {@link Events} object.
    */
-  protected EventsResult getEventsResponse(URIBuilder uriBuilder, EventQuery query) {
+  protected EventsResult getEventsResult(URIBuilder uriBuilder, EventQuery query) {
     URI url = getEventsQuery(uriBuilder, query);
 
     return getObjectFromUrl(url, EventsResult.class);
@@ -572,13 +571,13 @@ public class BaseDhis2 {
    *
    * @param uriBuilder the URI builder.
    * @param query the {@link TrackedEntityQuery}.
-   * @return the {@link TrackedEntityResponse} object.
+   * @return the {@link TrackedEntitiesResult} object.
    */
-  protected TrackedEntityResponse getTrackedEntitiesResponse(
+  protected TrackedEntitiesResult getTrackedEntitiesResult(
       URIBuilder uriBuilder, TrackedEntityQuery query) {
     URI url = getTrackedEntityQuery(uriBuilder, query);
 
-    return getObjectFromUrl(url, TrackedEntityResponse.class);
+    return getObjectFromUrl(url, TrackedEntitiesResult.class);
   }
 
   /**
@@ -589,7 +588,7 @@ public class BaseDhis2 {
    * @return a URI.
    */
   protected URI getTrackedEntityQuery(URIBuilder uriBuilder, TrackedEntityQuery query) {
-    addParameter(uriBuilder, "orgUnits", query.getOrgUnits());
+    addParameterList(uriBuilder, "orgUnits", query.getOrgUnits());
     addParameter(uriBuilder, "orgUnitMode", query.getOrgUnitMode());
     addParameter(uriBuilder, "program", query.getProgram());
     addParameter(uriBuilder, "programStage", query.getProgramStage());
@@ -798,7 +797,7 @@ public class BaseDhis2 {
    * @param parameter the query parameter.
    * @param values the collection of query parameter values.
    */
-  private void addParameter(URIBuilder uriBuilder, String parameter, List<Object> values) {
+  private void addParameterList(URIBuilder uriBuilder, String parameter, List<String> values) {
     if (isNotEmpty(values)) {
       uriBuilder.addParameter(parameter, toCommaSeparated(values));
     }
@@ -949,6 +948,8 @@ public class BaseDhis2 {
    */
   @SuppressWarnings("unchecked")
   protected <T> T getObjectFromUrl(URI url, Class<T> type) {
+    log("Get URL: '{}'", url.toString());
+    
     try (CloseableHttpResponse response = getJsonHttpResponse(url)) {
       handleErrors(response, url.toString());
       handleErrorsForGet(response, url.toString());

@@ -25,74 +25,21 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.hisp.dhis.query.trackedentity;
+package org.hisp.dhis.model.trackedentity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.experimental.Accessors;
-import org.hisp.dhis.model.IdScheme;
-import org.hisp.dhis.model.enrollment.EnrollmentStatus;
-import org.hisp.dhis.model.event.EventStatus;
-import org.hisp.dhis.query.event.OrgUnitSelectionMode;
+import lombok.ToString;
 
 @Getter
 @Setter
-@Accessors(chain = true)
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class TrackedEntityQuery {
-  private List<String> orgUnits = new ArrayList<>();
-
-  private OrgUnitSelectionMode orgUnitMode;
-
-  private String program;
-
-  private String programStage;
-
-  private Boolean followUp;
-
-  private Date updatedAfter;
-
-  private Date updatedBefore;
-
-  private EnrollmentStatus enrollmentStatus;
-
-  private Date enrollmentEnrolledAfter;
-
-  private Date enrollmentEnrolledBefore;
-
-  private Date enrollmentOccurredAfter;
-
-  private Date enrollmentOccurredBefore;
-
-  private String trackedEntityType;
-
-  private List<String> trackedEntities = new ArrayList<>();
-
-  private EventStatus eventStatus;
-
-  private Date eventOccurredAfter;
-
-  private Date eventOccurredBefore;
-
-  private Boolean includeDeleted;
-
-  private Boolean potentialDuplicate;
-
-  private IdScheme idScheme;
-
-  private IdScheme orgUnitIdScheme;
-
-  public TrackedEntityQuery setOrgUnit(String orgUnit) {
-    this.orgUnits = List.of(orgUnit);
-    return this;
-  }
-
-  public static TrackedEntityQuery instance() {
-    return new TrackedEntityQuery();
-  }
+@ToString
+@NoArgsConstructor
+public class TrackedEntitiesResult implements Serializable {
+  @JsonProperty private final List<TrackedEntity> trackedEntities = new ArrayList<>();
 }

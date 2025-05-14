@@ -97,6 +97,7 @@ import org.hisp.dhis.model.datavalueset.DataValueSetImportOptions;
 import org.hisp.dhis.model.event.Event;
 import org.hisp.dhis.model.event.Events;
 import org.hisp.dhis.model.event.EventsResult;
+import org.hisp.dhis.model.trackedentity.TrackedEntitiesResult;
 import org.hisp.dhis.model.trackedentity.TrackedEntity;
 import org.hisp.dhis.model.trackedentity.TrackedEntityType;
 import org.hisp.dhis.model.user.User;
@@ -2479,7 +2480,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return the {@link EventsResult}.
    */
   public EventsResult getEvents(EventQuery query) {
-    return getEventsResponse(
+    return getEventsResult(
         config.getResolvedUriBuilder().appendPath("tracker").appendPath("events"), query);
   }
 
@@ -2554,10 +2555,10 @@ public class Dhis2 extends BaseDhis2 {
    * <p>Requires DHIS 2 version 2.36 or later.
    *
    * @param query the {@link EventQuery}.
-   * @return the {@link TrackedEntityResponse}.
+   * @return the {@link TrackedEntitiesResult}.
    */
-  public TrackedEntityResponse getTrackedEntities(TrackedEntityQuery query) {
-    return getTrackedEntitiesResponse(
+  public TrackedEntitiesResult getTrackedEntities(TrackedEntityQuery query) {
+    return getTrackedEntitiesResult(
         config.getResolvedUriBuilder().appendPath("tracker").appendPath("trackedEntities"), query);
   }
 
