@@ -35,6 +35,8 @@ import static org.apache.hc.core5.http.HttpStatus.SC_UNAUTHORIZED;
 import static org.hisp.dhis.util.CollectionUtils.asList;
 import static org.hisp.dhis.util.CollectionUtils.toCommaSeparated;
 import static org.hisp.dhis.util.HttpUtils.getUriAsString;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -47,6 +49,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.hc.client5.http.HttpResponseException;
@@ -101,8 +104,6 @@ import org.hisp.dhis.response.object.ObjectResponse;
 import org.hisp.dhis.response.objects.ObjectsResponse;
 import org.hisp.dhis.util.HttpUtils;
 import org.hisp.dhis.util.JacksonUtils;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author Lars Helge Overland
@@ -601,7 +602,7 @@ public class BaseDhis2 {
     addParameter(uriBuilder, "enrollmentOccurredAfter", query.getEnrollmentOccurredBefore());
     addParameter(uriBuilder, "enrollmentOccurredBefore", query.getEnrollmentOccurredBefore());
     addParameter(uriBuilder, "trackedEntityType", query.getTrackedEntityType());
-    addParameter(uriBuilder, "trackedEntities", query.getTrackedEntities());
+    addParameterList(uriBuilder, "trackedEntities", query.getTrackedEntities());
     addParameter(uriBuilder, "eventStatus", query.getEventStatus());
     addParameter(uriBuilder, "eventOccurredAfter", query.getEventOccurredAfter());
     addParameter(uriBuilder, "eventOccurredBefore", query.getEventOccurredBefore());
@@ -949,7 +950,7 @@ public class BaseDhis2 {
   @SuppressWarnings("unchecked")
   protected <T> T getObjectFromUrl(URI url, Class<T> type) {
     log("Get URL: '{}'", url.toString());
-    
+
     try (CloseableHttpResponse response = getJsonHttpResponse(url)) {
       handleErrors(response, url.toString());
       handleErrorsForGet(response, url.toString());

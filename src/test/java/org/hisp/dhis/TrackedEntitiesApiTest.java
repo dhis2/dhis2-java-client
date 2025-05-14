@@ -58,7 +58,6 @@ class TrackedEntitiesApiTest {
 
     assertNotNull(result);
 
-    System.out.println(result);
     List<TrackedEntity> trackedEntities = result.getTrackedEntities();
 
     assertNotNull(trackedEntities);
