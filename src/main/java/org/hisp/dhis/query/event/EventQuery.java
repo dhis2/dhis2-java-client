@@ -28,7 +28,9 @@
 package org.hisp.dhis.query.event;
 
 import java.util.Date;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import org.hisp.dhis.model.IdScheme;
@@ -38,6 +40,7 @@ import org.hisp.dhis.model.event.ProgramStatus;
 @Getter
 @Setter
 @Accessors(chain = true)
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class EventQuery {
   private String program;
 
@@ -78,8 +81,6 @@ public class EventQuery {
   private IdScheme programStageIdScheme;
 
   private IdScheme idScheme;
-
-  private EventQuery() {}
 
   public static EventQuery instance() {
     return new EventQuery();

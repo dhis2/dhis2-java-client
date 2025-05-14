@@ -25,69 +25,31 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.hisp.dhis.query.trackedentity;
+package org.hisp.dhis;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.experimental.Accessors;
-import org.hisp.dhis.model.IdScheme;
-import org.hisp.dhis.model.enrollment.EnrollmentStatus;
-import org.hisp.dhis.model.event.EventStatus;
-import org.hisp.dhis.query.event.OrgUnitSelectionMode;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-@Getter
-@Setter
-@Accessors(chain = true)
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class TrackedEntityQuery {
-  private List<String> orgUnits = new ArrayList<>();
+import org.hisp.dhis.model.trackedentity.TrackedEntity;
+import org.hisp.dhis.support.TestTags;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
 
-  private OrgUnitSelectionMode orgUnitMode;
+@Tag(TestTags.INTEGRATION)
+class TrackedEntitiesApiTest {
+  @Test
+  void testGetTrackedEntity() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
 
-  private String program;
+    TrackedEntity trackedEntity = dhis2.getTrackedEntity("kfwLSxq7mXk");
 
-  private String programStage;
-
-  private Boolean followUp;
-
-  private Date updatedAfter;
-
-  private Date updatedBefore;
-
-  private EnrollmentStatus enrollmentStatus;
-
-  private Date enrollmentEnrolledAfter;
-
-  private Date enrollmentEnrolledBefore;
-
-  private Date enrollmentOccurredAfter;
-
-  private Date enrollmentOccurredBefore;
-
-  private String trackedEntityType;
-
-  private List<String> trackedEntities = new ArrayList<>();
-
-  private EventStatus eventStatus;
-
-  private Date eventOccurredAfter;
-
-  private Date eventOccurredBefore;
-
-  private Boolean includeDeleted;
-
-  private Boolean potentialDuplicate;
-
-  private IdScheme idScheme;
-
-  private IdScheme orgUnitIdScheme;
-
-  public static TrackedEntityQuery instance() {
-    return new TrackedEntityQuery();
+    assertNotNull(trackedEntity);
+    assertNotNull(trackedEntity.getAttributes());
+    assertEquals("kfwLSxq7mXk", trackedEntity.getTrackedEntity());
+    assertNotNull(trackedEntity.getCreatedAt());
+    assertNotNull(trackedEntity.getUpdatedAt());
+    assertNotNull(trackedEntity.getOrgUnit());
+    assertFalse(trackedEntity.getAttributes().isEmpty());
   }
 }
