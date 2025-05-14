@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004-2024, University of Oslo
+ * Copyright (c) 2004-2025, University of Oslo
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,63 +25,62 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.hisp.dhis.query.event;
+package org.hisp.dhis.query.trackedentity;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import org.hisp.dhis.model.IdScheme;
+import org.hisp.dhis.model.enrollment.EnrollmentStatus;
 import org.hisp.dhis.model.event.EventStatus;
-import org.hisp.dhis.model.event.ProgramStatus;
+import org.hisp.dhis.query.event.OrgUnitSelectionMode;
 
 @Getter
 @Setter
 @Accessors(chain = true)
-public class EventsQuery {
+public class TrackedEntityQuery {
+  private List<String> orgUnits = new ArrayList<>();
+
+  private OrgUnitSelectionMode orgUnitMode;
+
   private String program;
 
   private String programStage;
 
-  private ProgramStatus programStatus;
-
   private Boolean followUp;
-
-  private String trackedEntityInstance;
-
-  private String orgUnit;
-
-  private OrgUnitSelectionMode ouMode;
-
-  private EventStatus status;
-
-  private Date occurredAfter;
-
-  private Date occurredBefore;
-
-  private Date scheduledAfter;
-
-  private Date scheduledBefore;
 
   private Date updatedAfter;
 
   private Date updatedBefore;
 
-  private IdScheme dataElementIdScheme;
+  private EnrollmentStatus enrollmentStatus;
 
-  private IdScheme categoryOptionComboIdScheme;
+  private Date enrollmentEnrolledAfter;
 
-  private IdScheme orgUnitIdScheme;
+  private Date enrollmentEnrolledBefore;
 
-  private IdScheme programIdScheme;
+  private Date enrollmentOccurredAfter;
 
-  private IdScheme programStageIdScheme;
+  private Date enrollmentOccurredBefore;
+
+  private String trackedEntityType;
+
+  private List<String> trackedEntities = new ArrayList<>();
+
+  private EventStatus eventStatus;
+
+  private Date eventOccurredAfter;
+
+  private Date eventOccurredBefore;
+
+  private Boolean includeDeleted;
+
+  private Boolean potentialDuplicate;
 
   private IdScheme idScheme;
 
-  private EventsQuery() {}
-
-  public static EventsQuery instance() {
-    return new EventsQuery();
-  }
+  private IdScheme orgUnitIdScheme;
 }

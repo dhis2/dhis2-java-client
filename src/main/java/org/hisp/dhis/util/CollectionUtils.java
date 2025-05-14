@@ -181,4 +181,16 @@ public class CollectionUtils {
 
     return null;
   }
+
+  /**
+   * Converts the given collection to a comma separated string value of the joined string
+   * representation of each item.
+   *
+   * @param <T> type.
+   * @param collection the collection.
+   * @return a comma separated string.
+   */
+  public static <T> String toCommaSeparated(Collection<T> collection) {
+    return collection.stream().map(Object::toString).collect(Collectors.joining(","));
+  }
 }

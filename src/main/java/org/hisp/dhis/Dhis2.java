@@ -107,7 +107,7 @@ import org.hisp.dhis.query.analytics.AnalyticsQuery;
 import org.hisp.dhis.query.completedatasetregistration.CompleteDataSetRegistrationQuery;
 import org.hisp.dhis.query.datavalue.DataValueQuery;
 import org.hisp.dhis.query.datavalue.DataValueSetQuery;
-import org.hisp.dhis.query.event.EventsQuery;
+import org.hisp.dhis.query.event.EventQuery;
 import org.hisp.dhis.query.validations.DataSetValidationQuery;
 import org.hisp.dhis.request.orgunit.OrgUnitMergeRequest;
 import org.hisp.dhis.request.orgunit.OrgUnitSplitRequest;
@@ -2472,10 +2472,10 @@ public class Dhis2 extends BaseDhis2 {
    *
    * <p>Requires DHIS 2 version 2.36 or later.
    *
-   * @param query the {@link EventsQuery}.
+   * @param query the {@link EventQuery}.
    * @return the {@link Events}.
    */
-  public EventsResult getEvents(EventsQuery query) {
+  public EventsResult getEvents(EventQuery query) {
     return getEventsResponse(
         config.getResolvedUriBuilder().appendPath("tracker").appendPath("events"), query);
   }
