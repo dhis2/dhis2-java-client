@@ -29,7 +29,6 @@ package org.hisp.dhis;
 
 import static org.hisp.dhis.util.CollectionUtils.asList;
 import static org.hisp.dhis.util.CollectionUtils.list;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -97,6 +96,7 @@ import org.hisp.dhis.model.datavalueset.DataValueSetImportOptions;
 import org.hisp.dhis.model.event.Event;
 import org.hisp.dhis.model.event.Events;
 import org.hisp.dhis.model.event.EventsResult;
+import org.hisp.dhis.model.trackedentity.TrackedEntity;
 import org.hisp.dhis.model.trackedentity.TrackedEntityType;
 import org.hisp.dhis.model.user.User;
 import org.hisp.dhis.model.validation.Period;
@@ -2528,6 +2528,21 @@ public class Dhis2 extends BaseDhis2 {
   // Tracked entity
   // -------------------------------------------------------------------------
 
+  /**
+   * Retrieves an {@link TrackedEntity}.
+   *
+   * <p>Requires DHIS 2 version 2.36 or later.
+   *
+   * @param id the event identifier.
+   * @return the {@link TrackedEntity}.
+   */
+  public TrackedEntity getTrackedEntity(String id) {
+    return getObject(
+        config.getResolvedUriBuilder().appendPath("tracker").appendPath("trackedEntities").appendPath(id),
+        Query.instance(),
+        TrackedEntity.class);
+  }
+  
   /**
    * Retrieves a {@link TrackedEntityResponse}.
    *
