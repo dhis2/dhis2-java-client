@@ -27,4 +27,14 @@
  */
 package org.hisp.dhis.response.trackedentity;
 
-public class TrackedEntityResponse {}
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+import org.hisp.dhis.response.Response;
+
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
+public class TrackedEntityResponse extends Response {}
