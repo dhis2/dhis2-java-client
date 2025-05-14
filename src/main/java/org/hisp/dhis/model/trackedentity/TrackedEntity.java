@@ -34,10 +34,12 @@ import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import org.locationtech.jts.geom.Geometry;
 
 @Getter
 @Setter
+@ToString
 @NoArgsConstructor
 public class TrackedEntity {
   @JsonProperty private String trackedEntity;

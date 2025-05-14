@@ -32,10 +32,12 @@ import java.util.Date;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import org.hisp.dhis.model.ValueType;
 
 @Getter
 @Setter
+@ToString
 @NoArgsConstructor
 public class TrackedEntityAttributeValue {
   @JsonProperty private String attribute;
