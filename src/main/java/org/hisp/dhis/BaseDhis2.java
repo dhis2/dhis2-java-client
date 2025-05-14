@@ -76,7 +76,6 @@ import org.hisp.dhis.model.Dhis2Objects;
 import org.hisp.dhis.model.IdentifiableObject;
 import org.hisp.dhis.model.completedatasetregistration.CompleteDataSetRegistrationImportOptions;
 import org.hisp.dhis.model.datavalueset.DataValueSetImportOptions;
-import org.hisp.dhis.model.event.Events;
 import org.hisp.dhis.model.event.EventsResult;
 import org.hisp.dhis.model.trackedentity.TrackedEntitiesResult;
 import org.hisp.dhis.model.validation.Validation;
@@ -441,7 +440,7 @@ public class BaseDhis2 {
    *
    * @param uriBuilder the URI builder.
    * @param query the {@link AnalyticsQuery} filters to apply.
-   * @return a URI.
+   * @return a {@link URI}.
    */
   protected URI getAnalyticsQuery(URIBuilder uriBuilder, AnalyticsQuery query) {
     for (Dimension dimension : query.getDimensions()) {
@@ -484,7 +483,7 @@ public class BaseDhis2 {
    *
    * @param uriBuilder the URI builder.
    * @param options the {@link DataValueSetImportOptions} to apply.
-   * @return a URI.
+   * @return a {@link URI}.
    */
   protected URI getDataValueSetImportQuery(
       URIBuilder uriBuilder, DataValueSetImportOptions options) {
@@ -507,7 +506,7 @@ public class BaseDhis2 {
    *
    * @param entity the POST body {@link HttpEntity}.
    * @param options the {@link CompleteDataSetRegistrationImportOptions} import options.
-   * @return POST response body {@link CompleteDataSetRegistrationResponse}.
+   * @return a {@link CompleteDataSetRegistrationResponse}.
    */
   protected CompleteDataSetRegistrationResponse saveCompleteDataSetRegistrations(
       HttpEntity entity, CompleteDataSetRegistrationImportOptions options) {
@@ -527,7 +526,7 @@ public class BaseDhis2 {
    *
    * @param uriBuilder the URI builder.
    * @param query the {@link EventQuery}.
-   * @return the {@link Events} object.
+   * @return an {@link EventsResult}.
    */
   protected EventsResult getEventsResult(URIBuilder uriBuilder, EventQuery query) {
     URI url = getEventsQuery(uriBuilder, query);
@@ -540,7 +539,7 @@ public class BaseDhis2 {
    *
    * @param uriBuilder the URI builder.
    * @param query the {@link EventQuery}.
-   * @return a URI.
+   * @return an {@link URI}.
    */
   protected URI getEventsQuery(URIBuilder uriBuilder, EventQuery query) {
     addParameter(uriBuilder, "program", query.getProgram());
@@ -572,7 +571,7 @@ public class BaseDhis2 {
    *
    * @param uriBuilder the URI builder.
    * @param query the {@link TrackedEntityQuery}.
-   * @return the {@link TrackedEntitiesResult} object.
+   * @return a {@link TrackedEntitiesResult}.
    */
   protected TrackedEntitiesResult getTrackedEntitiesResult(
       URIBuilder uriBuilder, TrackedEntityQuery query) {
@@ -586,7 +585,7 @@ public class BaseDhis2 {
    *
    * @param uriBuilder the URI builder.
    * @param query the {@link EventQuery}.
-   * @return a URI.
+   * @return a {@link URI}.
    */
   protected URI getTrackedEntityQuery(URIBuilder uriBuilder, TrackedEntityQuery query) {
     addParameterList(uriBuilder, "orgUnits", query.getOrgUnits());
