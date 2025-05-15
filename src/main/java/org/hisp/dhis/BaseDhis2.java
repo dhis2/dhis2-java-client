@@ -481,6 +481,7 @@ public class BaseDhis2 {
         uriBuilder, "categoryOptionComboIdScheme", options.getCategoryOptionComboIdScheme());
     addParameter(uriBuilder, "idScheme", options.getIdScheme());
     addParameter(uriBuilder, "dryRun", options.getDryRun());
+    addParameter(uriBuilder, "importStrategy", options.getImportStrategy());
     addParameter(uriBuilder, "preheatCache", options.getPreheatCache());
     addParameter(uriBuilder, "skipAudit", options.getSkipAudit());
 
