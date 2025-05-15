@@ -115,12 +115,13 @@ public class Dhis2AsyncRequest {
     return getJobSummary(klass, message, jobInfo);
   }
 
-  private <T extends BaseHttpResponse> T getJobSummary(Class<T> klass, JobInfoResponse message, JobInfo jobInfo) {
+  private <T extends BaseHttpResponse> T getJobSummary(
+      Class<T> klass, JobInfoResponse message, JobInfo jobInfo) {
     log.info(
         "Push response: '{}', '{}', job: '{}'",
         message.getHttpStatus(),
         message.getMessage(),
-            jobInfo);
+        jobInfo);
 
     JobNotification notification = waitForCompletion(jobInfo);
 

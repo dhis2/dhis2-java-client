@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004-2025, University of Oslo
+ * Copyright (c) 2004-2024, University of Oslo
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,31 +25,64 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.hisp.dhis.util;
+package org.hisp.dhis.query.event;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import java.util.Date;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.Accessors;
+import org.hisp.dhis.model.IdScheme;
+import org.hisp.dhis.model.event.EventStatus;
+import org.hisp.dhis.model.event.ProgramStatus;
 
-import java.util.List;
-import org.junit.jupiter.api.Test;
+@Getter
+@Setter
+@Accessors(chain = true)
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public class EventQuery {
+  private String program;
 
-public class ConfigUtilsTest {
-  @Test
-  void testGetAsList() {
-    List<String> expected =
-        List.of("http://localhost", "http://localhost:3000", "https://localhost:3000");
+  private String programStage;
 
-    String actual = "http://localhost,http://localhost:3000, ,, https://localhost:3000";
+  private ProgramStatus programStatus;
 
-    assertEquals(expected, ConfigUtils.getAsList(actual));
-    assertEquals(List.of(), ConfigUtils.getAsList(null));
-    assertEquals(List.of(), ConfigUtils.getAsList(""));
-  }
+  private Boolean followUp;
 
-  @Test
-  void testGetAsArray() {
-    String actual = "http://localhost,http://localhost:3000, ,, https://localhost:3000";
+  private String trackedEntityInstance;
 
-    assertEquals(3, ConfigUtils.getAsArray(actual).length);
-    assertEquals("http://localhost", ConfigUtils.getAsArray(actual)[0]);
+  private String orgUnit;
+
+  private OrgUnitSelectionMode ouMode;
+
+  private EventStatus status;
+
+  private Date occurredAfter;
+
+  private Date occurredBefore;
+
+  private Date scheduledAfter;
+
+  private Date scheduledBefore;
+
+  private Date updatedAfter;
+
+  private Date updatedBefore;
+
+  private IdScheme dataElementIdScheme;
+
+  private IdScheme categoryOptionComboIdScheme;
+
+  private IdScheme orgUnitIdScheme;
+
+  private IdScheme programIdScheme;
+
+  private IdScheme programStageIdScheme;
+
+  private IdScheme idScheme;
+
+  public static EventQuery instance() {
+    return new EventQuery();
   }
 }

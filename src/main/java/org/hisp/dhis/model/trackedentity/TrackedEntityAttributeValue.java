@@ -25,31 +25,30 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.hisp.dhis.util;
+package org.hisp.dhis.model.trackedentity;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Date;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+import org.hisp.dhis.model.ValueType;
 
-import java.util.List;
-import org.junit.jupiter.api.Test;
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
+public class TrackedEntityAttributeValue {
+  @JsonProperty private String attribute;
 
-public class ConfigUtilsTest {
-  @Test
-  void testGetAsList() {
-    List<String> expected =
-        List.of("http://localhost", "http://localhost:3000", "https://localhost:3000");
+  @JsonProperty private String displayName;
 
-    String actual = "http://localhost,http://localhost:3000, ,, https://localhost:3000";
+  @JsonProperty private Date createdAt;
 
-    assertEquals(expected, ConfigUtils.getAsList(actual));
-    assertEquals(List.of(), ConfigUtils.getAsList(null));
-    assertEquals(List.of(), ConfigUtils.getAsList(""));
-  }
+  @JsonProperty private Date updatedAt;
 
-  @Test
-  void testGetAsArray() {
-    String actual = "http://localhost,http://localhost:3000, ,, https://localhost:3000";
+  @JsonProperty private ValueType valueType;
 
-    assertEquals(3, ConfigUtils.getAsArray(actual).length);
-    assertEquals("http://localhost", ConfigUtils.getAsArray(actual)[0]);
-  }
+  @JsonProperty private String value;
 }

@@ -25,31 +25,48 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.hisp.dhis.util;
+package org.hisp.dhis;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.List;
+import org.hisp.dhis.model.trackedentity.TrackedEntitiesResult;
+import org.hisp.dhis.model.trackedentity.TrackedEntity;
+import org.hisp.dhis.query.event.OrgUnitSelectionMode;
+import org.hisp.dhis.query.trackedentity.TrackedEntityQuery;
+import org.hisp.dhis.support.TestTags;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
-public class ConfigUtilsTest {
-  @Test
-  void testGetAsList() {
-    List<String> expected =
-        List.of("http://localhost", "http://localhost:3000", "https://localhost:3000");
-
-    String actual = "http://localhost,http://localhost:3000, ,, https://localhost:3000";
-
-    assertEquals(expected, ConfigUtils.getAsList(actual));
-    assertEquals(List.of(), ConfigUtils.getAsList(null));
-    assertEquals(List.of(), ConfigUtils.getAsList(""));
-  }
+@Tag(TestTags.INTEGRATION)
+class TrackedEntitiesApiTest {
+  private static final String OU_A = "DiszpKrYNg8";
+  private static final String PR_A = "IpHINAT79UW";
 
   @Test
-  void testGetAsArray() {
-    String actual = "http://localhost,http://localhost:3000, ,, https://localhost:3000";
+  void testGetTrackedEntity() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
 
-    assertEquals(3, ConfigUtils.getAsArray(actual).length);
-    assertEquals("http://localhost", ConfigUtils.getAsArray(actual)[0]);
+    TrackedEntitiesResult result =
+        dhis2.getTrackedEntities(
+            TrackedEntityQuery.instance()
+                .setOrgUnits(List.of(OU_A))
+                .setOrgUnitMode(OrgUnitSelectionMode.SELECTED)
+                .setProgram(PR_A));
+
+    assertNotNull(result);
+
+    List<TrackedEntity> trackedEntities = result.getTrackedEntities();
+
+    assertNotNull(trackedEntities);
+    assertFalse(trackedEntities.isEmpty());
+
+    TrackedEntity trackedEntity = trackedEntities.get(0);
+
+    assertNotNull(trackedEntity);
+    assertNotNull(trackedEntity.getTrackedEntity());
+    assertEquals(OU_A, trackedEntity.getOrgUnit());
   }
 }

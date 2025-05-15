@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004-2025, University of Oslo
+ * Copyright (c) 2004-2024, University of Oslo
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,31 +25,20 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.hisp.dhis.util;
+package org.hisp.dhis.model.user;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import java.util.List;
-import org.junit.jupiter.api.Test;
+@Getter
+@Setter
+@NoArgsConstructor
+public class UserSettings {
+  @JsonProperty(value = "keyUiLocale")
+  private String uiLocale;
 
-public class ConfigUtilsTest {
-  @Test
-  void testGetAsList() {
-    List<String> expected =
-        List.of("http://localhost", "http://localhost:3000", "https://localhost:3000");
-
-    String actual = "http://localhost,http://localhost:3000, ,, https://localhost:3000";
-
-    assertEquals(expected, ConfigUtils.getAsList(actual));
-    assertEquals(List.of(), ConfigUtils.getAsList(null));
-    assertEquals(List.of(), ConfigUtils.getAsList(""));
-  }
-
-  @Test
-  void testGetAsArray() {
-    String actual = "http://localhost,http://localhost:3000, ,, https://localhost:3000";
-
-    assertEquals(3, ConfigUtils.getAsArray(actual).length);
-    assertEquals("http://localhost", ConfigUtils.getAsArray(actual)[0]);
-  }
+  @JsonProperty(value = "keyDbLocale")
+  private String dbLocale;
 }

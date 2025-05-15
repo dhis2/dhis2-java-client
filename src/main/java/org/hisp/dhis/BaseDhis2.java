@@ -27,11 +27,13 @@
  */
 package org.hisp.dhis;
 
+import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
 import static org.apache.hc.core5.http.HttpStatus.SC_CONFLICT;
 import static org.apache.hc.core5.http.HttpStatus.SC_FORBIDDEN;
 import static org.apache.hc.core5.http.HttpStatus.SC_NOT_FOUND;
 import static org.apache.hc.core5.http.HttpStatus.SC_UNAUTHORIZED;
 import static org.hisp.dhis.util.CollectionUtils.asList;
+import static org.hisp.dhis.util.CollectionUtils.toCommaSeparated;
 import static org.hisp.dhis.util.HttpUtils.getUriAsString;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -74,8 +76,8 @@ import org.hisp.dhis.model.Dhis2Objects;
 import org.hisp.dhis.model.IdentifiableObject;
 import org.hisp.dhis.model.completedatasetregistration.CompleteDataSetRegistrationImportOptions;
 import org.hisp.dhis.model.datavalueset.DataValueSetImportOptions;
-import org.hisp.dhis.model.event.Events;
 import org.hisp.dhis.model.event.EventsResult;
+import org.hisp.dhis.model.trackedentity.TrackedEntitiesResult;
 import org.hisp.dhis.model.validation.Validation;
 import org.hisp.dhis.query.Filter;
 import org.hisp.dhis.query.Operator;
@@ -88,7 +90,8 @@ import org.hisp.dhis.query.analytics.Dimension;
 import org.hisp.dhis.query.completedatasetregistration.CompleteDataSetRegistrationQuery;
 import org.hisp.dhis.query.datavalue.DataValueQuery;
 import org.hisp.dhis.query.datavalue.DataValueSetQuery;
-import org.hisp.dhis.query.event.EventsQuery;
+import org.hisp.dhis.query.event.EventQuery;
+import org.hisp.dhis.query.trackedentity.TrackedEntityQuery;
 import org.hisp.dhis.query.validations.DataSetValidationQuery;
 import org.hisp.dhis.response.BaseHttpResponse;
 import org.hisp.dhis.response.Dhis2ClientException;
@@ -224,7 +227,9 @@ public class BaseDhis2 {
       String.format(
           """
           %1$s,programType,trackedEntityType[%2$s],categoryCombo[%1$s,categories[%3$s]],\
-          programStages[%1$s,programStageDataElements[%4$s]],\
+          programStages[%1$s,\
+          programStageDataElements[%4$s],\
+          programStageSections[%1$s,formName,sortOrder,programStage[%1$s],dataElements[%1$s],programIndicators[%1$s]]],\
           programTrackedEntityAttributes[id,code,name,trackedEntityAttribute[%5$s]]""",
           NAME_FIELDS,
           TRACKED_ENTITY_TYPE_FIELDS,
@@ -242,6 +247,14 @@ public class BaseDhis2 {
           %1$s,username,surname,firstName,email,settings,programs,\
           dataSets,authorities,organisationUnits[%2$s]""",
           ID_FIELDS, ORG_UNIT_FIELDS);
+
+  /** User fields. */
+  protected static final String USER_FIELDS =
+      String.format(
+          """
+          %1$s,username,firstName,surname,email,phoneNumber,externalAuth,lastLogin,\
+          organisationUnits[%2$s],dataViewOrganisationUnits[%2$s],teiSearchOrganisationUnits[%2$s]""",
+          ID_FIELDS, NAME_FIELDS);
 
   /** Log level system property. */
   private static final String LOG_LEVEL_SYSTEM_PROPERTY = "log.level.dhis2";
@@ -427,7 +440,7 @@ public class BaseDhis2 {
    *
    * @param uriBuilder the URI builder.
    * @param query the {@link AnalyticsQuery} filters to apply.
-   * @return a URI.
+   * @return a {@link URI}.
    */
   protected URI getAnalyticsQuery(URIBuilder uriBuilder, AnalyticsQuery query) {
     for (Dimension dimension : query.getDimensions()) {
@@ -470,7 +483,7 @@ public class BaseDhis2 {
    *
    * @param uriBuilder the URI builder.
    * @param options the {@link DataValueSetImportOptions} to apply.
-   * @return a URI.
+   * @return a {@link URI}.
    */
   protected URI getDataValueSetImportQuery(
       URIBuilder uriBuilder, DataValueSetImportOptions options) {
@@ -494,7 +507,7 @@ public class BaseDhis2 {
    *
    * @param entity the POST body {@link HttpEntity}.
    * @param options the {@link CompleteDataSetRegistrationImportOptions} import options.
-   * @return POST response body {@link CompleteDataSetRegistrationResponse}.
+   * @return a {@link CompleteDataSetRegistrationResponse}.
    */
   protected CompleteDataSetRegistrationResponse saveCompleteDataSetRegistrations(
       HttpEntity entity, CompleteDataSetRegistrationImportOptions options) {
@@ -513,23 +526,23 @@ public class BaseDhis2 {
    * Retrieves events using HTTP GET.
    *
    * @param uriBuilder the URI builder.
-   * @param query the {@link EventsQuery}.
-   * @return the {@link Events} object.
+   * @param query the {@link EventQuery}.
+   * @return an {@link EventsResult}.
    */
-  protected EventsResult getEventsResponse(URIBuilder uriBuilder, EventsQuery query) {
+  protected EventsResult getEventsResult(URIBuilder uriBuilder, EventQuery query) {
     URI url = getEventsQuery(uriBuilder, query);
 
     return getObjectFromUrl(url, EventsResult.class);
   }
 
   /**
-   * Returns a {@link URI} based on the given events query.
+   * Returns a {@link URI} based on the given event query.
    *
    * @param uriBuilder the URI builder.
-   * @param query the {@link EventsQuery}.
-   * @return a URI.
+   * @param query the {@link EventQuery}.
+   * @return an {@link URI}.
    */
-  protected URI getEventsQuery(URIBuilder uriBuilder, EventsQuery query) {
+  protected URI getEventsQuery(URIBuilder uriBuilder, EventQuery query) {
     addParameter(uriBuilder, "program", query.getProgram());
     addParameter(uriBuilder, "programStage", query.getProgramStage());
     addParameter(uriBuilder, "programStatus", query.getProgramStatus());
@@ -550,6 +563,53 @@ public class BaseDhis2 {
     addParameter(uriBuilder, "programIdScheme", query.getProgramIdScheme());
     addParameter(uriBuilder, "programStageIdScheme", query.getProgramStageIdScheme());
     addParameter(uriBuilder, "idScheme", query.getIdScheme());
+
+    return HttpUtils.build(uriBuilder);
+  }
+
+  /**
+   * Retrieves tracked entities using HTTP GET.
+   *
+   * @param uriBuilder the URI builder.
+   * @param query the {@link TrackedEntityQuery}.
+   * @return a {@link TrackedEntitiesResult}.
+   */
+  protected TrackedEntitiesResult getTrackedEntitiesResult(
+      URIBuilder uriBuilder, TrackedEntityQuery query) {
+    URI url = getTrackedEntityQuery(uriBuilder, query);
+
+    return getObjectFromUrl(url, TrackedEntitiesResult.class);
+  }
+
+  /**
+   * Returns a {@link URI} based on the given tracked entity query.
+   *
+   * @param uriBuilder the URI builder.
+   * @param query the {@link EventQuery}.
+   * @return a {@link URI}.
+   */
+  protected URI getTrackedEntityQuery(URIBuilder uriBuilder, TrackedEntityQuery query) {
+    addParameterList(uriBuilder, "orgUnits", query.getOrgUnits());
+    addParameter(uriBuilder, "orgUnitMode", query.getOrgUnitMode());
+    addParameter(uriBuilder, "program", query.getProgram());
+    addParameter(uriBuilder, "programStage", query.getProgramStage());
+    addParameter(uriBuilder, "followUp", query.getFollowUp());
+    addParameter(uriBuilder, "updatedAfter", query.getUpdatedAfter());
+    addParameter(uriBuilder, "updatedBefore", query.getUpdatedBefore());
+    addParameter(uriBuilder, "enrollmentStatus", query.getEnrollmentStatus());
+    addParameter(uriBuilder, "enrollmentEnrolledAfter", query.getEnrollmentEnrolledAfter());
+    addParameter(uriBuilder, "enrollmentEnrolledBefore", query.getEnrollmentEnrolledBefore());
+    addParameter(uriBuilder, "enrollmentOccurredAfter", query.getEnrollmentOccurredBefore());
+    addParameter(uriBuilder, "enrollmentOccurredBefore", query.getEnrollmentOccurredBefore());
+    addParameter(uriBuilder, "trackedEntityType", query.getTrackedEntityType());
+    addParameterList(uriBuilder, "trackedEntities", query.getTrackedEntities());
+    addParameter(uriBuilder, "eventStatus", query.getEventStatus());
+    addParameter(uriBuilder, "eventOccurredAfter", query.getEventOccurredAfter());
+    addParameter(uriBuilder, "eventOccurredBefore", query.getEventOccurredBefore());
+    addParameter(uriBuilder, "includeDeleted", query.getIncludeDeleted());
+    addParameter(uriBuilder, "potentialDuplicate", query.getPotentialDuplicate());
+    addParameter(uriBuilder, "idScheme", query.getIdScheme());
+    addParameter(uriBuilder, "orgUnitIdScheme", query.getOrgUnitIdScheme());
 
     return HttpUtils.build(uriBuilder);
   }
@@ -730,6 +790,21 @@ public class BaseDhis2 {
   }
 
   /**
+   * Adds a query parameter to the given {@link URIBuilder} if the given parameter list is not null
+   * and not empty. The parameter value is the comma separated values of the string representation
+   * of the items in the list.
+   *
+   * @param uriBuilder the {@link URIBuilder}.
+   * @param parameter the query parameter.
+   * @param values the collection of query parameter values.
+   */
+  private void addParameterList(URIBuilder uriBuilder, String parameter, List<String> values) {
+    if (isNotEmpty(values)) {
+      uriBuilder.addParameter(parameter, toCommaSeparated(values));
+    }
+  }
+
+  /**
    * Converts the given filter to a query value.
    *
    * @param filter the {@link Filter}.
@@ -874,6 +949,8 @@ public class BaseDhis2 {
    */
   @SuppressWarnings("unchecked")
   protected <T> T getObjectFromUrl(URI url, Class<T> type) {
+    log("Get URL: '{}'", url.toString());
+
     try (CloseableHttpResponse response = getJsonHttpResponse(url)) {
       handleErrors(response, url.toString());
       handleErrorsForGet(response, url.toString());

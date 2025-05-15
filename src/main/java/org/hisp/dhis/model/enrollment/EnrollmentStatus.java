@@ -25,31 +25,10 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.hisp.dhis.util;
+package org.hisp.dhis.model.enrollment;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import java.util.List;
-import org.junit.jupiter.api.Test;
-
-public class ConfigUtilsTest {
-  @Test
-  void testGetAsList() {
-    List<String> expected =
-        List.of("http://localhost", "http://localhost:3000", "https://localhost:3000");
-
-    String actual = "http://localhost,http://localhost:3000, ,, https://localhost:3000";
-
-    assertEquals(expected, ConfigUtils.getAsList(actual));
-    assertEquals(List.of(), ConfigUtils.getAsList(null));
-    assertEquals(List.of(), ConfigUtils.getAsList(""));
-  }
-
-  @Test
-  void testGetAsArray() {
-    String actual = "http://localhost,http://localhost:3000, ,, https://localhost:3000";
-
-    assertEquals(3, ConfigUtils.getAsArray(actual).length);
-    assertEquals("http://localhost", ConfigUtils.getAsArray(actual)[0]);
-  }
+public enum EnrollmentStatus {
+  ACTIVE,
+  COMPLETED,
+  CANCELLED;
 }

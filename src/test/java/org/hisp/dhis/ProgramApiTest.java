@@ -31,13 +31,16 @@ import static org.hisp.dhis.support.Assertions.assertNotBlank;
 import static org.hisp.dhis.support.Assertions.assertNotEmpty;
 import static org.hisp.dhis.support.Assertions.assertSize;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.List;
 import org.hisp.dhis.model.DataElement;
 import org.hisp.dhis.model.Program;
+import org.hisp.dhis.model.ProgramIndicator;
 import org.hisp.dhis.model.ProgramStage;
 import org.hisp.dhis.model.ProgramStageDataElement;
+import org.hisp.dhis.model.ProgramStageSection;
 import org.hisp.dhis.model.ProgramType;
 import org.hisp.dhis.model.trackedentity.ProgramTrackedEntityAttribute;
 import org.hisp.dhis.model.trackedentity.TrackedEntityAttribute;
@@ -51,17 +54,17 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 @Tag(TestTags.INTEGRATION)
-public class ProgramApiTest {
+class ProgramApiTest {
   @Test
-  void testGetProgram() {
+  void testGetProgramChildProgram() {
     Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
 
     Program pr = dhis2.getProgram("IpHINAT79UW");
 
     assertNotNull(pr);
     assertEquals("IpHINAT79UW", pr.getId());
-    assertNotBlank(pr.getShortName());
     assertNotBlank(pr.getName());
+    assertNotBlank(pr.getShortName());
     assertNotNull(pr.getCreated());
     assertNotNull(pr.getLastUpdated());
     assertEquals(ProgramType.WITH_REGISTRATION, pr.getProgramType());
@@ -128,6 +131,51 @@ public class ProgramApiTest {
     assertNotEmpty(pr.getNonConfidentialTrackedEntityAttributes());
     assertNotEmpty(pr.getDataElements());
     assertNotEmpty(pr.getAnalyticsDataElements());
+  }
+
+  @Test
+  void testGetProgramInpatientCase() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    Program pr = dhis2.getProgram("eBAyeGv0exc");
+
+    assertNotNull(pr);
+    assertEquals("eBAyeGv0exc", pr.getId());
+    assertNotBlank(pr.getName());
+    assertNotBlank(pr.getShortName());
+    assertNotNull(pr.getProgramStages());
+    assertNotNull(pr.getProgramStageSections());
+    assertFalse(pr.getProgramStageSections().isEmpty());
+
+    ProgramStage ps = pr.getProgramStages().get(0);
+
+    assertNotNull(ps);
+    assertEquals("Zj7UnCAulEk", ps.getId());
+    assertNotNull(ps.getProgramStageSections());
+
+    ProgramStageSection pss = ps.getProgramStageSections().get(0);
+
+    assertNotNull(pss);
+    assertEquals("d7ZILSbPgYh", pss.getId());
+    assertNotBlank(pss.getName());
+    assertNotBlank(pss.getDescription());
+    assertNotNull(pss.getSortOrder());
+    assertNotNull(pss.getDataElements());
+    assertNotNull(pss.getProgramIndicators());
+
+    DataElement de = pss.getDataElements().get(0);
+
+    assertNotNull(de);
+    assertEquals("oZg33kd9taw", de.getId());
+    assertNotBlank(de.getName());
+    assertNotBlank(de.getShortName());
+
+    ProgramIndicator pi = pss.getProgramIndicators().get(0);
+
+    assertNotNull(pi);
+    assertEquals("x7PaHGvgWY2", pi.getId());
+    assertNotBlank(pi.getName());
+    assertNotBlank(pi.getShortName());
   }
 
   @Test

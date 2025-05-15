@@ -25,31 +25,31 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.hisp.dhis.util;
+package org.hisp.dhis;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import java.util.List;
+import org.hisp.dhis.model.trackedentity.TrackedEntity;
+import org.hisp.dhis.support.TestTags;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
-public class ConfigUtilsTest {
+@Tag(TestTags.INTEGRATION)
+class TrackedEntityApiTest {
   @Test
-  void testGetAsList() {
-    List<String> expected =
-        List.of("http://localhost", "http://localhost:3000", "https://localhost:3000");
+  void testGetTrackedEntity() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
 
-    String actual = "http://localhost,http://localhost:3000, ,, https://localhost:3000";
+    TrackedEntity trackedEntity = dhis2.getTrackedEntity("kfwLSxq7mXk");
 
-    assertEquals(expected, ConfigUtils.getAsList(actual));
-    assertEquals(List.of(), ConfigUtils.getAsList(null));
-    assertEquals(List.of(), ConfigUtils.getAsList(""));
-  }
-
-  @Test
-  void testGetAsArray() {
-    String actual = "http://localhost,http://localhost:3000, ,, https://localhost:3000";
-
-    assertEquals(3, ConfigUtils.getAsArray(actual).length);
-    assertEquals("http://localhost", ConfigUtils.getAsArray(actual)[0]);
+    assertNotNull(trackedEntity);
+    assertNotNull(trackedEntity.getAttributes());
+    assertEquals("kfwLSxq7mXk", trackedEntity.getTrackedEntity());
+    assertNotNull(trackedEntity.getCreatedAt());
+    assertNotNull(trackedEntity.getUpdatedAt());
+    assertNotNull(trackedEntity.getOrgUnit());
+    assertFalse(trackedEntity.getAttributes().isEmpty());
   }
 }

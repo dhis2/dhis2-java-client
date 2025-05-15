@@ -25,31 +25,63 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.hisp.dhis.util;
+package org.hisp.dhis.model.user;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-import org.junit.jupiter.api.Test;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.hisp.dhis.model.IdentifiableObject;
+import org.hisp.dhis.model.OrgUnit;
 
-public class ConfigUtilsTest {
-  @Test
-  void testGetAsList() {
-    List<String> expected =
-        List.of("http://localhost", "http://localhost:3000", "https://localhost:3000");
+@Getter
+@Setter
+@NoArgsConstructor
+public class User extends IdentifiableObject {
+  @JsonProperty private String username;
 
-    String actual = "http://localhost,http://localhost:3000, ,, https://localhost:3000";
+  @JsonProperty private String firstName;
 
-    assertEquals(expected, ConfigUtils.getAsList(actual));
-    assertEquals(List.of(), ConfigUtils.getAsList(null));
-    assertEquals(List.of(), ConfigUtils.getAsList(""));
+  @JsonProperty private String surname;
+
+  @JsonProperty private String email;
+
+  @JsonProperty private String phoneNumber;
+
+  @JsonProperty private Boolean externalAuth;
+
+  @JsonProperty private Date lastLogin;
+
+  @JsonProperty private Boolean disabled;
+
+  @JsonProperty private List<OrgUnit> organisationUnits = new ArrayList<>();
+
+  @JsonProperty private List<OrgUnit> dataViewOrganisationUnits = new ArrayList<>();
+
+  @JsonProperty private List<OrgUnit> teiSearchOrganisationUnits = new ArrayList<>();
+
+  /**
+   * Indicates whether at least one organisation unit exists.
+   *
+   * @return true if at least one organisation unit exists.
+   */
+  @JsonIgnore
+  public boolean hasOrganisationUnits() {
+    return isNotEmpty(organisationUnits);
   }
 
-  @Test
-  void testGetAsArray() {
-    String actual = "http://localhost,http://localhost:3000, ,, https://localhost:3000";
-
-    assertEquals(3, ConfigUtils.getAsArray(actual).length);
-    assertEquals("http://localhost", ConfigUtils.getAsArray(actual)[0]);
+  /**
+   * Returns the first {@link OrgUnit}, or null if none exist.
+   *
+   * @return the first {@link OrgUnit}.
+   */
+  public OrgUnit getFirstOrganisationUnit() {
+    return isNotEmpty(organisationUnits) ? organisationUnits.get(0) : null;
   }
 }

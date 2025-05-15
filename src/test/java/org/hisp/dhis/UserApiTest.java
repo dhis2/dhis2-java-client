@@ -25,31 +25,67 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.hisp.dhis.util;
+package org.hisp.dhis;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.List;
+import org.hisp.dhis.model.OrgUnit;
+import org.hisp.dhis.model.user.User;
+import org.hisp.dhis.query.Filter;
+import org.hisp.dhis.query.Query;
+import org.hisp.dhis.support.TestTags;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
-public class ConfigUtilsTest {
+@Tag(TestTags.INTEGRATION)
+class UserApiTest {
   @Test
-  void testGetAsList() {
-    List<String> expected =
-        List.of("http://localhost", "http://localhost:3000", "https://localhost:3000");
+  void testGetUser() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
 
-    String actual = "http://localhost,http://localhost:3000, ,, https://localhost:3000";
+    User user = dhis2.getUser("xE7jOejl9FI");
 
-    assertEquals(expected, ConfigUtils.getAsList(actual));
-    assertEquals(List.of(), ConfigUtils.getAsList(null));
-    assertEquals(List.of(), ConfigUtils.getAsList(""));
+    assertNotNull(user);
+    assertEquals("xE7jOejl9FI", user.getId());
+    assertEquals("John Traore", user.getName());
+    assertEquals("admin", user.getUsername());
+    assertEquals("John", user.getFirstName());
+    assertEquals("Traore", user.getSurname());
+    assertEquals("dummy@dhis2.org", user.getEmail());
+    assertFalse(user.getOrganisationUnits().isEmpty());
+
+    OrgUnit orgUnit = user.getOrganisationUnits().get(0);
+
+    assertNotNull(orgUnit);
+    assertNotNull(orgUnit.getId());
+    assertNotNull(orgUnit.getName());
   }
 
   @Test
-  void testGetAsArray() {
-    String actual = "http://localhost,http://localhost:3000, ,, https://localhost:3000";
+  void testGetUserByUsername() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
 
-    assertEquals(3, ConfigUtils.getAsArray(actual).length);
-    assertEquals("http://localhost", ConfigUtils.getAsArray(actual)[0]);
+    List<User> users = dhis2.getUsers(Query.instance().addFilter(Filter.eq("username", "admin")));
+
+    assertNotNull(users);
+    assertEquals(1, users.size());
+
+    User user = users.get(0);
+
+    assertNotNull(user);
+    assertEquals("xE7jOejl9FI", user.getId());
+  }
+
+  @Test
+  void testGetUsers() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    List<User> users = dhis2.getUsers(Query.instance());
+
+    assertNotNull(users);
+    assertFalse(users.isEmpty());
   }
 }

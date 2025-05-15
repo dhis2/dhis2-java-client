@@ -25,31 +25,46 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.hisp.dhis.util;
+package org.hisp.dhis.model.trackedentity;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-import org.junit.jupiter.api.Test;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+import org.locationtech.jts.geom.Geometry;
 
-public class ConfigUtilsTest {
-  @Test
-  void testGetAsList() {
-    List<String> expected =
-        List.of("http://localhost", "http://localhost:3000", "https://localhost:3000");
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
+public class TrackedEntity {
+  @JsonProperty private String trackedEntity;
 
-    String actual = "http://localhost,http://localhost:3000, ,, https://localhost:3000";
+  @JsonProperty private String trackedEntityType;
 
-    assertEquals(expected, ConfigUtils.getAsList(actual));
-    assertEquals(List.of(), ConfigUtils.getAsList(null));
-    assertEquals(List.of(), ConfigUtils.getAsList(""));
-  }
+  @JsonProperty private Date createdAt;
 
-  @Test
-  void testGetAsArray() {
-    String actual = "http://localhost,http://localhost:3000, ,, https://localhost:3000";
+  @JsonProperty private Date createdAtClient;
 
-    assertEquals(3, ConfigUtils.getAsArray(actual).length);
-    assertEquals("http://localhost", ConfigUtils.getAsArray(actual)[0]);
-  }
+  @JsonProperty private Date updatedAt;
+
+  @JsonProperty private Date updatedAtClient;
+
+  @JsonProperty private String orgUnit;
+
+  @JsonProperty private Boolean inactive;
+
+  @JsonProperty private Boolean deleted;
+
+  @JsonProperty private Boolean potentialDuplicate;
+
+  @JsonProperty private Geometry geometry;
+
+  @JsonProperty private String storedBy;
+
+  @JsonProperty private List<TrackedEntityAttributeValue> attributes = new ArrayList<>();
 }

@@ -1,6 +1,6 @@
-# DHIS 2 Java Client
+# DHIS2 Java Client
 
-DHIS 2 API client for Java. The client allows you to create, update and retrieve information from DHIS 2. The client is compatible with Java 17 and later JDK versions.
+DHIS2 API client for Java. The client allows you to create, update and retrieve information from DHIS2. The client is compatible with Java 17 and later JDK versions.
 
 ## Getting started
 
@@ -22,7 +22,7 @@ This section describes configuration and authentication of the client.
 
 #### Basic authentication
 
-A minimal configuration of `dhis2-java-client` where the configuration parameters refer to the base URL, username and password for the DHIS 2 instance to connect to can be specified like this. The default authentication mechanism is *Basic authentication*. Note that you should *not* include the `api` part nor a trailing `/` in the base URL:
+A minimal configuration of `dhis2-java-client` where the configuration parameters refer to the base URL, username and password for the DHIS2 instance to connect to can be specified like this. The default authentication mechanism is *Basic authentication*. Note that you should *not* include the `api` part nor a trailing `/` in the base URL:
 
 ```java
 Dhis2Config config = new Dhis2Config(
@@ -32,7 +32,7 @@ Dhis2Config config = new Dhis2Config(
 Dhis2 dhis2 = new Dhis2(config);
 ```
 
-Alternatively, to use Basic authentication you can specify the username and password of the DHIS 2 account together with the base URL of the DHIS 2 instance:
+Alternatively, to use Basic authentication you can specify the username and password of the DHIS2 account together with the base URL of the DHIS2 instance:
 
 ```java
 Dhis2 dhis2 = Dhis2.withBasicAuth(
@@ -40,7 +40,7 @@ Dhis2 dhis2 = Dhis2.withBasicAuth(
     "admin", "district");
 ```
 
-You can use the username and password of a regular DHIS 2 user account.
+You can use the username and password of a regular DHIS2 user account.
 
 ### Personal access token authentication
 
@@ -64,7 +64,7 @@ Dhis2 dhis2 = Dhis2.withCookieAuth(
     "5EC557E60D7E5CE8D78EEC1389592D3E");
 ```
 
-The name of the session cookie used by the DHIS 2 API is `JSESSIONID`. The value can typically be retrieved from the `Cookie` HTTP request header sent with DHIS 2 API requests.
+The name of the session cookie used by the DHIS2 API is `JSESSIONID`. The value can typically be retrieved from the `Cookie` HTTP request header sent with DHIS2 API requests.
 
 ### Get current user
 
@@ -87,7 +87,7 @@ List<String> authorities = dhis2.getUserAuthorization();
 
 ## Metadata
 
-This section explains operations for DHIS 2 metadata objects.
+This section explains operations for DHIS2 metadata objects.
 
 ### Query objects
 
@@ -195,9 +195,28 @@ boolean success = response.getHttpStatus().is2xxSuccessful();
 String message = response.getMessage();
 ```
 
+## Users
+
+This section explains operations for DHIS2 users.
+
+### Get user
+
+To get a user by ID.
+
+```java
+User user = dhis2.getUser("xE7jOejl9FI");
+```
+
+To get a user by username.
+
+```java
+List<User> users = dhis2.getUsers(Query.instance()
+    .addFilter(Filter.eq("username", "admin")));
+```
+
 ## System settings
 
-This section explains operations for DHIS 2 system settings.
+This section explains operations for DHIS2 system settings.
 
 ### Get system settings
 
@@ -209,7 +228,7 @@ SystemSettings settings = dhis2.getSystemSettings();
 
 ## Events
 
-This section explains operations for DHIS 2 events.
+This section explains operations for DHIS2 events.
 
 ### Save events
 
@@ -255,7 +274,7 @@ EventResponse response = dhis2.removeEvent(event);
 
 ## Data values
 
-This section explains operations for DHIS 2 data values.
+This section explains operations for DHIS2 data values.
 
 ### Save data value set
 
@@ -459,7 +478,7 @@ List<JobNotification> notifications = dhis2
 
 ## Development
 
-This section covers development of the DHIS 2 Java client.
+This section covers development of the DHIS2 Java client.
 
 Package:
 
@@ -485,7 +504,7 @@ Run specific integration test:
 mvn test -P integration -Dtest=Dhis2ApiTest
 ```
 
-To log at info level during tests:
+To log internal messages at info level during tests:
 
 ```
 mvn test -Dlog.level.dhis2=info

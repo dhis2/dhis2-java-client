@@ -25,31 +25,26 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.hisp.dhis.util;
+package org.hisp.dhis.model;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.ArrayList;
 import java.util.List;
-import org.junit.jupiter.api.Test;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-public class ConfigUtilsTest {
-  @Test
-  void testGetAsList() {
-    List<String> expected =
-        List.of("http://localhost", "http://localhost:3000", "https://localhost:3000");
+@Getter
+@Setter
+@NoArgsConstructor
+public class ProgramStageSection extends NameableObject {
+  @JsonProperty private String formName;
 
-    String actual = "http://localhost,http://localhost:3000, ,, https://localhost:3000";
+  @JsonProperty private Integer sortOrder;
 
-    assertEquals(expected, ConfigUtils.getAsList(actual));
-    assertEquals(List.of(), ConfigUtils.getAsList(null));
-    assertEquals(List.of(), ConfigUtils.getAsList(""));
-  }
+  @JsonProperty private ProgramStage programStage;
 
-  @Test
-  void testGetAsArray() {
-    String actual = "http://localhost,http://localhost:3000, ,, https://localhost:3000";
+  @JsonProperty private List<DataElement> dataElements = new ArrayList<>();
 
-    assertEquals(3, ConfigUtils.getAsArray(actual).length);
-    assertEquals("http://localhost", ConfigUtils.getAsArray(actual)[0]);
-  }
+  @JsonProperty private List<ProgramIndicator> programIndicators = new ArrayList<>();
 }
