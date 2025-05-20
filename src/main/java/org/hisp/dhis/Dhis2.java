@@ -94,6 +94,7 @@ import org.hisp.dhis.model.datastore.EntryMetadata;
 import org.hisp.dhis.model.datavalueset.DataValue;
 import org.hisp.dhis.model.datavalueset.DataValueSet;
 import org.hisp.dhis.model.datavalueset.DataValueSetImportOptions;
+import org.hisp.dhis.model.enrollment.Enrollment;
 import org.hisp.dhis.model.event.Event;
 import org.hisp.dhis.model.event.Events;
 import org.hisp.dhis.model.event.EventsResult;
@@ -2560,6 +2561,28 @@ public class Dhis2 extends BaseDhis2 {
   public TrackedEntitiesResult getTrackedEntities(TrackedEntityQuery query) {
     return getTrackedEntitiesResult(
         config.getResolvedUriBuilder().appendPath("tracker").appendPath("trackedEntities"), query);
+  }
+
+  // -------------------------------------------------------------------------
+  // Enrollment
+  // -------------------------------------------------------------------------
+  /**
+   * Retrieves an {@link Enrollment}.
+   *
+   * <p>Requires DHIS 2 version 2.36 or later.
+   *
+   * @param id the enrollment identifier.
+   * @return the {@link Enrollment}.
+   */
+  public Enrollment getEnrollment(String id) {
+    return getObject(
+        config
+            .getResolvedUriBuilder()
+            .appendPath("tracker")
+            .appendPath("enrollments")
+            .appendPath(id),
+        Query.instance(),
+        Enrollment.class);
   }
 
   // -------------------------------------------------------------------------
