@@ -76,6 +76,7 @@ import org.hisp.dhis.model.Dhis2Objects;
 import org.hisp.dhis.model.IdentifiableObject;
 import org.hisp.dhis.model.completedatasetregistration.CompleteDataSetRegistrationImportOptions;
 import org.hisp.dhis.model.datavalueset.DataValueSetImportOptions;
+import org.hisp.dhis.model.enrollment.EnrollmentsResult;
 import org.hisp.dhis.model.event.EventsResult;
 import org.hisp.dhis.model.trackedentity.TrackedEntitiesResult;
 import org.hisp.dhis.model.validation.Validation;
@@ -90,6 +91,7 @@ import org.hisp.dhis.query.analytics.Dimension;
 import org.hisp.dhis.query.completedatasetregistration.CompleteDataSetRegistrationQuery;
 import org.hisp.dhis.query.datavalue.DataValueQuery;
 import org.hisp.dhis.query.datavalue.DataValueSetQuery;
+import org.hisp.dhis.query.enrollment.EnrollmentQuery;
 import org.hisp.dhis.query.event.EventQuery;
 import org.hisp.dhis.query.trackedentity.TrackedEntityQuery;
 import org.hisp.dhis.query.validations.DataSetValidationQuery;
@@ -585,7 +587,7 @@ public class BaseDhis2 {
    * Returns a {@link URI} based on the given tracked entity query.
    *
    * @param uriBuilder the URI builder.
-   * @param query the {@link EventQuery}.
+   * @param query the {@link TrackedEntityQuery}.
    * @return a {@link URI}.
    */
   protected URI getTrackedEntityQuery(URIBuilder uriBuilder, TrackedEntityQuery query) {
@@ -610,6 +612,45 @@ public class BaseDhis2 {
     addParameter(uriBuilder, "potentialDuplicate", query.getPotentialDuplicate());
     addParameter(uriBuilder, "idScheme", query.getIdScheme());
     addParameter(uriBuilder, "orgUnitIdScheme", query.getOrgUnitIdScheme());
+
+    return HttpUtils.build(uriBuilder);
+  }
+
+  /**
+   * Retrieves enrollments using HTTP GET.
+   *
+   * @param uriBuilder the URI builder.
+   * @param query the {@link EnrollmentQuery}.
+   * @return a {@link EnrollmentsResult}.
+   */
+  protected EnrollmentsResult getEnrollmentResult(URIBuilder uriBuilder, EnrollmentQuery query) {
+    URI url = getEnrollmentQuery(uriBuilder, query);
+
+    return getObjectFromUrl(url, EnrollmentsResult.class);
+  }
+
+  /**
+   * Returns a {@link URI} based on the given enrollment query.
+   *
+   * @param uriBuilder the URI builder.
+   * @param query the {@link EnrollmentQuery}.
+   * @return a {@link URI}.
+   */
+  protected URI getEnrollmentQuery(URIBuilder uriBuilder, EnrollmentQuery query) {
+    addParameterList(uriBuilder, "orgUnits", query.getOrgUnits());
+    addParameter(uriBuilder, "orgUnitMode", query.getOrgUnitMode());
+    addParameter(uriBuilder, "program", query.getProgram());
+    addParameter(uriBuilder, "status", query.getStatus());
+    addParameter(uriBuilder, "followUp", query.getFollowUp());
+    addParameter(uriBuilder, "updatedAfter", query.getUpdatedAfter());
+    addParameter(uriBuilder, "updatedWithin", query.getUpdatedWithin());
+    addParameter(uriBuilder, "enrolledAfter", query.getEnrolledAfter());
+    addParameter(uriBuilder, "enrolledBefore", query.getEnrolledBefore());
+    addParameter(uriBuilder, "trackedEntityType", query.getTrackedEntityType());
+    addParameter(uriBuilder, "trackedEntity", query.getTrackedEntity());
+    addParameterList(uriBuilder, "order", query.getOrder());
+    addParameterList(uriBuilder, "enrollments", query.getEnrollments());
+    addParameter(uriBuilder, "includeDeleted", query.getIncludeDeleted());
 
     return HttpUtils.build(uriBuilder);
   }

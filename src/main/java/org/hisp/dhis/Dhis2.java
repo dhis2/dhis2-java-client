@@ -95,6 +95,7 @@ import org.hisp.dhis.model.datavalueset.DataValue;
 import org.hisp.dhis.model.datavalueset.DataValueSet;
 import org.hisp.dhis.model.datavalueset.DataValueSetImportOptions;
 import org.hisp.dhis.model.enrollment.Enrollment;
+import org.hisp.dhis.model.enrollment.EnrollmentsResult;
 import org.hisp.dhis.model.event.Event;
 import org.hisp.dhis.model.event.Events;
 import org.hisp.dhis.model.event.EventsResult;
@@ -110,6 +111,7 @@ import org.hisp.dhis.query.analytics.AnalyticsQuery;
 import org.hisp.dhis.query.completedatasetregistration.CompleteDataSetRegistrationQuery;
 import org.hisp.dhis.query.datavalue.DataValueQuery;
 import org.hisp.dhis.query.datavalue.DataValueSetQuery;
+import org.hisp.dhis.query.enrollment.EnrollmentQuery;
 import org.hisp.dhis.query.event.EventQuery;
 import org.hisp.dhis.query.trackedentity.TrackedEntityQuery;
 import org.hisp.dhis.query.validations.DataSetValidationQuery;
@@ -125,7 +127,6 @@ import org.hisp.dhis.response.job.JobCategory;
 import org.hisp.dhis.response.job.JobNotification;
 import org.hisp.dhis.response.object.ObjectResponse;
 import org.hisp.dhis.response.objects.ObjectsResponse;
-import org.hisp.dhis.response.trackedentity.TrackedEntityResponse;
 import org.hisp.dhis.util.HttpUtils;
 
 /**
@@ -2551,11 +2552,11 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   /**
-   * Retrieves a {@link TrackedEntityResponse}.
+   * Retrieves a {@link TrackedEntitiesResult}.
    *
    * <p>Requires DHIS 2 version 2.36 or later.
    *
-   * @param query the {@link EventQuery}.
+   * @param query the {@link TrackedEntityQuery}.
    * @return the {@link TrackedEntitiesResult}.
    */
   public TrackedEntitiesResult getTrackedEntities(TrackedEntityQuery query) {
@@ -2583,6 +2584,19 @@ public class Dhis2 extends BaseDhis2 {
             .appendPath(id),
         Query.instance(),
         Enrollment.class);
+  }
+
+  /**
+   * Retrieves a {@link EnrollmentsResult}.
+   *
+   * <p>Requires DHIS 2 version 2.36 or later.
+   *
+   * @param query the {@link EnrollmentQuery}.
+   * @return the {@link EnrollmentsResult}.
+   */
+  public EnrollmentsResult getEnrollments(EnrollmentQuery query) {
+    return getEnrollmentResult(
+        config.getResolvedUriBuilder().appendPath("tracker").appendPath("trackedEntities"), query);
   }
 
   // -------------------------------------------------------------------------
