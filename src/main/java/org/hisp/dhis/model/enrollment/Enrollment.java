@@ -42,7 +42,6 @@ import org.locationtech.jts.geom.Geometry;
 @ToString
 @NoArgsConstructor
 public class Enrollment {
-
   @JsonProperty private String enrollment;
 
   @JsonProperty private String program;

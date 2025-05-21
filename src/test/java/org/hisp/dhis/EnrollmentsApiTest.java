@@ -25,35 +25,42 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.hisp.dhis.model.relationship;
+package org.hisp.dhis;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.Date;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import static org.junit.jupiter.api.Assertions.*;
 
-@Getter
-@Setter
-@ToString
-@NoArgsConstructor
-public class Relationship {
-  @JsonProperty private String relationship;
+import java.util.List;
+import org.hisp.dhis.model.enrollment.Enrollment;
+import org.hisp.dhis.model.enrollment.EnrollmentsResult;
+import org.hisp.dhis.query.enrollment.EnrollmentQuery;
+import org.hisp.dhis.support.TestTags;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
 
-  @JsonProperty private String relationshipType;
+@Tag(TestTags.INTEGRATION)
+public class EnrollmentsApiTest {
 
-  @JsonProperty private String relationshipName;
+  private static final String OU_A = "DiszpKrYNg8";
+  private static final String PR_A = "IpHINAT79UW";
 
-  @JsonProperty private Date createdAt;
+  @Test
+  void testGetEnrollments() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
 
-  @JsonProperty private Date updatedAt;
+    EnrollmentQuery query = EnrollmentQuery.instance().setOrgUnits(List.of(OU_A)).setProgram(PR_A);
+    EnrollmentsResult result = dhis2.getEnrollments(query);
 
-  @JsonProperty private Date createdAtClient;
+    assertNotNull(result);
 
-  @JsonProperty private Boolean bidirectional;
+    List<Enrollment> enrollments = result.getEnrollments();
 
-  @JsonProperty private RelationshipItem from;
+    assertNotNull(enrollments);
+    assertFalse(enrollments.isEmpty());
 
-  @JsonProperty private RelationshipItem to;
+    Enrollment enrollment = enrollments.get(0);
+
+    assertNotNull(enrollment);
+    assertEquals(OU_A, enrollment.getOrgUnit());
+    assertEquals(PR_A, enrollment.getProgram());
+  }
 }

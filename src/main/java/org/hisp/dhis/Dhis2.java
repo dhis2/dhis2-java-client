@@ -2619,7 +2619,7 @@ public class Dhis2 extends BaseDhis2 {
    */
   public EnrollmentsResult getEnrollments(EnrollmentQuery query) {
     return getEnrollmentResult(
-        config.getResolvedUriBuilder().appendPath("tracker").appendPath("trackedEntities"), query);
+        config.getResolvedUriBuilder().appendPath("tracker").appendPath("enrollments"), query);
   }
 
   // -------------------------------------------------------------------------
