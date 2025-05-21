@@ -43,7 +43,7 @@ public class Relationship {
 
   @JsonProperty private String relationshipType;
 
-  @JsonProperty private RelationshipFrom from;
+  @JsonProperty private RelationshipItem from;
 
-  @JsonProperty private RelationshipTo to;
+  @JsonProperty private RelationshipItem to;
 }

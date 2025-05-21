@@ -32,13 +32,18 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.hisp.dhis.model.enrollment.Enrollment;
+import org.hisp.dhis.model.event.Event;
 import org.hisp.dhis.model.trackedentity.TrackedEntity;
 
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
-public class RelationshipFrom {
-
+public class RelationshipItem {
   @JsonProperty private TrackedEntity trackedEntity;
+
+  @JsonProperty private Event event;
+
+  @JsonProperty private Enrollment enrollment;
 }
