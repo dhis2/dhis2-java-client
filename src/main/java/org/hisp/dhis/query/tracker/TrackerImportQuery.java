@@ -41,38 +41,52 @@ import org.hisp.dhis.model.ImportStrategy;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class TrackerImportQuery {
 
-  private Boolean async;
-
+  /** Default value is ReportMode.ERRORS */
   private ReportMode reportMode;
 
+  /** Default value is ImportMode.COMMIT */
   private ImportMode importMode;
 
+  /** Default value is IdScheme.UID */
   private IdScheme idScheme;
 
+  /** Default value is the same as idScheme */
   private IdScheme dataElementIdScheme;
 
+  /** Default value is the same as idScheme */
   private IdScheme orgUnitIdScheme;
 
+  /** Default value is the same as idScheme */
   private IdScheme programIdScheme;
 
+  /** Default value is the same as idScheme */
   private IdScheme programStageIdScheme;
 
+  /** Default value is the same as idScheme */
   private IdScheme categoryOptionComboIdScheme;
 
+  /** Default value is the same as idScheme */
   private IdScheme categoryOptionIdScheme;
 
+  /** Default value is ImportStrategy.CREATE */
   private ImportStrategy importStrategy;
 
+  /** Default value is AtomicMode.ALL */
   private AtomicMode atomicMode;
 
+  /** Default value is FlushMode.AUTO */
   private FlushMode flushMode;
 
+  /** Default value is ValidationMode.FULL */
   private ValidationMode validationMode;
 
+  /** Default value is false */
   private Boolean skipPatternValidation;
 
+  /** Default value is false */
   private Boolean skipSideEffects;
 
+  /** Default value is false */
   private Boolean skipRuleEngine;
 
   public static TrackerImportQuery instance() {

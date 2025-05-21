@@ -35,7 +35,7 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 @Tag(TestTags.INTEGRATION)
-public class EnrollmentApiTest {
+class EnrollmentApiTest {
 
   @Test
   void testGetEnrollmentByUid() {

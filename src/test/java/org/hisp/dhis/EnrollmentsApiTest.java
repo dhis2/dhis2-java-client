@@ -38,7 +38,7 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 @Tag(TestTags.INTEGRATION)
-public class EnrollmentsApiTest {
+class EnrollmentsApiTest {
 
   private static final String OU_A = "DiszpKrYNg8";
   private static final String PR_A = "IpHINAT79UW";

@@ -664,7 +664,6 @@ public class BaseDhis2 {
    * @return a {@link URI}.
    */
   protected URIBuilder getTrackerImportQuery(URIBuilder uriBuilder, TrackerImportQuery query) {
-    addParameter(uriBuilder, "async", query.getAsync());
     addParameter(uriBuilder, "reportMode", query.getReportMode());
     addParameter(uriBuilder, "importMode", query.getImportMode());
     addParameter(uriBuilder, "idScheme", query.getIdScheme());

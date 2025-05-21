@@ -2432,7 +2432,9 @@ public class Dhis2 extends BaseDhis2 {
   public TrackedEntityResponse importTrackedObjects(
       TrackedEntityObjects trackedEntityObjects, TrackerImportQuery query) {
     URIBuilder uriBuilder =
-        getTrackerImportQuery(config.getResolvedUriBuilder().appendPath("tracker"), query);
+        getTrackerImportQuery(
+            config.getResolvedUriBuilder().appendPath("tracker").addParameter("async", "false"),
+            query);
 
     return saveObject(uriBuilder, trackedEntityObjects, TrackedEntityResponse.class);
   }
