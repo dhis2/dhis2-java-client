@@ -28,6 +28,7 @@
 package org.hisp.dhis.model.relationship;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Date;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -42,6 +43,16 @@ public class Relationship {
   @JsonProperty private String relationship;
 
   @JsonProperty private String relationshipType;
+
+  @JsonProperty private String relationshipName;
+
+  @JsonProperty private Date createdAt;
+
+  @JsonProperty private Date updatedAt;
+
+  @JsonProperty private Date createdAtClient;
+
+  @JsonProperty private Boolean bidirectional;
 
   @JsonProperty private RelationshipItem from;
 
