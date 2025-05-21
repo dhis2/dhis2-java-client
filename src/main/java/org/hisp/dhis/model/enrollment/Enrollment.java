@@ -33,8 +33,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.hisp.dhis.model.UserInfo;
 import org.hisp.dhis.model.trackedentity.TrackedEntityAttributeValue;
+import org.hisp.dhis.model.user.UserInfo;
 import org.locationtech.jts.geom.Geometry;
 
 @Getter
