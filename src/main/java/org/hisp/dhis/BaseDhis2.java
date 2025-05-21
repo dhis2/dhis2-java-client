@@ -94,6 +94,7 @@ import org.hisp.dhis.query.datavalue.DataValueSetQuery;
 import org.hisp.dhis.query.enrollment.EnrollmentQuery;
 import org.hisp.dhis.query.event.EventQuery;
 import org.hisp.dhis.query.trackedentity.TrackedEntityQuery;
+import org.hisp.dhis.query.tracker.TrackerImportQuery;
 import org.hisp.dhis.query.validations.DataSetValidationQuery;
 import org.hisp.dhis.response.BaseHttpResponse;
 import org.hisp.dhis.response.Dhis2ClientException;
@@ -653,6 +654,35 @@ public class BaseDhis2 {
     addParameter(uriBuilder, "includeDeleted", query.getIncludeDeleted());
 
     return HttpUtils.build(uriBuilder);
+  }
+
+  /**
+   * Returns a {@link URI} based on the given tracker import query.
+   *
+   * @param uriBuilder the URI builder.
+   * @param query the {@link TrackerImportQuery}.
+   * @return a {@link URI}.
+   */
+  protected URIBuilder getTrackerImportQuery(URIBuilder uriBuilder, TrackerImportQuery query) {
+    addParameter(uriBuilder, "async", query.getAsync());
+    addParameter(uriBuilder, "reportMode", query.getReportMode());
+    addParameter(uriBuilder, "importMode", query.getImportMode());
+    addParameter(uriBuilder, "idScheme", query.getIdScheme());
+    addParameter(uriBuilder, "dataElementIdScheme", query.getDataElementIdScheme());
+    addParameter(uriBuilder, "orgUnitIdScheme", query.getOrgUnitIdScheme());
+    addParameter(uriBuilder, "programIdScheme", query.getProgramIdScheme());
+    addParameter(uriBuilder, "programStageIdScheme", query.getProgramStageIdScheme());
+    addParameter(uriBuilder, "categoryOptionComboIdScheme", query.getCategoryOptionComboIdScheme());
+    addParameter(uriBuilder, "categoryOptionIdScheme", query.getCategoryOptionIdScheme());
+    addParameter(uriBuilder, "importStrategy", query.getImportStrategy());
+    addParameter(uriBuilder, "atomicMode", query.getAtomicMode());
+    addParameter(uriBuilder, "flushMode", query.getFlushMode());
+    addParameter(uriBuilder, "validationMode", query.getValidationMode());
+    addParameter(uriBuilder, "skipPatternValidation", query.getSkipPatternValidation());
+    addParameter(uriBuilder, "skipSideEffects", query.getSkipSideEffects());
+    addParameter(uriBuilder, "skipRuleEngine", query.getSkipRuleEngine());
+
+    return uriBuilder;
   }
 
   /**

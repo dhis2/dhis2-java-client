@@ -27,10 +27,19 @@
  */
 package org.hisp.dhis.query.tracker;
 
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.Accessors;
 import org.hisp.dhis.model.IdScheme;
 import org.hisp.dhis.model.ImportStrategy;
 
-public class TrackerQuery {
+@Getter
+@Setter
+@Accessors(chain = true)
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public class TrackerImportQuery {
 
   private Boolean async;
 
@@ -65,4 +74,8 @@ public class TrackerQuery {
   private Boolean skipSideEffects;
 
   private Boolean skipRuleEngine;
+
+  public static TrackerImportQuery instance() {
+    return new TrackerImportQuery();
+  }
 }

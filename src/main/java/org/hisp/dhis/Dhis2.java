@@ -102,6 +102,7 @@ import org.hisp.dhis.model.event.EventsResult;
 import org.hisp.dhis.model.trackedentity.TrackedEntitiesResult;
 import org.hisp.dhis.model.trackedentity.TrackedEntity;
 import org.hisp.dhis.model.trackedentity.TrackedEntityType;
+import org.hisp.dhis.model.tracker.TrackedEntityObjects;
 import org.hisp.dhis.model.user.User;
 import org.hisp.dhis.model.validation.Period;
 import org.hisp.dhis.model.validation.Validation;
@@ -114,6 +115,7 @@ import org.hisp.dhis.query.datavalue.DataValueSetQuery;
 import org.hisp.dhis.query.enrollment.EnrollmentQuery;
 import org.hisp.dhis.query.event.EventQuery;
 import org.hisp.dhis.query.trackedentity.TrackedEntityQuery;
+import org.hisp.dhis.query.tracker.TrackerImportQuery;
 import org.hisp.dhis.query.validations.DataSetValidationQuery;
 import org.hisp.dhis.request.orgunit.OrgUnitMergeRequest;
 import org.hisp.dhis.request.orgunit.OrgUnitSplitRequest;
@@ -127,6 +129,7 @@ import org.hisp.dhis.response.job.JobCategory;
 import org.hisp.dhis.response.job.JobNotification;
 import org.hisp.dhis.response.object.ObjectResponse;
 import org.hisp.dhis.response.objects.ObjectsResponse;
+import org.hisp.dhis.response.trackedentity.TrackedEntityResponse;
 import org.hisp.dhis.util.HttpUtils;
 
 /**
@@ -2412,6 +2415,26 @@ public class Dhis2 extends BaseDhis2 {
     CloseableHttpResponse response = getJsonHttpResponse(url);
 
     writeToFile(response, file);
+  }
+
+  // -------------------------------------------------------------------------
+  // Tracker import
+  // -------------------------------------------------------------------------
+  /**
+   * Import {@link TrackedEntityObjects} into DHIS 2.
+   *
+   * <p>Requires DHIS 2 version 2.36 or later.
+   *
+   * @param trackedEntityObjects the {@link TrackedEntityObjects}.
+   * @param query the {@link TrackerImportQuery}.
+   * @return the {@link TrackedEntityResponse}.
+   */
+  public TrackedEntityResponse importTrackedObjects(
+      TrackedEntityObjects trackedEntityObjects, TrackerImportQuery query) {
+    URIBuilder uriBuilder =
+        getTrackerImportQuery(config.getResolvedUriBuilder().appendPath("tracker"), query);
+
+    return saveObject(uriBuilder, trackedEntityObjects, TrackedEntityResponse.class);
   }
 
   // -------------------------------------------------------------------------
