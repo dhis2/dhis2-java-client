@@ -93,6 +93,7 @@ import org.hisp.dhis.query.datavalue.DataValueQuery;
 import org.hisp.dhis.query.datavalue.DataValueSetQuery;
 import org.hisp.dhis.query.enrollment.EnrollmentQuery;
 import org.hisp.dhis.query.event.EventQuery;
+import org.hisp.dhis.query.relationship.RelationshipQuery;
 import org.hisp.dhis.query.trackedentity.TrackedEntityQuery;
 import org.hisp.dhis.query.tracker.TrackerImportQuery;
 import org.hisp.dhis.query.validations.DataSetValidationQuery;
@@ -651,6 +652,24 @@ public class BaseDhis2 {
     addParameter(uriBuilder, "trackedEntity", query.getTrackedEntity());
     addParameterList(uriBuilder, "order", query.getOrder());
     addParameterList(uriBuilder, "enrollments", query.getEnrollments());
+    addParameter(uriBuilder, "includeDeleted", query.getIncludeDeleted());
+
+    return HttpUtils.build(uriBuilder);
+  }
+
+  /**
+   * Returns a {@link URI} based on the given relationship query.
+   *
+   * @param uriBuilder the URI builder.
+   * @param query the {@link RelationshipQuery}.
+   * @return a {@link URI}.
+   */
+  protected URI getRelationshipQuery(URIBuilder uriBuilder, RelationshipQuery query) {
+    addParameter(uriBuilder, "trackedEntity", query.getTrackedEntity());
+    addParameter(uriBuilder, "enrollment", query.getEnrollment());
+    addParameter(uriBuilder, "event", query.getEvent());
+    addParameter(uriBuilder, "fields", query.getFields());
+    addParameterList(uriBuilder, "order", query.getOrder());
     addParameter(uriBuilder, "includeDeleted", query.getIncludeDeleted());
 
     return HttpUtils.build(uriBuilder);

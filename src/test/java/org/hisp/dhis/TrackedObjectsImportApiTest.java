@@ -34,13 +34,19 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.List;
 import org.hisp.dhis.model.ImportStrategy;
+import org.hisp.dhis.model.enrollment.Enrollment;
 import org.hisp.dhis.model.event.Event;
 import org.hisp.dhis.model.event.EventDataValue;
+import org.hisp.dhis.model.relationship.Relationship;
+import org.hisp.dhis.model.relationship.RelationshipItem;
+import org.hisp.dhis.model.relationship.RelationshipsResult;
 import org.hisp.dhis.model.trackedentity.TrackedEntity;
 import org.hisp.dhis.model.tracker.TrackedEntityObjects;
+import org.hisp.dhis.query.relationship.RelationshipQuery;
 import org.hisp.dhis.query.tracker.TrackerImportQuery;
 import org.hisp.dhis.response.Dhis2ClientException;
 import org.hisp.dhis.response.Status;
+import org.hisp.dhis.response.event.ErrorReport;
 import org.hisp.dhis.response.trackedentity.TrackedEntityResponse;
 import org.hisp.dhis.support.TestTags;
 import org.hisp.dhis.util.UidUtils;
@@ -202,5 +208,104 @@ class TrackedObjectsImportApiTest {
         404,
         assertThrows(Dhis2ClientException.class, () -> dhis2.getTrackedEntity(uidB))
             .getStatusCode());
+  }
+
+  @Test
+  void testImportSaveAndRemoveRelationship() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    final String relationshipUidA = UidUtils.generateUid();
+
+    Relationship reA = new Relationship();
+    reA.setRelationship(relationshipUidA);
+    reA.setRelationshipName("Test relationship");
+    reA.setRelationshipType("tBeOL0DL026");
+    reA.setFrom(getRelationshipItem("bLpfA4CjeMl"));
+    reA.setTo(getRelationshipItem("gGDBG5aGlIk"));
+
+    TrackedEntityObjects trackedEntityObjects = new TrackedEntityObjects();
+    trackedEntityObjects.setRelationships(list(reA));
+
+    TrackerImportQuery trackerQuery =
+        TrackerImportQuery.instance().setImportStrategy(ImportStrategy.CREATE);
+
+    TrackedEntityResponse response = dhis2.importTrackedObjects(trackedEntityObjects, trackerQuery);
+    assertNotNull(response);
+    assertEquals(Status.OK, response.getStatus(), response.toString());
+    assertEquals(1, response.getStats().getCreated());
+    assertEquals(0, response.getStats().getUpdated());
+    assertEquals(0, response.getStats().getIgnored());
+    assertEquals(0, response.getStats().getDeleted());
+
+    RelationshipQuery relationshipQuery =
+        RelationshipQuery.instance().setTrackedEntity("bLpfA4CjeMl");
+    RelationshipsResult relationshipResult = dhis2.getRelationships(relationshipQuery);
+    assertNotNull(relationshipResult);
+    assertNotNull(relationshipResult.getRelationships());
+    assertEquals(1, relationshipResult.getRelationships().size());
+    assertEquals(relationshipUidA, relationshipResult.getRelationships().get(0).getRelationship());
+
+    TrackedEntityObjects trackedEntityRelationship = new TrackedEntityObjects();
+    trackedEntityRelationship.setRelationships(list(reA));
+    trackerQuery.setImportStrategy(ImportStrategy.DELETE);
+    response = dhis2.importTrackedObjects(trackedEntityObjects, trackerQuery);
+
+    assertNotNull(response);
+    assertEquals(Status.OK, response.getStatus(), response.toString());
+    assertEquals(0, response.getStats().getCreated());
+    assertEquals(0, response.getStats().getUpdated());
+    assertEquals(0, response.getStats().getIgnored());
+    assertEquals(1, response.getStats().getDeleted());
+
+    relationshipResult = dhis2.getRelationships(relationshipQuery);
+    assertNotNull(relationshipResult);
+    assertTrue(relationshipResult.getRelationships().isEmpty());
+  }
+
+  @Test
+  void testImportEnrollmentWithError() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    String enrollmentUId = UidUtils.generateUid();
+    Enrollment enA = new Enrollment();
+    enA.setEnrollment(enrollmentUId);
+    enA.setOrgUnit("DiszpKrYNg8");
+    enA.setTrackedEntity("bLpfA4CjeMl");
+
+    TrackedEntityObjects trackedEntityObjects = new TrackedEntityObjects();
+    trackedEntityObjects.setEnrollments(list(enA));
+
+    TrackerImportQuery trackerQuery =
+        TrackerImportQuery.instance().setImportStrategy(ImportStrategy.CREATE);
+
+    TrackedEntityResponse response = dhis2.importTrackedObjects(trackedEntityObjects, trackerQuery);
+
+    assertNotNull(response);
+    assertEquals(Status.ERROR, response.getStatus(), response.toString());
+    assertEquals(0, response.getStats().getCreated());
+    assertEquals(0, response.getStats().getUpdated());
+    assertEquals(1, response.getStats().getIgnored());
+    assertEquals(0, response.getStats().getDeleted());
+
+    assertNotNull(response.getValidationReport());
+    assertEquals(1, response.getValidationReport().getErrorReports().size());
+
+    ErrorReport errorReport = response.getValidationReport().getErrorReports().get(0);
+    assertNotNull(errorReport);
+    assertNotNull(errorReport.getUid());
+    assertEquals("E1122", errorReport.getErrorCode());
+    assertEquals(enrollmentUId, errorReport.getUid());
+    assertEquals("Missing required enrollment property: `program`.", errorReport.getMessage());
+    assertEquals("ENROLLMENT", errorReport.getTrackerType());
+  }
+
+  private RelationshipItem getRelationshipItem(String trackedEntityUid) {
+    TrackedEntity trackedEntity = new TrackedEntity();
+    trackedEntity.setTrackedEntity(trackedEntityUid);
+
+    RelationshipItem relationshipItem = new RelationshipItem();
+    relationshipItem.setTrackedEntity(trackedEntity);
+
+    return relationshipItem;
   }
 }
