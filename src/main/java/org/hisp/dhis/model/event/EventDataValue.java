@@ -71,6 +71,12 @@ public class EventDataValue implements Serializable {
   /** Read-only. */
   @JsonProperty private String updatedBy;
 
+  /**
+   * Constructor.
+   *
+   * @param dataElement the data element identifier.
+   * @param value the value.
+   */
   public EventDataValue(String dataElement, String value) {
     this.dataElement = dataElement;
     this.value = value;
