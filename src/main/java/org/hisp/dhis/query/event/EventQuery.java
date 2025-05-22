@@ -25,35 +25,64 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.hisp.dhis.model.trackedentity;
+package org.hisp.dhis.query.event;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Date;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
-import org.hisp.dhis.model.NameableObject;
-import org.hisp.dhis.model.ValueType;
+import lombok.experimental.Accessors;
+import org.hisp.dhis.model.IdScheme;
+import org.hisp.dhis.model.event.EventStatus;
+import org.hisp.dhis.model.event.ProgramStatus;
 
 @Getter
 @Setter
-@ToString
-@NoArgsConstructor
-public class TrackedEntityAttribute extends NameableObject {
-  @JsonProperty private ValueType valueType;
+@Accessors(chain = true)
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public class EventQuery {
+  private String program;
 
-  @JsonProperty private Boolean confidential = false;
+  private String programStage;
 
-  @JsonProperty private Boolean unique = false;
+  private ProgramStatus programStatus;
 
-  @JsonIgnore
-  public boolean isConfidentialNullSafe() {
-    return confidential != null && confidential;
-  }
+  private Boolean followUp;
 
-  @JsonIgnore
-  public boolean isUniqueNullSafe() {
-    return unique != null && unique;
+  private String trackedEntityInstance;
+
+  private String orgUnit;
+
+  private OrgUnitSelectionMode ouMode;
+
+  private EventStatus status;
+
+  private Date occurredAfter;
+
+  private Date occurredBefore;
+
+  private Date scheduledAfter;
+
+  private Date scheduledBefore;
+
+  private Date updatedAfter;
+
+  private Date updatedBefore;
+
+  private IdScheme dataElementIdScheme;
+
+  private IdScheme categoryOptionComboIdScheme;
+
+  private IdScheme orgUnitIdScheme;
+
+  private IdScheme programIdScheme;
+
+  private IdScheme programStageIdScheme;
+
+  private IdScheme idScheme;
+
+  public static EventQuery instance() {
+    return new EventQuery();
   }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004-2024, University of Oslo
+ * Copyright (c) 2004-2025, University of Oslo
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,35 +25,31 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.hisp.dhis.model.trackedentity;
+package org.hisp.dhis;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
-import org.hisp.dhis.model.NameableObject;
-import org.hisp.dhis.model.ValueType;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-@Getter
-@Setter
-@ToString
-@NoArgsConstructor
-public class TrackedEntityAttribute extends NameableObject {
-  @JsonProperty private ValueType valueType;
+import org.hisp.dhis.model.trackedentity.TrackedEntity;
+import org.hisp.dhis.support.TestTags;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
 
-  @JsonProperty private Boolean confidential = false;
+@Tag(TestTags.INTEGRATION)
+class TrackedEntityApiTest {
+  @Test
+  void testGetTrackedEntity() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
 
-  @JsonProperty private Boolean unique = false;
+    TrackedEntity trackedEntity = dhis2.getTrackedEntity("kfwLSxq7mXk");
 
-  @JsonIgnore
-  public boolean isConfidentialNullSafe() {
-    return confidential != null && confidential;
-  }
-
-  @JsonIgnore
-  public boolean isUniqueNullSafe() {
-    return unique != null && unique;
+    assertNotNull(trackedEntity);
+    assertNotNull(trackedEntity.getAttributes());
+    assertEquals("kfwLSxq7mXk", trackedEntity.getTrackedEntity());
+    assertNotNull(trackedEntity.getCreatedAt());
+    assertNotNull(trackedEntity.getUpdatedAt());
+    assertNotNull(trackedEntity.getOrgUnit());
+    assertFalse(trackedEntity.getAttributes().isEmpty());
   }
 }

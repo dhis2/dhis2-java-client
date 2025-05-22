@@ -42,7 +42,7 @@ import org.hisp.dhis.query.Order;
 import org.hisp.dhis.query.Query;
 import org.hisp.dhis.query.analytics.AnalyticsQuery;
 import org.hisp.dhis.query.datavalue.DataValueSetQuery;
-import org.hisp.dhis.query.event.EventsQuery;
+import org.hisp.dhis.query.event.EventQuery;
 import org.hisp.dhis.support.TestTags;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -201,8 +201,8 @@ class QueryTest {
     URIBuilder uriBuilder =
         config.getResolvedUriBuilder().appendPath("tracker").appendPath("events");
 
-    EventsQuery query =
-        EventsQuery.instance()
+    EventQuery query =
+        EventQuery.instance()
             .setProgram("hJhgt5cDs7j")
             .setProgramStatus(ProgramStatus.ACTIVE)
             .setFollowUp(true)

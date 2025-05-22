@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004-2024, University of Oslo
+ * Copyright (c) 2004-2025, University of Oslo
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -27,33 +27,44 @@
  */
 package org.hisp.dhis.model.trackedentity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.hisp.dhis.model.NameableObject;
-import org.hisp.dhis.model.ValueType;
+import org.locationtech.jts.geom.Geometry;
 
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
-public class TrackedEntityAttribute extends NameableObject {
-  @JsonProperty private ValueType valueType;
+public class TrackedEntity {
+  @JsonProperty private String trackedEntity;
 
-  @JsonProperty private Boolean confidential = false;
+  @JsonProperty private String trackedEntityType;
 
-  @JsonProperty private Boolean unique = false;
+  @JsonProperty private Date createdAt;
 
-  @JsonIgnore
-  public boolean isConfidentialNullSafe() {
-    return confidential != null && confidential;
-  }
+  @JsonProperty private Date createdAtClient;
 
-  @JsonIgnore
-  public boolean isUniqueNullSafe() {
-    return unique != null && unique;
-  }
+  @JsonProperty private Date updatedAt;
+
+  @JsonProperty private Date updatedAtClient;
+
+  @JsonProperty private String orgUnit;
+
+  @JsonProperty private Boolean inactive;
+
+  @JsonProperty private Boolean deleted;
+
+  @JsonProperty private Boolean potentialDuplicate;
+
+  @JsonProperty private Geometry geometry;
+
+  @JsonProperty private String storedBy;
+
+  @JsonProperty private List<TrackedEntityAttributeValue> attributes = new ArrayList<>();
 }

@@ -38,7 +38,7 @@ import org.hisp.dhis.model.event.Event;
 import org.hisp.dhis.model.event.EventDataValue;
 import org.hisp.dhis.model.event.Events;
 import org.hisp.dhis.model.event.EventsResult;
-import org.hisp.dhis.query.event.EventsQuery;
+import org.hisp.dhis.query.event.EventQuery;
 import org.hisp.dhis.response.Dhis2ClientException;
 import org.hisp.dhis.response.Status;
 import org.hisp.dhis.response.event.ErrorReport;
@@ -253,8 +253,8 @@ class EventsApiTest {
   void testGetEvents() {
     Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
 
-    EventsQuery query =
-        EventsQuery.instance().setProgram("eBAyeGv0exc").setProgramStage("Zj7UnCAulEk");
+    EventQuery query =
+        EventQuery.instance().setProgram("eBAyeGv0exc").setProgramStage("Zj7UnCAulEk");
 
     EventsResult events = dhis2.getEvents(query);
 

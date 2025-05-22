@@ -33,6 +33,7 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 import org.hisp.dhis.model.IdScheme;
+import org.hisp.dhis.model.ImportStrategy;
 
 @Getter
 @Setter
@@ -52,6 +53,8 @@ public class DataValueSetImportOptions implements Serializable {
   private Boolean preheatCache;
 
   private Boolean skipAudit;
+
+  private ImportStrategy importStrategy;
 
   private DataValueSetImportOptions() {}
 
