@@ -41,14 +41,22 @@ import lombok.experimental.Accessors;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class RelationshipQuery {
 
+  /** Identifier of a tracked entity. */
   private String trackedEntity;
 
+  /** Identifier of an enrollment. */
   private String enrollment;
 
+  /** Identifier of an event. */
   private String event;
 
+  /** Any valid field filter. Include specified sub-objects in the response. */
   private String fields;
 
+  /**
+   * Property name or attribute or UID and sort direction pairs in format propName:sortDirection.
+   * Supported fields: createdAt, createdAtClient.
+   */
   private List<String> order = new ArrayList<>();
 
   private Boolean includeDeleted;

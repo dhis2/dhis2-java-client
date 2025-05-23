@@ -676,7 +676,7 @@ public class BaseDhis2 {
   }
 
   /**
-   * Returns a {@link URI} based on the given tracker import query.
+   * Returns a {@link URIBuilder} based on the given tracker import query.
    *
    * @param uriBuilder the URI builder.
    * @param query the {@link TrackerImportQuery}.

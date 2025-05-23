@@ -299,6 +299,58 @@ class TrackedObjectsImportApiTest {
     assertEquals("ENROLLMENT", errorReport.getTrackerType());
   }
 
+  @Test
+  void testImportSaveAndRemoveTrackedEntitiesAndRelationships() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    final String uidA = UidUtils.generateUid();
+    final String uidB = UidUtils.generateUid();
+
+    TrackedEntity teA = new TrackedEntity();
+    teA.setTrackedEntity(uidA);
+    teA.setOrgUnit("DiszpKrYNg8");
+    teA.setTrackedEntityType("nEenWmSyUEp");
+
+    TrackedEntity teB = new TrackedEntity();
+    teB.setTrackedEntity(uidB);
+    teB.setOrgUnit("DiszpKrYNg8");
+    teB.setTrackedEntityType("nEenWmSyUEp");
+
+    final String relationshipUidA = UidUtils.generateUid();
+
+    Relationship reA = new Relationship();
+    reA.setRelationship(relationshipUidA);
+    reA.setRelationshipName("Test relationship");
+    reA.setRelationshipType("tBeOL0DL026");
+    reA.setFrom(getRelationshipItem(teA.getTrackedEntity()));
+    reA.setTo(getRelationshipItem(teB.getTrackedEntity()));
+
+    TrackedEntityObjects trackedEntityObjects = new TrackedEntityObjects();
+    trackedEntityObjects.setTrackedEntities(list(teA, teB));
+    trackedEntityObjects.setRelationships(list(reA));
+
+    TrackerImportQuery trackerQuery =
+        TrackerImportQuery.instance().setImportStrategy(ImportStrategy.CREATE_AND_UPDATE);
+
+    TrackedEntityResponse response = dhis2.importTrackedObjects(trackedEntityObjects, trackerQuery);
+    assertNotNull(response);
+    assertEquals(Status.OK, response.getStatus(), response.toString());
+    assertEquals(3, response.getStats().getCreated());
+    assertEquals(0, response.getStats().getUpdated());
+    assertEquals(0, response.getStats().getIgnored());
+    assertEquals(0, response.getStats().getDeleted());
+
+    trackerQuery.setImportStrategy(ImportStrategy.DELETE);
+    response = dhis2.importTrackedObjects(trackedEntityObjects, trackerQuery);
+
+    assertNotNull(response);
+    assertEquals(Status.OK, response.getStatus(), response.toString());
+    assertEquals(0, response.getStats().getCreated());
+    assertEquals(0, response.getStats().getUpdated());
+    assertEquals(0, response.getStats().getIgnored());
+    assertEquals(3, response.getStats().getDeleted());
+  }
+
   private RelationshipItem getRelationshipItem(String trackedEntityUid) {
     TrackedEntity trackedEntity = new TrackedEntity();
     trackedEntity.setTrackedEntity(trackedEntityUid);

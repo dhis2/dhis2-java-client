@@ -44,49 +44,74 @@ public class TrackerImportQuery {
   /** Default value is ReportMode.ERRORS */
   private ReportMode reportMode;
 
-  /** Default value is ImportMode.COMMIT */
+  /**
+   * Can either be VALIDATE which will report errors in the payload without making changes to the
+   * database or COMMIT (default) which will validate the payload and make changes to the database.
+   */
   private ImportMode importMode;
 
-  /** Default value is IdScheme.UID */
+  /**
+   * IdScheme used for all metadata references unless overridden by a metadata specific parameter.
+   * Default value is IdScheme.UID.
+   */
   private IdScheme idScheme;
 
-  /** Default value is the same as idScheme */
+  /** IdScheme used for data element references. Default value is the same as idScheme. */
   private IdScheme dataElementIdScheme;
 
-  /** Default value is the same as idScheme */
+  /** IdScheme used for organisation unit references. Default value is the same as idScheme. */
   private IdScheme orgUnitIdScheme;
 
-  /** Default value is the same as idScheme */
+  /** IdScheme used for program references. Default value is the same as idScheme. */
   private IdScheme programIdScheme;
 
-  /** Default value is the same as idScheme */
+  /** IdScheme used for program stage references. Default value is the same as idScheme. */
   private IdScheme programStageIdScheme;
 
-  /** Default value is the same as idScheme */
+  /** IdScheme used for category option combo references. Default value is the same as idScheme. */
   private IdScheme categoryOptionComboIdScheme;
 
-  /** Default value is the same as idScheme */
+  /** IdScheme used for category option references. Default value is the same as idScheme. */
   private IdScheme categoryOptionIdScheme;
 
-  /** Default value is ImportStrategy.CREATE */
+  /**
+   * Indicates the effect the import should have. Can either be CREATE, UPDATE, CREATE_AND_UPDATE
+   * and DELETE, which respectively only allows importing new data, importing changes to existing
+   * data, importing any new or updates to existing data, and finally deleting data. Default value
+   * is ImportStrategy.CREATE.
+   */
   private ImportStrategy importStrategy;
 
-  /** Default value is AtomicMode.ALL */
+  /**
+   * Indicates how the import responds to validation errors. If ALL, all data imported must be valid
+   * for any data to be committed. For OBJECT, only the data committed needs to be valid, while
+   * other data can be invalid. Default value is AtomicMode.ALL.
+   */
   private AtomicMode atomicMode;
 
-  /** Default value is FlushMode.AUTO */
+  /**
+   * Indicates the frequency of flushing. This is related to how often data is pushed into the
+   * database during the import. Primarily used for debugging reasons, and should not be changed in
+   * a production setting. Default value is FlushMode.AUTO.
+   */
   private FlushMode flushMode;
 
-  /** Default value is ValidationMode.FULL */
+  /**
+   * Indicates the completeness of the validation step. It can be skipped, set to fail fast (Return
+   * on the first error), or full (default), which will return any errors found. Default value is
+   * ValidationMode.FULL.
+   */
   private ValidationMode validationMode;
 
-  /** Default value is false */
+  /**
+   * If true, it will skip validating the pattern of generated attributes. Default value is false.
+   */
   private Boolean skipPatternValidation;
 
-  /** Default value is false */
+  /** If true, it will skip running any side effects for the import. Default value is false. */
   private Boolean skipSideEffects;
 
-  /** Default value is false */
+  /** If true, it will skip running any program rules for the import. Default value is false. */
   private Boolean skipRuleEngine;
 
   public static TrackerImportQuery instance() {
