@@ -25,23 +25,22 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.hisp.dhis.response.trackedentity;
+package org.hisp.dhis.model.relationship;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
-import org.hisp.dhis.response.Response;
-import org.hisp.dhis.response.Stats;
-import org.hisp.dhis.response.event.ValidationReport;
 
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
-public class TrackedEntityResponse extends Response {
-  @JsonProperty private ValidationReport validationReport;
+public class RelationshipsResult {
+  @JsonProperty private List<Relationship> relationships = new ArrayList<>();
 
-  @JsonProperty private Stats stats;
+  public RelationshipsResult(List<Relationship> relationships) {
+    this.relationships = relationships;
+  }
 }

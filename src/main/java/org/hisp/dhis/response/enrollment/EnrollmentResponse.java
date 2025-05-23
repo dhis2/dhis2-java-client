@@ -25,23 +25,16 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.hisp.dhis.response.trackedentity;
+package org.hisp.dhis.response.enrollment;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.hisp.dhis.response.Response;
-import org.hisp.dhis.response.Stats;
-import org.hisp.dhis.response.event.ValidationReport;
 
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
-public class TrackedEntityResponse extends Response {
-  @JsonProperty private ValidationReport validationReport;
-
-  @JsonProperty private Stats stats;
-}
+public class EnrollmentResponse extends Response {}

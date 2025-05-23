@@ -25,23 +25,35 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.hisp.dhis.response.trackedentity;
+package org.hisp.dhis.model.relationship;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Date;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.hisp.dhis.response.Response;
-import org.hisp.dhis.response.Stats;
-import org.hisp.dhis.response.event.ValidationReport;
 
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
-public class TrackedEntityResponse extends Response {
-  @JsonProperty private ValidationReport validationReport;
+public class Relationship {
+  @JsonProperty private String relationship;
 
-  @JsonProperty private Stats stats;
+  @JsonProperty private String relationshipType;
+
+  @JsonProperty private String relationshipName;
+
+  @JsonProperty private Date createdAt;
+
+  @JsonProperty private Date updatedAt;
+
+  @JsonProperty private Date createdAtClient;
+
+  @JsonProperty private Boolean bidirectional;
+
+  @JsonProperty private RelationshipItem from;
+
+  @JsonProperty private RelationshipItem to;
 }
