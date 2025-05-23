@@ -25,23 +25,43 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.hisp.dhis.response.trackedentity;
+package org.hisp.dhis.query.relationship;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.ArrayList;
+import java.util.List;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
-import org.hisp.dhis.response.Response;
-import org.hisp.dhis.response.Stats;
-import org.hisp.dhis.response.event.ValidationReport;
+import lombok.experimental.Accessors;
 
 @Getter
 @Setter
-@ToString
-@NoArgsConstructor
-public class TrackedEntityResponse extends Response {
-  @JsonProperty private ValidationReport validationReport;
+@Accessors(chain = true)
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public class RelationshipQuery {
 
-  @JsonProperty private Stats stats;
+  /** Identifier of a tracked entity. */
+  private String trackedEntity;
+
+  /** Identifier of an enrollment. */
+  private String enrollment;
+
+  /** Identifier of an event. */
+  private String event;
+
+  /** Any valid field filter. Include specified sub-objects in the response. */
+  private String fields;
+
+  /**
+   * Property name or attribute or UID and sort direction pairs in format propName:sortDirection.
+   * Supported fields: createdAt, createdAtClient.
+   */
+  private List<String> order = new ArrayList<>();
+
+  private Boolean includeDeleted;
+
+  public static RelationshipQuery instance() {
+    return new RelationshipQuery();
+  }
 }

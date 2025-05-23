@@ -25,23 +25,60 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.hisp.dhis.response.trackedentity;
+package org.hisp.dhis.model.enrollment;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.hisp.dhis.response.Response;
-import org.hisp.dhis.response.Stats;
-import org.hisp.dhis.response.event.ValidationReport;
+import org.hisp.dhis.model.trackedentity.TrackedEntityAttributeValue;
+import org.hisp.dhis.model.user.UserInfo;
+import org.locationtech.jts.geom.Geometry;
 
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
-public class TrackedEntityResponse extends Response {
-  @JsonProperty private ValidationReport validationReport;
+public class Enrollment {
+  @JsonProperty private String enrollment;
 
-  @JsonProperty private Stats stats;
+  @JsonProperty private String program;
+
+  @JsonProperty private String trackedEntity;
+
+  @JsonProperty private EnrollmentStatus status = EnrollmentStatus.ACTIVE;
+
+  @JsonProperty private String orgUnit;
+
+  @JsonProperty private Date createdAt;
+
+  @JsonProperty private Date createdAtClient;
+
+  @JsonProperty private Date updatedAt;
+
+  @JsonProperty private Date updatedAtClient;
+
+  @JsonProperty private Date enrolledAt;
+
+  @JsonProperty private Date occurredAt;
+
+  @JsonProperty private Date completedAt;
+
+  @JsonProperty private Boolean followUp = false;
+
+  @JsonProperty private Boolean deleted = false;
+
+  @JsonProperty private Geometry geometry;
+
+  @JsonProperty private String completedBy;
+
+  @JsonProperty private String storedBy;
+
+  @JsonProperty private UserInfo createdBy;
+
+  @JsonProperty private UserInfo updatedBy;
+
+  @JsonProperty private List<TrackedEntityAttributeValue> attributes;
 }

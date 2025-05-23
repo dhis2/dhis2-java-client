@@ -94,12 +94,16 @@ import org.hisp.dhis.model.datastore.EntryMetadata;
 import org.hisp.dhis.model.datavalueset.DataValue;
 import org.hisp.dhis.model.datavalueset.DataValueSet;
 import org.hisp.dhis.model.datavalueset.DataValueSetImportOptions;
+import org.hisp.dhis.model.enrollment.Enrollment;
+import org.hisp.dhis.model.enrollment.EnrollmentsResult;
 import org.hisp.dhis.model.event.Event;
 import org.hisp.dhis.model.event.Events;
 import org.hisp.dhis.model.event.EventsResult;
+import org.hisp.dhis.model.relationship.RelationshipsResult;
 import org.hisp.dhis.model.trackedentity.TrackedEntitiesResult;
 import org.hisp.dhis.model.trackedentity.TrackedEntity;
 import org.hisp.dhis.model.trackedentity.TrackedEntityType;
+import org.hisp.dhis.model.tracker.TrackedEntityObjects;
 import org.hisp.dhis.model.user.User;
 import org.hisp.dhis.model.validation.Period;
 import org.hisp.dhis.model.validation.Validation;
@@ -109,8 +113,11 @@ import org.hisp.dhis.query.analytics.AnalyticsQuery;
 import org.hisp.dhis.query.completedatasetregistration.CompleteDataSetRegistrationQuery;
 import org.hisp.dhis.query.datavalue.DataValueQuery;
 import org.hisp.dhis.query.datavalue.DataValueSetQuery;
+import org.hisp.dhis.query.enrollment.EnrollmentQuery;
 import org.hisp.dhis.query.event.EventQuery;
+import org.hisp.dhis.query.relationship.RelationshipQuery;
 import org.hisp.dhis.query.trackedentity.TrackedEntityQuery;
+import org.hisp.dhis.query.tracker.TrackerImportQuery;
 import org.hisp.dhis.query.validations.DataSetValidationQuery;
 import org.hisp.dhis.request.orgunit.OrgUnitMergeRequest;
 import org.hisp.dhis.request.orgunit.OrgUnitSplitRequest;
@@ -2413,6 +2420,28 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   // -------------------------------------------------------------------------
+  // Tracker import
+  // -------------------------------------------------------------------------
+  /**
+   * Import {@link TrackedEntityObjects} into DHIS 2.
+   *
+   * <p>Requires DHIS 2 version 2.36 or later.
+   *
+   * @param trackedEntityObjects the {@link TrackedEntityObjects}.
+   * @param query the {@link TrackerImportQuery}.
+   * @return the {@link TrackedEntityResponse}.
+   */
+  public TrackedEntityResponse importTrackedObjects(
+      TrackedEntityObjects trackedEntityObjects, TrackerImportQuery query) {
+    URIBuilder uriBuilder =
+        getTrackerImportQuery(
+            config.getResolvedUriBuilder().appendPath("tracker").addParameter("async", "false"),
+            query);
+
+    return saveObject(uriBuilder, trackedEntityObjects, TrackedEntityResponse.class);
+  }
+
+  // -------------------------------------------------------------------------
   // Event
   // -------------------------------------------------------------------------
 
@@ -2550,16 +2579,72 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   /**
-   * Retrieves a {@link TrackedEntityResponse}.
+   * Retrieves a {@link TrackedEntitiesResult}.
    *
    * <p>Requires DHIS 2 version 2.36 or later.
    *
-   * @param query the {@link EventQuery}.
+   * @param query the {@link TrackedEntityQuery}.
    * @return the {@link TrackedEntitiesResult}.
    */
   public TrackedEntitiesResult getTrackedEntities(TrackedEntityQuery query) {
     return getTrackedEntitiesResult(
         config.getResolvedUriBuilder().appendPath("tracker").appendPath("trackedEntities"), query);
+  }
+
+  // -------------------------------------------------------------------------
+  // Enrollment
+  // -------------------------------------------------------------------------
+  /**
+   * Retrieves an {@link Enrollment}.
+   *
+   * <p>Requires DHIS 2 version 2.36 or later.
+   *
+   * @param id the enrollment identifier.
+   * @return the {@link Enrollment}.
+   */
+  public Enrollment getEnrollment(String id) {
+    return getObject(
+        config
+            .getResolvedUriBuilder()
+            .appendPath("tracker")
+            .appendPath("enrollments")
+            .appendPath(id),
+        Query.instance(),
+        Enrollment.class);
+  }
+
+  /**
+   * Retrieves a {@link EnrollmentsResult}.
+   *
+   * <p>Requires DHIS 2 version 2.36 or later.
+   *
+   * @param query the {@link EnrollmentQuery}.
+   * @return the {@link EnrollmentsResult}.
+   */
+  public EnrollmentsResult getEnrollments(EnrollmentQuery query) {
+    return getEnrollmentResult(
+        config.getResolvedUriBuilder().appendPath("tracker").appendPath("enrollments"), query);
+  }
+
+  // -------------------------------------------------------------------------
+  // Relationship
+  // -------------------------------------------------------------------------
+
+  /**
+   * Retrieves a {@link RelationshipsResult}.
+   *
+   * <p>Requires DHIS 2 version 2.36 or later.
+   *
+   * @param query the {@link RelationshipQuery}.
+   * @return the {@link RelationshipsResult}.
+   */
+  public RelationshipsResult getRelationships(RelationshipQuery query) {
+    URIBuilder uriBuilder =
+        config.getResolvedUriBuilder().appendPath("tracker").appendPath("relationships");
+
+    URI url = getRelationshipQuery(uriBuilder, query);
+
+    return getObjectFromUrl(url, RelationshipsResult.class);
   }
 
   // -------------------------------------------------------------------------

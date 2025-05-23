@@ -25,23 +25,38 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.hisp.dhis.response.trackedentity;
+package org.hisp.dhis;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
-import org.hisp.dhis.response.Response;
-import org.hisp.dhis.response.Stats;
-import org.hisp.dhis.response.event.ValidationReport;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@Getter
-@Setter
-@ToString
-@NoArgsConstructor
-public class TrackedEntityResponse extends Response {
-  @JsonProperty private ValidationReport validationReport;
+import java.util.List;
+import org.hisp.dhis.model.relationship.Relationship;
+import org.hisp.dhis.model.relationship.RelationshipsResult;
+import org.hisp.dhis.query.relationship.RelationshipQuery;
+import org.hisp.dhis.support.TestTags;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
 
-  @JsonProperty private Stats stats;
+@Tag(TestTags.INTEGRATION)
+class RelationshipsApiTest {
+
+  @Test
+  void testGetRelationships() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    RelationshipQuery query = RelationshipQuery.instance().setTrackedEntity("Ea0rRdBPAIp");
+    RelationshipsResult result = dhis2.getRelationships(query);
+
+    assertNotNull(result);
+
+    List<Relationship> relationships = result.getRelationships();
+
+    assertNotNull(relationships);
+    assertFalse(relationships.isEmpty());
+
+    Relationship relationship = relationships.get(0);
+    assertNotNull(relationship);
+    assertEquals("Ea0rRdBPAIp", relationship.getTo().getTrackedEntity().getTrackedEntity());
+  }
 }
