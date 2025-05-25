@@ -78,16 +78,25 @@ class JacksonXmlUtilsTest {
           <HDR>
             <HDR.control_id V='1101'/>
             <HDR.version_id V='POCT1'/>
-            <HDR.creation_dttm V='2020-07-30T12:21:52+0000'/>
           </HDR>
         </EVS.R01>""";
+    String stringE =
+        """
+        <OBS.R01>
+          <HDR>
+            <HDR.control_id V='1138' />
+            <HDR.version_id V='POCT1' />
+          </HDR>
+        </OBS.R01>""";
 
     assertEquals("product", JacksonXmlUtils.getRootElementName(stringA));
     assertEquals("DataElements", JacksonXmlUtils.getRootElementName(stringB));
     assertEquals("Metadata", JacksonXmlUtils.getRootElementName(stringC));
     assertEquals("EVS.R01", JacksonXmlUtils.getRootElementName(stringD));
+    assertEquals("OBS.R01", JacksonXmlUtils.getRootElementName(stringE));
   }
 
+  @Test
   void testGetRootElementNameWithXmlDeclaration() {
     String stringA =
         """
