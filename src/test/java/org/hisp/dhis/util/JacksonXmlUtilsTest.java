@@ -72,9 +72,31 @@ class JacksonXmlUtilsTest {
             </DataElement>
           </DataElements>
         </Metadata>""";
+    String stringD =
+        """
+        <EVS.R01>
+          <HDR>
+            <HDR.control_id V='1101'/>
+            <HDR.version_id V='POCT1'/>
+            <HDR.creation_dttm V='2020-07-30T12:21:52+0000'/>
+          </HDR>
+        </EVS.R01>""";
 
     assertEquals("product", JacksonXmlUtils.getRootElementName(stringA));
     assertEquals("DataElements", JacksonXmlUtils.getRootElementName(stringB));
     assertEquals("Metadata", JacksonXmlUtils.getRootElementName(stringC));
+    assertEquals("EVS.R01", JacksonXmlUtils.getRootElementName(stringD));
+  }
+
+  void testGetRootElementNameWithXmlDeclaration() {
+    String stringA =
+        """
+            "<?xml version='1.0' encoding='utf-8'?><EVS.R01><HDR><HDR.control_id V='1003' />""";
+  }
+
+  void testGetRootElementNameWithDtd() {
+    String stringA =
+        """
+            "<?xml version='1.0' encoding='utf-8'?><!DOCTYPE EVS.R01 SYSTEM 'EVS.R01.dtd'><EVS.R01><HDR><HDR.control_id V='1003' />""";
   }
 }
