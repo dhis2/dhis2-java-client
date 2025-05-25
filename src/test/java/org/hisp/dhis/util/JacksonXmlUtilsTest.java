@@ -28,6 +28,7 @@
 package org.hisp.dhis.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.hisp.dhis.model.Product;
 import org.junit.jupiter.api.Test;
 
@@ -46,13 +47,13 @@ class JacksonXmlUtilsTest {
 
     assertEquals(expected, actual);
   }
-  
+
   @Test
   void testGetRootElementName() {
     String stringA =
         """
         <product><id>YDb6ff4R3a8</id><name>ThinkPad T14s</name></product>""";
-    
-   assertEquals("product", JacksonXmlUtils.getRootElementName(stringA));
+
+    assertEquals("product", JacksonXmlUtils.getRootElementName(stringA));
   }
 }
