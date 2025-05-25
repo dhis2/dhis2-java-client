@@ -30,12 +30,21 @@ package org.hisp.dhis.util;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.dataformat.xml.XmlFactory;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.StringReader;
 import java.io.UncheckedIOException;
 import java.text.SimpleDateFormat;
+import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLStreamConstants;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
+import lombok.extern.slf4j.Slf4j;
+import org.hisp.dhis.response.Dhis2ClientException;
 
+@Slf4j
 public class JacksonXmlUtils {
   /** Default date format. */
   private static final String DATE_FORMAT = "yyyy-MM-dd";
@@ -47,10 +56,34 @@ public class JacksonXmlUtils {
     XML_MAPPER = getXmlMapperInternal();
   }
 
+  /**
+   * Returns the static {@link XmlMapper}.
+   *
+   * @return the static{@link XmlMapper}.
+   */
   public static XmlMapper getXmlMapper() {
     return XML_MAPPER;
   }
 
+  /**
+   * Returns the XML factory used by the static {@link XmlMapper}.
+   *
+   * @return the XML factory used by the static {@link XmlMapper}.
+   */
+  public static XmlFactory getXmlFactory() {
+    XmlFactory xmlFactory = XML_MAPPER.getFactory();
+    xmlFactory.getXMLInputFactory().setProperty(XMLInputFactory.SUPPORT_DTD, false);
+    xmlFactory
+        .getXMLInputFactory()
+        .setProperty(XMLInputFactory.IS_SUPPORTING_EXTERNAL_ENTITIES, false);
+    return xmlFactory;
+  }
+
+  /**
+   * Creates and configures a new {@link XmlMapper} instance with default settings.
+   *
+   * @return a new {@link XmlMapper} instance.
+   */
   private static XmlMapper getXmlMapperInternal() {
     XmlMapper xmlMapper = new XmlMapper();
     xmlMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
@@ -104,6 +137,49 @@ public class JacksonXmlUtils {
       return XML_MAPPER.readValue(input, type);
     } catch (IOException ex) {
       throw new UncheckedIOException(ex);
+    }
+  }
+
+  /**
+   * Extracts the root element name from an XML string using a StAX parser.
+   *
+   * @param string the XML string.
+   * @return the name of the root element, or null if not found.
+   */
+  public static String getRootElementName(String string) {
+    XMLStreamReader reader = null;
+    try {
+      reader = getXmlFactory().getXMLInputFactory().createXMLStreamReader(new StringReader(string));
+
+      // Iterate through the stream until the first START_ELEMENT is found
+      while (reader.hasNext()) {
+        int event = reader.next();
+        if (event == XMLStreamConstants.START_ELEMENT) {
+          // The first START_ELEMENT is the root element
+          return reader.getLocalName();
+        }
+      }
+      return null;
+    } catch (XMLStreamException ex) {
+      log.error("Failed to find XML root element", ex);
+      throw new Dhis2ClientException("Failed to find XML root element", ex);
+    } finally {
+      closeReader(reader);
+    }
+  }
+
+  /**
+   * Closes the given {@link XMLStreamReader} safely.
+   *
+   * @param reader the {@link XMLStreamReader} to close.
+   */
+  private static void closeReader(XMLStreamReader reader) {
+    if (reader != null) {
+      try {
+        reader.close();
+      } catch (XMLStreamException ex) {
+        log.error("Failed to close XMLStreamReader", ex);
+      }
     }
   }
 }
