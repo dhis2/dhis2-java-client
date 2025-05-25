@@ -53,7 +53,11 @@ class JacksonXmlUtilsTest {
     String stringA =
         """
         <product><id>YDb6ff4R3a8</id><name>ThinkPad T14s</name></product>""";
+    String stringB =
+        """
+        <DataElements><DataElement><Id>HftXwWArGVX</Id></DataElement></DataElements>""";
 
     assertEquals("product", JacksonXmlUtils.getRootElementName(stringA));
+    assertEquals("DataElements", JacksonXmlUtils.getRootElementName(stringB));
   }
 }
