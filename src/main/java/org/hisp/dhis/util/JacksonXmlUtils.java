@@ -29,7 +29,9 @@ package org.hisp.dhis.util;
 
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import java.io.IOException;
 import java.io.InputStream;
@@ -102,6 +104,30 @@ public class JacksonXmlUtils {
   public static <T> T fromXml(InputStream input, Class<T> type) {
     try {
       return XML_MAPPER.readValue(input, type);
+    } catch (IOException ex) {
+      throw new UncheckedIOException(ex);
+    }
+  }
+
+  /**
+   * Extracts the root element name from the given XML string.
+   *
+   * @param string the XML string to inspect.
+   * @return the name of the root element, or null if not found.
+   */
+  public String getRootElementName(String string) {
+    try {
+      // Read XML message into a generic JsonNode
+      JsonNode rootNode = XML_MAPPER.readTree(string);
+      if (rootNode != null && rootNode.isObject()) {
+        // Cast to ObjectNode
+        ObjectNode objectNode = (ObjectNode) rootNode;
+        // Root element name is the first and only field name of root object
+        if (objectNode.fieldNames().hasNext()) {
+          return objectNode.fieldNames().next();
+        }
+      }
+      return null;
     } catch (IOException ex) {
       throw new UncheckedIOException(ex);
     }
