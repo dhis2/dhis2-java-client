@@ -27,14 +27,14 @@
  */
 package org.hisp.dhis.util;
 
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UncheckedIOException;
 import java.text.SimpleDateFormat;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
 public class JacksonXmlUtils {
   /** Default date format. */
@@ -55,6 +55,7 @@ public class JacksonXmlUtils {
     XmlMapper xmlMapper = new XmlMapper();
     xmlMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
     xmlMapper.disable(DeserializationFeature.FAIL_ON_IGNORED_PROPERTIES);
+    xmlMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
     xmlMapper.setSerializationInclusion(Include.NON_NULL);
     xmlMapper.setDateFormat(new SimpleDateFormat(DATE_FORMAT));
     return xmlMapper;
