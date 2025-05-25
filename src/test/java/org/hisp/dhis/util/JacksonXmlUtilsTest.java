@@ -49,15 +49,32 @@ class JacksonXmlUtilsTest {
   }
 
   @Test
-  void testGetRootElementName() {
+  void testGetRootElementNameSimple() {
     String stringA =
         """
-        <product><id>YDb6ff4R3a8</id><name>ThinkPad T14s</name></product>""";
+        <product>
+          <id>YDb6ff4R3a8</id>
+          <name>ThinkPad T14s</name>
+        </product>""";
     String stringB =
         """
-        <DataElements><DataElement><Id>HftXwWArGVX</Id></DataElement></DataElements>""";
+        <DataElements>
+          <DataElement>
+            <Id>HftXwWArGVX</Id>
+          </DataElement>
+        </DataElements>""";
+    String stringC =
+        """
+        <Metadata>
+          <DataElements>
+            <DataElement>
+              <Id>HftXwWArGVX</Id>
+            </DataElement>
+          </DataElements>
+        </Metadata>""";
 
     assertEquals("product", JacksonXmlUtils.getRootElementName(stringA));
     assertEquals("DataElements", JacksonXmlUtils.getRootElementName(stringB));
+    assertEquals("Metadata", JacksonXmlUtils.getRootElementName(stringC));
   }
 }
