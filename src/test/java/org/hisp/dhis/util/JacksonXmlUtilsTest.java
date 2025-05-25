@@ -28,22 +28,31 @@
 package org.hisp.dhis.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import org.hisp.dhis.model.Option;
+import org.hisp.dhis.model.Product;
 import org.junit.jupiter.api.Test;
 
 class JacksonXmlUtilsTest {
   @Test
   void testToXmlString() {
-    String expected = """
-        <Option><id>YDb6ff4R3a8</id><code>NEG</code><name>Negative</name><attributeValues/></Option>""";
+    String expected =
+        """
+        <product><id>YDb6ff4R3a8</id><name>ThinkPadT14s</name></product>""";
 
-    Option option = new Option();
-    option.setId("YDb6ff4R3a8");
-    option.setCode("NEG");
-    option.setName("Negative");
+    Product object = new Product();
+    object.setId("YDb6ff4R3a8");
+    object.setName("ThinkPadT14s");
 
-    String actual = JacksonXmlUtils.toXmlString(option);
+    String actual = JacksonXmlUtils.toXmlString(object);
 
     assertEquals(expected, actual);
+  }
+  
+  @Test
+  void testGetRootElementName() {
+    String stringA =
+        """
+        <product><id>YDb6ff4R3a8</id><name>ThinkPad T14s</name></product>""";
+    
+   assertEquals("product", JacksonXmlUtils.getRootElementName(stringA));
   }
 }
