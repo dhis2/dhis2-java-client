@@ -98,14 +98,31 @@ class JacksonXmlUtilsTest {
 
   @Test
   void testGetRootElementNameWithXmlDeclaration() {
-    String stringA =
+    String string =
         """
-            "<?xml version='1.0' encoding='utf-8'?><EVS.R01><HDR><HDR.control_id V='1003' />""";
+        <?xml version='1.0' encoding='utf-8'?>
+        <OBS.R01>
+          <HDR>
+            <HDR.control_id V='1138' />
+          </HDR>
+        </OBS.R01>""";
+
+    assertEquals("OBS.R01", JacksonXmlUtils.getRootElementName(string));
   }
 
-  void testGetRootElementNameWithDtd() {
-    String stringA =
+  @Test
+  void testGetRootElementNameWithXmlAndDocumentTypeDeclaration() {
+    String string =
         """
-            "<?xml version='1.0' encoding='utf-8'?><!DOCTYPE EVS.R01 SYSTEM 'EVS.R01.dtd'><EVS.R01><HDR><HDR.control_id V='1003' />""";
+        <?xml version='1.0' encoding='utf-8'?>
+        <!DOCTYPE EVS.R01 SYSTEM 'EVS.R01.dtd'>
+        <EVS.R01>
+          <HDR>
+            <HDR.control_id V='1101'/>
+            <HDR.version_id V='POCT1'/>
+          </HDR>
+        </EVS.R01>""";
+
+    assertEquals("EVS.R01", JacksonXmlUtils.getRootElementName(string));
   }
 }
