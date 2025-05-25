@@ -27,4 +27,23 @@
  */
 package org.hisp.dhis.util;
 
-class JacksonXmlUtilsTest {}
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.hisp.dhis.model.Option;
+import org.junit.jupiter.api.Test;
+
+class JacksonXmlUtilsTest {
+  @Test
+  void testToXmlString() {
+    String expected = """
+        <Option><id>YDb6ff4R3a8</id><code>NEG</code><name>Negative</name><attributeValues/></Option>""";
+
+    Option option = new Option();
+    option.setId("YDb6ff4R3a8");
+    option.setCode("NEG");
+    option.setName("Negative");
+
+    String actual = JacksonXmlUtils.toXmlString(option);
+
+    assertEquals(expected, actual);
+  }
+}
