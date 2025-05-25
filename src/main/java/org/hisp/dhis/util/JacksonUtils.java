@@ -70,6 +70,7 @@ public class JacksonUtils {
     ObjectMapper objectMapper = new ObjectMapper();
     objectMapper.registerModule(new JtsModule());
     objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+    objectMapper.disable(DeserializationFeature.FAIL_ON_IGNORED_PROPERTIES);
     objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
     objectMapper.setSerializationInclusion(Include.NON_NULL);
     objectMapper.setDateFormat(new SimpleDateFormat(DATE_FORMAT));

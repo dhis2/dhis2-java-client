@@ -55,6 +55,7 @@ public class JacksonXmlUtils {
     XmlMapper xmlMapper = new XmlMapper();
     xmlMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
     xmlMapper.disable(DeserializationFeature.FAIL_ON_IGNORED_PROPERTIES);
+    xmlMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
     xmlMapper.setSerializationInclusion(Include.NON_NULL);
     xmlMapper.setDateFormat(new SimpleDateFormat(DATE_FORMAT));
     return xmlMapper;
