@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004-2024, University of Oslo
+ * Copyright (c) 2004-2025, University of Oslo
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -27,34 +27,24 @@
  */
 package org.hisp.dhis.response;
 
-import lombok.Getter;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-/**
- * Exception caused by client side errors.
- *
- * @author Lars Helge Overland
- */
-@Getter
-public class Dhis2ClientException extends RuntimeException {
-  private final int statusCode;
+import org.junit.jupiter.api.Test;
 
-  private final HttpStatus httpStatus;
-
-  public Dhis2ClientException(String message, int statusCode) {
-    super(message);
-    this.statusCode = statusCode;
-    this.httpStatus = HttpStatus.valueOf(statusCode);
+class Dhis2ClientExceptionTest {
+  @Test
+  void testConstructor401() {
+    Dhis2ClientException ex = new Dhis2ClientException("Unauthorized", 401);
+    assertEquals("Unauthorized", ex.getMessage());
+    assertEquals(401, ex.getStatusCode());
+    assertEquals(HttpStatus.UNAUTHORIZED, ex.getHttpStatus());
   }
 
-  public Dhis2ClientException(String message, Throwable cause) {
-    super(message, cause);
-    this.statusCode = -1;
-    this.httpStatus = HttpStatus.NO_STATUS;
-  }
-
-  public Dhis2ClientException(String message, Throwable cause, int statusCode) {
-    super(message, cause);
-    this.statusCode = statusCode;
-    this.httpStatus = HttpStatus.valueOf(statusCode);
+  @Test
+  void testConstructor403() {
+    Dhis2ClientException ex = new Dhis2ClientException("Forbidden", 403);
+    assertEquals("Forbidden", ex.getMessage());
+    assertEquals(403, ex.getStatusCode());
+    assertEquals(HttpStatus.FORBIDDEN, ex.getHttpStatus());
   }
 }
