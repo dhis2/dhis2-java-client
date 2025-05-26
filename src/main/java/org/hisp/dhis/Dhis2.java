@@ -135,8 +135,8 @@ import org.hisp.dhis.response.trackedentity.TrackedEntityResponse;
 import org.hisp.dhis.util.HttpUtils;
 
 /**
- * DHIS 2 API client for HTTP requests and responses. Request and response bodies are in JSON
- * format. Client is tread-safe and suitable for reuse.
+ * DHIS2 API client for HTTP requests and responses. Request and response bodies are in JSON format.
+ * Client is tread-safe and suitable for reuse.
  *
  * <p>Methods generally throw {@link Dhis2ClientException} for status code {@code 401}, {@code 403}
  * and {@code 404} in HTTP responses.
@@ -144,8 +144,8 @@ import org.hisp.dhis.util.HttpUtils;
  * @author Lars Helge Overland
  */
 public class Dhis2 extends BaseDhis2 {
-  /** Authority which provides superuser authorization in DHIS 2. */
-  public static final String SUPER_AUTH = "ALL";
+  /** Authority which provides super admin authorization in DHIS2. */
+  private static final String SUPER_ADMIN_AUTH = "ALL";
 
   public Dhis2(Dhis2Config config) {
     super(config);
@@ -154,10 +154,10 @@ public class Dhis2 extends BaseDhis2 {
   /**
    * Creates a {@link Dhis2} instance configured for basic authentication.
    *
-   * @param url the URL to the DHIS 2 instance, do not include the {@code /api} part or a trailing
+   * @param url the URL to the DHIS2 instance, do not include the {@code /api} part or a trailing
    *     {@code /}.
-   * @param username the DHIS 2 account username.
-   * @param password the DHIS 2 account password.
+   * @param username the DHIS2 account username.
+   * @param password the DHIS2 account password.
    * @return a {@link Dhis2} instance.
    */
   public static Dhis2 withBasicAuth(String url, String username, String password) {
@@ -167,7 +167,7 @@ public class Dhis2 extends BaseDhis2 {
   /**
    * Creates a {@link Dhis2} instance configured for access token (PAT) authentication.
    *
-   * @param url the URL to the DHIS 2 instance, do not include the {@code /api} part or a trailing
+   * @param url the URL to the DHIS2 instance, do not include the {@code /api} part or a trailing
    *     {@code /}.
    * @param accessToken the access token (PAT).
    * @return a {@link Dhis2} instance.
@@ -179,7 +179,7 @@ public class Dhis2 extends BaseDhis2 {
   /**
    * Creates a {@link Dhis2} instance configured for cookie authentication.
    *
-   * @param url the URL to the DHIS 2 instance, do not include the {@code /api} part or a trailing
+   * @param url the URL to the DHIS2 instance, do not include the {@code /api} part or a trailing
    *     {@code /}.
    * @param sessionId the session identifier.
    * @return a {@link Dhis2} instance.
@@ -193,13 +193,13 @@ public class Dhis2 extends BaseDhis2 {
   // -------------------------------------------------------------------------
 
   /**
-   * Checks the status of the DHIS 2 instance. Returns various status codes describing the status:
+   * Checks the status of the DHIS2 instance. Returns various status codes describing the status:
    *
    * <ul>
    *   <li>{@link HttpStatus#OK} if instance is available and authentication isf successful.
    *   <li>{@link HttpStatus#UNAUTHORIZED} if the username and password combination is not valid.
-   *   <li>{@link HttpStatus#NOT_FOUND} if the URL is not pointing to a DHIS 2 instance or the DHIS
-   *       2 instance is not available.
+   *   <li>{@link HttpStatus#NOT_FOUND} if the URL is not pointing to a DHIS2 instance or the DHIS 2
+   *       instance is not available.
    * </ul>
    *
    * @return the HTTP status code of the response.
@@ -226,9 +226,9 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   /**
-   * Returns the URL of the DHIS 2 configuration.
+   * Returns the URL of the DHIS2 configuration.
    *
-   * @return the URL of the DHIS 2 configuration.
+   * @return the URL of the DHIS2 configuration.
    */
   public String getDhis2Url() {
     return config.getUrl();
@@ -283,7 +283,8 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if unauthorized or access denied.
    */
   public boolean hasAuth(String auth) {
-    return getUserAuthorization().contains(auth);
+    List<String> auths = getUserAuthorization();
+    return auths.contains(SUPER_ADMIN_AUTH) || auths.contains(auth);
   }
 
   /**
@@ -799,7 +800,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return list of {@link OrgUnitLevel}.
    */
   public List<OrgUnitLevel> getFilledOrgUnitLevels() {
-    // Using array, DHIS 2 should have used a wrapper entity
+    // Using array, DHIS2 should have used a wrapper entity
 
     return asList(
         getObject(
@@ -2437,9 +2438,9 @@ public class Dhis2 extends BaseDhis2 {
   // -------------------------------------------------------------------------
 
   /**
-   * Import {@link TrackedEntityObjects} into DHIS 2.
+   * Import {@link TrackedEntityObjects} into DHIS2.
    *
-   * <p>Requires DHIS 2 version 2.36 or later.
+   * <p>Requires DHIS2 version 2.36 or later.
    *
    * @param trackedEntityObjects the {@link TrackedEntityObjects}.
    * @param query the {@link TrackerImportQuery}.
@@ -2462,7 +2463,7 @@ public class Dhis2 extends BaseDhis2 {
   /**
    * Saves an {@link Events}. The operation is synchronous.
    *
-   * <p>Requires DHIS 2 version 2.36 or later.
+   * <p>Requires DHIS2 version 2.36 or later.
    *
    * @param events the {@link Events}.
    * @return {@link EventResponse} holding information about the operation.
@@ -2481,7 +2482,7 @@ public class Dhis2 extends BaseDhis2 {
   /**
    * Saves an {@link Events}. The operation is synchronous.
    *
-   * <p>Requires DHIS 2 version 2.40 or later.
+   * <p>Requires DHIS2 version 2.40 or later.
    *
    * @param inputStream the input stream representing the data value set JSON payload.
    * @return {@link EventResponse} holding information about the operation.
@@ -2502,7 +2503,7 @@ public class Dhis2 extends BaseDhis2 {
   /**
    * Retrieves an {@link Event}.
    *
-   * <p>Requires DHIS 2 version 2.36 or later.
+   * <p>Requires DHIS2 version 2.36 or later.
    *
    * @param id the event identifier.
    * @return the {@link Event}.
@@ -2517,7 +2518,7 @@ public class Dhis2 extends BaseDhis2 {
   /**
    * Retrieves an {@link EventsResult}.
    *
-   * <p>Requires DHIS 2 version 2.36 or later.
+   * <p>Requires DHIS2 version 2.36 or later.
    *
    * @param query the {@link EventQuery}.
    * @return the {@link EventsResult}.
@@ -2530,7 +2531,7 @@ public class Dhis2 extends BaseDhis2 {
   /**
    * Removes an {@link Events}. The operation is synchronous.
    *
-   * <p>Requires DHIS 2 version 2.36 or later.
+   * <p>Requires DHIS2 version 2.36 or later.
    *
    * @param events the {@link Events}.
    * @return the {@link EventResponse} holding information about the operation.
@@ -2549,7 +2550,7 @@ public class Dhis2 extends BaseDhis2 {
   /**
    * Removes an {@link Event}.
    *
-   * <p>Requires DHIS 2 version 2.36 or later.
+   * <p>Requires DHIS2 version 2.36 or later.
    *
    * @param event the {@link Event}.
    * @return the {@link EventResponse} holding information about the operation.
@@ -2576,7 +2577,7 @@ public class Dhis2 extends BaseDhis2 {
   /**
    * Retrieves an {@link TrackedEntity}.
    *
-   * <p>Requires DHIS 2 version 2.36 or later.
+   * <p>Requires DHIS2 version 2.36 or later.
    *
    * @param id the event identifier.
    * @return the {@link TrackedEntity}.
@@ -2595,7 +2596,7 @@ public class Dhis2 extends BaseDhis2 {
   /**
    * Retrieves a {@link TrackedEntitiesResult}.
    *
-   * <p>Requires DHIS 2 version 2.36 or later.
+   * <p>Requires DHIS2 version 2.36 or later.
    *
    * @param query the {@link TrackedEntityQuery}.
    * @return the {@link TrackedEntitiesResult}.
@@ -2611,7 +2612,7 @@ public class Dhis2 extends BaseDhis2 {
   /**
    * Retrieves an {@link Enrollment}.
    *
-   * <p>Requires DHIS 2 version 2.36 or later.
+   * <p>Requires DHIS2 version 2.36 or later.
    *
    * @param id the enrollment identifier.
    * @return the {@link Enrollment}.
@@ -2630,7 +2631,7 @@ public class Dhis2 extends BaseDhis2 {
   /**
    * Retrieves a {@link EnrollmentsResult}.
    *
-   * <p>Requires DHIS 2 version 2.36 or later.
+   * <p>Requires DHIS2 version 2.36 or later.
    *
    * @param query the {@link EnrollmentQuery}.
    * @return the {@link EnrollmentsResult}.
@@ -2647,7 +2648,7 @@ public class Dhis2 extends BaseDhis2 {
   /**
    * Retrieves a {@link RelationshipsResult}.
    *
-   * <p>Requires DHIS 2 version 2.36 or later.
+   * <p>Requires DHIS2 version 2.36 or later.
    *
    * @param query the {@link RelationshipQuery}.
    * @return the {@link RelationshipsResult}.
