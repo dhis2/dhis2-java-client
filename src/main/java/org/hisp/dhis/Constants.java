@@ -27,6 +27,10 @@
  */
 package org.hisp.dhis;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Constants {
   /** DHIS2 authentication cookie name. */
   public static final String COOKIE_NAME = "JSESSIONID";
