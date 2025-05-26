@@ -145,7 +145,7 @@ import org.hisp.dhis.util.HttpUtils;
  */
 public class Dhis2 extends BaseDhis2 {
   /** Authority which provides superuser authorization in DHIS 2. */
-  private static final String SUPER_AUTH = "ALL";
+  private static final String SUPER_ADMIN_AUTH = "ALL";
 
   public Dhis2(Dhis2Config config) {
     super(config);
@@ -284,7 +284,7 @@ public class Dhis2 extends BaseDhis2 {
    */
   public boolean hasAuth(String auth) {
     List<String> auths = getUserAuthorization();
-    return auths.contains(SUPER_AUTH) || auths.contains(auth);
+    return auths.contains(SUPER_ADMIN_AUTH) || auths.contains(auth);
   }
 
   /**
