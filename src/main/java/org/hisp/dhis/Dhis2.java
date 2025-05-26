@@ -27,6 +27,7 @@
  */
 package org.hisp.dhis;
 
+import static org.hisp.dhis.Constants.SUPER_ADMIN_AUTH;
 import static org.hisp.dhis.util.CollectionUtils.asList;
 import static org.hisp.dhis.util.CollectionUtils.list;
 
@@ -144,8 +145,6 @@ import org.hisp.dhis.util.HttpUtils;
  * @author Lars Helge Overland
  */
 public class Dhis2 extends BaseDhis2 {
-  /** Authority which provides super admin authorization in DHIS2. */
-  private static final String SUPER_ADMIN_AUTH = "ALL";
 
   public Dhis2(Dhis2Config config) {
     super(config);
