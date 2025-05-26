@@ -27,6 +27,7 @@
  */
 package org.hisp.dhis.model.trackedentity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.Date;
@@ -67,4 +68,29 @@ public class TrackedEntity {
   @JsonProperty private String storedBy;
 
   @JsonProperty private List<TrackedEntityAttributeValue> attributes = new ArrayList<>();
+
+  /**
+   * Adds an attribute value to the tracked entity.
+   *
+   * @param attributeValue the {@link TrackedEntityAttributeValue} to add.
+   * @return true if the attribute was added, false if it already exists.
+   */
+  public boolean addAttributeValue(TrackedEntityAttributeValue attributeValue) {
+    return attributes.add(attributeValue);
+  }
+
+  /**
+   * Returns the value of the specified attribute.
+   *
+   * @param attribute the attribute identifier.
+   * @return the value of the attribute, or null if not found.
+   */
+  @JsonIgnore
+  public String getAttributeValue(String attribute) {
+    return attributes.stream()
+        .filter(at -> attribute.equals(at.getAttribute()))
+        .map(TrackedEntityAttributeValue::getValue)
+        .findFirst()
+        .orElse(null);
+  }
 }
