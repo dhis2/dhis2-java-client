@@ -35,8 +35,6 @@ import static org.apache.hc.core5.http.HttpStatus.SC_UNAUTHORIZED;
 import static org.hisp.dhis.util.CollectionUtils.asList;
 import static org.hisp.dhis.util.CollectionUtils.toCommaSeparated;
 import static org.hisp.dhis.util.HttpUtils.getUriAsString;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -49,7 +47,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.hc.client5.http.HttpResponseException;
@@ -107,6 +104,8 @@ import org.hisp.dhis.response.object.ObjectResponse;
 import org.hisp.dhis.response.objects.ObjectsResponse;
 import org.hisp.dhis.util.HttpUtils;
 import org.hisp.dhis.util.JacksonUtils;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author Lars Helge Overland
@@ -309,11 +308,12 @@ public class BaseDhis2 {
   /**
    * Retrieves an object using HTTP GET.
    *
+   * @param <T> the type.
    * @param uriBuilder the URI builder.
    * @param query the {@link Query} filters to apply.
    * @param type the class type of the object.
-   * @param <T> type.
    * @return the object.
+   * @throws Dhis2ClientException if unauthorized, access denied or resource not found.
    */
   protected <T> T getObject(URIBuilder uriBuilder, Query query, Class<T> type) {
     URI url = getObjectQuery(uriBuilder, query);
@@ -387,10 +387,10 @@ public class BaseDhis2 {
   /**
    * Retrieves a dataValueSet object using HTTP GET.
    *
+   * @param <T> the type.
    * @param uriBuilder the URI builder.
    * @param query the {@link DataValueSetQuery} filters to apply.
    * @param type the class type of the object.
-   * @param <T> type.
    * @return the object.
    */
   protected <T> T getDataValueSetResponse(
@@ -427,10 +427,10 @@ public class BaseDhis2 {
   /**
    * Retrieves an analytics object using HTTP GET.
    *
+   * @param <T> the type.
    * @param uriBuilder the URI builder.
    * @param query the {@link AnalyticsQuery} filters to apply.
    * @param type the class type of the object.
-   * @param <T> type.
    * @return the object.
    */
   protected <T> T getAnalyticsResponse(URIBuilder uriBuilder, AnalyticsQuery query, Class<T> type) {
@@ -910,12 +910,12 @@ public class BaseDhis2 {
   /**
    * Retrieves an object.
    *
+   * @param <T> the type.
    * @param path the URL path.
    * @param id the object identifier.
    * @param type the class type of the object.
-   * @param <T> type.
    * @return the object.
-   * @throws Dhis2ClientException if access was denied or resource was not found.
+   * @throws Dhis2ClientException if unauthorized, access denied or resource not found.
    */
   protected <T> T getObject(String path, String id, Class<T> type) {
     try {
@@ -930,12 +930,12 @@ public class BaseDhis2 {
   /**
    * Executes the given {@link HttpUriRequestBase} request, which may be a POST or PUT request.
    *
+   * @param <T> the type.
    * @param request the request.
    * @param object the object to pass as JSON in the request body.
    * @param type the class type for the response entity.
-   * @param <T> class.
    * @return a {@link Response}.
-   * @throws Dhis2ClientException if access denied or resource not found.
+   * @throws Dhis2ClientException if unauthorized, access denied or resource not found.
    */
   protected <T extends BaseHttpResponse> T executeJsonPostPutRequest(
       HttpUriRequestBase request, Object object, Class<T> type) {
@@ -956,10 +956,11 @@ public class BaseDhis2 {
   /**
    * Executes the given request, parses the response body and returns a response message.
    *
+   * @param <T> the type.
    * @param request the request.
    * @param type the class type for the response entity.
    * @return a response message.
-   * @throws Dhis2ClientException if access denied or resource not found.
+   * @throws Dhis2ClientException if unauthorized, access denied or resource not found.
    */
   private <T extends BaseHttpResponse> T executeRequest(HttpUriRequestBase request, Class<T> type) {
     withAuth(request);
@@ -990,7 +991,7 @@ public class BaseDhis2 {
    *
    * @param request the request.
    * @return a response message.
-   * @throws Dhis2ClientException if access denied or resource not found.
+   * @throws Dhis2ClientException if unauthorized, access denied or resource not found.
    */
   protected Response executeRequest(HttpUriRequestBase request) {
     withAuth(request);
@@ -1030,11 +1031,11 @@ public class BaseDhis2 {
   /**
    * Retrieves an object using HTTP GET.
    *
-   * @param <T> type.
+   * @param <T> the type.
    * @param url the fully qualified URL.
    * @param type the class type of the object.
    * @return the object.
-   * @throws Dhis2ClientException if access denied or resource not found.
+   * @throws Dhis2ClientException if unauthorized, access denied or resource not found.
    */
   @SuppressWarnings("unchecked")
   protected <T> T getObjectFromUrl(URI url, Class<T> type) {
@@ -1080,11 +1081,17 @@ public class BaseDhis2 {
   }
 
   /**
-   * Handles error status codes, currently <code>401/403</code> and <code>404</code>.
+   * Handles error status codes.
+   * 
+   * <ul>
+   *   <li>401 Unauthorized
+   *   <li>403 Forbidden
+   *   <li>404 Not found
+   * </ul>
    *
    * @param response {@link HttpResponse}.
    * @param url the request URL.
-   * @throws Dhis2ClientException
+   * @throws Dhis2ClientException in the case of error status codes.
    */
   private void handleErrors(HttpResponse response, String url) {
     final int code = response.getCode();
@@ -1099,11 +1106,15 @@ public class BaseDhis2 {
   }
 
   /**
-   * Handles <code>409</code> errors status code for HTTP GET
+   * Handles errors status code for HTTP GET requests.
+   * 
+   * <ul>
+   *   <li>409 Conflict
+   * </ul>
    *
-   * @param response {@link HttpResponse}.
+   * @param response the {@link CloseableHttpResponse}.
    * @param url the request URL.
-   * @throws Dhis2ClientException
+   * @throws Dhis2ClientException in the case of error status codes.
    */
   private void handleErrorsForGet(CloseableHttpResponse response, String url)
       throws IOException, ParseException {
@@ -1139,20 +1150,33 @@ public class BaseDhis2 {
    * @return an error message.
    */
   private String getErrorMessage(int code) {
-    if (401 == code) return "Authentication failed";
-    if (403 == code) return "Access was denied";
-    if (404 == code) return "Object not found";
-    if (409 == code) return "Conflict";
-    if (code >= 400 && code < 500) return "Client error";
-    if (code >= 500 && code < 600) return "Server error";
-    else return "Error";
+    if (401 == code) {
+      return "Authentication failed";
+    }
+    if (403 == code) {
+      return "Access was denied";
+    }
+    if (404 == code) {
+      return "Object not found";
+    }
+    if (409 == code) {
+      return "Conflict";
+    }
+    if (code >= 400 && code < 500) {
+      return "Client error";
+    }
+    if (code >= 500 && code < 600) {
+      return "Server error";
+    } else {
+      return "Error";
+    }
   }
 
   /**
    * Validates a request object.
    *
    * @param object the request object to validate.
-   * @throws Dhis2ClientException
+   * @throws Dhis2ClientException if object is invalid.
    */
   private void validateRequestObject(Object object) {
     if (object == null) {
@@ -1232,7 +1256,7 @@ public class BaseDhis2 {
    * @param path the URL path relative to the API end point.
    * @param object the object to save.
    * @return {@link ObjectResponse} holding information about the operation.
-   * @throws Dhis2ClientException if the save operation failed due to client side error.
+   * @throws Dhis2ClientException if unauthorized, access denied or resource not found.
    */
   protected ObjectResponse saveMetadataObject(String path, IdentifiableObject object) {
     return saveObject(path, object, ObjectResponse.class);
@@ -1246,7 +1270,7 @@ public class BaseDhis2 {
    * @param type the class type for the response entity.
    * @param <T> class.
    * @return object holding information about the operation.
-   * @throws Dhis2ClientException if the save operation failed due to client side error.
+   * @throws Dhis2ClientException if unauthorized, access denied or resource not found.
    */
   protected <T extends BaseHttpResponse> T saveObject(String path, Object object, Class<T> type) {
     URI url = config.getResolvedUrl(path);
@@ -1262,7 +1286,7 @@ public class BaseDhis2 {
    * @param type the class type for the response entity.
    * @param <T> class.
    * @return object holding information about the operation.
-   * @throws Dhis2ClientException if the save operation failed due to client side error.
+   * @throws Dhis2ClientException if unauthorized, access denied or resource not found.
    */
   protected <T extends BaseHttpResponse> T saveObject(
       URIBuilder uriBuilder, Object object, Class<T> type) {
@@ -1304,7 +1328,7 @@ public class BaseDhis2 {
    * @param object the object to save.
    * @param type the class type for the response entity.
    * @param <T> class.
-   * @return object holding information about the operation.
+   * @return response object holding information about the operation.
    */
   protected <T extends BaseHttpResponse> T updateObject(
       String path, Map<String, String> params, Object object, Class<T> type) {
@@ -1349,9 +1373,9 @@ public class BaseDhis2 {
   /**
    * Retrieves an object using HTTP GET.
    *
+   * @param <T> the type.
    * @param path the URL path relative to the API end point.
    * @param type the class type of the object.
-   * @param <T> type.
    * @return the object.
    */
   protected <T> T getObject(String path, Class<T> type) {
