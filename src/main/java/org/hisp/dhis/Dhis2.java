@@ -144,7 +144,7 @@ import org.hisp.dhis.util.HttpUtils;
  * @author Lars Helge Overland
  */
 public class Dhis2 extends BaseDhis2 {
-  /** Authority which provides superuser authorization in DHIS 2. */
+  /** Authority which provides super admin authorization in DHIS 2. */
   private static final String SUPER_ADMIN_AUTH = "ALL";
 
   public Dhis2(Dhis2Config config) {
