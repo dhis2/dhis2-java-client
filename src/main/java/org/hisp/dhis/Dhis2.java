@@ -29,6 +29,7 @@ package org.hisp.dhis;
 
 import static org.hisp.dhis.util.CollectionUtils.asList;
 import static org.hisp.dhis.util.CollectionUtils.list;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -273,10 +274,10 @@ public class Dhis2 extends BaseDhis2 {
   public List<String> getUserAuthorization() {
     return getObject("me/authorization", List.class);
   }
-  
+
   /**
    * Indicates whether the current authenticated user has the given authority.
-   * 
+   *
    * @param auth the authority to check.
    * @return true if the user has the authority, false otherwise.
    * @throws Dhis2ClientException if unauthorized or access denied.

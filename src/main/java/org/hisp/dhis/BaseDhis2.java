@@ -35,6 +35,8 @@ import static org.apache.hc.core5.http.HttpStatus.SC_UNAUTHORIZED;
 import static org.hisp.dhis.util.CollectionUtils.asList;
 import static org.hisp.dhis.util.CollectionUtils.toCommaSeparated;
 import static org.hisp.dhis.util.HttpUtils.getUriAsString;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -47,6 +49,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.hc.client5.http.HttpResponseException;
@@ -104,8 +107,6 @@ import org.hisp.dhis.response.object.ObjectResponse;
 import org.hisp.dhis.response.objects.ObjectsResponse;
 import org.hisp.dhis.util.HttpUtils;
 import org.hisp.dhis.util.JacksonUtils;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author Lars Helge Overland
@@ -1082,11 +1083,7 @@ public class BaseDhis2 {
 
   /**
    * Handles error status codes.
-<<<<<<< HEAD
    *
-=======
-   * 
->>>>>>> master
    * <ul>
    *   <li>401 Unauthorized
    *   <li>403 Forbidden
@@ -1111,19 +1108,11 @@ public class BaseDhis2 {
 
   /**
    * Handles errors status code for HTTP GET requests.
-<<<<<<< HEAD
    *
    * <ul>
    *   <li>409 Conflict
    * </ul>
    *
-=======
-   * 
-   * <ul>
-   *   <li>409 Conflict
-   * </ul>
-   *
->>>>>>> master
    * @param response the {@link CloseableHttpResponse}.
    * @param url the request URL.
    * @throws Dhis2ClientException in the case of error status codes.
