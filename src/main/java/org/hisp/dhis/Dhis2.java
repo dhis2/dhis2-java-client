@@ -287,17 +287,6 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   /**
-   * Indicates whether the current authenticated user has the given authority.
-   *
-   * @param auth the authority to check.
-   * @return true if the user has the authority, false otherwise.
-   * @throws Dhis2ClientException if unauthorized or access denied.
-   */
-  public boolean hasAuth(String auth) {
-    return getUserAuthorization().contains(auth);
-  }
-
-  /**
    * Retrieves information about the current authenticated user.
    *
    * @return the current authenticated user.
