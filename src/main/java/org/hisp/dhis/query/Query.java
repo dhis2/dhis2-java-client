@@ -40,7 +40,7 @@ import lombok.ToString;
  */
 @ToString
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class Query {
+public class Query implements BaseQuery {
   private final List<Filter> filters = new ArrayList<>();
 
   private final List<Order> order = new ArrayList<>();
