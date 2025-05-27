@@ -581,19 +581,19 @@ public class BaseDhis2 {
    */
   protected TrackedEntitiesResult getTrackedEntitiesResult(
       URIBuilder uriBuilder, TrackedEntityQuery query) {
-    URI url = getTrackedEntityQuery(uriBuilder, query);
+    URIBuilder url = getTrackedEntityQuery(uriBuilder, query);
 
-    return getObjectFromUrl(url, TrackedEntitiesResult.class);
+    return getObject(url, query, TrackedEntitiesResult.class);
   }
 
   /**
-   * Returns a {@link URI} based on the given tracked entity query.
+   * Returns a {@link URIBuilder} based on the given tracked entity query.
    *
    * @param uriBuilder the URI builder.
    * @param query the {@link TrackedEntityQuery}.
-   * @return a {@link URI}.
+   * @return a {@link URIBuilder}.
    */
-  protected URI getTrackedEntityQuery(URIBuilder uriBuilder, TrackedEntityQuery query) {
+  protected URIBuilder getTrackedEntityQuery(URIBuilder uriBuilder, TrackedEntityQuery query) {
     addParameterList(uriBuilder, "orgUnits", query.getOrgUnits());
     addParameter(uriBuilder, "orgUnitMode", query.getOrgUnitMode());
     addParameter(uriBuilder, "program", query.getProgram());
@@ -616,7 +616,7 @@ public class BaseDhis2 {
     addParameter(uriBuilder, "idScheme", query.getIdScheme());
     addParameter(uriBuilder, "orgUnitIdScheme", query.getOrgUnitIdScheme());
 
-    return HttpUtils.build(uriBuilder);
+    return uriBuilder;
   }
 
   /**

@@ -38,13 +38,14 @@ import lombok.experimental.Accessors;
 import org.hisp.dhis.model.IdScheme;
 import org.hisp.dhis.model.enrollment.EnrollmentStatus;
 import org.hisp.dhis.model.event.EventStatus;
+import org.hisp.dhis.query.Query;
 import org.hisp.dhis.query.event.OrgUnitSelectionMode;
 
 @Getter
 @Setter
 @Accessors(chain = true)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class TrackedEntityQuery {
+public class TrackedEntityQuery extends Query {
   private List<String> orgUnits = new ArrayList<>();
 
   private OrgUnitSelectionMode orgUnitMode;

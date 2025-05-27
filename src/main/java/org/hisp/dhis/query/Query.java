@@ -39,7 +39,7 @@ import lombok.ToString;
  * @author Lars Helge Overland
  */
 @ToString
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Query {
   private final List<Filter> filters = new ArrayList<>();
 
