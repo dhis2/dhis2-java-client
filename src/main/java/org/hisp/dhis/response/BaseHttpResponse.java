@@ -35,6 +35,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.apache.hc.core5.http.Header;
 
+/** Base response class. */
 @Getter
 @Setter
 public abstract class BaseHttpResponse {

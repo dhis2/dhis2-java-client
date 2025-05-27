@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004-2024, University of Oslo
+ * Copyright (c) 2004-2025, University of Oslo
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,65 +25,26 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.hisp.dhis.response;
+package org.hisp.dhis.response.data;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.apache.hc.core5.http.Header;
+import org.hisp.dhis.response.Response;
+import org.hisp.dhis.response.Status;
 
-/** Response providing information about a DHIS 2 web API response. */
+/** Response providing information about a DHIS 2 web API response, including a data object. */
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
-public class Response extends BaseHttpResponse {
-  @JsonProperty protected Status status;
+public class DataResponse extends Response {
+  @JsonProperty protected Object data;
 
-  @JsonProperty protected Integer code;
-
-  @JsonProperty protected String message;
-
-  @JsonProperty protected String errorCode;
-
-  @JsonProperty protected String devMessage;
-
-  public Response(Status status, Integer httpStatusCode, String message) {
-    this.status = status;
-    this.httpStatusCode = httpStatusCode;
-    this.message = message;
-  }
-
-  public Response(Status status, Integer httpStatusCode, String message, String errorCode) {
-    this(status, httpStatusCode, message);
-    this.errorCode = errorCode;
-  }
-
-  public HttpStatus getHttpStatus() {
-    if (httpStatusCode != null) {
-      return HttpStatus.valueOf(httpStatusCode);
-    }
-
-    return null;
-  }
-
-  /**
-   * Returns the value of the HTTP header with the given name, or null if not found.
-   *
-   * @param name the HTTP header name.
-   * @return the HTTP header value.
-   */
-  public String getHeader(String name) {
-    if (headers != null) {
-      for (Header header : headers) {
-        if (name.equals(header.getName())) {
-          return header.getValue();
-        }
-      }
-    }
-
-    return null;
+  public DataResponse(Status status, Integer httpStatusCode, String message, Object data) {
+    super(status, httpStatusCode, message);
+    this.data = data;
   }
 }
