@@ -38,14 +38,26 @@ import lombok.experimental.Accessors;
 import org.hisp.dhis.model.IdScheme;
 import org.hisp.dhis.model.enrollment.EnrollmentStatus;
 import org.hisp.dhis.model.event.EventStatus;
-import org.hisp.dhis.query.Query;
+import org.hisp.dhis.query.BaseQuery;
+import org.hisp.dhis.query.Filter;
+import org.hisp.dhis.query.Order;
+import org.hisp.dhis.query.Paging;
+import org.hisp.dhis.query.RootJunction;
 import org.hisp.dhis.query.event.OrgUnitSelectionMode;
 
 @Getter
 @Setter
 @Accessors(chain = true)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class TrackedEntityQuery extends Query {
+public class TrackedEntityQuery implements BaseQuery {
+  private List<Filter> filters = new ArrayList<>();
+
+  private final List<Order> order = new ArrayList<>();
+
+  private Paging paging = new Paging();
+
+  private RootJunction rootJunction;
+
   private List<String> orgUnits = new ArrayList<>();
 
   private OrgUnitSelectionMode orgUnitMode;

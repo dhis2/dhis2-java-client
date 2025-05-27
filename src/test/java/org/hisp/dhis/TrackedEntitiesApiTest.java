@@ -79,10 +79,10 @@ class TrackedEntitiesApiTest {
 
     TrackedEntityQuery query =
         TrackedEntityQuery.instance()
+            .setFilters(List.of(new Filter("zDhUuAYrxNC", Operator.EQ, "Enemor HD")))
             .setOrgUnits(List.of(OU_A))
             .setOrgUnitMode(OrgUnitSelectionMode.SELECTED)
             .setProgram(PR_A);
-    query.addFilter(new Filter("zDhUuAYrxNC", Operator.EQ, "Enemor HD"));
 
     TrackedEntitiesResult result = dhis2.getTrackedEntities(query);
 

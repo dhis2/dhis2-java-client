@@ -80,11 +80,11 @@ import org.hisp.dhis.model.enrollment.EnrollmentsResult;
 import org.hisp.dhis.model.event.EventsResult;
 import org.hisp.dhis.model.trackedentity.TrackedEntitiesResult;
 import org.hisp.dhis.model.validation.Validation;
+import org.hisp.dhis.query.BaseQuery;
 import org.hisp.dhis.query.Filter;
 import org.hisp.dhis.query.Operator;
 import org.hisp.dhis.query.Order;
 import org.hisp.dhis.query.Paging;
-import org.hisp.dhis.query.Query;
 import org.hisp.dhis.query.RootJunction;
 import org.hisp.dhis.query.analytics.AnalyticsQuery;
 import org.hisp.dhis.query.analytics.Dimension;
@@ -311,12 +311,12 @@ public class BaseDhis2 {
    *
    * @param <T> the type.
    * @param uriBuilder the URI builder.
-   * @param query the {@link Query} filters to apply.
+   * @param query the {@link BaseQuery} filters to apply.
    * @param type the class type of the object.
    * @return the object.
    * @throws Dhis2ClientException if unauthorized, access denied or resource not found.
    */
-  protected <T> T getObject(URIBuilder uriBuilder, Query query, Class<T> type) {
+  protected <T> T getObject(URIBuilder uriBuilder, BaseQuery query, Class<T> type) {
     URI url = getObjectQuery(uriBuilder, query);
 
     return getObjectFromUrl(url, type);
@@ -342,10 +342,10 @@ public class BaseDhis2 {
    * Returns a {@link URI} based on the given query.
    *
    * @param uriBuilder the URI builder.
-   * @param query the {@link Query} filters to apply.
+   * @param query the {@link BaseQuery} filters to apply.
    * @return a URI.
    */
-  protected URI getObjectQuery(URIBuilder uriBuilder, Query query) {
+  protected URI getObjectQuery(URIBuilder uriBuilder, BaseQuery query) {
     for (Filter filter : query.getFilters()) {
       String filterValue =
           String.format(

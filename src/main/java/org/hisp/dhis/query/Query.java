@@ -39,8 +39,8 @@ import lombok.ToString;
  * @author Lars Helge Overland
  */
 @ToString
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Query {
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public class Query implements BaseQuery {
   private final List<Filter> filters = new ArrayList<>();
 
   private final List<Order> order = new ArrayList<>();
