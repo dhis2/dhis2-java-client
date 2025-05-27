@@ -56,8 +56,19 @@ public class Response extends BaseHttpResponse {
     this.message = message;
   }
 
+  public Response(Status status, HttpStatus httpStatus, String message) {
+    this.status = status;
+    this.httpStatusCode = httpStatus.value();
+    this.message = message;
+  }
+
   public Response(Status status, Integer httpStatusCode, String message, String errorCode) {
     this(status, httpStatusCode, message);
+    this.errorCode = errorCode;
+  }
+
+  public Response(Status status, HttpStatus httpStatus, String message, String errorCode) {
+    this(status, httpStatus, message);
     this.errorCode = errorCode;
   }
 

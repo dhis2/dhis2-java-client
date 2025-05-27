@@ -32,6 +32,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.hisp.dhis.response.HttpStatus;
 import org.hisp.dhis.response.Response;
 import org.hisp.dhis.response.Status;
 
@@ -43,8 +44,8 @@ import org.hisp.dhis.response.Status;
 public class DataResponse extends Response {
   @JsonProperty protected Object data;
 
-  public DataResponse(Status status, Integer httpStatusCode, String message, Object data) {
-    super(status, httpStatusCode, message);
+  public DataResponse(Status status, HttpStatus httpStatus, String message, Object data) {
+    super(status, httpStatus, message);
     this.data = data;
   }
 }
