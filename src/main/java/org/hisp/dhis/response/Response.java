@@ -34,11 +34,7 @@ import lombok.Setter;
 import lombok.ToString;
 import org.apache.hc.core5.http.Header;
 
-/**
- * Message providing information about a DHIS 2 web API response.
- *
- * @author Lars Helge Overland
- */
+/** Response providing information about a DHIS 2 web API response. */
 @Getter
 @Setter
 @ToString
@@ -54,19 +50,63 @@ public class Response extends BaseHttpResponse {
 
   @JsonProperty protected String devMessage;
 
-  @JsonProperty protected Object data;
-
+  /**
+   * Constructor.
+   *
+   * @param status the {@link Status} of the response.
+   * @param httpStatusCode the HTTP status code of the response.
+   * @param message the message of the response.
+   */
   public Response(Status status, Integer httpStatusCode, String message) {
     this.status = status;
     this.httpStatusCode = httpStatusCode;
     this.message = message;
   }
 
+  /**
+   * Constructor.
+   *
+   * @param status the {@link Status} of the response.
+   * @param httpStatus the {@link HttpStatus} of the response.
+   * @param message the message of the response.
+   */
+  public Response(Status status, HttpStatus httpStatus, String message) {
+    this.status = status;
+    this.httpStatusCode = httpStatus.value();
+    this.message = message;
+  }
+
+  /**
+   * Constructor.
+   *
+   * @param status the {@link Status} of the response.
+   * @param httpStatusCode the HTTP status code of the response.
+   * @param message the message of the response.
+   * @param errorCode the error code of the response, if any.
+   */
   public Response(Status status, Integer httpStatusCode, String message, String errorCode) {
     this(status, httpStatusCode, message);
     this.errorCode = errorCode;
   }
 
+  /**
+   * Constructor.
+   *
+   * @param status the {@link Status} of the response.
+   * @param httpStatus the {@link HttpStatus} of the response.
+   * @param message the message of the response.
+   * @param errorCode the error code of the response, if any.
+   */
+  public Response(Status status, HttpStatus httpStatus, String message, String errorCode) {
+    this(status, httpStatus, message);
+    this.errorCode = errorCode;
+  }
+
+  /**
+   * Returns the {@link HttpStatus} of the response.
+   *
+   * @return an {@link HttpStatus}.
+   */
   public HttpStatus getHttpStatus() {
     if (httpStatusCode != null) {
       return HttpStatus.valueOf(httpStatusCode);

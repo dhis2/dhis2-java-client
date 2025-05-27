@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004-2024, University of Oslo
+ * Copyright (c) 2004-2025, University of Oslo
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,21 +25,35 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.hisp.dhis.response;
+package org.hisp.dhis.response.data;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.ArrayList;
-import java.util.List;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.apache.hc.core5.http.Header;
+import lombok.ToString;
+import org.hisp.dhis.response.HttpStatus;
+import org.hisp.dhis.response.Response;
+import org.hisp.dhis.response.Status;
 
-/** Base response class. */
+/** Response providing information about a DHIS 2 web API response, including a data object. */
 @Getter
 @Setter
-public abstract class BaseHttpResponse {
-  @JsonProperty protected Integer httpStatusCode;
+@ToString
+@NoArgsConstructor
+public class DataResponse extends Response {
+  @JsonProperty protected Object data;
 
-  @JsonIgnore protected List<Header> headers = new ArrayList<>();
+  /**
+   * Constructor.
+   *
+   * @param status the {@link Status} of the response.
+   * @param httpStatus the {@link HttpStatus} of the response.
+   * @param message the message of the response.
+   * @param data the data object.
+   */
+  public DataResponse(Status status, HttpStatus httpStatus, String message, Object data) {
+    super(status, httpStatus, message);
+    this.data = data;
+  }
 }
