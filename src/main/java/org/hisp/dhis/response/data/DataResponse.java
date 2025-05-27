@@ -44,6 +44,14 @@ import org.hisp.dhis.response.Status;
 public class DataResponse extends Response {
   @JsonProperty protected Object data;
 
+  /**
+   * Constructor.
+   *
+   * @param status the {@link Status} of the response.
+   * @param httpStatus the {@link HttpStatus} of the response.
+   * @param message the message of the response.
+   * @param data the data object.
+   */
   public DataResponse(Status status, HttpStatus httpStatus, String message, Object data) {
     super(status, httpStatus, message);
     this.data = data;
