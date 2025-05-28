@@ -27,16 +27,16 @@
  */
 package org.hisp.dhis.model.trackedentity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import org.locationtech.jts.geom.Geometry;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.locationtech.jts.geom.Geometry;
 
 @Getter
 @Setter
@@ -78,7 +78,7 @@ public class TrackedEntity {
   public boolean addAttributeValue(TrackedEntityAttributeValue attributeValue) {
     return attributes.add(attributeValue);
   }
-  
+
   /**
    * Adds an attribute value to the tracked entity by specifying the attribute and value.
    *
@@ -89,7 +89,7 @@ public class TrackedEntity {
   public boolean addAttributeValue(String attribute, String value) {
     return attributes.add(new TrackedEntityAttributeValue(attribute, value));
   }
-  
+
   /**
    * Returns the value of the specified attribute.
    *
