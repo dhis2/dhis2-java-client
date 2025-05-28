@@ -105,7 +105,7 @@ public class Dhis2Objects {
 
   @JsonProperty private List<TrackedEntityType> trackedEntityTypes = new ArrayList<>();
 
-  @JsonProperty private List<TrackedEntityAttribute> trackedEntityAttribute = new ArrayList<>();
+  @JsonProperty private List<TrackedEntityAttribute> trackedEntityAttributes = new ArrayList<>();
 
   @JsonProperty private List<PeriodType> periodTypes = new ArrayList<>();
 
