@@ -51,4 +51,15 @@ public class TrackedEntityAttributeValue {
   @JsonProperty private ValueType valueType;
 
   @JsonProperty private String value;
+
+  /**
+   * Constructor.
+   *
+   * @param attribute the attribute identifier.
+   * @param value the attribute value.
+   */
+  public TrackedEntityAttributeValue(String attribute, String value) {
+    this.attribute = attribute;
+    this.value = value;
+  }
 }

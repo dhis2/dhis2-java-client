@@ -80,6 +80,17 @@ public class TrackedEntity {
   }
 
   /**
+   * Adds an attribute value to the tracked entity by specifying the attribute and value.
+   *
+   * @param attribute the attribute identifier.
+   * @param value the value of the attribute.
+   * @return true if the attribute was added, false if it already exists.
+   */
+  public boolean addAttributeValue(String attribute, String value) {
+    return attributes.add(new TrackedEntityAttributeValue(attribute, value));
+  }
+
+  /**
    * Returns the value of the specified attribute.
    *
    * @param attribute the attribute identifier.
