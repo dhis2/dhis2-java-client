@@ -2437,7 +2437,7 @@ public class Dhis2 extends BaseDhis2 {
   // -------------------------------------------------------------------------
 
   /**
-   * Import {@link TrackedEntityObjects} into DHIS2.
+   * Saves {@link TrackedEntityObjects}. The operation is synchronous.
    *
    * <p>Requires DHIS2 version 2.36 or later.
    *
@@ -2445,7 +2445,7 @@ public class Dhis2 extends BaseDhis2 {
    * @param query the {@link TrackerImportQuery}.
    * @return the {@link TrackedEntityResponse}.
    */
-  public TrackedEntityResponse importTrackedObjects(
+  public TrackedEntityResponse saveTrackedEntityObjects(
       TrackedEntityObjects trackedEntityObjects, TrackerImportQuery query) {
     URIBuilder uriBuilder =
         getTrackerImportQuery(
