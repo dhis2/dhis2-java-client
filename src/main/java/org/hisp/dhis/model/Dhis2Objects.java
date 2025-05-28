@@ -36,6 +36,7 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 import org.hisp.dhis.model.completedatasetregistration.CompleteDataSetRegistration;
 import org.hisp.dhis.model.dashboard.Dashboard;
+import org.hisp.dhis.model.trackedentity.TrackedEntityAttribute;
 import org.hisp.dhis.model.trackedentity.TrackedEntityType;
 import org.hisp.dhis.model.user.User;
 import org.hisp.dhis.model.validation.ValidationRule;
@@ -103,6 +104,8 @@ public class Dhis2Objects {
   @JsonProperty private List<ProgramIndicator> programIndicators = new ArrayList<>();
 
   @JsonProperty private List<TrackedEntityType> trackedEntityTypes = new ArrayList<>();
+
+  @JsonProperty private List<TrackedEntityAttribute> trackedEntityAttribute = new ArrayList<>();
 
   @JsonProperty private List<PeriodType> periodTypes = new ArrayList<>();
 
