@@ -27,20 +27,22 @@
  */
 package org.hisp.dhis.model.tracker;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.List;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 import org.hisp.dhis.model.enrollment.Enrollment;
 import org.hisp.dhis.model.event.Event;
 import org.hisp.dhis.model.relationship.Relationship;
 import org.hisp.dhis.model.trackedentity.TrackedEntity;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.experimental.Accessors;
 
 @Getter
 @Setter
+@Accessors(chain = true)
 @ToString
 @NoArgsConstructor
 public class TrackedEntityObjects {
