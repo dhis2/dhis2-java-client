@@ -39,7 +39,7 @@ import org.hisp.dhis.model.ImportStrategy;
 @Setter
 @Accessors(chain = true)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class TrackerImportQuery {
+public class TrackedEntityImportParams {
 
   /** Default value is ReportMode.ERRORS */
   private ReportMode reportMode;
@@ -114,7 +114,12 @@ public class TrackerImportQuery {
   /** If true, it will skip running any program rules for the import. Default value is false. */
   private Boolean skipRuleEngine;
 
-  public static TrackerImportQuery instance() {
-    return new TrackerImportQuery();
+  /**
+   * Creates an instance of {@link TrackedEntityImportParams}.
+   *
+   * @return an instance of {@link TrackedEntityImportParams}.
+   */
+  public static TrackedEntityImportParams instance() {
+    return new TrackedEntityImportParams();
   }
 }

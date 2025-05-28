@@ -45,7 +45,7 @@ import org.hisp.dhis.model.relationship.RelationshipsResult;
 import org.hisp.dhis.model.trackedentity.TrackedEntity;
 import org.hisp.dhis.model.tracker.TrackedEntityObjects;
 import org.hisp.dhis.query.relationship.RelationshipQuery;
-import org.hisp.dhis.query.tracker.TrackerImportQuery;
+import org.hisp.dhis.query.tracker.TrackedEntityImportParams;
 import org.hisp.dhis.response.Dhis2ClientException;
 import org.hisp.dhis.response.Status;
 import org.hisp.dhis.response.event.ErrorReport;
@@ -106,8 +106,8 @@ class TrackedObjectsImportApiTest {
     TrackedEntityObjects trackedEntityObjects = new TrackedEntityObjects();
     trackedEntityObjects.setEvents(list(evA, evB));
 
-    TrackerImportQuery trackerQuery =
-        TrackerImportQuery.instance().setImportStrategy(ImportStrategy.CREATE);
+    TrackedEntityImportParams trackerQuery =
+        TrackedEntityImportParams.instance().setImportStrategy(ImportStrategy.CREATE);
 
     TrackedEntityResponse response =
         dhis2.saveTrackedEntityObjects(trackedEntityObjects, trackerQuery);
@@ -169,8 +169,8 @@ class TrackedObjectsImportApiTest {
     TrackedEntityObjects trackedEntityObjects = new TrackedEntityObjects();
     trackedEntityObjects.setTrackedEntities(list(teA, teB));
 
-    TrackerImportQuery trackerQuery =
-        TrackerImportQuery.instance().setImportStrategy(ImportStrategy.CREATE);
+    TrackedEntityImportParams trackerQuery =
+        TrackedEntityImportParams.instance().setImportStrategy(ImportStrategy.CREATE);
 
     TrackedEntityResponse response =
         dhis2.saveTrackedEntityObjects(trackedEntityObjects, trackerQuery);
@@ -230,8 +230,8 @@ class TrackedObjectsImportApiTest {
     TrackedEntityObjects trackedEntityObjects = new TrackedEntityObjects();
     trackedEntityObjects.setRelationships(list(reA));
 
-    TrackerImportQuery trackerQuery =
-        TrackerImportQuery.instance().setImportStrategy(ImportStrategy.CREATE);
+    TrackedEntityImportParams trackerQuery =
+        TrackedEntityImportParams.instance().setImportStrategy(ImportStrategy.CREATE);
 
     TrackedEntityResponse response =
         dhis2.saveTrackedEntityObjects(trackedEntityObjects, trackerQuery);
@@ -280,8 +280,8 @@ class TrackedObjectsImportApiTest {
     TrackedEntityObjects trackedEntityObjects = new TrackedEntityObjects();
     trackedEntityObjects.setEnrollments(list(enA));
 
-    TrackerImportQuery trackerQuery =
-        TrackerImportQuery.instance().setImportStrategy(ImportStrategy.CREATE);
+    TrackedEntityImportParams trackerQuery =
+        TrackedEntityImportParams.instance().setImportStrategy(ImportStrategy.CREATE);
 
     TrackedEntityResponse response =
         dhis2.saveTrackedEntityObjects(trackedEntityObjects, trackerQuery);
@@ -335,8 +335,8 @@ class TrackedObjectsImportApiTest {
     trackedEntityObjects.setTrackedEntities(list(teA, teB));
     trackedEntityObjects.setRelationships(list(reA));
 
-    TrackerImportQuery trackerQuery =
-        TrackerImportQuery.instance().setImportStrategy(ImportStrategy.CREATE_AND_UPDATE);
+    TrackedEntityImportParams trackerQuery =
+        TrackedEntityImportParams.instance().setImportStrategy(ImportStrategy.CREATE_AND_UPDATE);
 
     TrackedEntityResponse response =
         dhis2.saveTrackedEntityObjects(trackedEntityObjects, trackerQuery);

@@ -118,7 +118,7 @@ import org.hisp.dhis.query.enrollment.EnrollmentQuery;
 import org.hisp.dhis.query.event.EventQuery;
 import org.hisp.dhis.query.relationship.RelationshipQuery;
 import org.hisp.dhis.query.trackedentity.TrackedEntityQuery;
-import org.hisp.dhis.query.tracker.TrackerImportQuery;
+import org.hisp.dhis.query.tracker.TrackedEntityImportParams;
 import org.hisp.dhis.query.validations.DataSetValidationQuery;
 import org.hisp.dhis.request.orgunit.OrgUnitMergeRequest;
 import org.hisp.dhis.request.orgunit.OrgUnitSplitRequest;
@@ -2442,15 +2442,15 @@ public class Dhis2 extends BaseDhis2 {
    * <p>Requires DHIS2 version 2.36 or later.
    *
    * @param trackedEntityObjects the {@link TrackedEntityObjects}.
-   * @param query the {@link TrackerImportQuery}.
+   * @param params the {@link TrackedEntityImportParams}.
    * @return the {@link TrackedEntityResponse}.
    */
   public TrackedEntityResponse saveTrackedEntityObjects(
-      TrackedEntityObjects trackedEntityObjects, TrackerImportQuery query) {
+      TrackedEntityObjects trackedEntityObjects, TrackedEntityImportParams params) {
     URIBuilder uriBuilder =
-        getTrackerImportQuery(
+        getTrackedEntityImportParams(
             config.getResolvedUriBuilder().appendPath("tracker").addParameter("async", "false"),
-            query);
+            params);
 
     return saveObject(uriBuilder, trackedEntityObjects, TrackedEntityResponse.class);
   }

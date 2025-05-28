@@ -95,7 +95,7 @@ import org.hisp.dhis.query.enrollment.EnrollmentQuery;
 import org.hisp.dhis.query.event.EventQuery;
 import org.hisp.dhis.query.relationship.RelationshipQuery;
 import org.hisp.dhis.query.trackedentity.TrackedEntityQuery;
-import org.hisp.dhis.query.tracker.TrackerImportQuery;
+import org.hisp.dhis.query.tracker.TrackedEntityImportParams;
 import org.hisp.dhis.query.validations.DataSetValidationQuery;
 import org.hisp.dhis.response.BaseHttpResponse;
 import org.hisp.dhis.response.Dhis2ClientException;
@@ -677,13 +677,14 @@ public class BaseDhis2 {
   }
 
   /**
-   * Returns a {@link URIBuilder} based on the given tracker import query.
+   * Returns a {@link URIBuilder} based on the given tracked entity import parameters.
    *
    * @param uriBuilder the URI builder.
-   * @param query the {@link TrackerImportQuery}.
+   * @param query the {@link TrackedEntityImportParams}.
    * @return a {@link URI}.
    */
-  protected URIBuilder getTrackerImportQuery(URIBuilder uriBuilder, TrackerImportQuery query) {
+  protected URIBuilder getTrackedEntityImportParams(
+      URIBuilder uriBuilder, TrackedEntityImportParams query) {
     addParameter(uriBuilder, "reportMode", query.getReportMode());
     addParameter(uriBuilder, "importMode", query.getImportMode());
     addParameter(uriBuilder, "idScheme", query.getIdScheme());
