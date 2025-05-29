@@ -33,15 +33,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.hisp.dhis.model.NameableObject;
-import org.hisp.dhis.model.ValueType;
+import org.hisp.dhis.model.DataElement;
 
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
-public class TrackedEntityAttribute extends NameableObject {
-  @JsonProperty private ValueType valueType;
+public class TrackedEntityAttribute extends DataElement {
 
   @JsonProperty private Boolean confidential = false;
 

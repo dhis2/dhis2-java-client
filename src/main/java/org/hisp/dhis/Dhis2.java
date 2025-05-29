@@ -103,6 +103,7 @@ import org.hisp.dhis.model.event.EventsResult;
 import org.hisp.dhis.model.relationship.RelationshipsResult;
 import org.hisp.dhis.model.trackedentity.TrackedEntitiesResult;
 import org.hisp.dhis.model.trackedentity.TrackedEntity;
+import org.hisp.dhis.model.trackedentity.TrackedEntityAttribute;
 import org.hisp.dhis.model.trackedentity.TrackedEntityType;
 import org.hisp.dhis.model.tracker.TrackedEntityObjects;
 import org.hisp.dhis.model.user.User;
@@ -2603,6 +2604,83 @@ public class Dhis2 extends BaseDhis2 {
   public TrackedEntitiesResult getTrackedEntities(TrackedEntityQuery query) {
     return getTrackedEntitiesResult(
         config.getResolvedUriBuilder().appendPath("tracker").appendPath("trackedEntities"), query);
+  }
+
+  // -------------------------------------------------------------------------
+  // Tracked entity attributes
+  // -------------------------------------------------------------------------
+
+  /**
+   * Saves a {@link TrackedEntityAttribute}.
+   *
+   * @param trackedEntityAttribute the tracked entity attribute object to save.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse saveTrackedEntityAttribute(TrackedEntityAttribute trackedEntityAttribute) {
+    return saveMetadataObject("trackedEntityAttributes", trackedEntityAttribute);
+  }
+
+  /**
+   * Saves or updates the list of {@link TrackedEntityAttribute}.
+   *
+   * @param trackedEntityAttributes the list of {@link TrackedEntityAttribute}.
+   * @return {@link ObjectsResponse} holding information about the operation.
+   */
+  public ObjectsResponse saveTrackedEntityAttributes(
+      List<TrackedEntityAttribute> trackedEntityAttributes) {
+    return saveMetadataObjects(
+        new Dhis2Objects().setTrackedEntityAttributes(trackedEntityAttributes));
+  }
+
+  /**
+   * Updates a {@link TrackedEntityAttribute}.
+   *
+   * @param trackedEntityAttribute the tracked entity attribute object to update.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse updateTrackedEntityAttribute(
+      TrackedEntityAttribute trackedEntityAttribute) {
+    return updateMetadataObject(
+        String.format("trackedEntityAttributes/%s", trackedEntityAttribute.getId()),
+        trackedEntityAttribute);
+  }
+
+  /**
+   * Removes a {@link TrackedEntityAttribute}.
+   *
+   * @param id the identifier of the tracked entity attribute to remove.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse removeTrackedEntityAttribute(String id) {
+    return removeMetadataObject(String.format("trackedEntityAttributes/%s", id));
+  }
+
+  /**
+   * Retrieves an {@link TrackedEntityAttribute}.
+   *
+   * @param id the identifier of the tracked entity attribute.
+   * @return the {@link TrackedEntityAttribute}.
+   * @throws Dhis2ClientException if the object does not exist.
+   */
+  public TrackedEntityAttribute getTrackedEntityAttribute(String id) {
+    return getObject("trackedEntityAttributes", id, TrackedEntityAttribute.class);
+  }
+
+  /**
+   * Retrieves a list of {@link TrackedEntityAttribute}.
+   *
+   * @param query the {@link Query}.
+   * @return list of {@link TrackedEntityAttribute}.
+   */
+  public List<TrackedEntityAttribute> getTrackedEntityAttributes(Query query) {
+    return getObject(
+            config
+                .getResolvedUriBuilder()
+                .appendPath("trackedEntityAttributes")
+                .addParameter(FIELDS_PARAM, TRACKED_ENTITY_ATTRIBUTE_FIELDS),
+            query,
+            Dhis2Objects.class)
+        .getTrackedEntityAttributes();
   }
 
   // -------------------------------------------------------------------------
