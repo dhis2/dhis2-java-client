@@ -33,6 +33,8 @@ import org.hisp.dhis.model.trackedentity.TrackedEntityAttributeValue;
 import org.hisp.dhis.model.user.UserInfo;
 import org.locationtech.jts.geom.Geometry;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Date;
+import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -82,12 +84,13 @@ public class Enrollment {
   @JsonProperty private UserInfo updatedBy;
 
   @JsonProperty private List<TrackedEntityAttributeValue> attributes;
-  
+
   public Enrollment(String id) {
     this.enrollment = id;
   }
 
-  public Enrollment(String id, String program, String trackedEntity, EnrollmentStatus status, String orgUnit) {
+  public Enrollment(
+      String id, String program, String trackedEntity, EnrollmentStatus status, String orgUnit) {
     this(id);
     this.program = program;
     this.trackedEntity = trackedEntity;

@@ -72,13 +72,13 @@ public class TrackedEntity {
   public TrackedEntity(String id) {
     this.trackedEntity = id;
   }
-  
+
   public TrackedEntity(String id, String trackedEntityType, String orgUnit) {
     this(id);
     this.trackedEntityType = trackedEntityType;
     this.orgUnit = orgUnit;
   }
-  
+
   /**
    * Adds an attribute value to the tracked entity.
    *

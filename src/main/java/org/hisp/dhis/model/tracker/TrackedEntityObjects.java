@@ -53,22 +53,22 @@ public class TrackedEntityObjects {
   @JsonProperty private List<Event> events = new ArrayList<>();
 
   @JsonProperty private List<Relationship> relationships = new ArrayList<>();
-  
+
   public TrackedEntityObjects addTrackedEntity(TrackedEntity trackedEntity) {
     this.trackedEntities.add(trackedEntity);
     return this;
   }
-  
+
   public TrackedEntityObjects addEnrollment(Enrollment enrollment) {
     this.enrollments.add(enrollment);
     return this;
   }
-  
+
   public TrackedEntityObjects addEvent(Event event) {
     this.events.add(event);
     return this;
   }
-  
+
   public TrackedEntityObjects addRelationship(Relationship relationship) {
     this.relationships.add(relationship);
     return this;
