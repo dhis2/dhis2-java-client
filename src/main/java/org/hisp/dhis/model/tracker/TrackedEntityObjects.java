@@ -27,18 +27,18 @@
  */
 package org.hisp.dhis.model.tracker;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.List;
-import org.hisp.dhis.model.enrollment.Enrollment;
-import org.hisp.dhis.model.event.Event;
-import org.hisp.dhis.model.relationship.Relationship;
-import org.hisp.dhis.model.trackedentity.TrackedEntity;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
+import org.hisp.dhis.model.enrollment.Enrollment;
+import org.hisp.dhis.model.event.Event;
+import org.hisp.dhis.model.relationship.Relationship;
+import org.hisp.dhis.model.trackedentity.TrackedEntity;
 
 @Getter
 @Setter
@@ -53,22 +53,22 @@ public class TrackedEntityObjects {
   @JsonProperty private List<Event> events = new ArrayList<>();
 
   @JsonProperty private List<Relationship> relationships = new ArrayList<>();
-  
+
   public TrackedEntityObjects addTrackedEntity(TrackedEntity trackedEntity) {
     this.trackedEntities.add(trackedEntity);
     return this;
   }
-  
+
   public TrackedEntityObjects addEnrollment(Enrollment enrollment) {
     this.enrollments.add(enrollment);
     return this;
   }
-  
+
   public TrackedEntityObjects addEvent(Event event) {
     this.events.add(event);
     return this;
   }
-  
+
   public TrackedEntityObjects addRelationship(Relationship relationship) {
     this.relationships.add(relationship);
     return this;
