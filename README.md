@@ -226,6 +226,49 @@ To get system settings:
 SystemSettings settings = dhis2.getSystemSettings();
 ```
 
+## Data values
+
+This section explains operations for DHIS2 data values.
+
+### Save data value set
+
+To save a data value set:
+
+```java
+DataValue dv1 = new DataValue();
+dv1.setDataElement("f7n9E0hX8qk");
+dv1.setValue("12");
+
+DataValue dv2 = new DataValue();
+dv2.setDataElement("Ix2HsbDMLea");
+dv2.setValue("13");
+
+DataValueSet dvs = new DataValueSet();
+dvs.setDataSet("pBOMPrpg1QX");
+dvs.setCompleteDate("2014-02-03");
+dvs.setPeriod("201910");
+dvs.setOrgUnit("DiszpKrYNg8");
+
+dvs.addDataValue(dv1);
+dvs.addDataValue(dv2);
+
+DataValueSetImportOptions options = DataValueSetImportOptions.instance();
+
+DataValueSetResponse response = dhis2.saveDataValueSet(dvs, options);
+```
+
+### Save data value set from file
+
+To read a data value set from a file and save it:
+
+```java
+File file = new File("/tmp/datavalueset.json");
+
+DataValueSetImportOptions options = DataValueSetImportOptions.instance();
+
+DataValueSetResponse response = dhis2.saveDataValueSet(file, options);
+```
+
 ## Events
 
 This section explains operations for DHIS2 events.
@@ -272,47 +315,23 @@ To remove an event:
 EventResponse response = dhis2.removeEvent(event);
 ```
 
-## Data values
+## Tracked entities
 
-This section explains operations for DHIS2 data values.
+This section explains operations for DHIS2 tracked entities.
 
-### Save data value set
-
-To save a data value set:
+To save tracked entities:
 
 ```java
-DataValue dv1 = new DataValue();
-dv1.setDataElement("f7n9E0hX8qk");
-dv1.setValue("12");
+TrackedEntity trackedEntity = new TrackedEntity("sTXBon1B5I9");
+trackedEntity.setTrackedEntityType("nEenWmSyUEp");
+trackedEntity.setOrgUnit("DiszpKrYNg8");
 
-DataValue dv2 = new DataValue();
-dv2.setDataElement("Ix2HsbDMLea");
-dv2.setValue("13");
+TrackedEntityImportParams params = TrackedEntityImportParams.instance();
 
-DataValueSet dvs = new DataValueSet();
-dvs.setDataSet("pBOMPrpg1QX");
-dvs.setCompleteDate("2014-02-03");
-dvs.setPeriod("201910");
-dvs.setOrgUnit("DiszpKrYNg8");
+TrackedEntityObjects objects = new TrackedEntityObjects()
+    .addTrackedEntity(trackedEntity));
 
-dvs.addDataValue(dv1);
-dvs.addDataValue(dv2);
-
-DataValueSetImportOptions options = DataValueSetImportOptions.instance();
-
-DataValueSetResponse response = dhis2.saveDataValueSet(dvs, options);
-```
-
-### Save data value set from file
-
-To read a data value set from a file and save it:
-
-```java
-File file = new File("/tmp/datavalueset.json");
-
-DataValueSetImportOptions options = DataValueSetImportOptions.instance();
-
-DataValueSetResponse response = dhis2.saveDataValueSet(file, options);
+TrackedEntityResponse response = dhis2.saveTrackedEntityObjects(objects, params);
 ```
 
 ## Analytics
