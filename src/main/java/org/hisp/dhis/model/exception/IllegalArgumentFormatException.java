@@ -34,10 +34,22 @@ import org.hisp.dhis.util.TextUtils;
  * substitution using <code>{}</code> for arguments.
  */
 public class IllegalArgumentFormatException extends IllegalArgumentException {
+  /**
+   * Constructor.
+   * 
+   * @param format the message format using <code>{}</code> for arguments.
+   * @param args the message arguments.
+   */
   public IllegalArgumentFormatException(String format, Object... args) {
     super(TextUtils.format(format, args));
   }
-
+  /**
+   * Constructor.
+   * 
+   * @param format the message format using <code>{}</code> for arguments.
+   * @param cause the {@link Throwable}.
+   * @param args the message arguments.
+   */
   public IllegalArgumentFormatException(String format, Throwable cause, Object... args) {
     super(TextUtils.format(format, args), cause);
   }
