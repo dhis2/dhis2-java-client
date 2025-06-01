@@ -27,6 +27,8 @@
  */
 package org.hisp.dhis.response;
 
+import org.hisp.dhis.model.exception.IllegalArgumentFormatException;
+
 /** Enumeration of HTTP status codes. */
 public enum HttpStatus {
   CONTINUE(100, "Continue"),
@@ -200,8 +202,8 @@ public enum HttpStatus {
   public static HttpStatus valueOf(int statusCode) {
     HttpStatus status = resolve(statusCode);
     if (status == null) {
-      throw new IllegalArgumentException(
-          String.format("No matching constant for status code: %d", statusCode));
+      throw new IllegalArgumentFormatException(
+          "No matching constant for status code: {]", statusCode);
     }
     return status;
   }
@@ -265,7 +267,7 @@ public enum HttpStatus {
     public static Series valueOf(int statusCode) {
       Series series = resolve(statusCode);
       if (series == null) {
-        throw new IllegalArgumentException("No matching constant for [" + statusCode + "]");
+        throw new IllegalArgumentFormatException("No matching constant for [{}]", statusCode);
       }
       return series;
     }

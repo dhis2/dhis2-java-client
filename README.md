@@ -326,7 +326,8 @@ TrackedEntity trackedEntity = new TrackedEntity("sTXBon1B5I9");
 trackedEntity.setTrackedEntityType("nEenWmSyUEp");
 trackedEntity.setOrgUnit("DiszpKrYNg8");
 
-TrackedEntityImportParams params = TrackedEntityImportParams.instance();
+TrackedEntityImportParams params = TrackedEntityImportParams.instance()
+    .setImportStrategy(ImportStrategy.CREATE_AND_UPDATE);
 
 TrackedEntityObjects objects = new TrackedEntityObjects()
     .addTrackedEntity(trackedEntity));

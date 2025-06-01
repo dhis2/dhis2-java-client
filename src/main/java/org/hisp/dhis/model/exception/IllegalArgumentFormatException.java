@@ -25,52 +25,20 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.hisp.dhis.model.tracker;
+package org.hisp.dhis.model.exception;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.ArrayList;
-import java.util.List;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
-import lombok.experimental.Accessors;
-import org.hisp.dhis.model.enrollment.Enrollment;
-import org.hisp.dhis.model.event.Event;
-import org.hisp.dhis.model.relationship.Relationship;
-import org.hisp.dhis.model.trackedentity.TrackedEntity;
+import org.hisp.dhis.util.TextUtils;
 
-@Getter
-@Setter
-@Accessors(chain = true)
-@ToString
-@NoArgsConstructor
-public class TrackedEntityObjects {
-  @JsonProperty private List<TrackedEntity> trackedEntities = new ArrayList<>();
-
-  @JsonProperty private List<Enrollment> enrollments = new ArrayList<>();
-
-  @JsonProperty private List<Event> events = new ArrayList<>();
-
-  @JsonProperty private List<Relationship> relationships = new ArrayList<>();
-
-  public TrackedEntityObjects addTrackedEntity(TrackedEntity trackedEntity) {
-    this.trackedEntities.add(trackedEntity);
-    return this;
+/**
+ * Variant of an {@link IllegalArgumentException} which supports message format argument
+ * substitution using <code>{}</code> for arguments.
+ */
+public class IllegalArgumentFormatException extends IllegalArgumentException {
+  public IllegalArgumentFormatException(String format, Object... args) {
+    super(TextUtils.format(format, args));
   }
 
-  public TrackedEntityObjects addEnrollment(Enrollment enrollment) {
-    this.enrollments.add(enrollment);
-    return this;
-  }
-
-  public TrackedEntityObjects addEvent(Event event) {
-    this.events.add(event);
-    return this;
-  }
-
-  public TrackedEntityObjects addRelationship(Relationship relationship) {
-    this.relationships.add(relationship);
-    return this;
+  public IllegalArgumentFormatException(String format, Throwable cause, Object... args) {
+    super(TextUtils.format(format, args), cause);
   }
 }

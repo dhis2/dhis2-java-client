@@ -25,52 +25,19 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.hisp.dhis.model.tracker;
+package org.hisp.dhis.util;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.ArrayList;
-import java.util.List;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
-import lombok.experimental.Accessors;
-import org.hisp.dhis.model.enrollment.Enrollment;
-import org.hisp.dhis.model.event.Event;
-import org.hisp.dhis.model.relationship.Relationship;
-import org.hisp.dhis.model.trackedentity.TrackedEntity;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@Getter
-@Setter
-@Accessors(chain = true)
-@ToString
-@NoArgsConstructor
-public class TrackedEntityObjects {
-  @JsonProperty private List<TrackedEntity> trackedEntities = new ArrayList<>();
+import org.junit.jupiter.api.Test;
 
-  @JsonProperty private List<Enrollment> enrollments = new ArrayList<>();
+class TextUtilsTest {
+  @Test
+  void testFormat() {
+    String format = "File uploaded to: '{}' by user: '{}'";
 
-  @JsonProperty private List<Event> events = new ArrayList<>();
-
-  @JsonProperty private List<Relationship> relationships = new ArrayList<>();
-
-  public TrackedEntityObjects addTrackedEntity(TrackedEntity trackedEntity) {
-    this.trackedEntities.add(trackedEntity);
-    return this;
-  }
-
-  public TrackedEntityObjects addEnrollment(Enrollment enrollment) {
-    this.enrollments.add(enrollment);
-    return this;
-  }
-
-  public TrackedEntityObjects addEvent(Event event) {
-    this.events.add(event);
-    return this;
-  }
-
-  public TrackedEntityObjects addRelationship(Relationship relationship) {
-    this.relationships.add(relationship);
-    return this;
+    assertEquals(
+        "File uploaded to: 'AWS' by user: 'usernameA'",
+        TextUtils.format(format, "AWS", "usernameA"));
   }
 }

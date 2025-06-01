@@ -25,52 +25,19 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.hisp.dhis.model.tracker;
+package org.hisp.dhis.util;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.ArrayList;
-import java.util.List;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
-import lombok.experimental.Accessors;
-import org.hisp.dhis.model.enrollment.Enrollment;
-import org.hisp.dhis.model.event.Event;
-import org.hisp.dhis.model.relationship.Relationship;
-import org.hisp.dhis.model.trackedentity.TrackedEntity;
+import org.slf4j.helpers.MessageFormatter;
 
-@Getter
-@Setter
-@Accessors(chain = true)
-@ToString
-@NoArgsConstructor
-public class TrackedEntityObjects {
-  @JsonProperty private List<TrackedEntity> trackedEntities = new ArrayList<>();
-
-  @JsonProperty private List<Enrollment> enrollments = new ArrayList<>();
-
-  @JsonProperty private List<Event> events = new ArrayList<>();
-
-  @JsonProperty private List<Relationship> relationships = new ArrayList<>();
-
-  public TrackedEntityObjects addTrackedEntity(TrackedEntity trackedEntity) {
-    this.trackedEntities.add(trackedEntity);
-    return this;
-  }
-
-  public TrackedEntityObjects addEnrollment(Enrollment enrollment) {
-    this.enrollments.add(enrollment);
-    return this;
-  }
-
-  public TrackedEntityObjects addEvent(Event event) {
-    this.events.add(event);
-    return this;
-  }
-
-  public TrackedEntityObjects addRelationship(Relationship relationship) {
-    this.relationships.add(relationship);
-    return this;
+public class TextUtils {
+  /**
+   * Returns a formatted message string. The argument pattern is "{}".
+   *
+   * @param format the format string.
+   * @param arguments the format arguments.
+   * @return a formatted message string.
+   */
+  public static String format(String format, Object... arguments) {
+    return MessageFormatter.arrayFormat(format, arguments).getMessage();
   }
 }

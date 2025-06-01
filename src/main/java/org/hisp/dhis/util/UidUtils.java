@@ -38,6 +38,7 @@ import java.util.stream.IntStream;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
+import org.hisp.dhis.model.exception.IllegalArgumentFormatException;
 
 /** Utilities for DHIS2 UID generation. */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -113,6 +114,7 @@ public class UidUtils {
    *
    * @param input the input string.
    * @return a DHIS2 UID. Returns null if the input is invalid, empty string if input is blank.
+   * @throws IllegalArgumentException if the input string is invalid.
    */
   public static String toUid(String input) {
     if (input == null) {
@@ -123,7 +125,8 @@ public class UidUtils {
     }
 
     if (input.length() < 2 || input.length() > 1024) {
-      throw new IllegalArgumentException("Input string must be between 3 and 1024 characters long");
+      throw new IllegalArgumentFormatException(
+          "Input string must be between 3 and 1024 characters long: {}", input.length());
     }
 
     try {
@@ -146,7 +149,7 @@ public class UidUtils {
       return base62;
 
     } catch (NoSuchAlgorithmException ex) {
-      throw new IllegalArgumentException("SHA-256 algorithm not found", ex);
+      throw new IllegalArgumentFormatException("SHA-256 algorithm not found", ex);
     }
   }
 
