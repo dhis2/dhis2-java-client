@@ -31,6 +31,7 @@ import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.apache.commons.lang3.Validate;
+import org.hisp.dhis.model.exception.IllegalArgumentFormatException;
 
 public class IdScheme {
   public static final IdScheme UID = new IdScheme(ObjectProperty.UID);
@@ -121,7 +122,7 @@ public class IdScheme {
       return new IdScheme(ObjectProperty.ATTRIBUTE, attribute);
     }
 
-    throw new IllegalArgumentException(String.format("ID scheme is invalid: '%s'", idScheme));
+    throw new IllegalArgumentFormatException("ID scheme is invalid: '{}'", idScheme);
   }
 
   /**
