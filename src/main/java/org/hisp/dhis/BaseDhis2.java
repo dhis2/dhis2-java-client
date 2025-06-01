@@ -212,7 +212,7 @@ public class BaseDhis2 {
 
   /** Tracked entity attribute fields. */
   protected static final String TRACKED_ENTITY_ATTRIBUTE_FIELDS =
-      String.format("%s,valueType,confidential,unique", NAME_FIELDS);
+      String.format("%s,valueType,aggregationType,confidential,unique", NAME_FIELDS);
 
   /** Program stage data element fields. */
   protected static final String PROGRAM_STAGE_DATA_ELEMENT_FIELDS =
