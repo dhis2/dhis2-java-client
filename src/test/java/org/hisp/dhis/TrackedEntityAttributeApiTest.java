@@ -83,6 +83,7 @@ class TrackedEntityAttributeApiTest {
     tea.setShortName("Sample shortName");
     tea.setValueType(ValueType.TEXT);
     tea.setAggregationType(AggregationType.COUNT);
+    tea.setOptionSet(dhis2.getOptionSet("VQ2lai3OfVG"));
 
     // Create
 
@@ -121,6 +122,8 @@ class TrackedEntityAttributeApiTest {
     assertNotNull(tea);
     assertEquals(teaUid, tea.getId());
     assertEquals(updatedName, tea.getName());
+    assertNotNull(tea.getDescription());
+    assertNotNull(tea.getOptionSet());
 
     // Remove
 
