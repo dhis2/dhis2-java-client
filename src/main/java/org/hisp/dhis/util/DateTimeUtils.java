@@ -35,9 +35,9 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import org.apache.commons.lang3.StringUtils;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import org.apache.commons.lang3.StringUtils;
 
 /** Utilities for date and time. */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -173,6 +173,16 @@ public class DateTimeUtils {
 
   /**
    * Returns a date time string on the format: <code>yyyy-MM-dd'T'HH:mm:ss.SSSZ</code>.
+   * 
+   * @param instant the {@link Instant}.
+   * @return a date time string.
+   */
+  public static String getDateTimeString(Instant instant) {
+    return DateTimeFormatter.ISO_INSTANT.format(instant);
+  }
+
+  /**
+   * Returns a date time string on the format: <code>yyyy-MM-dd'T'HH:mm:ss.SSSZ</code>.
    *
    * @param dateTime the {@link LocalDateTime}.
    * @return a date time string.
@@ -221,7 +231,7 @@ public class DateTimeUtils {
   public static LocalDateTime toLocalDateTime(Instant instant) {
     return instant.atZone(ZoneId.systemDefault()).toLocalDateTime();
   }
-
+  
   /**
    * Returns a {@link java.util.Date} from a {@link java.time.LocalDate}.
    *

@@ -31,7 +31,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -194,6 +193,16 @@ class DateTimeUtilsTest {
 
     assertNotNull(str);
     assertEquals("2021-08-30T14:20:05.000Z", str);
+  }
+
+  @Test
+  void testGetDateTimeStringFromInstant() {
+    Instant instant = Instant.ofEpochSecond(1646092800); // 2022-03-01T00:00:00Z
+
+    String str = DateTimeUtils.getDateTimeString(instant);
+
+    assertNotNull(str);
+    assertEquals("2022-03-01T00:00:00Z", str);
   }
 
   @Test
