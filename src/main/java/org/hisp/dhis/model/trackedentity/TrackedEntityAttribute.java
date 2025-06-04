@@ -35,6 +35,7 @@ import lombok.Setter;
 import lombok.ToString;
 import org.hisp.dhis.model.AggregationType;
 import org.hisp.dhis.model.NameableObject;
+import org.hisp.dhis.model.OptionSet;
 import org.hisp.dhis.model.ValueType;
 
 @Getter
@@ -45,6 +46,8 @@ public class TrackedEntityAttribute extends NameableObject {
   @JsonProperty private ValueType valueType;
 
   @JsonProperty private AggregationType aggregationType;
+
+  @JsonProperty private OptionSet optionSet;
 
   @JsonProperty private Boolean confidential = false;
 
