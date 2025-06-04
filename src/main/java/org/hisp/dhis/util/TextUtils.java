@@ -40,4 +40,14 @@ public class TextUtils {
   public static String format(String format, Object... arguments) {
     return MessageFormatter.arrayFormat(format, arguments).getMessage();
   }
+
+  /**
+   * Returns "false" if the given boolean is null or false, otherwise "true".
+   *
+   * @param bool the boolean.
+   * @return "false" or "true".
+   */
+  public static String toTrueFalse(Boolean bool) {
+    return bool != null && bool ? "true" : "false";
+  }
 }

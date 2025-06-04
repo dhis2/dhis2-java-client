@@ -174,6 +174,16 @@ public class DateTimeUtils {
   /**
    * Returns a date time string on the format: <code>yyyy-MM-dd'T'HH:mm:ss.SSSZ</code>.
    *
+   * @param instant the {@link Instant}.
+   * @return a date time string.
+   */
+  public static String getDateTimeString(Instant instant) {
+    return DateTimeFormatter.ISO_INSTANT.format(instant);
+  }
+
+  /**
+   * Returns a date time string on the format: <code>yyyy-MM-dd'T'HH:mm:ss.SSSZ</code>.
+   *
    * @param dateTime the {@link LocalDateTime}.
    * @return a date time string.
    */

@@ -197,6 +197,16 @@ class DateTimeUtilsTest {
   }
 
   @Test
+  void testGetDateTimeStringFromInstant() {
+    Instant instant = Instant.ofEpochSecond(1646092800); // 2022-03-01T00:00:00Z
+
+    String str = DateTimeUtils.getDateTimeString(instant);
+
+    assertNotNull(str);
+    assertEquals("2022-03-01T00:00:00Z", str);
+  }
+
+  @Test
   void convertStringToLocalDateTimeA() {
     LocalDateTime dateTime = DateTimeUtils.getLocalDateTime("2019-11-05T00:14:08.000Z");
 

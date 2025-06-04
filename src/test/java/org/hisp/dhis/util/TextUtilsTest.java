@@ -40,4 +40,11 @@ class TextUtilsTest {
         "File uploaded to: 'AWS' by user: 'usernameA'",
         TextUtils.format(format, "AWS", "usernameA"));
   }
+
+  @Test
+  void testToTrueFalse() {
+    assertEquals("false", TextUtils.toTrueFalse(null));
+    assertEquals("false", TextUtils.toTrueFalse(false));
+    assertEquals("true", TextUtils.toTrueFalse(true));
+  }
 }
