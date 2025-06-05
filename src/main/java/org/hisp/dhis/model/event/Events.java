@@ -44,4 +44,9 @@ public class Events implements Serializable {
   public Events(List<Event> events) {
     this.events = events;
   }
+
+  public Events addEvent(Event event) {
+    this.events.add(event);
+    return this;
+  }
 }
