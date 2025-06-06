@@ -85,6 +85,15 @@ public class TrackedEntity {
   }
 
   /**
+   * Returns the tracked entity identifier. Alias for {@code getTrackedEntity()}.
+   *
+   * @return the tracked entity identifier.
+   */
+  public String getId() {
+    return trackedEntity;
+  }
+
+  /**
    * Adds an attribute value to the tracked entity.
    *
    * @param attributeValue the {@link TrackedEntityAttributeValue} to add.

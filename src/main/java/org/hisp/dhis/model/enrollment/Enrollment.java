@@ -93,4 +93,13 @@ public class Enrollment {
     this.status = status;
     this.orgUnit = orgUnit;
   }
+
+  /**
+   * Returns the enrollment idenfifier. Alias for {@code getEnrollment()}.
+   *
+   * @return the enrollment idenfifier.
+   */
+  public String getId() {
+    return enrollment;
+  }
 }
