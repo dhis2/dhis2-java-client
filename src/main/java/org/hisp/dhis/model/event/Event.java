@@ -61,6 +61,9 @@ public class Event implements Serializable {
 
   @ToString.Include @JsonProperty private String programStage;
 
+  /** For tracker programs only. */
+  @ToString.Include @JsonProperty private String enrollment;
+
   @ToString.Include @JsonProperty private String orgUnit;
 
   /** Default. */
@@ -112,6 +115,23 @@ public class Event implements Serializable {
       List<EventDataValue> dataValues) {
     this(id);
     this.programStage = programStage;
+    this.orgUnit = orgUnit;
+    this.status = status;
+    this.occurredAt = occurredAt;
+    this.dataValues = dataValues;
+  }
+
+  public Event(
+      String id,
+      String programStage,
+      String enrollment,
+      String orgUnit,
+      EventStatus status,
+      Date occurredAt,
+      List<EventDataValue> dataValues) {
+    this(id);
+    this.programStage = programStage;
+    this.enrollment = enrollment;
     this.orgUnit = orgUnit;
     this.status = status;
     this.occurredAt = occurredAt;
