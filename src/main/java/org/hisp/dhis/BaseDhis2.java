@@ -264,6 +264,13 @@ public class BaseDhis2 {
           "%s,trackedEntityTypeAttributes[id,trackedEntityAttribute[%s],displayInList,mandatory,searchable]",
           NAME_FIELDS, TRACKED_ENTITY_ATTRIBUTE_FIELDS);
 
+  protected static final String TRACKED_ENTITY_FIELDS =
+      String.format(
+          """
+          trackedEntity,trackedEntityType,createdAt,createdAtClient,updatedAt,updatedAtClient,\
+          orgUnit,inactive,deleted,potentialDuplicate,geometry,storedBy,attributes[%s]""",
+          TRACKED_ENTITY_ATTRIBUTE_FIELDS);
+
   /** Program fields. */
   protected static final String PROGRAM_FIELDS =
       String.format(
