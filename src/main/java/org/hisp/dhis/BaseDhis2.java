@@ -45,6 +45,7 @@ import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -106,6 +107,7 @@ import org.hisp.dhis.response.Status;
 import org.hisp.dhis.response.completedatasetregistration.CompleteDataSetRegistrationResponse;
 import org.hisp.dhis.response.object.ObjectResponse;
 import org.hisp.dhis.response.objects.ObjectsResponse;
+import org.hisp.dhis.util.DateTimeUtils;
 import org.hisp.dhis.util.HttpUtils;
 import org.hisp.dhis.util.JacksonUtils;
 
@@ -897,6 +899,20 @@ public class BaseDhis2 {
   private void addParameter(URIBuilder uriBuilder, String parameter, Object value) {
     if (value != null) {
       uriBuilder.addParameter(parameter, value.toString());
+    }
+  }
+
+  /**
+   * Adds a Date query parameter to the given {@link URIBuilder} if the given parameter value is not
+   * null.
+   *
+   * @param uriBuilder the {@link URIBuilder}.
+   * @param parameter the query parameter.
+   * @param value the query parameter Date value.
+   */
+  private void addParameter(URIBuilder uriBuilder, String parameter, Date value) {
+    if (value != null) {
+      uriBuilder.addParameter(parameter, DateTimeUtils.getDateTimeString(value));
     }
   }
 
