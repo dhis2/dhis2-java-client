@@ -27,7 +27,8 @@
  */
 package org.hisp.dhis;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.hisp.dhis.model.enrollment.Enrollment;
 import org.hisp.dhis.support.TestTags;
@@ -41,10 +42,10 @@ class EnrollmentApiTest {
   void testGetEnrollmentByUid() {
     Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
 
-    Enrollment enrollment = dhis2.getEnrollment("C2QVEv5hUJn");
+    Enrollment enrollment = dhis2.getEnrollment("V8uPJuhvlL7");
 
     assertNotNull(enrollment);
-    assertEquals("LrBZ5kguG6u", enrollment.getTrackedEntity());
+    assertEquals("dNpxRu1mWG5", enrollment.getTrackedEntity());
     assertNotNull(enrollment.getCreatedAt());
     assertNotNull(enrollment.getUpdatedAt());
     assertNotNull(enrollment.getOrgUnit());

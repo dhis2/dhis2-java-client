@@ -72,13 +72,12 @@ class DataValueSetApiTest {
     DataValueSetQuery query =
         DataValueSetQuery.instance().addDataSets(list("lyLU2wR22tC")).addPeriods(list("202211"));
 
-    Dhis2ClientException error =
+    Dhis2ClientException ex =
         assertThrows(Dhis2ClientException.class, () -> dhis2.getDataValueSet(query));
 
-    assertNotNull(error);
-    assertEquals(
-        "At least one organisation unit or organisation unit group must be specified",
-        error.getMessage());
+    assertNotNull(ex);
+    assertEquals(409, ex.getStatusCode());
+    assertEquals("E2006", ex.getErrorCode());
   }
 
   @Test
