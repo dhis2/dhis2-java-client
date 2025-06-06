@@ -35,7 +35,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.hisp.dhis.model.trackedentity.TrackedEntityAttributeValue;
-import org.hisp.dhis.model.user.UserInfo;
 import org.locationtech.jts.geom.Geometry;
 
 @Getter
@@ -53,10 +52,12 @@ public class Enrollment {
 
   @JsonProperty private String orgUnit;
 
+  /** Read-only. */
   @JsonProperty private Date createdAt;
 
   @JsonProperty private Date createdAtClient;
 
+  /** Read-only. */
   @JsonProperty private Date updatedAt;
 
   @JsonProperty private Date updatedAtClient;
@@ -73,13 +74,10 @@ public class Enrollment {
 
   @JsonProperty private Geometry geometry;
 
+  /** Read-only. */
   @JsonProperty private String completedBy;
 
   @JsonProperty private String storedBy;
-
-  @JsonProperty private UserInfo createdBy;
-
-  @JsonProperty private UserInfo updatedBy;
 
   @JsonProperty private List<TrackedEntityAttributeValue> attributes;
 

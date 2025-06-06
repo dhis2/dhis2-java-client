@@ -48,10 +48,12 @@ public class TrackedEntity {
 
   @JsonProperty private String trackedEntityType;
 
+  /** Read-only. */
   @JsonProperty private Date createdAt;
 
   @JsonProperty private Date createdAtClient;
 
+  /** Read-only. */
   @JsonProperty private Date updatedAt;
 
   @JsonProperty private Date updatedAtClient;
