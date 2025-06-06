@@ -114,30 +114,45 @@ import org.hisp.dhis.util.JacksonUtils;
  */
 @Slf4j
 public class BaseDhis2 {
+  private static final String SEP_DIM = ";";
+
+  // Params
+
   protected static final String FIELDS_PARAM = "fields";
 
   protected static final String SKIP_SHARING_PARAM = "skipSharing";
 
+  // Log levels
+
+  /** Log level system property. */
+  private static final String LOG_LEVEL_SYSTEM_PROPERTY = "log.level.dhis2";
+
+  /** Info log level. */
+  private static final String LOG_LEVEL_INFO = "info";
+
+  /** Warn log level. */
+  private static final String LOG_LEVEL_WARN = "warn";
+
+  // Status codes
+
+  /** Error status codes. */
+  private static final Set<Integer> ERROR_STATUS_CODES =
+      Set.of(SC_UNAUTHORIZED, SC_FORBIDDEN, SC_NOT_FOUND);
+
+  /** Error status codes for GET queries. */
+  private static final Set<Integer> GET_ERROR_STATUS_CODES = Set.of(SC_BAD_REQUEST, SC_CONFLICT);
+
+  // Fields
+
+  /** Identifiable object fields. */
   protected static final String ID_FIELDS = "id,code,name,created,lastUpdated,attributeValues";
 
+  /** Nameable object fields. */
   protected static final String NAME_FIELDS = String.format("%s,shortName,description", ID_FIELDS);
-
-  private static final String SEP_DIM = ";";
 
   /** Option set fields. */
   protected static final String OPTION_SET_FIELDS =
       String.format("%s,valueType,version", ID_FIELDS);
-
-  /** Data element fields. */
-  protected static final String DATA_ELEMENT_FIELDS =
-      String.format(
-          "%1$s,aggregationType,valueType,domainType,url,legendSets[%1$s],optionSet[%2$s]",
-          NAME_FIELDS, OPTION_SET_FIELDS);
-
-  /** Data element group set fields. */
-  protected static final String DATA_ELEMENT_GROUP_SET_FIELDS =
-      String.format(
-          "%1$s,compulsory,dataDimension,dimensionType,dataElementGroups[%1$s]", NAME_FIELDS);
 
   /** Category option fields. */
   protected static final String CATEGORY_OPTION_FIELDS =
@@ -172,6 +187,20 @@ public class BaseDhis2 {
       String.format(
           "%1$s,dataDimensionType,dataDimension,categoryOptions[%2$s],categoryCombos[%2$s]",
           NAME_FIELDS, ID_FIELDS);
+
+  /** Data element group set fields. */
+  protected static final String DASHBOARD_FIELDS = String.format("%1$s,embedded[*]", NAME_FIELDS);
+
+  /** Data element fields. */
+  protected static final String DATA_ELEMENT_FIELDS =
+      String.format(
+          "%1$s,aggregationType,valueType,domainType,url,legendSets[%1$s],optionSet[%2$s]",
+          NAME_FIELDS, OPTION_SET_FIELDS);
+
+  /** Data element group set fields. */
+  protected static final String DATA_ELEMENT_GROUP_SET_FIELDS =
+      String.format(
+          "%1$s,compulsory,dataDimension,dimensionType,dataElementGroups[%1$s]", NAME_FIELDS);
 
   /** Indicator type fields. */
   protected static final String INDICATOR_TYPE_FIELDS =
@@ -211,15 +240,23 @@ public class BaseDhis2 {
       String.format(
           "%1$s,dataDimension,compulsory,organisationUnitGroups[%2$s]", NAME_FIELDS, ID_FIELDS);
 
-  /** Tracked entity attribute fields. */
-  protected static final String TRACKED_ENTITY_ATTRIBUTE_FIELDS =
-      String.format("%s,valueType,aggregationType,confidential,unique", NAME_FIELDS);
+  /** Me / current user fields. */
+  protected static final String ME_FIELDS =
+      String.format(
+          """
+          %1$s,username,surname,firstName,email,settings,programs,\
+          dataSets,authorities,organisationUnits[%2$s]""",
+          ID_FIELDS, ORG_UNIT_FIELDS);
 
   /** Program stage data element fields. */
   protected static final String PROGRAM_STAGE_DATA_ELEMENT_FIELDS =
       String.format(
           "%s,dataElement[%s],compulsory,displayInReports,skipSynchronization,skipAnalytics",
           NAME_FIELDS, DATA_ELEMENT_FIELDS);
+
+  /** Tracked entity attribute fields. */
+  protected static final String TRACKED_ENTITY_ATTRIBUTE_FIELDS =
+      String.format("%s,valueType,aggregationType,confidential,unique", NAME_FIELDS);
 
   /** Tracked entity type fields. */
   protected static final String TRACKED_ENTITY_TYPE_FIELDS =
@@ -242,17 +279,6 @@ public class BaseDhis2 {
           PROGRAM_STAGE_DATA_ELEMENT_FIELDS,
           TRACKED_ENTITY_ATTRIBUTE_FIELDS);
 
-  /** Data element group set fields. */
-  protected static final String DASHBOARD_FIELDS = String.format("%1$s,embedded[*]", NAME_FIELDS);
-
-  /** Me / current user fields. */
-  protected static final String ME_FIELDS =
-      String.format(
-          """
-          %1$s,username,surname,firstName,email,settings,programs,\
-          dataSets,authorities,organisationUnits[%2$s]""",
-          ID_FIELDS, ORG_UNIT_FIELDS);
-
   /** User fields. */
   protected static final String USER_FIELDS =
       String.format(
@@ -261,28 +287,10 @@ public class BaseDhis2 {
           organisationUnits[%2$s],dataViewOrganisationUnits[%2$s],teiSearchOrganisationUnits[%2$s]""",
           ID_FIELDS, NAME_FIELDS);
 
-  /** Log level system property. */
-  private static final String LOG_LEVEL_SYSTEM_PROPERTY = "log.level.dhis2";
-
-  /** Info log level. */
-  private static final String LOG_LEVEL_INFO = "info";
-
-  /** Warn log level. */
-  private static final String LOG_LEVEL_WARN = "warn";
-
-  /** Error status codes. */
-  private static final Set<Integer> ERROR_STATUS_CODES =
-      Set.of(SC_UNAUTHORIZED, SC_FORBIDDEN, SC_NOT_FOUND);
-
-  /** Error status codes for GET queries. */
-  private static final Set<Integer> GET_ERROR_STATUS_CODES = Set.of(SC_BAD_REQUEST, SC_CONFLICT);
-
-  /** Validation Rules fields. */
-  protected static final String DATA_SET_PARAM = "dataSet";
-
   protected static final String VALIDATION_SIDE_FIELDS =
       "expression,description,displayDescription,slidingWindow,missingValueStrategy";
 
+  /** Validation rule fields. */
   protected static final String VALIDATION_RULE_FIELDS =
       String.format(
           """
@@ -290,6 +298,7 @@ public class BaseDhis2 {
           displayName,leftSide[%2$s],operator,rightSide[%2$s],skipFormValidation,legendSets""",
           NAME_FIELDS, VALIDATION_SIDE_FIELDS);
 
+  /** Data set validation fields. */
   protected static final String DATA_SET_VALIDATION_FIELDS =
       String.format(
           """

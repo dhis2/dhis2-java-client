@@ -36,6 +36,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.hisp.dhis.model.enrollment.Enrollment;
 import org.locationtech.jts.geom.Geometry;
 
 @Getter
@@ -68,6 +69,8 @@ public class TrackedEntity {
   @JsonProperty private String storedBy;
 
   @JsonProperty private List<TrackedEntityAttributeValue> attributes = new ArrayList<>();
+
+  @JsonProperty private List<Enrollment> enrollments = new ArrayList<>();
 
   public TrackedEntity(String id) {
     this.trackedEntity = id;

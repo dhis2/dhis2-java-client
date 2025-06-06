@@ -2808,7 +2808,7 @@ public class Dhis2 extends BaseDhis2 {
             config
                 .getResolvedUriBuilder()
                 .appendPath("validationRules")
-                .addParameter(DATA_SET_PARAM, dataSet)
+                .addParameter("dataSet", dataSet)
                 .addParameter(FIELDS_PARAM, VALIDATION_RULE_FIELDS),
             Query.instance(),
             Dhis2Objects.class)
