@@ -574,9 +574,9 @@ public class BaseDhis2 {
     addParameter(uriBuilder, "programStage", query.getProgramStage());
     addParameter(uriBuilder, "programStatus", query.getProgramStatus());
     addParameter(uriBuilder, "followUp", query.getFollowUp());
-    addParameter(uriBuilder, "trackedEntityInstance", query.getTrackedEntityInstance());
+    addParameter(uriBuilder, "trackedEntity", query.getTrackedEntityInstance());
     addParameter(uriBuilder, "orgUnit", query.getOrgUnit());
-    addParameter(uriBuilder, "ouMode", query.getOuMode());
+    addParameter(uriBuilder, "orgUnitMode", query.getOuMode());
     addParameter(uriBuilder, "status", query.getStatus());
     addParameter(uriBuilder, "occuredAfter", query.getOccurredAfter());
     addParameter(uriBuilder, "occuredBefore", query.getOccurredBefore());
