@@ -39,6 +39,7 @@ import lombok.Setter;
 import lombok.ToString;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
+import org.hisp.dhis.model.user.UserInfo;
 import org.hisp.dhis.util.DateTimeUtils;
 
 @Getter
@@ -66,10 +67,10 @@ public class EventDataValue implements Serializable {
   @JsonProperty private String storedBy;
 
   /** Read-only. */
-  @JsonProperty private String createdBy;
+  @JsonProperty private UserInfo createdBy;
 
   /** Read-only. */
-  @JsonProperty private String updatedBy;
+  @JsonProperty private UserInfo updatedBy;
 
   /**
    * Constructor.

@@ -27,6 +27,7 @@
  */
 package org.hisp.dhis;
 
+import static org.hisp.dhis.util.DateTimeUtils.getDate;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -59,6 +60,7 @@ class TrackedEntitiesApiTest {
             TrackedEntityQuery.instance()
                 .setOrgUnits(List.of(OU_A))
                 .setOrgUnitMode(OrgUnitSelectionMode.SELECTED)
+                .setUpdatedAfter(getDate(2014, 2, 1))
                 .setProgram(PR_A));
 
     assertNotNull(result);
