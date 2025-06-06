@@ -28,6 +28,7 @@
 package org.hisp.dhis;
 
 import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
+import static org.apache.hc.core5.http.HttpStatus.SC_BAD_REQUEST;
 import static org.apache.hc.core5.http.HttpStatus.SC_CONFLICT;
 import static org.apache.hc.core5.http.HttpStatus.SC_FORBIDDEN;
 import static org.apache.hc.core5.http.HttpStatus.SC_NOT_FOUND;
@@ -272,6 +273,9 @@ public class BaseDhis2 {
   /** Error status codes. */
   private static final Set<Integer> ERROR_STATUS_CODES =
       Set.of(SC_UNAUTHORIZED, SC_FORBIDDEN, SC_NOT_FOUND);
+
+  /** Error status codes for GET queries. */
+  private static final Set<Integer> GET_ERROR_STATUS_CODES = Set.of(SC_BAD_REQUEST, SC_CONFLICT);
 
   /** Validation Rules fields. */
   protected static final String DATA_SET_PARAM = "dataSet";
@@ -1111,6 +1115,7 @@ public class BaseDhis2 {
    * Handles errors status code for HTTP GET requests.
    *
    * <ul>
+   *   <li>400 Bad request
    *   <li>409 Conflict
    * </ul>
    *
@@ -1121,14 +1126,14 @@ public class BaseDhis2 {
   private void handleErrorsForGet(CloseableHttpResponse response, String url)
       throws IOException, ParseException {
     final int code = response.getCode();
-    if (SC_CONFLICT == code) {
+    if (GET_ERROR_STATUS_CODES.contains(code)) {
       String responseBody = EntityUtils.toString(response.getEntity());
 
       log("Conflict response body: '{}'", responseBody);
 
-      Response objectResponse = readValue(responseBody, Response.class);
+      Response objResp = readValue(responseBody, Response.class);
 
-      throw new Dhis2ClientException(objectResponse.getMessage(), code);
+      throw new Dhis2ClientException(objResp.getMessage(), code, objResp.getErrorCode());
     }
   }
 

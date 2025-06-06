@@ -88,12 +88,13 @@ class CompleteDataSetRegistrationApiTest {
             .setCreated("2010-01-01");
 
     Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
-    Dhis2ClientException error =
+    Dhis2ClientException ex =
         assertThrows(
             Dhis2ClientException.class, () -> dhis2.getCompleteDataSetRegistrations(query));
 
-    assertNotNull(error);
-    assertEquals("At least one data set must be specified", error.getMessage());
+    assertNotNull(ex);
+    assertEquals(409, ex.getStatusCode());
+    assertEquals("E2013", ex.getErrorCode());
   }
 
   @Test

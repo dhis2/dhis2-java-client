@@ -52,7 +52,7 @@ import org.hisp.dhis.query.event.OrgUnitSelectionMode;
 public class TrackedEntityQuery implements BaseQuery {
   private List<Filter> filters = new ArrayList<>();
 
-  private final List<Order> order = new ArrayList<>();
+  private List<Order> order = new ArrayList<>();
 
   private Paging paging = new Paging();
 
@@ -107,5 +107,15 @@ public class TrackedEntityQuery implements BaseQuery {
 
   public static TrackedEntityQuery instance() {
     return new TrackedEntityQuery();
+  }
+
+  public TrackedEntityQuery addFilter(Filter filter) {
+    this.filters.add(filter);
+    return this;
+  }
+
+  public TrackedEntityQuery addOrder(Order order) {
+    this.order.add(order);
+    return this;
   }
 }
