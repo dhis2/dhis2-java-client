@@ -27,17 +27,17 @@
  */
 package org.hisp.dhis.model.trackedentity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import org.hisp.dhis.model.enrollment.Enrollment;
+import org.locationtech.jts.geom.Geometry;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.hisp.dhis.model.enrollment.Enrollment;
-import org.locationtech.jts.geom.Geometry;
 
 @Getter
 @Setter
@@ -48,10 +48,12 @@ public class TrackedEntity {
 
   @JsonProperty private String trackedEntityType;
 
+  /** Read-only. */
   @JsonProperty private Date createdAt;
 
   @JsonProperty private Date createdAtClient;
 
+  /** Read-only. */
   @JsonProperty private Date updatedAt;
 
   @JsonProperty private Date updatedAtClient;
