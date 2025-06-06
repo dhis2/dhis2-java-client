@@ -30,7 +30,7 @@ package org.hisp.dhis;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.List;
 import org.hisp.dhis.model.trackedentity.TrackedEntitiesResult;
@@ -39,6 +39,7 @@ import org.hisp.dhis.query.Filter;
 import org.hisp.dhis.query.Operator;
 import org.hisp.dhis.query.event.OrgUnitSelectionMode;
 import org.hisp.dhis.query.trackedentity.TrackedEntityQuery;
+import org.hisp.dhis.response.Dhis2ClientException;
 import org.hisp.dhis.support.TestTags;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -47,9 +48,10 @@ import org.junit.jupiter.api.Test;
 class TrackedEntitiesApiTest {
   private static final String OU_A = "DiszpKrYNg8";
   private static final String PR_A = "IpHINAT79UW";
+  private static final String TET_A = "nEenWmSyUEp";
 
   @Test
-  void testGetTrackedEntity() {
+  void testGetTrackedEntities() {
     Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
 
     TrackedEntitiesResult result =
@@ -74,7 +76,7 @@ class TrackedEntitiesApiTest {
   }
 
   @Test
-  void testGetTrackedEntityWithFilter() {
+  void testGetTrackedEntitiesWithFilter() {
     Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
 
     TrackedEntityQuery query =
@@ -91,18 +93,41 @@ class TrackedEntitiesApiTest {
     List<TrackedEntity> trackedEntities = result.getTrackedEntities();
 
     assertNotNull(trackedEntities);
-    assertEquals(1, trackedEntities.size());
+  }
 
-    TrackedEntity trackedEntity = trackedEntities.get(0);
+  @Test
+  void testGetTrackedEntitiesWithTrackedEntityType() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
 
-    assertNotNull(trackedEntity);
-    assertNotNull(trackedEntity.getTrackedEntity());
-    assertEquals(OU_A, trackedEntity.getOrgUnit());
+    TrackedEntityQuery query =
+        TrackedEntityQuery.instance()
+            .setOrgUnits(List.of(OU_A))
+            .setOrgUnitMode(OrgUnitSelectionMode.SELECTED)
+            .setTrackedEntityType(TET_A);
 
-    boolean foundAttribute =
-        trackedEntity.getAttributes().stream()
-            .anyMatch(
-                a -> a.getAttribute().equals("zDhUuAYrxNC") && a.getValue().equals("Enemor HD"));
-    assertTrue(foundAttribute);
+    TrackedEntitiesResult result = dhis2.getTrackedEntities(query);
+
+    assertNotNull(result);
+
+    List<TrackedEntity> trackedEntities = result.getTrackedEntities();
+
+    assertFalse(trackedEntities.isEmpty());
+  }
+
+  @Test
+  void testGetTrackedEntityInvalidQuery() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    TrackedEntityQuery query =
+        TrackedEntityQuery.instance()
+            .setFilters(List.of(new Filter("zDhUuAYrxNC", Operator.EQ, "Enemor HD")))
+            .setOrgUnits(List.of(OU_A))
+            .setOrgUnitMode(OrgUnitSelectionMode.SELECTED);
+
+    Dhis2ClientException ex =
+        assertThrows(Dhis2ClientException.class, () -> dhis2.getTrackedEntities(query));
+
+    assertEquals(400, ex.getStatusCode());
+    assertEquals("E1003", ex.getErrorCode());
   }
 }

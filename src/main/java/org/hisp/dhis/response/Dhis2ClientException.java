@@ -40,21 +40,43 @@ public class Dhis2ClientException extends RuntimeException {
 
   private final HttpStatus httpStatus;
 
+  private final String errorCode;
+
   public Dhis2ClientException(String message, int statusCode) {
     super(message);
     this.statusCode = statusCode;
     this.httpStatus = HttpStatus.valueOf(statusCode);
+    this.errorCode = null;
+  }
+
+  public Dhis2ClientException(String message, int statusCode, String errorCode) {
+    super(getMessage(message, statusCode, errorCode));
+    this.statusCode = statusCode;
+    this.httpStatus = HttpStatus.valueOf(statusCode);
+    this.errorCode = errorCode;
   }
 
   public Dhis2ClientException(String message, Throwable cause) {
     super(message, cause);
     this.statusCode = -1;
     this.httpStatus = HttpStatus.NO_STATUS;
+    this.errorCode = null;
   }
 
   public Dhis2ClientException(String message, Throwable cause, int statusCode) {
     super(message, cause);
     this.statusCode = statusCode;
     this.httpStatus = HttpStatus.valueOf(statusCode);
+    this.errorCode = null;
+  }
+
+  /**
+   * Returns a formatted message with the status code and error code.
+   *
+   * @param message the original message.
+   * @return a formatted message.
+   */
+  private static String getMessage(String message, int statusCode, String errorCode) {
+    return String.format("%s. Status code: %d. Error code: '%s'.", message, statusCode, errorCode);
   }
 }
