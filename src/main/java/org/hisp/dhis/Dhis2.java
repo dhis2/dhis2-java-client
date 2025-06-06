@@ -2588,7 +2588,8 @@ public class Dhis2 extends BaseDhis2 {
             .getResolvedUriBuilder()
             .appendPath("tracker")
             .appendPath("trackedEntities")
-            .appendPath(id),
+            .appendPath(id)
+            .addParameter(FIELDS_PARAM, TRACKED_ENTITY_FIELDS),
         Query.instance(),
         TrackedEntity.class);
   }
@@ -2603,7 +2604,12 @@ public class Dhis2 extends BaseDhis2 {
    */
   public TrackedEntitiesResult getTrackedEntities(TrackedEntityQuery query) {
     return getTrackedEntitiesResult(
-        config.getResolvedUriBuilder().appendPath("tracker").appendPath("trackedEntities"), query);
+        config
+            .getResolvedUriBuilder()
+            .appendPath("tracker")
+            .appendPath("trackedEntities")
+            .addParameter(FIELDS_PARAM, TRACKED_ENTITY_FIELDS),
+        query);
   }
 
   // -------------------------------------------------------------------------

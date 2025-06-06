@@ -99,6 +99,7 @@ public class Query implements BaseQuery {
    *
    * @return the {@link Order}.
    */
+  @Override
   public List<Order> getOrder() {
     return order;
   }
@@ -108,6 +109,7 @@ public class Query implements BaseQuery {
    *
    * @return a list of {@link Filter}.
    */
+  @Override
   public List<Filter> getFilters() {
     return filters;
   }
@@ -129,6 +131,7 @@ public class Query implements BaseQuery {
    *
    * @return the {@link Paging}.
    */
+  @Override
   public Paging getPaging() {
     return paging != null ? paging : new Paging(null, null);
   }
@@ -138,6 +141,7 @@ public class Query implements BaseQuery {
    *
    * @return the {@link RootJunction}
    */
+  @Override
   public RootJunction getRootJunction() {
     return rootJunction != null ? rootJunction : RootJunction.AND;
   }
@@ -154,6 +158,16 @@ public class Query implements BaseQuery {
   }
 
   /**
+   * Indicates whether expansion of associations is enabled. Applies to lists of objects only (not
+   * single objects).
+   *
+   * @return true if expansion of associations is enabled, false if not.
+   */
+  public boolean isExpandAssociations() {
+    return expandAssociations;
+  }
+
+  /**
    * Determines the logic to use when combining filters.
    *
    * @param rootJunction the {@link RootJunction}.
@@ -162,15 +176,5 @@ public class Query implements BaseQuery {
   public Query withRootJunction(RootJunction rootJunction) {
     this.rootJunction = rootJunction;
     return this;
-  }
-
-  /**
-   * Indicates whether expansion of associations is enabled. Applies to lists of objects only (not
-   * single objects).
-   *
-   * @return true if expansion of associations is enabled, false if not.
-   */
-  public boolean isExpandAssociations() {
-    return expandAssociations;
   }
 }

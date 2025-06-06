@@ -42,6 +42,7 @@ import org.hisp.dhis.query.BaseQuery;
 import org.hisp.dhis.query.Filter;
 import org.hisp.dhis.query.Order;
 import org.hisp.dhis.query.Paging;
+import org.hisp.dhis.query.Query;
 import org.hisp.dhis.query.RootJunction;
 import org.hisp.dhis.query.event.OrgUnitSelectionMode;
 
@@ -100,6 +101,8 @@ public class TrackedEntityQuery implements BaseQuery {
 
   private IdScheme orgUnitIdScheme;
 
+  private boolean expandAssociations = false;
+
   public TrackedEntityQuery setOrgUnit(String orgUnit) {
     this.orgUnits = List.of(orgUnit);
     return this;
@@ -116,6 +119,17 @@ public class TrackedEntityQuery implements BaseQuery {
 
   public TrackedEntityQuery addOrder(Order order) {
     this.order.add(order);
+    return this;
+  }
+
+  /**
+   * Enables expansion of associations, i.e. that all properties of associated objects will be
+   * present. Applies to lists of objects only (not single objects).
+   *
+   * @return this {@link Query}.
+   */
+  public TrackedEntityQuery withExpandAssociations() {
+    this.expandAssociations = true;
     return this;
   }
 }
