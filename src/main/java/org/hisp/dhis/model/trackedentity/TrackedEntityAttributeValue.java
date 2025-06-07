@@ -27,13 +27,13 @@
  */
 package org.hisp.dhis.model.trackedentity;
 
-import java.util.Date;
-import org.hisp.dhis.model.ValueType;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Date;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.hisp.dhis.model.ValueType;
 
 @Getter
 @Setter
@@ -43,7 +43,7 @@ public class TrackedEntityAttributeValue {
   @JsonProperty private String attribute;
 
   @JsonProperty private String displayName;
-  
+
   @JsonProperty private String code;
 
   @JsonProperty private Date createdAt;
