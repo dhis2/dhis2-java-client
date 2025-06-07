@@ -36,8 +36,6 @@ import static org.apache.hc.core5.http.HttpStatus.SC_UNAUTHORIZED;
 import static org.hisp.dhis.util.CollectionUtils.asList;
 import static org.hisp.dhis.util.CollectionUtils.toCommaSeparated;
 import static org.hisp.dhis.util.HttpUtils.getUriAsString;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -51,7 +49,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.hc.client5.http.HttpResponseException;
@@ -110,6 +107,8 @@ import org.hisp.dhis.response.objects.ObjectsResponse;
 import org.hisp.dhis.util.DateTimeUtils;
 import org.hisp.dhis.util.HttpUtils;
 import org.hisp.dhis.util.JacksonUtils;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author Lars Helge Overland
@@ -267,11 +266,10 @@ public class BaseDhis2 {
           NAME_FIELDS, TRACKED_ENTITY_ATTRIBUTE_FIELDS);
 
   protected static final String TRACKED_ENTITY_FIELDS =
-      String.format(
           """
           trackedEntity,trackedEntityType,createdAt,createdAtClient,updatedAt,updatedAtClient,\
-          orgUnit,inactive,deleted,potentialDuplicate,geometry,storedBy,attributes[%s]""",
-          TRACKED_ENTITY_ATTRIBUTE_FIELDS);
+          orgUnit,inactive,deleted,potentialDuplicate,geometry,storedBy,
+          attributes[attribute,displayName,code,createdAt,updatedAt,valueType,value]""";
 
   /** Program fields. */
   protected static final String PROGRAM_FIELDS =
@@ -1467,6 +1465,10 @@ public class BaseDhis2 {
   /**
    * Logs the message at debug level, or if system property {@link
    * BaseDhis2#LOG_LEVEL_SYSTEM_PROPERTY} is set, at the info or warn level.
+   * 
+   * <p>To log messages at info level during tests:
+   * 
+   * <p><pre>mvn test -Dlog.level.dhis2=info</pre>
    *
    * @param format the message format.
    * @param arguments the message arguments.
