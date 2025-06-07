@@ -27,6 +27,7 @@
  */
 package org.hisp.dhis.model.enrollment;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Date;
 import java.util.List;
@@ -92,5 +93,15 @@ public class Enrollment {
     this.trackedEntity = trackedEntity;
     this.status = status;
     this.orgUnit = orgUnit;
+  }
+
+  /**
+   * Returns the enrollment idenfifier. Alias for {@code getEnrollment()}.
+   *
+   * @return the enrollment idenfifier.
+   */
+  @JsonIgnore
+  public String getId() {
+    return enrollment;
   }
 }

@@ -113,6 +113,7 @@ class TrackedEntitiesApiTest {
 
     List<TrackedEntity> trackedEntities = result.getTrackedEntities();
 
+    assertNotNull(trackedEntities);
     assertFalse(trackedEntities.isEmpty());
   }
 

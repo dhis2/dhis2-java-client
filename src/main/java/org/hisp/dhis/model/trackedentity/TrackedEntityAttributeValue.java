@@ -44,6 +44,8 @@ public class TrackedEntityAttributeValue {
 
   @JsonProperty private String displayName;
 
+  @JsonProperty private String code;
+
   @JsonProperty private Date createdAt;
 
   @JsonProperty private Date updatedAt;
