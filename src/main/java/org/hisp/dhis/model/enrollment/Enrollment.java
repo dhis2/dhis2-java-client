@@ -27,6 +27,7 @@
  */
 package org.hisp.dhis.model.enrollment;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Date;
 import java.util.List;
@@ -99,6 +100,7 @@ public class Enrollment {
    *
    * @return the enrollment idenfifier.
    */
+  @JsonIgnore
   public String getId() {
     return enrollment;
   }

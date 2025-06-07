@@ -89,6 +89,7 @@ public class TrackedEntity {
    *
    * @return the tracked entity identifier.
    */
+  @JsonIgnore
   public String getId() {
     return trackedEntity;
   }
