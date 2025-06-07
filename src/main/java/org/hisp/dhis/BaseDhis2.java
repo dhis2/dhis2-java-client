@@ -1469,8 +1469,6 @@ public class BaseDhis2 {
    *
    * <p>To log messages at info level during tests:
    *
-   * <p>
-   *
    * <pre>mvn test -Dlog.level.dhis2=info</pre>
    *
    * @param format the message format.
