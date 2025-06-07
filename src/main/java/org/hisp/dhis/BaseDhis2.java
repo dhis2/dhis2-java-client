@@ -268,9 +268,9 @@ public class BaseDhis2 {
 
   protected static final String TRACKED_ENTITY_FIELDS =
       """
-          trackedEntity,trackedEntityType,createdAt,createdAtClient,updatedAt,updatedAtClient,\
-          orgUnit,inactive,deleted,potentialDuplicate,geometry,storedBy,
-          attributes[attribute,displayName,code,createdAt,updatedAt,valueType,value]""";
+      trackedEntity,trackedEntityType,createdAt,createdAtClient,updatedAt,updatedAtClient,\
+      orgUnit,inactive,deleted,potentialDuplicate,geometry,storedBy,
+      attributes[attribute,displayName,code,createdAt,updatedAt,valueType,value]""";
 
   /** Program fields. */
   protected static final String PROGRAM_FIELDS =
