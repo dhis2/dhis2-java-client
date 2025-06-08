@@ -115,6 +115,30 @@ class TrackedEntitiesApiTest {
 
     assertNotNull(trackedEntities);
     assertFalse(trackedEntities.isEmpty());
+
+    TrackedEntity trackedEntity = trackedEntities.get(0);
+    assertNotNull(trackedEntity);
+    assertEquals(TET_A, trackedEntity.getTrackedEntityType());
+  }
+
+  @Test
+  void testGetTrackedEntitiesWithId() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    TrackedEntityQuery query =
+        TrackedEntityQuery.instance()
+            .setOrgUnits(List.of(OU_A))
+            .setOrgUnitMode(OrgUnitSelectionMode.SELECTED)
+            .setTrackedEntities(List.of("nj37aOvo3Qq"));
+
+    TrackedEntitiesResult result = dhis2.getTrackedEntities(query);
+
+    assertNotNull(result);
+
+    List<TrackedEntity> trackedEntities = result.getTrackedEntities();
+
+    assertNotNull(trackedEntities);
+    assertEquals(1, trackedEntities.size());
   }
 
   @Test
