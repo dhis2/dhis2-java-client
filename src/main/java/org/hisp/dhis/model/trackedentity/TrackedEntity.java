@@ -157,7 +157,7 @@ public class TrackedEntity {
    * @param program the program identifier.
    * @return an {@link Enrollment}.
    */
-  public Enrollment getFirstEnrollment(String program) {
+  public Enrollment getEnrollment(String program) {
     return enrollments.stream()
         .filter(en -> en.getProgram().equals(program))
         .findFirst()
