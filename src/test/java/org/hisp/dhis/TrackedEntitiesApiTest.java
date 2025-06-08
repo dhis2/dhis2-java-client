@@ -34,6 +34,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.List;
+import org.hisp.dhis.model.enrollment.Enrollment;
 import org.hisp.dhis.model.trackedentity.TrackedEntitiesResult;
 import org.hisp.dhis.model.trackedentity.TrackedEntity;
 import org.hisp.dhis.query.Filter;
@@ -50,6 +51,7 @@ class TrackedEntitiesApiTest {
   private static final String OU_A = "DiszpKrYNg8";
   private static final String PR_A = "IpHINAT79UW";
   private static final String TET_A = "nEenWmSyUEp";
+  private static final String TE_A = "nj37aOvo3Qq";
 
   @Test
   void testGetTrackedEntities() {
@@ -66,12 +68,10 @@ class TrackedEntitiesApiTest {
     assertNotNull(result);
 
     List<TrackedEntity> trackedEntities = result.getTrackedEntities();
-
     assertNotNull(trackedEntities);
     assertFalse(trackedEntities.isEmpty());
 
     TrackedEntity trackedEntity = trackedEntities.get(0);
-
     assertNotNull(trackedEntity);
     assertNotNull(trackedEntity.getTrackedEntity());
     assertEquals(OU_A, trackedEntity.getOrgUnit());
@@ -89,11 +89,9 @@ class TrackedEntitiesApiTest {
             .setProgram(PR_A);
 
     TrackedEntitiesResult result = dhis2.getTrackedEntities(query);
-
     assertNotNull(result);
 
     List<TrackedEntity> trackedEntities = result.getTrackedEntities();
-
     assertNotNull(trackedEntities);
   }
 
@@ -108,13 +106,44 @@ class TrackedEntitiesApiTest {
             .setTrackedEntityType(TET_A);
 
     TrackedEntitiesResult result = dhis2.getTrackedEntities(query);
-
     assertNotNull(result);
 
     List<TrackedEntity> trackedEntities = result.getTrackedEntities();
-
     assertNotNull(trackedEntities);
     assertFalse(trackedEntities.isEmpty());
+
+    TrackedEntity trackedEntity = trackedEntities.get(0);
+    assertNotNull(trackedEntity);
+    assertEquals(TET_A, trackedEntity.getTrackedEntityType());
+  }
+
+  @Test
+  void testGetTrackedEntitiesWithId() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    TrackedEntityQuery query =
+        TrackedEntityQuery.instance()
+            .setOrgUnits(List.of(OU_A))
+            .setOrgUnitMode(OrgUnitSelectionMode.SELECTED)
+            .setTrackedEntities(List.of(TE_A));
+
+    TrackedEntitiesResult result = dhis2.getTrackedEntities(query);
+    assertNotNull(result);
+
+    List<TrackedEntity> trackedEntities = result.getTrackedEntities();
+    assertNotNull(trackedEntities);
+    assertEquals(1, trackedEntities.size());
+
+    TrackedEntity trackedEntity = trackedEntities.get(0);
+    assertNotNull(trackedEntity);
+    assertEquals(TE_A, trackedEntity.getTrackedEntity());
+    assertNotNull(trackedEntity.getAttributes());
+    assertNotNull(trackedEntity.getEnrollments());
+
+    Enrollment enrollment = trackedEntity.getEnrollments().get(0);
+    assertEquals(TE_A, enrollment.getTrackedEntity());
+    assertNotNull(enrollment.getProgram());
+    assertNotNull(enrollment.getOrgUnit());
   }
 
   @Test
