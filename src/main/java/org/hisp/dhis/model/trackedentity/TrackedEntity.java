@@ -27,6 +27,8 @@
  */
 package org.hisp.dhis.model.trackedentity;
 
+import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
@@ -95,6 +97,15 @@ public class TrackedEntity {
   }
 
   /**
+   * Indicates whether at least one attribute exists.
+   *
+   * @return true if at least one attribute exists.
+   */
+  public boolean hasAttributes() {
+    return isNotEmpty(attributes);
+  }
+
+  /**
    * Adds an attribute value to the tracked entity.
    *
    * @param attributeValue the {@link TrackedEntityAttributeValue} to add.
@@ -126,6 +137,29 @@ public class TrackedEntity {
     return attributes.stream()
         .filter(at -> attribute.equals(at.getAttribute()))
         .map(TrackedEntityAttributeValue::getValue)
+        .findFirst()
+        .orElse(null);
+  }
+
+  /**
+   * Indicates whether at least one enrollment exists.
+   *
+   * @return true if at least one enrollment exists.
+   */
+  public boolean hasEnrollments() {
+    return isNotEmpty(attributes);
+  }
+
+  /**
+   * Returns the first enrollment with the given program, or null if no enrollment with the given
+   * program exists.
+   *
+   * @param program the program identifier.
+   * @return an {@link Enrollment}.
+   */
+  public Enrollment getEnrollment(String program) {
+    return enrollments.stream()
+        .filter(en -> en.getProgram().equals(program))
         .findFirst()
         .orElse(null);
   }
