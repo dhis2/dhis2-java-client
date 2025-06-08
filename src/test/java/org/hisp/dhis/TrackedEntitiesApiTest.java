@@ -50,6 +50,7 @@ class TrackedEntitiesApiTest {
   private static final String OU_A = "DiszpKrYNg8";
   private static final String PR_A = "IpHINAT79UW";
   private static final String TET_A = "nEenWmSyUEp";
+  private static final String TE_A = "nj37aOvo3Qq";
 
   @Test
   void testGetTrackedEntities() {
@@ -129,7 +130,7 @@ class TrackedEntitiesApiTest {
         TrackedEntityQuery.instance()
             .setOrgUnits(List.of(OU_A))
             .setOrgUnitMode(OrgUnitSelectionMode.SELECTED)
-            .setTrackedEntities(List.of("nj37aOvo3Qq"));
+            .setTrackedEntities(List.of(TE_A));
 
     TrackedEntitiesResult result = dhis2.getTrackedEntities(query);
 
@@ -139,6 +140,10 @@ class TrackedEntitiesApiTest {
 
     assertNotNull(trackedEntities);
     assertEquals(1, trackedEntities.size());
+
+    TrackedEntity trackedEntity = trackedEntities.get(0);
+    assertNotNull(trackedEntity);
+    assertEquals(TE_A, trackedEntity.getTrackedEntity());
   }
 
   @Test
