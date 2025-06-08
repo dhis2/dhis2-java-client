@@ -34,6 +34,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.List;
+import org.hisp.dhis.model.enrollment.Enrollment;
 import org.hisp.dhis.model.trackedentity.TrackedEntitiesResult;
 import org.hisp.dhis.model.trackedentity.TrackedEntity;
 import org.hisp.dhis.query.Filter;
@@ -67,12 +68,10 @@ class TrackedEntitiesApiTest {
     assertNotNull(result);
 
     List<TrackedEntity> trackedEntities = result.getTrackedEntities();
-
     assertNotNull(trackedEntities);
     assertFalse(trackedEntities.isEmpty());
 
     TrackedEntity trackedEntity = trackedEntities.get(0);
-
     assertNotNull(trackedEntity);
     assertNotNull(trackedEntity.getTrackedEntity());
     assertEquals(OU_A, trackedEntity.getOrgUnit());
@@ -90,11 +89,9 @@ class TrackedEntitiesApiTest {
             .setProgram(PR_A);
 
     TrackedEntitiesResult result = dhis2.getTrackedEntities(query);
-
     assertNotNull(result);
 
     List<TrackedEntity> trackedEntities = result.getTrackedEntities();
-
     assertNotNull(trackedEntities);
   }
 
@@ -109,11 +106,9 @@ class TrackedEntitiesApiTest {
             .setTrackedEntityType(TET_A);
 
     TrackedEntitiesResult result = dhis2.getTrackedEntities(query);
-
     assertNotNull(result);
 
     List<TrackedEntity> trackedEntities = result.getTrackedEntities();
-
     assertNotNull(trackedEntities);
     assertFalse(trackedEntities.isEmpty());
 
@@ -133,17 +128,22 @@ class TrackedEntitiesApiTest {
             .setTrackedEntities(List.of(TE_A));
 
     TrackedEntitiesResult result = dhis2.getTrackedEntities(query);
-
     assertNotNull(result);
 
     List<TrackedEntity> trackedEntities = result.getTrackedEntities();
-
     assertNotNull(trackedEntities);
     assertEquals(1, trackedEntities.size());
 
     TrackedEntity trackedEntity = trackedEntities.get(0);
     assertNotNull(trackedEntity);
     assertEquals(TE_A, trackedEntity.getTrackedEntity());
+    assertNotNull(trackedEntity.getAttributes());
+    assertNotNull(trackedEntity.getEnrollments());
+
+    Enrollment enrollment = trackedEntity.getEnrollments().get(0);
+    assertEquals(TE_A, enrollment.getTrackedEntity());
+    assertNotNull(enrollment.getProgram());
+    assertNotNull(enrollment.getOrgUnit());
   }
 
   @Test
