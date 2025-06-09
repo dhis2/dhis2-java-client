@@ -27,6 +27,7 @@
  */
 package org.hisp.dhis.response.trackedentity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -44,4 +45,14 @@ public class TrackedEntityResponse extends Response {
   @JsonProperty private ValidationReport validationReport;
 
   @JsonProperty private Stats stats;
+
+  @JsonIgnore
+  public boolean hasValidationReport() {
+    return validationReport != null;
+  }
+
+  @JsonIgnore
+  public boolean hasErrorReports() {
+    return hasValidationReport() && validationReport.hasErrorReports();
+  }
 }
