@@ -34,6 +34,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -137,6 +138,7 @@ public class TrackedEntity {
     return attributes.stream()
         .filter(at -> attribute.equals(at.getAttribute()))
         .map(TrackedEntityAttributeValue::getValue)
+        .filter(Objects::nonNull)
         .findFirst()
         .orElse(null);
   }
@@ -160,6 +162,7 @@ public class TrackedEntity {
   public Enrollment getEnrollment(String program) {
     return enrollments.stream()
         .filter(en -> en.getProgram().equals(program))
+        .filter(Objects::nonNull)
         .findFirst()
         .orElse(null);
   }
