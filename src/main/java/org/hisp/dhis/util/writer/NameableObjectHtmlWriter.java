@@ -79,7 +79,8 @@ public class NameableObjectHtmlWriter {
       </html>""";
 
   private static final String TABLE_ROW =
-      "<tr><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td></tr>";
+      """
+      <tr><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td></tr>""";
 
   /**
    * Converts the given list of {@link NameableObject} to an HTML table string.
