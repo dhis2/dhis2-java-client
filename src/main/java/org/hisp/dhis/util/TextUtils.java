@@ -27,6 +27,8 @@
  */
 package org.hisp.dhis.util;
 
+import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.helpers.MessageFormatter;
 
 public class TextUtils {
@@ -49,5 +51,15 @@ public class TextUtils {
    */
   public static String toTrueFalse(Boolean bool) {
     return bool != null && bool ? "true" : "false";
+  }
+
+  /**
+   * Returns an empty string if the input is null, otherwise returns the input.
+   *
+   * @param input the input string.
+   * @return an empty string if input is null, otherwise the input string.
+   */
+  public static String emptyIfNull(String input) {
+    return ObjectUtils.firstNonNull(input, StringUtils.EMPTY);
   }
 }
