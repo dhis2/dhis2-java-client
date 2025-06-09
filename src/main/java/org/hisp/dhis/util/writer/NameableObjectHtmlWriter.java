@@ -31,9 +31,12 @@ import static org.hisp.dhis.util.TextUtils.emptyIfNull;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import org.hisp.dhis.model.NameableObject;
 import org.hisp.dhis.util.TextUtils;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class NameableObjectHtmlWriter {
   private static final String HTML_TABLE =
       """
@@ -79,8 +82,7 @@ public class NameableObjectHtmlWriter {
       </html>""";
 
   private static final String TABLE_ROW =
-      """
-      <tr><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td></tr>""";
+      "<tr><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td></tr>";
 
   /**
    * Converts the given list of {@link NameableObject} to an HTML table string.
