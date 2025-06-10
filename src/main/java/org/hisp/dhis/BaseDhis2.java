@@ -1,29 +1,24 @@
 /*
- * Copyright (c) 2004-2024, University of Oslo
- * All rights reserved.
+ * Copyright (c) 2004-2024, University of Oslo All rights reserved.
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- * Redistributions of source code must retain the above copyright notice, this
- * list of conditions and the following disclaimer.
+ * Redistribution and use in source and binary forms, with or without modification, are permitted
+ * provided that the following conditions are met: Redistributions of source code must retain the
+ * above copyright notice, this list of conditions and the following disclaimer.
  *
- * Redistributions in binary form must reproduce the above copyright notice,
- * this list of conditions and the following disclaimer in the documentation
- * and/or other materials provided with the distribution.
- * Neither the name of the HISP project nor the names of its contributors may
- * be used to endorse or promote products derived from this software without
- * specific prior written permission.
+ * Redistributions in binary form must reproduce the above copyright notice, this list of conditions
+ * and the following disclaimer in the documentation and/or other materials provided with the
+ * distribution. Neither the name of the HISP project nor the names of its contributors may be used
+ * to endorse or promote products derived from this software without specific prior written
+ * permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
- * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
- * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
- * ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR
+ * IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
+ * FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
+ * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package org.hisp.dhis;
 
@@ -36,8 +31,6 @@ import static org.apache.hc.core5.http.HttpStatus.SC_UNAUTHORIZED;
 import static org.hisp.dhis.util.CollectionUtils.asList;
 import static org.hisp.dhis.util.CollectionUtils.toCommaSeparated;
 import static org.hisp.dhis.util.HttpUtils.getUriAsString;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -51,7 +44,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.hc.client5.http.HttpResponseException;
@@ -110,6 +102,8 @@ import org.hisp.dhis.response.objects.ObjectsResponse;
 import org.hisp.dhis.util.DateTimeUtils;
 import org.hisp.dhis.util.HttpUtils;
 import org.hisp.dhis.util.JacksonUtils;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author Lars Helge Overland
@@ -157,170 +151,139 @@ public class BaseDhis2 {
       String.format("%s,valueType,version", ID_FIELDS);
 
   /** Category option fields. */
-  protected static final String CATEGORY_OPTION_FIELDS =
-      String.format(
-          "%1$s,shortName,startDate,endDate,formName,categories[%1$s],organisationUnits[%1$s]",
-          NAME_FIELDS);
+  protected static final String CATEGORY_OPTION_FIELDS = String.format(
+      "%1$s,shortName,startDate,endDate,formName,categories[%1$s],organisationUnits[%1$s]",
+      NAME_FIELDS);
 
   /** Category option combo fields. */
   protected static final String CATEGORY_OPTION_COMBO_FIELDS =
       String.format("%1$s,ignoreApproval,dimensionItem,categoryOptions[%1$s]", ID_FIELDS);
 
   /** Category option group fields. */
-  protected static final String CATEGORY_OPTION_GROUP_FIELDS =
-      String.format(
-          "%1$s,dataDimensionType,dimensionItemType,categoryOptions[%2$s],groupSets[%2$s]",
-          NAME_FIELDS, ID_FIELDS);
+  protected static final String CATEGORY_OPTION_GROUP_FIELDS = String.format(
+      "%1$s,dataDimensionType,dimensionItemType,categoryOptions[%2$s],groupSets[%2$s]", NAME_FIELDS,
+      ID_FIELDS);
 
   /** Category option group set fields. */
-  protected static final String CATEGORY_OPTION_GROUP_SET_FIELDS =
-      String.format(
-          "%1$s,dataDimension,dataDimensionType,categoryOptionGroups[%2$s]",
-          NAME_FIELDS, ID_FIELDS);
+  protected static final String CATEGORY_OPTION_GROUP_SET_FIELDS = String.format(
+      "%1$s,dataDimension,dataDimensionType,categoryOptionGroups[%2$s]", NAME_FIELDS, ID_FIELDS);
 
   /** Category combo fields. */
   protected static final String CATEGORY_COMBO_FIELDS =
-      String.format(
-          "%1$s,dataDimensionType,skipTotal,categories[%1$s],categoryOptionCombos[%2$s]",
+      String.format("%1$s,dataDimensionType,skipTotal,categories[%1$s],categoryOptionCombos[%2$s]",
           ID_FIELDS, CATEGORY_OPTION_COMBO_FIELDS);
 
   /** Category fields. */
-  protected static final String CATEGORY_FIELDS =
-      String.format(
-          "%1$s,dataDimensionType,dataDimension,categoryOptions[%2$s],categoryCombos[%2$s]",
-          NAME_FIELDS, ID_FIELDS);
+  protected static final String CATEGORY_FIELDS = String.format(
+      "%1$s,dataDimensionType,dataDimension,categoryOptions[%2$s],categoryCombos[%2$s]",
+      NAME_FIELDS, ID_FIELDS);
 
   /** Data element group set fields. */
   protected static final String DASHBOARD_FIELDS = String.format("%1$s,embedded[*]", NAME_FIELDS);
 
   /** Data element fields. */
-  protected static final String DATA_ELEMENT_FIELDS =
-      String.format(
-          "%1$s,aggregationType,valueType,domainType,url,legendSets[%1$s],optionSet[%2$s]",
-          NAME_FIELDS, OPTION_SET_FIELDS);
+  protected static final String DATA_ELEMENT_FIELDS = String.format(
+      "%1$s,aggregationType,valueType,domainType,url,legendSets[%1$s],optionSet[%2$s]", NAME_FIELDS,
+      OPTION_SET_FIELDS);
 
   /** Data element group set fields. */
-  protected static final String DATA_ELEMENT_GROUP_SET_FIELDS =
-      String.format(
-          "%1$s,compulsory,dataDimension,dimensionType,dataElementGroups[%1$s]", NAME_FIELDS);
+  protected static final String DATA_ELEMENT_GROUP_SET_FIELDS = String
+      .format("%1$s,compulsory,dataDimension,dimensionType,dataElementGroups[%1$s]", NAME_FIELDS);
 
   /** Indicator type fields. */
   protected static final String INDICATOR_TYPE_FIELDS =
       String.format("%s,factor,number", NAME_FIELDS);
 
   /** Indicator fields. */
-  protected static final String INDICATOR_FIELDS =
-      String.format(
-          """
-          %1$s,annualized,numerator,numeratorDescription,\
-          denominator,denominatorDescription,url,indicatorType[%2$s]""",
-          NAME_FIELDS, INDICATOR_TYPE_FIELDS);
+  protected static final String INDICATOR_FIELDS = String.format("""
+      %1$s,annualized,numerator,numeratorDescription,\
+      denominator,denominatorDescription,url,indicatorType[%2$s]""", NAME_FIELDS,
+      INDICATOR_TYPE_FIELDS);
 
   /** Indicator group set fields. */
   protected static final String INDICATOR_GROUP_SET_FIELDS =
       String.format("%1$s,compulsory,indicatorGroups[%1$s]", NAME_FIELDS);
 
   /** Data set fields. */
-  protected static final String DATA_SET_FIELDS =
-      String.format(
-          """
+  protected static final String DATA_SET_FIELDS = String.format(
+      """
           %1$s,formName,displayFormName,categoryCombo[%1$s],dataSetElements[dataSet[%1$s],dataElement[%1$s],\
           categoryCombo[%1$s]],dimensionItem,openFuturePeriods,expiryDays,timelyDays,url,formType,periodType,version,\
           dimensionItemType,aggregationType,favorite,compulsoryFieldsCompleteOnly,skipOffline,validCompleteOnly,\
           dataElementDecoration,openPeriodsAfterCoEndDate,notifyCompletingUser,noValueRequiresComment,\
           fieldCombinationRequired,mobile,dataEntryForm[%2$s]""",
-          NAME_FIELDS, ID_FIELDS);
+      NAME_FIELDS, ID_FIELDS);
 
   /** Org unit fields. */
-  protected static final String ORG_UNIT_FIELDS =
-      String.format(
-          "%s,path,level,parent[%s],openingDate,closedDate,comment,url,contactPerson,address,email,phoneNumber",
-          NAME_FIELDS, NAME_FIELDS);
+  protected static final String ORG_UNIT_FIELDS = String.format(
+      "%s,path,level,parent[%s],openingDate,closedDate,comment,url,contactPerson,address,email,phoneNumber",
+      NAME_FIELDS, NAME_FIELDS);
 
   /** Org unit group set fields. */
-  protected static final String ORG_UNIT_GROUP_SET_FIELDS =
-      String.format(
-          "%1$s,dataDimension,compulsory,organisationUnitGroups[%2$s]", NAME_FIELDS, ID_FIELDS);
+  protected static final String ORG_UNIT_GROUP_SET_FIELDS = String
+      .format("%1$s,dataDimension,compulsory,organisationUnitGroups[%2$s]", NAME_FIELDS, ID_FIELDS);
 
   /** Me / current user fields. */
-  protected static final String ME_FIELDS =
-      String.format(
-          """
-          %1$s,username,surname,firstName,email,settings,programs,\
-          dataSets,authorities,organisationUnits[%2$s]""",
-          ID_FIELDS, ORG_UNIT_FIELDS);
+  protected static final String ME_FIELDS = String.format("""
+      %1$s,username,surname,firstName,email,settings,programs,\
+      dataSets,authorities,organisationUnits[%2$s]""", ID_FIELDS, ORG_UNIT_FIELDS);
 
   /** Program stage data element fields. */
-  protected static final String PROGRAM_STAGE_DATA_ELEMENT_FIELDS =
-      String.format(
-          "%s,dataElement[%s],compulsory,displayInReports,skipSynchronization,skipAnalytics",
-          NAME_FIELDS, DATA_ELEMENT_FIELDS);
+  protected static final String PROGRAM_STAGE_DATA_ELEMENT_FIELDS = String.format(
+      "%s,dataElement[%s],compulsory,displayInReports,skipSynchronization,skipAnalytics",
+      NAME_FIELDS, DATA_ELEMENT_FIELDS);
 
   /** Tracked entity attribute fields. */
   protected static final String TRACKED_ENTITY_ATTRIBUTE_FIELDS =
       String.format("%s,valueType,aggregationType,confidential,unique", NAME_FIELDS);
 
   /** Tracked entity type fields. */
-  protected static final String TRACKED_ENTITY_TYPE_FIELDS =
-      String.format(
-          "%s,trackedEntityTypeAttributes[id,trackedEntityAttribute[%s],displayInList,mandatory,searchable]",
-          NAME_FIELDS, TRACKED_ENTITY_ATTRIBUTE_FIELDS);
+  protected static final String TRACKED_ENTITY_TYPE_FIELDS = String.format(
+      "%s,trackedEntityTypeAttributes[id,trackedEntityAttribute[%s],displayInList,mandatory,searchable]",
+      NAME_FIELDS, TRACKED_ENTITY_ATTRIBUTE_FIELDS);
 
   protected static final String TRACKED_ENTITY_ENROLLMENT_FIELDS =
       """
-      enrollment,program,trackedEntity,status,orgUnit,createdAt,createdAtClient,updatedAt,updatedAtClient,\
-      enrolledAt,occurredAt,completedAt,followUp,deleted,completedBy,storedBy""";
+          enrollment,program,trackedEntity,status,orgUnit,createdAt,createdAtClient,updatedAt,updatedAtClient,\
+          enrolledAt,occurredAt,completedAt,followUp,deleted,completedBy,storedBy""";
 
-  protected static final String TRACKED_ENTITY_FIELDS =
-      String.format(
-          """
-          trackedEntity,trackedEntityType,createdAt,createdAtClient,updatedAt,updatedAtClient,\
-          orgUnit,inactive,deleted,potentialDuplicate,geometry,storedBy,\
-          attributes[attribute,displayName,code,createdAt,updatedAt,valueType,value],\
-          enrollments[%s]""",
-          TRACKED_ENTITY_ENROLLMENT_FIELDS);
+  protected static final String TRACKED_ENTITY_FIELDS = String.format("""
+      trackedEntity,trackedEntityType,createdAt,createdAtClient,updatedAt,updatedAtClient,\
+      orgUnit,inactive,deleted,potentialDuplicate,geometry,storedBy,\
+      attributes[attribute,displayName,code,createdAt,updatedAt,valueType,value],\
+      enrollments[%s]""", TRACKED_ENTITY_ENROLLMENT_FIELDS);
 
   /** Program fields. */
-  protected static final String PROGRAM_FIELDS =
-      String.format(
-          """
+  protected static final String PROGRAM_FIELDS = String.format(
+      """
           %1$s,programType,trackedEntityType[%2$s],categoryCombo[%1$s,categories[%3$s]],\
           programStages[%1$s,\
           programStageDataElements[%4$s],\
           programStageSections[%1$s,formName,sortOrder,programStage[%1$s],dataElements[%1$s],programIndicators[%1$s]]],\
           programTrackedEntityAttributes[id,code,name,trackedEntityAttribute[%5$s]]""",
-          NAME_FIELDS,
-          TRACKED_ENTITY_TYPE_FIELDS,
-          CATEGORY_FIELDS,
-          PROGRAM_STAGE_DATA_ELEMENT_FIELDS,
-          TRACKED_ENTITY_ATTRIBUTE_FIELDS);
+      NAME_FIELDS, TRACKED_ENTITY_TYPE_FIELDS, CATEGORY_FIELDS, PROGRAM_STAGE_DATA_ELEMENT_FIELDS,
+      TRACKED_ENTITY_ATTRIBUTE_FIELDS);
 
   /** User fields. */
-  protected static final String USER_FIELDS =
-      String.format(
-          """
-          %1$s,username,firstName,surname,email,phoneNumber,externalAuth,lastLogin,\
-          organisationUnits[%2$s],dataViewOrganisationUnits[%2$s],teiSearchOrganisationUnits[%2$s]""",
-          ID_FIELDS, NAME_FIELDS);
+  protected static final String USER_FIELDS = String.format("""
+      %1$s,username,firstName,surname,email,phoneNumber,externalAuth,lastLogin,\
+      organisationUnits[%2$s],dataViewOrganisationUnits[%2$s],teiSearchOrganisationUnits[%2$s]""",
+      ID_FIELDS, NAME_FIELDS);
 
   protected static final String VALIDATION_SIDE_FIELDS =
       "expression,description,displayDescription,slidingWindow,missingValueStrategy";
 
   /** Validation rule fields. */
-  protected static final String VALIDATION_RULE_FIELDS =
-      String.format(
-          """
-          %1$s,dimensionItem,instruction,importance,periodType,displayDescription,displayInstruction,\
-          displayName,leftSide[%2$s],operator,rightSide[%2$s],skipFormValidation,legendSets""",
-          NAME_FIELDS, VALIDATION_SIDE_FIELDS);
+  protected static final String VALIDATION_RULE_FIELDS = String.format("""
+      %1$s,dimensionItem,instruction,importance,periodType,displayDescription,displayInstruction,\
+      displayName,leftSide[%2$s],operator,rightSide[%2$s],skipFormValidation,legendSets""",
+      NAME_FIELDS, VALIDATION_SIDE_FIELDS);
 
   /** Data set validation fields. */
-  protected static final String DATA_SET_VALIDATION_FIELDS =
-      String.format(
-          """
-          id,leftsideValue,rightsideValue,dayInPeriod,notificationSent,\
-          validationRule[%1$s],period[%2$s],organisationUnit[%2$s],attributeOptionCombo[%2$s]""",
-          VALIDATION_RULE_FIELDS, ID_FIELDS);
+  protected static final String DATA_SET_VALIDATION_FIELDS = String.format("""
+      id,leftsideValue,rightsideValue,dayInPeriod,notificationSent,\
+      validationRule[%1$s],period[%2$s],organisationUnit[%2$s],attributeOptionCombo[%2$s]""",
+      VALIDATION_RULE_FIELDS, ID_FIELDS);
 
   protected final Dhis2Config config;
 
@@ -376,10 +339,8 @@ public class BaseDhis2 {
    */
   protected URI getObjectQuery(URIBuilder uriBuilder, BaseQuery query) {
     for (Filter filter : query.getFilters()) {
-      String filterValue =
-          String.format(
-              "%s:%s:%s",
-              filter.getProperty(), filter.getOperator().value(), getQueryValue(filter));
+      String filterValue = String.format("%s:%s:%s", filter.getProperty(),
+          filter.getOperator().value(), getQueryValue(filter));
 
       uriBuilder.addParameter("filter", filterValue);
     }
@@ -423,8 +384,8 @@ public class BaseDhis2 {
    * @param type the class type of the object.
    * @return the object.
    */
-  protected <T> T getDataValueSetResponse(
-      URIBuilder uriBuilder, DataValueSetQuery query, Class<T> type) {
+  protected <T> T getDataValueSetResponse(URIBuilder uriBuilder, DataValueSetQuery query,
+      Class<T> type) {
     URI url = getDataValueSetQuery(uriBuilder, query);
     return getObjectFromUrl(url, type);
   }
@@ -436,8 +397,8 @@ public class BaseDhis2 {
    * @param query the {@link DataSetValidationQuery} filters to apply.
    * @return the object.
    */
-  protected Validation getDataSetValidationResponse(
-      URIBuilder uriBuilder, DataSetValidationQuery query) {
+  protected Validation getDataSetValidationResponse(URIBuilder uriBuilder,
+      DataSetValidationQuery query) {
     URI url = getDataSetValidationQuery(uriBuilder, query);
     return getObjectFromUrl(url, Validation.class);
   }
@@ -519,13 +480,13 @@ public class BaseDhis2 {
    * @param options the {@link DataValueSetImportOptions} to apply.
    * @return a {@link URI}.
    */
-  protected URI getDataValueSetImportQuery(
-      URIBuilder uriBuilder, DataValueSetImportOptions options) {
+  protected URI getDataValueSetImportQuery(URIBuilder uriBuilder,
+      DataValueSetImportOptions options) {
     addParameter(uriBuilder, "async", "true"); // Always use async
     addParameter(uriBuilder, "dataElementIdScheme", options.getDataElementIdScheme());
     addParameter(uriBuilder, "orgUnitIdScheme", options.getOrgUnitIdScheme());
-    addParameter(
-        uriBuilder, "categoryOptionComboIdScheme", options.getCategoryOptionComboIdScheme());
+    addParameter(uriBuilder, "categoryOptionComboIdScheme",
+        options.getCategoryOptionComboIdScheme());
     addParameter(uriBuilder, "idScheme", options.getIdScheme());
     addParameter(uriBuilder, "dryRun", options.getDryRun());
     addParameter(uriBuilder, "importStrategy", options.getImportStrategy());
@@ -543,8 +504,8 @@ public class BaseDhis2 {
    * @param options the {@link CompleteDataSetRegistrationImportOptions} import options.
    * @return a {@link CompleteDataSetRegistrationResponse}.
    */
-  protected CompleteDataSetRegistrationResponse saveCompleteDataSetRegistrations(
-      HttpEntity entity, CompleteDataSetRegistrationImportOptions options) {
+  protected CompleteDataSetRegistrationResponse saveCompleteDataSetRegistrations(HttpEntity entity,
+      CompleteDataSetRegistrationImportOptions options) {
     URIBuilder builder = config.getResolvedUriBuilder().appendPath("completeDataSetRegistrations");
 
     URI url = getCompleteDataSetRegistrationsImportQuery(builder, options);
@@ -608,8 +569,8 @@ public class BaseDhis2 {
    * @param query the {@link TrackedEntityQuery}.
    * @return a {@link TrackedEntitiesResult}.
    */
-  protected TrackedEntitiesResult getTrackedEntitiesResult(
-      URIBuilder uriBuilder, TrackedEntityQuery query) {
+  protected TrackedEntitiesResult getTrackedEntitiesResult(URIBuilder uriBuilder,
+      TrackedEntityQuery query) {
     URIBuilder url = getTrackedEntityQuery(uriBuilder, query);
 
     return getObject(url, query, TrackedEntitiesResult.class);
@@ -712,8 +673,8 @@ public class BaseDhis2 {
    * @param query the {@link TrackedEntityImportParams}.
    * @return a {@link URI}.
    */
-  protected URIBuilder getTrackedEntityImportParams(
-      URIBuilder uriBuilder, TrackedEntityImportParams query) {
+  protected URIBuilder getTrackedEntityImportParams(URIBuilder uriBuilder,
+      TrackedEntityImportParams query) {
     addParameter(uriBuilder, "reportMode", query.getReportMode());
     addParameter(uriBuilder, "importMode", query.getImportMode());
     addParameter(uriBuilder, "idScheme", query.getIdScheme());
@@ -780,16 +741,16 @@ public class BaseDhis2 {
     addParameter(uriBuilder, "dataElementIdScheme", query.getDataElementIdScheme());
     addParameter(uriBuilder, "orgUnitIdScheme", query.getOrgUnitIdScheme());
     addParameter(uriBuilder, "categoryOptionComboIdScheme", query.getCategoryOptionComboIdScheme());
-    addParameter(
-        uriBuilder, "attributeOptionComboIdScheme", query.getAttributeOptionComboIdScheme());
+    addParameter(uriBuilder, "attributeOptionComboIdScheme",
+        query.getAttributeOptionComboIdScheme());
     addParameter(uriBuilder, "dataSetIdScheme", query.getDataSetIdScheme());
     addParameter(uriBuilder, "categoryIdScheme", query.getCategoryIdScheme());
     addParameter(uriBuilder, "categoryOptionIdScheme", query.getCategoryOptionIdScheme());
     addParameter(uriBuilder, "idScheme", query.getIdScheme());
     addParameter(uriBuilder, "inputOrgUnitIdScheme", query.getInputOrgUnitIdScheme());
     addParameter(uriBuilder, "inputDataSetIdScheme", query.getInputDataSetIdScheme());
-    addParameter(
-        uriBuilder, "inputDataElementGroupIdScheme", query.getInputDataElementGroupIdScheme());
+    addParameter(uriBuilder, "inputDataElementGroupIdScheme",
+        query.getInputDataElementGroupIdScheme());
     addParameter(uriBuilder, "inputDataElementIdScheme", query.getInputDataElementIdScheme());
     addParameter(uriBuilder, "inputIdScheme", query.getInputIdScheme());
 
@@ -841,8 +802,8 @@ public class BaseDhis2 {
    * @param query the {@link CompleteDataSetRegistrationQuery}.
    * @return a URI.
    */
-  protected URI getCompleteDataSetRegistrationQuery(
-      URIBuilder uriBuilder, CompleteDataSetRegistrationQuery query) {
+  protected URI getCompleteDataSetRegistrationQuery(URIBuilder uriBuilder,
+      CompleteDataSetRegistrationQuery query) {
     for (String dataSet : query.getDataSets()) {
       addParameter(uriBuilder, "dataSet", dataSet);
     }
@@ -866,8 +827,8 @@ public class BaseDhis2 {
     addParameter(uriBuilder, "idScheme", query.getIdScheme());
     addParameter(uriBuilder, "orgUnitIdScheme", query.getOrgUnitIdScheme());
     addParameter(uriBuilder, "dataSetIdScheme", query.getDataSetIdScheme());
-    addParameter(
-        uriBuilder, "attributeOptionComboIdScheme", query.getAttributeOptionComboIdScheme());
+    addParameter(uriBuilder, "attributeOptionComboIdScheme",
+        query.getAttributeOptionComboIdScheme());
 
     return HttpUtils.build(uriBuilder);
   }
@@ -879,13 +840,13 @@ public class BaseDhis2 {
    * @param options the {@link CompleteDataSetRegistrationImportOptions} to apply.
    * @return a URI.
    */
-  private URI getCompleteDataSetRegistrationsImportQuery(
-      URIBuilder uriBuilder, CompleteDataSetRegistrationImportOptions options) {
+  private URI getCompleteDataSetRegistrationsImportQuery(URIBuilder uriBuilder,
+      CompleteDataSetRegistrationImportOptions options) {
     addParameter(uriBuilder, "async", "true"); // Always use async
     addParameter(uriBuilder, "dataSetIdScheme", options.getDataSetIdScheme());
     addParameter(uriBuilder, "orgUnitIdScheme", options.getOrgUnitIdScheme());
-    addParameter(
-        uriBuilder, "attributeOptionComboIdScheme", options.getAttributeOptionComboIdScheme());
+    addParameter(uriBuilder, "attributeOptionComboIdScheme",
+        options.getAttributeOptionComboIdScheme());
     addParameter(uriBuilder, "idScheme", options.getIdScheme());
     addParameter(uriBuilder, "preheatCache", options.getPreheatCache());
     addParameter(uriBuilder, "dryRun", options.getDryRun());
@@ -982,8 +943,8 @@ public class BaseDhis2 {
    * @return a {@link Response}.
    * @throws Dhis2ClientException if unauthorized, access denied or resource not found.
    */
-  protected <T extends BaseHttpResponse> T executeJsonPostPutRequest(
-      HttpUriRequestBase request, Object object, Class<T> type) {
+  protected <T extends BaseHttpResponse> T executeJsonPostPutRequest(HttpUriRequestBase request,
+      Object object, Class<T> type) {
     validateRequestObject(object);
 
     String requestBody = toJsonString(object);
@@ -1129,9 +1090,9 @@ public class BaseDhis2 {
    * Handles error status codes.
    *
    * <ul>
-   *   <li>401 Unauthorized
-   *   <li>403 Forbidden
-   *   <li>404 Not found
+   * <li>401 Unauthorized
+   * <li>403 Forbidden
+   * <li>404 Not found
    * </ul>
    *
    * @param response {@link HttpResponse}.
@@ -1154,8 +1115,8 @@ public class BaseDhis2 {
    * Handles errors status code for HTTP GET requests.
    *
    * <ul>
-   *   <li>400 Bad request
-   *   <li>409 Conflict
+   * <li>400 Bad request
+   * <li>409 Conflict
    * </ul>
    *
    * @param response the {@link CloseableHttpResponse}.
@@ -1334,8 +1295,8 @@ public class BaseDhis2 {
    * @return object holding information about the operation.
    * @throws Dhis2ClientException if unauthorized, access denied or resource not found.
    */
-  protected <T extends BaseHttpResponse> T saveObject(
-      URIBuilder uriBuilder, Object object, Class<T> type) {
+  protected <T extends BaseHttpResponse> T saveObject(URIBuilder uriBuilder, Object object,
+      Class<T> type) {
     URI url = HttpUtils.build(uriBuilder);
 
     return executeJsonPostPutRequest(new HttpPost(url), object, type);
@@ -1376,15 +1337,11 @@ public class BaseDhis2 {
    * @param <T> class.
    * @return response object holding information about the operation.
    */
-  protected <T extends BaseHttpResponse> T updateObject(
-      String path, Map<String, String> params, Object object, Class<T> type) {
+  protected <T extends BaseHttpResponse> T updateObject(String path, Map<String, String> params,
+      Object object, Class<T> type) {
     try {
-      URI url =
-          config
-              .getResolvedUriBuilder()
-              .appendPath(path)
-              .addParameters(toNameValuePairs(params))
-              .build();
+      URI url = config.getResolvedUriBuilder().appendPath(path)
+          .addParameters(toNameValuePairs(params)).build();
 
       return executeJsonPostPutRequest(new HttpPut(url), object, type);
     } catch (URISyntaxException ex) {
@@ -1435,8 +1392,7 @@ public class BaseDhis2 {
    * @return a list of {@link NameValuePair}.
    */
   protected List<NameValuePair> toNameValuePairs(Map<String, String> params) {
-    return params.entrySet().stream()
-        .map(p -> new BasicNameValuePair(p.getKey(), p.getValue()))
+    return params.entrySet().stream().map(p -> new BasicNameValuePair(p.getKey(), p.getValue()))
         .collect(Collectors.toList());
   }
 
@@ -1450,40 +1406,32 @@ public class BaseDhis2 {
    * @return a {@link Response} holding information about the operation.
    */
   protected Response addToCollection(String path, String id, String collection, String item) {
-    URI url =
-        HttpUtils.build(
-            config
-                .getResolvedUriBuilder()
-                .appendPath(path)
-                .appendPath(id)
-                .appendPath(collection)
-                .appendPath(item));
+    URI url = HttpUtils.build(config.getResolvedUriBuilder().appendPath(path).appendPath(id)
+        .appendPath(collection).appendPath(item));
 
     Response response = executeRequest(new HttpPost(url));
 
-    Status status =
-        response != null
-                && response.getHttpStatus() != null
-                && response.getHttpStatus().is2xxSuccessful()
-            ? Status.OK
-            : Status.ERROR;
+    Status status = response != null && response.getHttpStatus() != null
+        && response.getHttpStatus().is2xxSuccessful() ? Status.OK : Status.ERROR;
 
     return new Response(status, response.getHttpStatusCode(), response.getMessage());
   }
 
   /**
-   * Logs the message at debug level, or if system property {@link
-   * BaseDhis2#LOG_LEVEL_SYSTEM_PROPERTY} is set, at the info or warn level.
+   * Logs the message at debug level.
    *
-   * <p>To log messages at info level during tests:
+   * <p>
+   * To log messages at info level during tests:
    *
-   * <pre>mvn test -Dlog.level.dhis2=info</pre>
+   * <pre>
+   * mvn test -Dlog.level.dhis2=info
+   * </pre>
    *
    * @param format the message format.
    * @param arguments the message arguments.
    */
   private void log(String format, Object... arguments) {
-    String logLevel = System.getProperty(LOG_LEVEL_SYSTEM_PROPERTY);
+    String logLevel = getLogLevel();
 
     if (LOG_LEVEL_INFO.equalsIgnoreCase(logLevel)) {
       log.info(format, arguments);
@@ -1492,5 +1440,14 @@ public class BaseDhis2 {
     } else {
       log.debug(format, arguments);
     }
+  }
+
+  /**
+   * Returns the log level based on the system property {@link BaseDhis2#LOG_LEVEL_SYSTEM_PROPERTY}.
+   * 
+   * @return the log level.
+   */
+  private String getLogLevel() {
+    return System.getProperty(LOG_LEVEL_SYSTEM_PROPERTY);
   }
 }
