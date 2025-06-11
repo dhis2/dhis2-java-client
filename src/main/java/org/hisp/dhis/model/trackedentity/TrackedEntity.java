@@ -41,6 +41,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.hisp.dhis.model.enrollment.Enrollment;
+import org.hisp.dhis.util.DateTimeUtils;
 import org.locationtech.jts.geom.Geometry;
 
 @Getter
@@ -144,10 +145,15 @@ public class TrackedEntity {
         .orElse(null);
   }
 
+  /**
+   * Returns the value of the specified attribute as a {@link Date}.
+   *
+   * @param attribute the attribute identifier.
+   * @return the value of the attribute as a {@link Date}, or null if not found.
+   */
   public Date getDateAttributeValue(String attribute) {
     String value = getAttributeValue(attribute);
-    if (isNotBlank(attribute)) {}
-    return null;
+    return isNotBlank(attribute) ? DateTimeUtils.toDateTime(value) : null;
   }
 
   /**
