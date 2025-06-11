@@ -28,6 +28,7 @@
 package org.hisp.dhis.model.trackedentity;
 
 import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
+import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -40,6 +41,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.hisp.dhis.model.enrollment.Enrollment;
+import org.hisp.dhis.util.DateTimeUtils;
 import org.locationtech.jts.geom.Geometry;
 
 @Getter
@@ -141,6 +143,17 @@ public class TrackedEntity {
         .filter(Objects::nonNull)
         .findFirst()
         .orElse(null);
+  }
+
+  /**
+   * Returns the value of the specified attribute as a {@link Date}.
+   *
+   * @param attribute the attribute identifier.
+   * @return the value of the attribute as a {@link Date}, or null if not found.
+   */
+  public Date getDateAttributeValue(String attribute) {
+    String value = getAttributeValue(attribute);
+    return isNotBlank(attribute) ? DateTimeUtils.toDateTime(value) : null;
   }
 
   /**
