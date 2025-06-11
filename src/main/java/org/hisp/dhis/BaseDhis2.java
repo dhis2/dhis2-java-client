@@ -282,7 +282,7 @@ public class BaseDhis2 {
   protected static final String PROGRAM_TRACKED_ENTITY_ATTRIBUTE_FIELDS =
       String.format(
           """
-          id,code,name,program[%1$s],trackedEntityAttribute[%2$s],\
+          id,code,name,program[%s],trackedEntityAttribute[%s],\
           sortOrder,displayInList,mandatory]""",
           NAME_FIELDS, TRACKED_ENTITY_ATTRIBUTE_FIELDS);
 
