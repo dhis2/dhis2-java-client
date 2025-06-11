@@ -257,9 +257,9 @@ public class BaseDhis2 {
   protected static final String PROGRAM_STAGE_DATA_ELEMENT_FIELDS =
       String.format(
           """
-          %s,programStage[%s],dataElement[%s],\
+          %1$s,programStage[%1$s],dataElement[%2$s],\
           compulsory,displayInReports,skipSynchronization,skipAnalytics""",
-          NAME_FIELDS, NAME_FIELDS, DATA_ELEMENT_FIELDS);
+          NAME_FIELDS, DATA_ELEMENT_FIELDS);
 
   /** Tracked entity attribute fields. */
   protected static final String TRACKED_ENTITY_ATTRIBUTE_FIELDS =
