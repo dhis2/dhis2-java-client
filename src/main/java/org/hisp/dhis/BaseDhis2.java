@@ -259,7 +259,7 @@ public class BaseDhis2 {
           """
           %s,programStage[%s],dataElement[%s],\
           compulsory,displayInReports,skipSynchronization,skipAnalytics""",
-          NAME_FIELDS, DATA_ELEMENT_FIELDS);
+          NAME_FIELDS, NAME_FIELDS, DATA_ELEMENT_FIELDS);
 
   /** Tracked entity attribute fields. */
   protected static final String TRACKED_ENTITY_ATTRIBUTE_FIELDS =
