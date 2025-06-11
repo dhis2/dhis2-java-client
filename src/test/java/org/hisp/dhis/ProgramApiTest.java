@@ -202,6 +202,7 @@ class ProgramApiTest {
     assertNotBlank(section.getName());
     assertNotNull(section.getProgram());
     assertNotBlank(section.getProgram().getId());
+    assertNotNull(section.getSortOrder());
     assertEquals("qDkgAbB5Jlk", section.getProgram().getId());
 
     List<TrackedEntityAttribute> attributes = section.getTrackedEntityAttributes();
