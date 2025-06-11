@@ -291,6 +291,7 @@ public class BaseDhis2 {
       String.format(
           """
           %1$s,programType,trackedEntityType[%2$s],categoryCombo[%1$s,categories[%3$s]],\
+          programSections[%1$s,sortOrder,program[%1$s],trackedEntityAttributes[%1$s]],\
           programStages[%1$s,\
           programStageDataElements[%4$s],\
           programStageSections[%1$s,formName,sortOrder,programStage[%1$s],\

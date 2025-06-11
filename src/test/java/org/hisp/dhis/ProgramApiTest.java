@@ -38,6 +38,7 @@ import java.util.List;
 import org.hisp.dhis.model.DataElement;
 import org.hisp.dhis.model.Program;
 import org.hisp.dhis.model.ProgramIndicator;
+import org.hisp.dhis.model.ProgramSection;
 import org.hisp.dhis.model.ProgramStage;
 import org.hisp.dhis.model.ProgramStageDataElement;
 import org.hisp.dhis.model.ProgramStageSection;
@@ -176,6 +177,41 @@ class ProgramApiTest {
     assertEquals("x7PaHGvgWY2", pi.getId());
     assertNotBlank(pi.getName());
     assertNotBlank(pi.getShortName());
+  }
+
+  @Test
+  void testGetProgramMalariaCaseDiagnosis() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    Program pr = dhis2.getProgram("qDkgAbB5Jlk");
+
+    assertNotNull(pr);
+    assertEquals("qDkgAbB5Jlk", pr.getId());
+    assertNotBlank(pr.getName());
+    assertNotBlank(pr.getShortName());
+    assertNotNull(pr.getProgramStages());
+    assertNotNull(pr.getProgramStageSections());
+    assertFalse(pr.getProgramStageSections().isEmpty());
+
+    List<ProgramSection> sections = pr.getProgramSections();
+    assertNotNull(sections);
+    assertNotEmpty(sections);
+
+    ProgramSection section = sections.get(0);
+    assertNotBlank(section.getId());
+    assertNotBlank(section.getName());
+    assertNotNull(section.getProgram());
+    assertNotBlank(section.getProgram().getId());
+    assertEquals("qDkgAbB5Jlk", section.getProgram().getId());
+
+    List<TrackedEntityAttribute> attributes = section.getTrackedEntityAttributes();
+    assertNotNull(attributes);
+    assertNotEmpty(attributes);
+
+    TrackedEntityAttribute attribute = attributes.get(0);
+    assertNotNull(attribute);
+    assertNotBlank(attribute.getId());
+    assertNotBlank(attribute.getName());
   }
 
   @Test

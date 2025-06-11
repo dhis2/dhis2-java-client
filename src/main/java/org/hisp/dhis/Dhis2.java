@@ -1698,7 +1698,9 @@ public class Dhis2 extends BaseDhis2 {
             ? PROGRAM_FIELDS
             : String.format(
                 """
-                %1$s,programType,trackedEntityType[%1$s],categoryCombo[%1$s],programStages[%1$s],\
+                %1$s,programType,trackedEntityType[%1$s],categoryCombo[%1$s],\
+                programSections[%1$s],\
+                programStages[%1$s],\
                 programTrackedEntityAttributes[id,code,name,trackedEntityAttribute[%2$s]]""",
                 NAME_FIELDS, TRACKED_ENTITY_ATTRIBUTE_FIELDS);
 
