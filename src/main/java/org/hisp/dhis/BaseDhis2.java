@@ -291,11 +291,13 @@ public class BaseDhis2 {
       String.format(
           """
           %1$s,programType,trackedEntityType[%2$s],categoryCombo[%1$s,categories[%3$s]],\
+          programSections[%1$s,sortOrder,program[%1$s],trackedEntityAttributes[%1$s]],\
           programStages[%1$s,\
           programStageDataElements[%4$s],\
           programStageSections[%1$s,formName,sortOrder,programStage[%1$s],\
           dataElements[%1$s],programIndicators[%1$s]]],\
-          programTrackedEntityAttributes[id,code,name,trackedEntityAttribute[%5$s]]""",
+          programTrackedEntityAttributes[id,code,name,\
+          program[%1$s],trackedEntityAttribute[%5$s]]""",
           NAME_FIELDS,
           TRACKED_ENTITY_TYPE_FIELDS,
           CATEGORY_FIELDS,

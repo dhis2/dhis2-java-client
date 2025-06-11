@@ -32,7 +32,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 import org.hisp.dhis.model.AggregationType;
 import org.hisp.dhis.model.NameableObject;
 import org.hisp.dhis.model.OptionSet;
@@ -40,7 +39,6 @@ import org.hisp.dhis.model.ValueType;
 
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
 public class TrackedEntityAttribute extends NameableObject {
   @JsonProperty private ValueType valueType;

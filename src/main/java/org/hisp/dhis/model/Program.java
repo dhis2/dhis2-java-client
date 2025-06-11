@@ -59,6 +59,8 @@ public class Program extends NameableObject {
   @JsonProperty
   private List<ProgramTrackedEntityAttribute> programTrackedEntityAttributes = new ArrayList<>();
 
+  @JsonProperty private List<ProgramSection> programSections = new ArrayList<>();
+
   @JsonProperty private List<ProgramStage> programStages = new ArrayList<>();
 
   public Program(String id, String name) {

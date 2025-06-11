@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004-2024, University of Oslo
+ * Copyright (c) 2004-2025, University of Oslo
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,20 +25,23 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.hisp.dhis.model.trackedentity;
+package org.hisp.dhis.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hisp.dhis.model.IdentifiableObject;
-import org.hisp.dhis.model.Program;
+import org.hisp.dhis.model.trackedentity.TrackedEntityAttribute;
 
 @Getter
 @Setter
 @NoArgsConstructor
-public class ProgramTrackedEntityAttribute extends IdentifiableObject {
+public class ProgramSection extends NameableObject {
   @JsonProperty private Program program;
 
-  @JsonProperty private TrackedEntityAttribute trackedEntityAttribute;
+  @JsonProperty private Integer sortOrder;
+
+  @JsonProperty private List<TrackedEntityAttribute> trackedEntityAttributes = new ArrayList<>();
 }
