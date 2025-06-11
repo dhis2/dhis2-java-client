@@ -28,6 +28,7 @@
 package org.hisp.dhis.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -42,5 +43,5 @@ public class ProgramSection extends NameableObject {
 
   @JsonProperty private Integer sortOrder;
 
-  @JsonProperty private List<TrackedEntityAttribute> trackedEntityAttributes;
+  @JsonProperty private List<TrackedEntityAttribute> trackedEntityAttributes = new ArrayList<>();
 }
