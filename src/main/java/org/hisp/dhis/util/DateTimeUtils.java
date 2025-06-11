@@ -42,36 +42,50 @@ import org.apache.commons.lang3.StringUtils;
 /** Utilities for date and time. */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class DateTimeUtils {
-  private static final String DATE_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS";
-
   private static final String DATE_FORMAT = "yyyy-MM-dd";
+
+  private static final String DATE_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS";
 
   public static final String JSON_DATE_FORMAT = DATE_FORMAT;
 
   public static final String JSON_DATE_TIME_FORMAT = "yyyy-MM-dd'T'hh:mm:ss";
 
+  // -----------------------------------------------------------------------------------------------
+  // To date object methods
+  // -----------------------------------------------------------------------------------------------
+
   /**
-   * Returns a date.
+   * Returns a {@link Date}.
    *
    * @param year the year.
    * @param month the month, from 1.
    * @param dayOfMonth, from 1 to 31.
    * @return a {@link Date}.
    */
-  public static Date getDate(int year, int month, int dayOfMonth) {
+  public static Date toDate(int year, int month, int dayOfMonth) {
     LocalDate localDate = LocalDate.of(year, month, dayOfMonth);
 
     return Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
   }
 
   /**
-   * Returns a date string on the format: <code>yyyy-MM-dd</code>.
+   * Returns a {@link java.util.Date} from a {@link java.time.LocalDate}.
    *
-   * @param date the {@link Date}.
-   * @return a date string.
+   * @param date the {@link java.time.LocalDate}.
+   * @return the {@link java.util.Date}.
    */
-  public static String getDateString(Date date) {
-    return new SimpleDateFormat(DATE_FORMAT).format(date);
+  public static Date toDate(LocalDate date) {
+    return Date.from(date.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
+  }
+
+  /**
+   * Returns a {@link java.util.Date} from a {@link java.time.LocalDateTime}.
+   *
+   * @param dateTime the {@link java.time.LocalDateTime}.
+   * @return the {@link java.util.Date}.
+   */
+  public static Date toDate(LocalDateTime dateTime) {
+    return Date.from(dateTime.atZone(ZoneId.systemDefault()).toInstant());
   }
 
   /**
@@ -81,33 +95,8 @@ public class DateTimeUtils {
    * @param string the date string.
    * @return a {@link LocalDate}.
    */
-  public static LocalDate getLocalDate(String string) {
+  public static LocalDate toLocalDate(String string) {
     return LocalDate.parse(string);
-  }
-
-  /**
-   * Returns a date string on the format: <code>yyyy-MM-dd</code>.
-   *
-   * @param date the {@link LocalDate}.
-   * @return a date time string.
-   */
-  public static String getLocalDateString(LocalDate date) {
-    return DateTimeFormatter.ISO_LOCAL_DATE.format(date);
-  }
-
-  /**
-   * Indicates whether the given string can be parsed to a local date, i.e. is in a valid ISO date
-   * format, e.g. <code>2007-12-03</code>.
-   *
-   * @param string the date string.
-   * @return true if the given string can be parsed to a local date, false otherwise.
-   */
-  public static boolean isValidLocalDate(String string) {
-    try {
-      return string != null && getLocalDate(string) != null;
-    } catch (DateTimeException ex) {
-      return false;
-    }
   }
 
   /**
@@ -118,7 +107,7 @@ public class DateTimeUtils {
    * @param string the instant string.
    * @return a {@link LocalDateTime}.
    */
-  public static LocalDateTime getLocalDateTime(String string) {
+  public static LocalDateTime toLocalDateTime(String string) {
     string = StringUtils.removeEndIgnoreCase(string, "z");
 
     return LocalDateTime.parse(string);
@@ -132,23 +121,83 @@ public class DateTimeUtils {
    * @param string the instant string.
    * @return a {@link LocalDateTime}.
    */
-  public static LocalDate getLocalDateTimeAsDate(String string) {
-    return getLocalDateTime(string).toLocalDate();
+  public static LocalDate toLocalDateTimeAsDate(String string) {
+    return toLocalDateTime(string).toLocalDate();
   }
 
   /**
-   * Indicates whether the given string can be parsed to a local date time, i.e. is in a valid ISO
-   * date time format, e.g. <code>2007-12-03T10:15:30.00Z</code>.
+   * Returns the {@link Instant} of received date param. if data is null, it also returns null
+   * Instant.
    *
-   * @param string the instant string.
-   * @return true if the given string can be parsed to a local date time, false otherwise.
+   * @param date the {@link Date}.
+   * @return the {@link Instant} of received date param.
    */
-  public static boolean isValidLocalDateTime(String string) {
-    try {
-      return string != null && getLocalDateTime(string) != null;
-    } catch (DateTimeException ex) {
-      return false;
-    }
+  public static Instant toInstant(Date date) {
+    return date != null ? date.toInstant() : null;
+  }
+
+  /**
+   * Returns the {@link LocalDate} from a given {@link Instant}.
+   *
+   * @param instant the {@link Instant}.
+   * @return the {@link LocalDate}.
+   */
+  public static LocalDate toLocalDate(Instant instant) {
+    return instant.atZone(ZoneId.systemDefault()).toLocalDate();
+  }
+
+  /**
+   * Returns the {@link LocalDateTime} from a given {@link Instant}.
+   *
+   * @param instant the {@link Instant}.
+   * @return the {@link LocalDateTime}.
+   */
+  public static LocalDateTime toLocalDateTime(Instant instant) {
+    return instant.atZone(ZoneId.systemDefault()).toLocalDateTime();
+  }
+
+  /**
+   * Converts the given {@link Date} to a {@link LocalDate}.
+   *
+   * @param date the {@link Date}.
+   * @return a {@link LocalDate}.
+   */
+  public static LocalDate toLocalDate(Date date) {
+    return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+  }
+
+  /**
+   * Converts the given {@link Date} to a {@link LocalDateTime}.
+   *
+   * @param date the {@link Date}.
+   * @return a {@link LocalDateTime}.
+   */
+  public static LocalDateTime toLocalDateTime(Date date) {
+    return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+  }
+
+  // -----------------------------------------------------------------------------------------------
+  // To date string methods
+  // -----------------------------------------------------------------------------------------------
+
+  /**
+   * Returns a date string on the format: <code>yyyy-MM-dd</code>.
+   *
+   * @param date the {@link Date}.
+   * @return a date string.
+   */
+  public static String getDateString(Date date) {
+    return new SimpleDateFormat(DATE_FORMAT).format(date);
+  }
+
+  /**
+   * Returns a date string on the format: <code>yyyy-MM-dd</code>.
+   *
+   * @param date the {@link LocalDate}.
+   * @return a date time string.
+   */
+  public static String getLocalDateString(LocalDate date) {
+    return DateTimeFormatter.ISO_LOCAL_DATE.format(date);
   }
 
   /**
@@ -201,74 +250,37 @@ public class DateTimeUtils {
     return String.format("%sZ", new SimpleDateFormat(DATE_TIME_FORMAT).format(dateTime));
   }
 
+  // -----------------------------------------------------------------------------------------------
+  // Validation methods
+  // -----------------------------------------------------------------------------------------------
+
   /**
-   * Returns the {@link Instant} of received date param. if data is null, it also returns null
-   * Instant.
+   * Indicates whether the given string can be parsed to a local date, i.e. is in a valid ISO date
+   * format, e.g. <code>2007-12-03</code>.
    *
-   * @param date the {@link Date}.
-   * @return the {@link Instant} of received date param.
+   * @param string the date string.
+   * @return true if the given string can be parsed to a local date, false otherwise.
    */
-  public static Instant toInstant(Date date) {
-    return date != null ? date.toInstant() : null;
+  public static boolean isValidLocalDate(String string) {
+    try {
+      return string != null && toLocalDate(string) != null;
+    } catch (DateTimeException ex) {
+      return false;
+    }
   }
 
   /**
-   * Returns the {@link LocalDate} from a given {@link Instant}.
+   * Indicates whether the given string can be parsed to a local date time, i.e. is in a valid ISO
+   * date time format, e.g. <code>2007-12-03T10:15:30.00Z</code>.
    *
-   * @param instant the {@link Instant}.
-   * @return the {@link LocalDate}.
+   * @param string the instant string.
+   * @return true if the given string can be parsed to a local date time, false otherwise.
    */
-  public static LocalDate toLocalDate(Instant instant) {
-    return instant.atZone(ZoneId.systemDefault()).toLocalDate();
-  }
-
-  /**
-   * Returns the {@link LocalDateTime} from a given {@link Instant}.
-   *
-   * @param instant the {@link Instant}.
-   * @return the {@link LocalDateTime}.
-   */
-  public static LocalDateTime toLocalDateTime(Instant instant) {
-    return instant.atZone(ZoneId.systemDefault()).toLocalDateTime();
-  }
-
-  /**
-   * Returns a {@link java.util.Date} from a {@link java.time.LocalDate}.
-   *
-   * @param date the {@link java.time.LocalDate}.
-   * @return the {@link java.util.Date}.
-   */
-  public static Date toDate(LocalDate date) {
-    return Date.from(date.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
-  }
-
-  /**
-   * Returns a {@link java.util.Date} from a {@link java.time.LocalDateTime}.
-   *
-   * @param dateTime the {@link java.time.LocalDateTime}.
-   * @return the {@link java.util.Date}.
-   */
-  public static Date toDate(LocalDateTime dateTime) {
-    return Date.from(dateTime.atZone(ZoneId.systemDefault()).toInstant());
-  }
-
-  /**
-   * Converts the given {@link Date} to a {@link LocalDate}.
-   *
-   * @param date the {@link Date}.
-   * @return a {@link LocalDate}.
-   */
-  public static LocalDate toLocalDate(Date date) {
-    return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-  }
-
-  /**
-   * Converts the given {@link Date} to a {@link LocalDateTime}.
-   *
-   * @param date the {@link Date}.
-   * @return a {@link LocalDateTime}.
-   */
-  public static LocalDateTime toLocalDateTime(Date date) {
-    return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+  public static boolean isValidLocalDateTime(String string) {
+    try {
+      return string != null && toLocalDateTime(string) != null;
+    } catch (DateTimeException ex) {
+      return false;
+    }
   }
 }

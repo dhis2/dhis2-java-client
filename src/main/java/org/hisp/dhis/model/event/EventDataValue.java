@@ -173,11 +173,11 @@ public class EventDataValue implements Serializable {
   @JsonIgnore
   public LocalDate getLocalDateValue() {
     if (DateTimeUtils.isValidLocalDate(value)) {
-      return DateTimeUtils.getLocalDate(value);
+      return DateTimeUtils.toLocalDate(value);
     }
 
     return DateTimeUtils.isValidLocalDateTime(value)
-        ? DateTimeUtils.getLocalDateTimeAsDate(value)
+        ? DateTimeUtils.toLocalDateTimeAsDate(value)
         : null;
   }
 
@@ -199,6 +199,6 @@ public class EventDataValue implements Serializable {
    */
   @JsonIgnore
   public LocalDateTime getLocalDateTimeValue() {
-    return DateTimeUtils.isValidLocalDateTime(value) ? DateTimeUtils.getLocalDateTime(value) : null;
+    return DateTimeUtils.isValidLocalDateTime(value) ? DateTimeUtils.toLocalDateTime(value) : null;
   }
 }

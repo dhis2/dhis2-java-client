@@ -28,7 +28,7 @@
 package org.hisp.dhis;
 
 import static org.hisp.dhis.util.CollectionUtils.list;
-import static org.hisp.dhis.util.DateTimeUtils.getDate;
+import static org.hisp.dhis.util.DateTimeUtils.toDate;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -72,7 +72,7 @@ class EventsApiTest {
     evA.setProgram("eBAyeGv0exc");
     evA.setProgramStage("Zj7UnCAulEk");
     evA.setOrgUnit("DiszpKrYNg8");
-    evA.setOccurredAt(getDate(2021, 7, 12));
+    evA.setOccurredAt(toDate(2021, 7, 12));
     evA.setPointGeometry(18.066, 59.333);
     evA.setDataValues(dvA);
 
@@ -91,7 +91,7 @@ class EventsApiTest {
     evB.setProgram("eBAyeGv0exc");
     evB.setProgramStage("Zj7UnCAulEk");
     evB.setOrgUnit("DiszpKrYNg8");
-    evB.setOccurredAt(getDate(2021, 7, 14));
+    evB.setOccurredAt(toDate(2021, 7, 14));
     evB.setPointGeometry(24.946, 60.192);
     evB.setDataValues(dvB);
 
@@ -161,7 +161,7 @@ class EventsApiTest {
     evA.setProgram("eBAyeGv0exc");
     evA.setProgramStage("Zj7UnCAulEk");
     evA.setOrgUnit("DiszpKrYNg8");
-    evA.setOccurredAt(getDate(2021, 7, 12));
+    evA.setOccurredAt(toDate(2021, 7, 12));
     evA.setPointGeometry(18.066, 59.333);
     evA.setDataValues(dvA);
 
@@ -180,7 +180,7 @@ class EventsApiTest {
     evB.setProgram("eBAyeGv0exc");
     evB.setProgramStage("Zj7UnCAulEk");
     evB.setOrgUnit("DiszpKrYNg8");
-    evB.setOccurredAt(getDate(2021, 7, 14));
+    evB.setOccurredAt(toDate(2021, 7, 14));
     evB.setPointGeometry(24.946, 60.192);
     evB.setDataValues(dvB);
 
