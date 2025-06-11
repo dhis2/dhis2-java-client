@@ -124,6 +124,7 @@ class ProgramApiTest {
     assertNotNull(psde.getDisplayInReports());
     assertNotNull(psde.getSkipSynchronization());
     assertNotNull(psde.getSkipAnalytics());
+    assertNotNull(psde.getSortOrder());
 
     DataElement de = psde.getDataElement();
 
