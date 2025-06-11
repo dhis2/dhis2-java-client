@@ -33,7 +33,6 @@ import static org.hisp.dhis.support.Assertions.assertSize;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-
 import java.util.List;
 import org.hisp.dhis.model.DataElement;
 import org.hisp.dhis.model.Program;
@@ -116,6 +115,7 @@ class ProgramApiTest {
 
     assertNotNull(psde);
 
+    assertNotNull(psde.getProgramStage());
     assertNotNull(psde.getDataElement());
     assertNotNull(psde.getCompulsory());
     assertNotNull(psde.getDisplayInReports());
