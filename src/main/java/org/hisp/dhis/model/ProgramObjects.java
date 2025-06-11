@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004-2024, University of Oslo
+ * Copyright (c) 2004-2025, University of Oslo
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,26 +25,32 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.hisp.dhis.model.trackedentity;
+package org.hisp.dhis.model;
 
+import java.util.ArrayList;
+import java.util.List;
+import org.hisp.dhis.model.trackedentity.ProgramTrackedEntityAttribute;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hisp.dhis.model.IdentifiableObject;
-import org.hisp.dhis.model.Program;
+import lombok.experimental.Accessors;
 
 @Getter
 @Setter
+@Accessors(chain = true)
 @NoArgsConstructor
-public class ProgramTrackedEntityAttribute extends IdentifiableObject {
-  @JsonProperty private Program program;
+public class ProgramObjects {
+  @JsonProperty private List<Program> programs = new ArrayList<>();
 
-  @JsonProperty private TrackedEntityAttribute trackedEntityAttribute;
+  @JsonProperty private List<ProgramSection> programSections = new ArrayList<>();
 
-  @JsonProperty private Integer sortOrder;
+  @JsonProperty
+  private List<ProgramTrackedEntityAttribute> programTrackedEntityAttributes = new ArrayList<>();
 
-  @JsonProperty private Boolean displayInList;
+  @JsonProperty private List<ProgramStage> programStages = new ArrayList<>();
 
-  @JsonProperty private Boolean mandatory;
+  @JsonProperty private List<ProgramStageSection> programStageSections = new ArrayList<>();
+
+  @JsonProperty private List<ProgramStageDataElement> programStageDataElements = new ArrayList<>();
 }
