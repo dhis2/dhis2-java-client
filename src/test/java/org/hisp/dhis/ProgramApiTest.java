@@ -95,6 +95,7 @@ class ProgramApiTest {
 
     assertNotNull(ptea);
     assertNotBlank(ptea.getId());
+    assertNotNull(ptea.getProgram());
 
     TrackedEntityAttribute tea = ptea.getTrackedEntityAttribute();
 
