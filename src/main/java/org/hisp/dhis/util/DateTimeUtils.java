@@ -27,6 +27,7 @@
  */
 package org.hisp.dhis.util;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.DateTimeException;
 import java.time.Instant;
@@ -89,6 +90,17 @@ public class DateTimeUtils {
   }
 
   /**
+   * Returns a {@link java.util.Date} based on the given string. The string must be on the format
+   * <code>yyyy-MM-dd'T'HH:mm:ss.SSS</code>.
+   *
+   * @param string the date time string.
+   * @return a {@link Date}.
+   */
+  public static Date toDateTime(String string) {
+    return parse(DATE_TIME_FORMAT, string);
+  }
+
+  /**
    * Returns a {@link LocalDate} based on the given string. The string must be on the ISO local date
    * format, e.g. <code>2007-12-03</code>.
    *
@@ -109,7 +121,6 @@ public class DateTimeUtils {
    */
   public static LocalDateTime toLocalDateTime(String string) {
     string = StringUtils.removeEndIgnoreCase(string, "z");
-
     return LocalDateTime.parse(string);
   }
 
@@ -191,6 +202,16 @@ public class DateTimeUtils {
   }
 
   /**
+   * Returns a date time string on the format: <code>yyyy-MM-dd'T'HH:mm:ss.SSS</code>.
+   *
+   * @param dateTime the {@link Date}.
+   * @return a date time string.
+   */
+  public static String getDateTimeString(Date dateTime) {
+    return new SimpleDateFormat(DATE_TIME_FORMAT).format(dateTime);
+  }
+
+  /**
    * Returns a date string on the format: <code>yyyy-MM-dd</code>.
    *
    * @param date the {@link LocalDate}.
@@ -208,16 +229,6 @@ public class DateTimeUtils {
    */
   public static String getLocalDateTimeString(LocalDateTime dateTime) {
     return DateTimeFormatter.ISO_LOCAL_DATE_TIME.format(dateTime);
-  }
-
-  /**
-   * Returns a date time string on the format: <code>yyyy-MM-dd'T'HH:mm:ss.SSS</code>.
-   *
-   * @param dateTime the {@link Date}.
-   * @return a date time string.
-   */
-  public static String getDateTimeString(Date dateTime) {
-    return new SimpleDateFormat(DATE_TIME_FORMAT).format(dateTime);
   }
 
   /**
@@ -281,6 +292,25 @@ public class DateTimeUtils {
       return string != null && toLocalDateTime(string) != null;
     } catch (DateTimeException ex) {
       return false;
+    }
+  }
+
+  // -----------------------------------------------------------------------------------------------
+  // Support methods
+  // -----------------------------------------------------------------------------------------------
+
+  /**
+   * Parses a date string using the specified format, returning null if parsing failed.
+   *
+   * @param format the date format.
+   * @param string the date string.
+   * @return a {@link Date} if the string is valid, null otherwise.
+   */
+  private static Date parse(String format, String string) {
+    try {
+      return new SimpleDateFormat(format).parse(string);
+    } catch (ParseException ex) {
+      return null;
     }
   }
 }

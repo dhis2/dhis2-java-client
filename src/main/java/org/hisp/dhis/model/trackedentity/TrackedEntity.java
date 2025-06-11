@@ -28,6 +28,7 @@
 package org.hisp.dhis.model.trackedentity;
 
 import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
+import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -141,6 +142,12 @@ public class TrackedEntity {
         .filter(Objects::nonNull)
         .findFirst()
         .orElse(null);
+  }
+
+  public Date getDateAttributeValue(String attribute) {
+    String value = getAttributeValue(attribute);
+    if (isNotBlank(attribute)) {}
+    return null;
   }
 
   /**

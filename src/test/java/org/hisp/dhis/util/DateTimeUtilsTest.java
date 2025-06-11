@@ -98,11 +98,30 @@ class DateTimeUtilsTest {
 
   @Test
   void testToLocalDateFromInstant() {
-    LocalDate date1 = DateTimeUtils.toLocalDate(Instant.ofEpochSecond(1006511400L));
-    LocalDate date2 = DateTimeUtils.toLocalDate(Instant.ofEpochSecond(1617532200L));
+    LocalDate dateA = DateTimeUtils.toLocalDate(Instant.ofEpochSecond(1006511400L));
+    LocalDate dateB = DateTimeUtils.toLocalDate(Instant.ofEpochSecond(1617532200L));
 
-    assertEquals("2001-11-23", date1.toString());
-    assertEquals("2021-04-04", date2.toString());
+    assertEquals("2001-11-23", dateA.toString());
+    assertEquals("2021-04-04", dateB.toString());
+  }
+
+  @Test
+  void convertStringToDateTime() {
+    String strA = "2022-01-15T14:30:00.500";
+    String strB = "2023-11-20T08:05:23.078";
+    String strC = "2024-06-11T09:14:59.999";
+
+    Date dateA = DateTimeUtils.toDateTime(strA);
+    Date dateB = DateTimeUtils.toDateTime(strB);
+    Date dateC = DateTimeUtils.toDateTime(strC);
+
+    assertEquals(2022, DateTimeUtils.toLocalDate(dateA).getYear());
+    assertEquals(2023, DateTimeUtils.toLocalDate(dateB).getYear());
+    assertEquals(2024, DateTimeUtils.toLocalDate(dateC).getYear());
+
+    assertEquals(strA, DateTimeUtils.getDateTimeString(dateA));
+    assertEquals(strB, DateTimeUtils.getDateTimeString(dateB));
+    assertEquals(strC, DateTimeUtils.getDateTimeString(dateC));
   }
 
   @Test
