@@ -96,6 +96,9 @@ class ProgramApiTest {
     assertNotNull(ptea);
     assertNotBlank(ptea.getId());
     assertNotNull(ptea.getProgram());
+    assertNotNull(ptea.getSortOrder());
+    assertNotNull(ptea.getDisplayInList());
+    assertNotNull(ptea.getMandatory());
 
     TrackedEntityAttribute tea = ptea.getTrackedEntityAttribute();
 
@@ -116,6 +119,7 @@ class ProgramApiTest {
 
     assertNotNull(psde);
 
+    assertNotNull(psde.getProgramStage());
     assertNotNull(psde.getDataElement());
     assertNotNull(psde.getCompulsory());
     assertNotNull(psde.getDisplayInReports());

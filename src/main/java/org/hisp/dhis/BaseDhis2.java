@@ -249,14 +249,16 @@ public class BaseDhis2 {
   protected static final String ME_FIELDS =
       String.format(
           """
-      %1$s,username,surname,firstName,email,settings,programs,\
-      dataSets,authorities,organisationUnits[%2$s]""",
+          %1$s,username,surname,firstName,email,settings,programs,\
+          dataSets,authorities,organisationUnits[%2$s]""",
           ID_FIELDS, ORG_UNIT_FIELDS);
 
   /** Program stage data element fields. */
   protected static final String PROGRAM_STAGE_DATA_ELEMENT_FIELDS =
       String.format(
-          "%s,dataElement[%s],compulsory,displayInReports,skipSynchronization,skipAnalytics",
+          """
+          "%s,programStage[%s],dataElement[%s],\
+          compulsory,displayInReports,skipSynchronization,skipAnalytics""",
           NAME_FIELDS, DATA_ELEMENT_FIELDS);
 
   /** Tracked entity attribute fields. */
@@ -277,6 +279,13 @@ public class BaseDhis2 {
       updatedAt,updatedAtClient,enrolledAt,occurredAt,completedAt,\
       followUp,deleted,completedBy,storedBy""";
 
+  protected static final String PROGRAM_TRACKED_ENTITY_ATTRIBUTE_FIELDS =
+      String.format(
+          """
+          id,code,name,program[%1$s],trackedEntityAttribute[%2$s],\
+          sortOrder,displayInList,mandatory]""",
+          NAME_FIELDS, TRACKED_ENTITY_ATTRIBUTE_FIELDS);
+
   protected static final String TRACKED_ENTITY_FIELDS =
       String.format(
           """
@@ -296,13 +305,12 @@ public class BaseDhis2 {
           programStageDataElements[%4$s],\
           programStageSections[%1$s,formName,sortOrder,programStage[%1$s],\
           dataElements[%1$s],programIndicators[%1$s]]],\
-          programTrackedEntityAttributes[id,code,name,\
-          program[%1$s],trackedEntityAttribute[%5$s]]""",
+          programTrackedEntityAttributes[%5$s]""",
           NAME_FIELDS,
           TRACKED_ENTITY_TYPE_FIELDS,
           CATEGORY_FIELDS,
           PROGRAM_STAGE_DATA_ELEMENT_FIELDS,
-          TRACKED_ENTITY_ATTRIBUTE_FIELDS);
+          PROGRAM_TRACKED_ENTITY_ATTRIBUTE_FIELDS);
 
   /** User fields. */
   protected static final String USER_FIELDS =

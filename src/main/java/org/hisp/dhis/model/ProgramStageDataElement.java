@@ -36,6 +36,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class ProgramStageDataElement extends NameableObject {
+  @JsonProperty private ProgramStage programStage;
+
   @JsonProperty private DataElement dataElement;
 
   @JsonProperty private Boolean compulsory;
