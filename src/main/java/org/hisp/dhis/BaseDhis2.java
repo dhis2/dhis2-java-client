@@ -257,7 +257,7 @@ public class BaseDhis2 {
   protected static final String PROGRAM_STAGE_DATA_ELEMENT_FIELDS =
       String.format(
           """
-          "%s,programStage[%s],dataElement[%s],\
+          %s,programStage[%s],dataElement[%s],\
           compulsory,displayInReports,skipSynchronization,skipAnalytics""",
           NAME_FIELDS, DATA_ELEMENT_FIELDS);
 
