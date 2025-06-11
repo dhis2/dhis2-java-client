@@ -47,4 +47,6 @@ public class ProgramStageDataElement extends NameableObject {
   @JsonProperty private Boolean skipSynchronization;
 
   @JsonProperty private Boolean skipAnalytics;
+
+  @JsonProperty private Integer sortOrder;
 }

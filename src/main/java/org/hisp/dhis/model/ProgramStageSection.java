@@ -38,11 +38,11 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class ProgramStageSection extends NameableObject {
+  @JsonProperty private ProgramStage programStage;
+
   @JsonProperty private String formName;
 
   @JsonProperty private Integer sortOrder;
-
-  @JsonProperty private ProgramStage programStage;
 
   @JsonProperty private List<DataElement> dataElements = new ArrayList<>();
 
