@@ -249,8 +249,8 @@ public class BaseDhis2 {
   protected static final String ME_FIELDS =
       String.format(
           """
-      %1$s,username,surname,firstName,email,settings,programs,\
-      dataSets,authorities,organisationUnits[%2$s]""",
+          %1$s,username,surname,firstName,email,settings,programs,\
+          dataSets,authorities,organisationUnits[%2$s]""",
           ID_FIELDS, ORG_UNIT_FIELDS);
 
   /** Program stage data element fields. */
