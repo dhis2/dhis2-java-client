@@ -27,7 +27,7 @@
  */
 package org.hisp.dhis;
 
-import static org.hisp.dhis.util.DateTimeUtils.getDate;
+import static org.hisp.dhis.util.DateTimeUtils.toDate;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -51,7 +51,7 @@ class EventTest {
     Event event = new Event("fq7DInE403B");
     event.setProgramStage("Zj7UnCAulEk");
     event.setOrgUnit("DiszpKrYNg8");
-    event.setOccurredAt(getDate(2021, 7, 12));
+    event.setOccurredAt(toDate(2021, 7, 12));
     event.setPointGeometry(10.752, 59.914);
 
     Geometry geometry = event.getGeometry();

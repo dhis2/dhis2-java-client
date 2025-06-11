@@ -224,17 +224,20 @@ public class BaseDhis2 {
   protected static final String DATA_SET_FIELDS =
       String.format(
           """
-          %1$s,formName,displayFormName,categoryCombo[%1$s],dataSetElements[dataSet[%1$s],dataElement[%1$s],\
-          categoryCombo[%1$s]],dimensionItem,openFuturePeriods,expiryDays,timelyDays,url,formType,periodType,version,\
-          dimensionItemType,aggregationType,favorite,compulsoryFieldsCompleteOnly,skipOffline,validCompleteOnly,\
-          dataElementDecoration,openPeriodsAfterCoEndDate,notifyCompletingUser,noValueRequiresComment,\
+          %1$s,formName,displayFormName,categoryCombo[%1$s],dataSetElements[dataSet[%1$s],
+          dataElement[%1$s],categoryCombo[%1$s]],dimensionItem,openFuturePeriods,expiryDays,\
+          timelyDays,url,formType,periodType,version,dimensionItemType,aggregationType,favorite,\
+          compulsoryFieldsCompleteOnly,skipOffline,validCompleteOnly,dataElementDecoration,\
+          openPeriodsAfterCoEndDate,notifyCompletingUser,noValueRequiresComment,\
           fieldCombinationRequired,mobile,dataEntryForm[%2$s]""",
           NAME_FIELDS, ID_FIELDS);
 
   /** Org unit fields. */
   protected static final String ORG_UNIT_FIELDS =
       String.format(
-          "%s,path,level,parent[%s],openingDate,closedDate,comment,url,contactPerson,address,email,phoneNumber",
+          """
+          %s,path,level,parent[%s],openingDate,closedDate,comment,url,
+          contactPerson,address,email,phoneNumber""",
           NAME_FIELDS, NAME_FIELDS);
 
   /** Org unit group set fields. */
@@ -246,8 +249,8 @@ public class BaseDhis2 {
   protected static final String ME_FIELDS =
       String.format(
           """
-          %1$s,username,surname,firstName,email,settings,programs,\
-          dataSets,authorities,organisationUnits[%2$s]""",
+      %1$s,username,surname,firstName,email,settings,programs,\
+      dataSets,authorities,organisationUnits[%2$s]""",
           ID_FIELDS, ORG_UNIT_FIELDS);
 
   /** Program stage data element fields. */
@@ -263,13 +266,16 @@ public class BaseDhis2 {
   /** Tracked entity type fields. */
   protected static final String TRACKED_ENTITY_TYPE_FIELDS =
       String.format(
-          "%s,trackedEntityTypeAttributes[id,trackedEntityAttribute[%s],displayInList,mandatory,searchable]",
+          """
+          %s,trackedEntityTypeAttributes[id,trackedEntityAttribute[%s],\
+          displayInList,mandatory,searchable]""",
           NAME_FIELDS, TRACKED_ENTITY_ATTRIBUTE_FIELDS);
 
   protected static final String TRACKED_ENTITY_ENROLLMENT_FIELDS =
       """
-      enrollment,program,trackedEntity,status,orgUnit,createdAt,createdAtClient,updatedAt,updatedAtClient,\
-      enrolledAt,occurredAt,completedAt,followUp,deleted,completedBy,storedBy""";
+      enrollment,program,trackedEntity,status,orgUnit,createdAt,createdAtClient,\
+      updatedAt,updatedAtClient,enrolledAt,occurredAt,completedAt,\
+      followUp,deleted,completedBy,storedBy""";
 
   protected static final String TRACKED_ENTITY_FIELDS =
       String.format(
@@ -287,7 +293,8 @@ public class BaseDhis2 {
           %1$s,programType,trackedEntityType[%2$s],categoryCombo[%1$s,categories[%3$s]],\
           programStages[%1$s,\
           programStageDataElements[%4$s],\
-          programStageSections[%1$s,formName,sortOrder,programStage[%1$s],dataElements[%1$s],programIndicators[%1$s]]],\
+          programStageSections[%1$s,formName,sortOrder,programStage[%1$s],\
+          dataElements[%1$s],programIndicators[%1$s]]],\
           programTrackedEntityAttributes[id,code,name,trackedEntityAttribute[%5$s]]""",
           NAME_FIELDS,
           TRACKED_ENTITY_TYPE_FIELDS,
@@ -300,7 +307,8 @@ public class BaseDhis2 {
       String.format(
           """
           %1$s,username,firstName,surname,email,phoneNumber,externalAuth,lastLogin,\
-          organisationUnits[%2$s],dataViewOrganisationUnits[%2$s],teiSearchOrganisationUnits[%2$s]""",
+          organisationUnits[%2$s],dataViewOrganisationUnits[%2$s],\
+          teiSearchOrganisationUnits[%2$s]""",
           ID_FIELDS, NAME_FIELDS);
 
   protected static final String VALIDATION_SIDE_FIELDS =
@@ -310,8 +318,9 @@ public class BaseDhis2 {
   protected static final String VALIDATION_RULE_FIELDS =
       String.format(
           """
-          %1$s,dimensionItem,instruction,importance,periodType,displayDescription,displayInstruction,\
-          displayName,leftSide[%2$s],operator,rightSide[%2$s],skipFormValidation,legendSets""",
+          %1$s,dimensionItem,instruction,importance,periodType,displayDescription,\
+          displayInstruction,displayName,leftSide[%2$s],operator,rightSide[%2$s],\
+          skipFormValidation,legendSets""",
           NAME_FIELDS, VALIDATION_SIDE_FIELDS);
 
   /** Data set validation fields. */
@@ -1472,18 +1481,19 @@ public class BaseDhis2 {
   }
 
   /**
-   * Logs the message at debug level, or if system property {@link
-   * BaseDhis2#LOG_LEVEL_SYSTEM_PROPERTY} is set, at the info or warn level.
+   * Logs the message at debug level.
    *
    * <p>To log messages at info level during tests:
    *
-   * <pre>mvn test -Dlog.level.dhis2=info</pre>
+   * <pre>
+   * mvn test -Dlog.level.dhis2=info
+   * </pre>
    *
    * @param format the message format.
    * @param arguments the message arguments.
    */
   private void log(String format, Object... arguments) {
-    String logLevel = System.getProperty(LOG_LEVEL_SYSTEM_PROPERTY);
+    String logLevel = getLogLevel();
 
     if (LOG_LEVEL_INFO.equalsIgnoreCase(logLevel)) {
       log.info(format, arguments);
@@ -1492,5 +1502,14 @@ public class BaseDhis2 {
     } else {
       log.debug(format, arguments);
     }
+  }
+
+  /**
+   * Returns the log level based on the system property {@link BaseDhis2#LOG_LEVEL_SYSTEM_PROPERTY}.
+   *
+   * @return the log level.
+   */
+  private String getLogLevel() {
+    return System.getProperty(LOG_LEVEL_SYSTEM_PROPERTY);
   }
 }

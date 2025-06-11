@@ -27,7 +27,7 @@
  */
 package org.hisp.dhis;
 
-import static org.hisp.dhis.util.DateTimeUtils.getDate;
+import static org.hisp.dhis.util.DateTimeUtils.toDate;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -118,7 +118,7 @@ class CompleteDataSetRegistrationApiTest {
     cdsr.setPeriod("202407");
     cdsr.setOrgUnit("DiszpKrYNg8");
     cdsr.setDataSet("lyLU2wR22tC");
-    cdsr.setCreated(getDate(2013, 12, 30));
+    cdsr.setCreated(toDate(2013, 12, 30));
     cdsr.setCompleted(true);
     cdsr.setCreatedBy("system");
     return cdsr;
