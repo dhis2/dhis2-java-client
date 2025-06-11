@@ -212,8 +212,8 @@ public class BaseDhis2 {
   protected static final String INDICATOR_FIELDS =
       String.format(
           """
-      %1$s,annualized,numerator,numeratorDescription,\
-      denominator,denominatorDescription,url,indicatorType[%2$s]""",
+          %1$s,annualized,numerator,numeratorDescription,\
+          denominator,denominatorDescription,url,indicatorType[%2$s]""",
           NAME_FIELDS, INDICATOR_TYPE_FIELDS);
 
   /** Indicator group set fields. */
@@ -224,17 +224,20 @@ public class BaseDhis2 {
   protected static final String DATA_SET_FIELDS =
       String.format(
           """
-          %1$s,formName,displayFormName,categoryCombo[%1$s],dataSetElements[dataSet[%1$s],dataElement[%1$s],\
-          categoryCombo[%1$s]],dimensionItem,openFuturePeriods,expiryDays,timelyDays,url,formType,periodType,version,\
-          dimensionItemType,aggregationType,favorite,compulsoryFieldsCompleteOnly,skipOffline,validCompleteOnly,\
-          dataElementDecoration,openPeriodsAfterCoEndDate,notifyCompletingUser,noValueRequiresComment,\
+          %1$s,formName,displayFormName,categoryCombo[%1$s],dataSetElements[dataSet[%1$s],
+          dataElement[%1$s],categoryCombo[%1$s]],dimensionItem,openFuturePeriods,expiryDays,\
+          timelyDays,url,formType,periodType,version,dimensionItemType,aggregationType,favorite,\
+          compulsoryFieldsCompleteOnly,skipOffline,validCompleteOnly,dataElementDecoration,\
+          openPeriodsAfterCoEndDate,notifyCompletingUser,noValueRequiresComment,\
           fieldCombinationRequired,mobile,dataEntryForm[%2$s]""",
           NAME_FIELDS, ID_FIELDS);
 
   /** Org unit fields. */
   protected static final String ORG_UNIT_FIELDS =
       String.format(
-          "%s,path,level,parent[%s],openingDate,closedDate,comment,url,contactPerson,address,email,phoneNumber",
+          """
+          %s,path,level,parent[%s],openingDate,closedDate,comment,url,
+          contactPerson,address,email,phoneNumber""",
           NAME_FIELDS, NAME_FIELDS);
 
   /** Org unit group set fields. */
@@ -263,21 +266,24 @@ public class BaseDhis2 {
   /** Tracked entity type fields. */
   protected static final String TRACKED_ENTITY_TYPE_FIELDS =
       String.format(
-          "%s,trackedEntityTypeAttributes[id,trackedEntityAttribute[%s],displayInList,mandatory,searchable]",
+          """
+          %s,trackedEntityTypeAttributes[id,trackedEntityAttribute[%s],\
+          displayInList,mandatory,searchable]""",
           NAME_FIELDS, TRACKED_ENTITY_ATTRIBUTE_FIELDS);
 
   protected static final String TRACKED_ENTITY_ENROLLMENT_FIELDS =
       """
-          enrollment,program,trackedEntity,status,orgUnit,createdAt,createdAtClient,updatedAt,updatedAtClient,\
-          enrolledAt,occurredAt,completedAt,followUp,deleted,completedBy,storedBy""";
+      enrollment,program,trackedEntity,status,orgUnit,createdAt,createdAtClient,\
+      updatedAt,updatedAtClient,enrolledAt,occurredAt,completedAt,\
+      followUp,deleted,completedBy,storedBy""";
 
   protected static final String TRACKED_ENTITY_FIELDS =
       String.format(
           """
-      trackedEntity,trackedEntityType,createdAt,createdAtClient,updatedAt,updatedAtClient,\
-      orgUnit,inactive,deleted,potentialDuplicate,geometry,storedBy,\
-      attributes[attribute,displayName,code,createdAt,updatedAt,valueType,value],\
-      enrollments[%s]""",
+          trackedEntity,trackedEntityType,createdAt,createdAtClient,updatedAt,updatedAtClient,\
+          orgUnit,inactive,deleted,potentialDuplicate,geometry,storedBy,\
+          attributes[attribute,displayName,code,createdAt,updatedAt,valueType,value],\
+          enrollments[%s]""",
           TRACKED_ENTITY_ENROLLMENT_FIELDS);
 
   /** Program fields. */
@@ -287,7 +293,8 @@ public class BaseDhis2 {
           %1$s,programType,trackedEntityType[%2$s],categoryCombo[%1$s,categories[%3$s]],\
           programStages[%1$s,\
           programStageDataElements[%4$s],\
-          programStageSections[%1$s,formName,sortOrder,programStage[%1$s],dataElements[%1$s],programIndicators[%1$s]]],\
+          programStageSections[%1$s,formName,sortOrder,programStage[%1$s],\
+          dataElements[%1$s],programIndicators[%1$s]]],\
           programTrackedEntityAttributes[id,code,name,trackedEntityAttribute[%5$s]]""",
           NAME_FIELDS,
           TRACKED_ENTITY_TYPE_FIELDS,
@@ -299,8 +306,9 @@ public class BaseDhis2 {
   protected static final String USER_FIELDS =
       String.format(
           """
-      %1$s,username,firstName,surname,email,phoneNumber,externalAuth,lastLogin,\
-      organisationUnits[%2$s],dataViewOrganisationUnits[%2$s],teiSearchOrganisationUnits[%2$s]""",
+          %1$s,username,firstName,surname,email,phoneNumber,externalAuth,lastLogin,\
+          organisationUnits[%2$s],dataViewOrganisationUnits[%2$s],\
+          teiSearchOrganisationUnits[%2$s]""",
           ID_FIELDS, NAME_FIELDS);
 
   protected static final String VALIDATION_SIDE_FIELDS =
@@ -310,16 +318,17 @@ public class BaseDhis2 {
   protected static final String VALIDATION_RULE_FIELDS =
       String.format(
           """
-      %1$s,dimensionItem,instruction,importance,periodType,displayDescription,displayInstruction,\
-      displayName,leftSide[%2$s],operator,rightSide[%2$s],skipFormValidation,legendSets""",
+          %1$s,dimensionItem,instruction,importance,periodType,displayDescription,\
+          displayInstruction,displayName,leftSide[%2$s],operator,rightSide[%2$s],\
+          skipFormValidation,legendSets""",
           NAME_FIELDS, VALIDATION_SIDE_FIELDS);
 
   /** Data set validation fields. */
   protected static final String DATA_SET_VALIDATION_FIELDS =
       String.format(
           """
-      id,leftsideValue,rightsideValue,dayInPeriod,notificationSent,\
-      validationRule[%1$s],period[%2$s],organisationUnit[%2$s],attributeOptionCombo[%2$s]""",
+          id,leftsideValue,rightsideValue,dayInPeriod,notificationSent,\
+          validationRule[%1$s],period[%2$s],organisationUnit[%2$s],attributeOptionCombo[%2$s]""",
           VALIDATION_RULE_FIELDS, ID_FIELDS);
 
   protected final Dhis2Config config;
