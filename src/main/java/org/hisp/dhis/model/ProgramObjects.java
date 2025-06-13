@@ -27,14 +27,14 @@
  */
 package org.hisp.dhis.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.List;
+import org.hisp.dhis.model.trackedentity.ProgramTrackedEntityAttribute;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import org.hisp.dhis.model.trackedentity.ProgramTrackedEntityAttribute;
 
 @Getter
 @Setter
@@ -51,6 +51,4 @@ public class ProgramObjects {
   @JsonProperty private List<ProgramStage> programStages = new ArrayList<>();
 
   @JsonProperty private List<ProgramStageSection> programStageSections = new ArrayList<>();
-
-  @JsonProperty private List<ProgramStageDataElement> programStageDataElements = new ArrayList<>();
 }
