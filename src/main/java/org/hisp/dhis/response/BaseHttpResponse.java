@@ -52,7 +52,7 @@ public abstract class BaseHttpResponse {
    *
    * @param httpStatusCode the HTTP status code.
    */
-  public BaseHttpResponse(Integer httpStatusCode) {
+  protected BaseHttpResponse(Integer httpStatusCode) {
     this.httpStatusCode = httpStatusCode;
   }
 }
