@@ -27,19 +27,25 @@
  */
 package org.hisp.dhis.response;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.hc.core5.http.Header;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
-import org.apache.hc.core5.http.Header;
 
 /** Base response class. */
 @Getter
 @Setter
 public abstract class BaseHttpResponse {
+  /**
+   * HTTP status code.
+   */
   @JsonProperty protected Integer httpStatusCode;
 
+  /**
+   * HTTP headers.
+   */
   @JsonIgnore protected List<Header> headers = new ArrayList<>();
 }

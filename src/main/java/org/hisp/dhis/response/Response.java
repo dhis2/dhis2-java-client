@@ -27,12 +27,12 @@
  */
 package org.hisp.dhis.response;
 
+import org.apache.hc.core5.http.Header;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.apache.hc.core5.http.Header;
 
 /** Response providing information about a DHIS 2 web API response. */
 @Getter
@@ -40,14 +40,29 @@ import org.apache.hc.core5.http.Header;
 @ToString
 @NoArgsConstructor
 public class Response extends BaseHttpResponse {
+  /**
+   * HTTP {@link Status} enum.
+   */
   @JsonProperty protected Status status;
 
+  /**
+   * DHIS2 code. Deprecated.
+   */
   @JsonProperty protected Integer code;
 
+  /**
+   * Response message.
+   */
   @JsonProperty protected String message;
 
+  /**
+   * DHIS2 error code.
+   */
   @JsonProperty protected String errorCode;
 
+  /**
+   * Developer response message.
+   */
   @JsonProperty protected String devMessage;
 
   /**
