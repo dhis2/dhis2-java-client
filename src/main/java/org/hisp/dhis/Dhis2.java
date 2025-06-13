@@ -74,6 +74,7 @@ import org.hisp.dhis.model.IndicatorGroup;
 import org.hisp.dhis.model.IndicatorGroupSet;
 import org.hisp.dhis.model.IndicatorType;
 import org.hisp.dhis.model.Me;
+import org.hisp.dhis.model.Option;
 import org.hisp.dhis.model.OptionSet;
 import org.hisp.dhis.model.OrgUnit;
 import org.hisp.dhis.model.OrgUnitGroup;
@@ -1952,7 +1953,7 @@ public class Dhis2 extends BaseDhis2 {
   public List<OptionSet> getOptionSets(Query query) {
     String fieldsParam =
         query.isExpandAssociations()
-            ? String.format("%1$s,options[%2$s]", OPTION_SET_FIELDS, NAME_FIELDS)
+            ? String.format("%1$s,options[%2$s]", ID_FIELDS, NAME_FIELDS)
             : OPTION_SET_FIELDS;
 
     return getObject(
@@ -1963,6 +1964,45 @@ public class Dhis2 extends BaseDhis2 {
             query,
             Dhis2Objects.class)
         .getOptionSets();
+  }
+
+  // -------------------------------------------------------------------------
+  // Options
+  // -------------------------------------------------------------------------
+
+  /**
+   * Retrieves an {@link Option}.
+   *
+   * @param id the object identifier.
+   * @return the {@link Option}.
+   * @throws Dhis2ClientException if the object does not exist.
+   */
+  public Option getOption(String id) {
+    return getObject(
+        config
+            .getResolvedUriBuilder()
+            .appendPath("options")
+            .appendPath(id)
+            .addParameter(FIELDS_PARAM, ID_FIELDS),
+        Query.instance(),
+        Option.class);
+  }
+
+  /**
+   * Retrieves a list of {@link Option}.
+   *
+   * @param query the {@link Query}.
+   * @return list of {@link Option}.
+   */
+  public List<Option> getOptions(Query query) {
+    return getObject(
+            config
+                .getResolvedUriBuilder()
+                .appendPath("options")
+                .addParameter(FIELDS_PARAM, ID_FIELDS),
+            query,
+            Dhis2Objects.class)
+        .getOptions();
   }
 
   // -------------------------------------------------------------------------

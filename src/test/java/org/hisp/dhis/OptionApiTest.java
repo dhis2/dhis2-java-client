@@ -25,30 +25,33 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.hisp.dhis.model;
+package org.hisp.dhis;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.ArrayList;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import java.util.List;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.experimental.Accessors;
-import org.hisp.dhis.model.trackedentity.ProgramTrackedEntityAttribute;
+import org.hisp.dhis.model.Option;
+import org.hisp.dhis.query.Query;
+import org.hisp.dhis.support.TestTags;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
 
-@Getter
-@Setter
-@Accessors(chain = true)
-@NoArgsConstructor
-public class ProgramObjects {
-  @JsonProperty private List<Program> programs = new ArrayList<>();
+@Tag(TestTags.INTEGRATION)
+class OptionApiTest {
+  @Test
+  void testGetOptions() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
 
-  @JsonProperty private List<ProgramSection> programSections = new ArrayList<>();
+    List<Option> options = dhis2.getOptions(Query.instance());
 
-  @JsonProperty
-  private List<ProgramTrackedEntityAttribute> programTrackedEntityAttributes = new ArrayList<>();
+    assertNotNull(options);
+    assertFalse(options.isEmpty());
 
-  @JsonProperty private List<ProgramStage> programStages = new ArrayList<>();
-
-  @JsonProperty private List<ProgramStageSection> programStageSections = new ArrayList<>();
+    Option option = options.get(0);
+    assertNotNull(option);
+    assertNotNull(option.getId());
+    assertNotNull(option.getCode());
+    assertNotNull(option.getName());
+  }
 }
