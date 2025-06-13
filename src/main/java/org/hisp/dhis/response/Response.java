@@ -40,14 +40,19 @@ import org.apache.hc.core5.http.Header;
 @ToString
 @NoArgsConstructor
 public class Response extends BaseHttpResponse {
+  /** HTTP {@link Status} enum. */
   @JsonProperty protected Status status;
 
+  /** DHIS2 code. Deprecated. */
   @JsonProperty protected Integer code;
 
+  /** Response message. */
   @JsonProperty protected String message;
 
+  /** DHIS2 error code. */
   @JsonProperty protected String errorCode;
 
+  /** Developer response message. */
   @JsonProperty protected String devMessage;
 
   /**
@@ -58,8 +63,9 @@ public class Response extends BaseHttpResponse {
    * @param message the message of the response.
    */
   public Response(Status status, Integer httpStatusCode, String message) {
+    super(httpStatusCode);
     this.status = status;
-    this.httpStatusCode = httpStatusCode;
+    this.code = httpStatusCode;
     this.message = message;
   }
 
@@ -71,8 +77,9 @@ public class Response extends BaseHttpResponse {
    * @param message the message of the response.
    */
   public Response(Status status, HttpStatus httpStatus, String message) {
+    super(httpStatus.value());
     this.status = status;
-    this.httpStatusCode = httpStatus.value();
+    this.code = httpStatus.value();
     this.message = message;
   }
 

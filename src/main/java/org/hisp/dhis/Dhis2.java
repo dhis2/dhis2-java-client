@@ -2577,7 +2577,8 @@ public class Dhis2 extends BaseDhis2 {
   // -------------------------------------------------------------------------
 
   /**
-   * Retrieves an {@link TrackedEntity}.
+   * Retrieves an {@link TrackedEntity}. Includes attribute values for attributes associated with
+   * the tracked entity type only.
    *
    * <p>Requires DHIS2 version 2.36 or later.
    *
@@ -2597,7 +2598,8 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   /**
-   * Retrieves a {@link TrackedEntitiesResult}.
+   * Retrieves a {@link TrackedEntitiesResult}. Includes attribute values for attributes associated
+   * with programs which the tracked entity is enrolled in.
    *
    * <p>Requires DHIS2 version 2.36 or later.
    *

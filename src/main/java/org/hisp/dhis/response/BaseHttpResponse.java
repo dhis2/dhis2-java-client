@@ -32,14 +32,27 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.apache.hc.core5.http.Header;
 
 /** Base response class. */
 @Getter
 @Setter
+@NoArgsConstructor
 public abstract class BaseHttpResponse {
+  /** HTTP status code. */
   @JsonProperty protected Integer httpStatusCode;
 
+  /** HTTP headers. */
   @JsonIgnore protected List<Header> headers = new ArrayList<>();
+
+  /**
+   * Constructor.
+   *
+   * @param httpStatusCode the HTTP status code.
+   */
+  protected BaseHttpResponse(Integer httpStatusCode) {
+    this.httpStatusCode = httpStatusCode;
+  }
 }
