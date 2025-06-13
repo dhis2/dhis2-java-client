@@ -153,7 +153,7 @@ public class TrackedEntity {
    */
   public Date getDateAttributeValue(String attribute) {
     String value = getAttributeValue(attribute);
-    return isNotBlank(attribute) ? DateTimeUtils.toDateTime(value) : null;
+    return isNotBlank(value) ? DateTimeUtils.toDateTime(value) : null;
   }
 
   /**
