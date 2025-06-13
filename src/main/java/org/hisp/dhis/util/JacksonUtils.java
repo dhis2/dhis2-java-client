@@ -34,6 +34,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.UncheckedIOException;
 import java.text.SimpleDateFormat;
 import lombok.AccessLevel;
@@ -86,6 +87,20 @@ public class JacksonUtils {
   public static String toJsonString(Object value) {
     try {
       return OBJECT_MAPPER.writeValueAsString(value);
+    } catch (IOException ex) {
+      throw new UncheckedIOException(ex);
+    }
+  }
+
+  /**
+   * Serializes the given object to JSON and writes the content to the given {@link OutputStream}.
+   *
+   * @param out the {@link OutputStream} to write to.
+   * @param value the object value.
+   */
+  public static void toJson(OutputStream out, Object value) {
+    try {
+      OBJECT_MAPPER.writeValue(out, value);
     } catch (IOException ex) {
       throw new UncheckedIOException(ex);
     }

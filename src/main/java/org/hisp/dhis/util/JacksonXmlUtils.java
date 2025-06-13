@@ -34,6 +34,7 @@ import com.fasterxml.jackson.dataformat.xml.XmlFactory;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.StringReader;
 import java.io.UncheckedIOException;
 import java.text.SimpleDateFormat;
@@ -103,6 +104,20 @@ public class JacksonXmlUtils {
   public static String toXmlString(Object value) {
     try {
       return XML_MAPPER.writeValueAsString(value);
+    } catch (IOException ex) {
+      throw new UncheckedIOException(ex);
+    }
+  }
+
+  /**
+   * Serializes the given object to XML and writes the content to the given {@link OutputStream}.
+   *
+   * @param out the {@link OutputStream} to write to.
+   * @param value the object value to serialize.
+   */
+  public static void toXml(OutputStream out, Object value) {
+    try {
+      XML_MAPPER.writeValue(out, value);
     } catch (IOException ex) {
       throw new UncheckedIOException(ex);
     }
