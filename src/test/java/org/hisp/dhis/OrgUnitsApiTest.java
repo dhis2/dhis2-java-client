@@ -32,6 +32,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.util.Date;
 import java.util.List;
 import org.hisp.dhis.model.OrgUnit;
@@ -75,7 +76,7 @@ class OrgUnitsApiTest {
     assertEquals(Status.OK, dhis2.removeOrgUnit(uidB).getStatus());
     assertEquals(Status.OK, dhis2.removeOrgUnit(uidC).getStatus());
   }
-  
+
   @Test
   void testSaveOrgUnitsWithUids() {
     Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);

@@ -33,6 +33,7 @@ import static org.hisp.dhis.support.Assertions.assertSize;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import java.util.List;
 import org.hisp.dhis.model.DataElement;
 import org.hisp.dhis.model.Program;
@@ -284,7 +285,7 @@ class ProgramApiTest {
     assertFalse(programs.isEmpty());
     assertNotNull(programs.get(0));
   }
-  
+
   @Test
   void testGetProgramsWithFilter() {
     Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);

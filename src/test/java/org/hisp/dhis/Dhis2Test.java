@@ -29,6 +29,7 @@ package org.hisp.dhis;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import org.hisp.dhis.query.Query;
 import org.hisp.dhis.response.Dhis2ClientException;
 import org.hisp.dhis.support.TestTags;
@@ -37,7 +38,6 @@ import org.junit.jupiter.api.Test;
 
 @Tag(TestTags.INTEGRATION)
 class Dhis2Test {
-
 
   @Test
   void testGetInvalidUrl() {
