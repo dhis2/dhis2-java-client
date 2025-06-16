@@ -1509,7 +1509,8 @@ public class BaseDhis2 {
   }
 
   /**
-   * Returns the log level based on the system property {@link BaseDhis2#LOG_LEVEL_SYSTEM_PROPERTY}.
+   * Returns the log level based on the system property {@link BaseDhis2#LOG_LEVEL_SYSTEM_PROPERTY},
+   * for example {@link BaseDhis2#LOG_LEVEL_INFO}.
    *
    * @return the log level.
    */

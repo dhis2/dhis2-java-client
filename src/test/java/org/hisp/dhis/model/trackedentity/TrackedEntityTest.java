@@ -30,37 +30,60 @@ package org.hisp.dhis.model.trackedentity;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-import org.hisp.dhis.model.ValueType;
 import org.junit.jupiter.api.Test;
 
 class TrackedEntityTest {
   @Test
   void testGetAttributeValue() {
     TrackedEntity te = new TrackedEntity();
-    te.addAttributeValue(getAttributeValue("jTyx81h4qnD", ValueType.TEXT, "blue"));
-    te.addAttributeValue(getAttributeValue("nfWLML6SZ4G", ValueType.TEXT, "green"));
-    te.addAttributeValue(getAttributeValue("aug8T4IreCz", ValueType.TEXT, "grey"));
+    te.addAttributeValue("jTyx81h4qnD", "blue");
+    te.addAttributeValue("nfWLML6SZ4G", "heavy");
+    te.addAttributeValue("aug8T4IreCz", "large");
 
     assertEquals("blue", te.getAttributeValue("jTyx81h4qnD"));
-    assertEquals("green", te.getAttributeValue("nfWLML6SZ4G"));
-    assertEquals("grey", te.getAttributeValue("aug8T4IreCz"));
+    assertEquals("heavy", te.getAttributeValue("nfWLML6SZ4G"));
+    assertEquals("large", te.getAttributeValue("aug8T4IreCz"));
     assertNull(te.getAttributeValue("dYSQ9kbfFQ8"));
   }
 
-  /**
-   * Creates a TrackedEntityAttributeValue instance.
-   *
-   * @param attribute the attribute identifier.
-   * @param valueType the {@link ValueType}.
-   * @param value the value of the attribute.
-   * @return a {@link TrackedEntityAttributeValue} instance.
-   */
-  private TrackedEntityAttributeValue getAttributeValue(
-      String attribute, ValueType valueType, String value) {
-    TrackedEntityAttributeValue attributeValue = new TrackedEntityAttributeValue();
-    attributeValue.setAttribute(attribute);
-    attributeValue.setValueType(valueType);
-    attributeValue.setValue(value);
-    return attributeValue;
+  @Test
+  void testGetTrackedEntityAttributeValue() {
+    TrackedEntity te = new TrackedEntity();
+    te.addAttributeValue("jTyx81h4qnD", "blue");
+    te.addAttributeValue("nfWLML6SZ4G", "heavy");
+    te.addAttributeValue("aug8T4IreCz", "large");
+
+    assertEquals("blue", te.getTrackedEntityAttributeValue("jTyx81h4qnD").getValue());
+    assertEquals("heavy", te.getTrackedEntityAttributeValue("nfWLML6SZ4G").getValue());
+    assertEquals("large", te.getTrackedEntityAttributeValue("aug8T4IreCz").getValue());
+    assertNull(te.getTrackedEntityAttributeValue("dYSQ9kbfFQ8"));
+  }
+
+  @Test
+  void testAddTrackedEntityAttributeValue() {
+    TrackedEntity te = new TrackedEntity();
+    te.addAttributeValue("jTyx81h4qnD", "blue");
+    assertEquals("blue", te.getAttributeValue("jTyx81h4qnD"));
+    assertEquals(1, te.getAttributes().size());
+
+    te.addAttributeValue("nfWLML6SZ4G", "heavy");
+    assertEquals("heavy", te.getAttributeValue("nfWLML6SZ4G"));
+    assertEquals(2, te.getAttributes().size());
+
+    te.addAttributeValue("nfWLML6SZ4G", "light");
+    assertEquals("light", te.getAttributeValue("nfWLML6SZ4G"));
+    assertEquals(2, te.getAttributes().size());
+
+    te.addAttributeValue("nfWLML6SZ4G", "super_light");
+    assertEquals("super_light", te.getAttributeValue("nfWLML6SZ4G"));
+    assertEquals(2, te.getAttributes().size());
+
+    te.addAttributeValue("aug8T4IreCz", "large");
+    assertEquals("large", te.getAttributeValue("aug8T4IreCz"));
+    assertEquals(3, te.getAttributes().size());
+
+    te.addAttributeValue("aug8T4IreCz", "small");
+    assertEquals("small", te.getAttributeValue("aug8T4IreCz"));
+    assertEquals(3, te.getAttributes().size());
   }
 }
