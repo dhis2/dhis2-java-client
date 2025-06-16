@@ -44,4 +44,17 @@ class TrackedEntityTest {
     assertEquals("grey", te.getAttributeValue("aug8T4IreCz"));
     assertNull(te.getAttributeValue("dYSQ9kbfFQ8"));
   }
+  
+  @Test
+  void testGetTrackedEntityAttributeValue() {
+    TrackedEntity te = new TrackedEntity();
+    te.addAttributeValue("jTyx81h4qnD", "blue");
+    te.addAttributeValue("nfWLML6SZ4G", "green");
+    te.addAttributeValue("aug8T4IreCz", "grey");
+
+    assertEquals("blue", te.getTrackedEntityAttributeValue("jTyx81h4qnD").getValue());
+    assertEquals("green", te.getTrackedEntityAttributeValue("nfWLML6SZ4G").getValue());
+    assertEquals("grey", te.getTrackedEntityAttributeValue("aug8T4IreCz").getValue());
+    assertNull(te.getTrackedEntityAttributeValue("dYSQ9kbfFQ8"));
+  }
 }

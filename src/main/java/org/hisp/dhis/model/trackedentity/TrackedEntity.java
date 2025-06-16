@@ -108,7 +108,7 @@ public class TrackedEntity {
   }
 
   /**
-   * Adds an attribute value to the tracked entity by specifying the attribute and value.
+   * Adds an attribute value to the tracked entity by specifying the attribute identifier and value.
    *
    * @param attribute the attribute identifier.
    * @param value the value of the attribute.
@@ -119,7 +119,7 @@ public class TrackedEntity {
   }
 
   /**
-   * Returns the value of the specified attribute.
+   * Returns the value for the specified attribute identifier.
    *
    * @param attribute the attribute identifier.
    * @return the value of the attribute, or null if not found.
@@ -129,6 +129,20 @@ public class TrackedEntity {
     return attributes.stream()
         .filter(at -> attribute.equals(at.getAttribute()))
         .map(TrackedEntityAttributeValue::getValue)
+        .filter(Objects::nonNull)
+        .findFirst()
+        .orElse(null);
+  }
+  
+  /**
+   * Returns the {@link TrackedEntityAttributeValue} for the specified attribute identifier.
+   * 
+   * @param attribute the attribute identifier.
+   * @return the {@link TrackedEntityAttributeValue}, or null if not found.
+   */
+  public TrackedEntityAttributeValue getTrackedEntityAttributeValue(String attribute) {
+    return attributes.stream()
+        .filter(at -> attribute.equals(at.getAttribute()))
         .filter(Objects::nonNull)
         .findFirst()
         .orElse(null);
