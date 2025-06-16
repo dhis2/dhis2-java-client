@@ -42,6 +42,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
@@ -65,6 +66,7 @@ import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
 import org.apache.hc.client5.http.impl.classic.HttpClients;
 import org.apache.hc.core5.http.ContentType;
+import org.apache.hc.core5.http.Header;
 import org.apache.hc.core5.http.HttpEntity;
 import org.apache.hc.core5.http.HttpHeaders;
 import org.apache.hc.core5.http.HttpResponse;
@@ -72,6 +74,7 @@ import org.apache.hc.core5.http.NameValuePair;
 import org.apache.hc.core5.http.ParseException;
 import org.apache.hc.core5.http.io.entity.EntityUtils;
 import org.apache.hc.core5.http.io.entity.StringEntity;
+import org.apache.hc.core5.http.message.BasicHeader;
 import org.apache.hc.core5.http.message.BasicNameValuePair;
 import org.apache.hc.core5.net.URIBuilder;
 import org.hisp.dhis.model.Dhis2Objects;
@@ -337,6 +340,16 @@ public class BaseDhis2 {
           id,leftsideValue,rightsideValue,dayInPeriod,notificationSent,\
           validationRule[%1$s],period[%2$s],organisationUnit[%2$s],attributeOptionCombo[%2$s]""",
           VALIDATION_RULE_FIELDS, ID_FIELDS);
+
+  // Headers
+
+  protected static final Header HEADER_CONTENT_TYPE_JSON =
+      new BasicHeader(HttpHeaders.CONTENT_TYPE, ContentType.APPLICATION_JSON.getMimeType());
+
+  protected static final Header HEADER_ACCEPT_JSON =
+      new BasicHeader(HttpHeaders.ACCEPT, ContentType.APPLICATION_JSON.getMimeType());
+
+  // Properties
 
   protected final Dhis2Config config;
 
@@ -1008,7 +1021,7 @@ public class BaseDhis2 {
 
     HttpEntity entity = new StringEntity(requestBody, StandardCharsets.UTF_8);
 
-    request.setHeader(HttpHeaders.CONTENT_TYPE, ContentType.APPLICATION_JSON.getMimeType());
+    request.setHeader(HEADER_CONTENT_TYPE_JSON);
     request.setEntity(entity);
 
     return executeRequest(request, type);
@@ -1084,7 +1097,7 @@ public class BaseDhis2 {
    */
   protected HttpPost getPostRequest(URI url, HttpEntity entity) {
     HttpPost request = withAuth(new HttpPost(url));
-    request.setHeader(HttpHeaders.CONTENT_TYPE, ContentType.APPLICATION_JSON.getMimeType());
+    request.setHeader(HEADER_CONTENT_TYPE_JSON);
     request.setEntity(entity);
     return request;
   }
@@ -1123,21 +1136,35 @@ public class BaseDhis2 {
   }
 
   /**
-   * Gets a {@link CloseableHttpResponse} for the given URL.
+   * Gets a JSON {@link CloseableHttpResponse} for the given URL.
    *
    * @param url the URL.
    * @return a {@link CloseableHttpResponse}.
    */
   protected CloseableHttpResponse getJsonHttpResponse(URI url) {
+    return getHttpResponse(url, List.of(HEADER_ACCEPT_JSON));
+  }
+
+  /**
+   * Gets a {@link CloseableHttpResponse} for the given URL.
+   *
+   * @param headers the list of request {@link Header}.
+   * @param url the URL.
+   * @return a {@link CloseableHttpResponse}.
+   */
+  protected CloseableHttpResponse getHttpResponse(URI url, List<Header> headers) {
     HttpGet request = withAuth(new HttpGet(url));
-    request.setHeader(HttpHeaders.ACCEPT, ContentType.APPLICATION_JSON.getMimeType());
+
+    for (Header header : headers) {
+      request.setHeader(header);
+    }
 
     log("Get request URL: '{}'", HttpUtils.asString(url));
 
     try {
       return httpClient.execute(request);
     } catch (IOException ex) {
-      throw new Dhis2ClientException("Request failed", ex);
+      throw new Dhis2ClientException("HTTP request failed", ex);
     }
   }
 
@@ -1247,9 +1274,9 @@ public class BaseDhis2 {
   }
 
   /**
-   * Write the given {@link HttpResponse} to the given {@link File}.
+   * Write the given {@link CloseableHttpResponse} to the given {@link File}.
    *
-   * @param response the response.
+   * @param response the {@link CloseableHttpResponse}.
    * @param file the file to write the response to.
    * @throws Dhis2ClientException if the write operation failed.
    */
@@ -1259,6 +1286,21 @@ public class BaseDhis2 {
       IOUtils.copy(in, fileOut);
     } catch (IOException ex) {
       throw new Dhis2ClientException("Failed to write to file", ex);
+    }
+  }
+
+  /**
+   * Write the given {@link CloseableHttpResponse} to the given {@link OutputStream}.
+   *
+   * @param response the {@link CloseableHttpResponse}.
+   * @param out the output stream to write the response to.
+   * @throws Dhis2ClientException if the write operation failed.
+   */
+  protected void writeToStream(CloseableHttpResponse response, OutputStream out) {
+    try (InputStream in = response.getEntity().getContent()) {
+      IOUtils.copy(in, out);
+    } catch (IOException ex) {
+      throw new Dhis2ClientException("Failed to write to output stream", ex);
     }
   }
 

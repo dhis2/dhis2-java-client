@@ -34,6 +34,7 @@ import static org.hisp.dhis.util.CollectionUtils.list;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -1354,6 +1355,26 @@ public class Dhis2 extends BaseDhis2 {
         .getDocuments();
   }
 
+  /**
+   * Writes the data for the {@link Document} to the given {@link OutputStream}.
+   *
+   * @param id the document identifier.
+   * @param out the {@link OutputStream} to write data to.
+   */
+  public void writeDocumentData(String id, OutputStream out) {
+    URI uri =
+        HttpUtils.build(
+            config
+                .getResolvedUriBuilder()
+                .appendPath("documents")
+                .appendPath(id)
+                .appendPath("data"));
+
+    CloseableHttpResponse response = getHttpResponse(uri, List.of());
+
+    writeToStream(response, out);
+  }
+
   // -------------------------------------------------------------------------
   // Indicator
   // -------------------------------------------------------------------------
@@ -1673,7 +1694,7 @@ public class Dhis2 extends BaseDhis2 {
    *
    * @param inputStream the input stream representing the complete data set registration JSON
    *     payload.
-   * @param options the {@link DataValueSetImportOptions}.
+   * @param options the {@link CompleteDataSetRegistrationImportOptions}.
    * @return {@link CompleteDataSetRegistrationResponse} holding information about the operation.
    */
   public CompleteDataSetRegistrationResponse saveCompleteDataSetRegistrations(
