@@ -29,20 +29,19 @@ package org.hisp.dhis.model.trackedentity;
 
 import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import org.hisp.dhis.model.enrollment.Enrollment;
+import org.hisp.dhis.util.DateTimeUtils;
+import org.locationtech.jts.geom.Geometry;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.hisp.dhis.model.enrollment.Enrollment;
-import org.hisp.dhis.util.DateTimeUtils;
-import org.locationtech.jts.geom.Geometry;
 
 @Getter
 @Setter
@@ -106,16 +105,6 @@ public class TrackedEntity {
    */
   public boolean hasAttributes() {
     return isNotEmpty(attributes);
-  }
-
-  /**
-   * Adds an attribute value to the tracked entity.
-   *
-   * @param attributeValue the {@link TrackedEntityAttributeValue} to add.
-   * @return true if the attribute was added, false if it already exists.
-   */
-  public boolean addAttributeValue(TrackedEntityAttributeValue attributeValue) {
-    return attributes.add(attributeValue);
   }
 
   /**

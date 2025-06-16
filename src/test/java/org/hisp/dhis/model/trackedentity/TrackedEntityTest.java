@@ -29,38 +29,19 @@ package org.hisp.dhis.model.trackedentity;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
-
-import org.hisp.dhis.model.ValueType;
 import org.junit.jupiter.api.Test;
 
 class TrackedEntityTest {
   @Test
   void testGetAttributeValue() {
     TrackedEntity te = new TrackedEntity();
-    te.addAttributeValue(getAttributeValue("jTyx81h4qnD", ValueType.TEXT, "blue"));
-    te.addAttributeValue(getAttributeValue("nfWLML6SZ4G", ValueType.TEXT, "green"));
-    te.addAttributeValue(getAttributeValue("aug8T4IreCz", ValueType.TEXT, "grey"));
+    te.addAttributeValue("jTyx81h4qnD", "blue");
+    te.addAttributeValue("nfWLML6SZ4G", "green");
+    te.addAttributeValue("aug8T4IreCz", "grey");
 
     assertEquals("blue", te.getAttributeValue("jTyx81h4qnD"));
     assertEquals("green", te.getAttributeValue("nfWLML6SZ4G"));
     assertEquals("grey", te.getAttributeValue("aug8T4IreCz"));
     assertNull(te.getAttributeValue("dYSQ9kbfFQ8"));
-  }
-
-  /**
-   * Creates a TrackedEntityAttributeValue instance.
-   *
-   * @param attribute the attribute identifier.
-   * @param valueType the {@link ValueType}.
-   * @param value the value of the attribute.
-   * @return a {@link TrackedEntityAttributeValue} instance.
-   */
-  private TrackedEntityAttributeValue getAttributeValue(
-      String attribute, ValueType valueType, String value) {
-    TrackedEntityAttributeValue attributeValue = new TrackedEntityAttributeValue();
-    attributeValue.setAttribute(attribute);
-    attributeValue.setValueType(valueType);
-    attributeValue.setValue(value);
-    return attributeValue;
   }
 }
