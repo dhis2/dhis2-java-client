@@ -1356,12 +1356,12 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   /**
-   * Retrieves data for the {@link Document}.
+   * Writes the data for the {@link Document} to the given {@link OutputStream}.
    *
    * @param id the document identifier.
    * @param out the {@link OutputStream} to write data to.
    */
-  public void getDocumentData(String id, OutputStream out) {
+  public void writeDocumentData(String id, OutputStream out) {
     URI uri =
         HttpUtils.build(
             config
@@ -1370,7 +1370,7 @@ public class Dhis2 extends BaseDhis2 {
                 .appendPath(id)
                 .appendPath("data"));
 
-    CloseableHttpResponse response = getHttpResponse(uri);
+    CloseableHttpResponse response = getHttpResponse(uri, List.of());
 
     writeToStream(response, out);
   }
