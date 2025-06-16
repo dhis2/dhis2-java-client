@@ -49,6 +49,33 @@ import org.junit.jupiter.api.Test;
 
 @Tag(TestTags.INTEGRATION)
 class OrgUnitsApiTest {
+  @Test
+  void testSaveAndRemoveOrgUnits() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    String uidA = UidUtils.generateUid();
+    String uidB = UidUtils.generateUid();
+    String uidC = UidUtils.generateUid();
+
+    OrgUnit ouA = new OrgUnit(uidA, uidA, uidA);
+    ouA.setOpeningDate(new Date());
+    OrgUnit ouB = new OrgUnit(uidB, uidB, uidB);
+    ouB.setOpeningDate(new Date());
+    OrgUnit ouC = new OrgUnit(uidC, uidC, uidC);
+    ouC.setOpeningDate(new Date());
+
+    assertEquals(Status.OK, dhis2.saveOrgUnit(ouA).getStatus());
+    assertEquals(Status.OK, dhis2.saveOrgUnit(ouB).getStatus());
+    assertEquals(Status.OK, dhis2.saveOrgUnit(ouC).getStatus());
+
+    assertNotNull(dhis2.getOrgUnit(uidA));
+    assertNotNull(dhis2.getOrgUnit(uidB));
+    assertNotNull(dhis2.getOrgUnit(uidC));
+
+    assertEquals(Status.OK, dhis2.removeOrgUnit(uidA).getStatus());
+    assertEquals(Status.OK, dhis2.removeOrgUnit(uidB).getStatus());
+    assertEquals(Status.OK, dhis2.removeOrgUnit(uidC).getStatus());
+  }
 
   @Test
   void testSaveOrgUnitsWithUids() {
