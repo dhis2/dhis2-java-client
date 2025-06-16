@@ -33,7 +33,6 @@ import static org.hisp.dhis.support.Assertions.assertSize;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-
 import java.util.List;
 import org.hisp.dhis.model.DataElement;
 import org.hisp.dhis.model.Program;
@@ -222,7 +221,72 @@ class ProgramApiTest {
   }
 
   @Test
+  void testGetProgramsExpandAssociations() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    List<Program> programs =
+        dhis2.getPrograms(
+            Query.instance().withExpandAssociations().addFilter(Filter.eq("id", "IpHINAT79UW")));
+
+    assertNotNull(programs);
+    assertEquals(1, programs.size());
+    assertNotNull(programs.get(0));
+    assertEquals("IpHINAT79UW", programs.get(0).getId());
+
+    Program program = programs.get(0);
+
+    assertNotNull(program);
+    assertEquals("IpHINAT79UW", program.getId());
+    assertEquals(ProgramType.WITH_REGISTRATION, program.getProgramType());
+
+    assertFalse(program.getTrackedEntityAttributes().isEmpty());
+    assertNotNull(program.getTrackedEntityAttributes().get(0));
+
+    assertFalse(program.getProgramTrackedEntityAttributes().isEmpty());
+    assertNotNull(program.getProgramTrackedEntityAttributes().get(0));
+    assertNotNull(program.getProgramTrackedEntityAttributes().get(0).getId());
+
+    TrackedEntityAttribute tea =
+        program.getProgramTrackedEntityAttributes().get(0).getTrackedEntityAttribute();
+
+    assertNotNull(tea);
+    assertNotNull(tea.getId());
+    assertNotNull(tea.getValueType());
+
+    assertFalse(program.getProgramStages().isEmpty());
+
+    ProgramStage ps = program.getProgramStages().get(0);
+
+    assertNotNull(ps);
+    assertNotNull(ps.getId());
+    assertFalse(ps.getProgramStageDataElements().isEmpty());
+
+    ProgramStageDataElement psde = ps.getProgramStageDataElements().get(0);
+
+    assertNotNull(psde);
+    assertNotNull(psde.getId());
+
+    DataElement de = psde.getDataElement();
+
+    assertNotNull(de);
+    assertNotNull(de.getId());
+    assertNotNull(de.getAggregationType());
+    assertNotNull(de.getValueType());
+  }
+
+  @Test
   void testGetPrograms() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    List<Program> programs = dhis2.getPrograms(Query.instance());
+
+    assertNotNull(programs);
+    assertFalse(programs.isEmpty());
+    assertNotNull(programs.get(0));
+  }
+  
+  @Test
+  void testGetProgramsWithFilter() {
     Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
 
     List<Program> programs =
