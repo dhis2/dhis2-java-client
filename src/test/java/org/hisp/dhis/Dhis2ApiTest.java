@@ -34,10 +34,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.Date;
 import java.util.List;
-import org.hisp.dhis.model.CategoryOption;
 import org.hisp.dhis.model.DataElement;
 import org.hisp.dhis.model.OrgUnit;
-import org.hisp.dhis.model.OrgUnitGroup;
 import org.hisp.dhis.model.Program;
 import org.hisp.dhis.model.ProgramStage;
 import org.hisp.dhis.model.ProgramStageDataElement;
@@ -54,66 +52,6 @@ import org.junit.jupiter.api.Test;
 
 @Tag(TestTags.INTEGRATION)
 class Dhis2ApiTest {
-  @Test
-  void testGetUserAuthorization() {
-    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
-
-    List<String> authorization = dhis2.getUserAuthorization();
-
-    assertNotNull(authorization);
-    assertFalse(authorization.isEmpty());
-  }
-
-  @Test
-  void testGetCategoryOptions() {
-    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
-
-    List<CategoryOption> categoryOptions =
-        dhis2.getCategoryOptions(Query.instance().setPaging(1, 10));
-
-    assertNotNull(categoryOptions);
-    assertFalse(categoryOptions.isEmpty());
-    assertNotNull(categoryOptions.get(0).getId());
-    assertNotNull(categoryOptions.get(0).getName());
-    assertFalse(categoryOptions.get(0).getCategories().isEmpty());
-  }
-
-  @Test
-  void testGetOrgUnits() {
-    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
-
-    List<OrgUnit> orgUnits = dhis2.getOrgUnits(Query.instance().setPaging(1, 100));
-
-    assertNotNull(orgUnits);
-    assertFalse(orgUnits.isEmpty());
-    assertNotNull(orgUnits.get(0));
-    assertNotNull(orgUnits.get(0).getId());
-    assertNotNull(orgUnits.get(0).getName());
-  }
-
-  @Test
-  void testGetOrgUnitGroups() {
-    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
-
-    List<OrgUnitGroup> orgUnitGroups = dhis2.getOrgUnitGroups(Query.instance());
-
-    assertNotNull(orgUnitGroups);
-    assertFalse(orgUnitGroups.isEmpty());
-    assertNotNull(orgUnitGroups.get(0));
-    assertNotNull(orgUnitGroups.get(0).getId());
-    assertNotNull(orgUnitGroups.get(0).getName());
-  }
-
-  @Test
-  void testGetOrgUnitGroup() {
-    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
-
-    OrgUnitGroup orgUnitGroup = dhis2.getOrgUnitGroup("CXw2yu5fodb");
-
-    assertNotNull(orgUnitGroup);
-    assertEquals("CXw2yu5fodb", orgUnitGroup.getId());
-  }
-
   @Test
   void testGetProgram() {
     Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);

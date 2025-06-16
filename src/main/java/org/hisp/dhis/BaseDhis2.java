@@ -204,6 +204,9 @@ public class BaseDhis2 {
       String.format(
           "%1$s,compulsory,dataDimension,dimensionType,dataElementGroups[%1$s]", NAME_FIELDS);
 
+  protected static final String DOCUMENT_FIELDS =
+      String.format("%s,external,attachment", ID_FIELDS);
+
   /** Indicator type fields. */
   protected static final String INDICATOR_TYPE_FIELDS =
       String.format("%s,factor,number", NAME_FIELDS);

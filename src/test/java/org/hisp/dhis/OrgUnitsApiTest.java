@@ -29,6 +29,7 @@ package org.hisp.dhis;
 
 import static org.hisp.dhis.util.CollectionUtils.list;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -48,6 +49,7 @@ import org.junit.jupiter.api.Test;
 
 @Tag(TestTags.INTEGRATION)
 class OrgUnitsApiTest {
+
   @Test
   void testSaveOrgUnitsWithUids() {
     Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
@@ -219,6 +221,19 @@ class OrgUnitsApiTest {
     assertNotNull(ou.getParent());
     assertEquals("O6uvpzGd5pu", ou.getParent().getId());
     assertNotNull(ou.getOpeningDate());
+  }
+
+  @Test
+  void testGetOrgUnitsWithPaging() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    List<OrgUnit> orgUnits = dhis2.getOrgUnits(Query.instance().setPaging(1, 100));
+
+    assertNotNull(orgUnits);
+    assertFalse(orgUnits.isEmpty());
+    assertNotNull(orgUnits.get(0));
+    assertNotNull(orgUnits.get(0).getId());
+    assertNotNull(orgUnits.get(0).getName());
   }
 
   @Test

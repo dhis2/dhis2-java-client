@@ -74,6 +74,8 @@ public class Dhis2Objects {
 
   @JsonProperty private List<Dimension> dimensions = new ArrayList<>();
 
+  @JsonProperty private List<Document> documents = new ArrayList<>();
+
   @JsonProperty private List<OrgUnit> organisationUnits = new ArrayList<>();
 
   @JsonProperty private List<OrgUnitGroup> organisationUnitGroups = new ArrayList<>();
