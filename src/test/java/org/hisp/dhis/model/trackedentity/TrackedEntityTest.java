@@ -63,7 +63,7 @@ class TrackedEntityTest {
   void testAddTrackedEntityAttributeValue() {
     TrackedEntity te = new TrackedEntity();
     te.addAttributeValue("jTyx81h4qnD", "blue");
-    assertEquals("blue", te.getTrackedEntityAttributeValue("jTyx81h4qnD").getValue());
+    assertEquals("blue", te.getAttributeValue("jTyx81h4qnD"));
     assertEquals(1, te.getAttributes().size());
 
     te.addAttributeValue("nfWLML6SZ4G", "heavy");
