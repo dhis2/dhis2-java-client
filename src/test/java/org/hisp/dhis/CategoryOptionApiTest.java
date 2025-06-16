@@ -66,6 +66,20 @@ class CategoryOptionApiTest {
   }
 
   @Test
+  void testGetCategoryOptionsWithPaging() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    List<CategoryOption> categoryOptions =
+        dhis2.getCategoryOptions(Query.instance().setPaging(1, 10));
+
+    assertNotNull(categoryOptions);
+    assertFalse(categoryOptions.isEmpty());
+    assertNotNull(categoryOptions.get(0).getId());
+    assertNotNull(categoryOptions.get(0).getName());
+    assertFalse(categoryOptions.get(0).getCategories().isEmpty());
+  }
+
+  @Test
   void testPagingFalseByDefault() {
     Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
 

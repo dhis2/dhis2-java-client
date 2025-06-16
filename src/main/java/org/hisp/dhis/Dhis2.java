@@ -66,6 +66,7 @@ import org.hisp.dhis.model.DataElementGroupSet;
 import org.hisp.dhis.model.DataSet;
 import org.hisp.dhis.model.Dhis2Objects;
 import org.hisp.dhis.model.Dimension;
+import org.hisp.dhis.model.Document;
 import org.hisp.dhis.model.FileResource;
 import org.hisp.dhis.model.GeoMap;
 import org.hisp.dhis.model.ImportStrategy;
@@ -1313,6 +1314,44 @@ public class Dhis2 extends BaseDhis2 {
             query,
             Dhis2Objects.class)
         .getDataElementGroupSets();
+  }
+
+  // -------------------------------------------------------------------------
+  // Document
+  // -------------------------------------------------------------------------
+
+  /**
+   * Retrieves an {@link Document}.
+   *
+   * @param id the object identifier.
+   * @return the {@link Document}.
+   */
+  public Document getDocument(String id) {
+    return getObject(
+        config
+            .getResolvedUriBuilder()
+            .appendPath("documents")
+            .appendPath(id)
+            .addParameter(FIELDS_PARAM, DOCUMENT_FIELDS),
+        Query.instance(),
+        Document.class);
+  }
+
+  /**
+   * Retrieves a list of {@link Document}.
+   *
+   * @param query the {@link Query}.
+   * @return list of {@link Document}.
+   */
+  public List<Document> getDocuments(Query query) {
+    return getObject(
+            config
+                .getResolvedUriBuilder()
+                .appendPath("documents")
+                .addParameter(FIELDS_PARAM, DOCUMENT_FIELDS),
+            query,
+            Dhis2Objects.class)
+        .getDocuments();
   }
 
   // -------------------------------------------------------------------------
