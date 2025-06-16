@@ -29,6 +29,7 @@ package org.hisp.dhis.model.trackedentity;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+
 import org.junit.jupiter.api.Test;
 
 class TrackedEntityTest {
@@ -44,7 +45,7 @@ class TrackedEntityTest {
     assertEquals("grey", te.getAttributeValue("aug8T4IreCz"));
     assertNull(te.getAttributeValue("dYSQ9kbfFQ8"));
   }
-  
+
   @Test
   void testGetTrackedEntityAttributeValue() {
     TrackedEntity te = new TrackedEntity();
