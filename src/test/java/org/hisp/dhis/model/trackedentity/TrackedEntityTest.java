@@ -37,12 +37,12 @@ class TrackedEntityTest {
   void testGetAttributeValue() {
     TrackedEntity te = new TrackedEntity();
     te.addAttributeValue("jTyx81h4qnD", "blue");
-    te.addAttributeValue("nfWLML6SZ4G", "green");
-    te.addAttributeValue("aug8T4IreCz", "grey");
+    te.addAttributeValue("nfWLML6SZ4G", "heavy");
+    te.addAttributeValue("aug8T4IreCz", "large");
 
     assertEquals("blue", te.getAttributeValue("jTyx81h4qnD"));
-    assertEquals("green", te.getAttributeValue("nfWLML6SZ4G"));
-    assertEquals("grey", te.getAttributeValue("aug8T4IreCz"));
+    assertEquals("heavy", te.getAttributeValue("nfWLML6SZ4G"));
+    assertEquals("large", te.getAttributeValue("aug8T4IreCz"));
     assertNull(te.getAttributeValue("dYSQ9kbfFQ8"));
   }
 
@@ -50,12 +50,40 @@ class TrackedEntityTest {
   void testGetTrackedEntityAttributeValue() {
     TrackedEntity te = new TrackedEntity();
     te.addAttributeValue("jTyx81h4qnD", "blue");
-    te.addAttributeValue("nfWLML6SZ4G", "green");
-    te.addAttributeValue("aug8T4IreCz", "grey");
+    te.addAttributeValue("nfWLML6SZ4G", "heavy");
+    te.addAttributeValue("aug8T4IreCz", "large");
 
     assertEquals("blue", te.getTrackedEntityAttributeValue("jTyx81h4qnD").getValue());
-    assertEquals("green", te.getTrackedEntityAttributeValue("nfWLML6SZ4G").getValue());
-    assertEquals("grey", te.getTrackedEntityAttributeValue("aug8T4IreCz").getValue());
+    assertEquals("heavy", te.getTrackedEntityAttributeValue("nfWLML6SZ4G").getValue());
+    assertEquals("large", te.getTrackedEntityAttributeValue("aug8T4IreCz").getValue());
     assertNull(te.getTrackedEntityAttributeValue("dYSQ9kbfFQ8"));
+  }
+
+  @Test
+  void testAddTrackedEntityAttributeValue() {
+    TrackedEntity te = new TrackedEntity();
+    te.addAttributeValue("jTyx81h4qnD", "blue");
+    assertEquals("blue", te.getTrackedEntityAttributeValue("jTyx81h4qnD").getValue());
+    assertEquals(1, te.getAttributes().size());
+
+    te.addAttributeValue("nfWLML6SZ4G", "heavy");
+    assertEquals("heavy", te.getAttributeValue("nfWLML6SZ4G"));
+    assertEquals(2, te.getAttributes().size());
+
+    te.addAttributeValue("nfWLML6SZ4G", "light");
+    assertEquals("light", te.getAttributeValue("nfWLML6SZ4G"));
+    assertEquals(2, te.getAttributes().size());
+
+    te.addAttributeValue("nfWLML6SZ4G", "super_light");
+    assertEquals("super_light", te.getAttributeValue("nfWLML6SZ4G"));
+    assertEquals(2, te.getAttributes().size());
+
+    te.addAttributeValue("aug8T4IreCz", "large");
+    assertEquals("large", te.getAttributeValue("aug8T4IreCz"));
+    assertEquals(3, te.getAttributes().size());
+
+    te.addAttributeValue("aug8T4IreCz", "small");
+    assertEquals("small", te.getAttributeValue("aug8T4IreCz"));
+    assertEquals(3, te.getAttributes().size());
   }
 }

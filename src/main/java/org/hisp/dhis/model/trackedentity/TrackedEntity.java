@@ -113,10 +113,15 @@ public class TrackedEntity {
    *
    * @param attribute the attribute identifier.
    * @param value the value of the attribute.
-   * @return true if the attribute was added, false if it already exists.
    */
-  public boolean addAttributeValue(String attribute, String value) {
-    return attributes.add(new TrackedEntityAttributeValue(attribute, value));
+  public void addAttributeValue(String attribute, String value) {
+    TrackedEntityAttributeValue existing = getTrackedEntityAttributeValue(attribute);
+
+    if (existing != null) {
+      existing.setValue(value);
+    } else {
+      attributes.add(new TrackedEntityAttributeValue(attribute, value));
+    }
   }
 
   /**
