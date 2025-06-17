@@ -80,10 +80,4 @@ public class Document extends IdentifiableObject {
   public boolean isFile() {
     return !isExternal();
   }
-
-  /** Indicates whether the document has a {@link FileResource}. */
-  @JsonIgnore
-  public boolean hasFileResource() {
-    return fileResource != null;
-  }
 }
