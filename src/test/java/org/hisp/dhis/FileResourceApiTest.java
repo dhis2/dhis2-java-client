@@ -30,6 +30,7 @@ package org.hisp.dhis;
 import static org.hisp.dhis.support.Assertions.assertNotBlank;
 import static org.hisp.dhis.support.Assertions.assertNotEmpty;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import java.util.List;
 import org.hisp.dhis.model.FileResource;
 import org.hisp.dhis.query.Query;
@@ -42,13 +43,13 @@ class FileResourceApiTest {
   @Test
   void testGetFileResources() {
     Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
-    
+
     List<FileResource> resources = dhis2.getFileResources(Query.instance());
-    
+
     assertNotEmpty(resources);
-    
+
     FileResource file = resources.get(0);
-    
+
     assertNotNull(file);
     assertNotBlank(file.getId());
     assertNotBlank(file.getContentType());
