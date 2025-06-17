@@ -41,7 +41,7 @@ public final class TestFixture {
   public static final String DEFAULT_URL = V41_URL;
 
   public static final Dhis2Config DEFAULT_CONFIG =
-      new Dhis2Config(DEFAULT_URL, "admin", "district");
+      new Dhis2Config(DEFAULT_URL, "system", "System123");
 
   public static final Dhis2Config DEV_CONFIG = new Dhis2Config(DEV_URL, "system", "System123");
 
