@@ -25,26 +25,34 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.hisp.dhis.model;
+package org.hisp.dhis;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import static org.hisp.dhis.support.Assertions.assertNotBlank;
+import static org.hisp.dhis.support.Assertions.assertNotEmpty;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import java.util.List;
+import org.hisp.dhis.model.FileResource;
+import org.hisp.dhis.query.Query;
+import org.hisp.dhis.support.TestTags;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
 
-@Getter
-@Setter
-@NoArgsConstructor
-public class FileResource extends IdentifiableObject {
-  @JsonProperty private String contentType;
-
-  @JsonProperty private Integer contentLength;
-
-  @JsonProperty private String contentMd5;
-
-  @JsonProperty private String domain;
-
-  @JsonProperty private Boolean hasMultipleStorageFiles;
-
-  @JsonProperty private String storageStatus;
+@Tag(TestTags.INTEGRATION)
+class FileResourceApiTest {
+  @Test
+  void testGetFileResources() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+    
+    List<FileResource> resources = dhis2.getFileResources(Query.instance());
+    
+    assertNotEmpty(resources);
+    
+    FileResource file = resources.get(0);
+    
+    assertNotNull(file);
+    assertNotBlank(file.getId());
+    assertNotBlank(file.getContentType());
+    assertNotNull(file.getContentLength());
+    assertNotBlank(file.getContentMd5());
+  }
 }

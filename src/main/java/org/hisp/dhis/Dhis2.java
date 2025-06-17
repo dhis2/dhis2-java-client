@@ -2403,9 +2403,30 @@ public class Dhis2 extends BaseDhis2 {
    */
   public FileResource getFileResource(String id) {
     return getObject(
-        config.getResolvedUriBuilder().appendPath("fileResources").appendPath(id),
+        config
+            .getResolvedUriBuilder()
+            .appendPath("fileResources")
+            .appendPath(id)
+            .addParameter(FIELDS_PARAM, FILE_RESOURCE_FIELDS),
         Query.instance(),
         FileResource.class);
+  }
+
+  /**
+   * Retrieves a {@link FileResource}.
+   *
+   * @param query the {@link Query}.
+   * @return a list of {@link FileResource}.
+   */
+  public List<FileResource> getFileResources(Query query) {
+    return getObject(
+            config
+                .getResolvedUriBuilder()
+                .appendPath("fileResources")
+                .addParameter(FIELDS_PARAM, FILE_RESOURCE_FIELDS),
+            query,
+            Dhis2Objects.class)
+        .getFileResources();
   }
 
   // -------------------------------------------------------------------------

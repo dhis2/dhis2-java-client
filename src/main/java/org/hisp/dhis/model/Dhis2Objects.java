@@ -72,9 +72,21 @@ public class Dhis2Objects {
 
   @JsonProperty private List<DataElementGroup> dataElementGroups = new ArrayList<>();
 
+  @JsonProperty private List<DataSet> dataSets = new ArrayList<>();
+
   @JsonProperty private List<Dimension> dimensions = new ArrayList<>();
 
   @JsonProperty private List<Document> documents = new ArrayList<>();
+
+  @JsonProperty private List<FileResource> fileResources = new ArrayList<>();
+
+  @JsonProperty private List<IndicatorType> indicatorTypes = new ArrayList<>();
+
+  @JsonProperty private List<Indicator> indicators = new ArrayList<>();
+
+  @JsonProperty private List<IndicatorGroup> indicatorGroups = new ArrayList<>();
+
+  @JsonProperty private List<IndicatorGroupSet> indicatorGroupSets = new ArrayList<>();
 
   @JsonProperty private List<OrgUnit> organisationUnits = new ArrayList<>();
 
@@ -86,17 +98,7 @@ public class Dhis2Objects {
 
   @JsonProperty private List<DataElementGroupSet> dataElementGroupSets = new ArrayList<>();
 
-  @JsonProperty private List<DataSet> dataSets = new ArrayList<>();
-
   @JsonProperty private List<GeoMap> maps = new ArrayList<GeoMap>();
-
-  @JsonProperty private List<IndicatorType> indicatorTypes = new ArrayList<>();
-
-  @JsonProperty private List<Indicator> indicators = new ArrayList<>();
-
-  @JsonProperty private List<IndicatorGroup> indicatorGroups = new ArrayList<>();
-
-  @JsonProperty private List<IndicatorGroupSet> indicatorGroupSets = new ArrayList<>();
 
   @JsonProperty private List<OptionSet> optionSets = new ArrayList<>();
 

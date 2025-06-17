@@ -207,8 +207,15 @@ public class BaseDhis2 {
       String.format(
           "%1$s,compulsory,dataDimension,dimensionType,dataElementGroups[%1$s]", NAME_FIELDS);
 
+  /** Document fields. */
   protected static final String DOCUMENT_FIELDS =
       String.format("%s,url,external,attachment", ID_FIELDS);
+
+  /** File resource fields. */
+  protected static final String FILE_RESOURCE_FIELDS =
+      String.format(
+          "%s,contentType,contentLength,contentMd5,domain,hasMultipleStorageFiles,storageStatus",
+          ID_FIELDS);
 
   /** Indicator type fields. */
   protected static final String INDICATOR_TYPE_FIELDS =
