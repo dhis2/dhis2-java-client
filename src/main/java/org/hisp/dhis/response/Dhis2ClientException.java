@@ -42,6 +42,12 @@ public class Dhis2ClientException extends RuntimeException {
 
   private final String errorCode;
 
+  /**
+   * Constructor.
+   *
+   * @param message the message.
+   * @param statusCode the stsatus code.
+   */
   public Dhis2ClientException(String message, int statusCode) {
     super(message);
     this.statusCode = statusCode;
@@ -49,6 +55,26 @@ public class Dhis2ClientException extends RuntimeException {
     this.errorCode = null;
   }
 
+  /**
+   * Constructor.
+   *
+   * @param message the message.
+   * @param httpStatus the HTTP status.
+   */
+  public Dhis2ClientException(String message, HttpStatus httpStatus) {
+    super(message);
+    this.statusCode = httpStatus.value();
+    this.httpStatus = httpStatus;
+    this.errorCode = null;
+  }
+
+  /**
+   * Constructor.
+   *
+   * @param message the message.
+   * @param statusCode the status code.
+   * @param errorCode the error code.
+   */
   public Dhis2ClientException(String message, int statusCode, String errorCode) {
     super(getMessage(message, statusCode, errorCode));
     this.statusCode = statusCode;
@@ -56,6 +82,12 @@ public class Dhis2ClientException extends RuntimeException {
     this.errorCode = errorCode;
   }
 
+  /**
+   * Constructor.
+   *
+   * @param message the message.
+   * @param cause the cause of the exception.
+   */
   public Dhis2ClientException(String message, Throwable cause) {
     super(message, cause);
     this.statusCode = -1;
@@ -63,6 +95,13 @@ public class Dhis2ClientException extends RuntimeException {
     this.errorCode = null;
   }
 
+  /**
+   * Constructor.
+   *
+   * @param message the message.
+   * @param cause the cause of the exception.
+   * @param statusCode the status code.
+   */
   public Dhis2ClientException(String message, Throwable cause, int statusCode) {
     super(message, cause);
     this.statusCode = statusCode;

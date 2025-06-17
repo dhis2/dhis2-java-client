@@ -48,6 +48,9 @@ public class Document extends IdentifiableObject {
 
   @JsonProperty private Boolean attachment;
 
+  /** File resource. Only relevant when the document represents a file resource. */
+  @JsonIgnore private FileResource fileResource;
+
   @JsonIgnore
   public boolean isExternal() {
     return BooleanUtils.isTrue(external);
@@ -76,5 +79,11 @@ public class Document extends IdentifiableObject {
   @JsonIgnore
   public boolean isFile() {
     return !isExternal();
+  }
+
+  /** Indicates whether the document has a {@link FileResource}. */
+  @JsonIgnore
+  public boolean hasFileResource() {
+    return fileResource != null;
   }
 }
