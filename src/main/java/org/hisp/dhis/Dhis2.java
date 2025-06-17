@@ -362,6 +362,7 @@ public class Dhis2 extends BaseDhis2 {
    * @param type the class type of the object to retrieve.
    * @param <T> the object type.
    * @return the object associated with the given namespace and key.
+   * @throws Dhis2ClientException if the object does not exist.
    */
   public <T> T getDataStoreEntry(String namespace, String key, Class<T> type) {
     return getObject(getDataStorePath(namespace, key), type);
@@ -398,6 +399,7 @@ public class Dhis2 extends BaseDhis2 {
    * @param namespace the namespace.
    * @param key the key.
    * @return the {@link EntryMetadata}.
+   * @throws Dhis2ClientException if the object does not exist.
    */
   public EntryMetadata getDataStoreEntryMetadata(String namespace, String key) {
     String path = String.format("dataStore/%s/%s/metaData", namespace, key);
@@ -2389,6 +2391,24 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   // -------------------------------------------------------------------------
+  // File resource
+  // -------------------------------------------------------------------------
+
+  /**
+   * Retrieves a {@link FileResource}.
+   *
+   * @param id the object identifier.
+   * @return the {@link FileResource}.
+   * @throws Dhis2ClientException if the object does not exist.
+   */
+  public FileResource getFileResource(String id) {
+    return getObject(
+        config.getResolvedUriBuilder().appendPath("fileResources").appendPath(id),
+        Query.instance(),
+        FileResource.class);
+  }
+
+  // -------------------------------------------------------------------------
   // System settings
   // -------------------------------------------------------------------------
 
@@ -2881,20 +2901,6 @@ public class Dhis2 extends BaseDhis2 {
             JobNotification[].class);
 
     return new ArrayList<>(Arrays.asList(response));
-  }
-
-  /**
-   * Retrieves a {@link FileResource}.
-   *
-   * @param id the object identifier.
-   * @return the {@link FileResource}.
-   * @throws Dhis2ClientException if the object does not exist.
-   */
-  public FileResource getFileResource(String id) {
-    return getObject(
-        config.getResolvedUriBuilder().appendPath("fileResources").appendPath(id),
-        Query.instance(),
-        FileResource.class);
   }
 
   /**

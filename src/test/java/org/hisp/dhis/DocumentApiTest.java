@@ -49,6 +49,7 @@ class DocumentApiTest {
     assertNotNull(document);
     assertEquals("hKYLLpNinZR", document.getId());
     assertNotBlank(document.getName());
+    assertNotBlank(document.getUrl());
     assertTrue(document.getExternal());
     assertTrue(document.isExternal());
     assertFalse(document.isAttachment());
