@@ -27,7 +27,6 @@
  */
 package org.hisp.dhis;
 
-import static org.apache.commons.lang3.StringUtils.isBlank;
 import static org.hisp.dhis.Constants.SUPER_ADMIN_AUTH;
 import static org.hisp.dhis.util.CollectionUtils.asList;
 import static org.hisp.dhis.util.CollectionUtils.list;
@@ -1341,33 +1340,6 @@ public class Dhis2 extends BaseDhis2 {
             .addParameter(FIELDS_PARAM, DOCUMENT_FIELDS),
         Query.instance(),
         Document.class);
-  }
-
-  /**
-   * Returns a {@link Document} with an associated {@link FileResource}. Requires that the document
-   * represents a file.
-   *
-   * @param id the object identifier.
-   * @return the {@link Document}.
-   * @throws Dhis2ClientException if the object does not exist.
-   */
-  public Document getDocumentWithFileResource(String id) {
-    Document document = getDocument(id);
-
-    if (!document.isFile()) {
-      throw new Dhis2ClientException(
-          String.format("Can only get file resource for type file: '%s'", id), HttpStatus.CONFLICT);
-    }
-
-    if (isBlank(document.getUrl())) {
-      throw new Dhis2ClientException(
-          String.format("Document does not specify a URL", id), HttpStatus.CONFLICT);
-    }
-
-    FileResource fileResource = getFileResource(document.getUrl());
-
-    document.setFileResource(fileResource);
-    return document;
   }
 
   /**

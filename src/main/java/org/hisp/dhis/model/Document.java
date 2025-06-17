@@ -48,7 +48,7 @@ public class Document extends IdentifiableObject {
 
   @JsonProperty private Boolean attachment;
 
-  /** File resource. Only relevant when the document represents a file resource. */
+  /** File resource. */
   @JsonIgnore private FileResource fileResource;
 
   @JsonIgnore
