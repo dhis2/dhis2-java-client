@@ -38,6 +38,12 @@ import org.apache.commons.lang3.BooleanUtils;
 @Setter
 @NoArgsConstructor
 public class Document extends IdentifiableObject {
+  /**
+   * Refers to a URL if the {@code external} property is true. Refers to the UID of the associated
+   * {@link FileResource} if the {@code external} property is false.
+   */
+  @JsonProperty private String url;
+
   @JsonProperty private Boolean external;
 
   @JsonProperty private Boolean attachment;
@@ -50,5 +56,25 @@ public class Document extends IdentifiableObject {
   @JsonIgnore
   public boolean isAttachment() {
     return BooleanUtils.isTrue(attachment);
+  }
+
+  /**
+   * Indicates whether the document represents a URL.
+   *
+   * @return true if the document represents a URL.
+   */
+  @JsonIgnore
+  public boolean isUrl() {
+    return isExternal();
+  }
+
+  /**
+   * Indicates whether the document represents a file resource.
+   *
+   * @return true if the document represents a file resource.
+   */
+  @JsonIgnore
+  public boolean isFile() {
+    return !isExternal();
   }
 }
