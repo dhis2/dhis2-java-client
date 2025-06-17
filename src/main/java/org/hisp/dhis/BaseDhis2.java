@@ -230,9 +230,10 @@ public class BaseDhis2 {
   protected static final String DATA_SET_FIELDS =
       String.format(
           """
-          %1$s,formName,displayFormName,categoryCombo[%1$s],dataSetElements[dataSet[%1$s],
-          dataElement[%1$s],categoryCombo[%1$s]],dimensionItem,openFuturePeriods,expiryDays,\
-          timelyDays,url,formType,periodType,version,dimensionItemType,aggregationType,favorite,\
+          %1$s,formName,displayFormName,categoryCombo[%1$s],
+          dataSetElements[dataSet[%1$s],dataElement[%1$s],categoryCombo[%1$s]],\
+          dimensionItem,openFuturePeriods,expiryDays,timelyDays,url,formType,periodType,version,\
+          dimensionItemType,aggregationType,favorite,\
           compulsoryFieldsCompleteOnly,skipOffline,validCompleteOnly,dataElementDecoration,\
           openPeriodsAfterCoEndDate,notifyCompletingUser,noValueRequiresComment,\
           fieldCombinationRequired,mobile,dataEntryForm[%2$s]""",
