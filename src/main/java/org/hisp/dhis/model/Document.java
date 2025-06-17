@@ -40,16 +40,14 @@ import org.apache.commons.lang3.BooleanUtils;
 public class Document extends IdentifiableObject {
   /**
    * Refers to a URL if the {@code external} property is true. Refers to the UID of the associated
-   * {@link FileResource} if the {@code external} property is false.
+   * {@link FileResource} if the {@code external} property is false. Note that the {@link
+   * FileResource} can be retrieved in a separate operation.
    */
   @JsonProperty private String url;
 
   @JsonProperty private Boolean external;
 
   @JsonProperty private Boolean attachment;
-
-  /** File resource. */
-  @JsonIgnore private FileResource fileResource;
 
   @JsonIgnore
   public boolean isExternal() {
@@ -79,5 +77,14 @@ public class Document extends IdentifiableObject {
   @JsonIgnore
   public boolean isFile() {
     return !isExternal();
+  }
+
+  /**
+   * Returns the file resource identifier, assuming the document represents a file resource.
+   *
+   * @return the file resource identifier, or null.
+   */
+  public String getFileResourceId() {
+    return isFile() ? url : null;
   }
 }
