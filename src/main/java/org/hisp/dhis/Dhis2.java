@@ -1290,6 +1290,7 @@ public class Dhis2 extends BaseDhis2 {
    *
    * @param id the object identifier.
    * @return the {@link DataElementGroupSet}.
+   * @throws Dhis2ClientException if the object does not exist.
    */
   public DataElementGroupSet getDataElementGroupSet(String id) {
     return getObject(
@@ -1324,10 +1325,11 @@ public class Dhis2 extends BaseDhis2 {
   // -------------------------------------------------------------------------
 
   /**
-   * Retrieves an {@link Document}.
+   * Retrieves a {@link Document}.
    *
    * @param id the object identifier.
    * @return the {@link Document}.
+   * @throws Dhis2ClientException if the object does not exist.
    */
   public Document getDocument(String id) {
     return getObject(
@@ -1396,6 +1398,7 @@ public class Dhis2 extends BaseDhis2 {
    *
    * @param id the object identifier.
    * @return the {@link Indicator}.
+   * @throws Dhis2ClientException if the object does not exist.
    */
   public Indicator getIndicator(String id) {
     return getObject(
@@ -1548,6 +1551,7 @@ public class Dhis2 extends BaseDhis2 {
    *
    * @param id the object identifier.
    * @return the {@link IndicatorType}.
+   * @throws Dhis2ClientException if the object does not exist.
    */
   public IndicatorType getIndicatorType(String id) {
     return getObject(

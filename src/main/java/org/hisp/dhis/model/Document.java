@@ -48,6 +48,9 @@ public class Document extends IdentifiableObject {
 
   @JsonProperty private Boolean attachment;
 
+  /** File resource. */
+  @JsonIgnore private FileResource fileResource;
+
   @JsonIgnore
   public boolean isExternal() {
     return BooleanUtils.isTrue(external);
