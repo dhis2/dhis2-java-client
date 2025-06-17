@@ -1497,6 +1497,7 @@ public class Dhis2 extends BaseDhis2 {
    *
    * @param id the object identifier.
    * @return the {@link IndicatorGroupSet}.
+   * @throws Dhis2ClientException if the object does not exist.
    */
   public IndicatorGroupSet getIndicatorGroupSet(String id) {
     return getObject(
@@ -1593,6 +1594,7 @@ public class Dhis2 extends BaseDhis2 {
    *
    * @param id the object identifier.
    * @return the {@link DataSet}.
+   * @throws Dhis2ClientException if the object does not exist.
    */
   public DataSet getDataSet(String id) {
     String fieldsParam =
@@ -1805,6 +1807,7 @@ public class Dhis2 extends BaseDhis2 {
    *
    * @param id the object identifier.
    * @return the {@link ProgramIndicator}.
+   * @throws Dhis2ClientException if the object does not exist.
    */
   public ProgramIndicator getProgramIndicator(String id) {
     return getObject(
@@ -1843,6 +1846,7 @@ public class Dhis2 extends BaseDhis2 {
    *
    * @param id the object identifier.
    * @return the {@link TrackedEntityType}.
+   * @throws Dhis2ClientException if the object does not exist.
    */
   public TrackedEntityType getTrackedEntityType(String id) {
     return getObject(
@@ -2333,6 +2337,7 @@ public class Dhis2 extends BaseDhis2 {
    *
    * @param id the identifier of the dimension.
    * @return the {@link Dimension}.
+   * @throws Dhis2ClientException if the object does not exist.
    */
   public Dimension getDimension(String id) {
     return getObject(
@@ -2609,6 +2614,7 @@ public class Dhis2 extends BaseDhis2 {
    *
    * @param id the event identifier.
    * @return the {@link Event}.
+   * @throws Dhis2ClientException if the object does not exist.
    */
   public Event getEvent(String id) {
     return getObject(
@@ -2684,6 +2690,7 @@ public class Dhis2 extends BaseDhis2 {
    *
    * @param id the event identifier.
    * @return the {@link TrackedEntity}.
+   * @throws Dhis2ClientException if the object does not exist.
    */
   public TrackedEntity getTrackedEntity(String id) {
     return getObject(
@@ -2803,6 +2810,7 @@ public class Dhis2 extends BaseDhis2 {
    *
    * @param id the enrollment identifier.
    * @return the {@link Enrollment}.
+   * @throws Dhis2ClientException if the object does not exist.
    */
   public Enrollment getEnrollment(String id) {
     return getObject(
