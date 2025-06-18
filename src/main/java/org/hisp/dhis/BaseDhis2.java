@@ -81,6 +81,7 @@ import org.apache.hc.core5.net.URIBuilder;
 import org.hisp.dhis.model.Dhis2Objects;
 import org.hisp.dhis.model.IdentifiableObject;
 import org.hisp.dhis.model.completedatasetregistration.CompleteDataSetRegistrationImportOptions;
+import org.hisp.dhis.model.datavalueset.DataValueSet;
 import org.hisp.dhis.model.datavalueset.DataValueSetImportOptions;
 import org.hisp.dhis.model.enrollment.EnrollmentsResult;
 import org.hisp.dhis.model.event.EventsResult;
@@ -454,16 +455,14 @@ public class BaseDhis2 {
   /**
    * Retrieves a dataValueSet object using HTTP GET.
    *
-   * @param <T> the type.
    * @param uriBuilder the URI builder.
    * @param query the {@link DataValueSetQuery} filters to apply.
    * @param type the class type of the object.
    * @return the object.
    */
-  protected <T> T getDataValueSetResponse(
-      URIBuilder uriBuilder, DataValueSetQuery query, Class<T> type) {
+  protected DataValueSet getDataValueSetResponse(URIBuilder uriBuilder, DataValueSetQuery query) {
     URI url = getDataValueSetQuery(uriBuilder, query);
-    return getObjectFromUrl(url, type);
+    return getObjectFromUrl(url, DataValueSet.class);
   }
 
   /**
@@ -602,7 +601,6 @@ public class BaseDhis2 {
    */
   protected EventsResult getEventsResult(URIBuilder uriBuilder, EventQuery query) {
     URI url = getEventsQuery(uriBuilder, query);
-
     return getObjectFromUrl(url, EventsResult.class);
   }
 
@@ -694,7 +692,6 @@ public class BaseDhis2 {
    */
   protected EnrollmentsResult getEnrollmentResult(URIBuilder uriBuilder, EnrollmentQuery query) {
     URI url = getEnrollmentQuery(uriBuilder, query);
-
     return getObjectFromUrl(url, EnrollmentsResult.class);
   }
 
