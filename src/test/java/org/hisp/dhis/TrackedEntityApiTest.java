@@ -31,8 +31,10 @@ import static org.hisp.dhis.support.Assertions.assertNotEmpty;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import java.util.List;
 import org.hisp.dhis.model.trackedentity.TrackedEntitiesResult;
 import org.hisp.dhis.model.trackedentity.TrackedEntity;
+import org.hisp.dhis.query.Filter;
 import org.hisp.dhis.query.trackedentity.TrackedEntityQuery;
 import org.hisp.dhis.support.TestTags;
 import org.junit.jupiter.api.Tag;
@@ -60,6 +62,38 @@ class TrackedEntityApiTest {
 
     TrackedEntityQuery query =
         TrackedEntityQuery.instance().setProgram("IpHINAT79UW").setOrgUnit("DiszpKrYNg8");
+
+    TrackedEntitiesResult trackedEntities = dhis2.getTrackedEntities(query);
+
+    assertNotNull(trackedEntities);
+    assertNotEmpty(trackedEntities.getTrackedEntities());
+  }
+
+  @Test
+  void testGetTrackedEntitiesWithLikeFilter() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    TrackedEntityQuery query =
+        TrackedEntityQuery.instance()
+            .setProgram("IpHINAT79UW")
+            .setOrgUnit("DiszpKrYNg8")
+            .addFilter(Filter.like("w75KJ2mc4zz", "Frank"));
+
+    TrackedEntitiesResult trackedEntities = dhis2.getTrackedEntities(query);
+
+    assertNotNull(trackedEntities);
+    assertNotEmpty(trackedEntities.getTrackedEntities());
+  }
+
+  @Test
+  void testGetTrackedEntitiesWithInFilter() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    TrackedEntityQuery query =
+        TrackedEntityQuery.instance()
+            .setProgram("IpHINAT79UW")
+            .setOrgUnit("DiszpKrYNg8")
+            .addFilter(Filter.in("w75KJ2mc4zz", List.of("Frank", "Maria", "Elizabeth")));
 
     TrackedEntitiesResult trackedEntities = dhis2.getTrackedEntities(query);
 
