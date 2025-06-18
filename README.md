@@ -518,12 +518,6 @@ Run integration tests:
 mvn test -Pintegration
 ```
 
-Run slow integration tests:
-
-```
-mvn test -Pslow-integration
-```
-
 Run specific integration test:
 
 ```
