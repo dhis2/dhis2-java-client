@@ -30,6 +30,8 @@ package org.hisp.dhis;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.util.List;
+import org.hisp.dhis.query.Filter;
 import org.hisp.dhis.query.Query;
 import org.hisp.dhis.response.Dhis2ClientException;
 import org.hisp.dhis.support.TestTags;
@@ -44,6 +46,16 @@ class Dhis2Test {
     Dhis2 dhis2 = new Dhis2(new Dhis2Config("https://not_a_domain.abc", "username", "pw"));
 
     assertThrows(Dhis2ClientException.class, () -> dhis2.getOrgUnitGroups(Query.instance()));
+  }
+
+  @Test
+  void testGetQueryValue() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    assertEquals("Frank", dhis2.getQueryValue(Filter.eq("w75KJ2mc4zz", "Frank")));
+    assertEquals(
+        "[Frank,Maria,Elizabeth]",
+        dhis2.getQueryValue(Filter.in("w75KJ2mc4zz", List.of("Frank", "Maria", "Elizabeth"))));
   }
 
   @Test

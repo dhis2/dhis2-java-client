@@ -515,13 +515,13 @@ mvn test
 Run integration tests:
 
 ```
-mvn test -P integration
+mvn test -Pintegration
 ```
 
 Run specific integration test:
 
 ```
-mvn test -P integration -Dtest=Dhis2ApiTest
+mvn test -Pintegration -Dtest=Dhis2ApiTest
 ```
 
 To log internal messages at info level during tests:
