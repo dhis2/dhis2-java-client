@@ -38,6 +38,7 @@ import org.hisp.dhis.model.event.Event;
 import org.hisp.dhis.model.event.EventDataValue;
 import org.hisp.dhis.model.event.Events;
 import org.hisp.dhis.model.event.EventsResult;
+import org.hisp.dhis.query.Filter;
 import org.hisp.dhis.query.event.EventQuery;
 import org.hisp.dhis.response.Dhis2ClientException;
 import org.hisp.dhis.response.Status;
@@ -269,5 +270,32 @@ class EventsApiTest {
     assertNotNull(event.getProgramStage());
     assertNotNull(event.getOrgUnit());
     assertNotNull(event.getStatus());
+  }
+
+  @Test
+  void testGetEventsWithFilter() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    EventQuery query =
+            EventQuery.instance().setProgram("eBAyeGv0exc").setProgramStage("Zj7UnCAulEk")
+                    .setFilters(List.of(Filter.eq("oZg33kd9taw", "Female")));
+
+    EventsResult events = dhis2.getEvents(query);
+
+    assertNotNull(events);
+    assertNotNull(events.getEvents());
+    assertEquals(50, events.getEvents().size());
+
+    Event event = events.getEvents().get(0);
+
+    assertNotNull(event.getId());
+    assertNotNull(event.getProgram());
+    assertNotNull(event.getProgramStage());
+    assertNotNull(event.getOrgUnit());
+    assertNotNull(event.getStatus());
+
+    for (Event ev : events.getEvents()) {
+      assertEquals("Female", ev.getDataValue("oZg33kd9taw"));
+    }
   }
 }
