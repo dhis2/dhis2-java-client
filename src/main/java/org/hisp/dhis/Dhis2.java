@@ -2586,29 +2586,6 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   // -------------------------------------------------------------------------
-  // Tracker import
-  // -------------------------------------------------------------------------
-
-  /**
-   * Saves {@link TrackedEntityObjects}. The operation is synchronous.
-   *
-   * <p>Requires DHIS2 version 2.36 or later.
-   *
-   * @param trackedEntityObjects the {@link TrackedEntityObjects}.
-   * @param params the {@link TrackedEntityImportParams}.
-   * @return the {@link TrackedEntityResponse}.
-   */
-  public TrackedEntityResponse saveTrackedEntityObjects(
-      TrackedEntityObjects trackedEntityObjects, TrackedEntityImportParams params) {
-    URIBuilder uriBuilder =
-        getTrackedEntityImportParams(
-            config.getResolvedUriBuilder().appendPath("tracker").addParameter("async", "false"),
-            params);
-
-    return saveObject(uriBuilder, trackedEntityObjects, TrackedEntityResponse.class);
-  }
-
-  // -------------------------------------------------------------------------
   // Event
   // -------------------------------------------------------------------------
 
@@ -2726,6 +2703,25 @@ public class Dhis2 extends BaseDhis2 {
   // -------------------------------------------------------------------------
   // Tracked entity
   // -------------------------------------------------------------------------
+
+  /**
+   * Saves {@link TrackedEntityObjects}. The operation is synchronous.
+   *
+   * <p>Requires DHIS2 version 2.36 or later.
+   *
+   * @param trackedEntityObjects the {@link TrackedEntityObjects}.
+   * @param params the {@link TrackedEntityImportParams}.
+   * @return the {@link TrackedEntityResponse}.
+   */
+  public TrackedEntityResponse saveTrackedEntityObjects(
+      TrackedEntityObjects trackedEntityObjects, TrackedEntityImportParams params) {
+    URIBuilder uriBuilder =
+        getTrackedEntityImportParams(
+            config.getResolvedUriBuilder().appendPath("tracker").addParameter("async", "false"),
+            params);
+
+    return saveObject(uriBuilder, trackedEntityObjects, TrackedEntityResponse.class);
+  }
 
   /**
    * Retrieves an {@link TrackedEntity}. Includes attribute values for attributes associated with
