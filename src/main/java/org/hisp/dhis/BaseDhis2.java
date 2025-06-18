@@ -417,7 +417,6 @@ public class BaseDhis2 {
       Object value = getQueryValue(filter);
       String filterValue =
           String.format("%s:%s:%s", filter.getProperty(), filter.getOperator().value(), value);
-
       uriBuilder.addParameter("filter", filterValue);
     }
 
@@ -655,8 +654,8 @@ public class BaseDhis2 {
    */
   protected TrackedEntitiesResult getTrackedEntitiesResult(
       URIBuilder uriBuilder, TrackedEntityQuery query) {
-    URIBuilder url = getTrackedEntityQuery(uriBuilder, query);
-    return getObject(url, query, TrackedEntitiesResult.class);
+    URI url = getTrackedEntityQuery(uriBuilder, query);
+    return getObjectFromUrl(url, TrackedEntitiesResult.class);
   }
 
   /**
@@ -666,7 +665,7 @@ public class BaseDhis2 {
    * @param query the {@link TrackedEntityQuery}.
    * @return a {@link URIBuilder}.
    */
-  protected URIBuilder getTrackedEntityQuery(URIBuilder uriBuilder, TrackedEntityQuery query) {
+  protected URI getTrackedEntityQuery(URIBuilder uriBuilder, TrackedEntityQuery query) {
     addParameterList(uriBuilder, "orgUnits", query.getOrgUnits());
     addParameter(uriBuilder, "orgUnitMode", query.getOrgUnitMode());
     addParameter(uriBuilder, "program", query.getProgram());
@@ -689,7 +688,24 @@ public class BaseDhis2 {
     addParameter(uriBuilder, "idScheme", query.getIdScheme());
     addParameter(uriBuilder, "orgUnitIdScheme", query.getOrgUnitIdScheme());
 
-    return uriBuilder;
+    addTrackedEntityFilters(uriBuilder, query);
+
+    return HttpUtils.build(uriBuilder);
+  }
+
+  /**
+   * Adds a filter property to the given {@link URIBuilder} based on the given {@link BaseQuery}.
+   *
+   * @param uriBuilder the {@link URIBuilder}.
+   * @param query the {@link BaseQuery}.
+   */
+  protected void addTrackedEntityFilters(URIBuilder uriBuilder, BaseQuery query) {
+    for (Filter filter : query.getFilters()) {
+      Object value = getTrackedEntityQueryValue(filter);
+      String filterValue =
+          String.format("%s:%s:%s", filter.getProperty(), filter.getOperator().value(), value);
+      uriBuilder.addParameter("filter", filterValue);
+    }
   }
 
   /**
@@ -993,6 +1009,24 @@ public class BaseDhis2 {
       List<String> values = (List<String>) filter.getValue();
       String value = StringUtils.join(values, ',');
       return String.format("[%s]", value);
+    } else {
+      return filter.getValue();
+    }
+  }
+
+  /**
+   * Converts the given tracked entity filter to a query value. Note that the tracker API uses
+   * <code>;</code> separated values for <code>IN</code> filters.
+   *
+   * @param filter the {@link Filter}.
+   * @return a query value.
+   */
+  @SuppressWarnings("unchecked")
+  protected Object getTrackedEntityQueryValue(Filter filter) {
+    if (Operator.IN == filter.getOperator()) {
+      List<String> values = (List<String>) filter.getValue();
+      String value = StringUtils.join(values, ';');
+      return String.format("%s", value);
     } else {
       return filter.getValue();
     }
