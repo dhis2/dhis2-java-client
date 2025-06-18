@@ -45,7 +45,7 @@ import org.hisp.dhis.support.TestTags;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
-@Tag(TestTags.INTEGRATION)
+@Tag(TestTags.SLOW_INTEGRATION)
 class DataValueSetApiTest {
   @Test
   void testGetDataValueSets() {
