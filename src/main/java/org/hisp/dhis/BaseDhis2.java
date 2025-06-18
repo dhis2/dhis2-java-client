@@ -384,7 +384,6 @@ public class BaseDhis2 {
    */
   protected <T> T getObject(URIBuilder uriBuilder, BaseQuery query, Class<T> type) {
     URI url = getObjectQuery(uriBuilder, query);
-
     return getObjectFromUrl(url, type);
   }
 
