@@ -459,8 +459,7 @@ public class BaseDhis2 {
    * @param type the class type of the object.
    * @return the object.
    */
-  protected DataValueSet getDataValueSetResponse(
-      URIBuilder uriBuilder, DataValueSetQuery query) {
+  protected DataValueSet getDataValueSetResponse(URIBuilder uriBuilder, DataValueSetQuery query) {
     URI url = getDataValueSetQuery(uriBuilder, query);
     return getObjectFromUrl(url, DataValueSet.class);
   }
@@ -601,7 +600,6 @@ public class BaseDhis2 {
    */
   protected EventsResult getEventsResult(URIBuilder uriBuilder, EventQuery query) {
     URI url = getEventsQuery(uriBuilder, query);
-
     return getObjectFromUrl(url, EventsResult.class);
   }
 
@@ -693,7 +691,6 @@ public class BaseDhis2 {
    */
   protected EnrollmentsResult getEnrollmentResult(URIBuilder uriBuilder, EnrollmentQuery query) {
     URI url = getEnrollmentQuery(uriBuilder, query);
-
     return getObjectFromUrl(url, EnrollmentsResult.class);
   }
 
