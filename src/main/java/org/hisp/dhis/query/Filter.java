@@ -28,8 +28,10 @@
 package org.hisp.dhis.query;
 
 import java.util.List;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.apache.commons.lang3.StringUtils;
 
@@ -40,13 +42,14 @@ import org.apache.commons.lang3.StringUtils;
  */
 @Getter
 @ToString
-@RequiredArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class Filter {
-  private final String property;
+  private String property;
 
-  private final Operator operator;
+  private Operator operator;
 
-  private final Object value;
+  private Object value;
 
   /**
    * Creates an equals to {@link Filter}.

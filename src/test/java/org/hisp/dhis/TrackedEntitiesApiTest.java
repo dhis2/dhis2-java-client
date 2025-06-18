@@ -38,7 +38,6 @@ import org.hisp.dhis.model.enrollment.Enrollment;
 import org.hisp.dhis.model.trackedentity.TrackedEntitiesResult;
 import org.hisp.dhis.model.trackedentity.TrackedEntity;
 import org.hisp.dhis.query.Filter;
-import org.hisp.dhis.query.Operator;
 import org.hisp.dhis.query.event.OrgUnitSelectionMode;
 import org.hisp.dhis.query.trackedentity.TrackedEntityQuery;
 import org.hisp.dhis.response.Dhis2ClientException;
@@ -83,7 +82,7 @@ class TrackedEntitiesApiTest {
 
     TrackedEntityQuery query =
         TrackedEntityQuery.instance()
-            .setFilters(List.of(new Filter("zDhUuAYrxNC", Operator.EQ, "Enemor HD")))
+            .setFilters(List.of(Filter.eq("zDhUuAYrxNC", "Enemor HD")))
             .setOrgUnits(List.of(OU_A))
             .setOrgUnitMode(OrgUnitSelectionMode.SELECTED)
             .setProgram(PR_A);
@@ -152,7 +151,7 @@ class TrackedEntitiesApiTest {
 
     TrackedEntityQuery query =
         TrackedEntityQuery.instance()
-            .setFilters(List.of(new Filter("zDhUuAYrxNC", Operator.EQ, "Enemor HD")))
+            .setFilters(List.of(Filter.eq("zDhUuAYrxNC", "Enemor HD")))
             .setOrgUnits(List.of(OU_A))
             .setOrgUnitMode(OrgUnitSelectionMode.SELECTED);
 

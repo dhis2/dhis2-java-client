@@ -27,7 +27,9 @@
  */
 package org.hisp.dhis.query;
 
-import lombok.RequiredArgsConstructor;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 /**
@@ -36,11 +38,12 @@ import lombok.ToString;
  * @author Lars Helge Overland
  */
 @ToString
-@RequiredArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class Order {
-  private final String property;
+  private String property;
 
-  private final Direction direction;
+  private Direction direction;
 
   public static Order asc(String property) {
     return new Order(property, Direction.ASC);
