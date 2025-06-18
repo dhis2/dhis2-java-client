@@ -1025,8 +1025,7 @@ public class BaseDhis2 {
   protected Object getTrackedEntityQueryValue(Filter filter) {
     if (Operator.IN == filter.getOperator()) {
       List<String> values = (List<String>) filter.getValue();
-      String value = StringUtils.join(values, ';');
-      return String.format("%s", value);
+      return StringUtils.join(values, ';');
     } else {
       return filter.getValue();
     }
