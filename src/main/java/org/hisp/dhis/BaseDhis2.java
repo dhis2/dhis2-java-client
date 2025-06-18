@@ -414,10 +414,9 @@ public class BaseDhis2 {
    */
   protected URI getObjectQuery(URIBuilder uriBuilder, BaseQuery query) {
     for (Filter filter : query.getFilters()) {
+      Object value = getQueryValue(filter);
       String filterValue =
-          String.format(
-              "%s:%s:%s",
-              filter.getProperty(), filter.getOperator().value(), getQueryValue(filter));
+          String.format("%s:%s:%s", filter.getProperty(), filter.getOperator().value(), value);
 
       uriBuilder.addParameter("filter", filterValue);
     }
@@ -646,7 +645,6 @@ public class BaseDhis2 {
   protected TrackedEntitiesResult getTrackedEntitiesResult(
       URIBuilder uriBuilder, TrackedEntityQuery query) {
     URIBuilder url = getTrackedEntityQuery(uriBuilder, query);
-
     return getObject(url, query, TrackedEntitiesResult.class);
   }
 
