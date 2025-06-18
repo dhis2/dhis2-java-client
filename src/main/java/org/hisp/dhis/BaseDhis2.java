@@ -125,8 +125,10 @@ public class BaseDhis2 {
 
   // Params
 
+  /** Fields parameter. */
   protected static final String FIELDS_PARAM = "fields";
 
+  /** Skip sharing parameter. */
   protected static final String SKIP_SHARING_PARAM = "skipSharing";
 
   // Log levels
@@ -466,7 +468,6 @@ public class BaseDhis2 {
    *
    * @param uriBuilder the URI builder.
    * @param query the {@link DataValueSetQuery} filters to apply.
-   * @param type the class type of the object.
    * @return the object.
    */
   protected DataValueSet getDataValueSetResponse(URIBuilder uriBuilder, DataValueSetQuery query) {
