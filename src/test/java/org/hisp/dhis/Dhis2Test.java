@@ -31,6 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.List;
+import org.apache.hc.core5.net.URIBuilder;
 import org.hisp.dhis.query.Filter;
 import org.hisp.dhis.query.Query;
 import org.hisp.dhis.response.Dhis2ClientException;
@@ -56,6 +57,19 @@ class Dhis2Test {
     assertEquals(
         "[Frank,Maria,Elizabeth]",
         dhis2.getQueryValue(Filter.in("w75KJ2mc4zz", List.of("Frank", "Maria", "Elizabeth"))));
+  }
+
+  @Test
+  void testAddPaging() throws Exception {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    Query query = Query.instance().setPaging(2, 50);
+
+    URIBuilder builder = new URIBuilder("https://myserver.org/api");
+
+    dhis2.addPaging(builder, query);
+
+    assertEquals("https://myserver.org/api?page=2&pageSize=50", builder.toString());
   }
 
   @Test
