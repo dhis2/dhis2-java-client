@@ -27,11 +27,13 @@
  */
 package org.hisp.dhis;
 
+import static org.hisp.dhis.support.Assertions.assertNotEmpty;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import org.hisp.dhis.model.trackedentity.TrackedEntitiesResult;
 import org.hisp.dhis.model.trackedentity.TrackedEntity;
+import org.hisp.dhis.query.trackedentity.TrackedEntityQuery;
 import org.hisp.dhis.support.TestTags;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -45,11 +47,23 @@ class TrackedEntityApiTest {
     TrackedEntity trackedEntity = dhis2.getTrackedEntity("kfwLSxq7mXk");
 
     assertNotNull(trackedEntity);
-    assertNotNull(trackedEntity.getAttributes());
+    assertNotEmpty(trackedEntity.getAttributes());
     assertEquals("kfwLSxq7mXk", trackedEntity.getTrackedEntity());
     assertNotNull(trackedEntity.getCreatedAt());
     assertNotNull(trackedEntity.getUpdatedAt());
     assertNotNull(trackedEntity.getOrgUnit());
-    assertFalse(trackedEntity.getAttributes().isEmpty());
+  }
+
+  @Test
+  void testGetTrackedEntities() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    TrackedEntityQuery query =
+        TrackedEntityQuery.instance().setProgram("IpHINAT79UW").setOrgUnit("DiszpKrYNg8");
+
+    TrackedEntitiesResult trackedEntities = dhis2.getTrackedEntities(query);
+
+    assertNotNull(trackedEntities);
+    assertNotEmpty(trackedEntities.getTrackedEntities());
   }
 }
