@@ -36,8 +36,6 @@ import static org.apache.hc.core5.http.HttpStatus.SC_UNAUTHORIZED;
 import static org.hisp.dhis.util.CollectionUtils.asList;
 import static org.hisp.dhis.util.CollectionUtils.toCommaSeparated;
 import static org.hisp.dhis.util.HttpUtils.getUriAsString;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -52,7 +50,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -81,6 +78,7 @@ import org.apache.hc.core5.net.URIBuilder;
 import org.hisp.dhis.model.Dhis2Objects;
 import org.hisp.dhis.model.IdentifiableObject;
 import org.hisp.dhis.model.completedatasetregistration.CompleteDataSetRegistrationImportOptions;
+import org.hisp.dhis.model.datavalueset.DataValueSet;
 import org.hisp.dhis.model.datavalueset.DataValueSetImportOptions;
 import org.hisp.dhis.model.enrollment.EnrollmentsResult;
 import org.hisp.dhis.model.event.EventsResult;
@@ -114,6 +112,8 @@ import org.hisp.dhis.response.objects.ObjectsResponse;
 import org.hisp.dhis.util.DateTimeUtils;
 import org.hisp.dhis.util.HttpUtils;
 import org.hisp.dhis.util.JacksonUtils;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author Lars Helge Overland
@@ -454,16 +454,15 @@ public class BaseDhis2 {
   /**
    * Retrieves a dataValueSet object using HTTP GET.
    *
-   * @param <T> the type.
    * @param uriBuilder the URI builder.
    * @param query the {@link DataValueSetQuery} filters to apply.
    * @param type the class type of the object.
    * @return the object.
    */
-  protected <T> T getDataValueSetResponse(
-      URIBuilder uriBuilder, DataValueSetQuery query, Class<T> type) {
+  protected DataValueSet getDataValueSetResponse(
+      URIBuilder uriBuilder, DataValueSetQuery query) {
     URI url = getDataValueSetQuery(uriBuilder, query);
-    return getObjectFromUrl(url, type);
+    return getObjectFromUrl(url, DataValueSet.class);
   }
 
   /**
