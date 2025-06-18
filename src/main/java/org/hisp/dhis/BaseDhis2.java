@@ -55,6 +55,7 @@ import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.hc.client5.http.HttpResponseException;
 import org.apache.hc.client5.http.classic.methods.HttpDelete;
 import org.apache.hc.client5.http.classic.methods.HttpGet;
@@ -980,9 +981,12 @@ public class BaseDhis2 {
    * @param filter the {@link Filter}.
    * @return a query value.
    */
-  private Object getQueryValue(Filter filter) {
+  @SuppressWarnings("unchecked")
+  protected Object getQueryValue(Filter filter) {
     if (Operator.IN == filter.getOperator()) {
-      return "[" + filter.getValue() + "]";
+      List<String> values = (List<String>) filter.getValue();
+      String value = StringUtils.join(values, ',');
+      return String.format("[%s]", value);
     } else {
       return filter.getValue();
     }

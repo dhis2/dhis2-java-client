@@ -33,7 +33,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import org.apache.commons.lang3.StringUtils;
 
 /**
  * Query filter.
@@ -167,6 +166,6 @@ public class Filter {
    * @return a {@link Filter}.
    */
   public static Filter in(String property, List<String> values) {
-    return new Filter(property, Operator.IN, StringUtils.join(values, ','));
+    return new Filter(property, Operator.IN, values);
   }
 }
