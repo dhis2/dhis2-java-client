@@ -35,6 +35,4 @@ public interface BaseQuery {
   List<Order> getOrder();
 
   Paging getPaging();
-
-  RootJunction getRootJunction();
 }

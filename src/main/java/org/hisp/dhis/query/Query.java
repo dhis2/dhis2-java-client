@@ -141,7 +141,6 @@ public class Query implements BaseQuery {
    *
    * @return the {@link RootJunction}
    */
-  @Override
   public RootJunction getRootJunction() {
     return rootJunction != null ? rootJunction : RootJunction.AND;
   }
