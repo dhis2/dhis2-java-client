@@ -43,9 +43,6 @@ import lombok.NoArgsConstructor;
 /** Utilities for JSON parsing and serialization. */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class JacksonUtils {
-  /** Default date format. */
-  private static final String DATE_FORMAT = "yyyy-MM-dd";
-
   /** Static JSON object mapper. */
   private static final ObjectMapper OBJECT_MAPPER;
 
@@ -74,8 +71,19 @@ public class JacksonUtils {
     objectMapper.disable(DeserializationFeature.FAIL_ON_IGNORED_PROPERTIES);
     objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
     objectMapper.setSerializationInclusion(Include.NON_NULL);
-    objectMapper.setDateFormat(new SimpleDateFormat(DATE_FORMAT));
+    objectMapper.setDateFormat(getDateFormatInternal());
     return objectMapper;
+  }
+
+  /**
+   * Returns a {@link SimpleDateFormat} instance for date time formatting.
+   *
+   * @return a {@link SimpleDateFormat} instance.
+   */
+  private static SimpleDateFormat getDateFormatInternal() {
+    SimpleDateFormat format = new SimpleDateFormat(DateTimeUtils.DATE_TIME_FORMAT);
+    format.setTimeZone(DateTimeUtils.TZ_UTC);
+    return format;
   }
 
   /**

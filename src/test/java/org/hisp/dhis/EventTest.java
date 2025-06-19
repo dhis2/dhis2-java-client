@@ -114,7 +114,7 @@ class EventTest {
 
   @Test
   void testSerializeOccurredAt() {
-    Date occurredAt = DateTimeUtils.toDateTime("2027-03-10T14:35:22.000");
+    Date dateTime = DateTimeUtils.toDateTime("2027-03-10T14:35:22.000");
 
     Event event =
         new Event(
@@ -122,8 +122,11 @@ class EventTest {
             "Zj7UnCAulEk",
             "DiszpKrYNg8",
             EventStatus.COMPLETED,
-            occurredAt,
+            dateTime,
             List.of());
+    event.setCreatedAt(dateTime);
+    event.setUpdatedAt(dateTime);
+    event.setCompletedAt(dateTime);
 
     String actual = JacksonUtils.toJsonString(event);
 
@@ -133,7 +136,10 @@ class EventTest {
         "programStage":"Zj7UnCAulEk",\
         "orgUnit":"DiszpKrYNg8",\
         "status":"COMPLETED",\
-        "occurredAt":"2027-03-10",\
+        "createdAt":"2027-03-10T13:35:22.000",\
+        "updatedAt":"2027-03-10T13:35:22.000",\
+        "occurredAt":"2027-03-10T13:35:22.000",\
+        "completedAt":"2027-03-10T13:35:22.000",\
         "dataValues":[],\
         "event":"fq7DInE403B"}""";
 
