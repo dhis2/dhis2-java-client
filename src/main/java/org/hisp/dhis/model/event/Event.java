@@ -106,6 +106,16 @@ public class Event implements Serializable {
     this.id = id;
   }
 
+  /**
+   * Constructor.
+   *
+   * @param id the event identifier.
+   * @param programStage the program stage identifier.
+   * @param orgUnit the organisation unit identifier.
+   * @param status the {@link EventStatus}.
+   * @param occurredAt the date when the event occurred.
+   * @param dataValues the list of {@link EventDataValue} for this event.
+   */
   public Event(
       String id,
       String programStage,
@@ -121,6 +131,17 @@ public class Event implements Serializable {
     this.dataValues = dataValues;
   }
 
+  /**
+   * Constructor.
+   *
+   * @param id the event identifier.
+   * @param programStage the program stage identifier.
+   * @param enrollment the enrollment identifier.
+   * @param orgUnit the organisation unit identifier.
+   * @param status the {@link EventStatus}.
+   * @param occurredAt the date when the event occurred.
+   * @param dataValues the list of {@link EventDataValue} for this event.
+   */
   public Event(
       String id,
       String programStage,
