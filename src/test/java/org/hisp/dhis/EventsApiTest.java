@@ -306,8 +306,10 @@ class EventsApiTest {
     Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
     List<Order> order = List.of(Order.asc("oZg33kd9taw"), Order.desc("qrur9Dvnyt5"));
     EventQuery query =
-            EventQuery.instance().setProgram("eBAyeGv0exc").setOrder(order)
-                    .setPaging(new Paging(1, 10));
+        EventQuery.instance()
+            .setProgram("eBAyeGv0exc")
+            .setOrder(order)
+            .setPaging(new Paging(1, 10));
 
     EventsResult events = dhis2.getEvents(query);
 
@@ -324,7 +326,7 @@ class EventsApiTest {
     // Check desc value for 'qrur9Dvnyt5' value
     assertTrue(firstValue > lastValue);
 
-    //Check asc 'Female' first than 'Male'
+    // Check asc 'Female' first than 'Male'
     for (Event ev : events.getEvents()) {
       assertEquals("Female", ev.getDataValue("oZg33kd9taw"));
     }
