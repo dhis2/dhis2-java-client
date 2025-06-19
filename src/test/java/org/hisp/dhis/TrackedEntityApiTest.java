@@ -35,6 +35,7 @@ import java.util.List;
 import org.hisp.dhis.model.trackedentity.TrackedEntitiesResult;
 import org.hisp.dhis.model.trackedentity.TrackedEntity;
 import org.hisp.dhis.query.Filter;
+import org.hisp.dhis.query.Paging;
 import org.hisp.dhis.query.trackedentity.TrackedEntityQuery;
 import org.hisp.dhis.support.TestTags;
 import org.junit.jupiter.api.Tag;
@@ -99,5 +100,22 @@ class TrackedEntityApiTest {
 
     assertNotNull(trackedEntities);
     assertNotEmpty(trackedEntities.getTrackedEntities());
+  }
+
+  @Test
+  void testGetTrackedEntitiesWithPaging() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    TrackedEntityQuery query =
+        TrackedEntityQuery.instance()
+            .setProgram("IpHINAT79UW")
+            .setOrgUnit("DiszpKrYNg8")
+            .setPaging(new Paging(1, 2));
+
+    TrackedEntitiesResult trackedEntities = dhis2.getTrackedEntities(query);
+
+    assertNotNull(trackedEntities);
+    assertNotEmpty(trackedEntities.getTrackedEntities());
+    assertEquals(2, trackedEntities.getTrackedEntities().size());
   }
 }
