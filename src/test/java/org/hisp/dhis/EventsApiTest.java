@@ -29,9 +29,7 @@ package org.hisp.dhis;
 
 import static org.hisp.dhis.util.CollectionUtils.list;
 import static org.hisp.dhis.util.DateTimeUtils.toDate;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
 import org.hisp.dhis.model.event.Event;
@@ -39,6 +37,8 @@ import org.hisp.dhis.model.event.EventDataValue;
 import org.hisp.dhis.model.event.Events;
 import org.hisp.dhis.model.event.EventsResult;
 import org.hisp.dhis.query.Filter;
+import org.hisp.dhis.query.Order;
+import org.hisp.dhis.query.Paging;
 import org.hisp.dhis.query.event.EventQuery;
 import org.hisp.dhis.response.Dhis2ClientException;
 import org.hisp.dhis.response.Status;
@@ -294,6 +294,35 @@ class EventsApiTest {
     assertNotNull(event.getOrgUnit());
     assertNotNull(event.getStatus());
 
+    for (Event ev : events.getEvents()) {
+      assertEquals("Female", ev.getDataValue("oZg33kd9taw"));
+    }
+  }
+
+  @Test
+  void testGetEventsWithOrder() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+    List<Order> order = List.of(Order.asc("oZg33kd9taw"), Order.desc("qrur9Dvnyt5"));
+    EventQuery query =
+            EventQuery.instance().setProgram("eBAyeGv0exc").setOrder(order)
+                    .setPaging(new Paging(1, 10));
+
+    EventsResult events = dhis2.getEvents(query);
+
+    assertNotNull(events);
+    assertNotNull(events.getEvents());
+    assertEquals(10, events.getEvents().size());
+
+    Event firstEvent = events.getEvents().get(0);
+    int firstValue = Integer.parseInt(firstEvent.getDataValue("qrur9Dvnyt5"));
+
+    Event lastEvent = events.getEvents().get(9);
+    int lastValue = Integer.parseInt(lastEvent.getDataValue("qrur9Dvnyt5"));
+
+    // Check desc value for 'qrur9Dvnyt5' value
+    assertTrue(firstValue > lastValue);
+
+    //Check asc 'Female' first than 'Male'
     for (Event ev : events.getEvents()) {
       assertEquals("Female", ev.getDataValue("oZg33kd9taw"));
     }
