@@ -30,6 +30,7 @@ package org.hisp.dhis.util;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.DateTimeException;
+import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -145,6 +146,17 @@ public class DateTimeUtils {
    */
   public static Instant toInstant(Date date) {
     return date != null ? date.toInstant() : null;
+  }
+
+  /**
+   * Returns a {@link Duration} based on the given string. The string must be on the ISO 8601
+   * duration format, e.g. <code>PT2H30M15S</code>.
+   *
+   * @param string the duration string.
+   * @return a {@link Duration}.
+   */
+  public static Duration toDuration(String string) {
+    return Duration.parse(string);
   }
 
   /**
@@ -290,6 +302,21 @@ public class DateTimeUtils {
   public static boolean isValidLocalDateTime(String string) {
     try {
       return string != null && toLocalDateTime(string) != null;
+    } catch (DateTimeException ex) {
+      return false;
+    }
+  }
+
+  /**
+   * Indicates whether the given string can be parsed to a duration., i.e. is in a valid duration
+   * format, e.g. <code>PT2H30M15S</code>.
+   *
+   * @param string the date time string.
+   * @return true if the given string can be parsed to a date time, false otherwise.
+   */
+  public static boolean isValidDuration(String string) {
+    try {
+      return string != null && toDuration(string) != null;
     } catch (DateTimeException ex) {
       return false;
     }
