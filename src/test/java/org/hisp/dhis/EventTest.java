@@ -114,7 +114,7 @@ class EventTest {
 
   @Test
   void testSerializeOccurredAt() {
-    Date dateTime = DateTimeUtils.toDateTime("2027-03-10T14:35:22.000");
+    Date dateTime = DateTimeUtils.toDateTime("2025-03-10T14:35:22.314");
 
     Event event =
         new Event(
@@ -136,10 +136,10 @@ class EventTest {
         "programStage":"Zj7UnCAulEk",\
         "orgUnit":"DiszpKrYNg8",\
         "status":"COMPLETED",\
-        "createdAt":"2027-03-10T13:35:22.000",\
-        "updatedAt":"2027-03-10T13:35:22.000",\
-        "occurredAt":"2027-03-10T13:35:22.000",\
-        "completedAt":"2027-03-10T13:35:22.000",\
+        "createdAt":"2025-03-10T13:35:22.314",\
+        "updatedAt":"2025-03-10T13:35:22.314",\
+        "occurredAt":"2025-03-10T13:35:22.314",\
+        "completedAt":"2025-03-10T13:35:22.314",\
         "dataValues":[],\
         "event":"fq7DInE403B"}""";
 
