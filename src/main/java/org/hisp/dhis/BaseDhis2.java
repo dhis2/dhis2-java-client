@@ -427,7 +427,6 @@ public class BaseDhis2 {
     }
 
     addPaging(uriBuilder, query);
-
     addOrder(uriBuilder, query);
 
     return HttpUtils.build(uriBuilder);
