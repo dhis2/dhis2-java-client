@@ -277,8 +277,10 @@ class EventsApiTest {
     Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
 
     EventQuery query =
-            EventQuery.instance().setProgram("eBAyeGv0exc").setProgramStage("Zj7UnCAulEk")
-                    .setFilters(List.of(Filter.eq("oZg33kd9taw", "Female")));
+        EventQuery.instance()
+            .setProgram("eBAyeGv0exc")
+            .setProgramStage("Zj7UnCAulEk")
+            .setFilters(List.of(Filter.eq("oZg33kd9taw", "Female")));
 
     EventsResult events = dhis2.getEvents(query);
 

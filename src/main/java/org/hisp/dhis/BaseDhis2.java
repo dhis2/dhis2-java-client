@@ -427,7 +427,6 @@ public class BaseDhis2 {
     }
 
     addPaging(uriBuilder, query);
-
     addOrder(uriBuilder, query);
 
     return HttpUtils.build(uriBuilder);
@@ -445,7 +444,7 @@ public class BaseDhis2 {
 
     if (isNotEmpty(orders)) {
       String orderValue =
-              query.getOrder().stream().map(Order::toValue).collect(Collectors.joining(","));
+          query.getOrder().stream().map(Order::toValue).collect(Collectors.joining(","));
 
       uriBuilder.addParameter("order", orderValue);
     }
@@ -654,7 +653,7 @@ public class BaseDhis2 {
     addParameter(uriBuilder, "programStageIdScheme", query.getProgramStageIdScheme());
     addParameter(uriBuilder, "idScheme", query.getIdScheme());
 
-    addTrackerApiFilters(uriBuilder, query);
+    addTrackerFilters(uriBuilder, query);
     addPaging(uriBuilder, query);
     addOrder(uriBuilder, query);
 
@@ -704,7 +703,7 @@ public class BaseDhis2 {
     addParameter(uriBuilder, "idScheme", query.getIdScheme());
     addParameter(uriBuilder, "orgUnitIdScheme", query.getOrgUnitIdScheme());
 
-    addTrackerApiFilters(uriBuilder, query);
+    addTrackerFilters(uriBuilder, query);
     addPaging(uriBuilder, query);
     addOrder(uriBuilder, query);
 
@@ -719,7 +718,7 @@ public class BaseDhis2 {
    * @param uriBuilder the {@link URIBuilder}.
    * @param query the {@link BaseQuery}.
    */
-  protected void addTrackerApiFilters(URIBuilder uriBuilder, BaseQuery query) {
+  protected void addTrackerFilters(URIBuilder uriBuilder, BaseQuery query) {
     for (Filter filter : query.getFilters()) {
       Object value = getTrackerApiQueryValue(filter);
       String filterValue =
