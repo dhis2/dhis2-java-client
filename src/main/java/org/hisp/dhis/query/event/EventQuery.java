@@ -42,7 +42,6 @@ import org.hisp.dhis.query.BaseQuery;
 import org.hisp.dhis.query.Filter;
 import org.hisp.dhis.query.Order;
 import org.hisp.dhis.query.Paging;
-import org.hisp.dhis.query.RootJunction;
 
 @Getter
 @Setter
@@ -54,8 +53,6 @@ public class EventQuery implements BaseQuery {
   private List<Order> order = new ArrayList<>();
 
   private Paging paging = new Paging();
-
-  private RootJunction rootJunction;
 
   private String program;
 
