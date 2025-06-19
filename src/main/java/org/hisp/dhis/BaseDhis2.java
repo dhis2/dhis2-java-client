@@ -643,6 +643,10 @@ public class BaseDhis2 {
     addParameter(uriBuilder, "programStageIdScheme", query.getProgramStageIdScheme());
     addParameter(uriBuilder, "idScheme", query.getIdScheme());
 
+    addTrackerEntityFilters(uriBuilder, query);
+
+    addPaging(uriBuilder, query);
+
     return HttpUtils.build(uriBuilder);
   }
 
@@ -689,7 +693,7 @@ public class BaseDhis2 {
     addParameter(uriBuilder, "idScheme", query.getIdScheme());
     addParameter(uriBuilder, "orgUnitIdScheme", query.getOrgUnitIdScheme());
 
-    addTrackedEntityFilters(uriBuilder, query);
+    addTrackerEntityFilters(uriBuilder, query);
 
     addPaging(uriBuilder, query);
 
@@ -702,7 +706,7 @@ public class BaseDhis2 {
    * @param uriBuilder the {@link URIBuilder}.
    * @param query the {@link BaseQuery}.
    */
-  protected void addTrackedEntityFilters(URIBuilder uriBuilder, BaseQuery query) {
+  protected void addTrackerEntityFilters(URIBuilder uriBuilder, BaseQuery query) {
     for (Filter filter : query.getFilters()) {
       Object value = getTrackedEntityQueryValue(filter);
       String filterValue =
