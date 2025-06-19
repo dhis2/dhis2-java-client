@@ -35,8 +35,10 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.TimeZone;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
@@ -44,13 +46,11 @@ import org.apache.commons.lang3.StringUtils;
 /** Utilities for date and time. */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class DateTimeUtils {
-  private static final String DATE_FORMAT = "yyyy-MM-dd";
+  public static final String DATE_FORMAT = "yyyy-MM-dd";
 
-  private static final String DATE_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS";
+  public static final String DATE_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS";
 
-  public static final String JSON_DATE_FORMAT = DATE_FORMAT;
-
-  public static final String JSON_DATE_TIME_FORMAT = "yyyy-MM-dd'T'hh:mm:ss";
+  public static final TimeZone TZ_UTC = TimeZone.getTimeZone("UTC");
 
   // -----------------------------------------------------------------------------------------------
   // To date object methods
@@ -177,6 +177,16 @@ public class DateTimeUtils {
    */
   public static LocalDateTime toLocalDateTime(Instant instant) {
     return instant.atZone(ZoneId.systemDefault()).toLocalDateTime();
+  }
+
+  /**
+   * Returns the {@link LocalDateTime} based on the UTC time zone from a given {@link Instant}.
+   *
+   * @param instant the {@link Instant}.
+   * @return the {@link LocalDateTime}.
+   */
+  public static LocalDateTime toLocalDateTimeUtc(Instant instant) {
+    return instant.atZone(ZoneOffset.UTC).toLocalDateTime();
   }
 
   /**

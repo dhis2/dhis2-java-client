@@ -25,40 +25,41 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.hisp.dhis.model.completedatasetregistration;
+package org.hisp.dhis;
 
-import static org.hisp.dhis.util.DateTimeUtils.DATE_FORMAT;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Date;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import org.hisp.dhis.model.trackedentity.TrackedEntity;
+import org.hisp.dhis.util.DateTimeUtils;
+import org.hisp.dhis.util.JacksonUtils;
+import org.junit.jupiter.api.Test;
 
-@Getter
-@Setter
-@NoArgsConstructor
-public class CompleteDataSetRegistration {
-  @JsonProperty private String dataSet;
+class TrackedEntityTest {
+  @Test
+  void testDeserialize() {
+    Date dateTime = DateTimeUtils.toDateTime("2023-05-10T16:12:51.251");
 
-  @JsonProperty private String period;
+    TrackedEntity te = new TrackedEntity();
+    te.setTrackedEntity("cJ5VL10VSlZ");
+    te.setOrgUnit("DiszpKrYNg8");
+    te.setTrackedEntityType("nEenWmSyUEp");
+    te.setCreatedAt(dateTime);
+    te.setUpdatedAt(dateTime);
 
-  @JsonProperty("organisationUnit")
-  private String orgUnit;
+    String actual = JacksonUtils.toJsonString(te);
 
-  @JsonProperty private String attributeOptionCombo;
+    String expected =
+        """
+        {\
+        "trackedEntity":"cJ5VL10VSlZ",\
+        "trackedEntityType":"nEenWmSyUEp",\
+        "createdAt":"2023-05-10T14:12:51.251",\
+        "updatedAt":"2023-05-10T14:12:51.251",\
+        "orgUnit":"DiszpKrYNg8",\
+        "attributes":[],\
+        "enrollments":[]}""";
 
-  @JsonProperty("date")
-  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_FORMAT)
-  private Date created;
-
-  @JsonProperty("storedBy")
-  private String createdBy;
-
-  @JsonProperty private Date lastUpdated;
-
-  @JsonProperty private String lastUpdatedBy;
-
-  @JsonProperty private Boolean completed;
+    assertEquals(expected, actual);
+  }
 }
