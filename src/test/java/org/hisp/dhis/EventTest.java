@@ -114,10 +114,7 @@ class EventTest {
 
   @Test
   void testSerializeOccurredAt() {
-    System.out.println("DT");
     Date dateTime = DateTimeUtils.toDateTime("2025-03-10T14:35:22.314");
-
-    System.out.println(dateTime);
 
     Event event =
         new Event(
