@@ -426,8 +426,6 @@ public class BaseDhis2 {
       uriBuilder.addParameter("rootJunction", "OR");
     }
 
-    addPaging(uriBuilder, query);
-
     List<Order> orders = query.getOrder();
 
     if (isNotEmpty(orders)) {
@@ -436,6 +434,8 @@ public class BaseDhis2 {
 
       uriBuilder.addParameter("order", orderValue);
     }
+
+    addPaging(uriBuilder, query);
 
     return HttpUtils.build(uriBuilder);
   }
@@ -690,6 +690,8 @@ public class BaseDhis2 {
     addParameter(uriBuilder, "orgUnitIdScheme", query.getOrgUnitIdScheme());
 
     addTrackedEntityFilters(uriBuilder, query);
+
+    addPaging(uriBuilder, query);
 
     return HttpUtils.build(uriBuilder);
   }
