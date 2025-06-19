@@ -43,7 +43,6 @@ import org.hisp.dhis.query.Filter;
 import org.hisp.dhis.query.Order;
 import org.hisp.dhis.query.Paging;
 import org.hisp.dhis.query.Query;
-import org.hisp.dhis.query.RootJunction;
 import org.hisp.dhis.query.event.OrgUnitSelectionMode;
 
 @Getter
@@ -56,8 +55,6 @@ public class TrackedEntityQuery implements BaseQuery {
   private List<Order> order = new ArrayList<>();
 
   private Paging paging = new Paging();
-
-  private RootJunction rootJunction;
 
   private List<String> orgUnits = new ArrayList<>();
 
