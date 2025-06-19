@@ -62,7 +62,7 @@ public class JacksonUtils {
   /**
    * Returns a new instance of an {@link ObjectMapper}.
    *
-   * @return an {@link ObjectMapper}.
+   * @return an {@link  ObjectMapper}.
    */
   private static ObjectMapper getObjectMapperInternal() {
     ObjectMapper objectMapper = new ObjectMapper();
