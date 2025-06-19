@@ -27,7 +27,9 @@
  */
 package org.hisp.dhis.query.event;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -36,12 +38,25 @@ import lombok.experimental.Accessors;
 import org.hisp.dhis.model.IdScheme;
 import org.hisp.dhis.model.event.EventStatus;
 import org.hisp.dhis.model.event.ProgramStatus;
+import org.hisp.dhis.query.BaseQuery;
+import org.hisp.dhis.query.Filter;
+import org.hisp.dhis.query.Order;
+import org.hisp.dhis.query.Paging;
+import org.hisp.dhis.query.RootJunction;
 
 @Getter
 @Setter
 @Accessors(chain = true)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class EventQuery {
+public class EventQuery implements BaseQuery {
+  private List<Filter> filters = new ArrayList<>();
+
+  private List<Order> order = new ArrayList<>();
+
+  private Paging paging = new Paging();
+
+  private RootJunction rootJunction;
+
   private String program;
 
   private String programStage;

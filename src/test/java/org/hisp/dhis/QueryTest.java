@@ -214,7 +214,8 @@ class QueryTest {
         """
         https://dhis2.org/api/tracker/events?\
         program=hJhgt5cDs7j&programStatus=ACTIVE\
-        &followUp=true&idScheme=code""";
+        &followUp=true&idScheme=code\
+        &page=1&pageSize=50""";
 
     assertEquals(expected, uri.toString());
   }

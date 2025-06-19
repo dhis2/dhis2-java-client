@@ -427,7 +427,19 @@ public class BaseDhis2 {
     }
 
     addPaging(uriBuilder, query);
+    addOrder(uriBuilder, query);
 
+    return HttpUtils.build(uriBuilder);
+  }
+
+  /**
+   * Adds order related parameter to the given {@link URIBuilder} based on the given {@link
+   * BaseQuery}.
+   *
+   * @param uriBuilder the {@link URIBuilder}.
+   * @param query the {@link BaseQuery}.
+   */
+  protected void addOrder(URIBuilder uriBuilder, BaseQuery query) {
     List<Order> orders = query.getOrder();
 
     if (isNotEmpty(orders)) {
@@ -436,8 +448,6 @@ public class BaseDhis2 {
 
       uriBuilder.addParameter("order", orderValue);
     }
-
-    return HttpUtils.build(uriBuilder);
   }
 
   /**
@@ -643,6 +653,10 @@ public class BaseDhis2 {
     addParameter(uriBuilder, "programStageIdScheme", query.getProgramStageIdScheme());
     addParameter(uriBuilder, "idScheme", query.getIdScheme());
 
+    addTrackerFilters(uriBuilder, query);
+    addPaging(uriBuilder, query);
+    addOrder(uriBuilder, query);
+
     return HttpUtils.build(uriBuilder);
   }
 
@@ -689,7 +703,9 @@ public class BaseDhis2 {
     addParameter(uriBuilder, "idScheme", query.getIdScheme());
     addParameter(uriBuilder, "orgUnitIdScheme", query.getOrgUnitIdScheme());
 
-    addTrackedEntityFilters(uriBuilder, query);
+    addTrackerFilters(uriBuilder, query);
+    addPaging(uriBuilder, query);
+    addOrder(uriBuilder, query);
 
     addPaging(uriBuilder, query);
 
@@ -702,9 +718,9 @@ public class BaseDhis2 {
    * @param uriBuilder the {@link URIBuilder}.
    * @param query the {@link BaseQuery}.
    */
-  protected void addTrackedEntityFilters(URIBuilder uriBuilder, BaseQuery query) {
+  protected void addTrackerFilters(URIBuilder uriBuilder, BaseQuery query) {
     for (Filter filter : query.getFilters()) {
-      Object value = getTrackedEntityQueryValue(filter);
+      Object value = getTrackerApiQueryValue(filter);
       String filterValue =
           String.format("%s:%s:%s", filter.getProperty(), filter.getOperator().value(), value);
       uriBuilder.addParameter("filter", filterValue);
@@ -1025,7 +1041,7 @@ public class BaseDhis2 {
    * @return a query value.
    */
   @SuppressWarnings("unchecked")
-  protected Object getTrackedEntityQueryValue(Filter filter) {
+  protected Object getTrackerApiQueryValue(Filter filter) {
     if (Operator.IN == filter.getOperator()) {
       List<String> values = (List<String>) filter.getValue();
       return StringUtils.join(values, ';');
