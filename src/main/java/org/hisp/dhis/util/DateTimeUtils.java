@@ -35,6 +35,7 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import lombok.AccessLevel;
@@ -177,6 +178,16 @@ public class DateTimeUtils {
    */
   public static LocalDateTime toLocalDateTime(Instant instant) {
     return instant.atZone(ZoneId.systemDefault()).toLocalDateTime();
+  }
+
+  /**
+   * Returns the {@link LocalDateTime} based on the UTC time zone from a given {@link Instant}.
+   *
+   * @param instant the {@link Instant}.
+   * @return the {@link LocalDateTime}.
+   */
+  public static LocalDateTime toLocalDateTimeUtc(Instant instant) {
+    return instant.atZone(ZoneOffset.UTC).toLocalDateTime();
   }
 
   /**
