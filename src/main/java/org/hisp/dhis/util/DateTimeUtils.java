@@ -37,9 +37,9 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
-import org.apache.commons.lang3.StringUtils;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 
 /** Utilities for date and time. */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -147,7 +147,7 @@ public class DateTimeUtils {
   public static Instant toInstant(Date date) {
     return date != null ? date.toInstant() : null;
   }
-  
+
   /**
    * Returns a {@link Duration} based on the given string. The string must be on the ISO 8601
    * duration format, e.g. <code>PT2H30M15S</code>.
@@ -321,7 +321,7 @@ public class DateTimeUtils {
       return false;
     }
   }
-  
+
   // -----------------------------------------------------------------------------------------------
   // Support methods
   // -----------------------------------------------------------------------------------------------
