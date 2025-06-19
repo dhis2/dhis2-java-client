@@ -27,8 +27,7 @@
  */
 package org.hisp.dhis.model.completedatasetregistration;
 
-import static org.hisp.dhis.util.DateTimeUtils.JSON_DATE_FORMAT;
-import static org.hisp.dhis.util.DateTimeUtils.JSON_DATE_TIME_FORMAT;
+import static org.hisp.dhis.util.DateTimeUtils.DATE_FORMAT;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -51,15 +50,13 @@ public class CompleteDataSetRegistration {
   @JsonProperty private String attributeOptionCombo;
 
   @JsonProperty("date")
-  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = JSON_DATE_FORMAT)
+  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_FORMAT)
   private Date created;
 
   @JsonProperty("storedBy")
   private String createdBy;
 
-  @JsonProperty
-  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = JSON_DATE_TIME_FORMAT)
-  private Date lastUpdated;
+  @JsonProperty private Date lastUpdated;
 
   @JsonProperty private String lastUpdatedBy;
 
