@@ -60,8 +60,6 @@ class TrackedEntityTest {
         "attributes":[],\
         "enrollments":[]}""";
 
-    System.out.println(actual);
-
     assertEquals(expected, actual);
   }
 }
