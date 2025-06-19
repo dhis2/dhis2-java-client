@@ -32,9 +32,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.Date;
+import java.util.List;
 import org.hisp.dhis.model.event.Event;
 import org.hisp.dhis.model.event.EventStatus;
 import org.hisp.dhis.support.TestTags;
+import org.hisp.dhis.util.DateTimeUtils;
 import org.hisp.dhis.util.JacksonUtils;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -107,5 +110,33 @@ class EventTest {
     assertNotNull(point);
     assertEquals(10.752, point.getX());
     assertEquals(59.914, point.getY());
+  }
+
+  @Test
+  void testSerializeOccurredAt() {
+    Date occurredAt = DateTimeUtils.toDateTime("2027-03-10T14:35:22.000");
+
+    Event event =
+        new Event(
+            "fq7DInE403B",
+            "Zj7UnCAulEk",
+            "DiszpKrYNg8",
+            EventStatus.COMPLETED,
+            occurredAt,
+            List.of());
+
+    String actual = JacksonUtils.toJsonString(event);
+
+    String expected =
+        """
+        {\
+        "programStage":"Zj7UnCAulEk",\
+        "orgUnit":"DiszpKrYNg8",\
+        "status":"COMPLETED",\
+        "occurredAt":"2027-03-10",\
+        "dataValues":[],\
+        "event":"fq7DInE403B"}""";
+
+    assertEquals(expected, actual);
   }
 }
