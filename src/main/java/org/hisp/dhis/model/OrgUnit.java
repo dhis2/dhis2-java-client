@@ -27,6 +27,9 @@
  */
 package org.hisp.dhis.model;
 
+import static org.hisp.dhis.util.DateTimeUtils.DATE_FORMAT;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Date;
 import lombok.Getter;
@@ -41,23 +44,27 @@ public class OrgUnit extends NameableObject {
 
   @JsonProperty private Integer level;
 
-  @Setter @JsonProperty private OrgUnit parent;
+  @JsonProperty private OrgUnit parent;
 
-  @Setter @JsonProperty private Date openingDate;
+  @JsonProperty
+  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_FORMAT)
+  private Date openingDate;
 
-  @Setter @JsonProperty private Date closedDate;
+  @JsonProperty
+  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_FORMAT)
+  private Date closedDate;
 
-  @Setter @JsonProperty private String comment;
+  @JsonProperty private String comment;
 
-  @Setter @JsonProperty private String url;
+  @JsonProperty private String url;
 
-  @Setter @JsonProperty private String contactPerson;
+  @JsonProperty private String contactPerson;
 
-  @Setter @JsonProperty private String address;
+  @JsonProperty private String address;
 
-  @Setter @JsonProperty private String email;
+  @JsonProperty private String email;
 
-  @Setter @JsonProperty private String phoneNumber;
+  @JsonProperty private String phoneNumber;
 
   public OrgUnit(String id, String name) {
     this.id = id;

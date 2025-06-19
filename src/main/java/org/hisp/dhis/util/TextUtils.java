@@ -27,11 +27,14 @@
  */
 package org.hisp.dhis.util;
 
+import java.util.regex.Pattern;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.helpers.MessageFormatter;
 
 public class TextUtils {
+  private static final Pattern PATTTERN_VARIABLE = Pattern.compile("^\\$\\{(.*?)\\}$");
+
   /**
    * Returns a formatted message string. The argument pattern is "{}".
    *
@@ -61,5 +64,20 @@ public class TextUtils {
    */
   public static String emptyIfNull(String input) {
     return ObjectUtils.firstNonNull(input, StringUtils.EMPTY);
+  }
+
+  /**
+   * Indicates whether the input string is on variable format, for example: <code>${my_var_key}
+   * </code>.
+   *
+   * @param input the input string.
+   * @return true if variable, false if not.
+   */
+  public static boolean isVariable(String input) {
+    if (StringUtils.isEmpty(input)) {
+      return false;
+    }
+
+    return PATTTERN_VARIABLE.matcher(input).matches();
   }
 }

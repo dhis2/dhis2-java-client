@@ -41,9 +41,11 @@ import java.util.Date;
 import java.util.TimeZone;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
 /** Utilities for date and time. */
+@Slf4j
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class DateTimeUtils {
   public static final String DATE_FORMAT = "yyyy-MM-dd";
@@ -220,7 +222,7 @@ public class DateTimeUtils {
    * @return a date string.
    */
   public static String getDateString(Date date) {
-    return new SimpleDateFormat(DATE_FORMAT).format(date);
+    return getUtcDateFormat(DATE_FORMAT).format(date);
   }
 
   /**
@@ -230,7 +232,7 @@ public class DateTimeUtils {
    * @return a date time string.
    */
   public static String getDateTimeString(Date dateTime) {
-    return new SimpleDateFormat(DATE_TIME_FORMAT).format(dateTime);
+    return getUtcDateFormat(DATE_TIME_FORMAT).format(dateTime);
   }
 
   /**
@@ -280,7 +282,7 @@ public class DateTimeUtils {
    * @return a date time string.
    */
   public static String getUtcDateTimeString(Date dateTime) {
-    return String.format("%sZ", new SimpleDateFormat(DATE_TIME_FORMAT).format(dateTime));
+    return String.format("%sZ", getUtcDateFormat(DATE_TIME_FORMAT).format(dateTime));
   }
 
   // -----------------------------------------------------------------------------------------------
@@ -345,9 +347,22 @@ public class DateTimeUtils {
    */
   private static Date parse(String format, String string) {
     try {
-      return new SimpleDateFormat(format).parse(string);
+      return getUtcDateFormat(format).parse(string);
     } catch (ParseException ex) {
+      log.warn("Date parsing failed: " + ex.getMessage());
       return null;
     }
+  }
+
+  /**
+   * Returns a {@link SimpleDateFormat} instance in UTC time zone.
+   *
+   * @param format the date time format.
+   * @return a {@link SimpleDateFormat} instance.
+   */
+  private static SimpleDateFormat getUtcDateFormat(String format) {
+    SimpleDateFormat dateFormat = new SimpleDateFormat(format);
+    dateFormat.setTimeZone(TZ_UTC);
+    return dateFormat;
   }
 }

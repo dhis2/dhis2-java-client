@@ -320,6 +320,7 @@ class DateTimeUtilsTest {
 
   private Date getDate(int year, int month, int dayOfMonth, int hour, int minute, int second) {
     Calendar cal = Calendar.getInstance();
+    cal.setTimeZone(DateTimeUtils.TZ_UTC);
     cal.clear();
     cal.set(year, (month - 1), dayOfMonth, hour, minute, second);
     return cal.getTime();

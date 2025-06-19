@@ -27,6 +27,9 @@
  */
 package org.hisp.dhis.model;
 
+import static org.hisp.dhis.util.DateTimeUtils.DATE_FORMAT;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Date;
 import java.util.HashSet;
@@ -39,9 +42,13 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class CategoryOption extends NameableObject {
-  @JsonProperty private Date startDate;
+  @JsonProperty
+  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_FORMAT)
+  private Date startDate;
 
-  @JsonProperty private Date endDate;
+  @JsonProperty
+  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_FORMAT)
+  private Date endDate;
 
   @JsonProperty private String formName;
 
