@@ -32,6 +32,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -103,6 +104,15 @@ class DateTimeUtilsTest {
 
     assertEquals("2001-11-23", dateA.toString());
     assertEquals("2021-04-04", dateB.toString());
+  }
+
+  @Test
+  void testToDuration() {
+    Duration durationA = DateTimeUtils.toDuration("PT2H30M15S");
+    Duration durationB = DateTimeUtils.toDuration("PT0.001S");
+
+    assertEquals("PT2H30M15S", durationA.toString());
+    assertEquals("PT0.001S", durationB.toString());
   }
 
   @Test
