@@ -31,6 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -136,7 +137,7 @@ class DateTimeUtilsTest {
   @Test
   void convertStringToLocalDateTimeA() {
     LocalDateTime dateTime = DateTimeUtils.toLocalDateTime("2019-11-05T00:14:08.000Z");
-    
+
     assertNotNull(dateTime);
 
     String string = DateTimeUtils.getLocalDateTimeString(dateTime);
@@ -189,7 +190,7 @@ class DateTimeUtilsTest {
 
     assertNotNull(string);
   }
-  
+
   // -----------------------------------------------------------------------------------------------
   // To date string methods
   // -----------------------------------------------------------------------------------------------
