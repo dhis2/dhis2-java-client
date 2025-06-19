@@ -28,6 +28,8 @@
 package org.hisp.dhis.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
@@ -46,5 +48,17 @@ class TextUtilsTest {
     assertEquals("false", TextUtils.toTrueFalse(null));
     assertEquals("false", TextUtils.toTrueFalse(false));
     assertEquals("true", TextUtils.toTrueFalse(true));
+  }
+
+  @Test
+  void testIsVariable() {
+    assertTrue(TextUtils.isVariable("${dog}"));
+    assertTrue(TextUtils.isVariable("${blue_color}"));
+    assertTrue(TextUtils.isVariable("${tall-building}"));
+
+    assertFalse(TextUtils.isVariable("$blue_color"));
+    assertFalse(TextUtils.isVariable("{blue_color}"));
+    assertFalse(TextUtils.isVariable("blue_color"));
+    assertFalse(TextUtils.isVariable("blue${color}"));
   }
 }
