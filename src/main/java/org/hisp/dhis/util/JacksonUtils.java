@@ -27,16 +27,16 @@
  */
 package org.hisp.dhis.util;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.UncheckedIOException;
-import java.text.SimpleDateFormat;
 import com.bedatadriven.jackson.datatype.jts.JtsModule;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.UncheckedIOException;
+import java.text.SimpleDateFormat;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -62,7 +62,7 @@ public class JacksonUtils {
   /**
    * Returns a new instance of an {@link ObjectMapper}.
    *
-   * @return an {@link  ObjectMapper}.
+   * @return an {@link ObjectMapper}.
    */
   private static ObjectMapper getObjectMapperInternal() {
     ObjectMapper objectMapper = new ObjectMapper();
