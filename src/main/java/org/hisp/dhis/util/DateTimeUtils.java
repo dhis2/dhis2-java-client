@@ -38,6 +38,7 @@ import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.TimeZone;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
@@ -45,9 +46,11 @@ import org.apache.commons.lang3.StringUtils;
 /** Utilities for date and time. */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class DateTimeUtils {
-  private static final String DATE_FORMAT = "yyyy-MM-dd";
+  public static final String DATE_FORMAT = "yyyy-MM-dd";
 
-  private static final String DATE_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS";
+  public static final String DATE_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS";
+
+  public static final TimeZone TZ_UTC = TimeZone.getTimeZone("UTC");
 
   public static final String JSON_DATE_FORMAT = DATE_FORMAT;
 
