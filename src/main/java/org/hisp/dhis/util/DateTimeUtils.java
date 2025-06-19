@@ -52,10 +52,6 @@ public class DateTimeUtils {
 
   public static final TimeZone TZ_UTC = TimeZone.getTimeZone("UTC");
 
-  public static final String JSON_DATE_FORMAT = DATE_FORMAT;
-
-  public static final String JSON_DATE_TIME_FORMAT = "yyyy-MM-dd'T'hh:mm:ss";
-
   // -----------------------------------------------------------------------------------------------
   // To date object methods
   // -----------------------------------------------------------------------------------------------
