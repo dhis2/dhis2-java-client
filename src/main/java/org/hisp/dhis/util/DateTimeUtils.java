@@ -349,7 +349,7 @@ public class DateTimeUtils {
     try {
       return getUtcDateFormat(format).parse(string);
     } catch (ParseException ex) {
-      log.warn("Date parsing failed", ex);
+      log.warn("Date parsing failed: " + ex.getMessage());
       return null;
     }
   }
