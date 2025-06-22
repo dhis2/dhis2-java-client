@@ -27,16 +27,17 @@
  */
 package org.hisp.dhis.util;
 
-import com.bedatadriven.jackson.datatype.jts.JtsModule;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UncheckedIOException;
 import java.text.SimpleDateFormat;
+import com.bedatadriven.jackson.datatype.jts.JtsModule;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -102,6 +103,20 @@ public class JacksonUtils {
   }
 
   /**
+   * Converts the given JSON string into a {@link JsonNode}.
+   *
+   * @param value the JSON string to convert.
+   * @return a {@link JsonNode} representation of the JSON string.
+   */
+  public static JsonNode toJsonNode(String value) {
+    try {
+      return OBJECT_MAPPER.readTree(value);
+    } catch (IOException ex) {
+      throw new UncheckedIOException(ex);
+    }
+  }
+
+  /**
    * Serializes the given object to JSON and writes the content to the given {@link OutputStream}.
    *
    * @param out the {@link OutputStream} to write to.
@@ -114,7 +129,7 @@ public class JacksonUtils {
       throw new UncheckedIOException(ex);
     }
   }
-
+  
   /**
    * Deserializes the given JSON string into an object of the specified type.
    *
