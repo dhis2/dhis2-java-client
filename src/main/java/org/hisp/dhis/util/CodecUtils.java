@@ -27,9 +27,9 @@
  */
 package org.hisp.dhis.util;
 
-import org.apache.commons.codec.digest.DigestUtils;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.apache.commons.codec.digest.DigestUtils;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class CodecUtils {
