@@ -30,6 +30,7 @@ package org.hisp.dhis.util;
 import com.bedatadriven.jackson.datatype.jts.JtsModule;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import java.io.IOException;
@@ -96,6 +97,20 @@ public class JacksonUtils {
   public static String toJsonString(Object value) {
     try {
       return OBJECT_MAPPER.writeValueAsString(value);
+    } catch (IOException ex) {
+      throw new UncheckedIOException(ex);
+    }
+  }
+
+  /**
+   * Converts the given JSON string into a {@link JsonNode}.
+   *
+   * @param value the JSON string to convert.
+   * @return a {@link JsonNode} representation of the JSON string.
+   */
+  public static JsonNode toJsonNode(String value) {
+    try {
+      return OBJECT_MAPPER.readTree(value);
     } catch (IOException ex) {
       throw new UncheckedIOException(ex);
     }

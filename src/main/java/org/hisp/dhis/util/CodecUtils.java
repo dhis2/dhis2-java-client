@@ -27,7 +27,6 @@
  */
 package org.hisp.dhis.util;
 
-import java.nio.charset.StandardCharsets;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -41,6 +40,6 @@ public class CodecUtils {
    * @return the MD5 hash as a hexadecimal string.
    */
   public static String md5Hash(String input) {
-    return DigestUtils.md5Hex(input.getBytes(StandardCharsets.UTF_8));
+    return DigestUtils.md5Hex(input);
   }
 }
