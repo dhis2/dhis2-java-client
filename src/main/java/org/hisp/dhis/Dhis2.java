@@ -110,6 +110,7 @@ import org.hisp.dhis.model.trackedentity.TrackedEntityAttribute;
 import org.hisp.dhis.model.trackedentity.TrackedEntityType;
 import org.hisp.dhis.model.tracker.TrackedEntityObjects;
 import org.hisp.dhis.model.user.User;
+import org.hisp.dhis.model.user.UserGroup;
 import org.hisp.dhis.model.validation.Period;
 import org.hisp.dhis.model.validation.Validation;
 import org.hisp.dhis.model.validation.ValidationRule;
@@ -2332,6 +2333,85 @@ public class Dhis2 extends BaseDhis2 {
             query,
             Dhis2Objects.class)
         .getUsers();
+  }
+
+  // -------------------------------------------------------------------------
+  // User groups
+  // -------------------------------------------------------------------------
+
+  /**
+   * Retrieves a {@link UserGroup}.
+   *
+   * @param id the object identifier.
+   * @return the {@link UserGroup}.
+   * @throws Dhis2ClientException if the object does not exist.
+   */
+  public UserGroup getUserGroup(String id) {
+    return getObject(
+        config
+            .getResolvedUriBuilder()
+            .appendPath("userGroups")
+            .appendPath(id)
+            .addParameter(FIELDS_PARAM, USER_GROUP_FIELDS),
+        Query.instance(),
+        UserGroup.class);
+  }
+
+  /**
+   * Retrieves a list of {@link UserGroup}.
+   *
+   * @param query the {@link Query}.
+   * @return list of {@link UserGroup}.
+   */
+  public List<UserGroup> getUserGroups(Query query) {
+    return getObject(
+            config
+                .getResolvedUriBuilder()
+                .appendPath("userGroups")
+                .addParameter(FIELDS_PARAM, USER_GROUP_FIELDS),
+            query,
+            Dhis2Objects.class)
+        .getUserGroups();
+  }
+
+  /**
+   * Saves a {@link UserGroup}.
+   *
+   * @param userGroup the object to save.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse saveUserGroup(UserGroup userGroup) {
+    return saveMetadataObject("userGroups", userGroup);
+  }
+
+  /**
+   * Saves or updates the list of {@link UserGroup}.
+   *
+   * @param userGroups the list of {@link UserGroup}.
+   * @return {@link ObjectsResponse} holding information about the operation.
+   */
+  public ObjectsResponse saveUserGroups(List<UserGroup> userGroups) {
+    return saveMetadataObjects(new Dhis2Objects().setUserGroups(userGroups));
+  }
+
+  /**
+   * Updates a {@link UserGroup}.
+   *
+   * @param userGroup the object to update.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse updateUserGroup(UserGroup userGroup) {
+    return updateMetadataObject(String.format("userGroups/%s", userGroup.getId()), userGroup);
+  }
+
+  /**
+   * Removes a {@link UserGroup}.
+   *
+   * @param id the identifier of the object to remove.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse removeUserGroup(String id) {
+    return removeMetadataObject(String.format("userGroups/%s", id));
   }
 
   // -------------------------------------------------------------------------
