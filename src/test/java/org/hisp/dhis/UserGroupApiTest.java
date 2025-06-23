@@ -80,11 +80,7 @@ class UserGroupApiTest {
     // Create
     ObjectResponse createRespA = dhis2.saveUserGroup(userGroup);
 
-    assertEquals(201, createRespA.getHttpStatusCode().intValue(), createRespA.toString());
-    assertEquals(HttpStatus.CREATED, createRespA.getHttpStatus(), createRespA.toString());
-    assertEquals(Status.OK, createRespA.getStatus(), createRespA.toString());
-    assertNotNull(createRespA.getResponse());
-    assertNotNull(createRespA.getResponse().getUid());
+    validateResponse(createRespA, HttpStatus.CREATED, 201);
 
     String userGroupUid = createRespA.getResponse().getUid();
 
@@ -101,9 +97,7 @@ class UserGroupApiTest {
     // Update
     ObjectResponse updateRespA = dhis2.updateUserGroup(userGroup);
 
-    assertEquals(200, updateRespA.getHttpStatusCode().intValue(), updateRespA.toString());
-    assertEquals(HttpStatus.OK, updateRespA.getHttpStatus(), updateRespA.toString());
-    assertEquals(Status.OK, updateRespA.getStatus(), updateRespA.toString());
+    validateResponse(updateRespA, HttpStatus.OK, 200);
     assertEquals(userGroupUid, updateRespA.getResponse().getUid(), updateRespA.toString());
 
     // Get Updated
@@ -115,10 +109,18 @@ class UserGroupApiTest {
     // Remove
     ObjectResponse removeRespA = dhis2.removeUserGroup(userGroupUid);
 
-    assertEquals(200, removeRespA.getHttpStatusCode().intValue(), removeRespA.toString());
-    assertEquals(HttpStatus.OK, removeRespA.getHttpStatus(), removeRespA.toString());
-    assertEquals(Status.OK, removeRespA.getStatus(), removeRespA.toString());
-    assertNotNull(removeRespA.getResponse());
-    assertNotNull(removeRespA.getResponse().getUid());
+    validateResponse(removeRespA, HttpStatus.OK, 200);
+  }
+
+  private void validateResponse(
+      ObjectResponse objectResponse, HttpStatus httpStatus, int expectedStatusCode) {
+    assertEquals(
+        expectedStatusCode,
+        objectResponse.getHttpStatusCode().intValue(),
+        objectResponse.toString());
+    assertEquals(httpStatus, objectResponse.getHttpStatus(), objectResponse.toString());
+    assertEquals(Status.OK, objectResponse.getStatus(), objectResponse.toString());
+    assertNotNull(objectResponse.getResponse());
+    assertNotNull(objectResponse.getResponse().getUid());
   }
 }
