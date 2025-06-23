@@ -30,10 +30,6 @@ package org.hisp.dhis;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
-
-import org.hisp.dhis.model.AggregationType;
-import org.hisp.dhis.model.ValueType;
-import org.hisp.dhis.model.trackedentity.TrackedEntityAttribute;
 import org.hisp.dhis.model.user.User;
 import org.hisp.dhis.model.user.UserGroup;
 import org.hisp.dhis.query.Query;
