@@ -40,6 +40,8 @@ import org.hisp.dhis.model.trackedentity.ProgramTrackedEntityAttribute;
 import org.hisp.dhis.model.trackedentity.TrackedEntityAttribute;
 import org.hisp.dhis.model.trackedentity.TrackedEntityType;
 import org.hisp.dhis.model.user.User;
+import org.hisp.dhis.model.user.UserGroup;
+import org.hisp.dhis.model.user.UserRole;
 import org.hisp.dhis.model.validation.ValidationRule;
 
 @Getter
@@ -126,6 +128,10 @@ public class Dhis2Objects {
   @JsonProperty private List<PeriodType> periodTypes = new ArrayList<>();
 
   @JsonProperty private List<User> users = new ArrayList<>();
+
+  @JsonProperty private List<UserGroup> userGroups = new ArrayList<>();
+
+  @JsonProperty private List<UserRole> userRoles = new ArrayList<>();
 
   @JsonProperty private List<Visualization> visualizations = new ArrayList<>();
 
