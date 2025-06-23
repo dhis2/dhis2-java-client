@@ -36,9 +36,12 @@ import org.hisp.dhis.query.Query;
 import org.hisp.dhis.response.HttpStatus;
 import org.hisp.dhis.response.Status;
 import org.hisp.dhis.response.object.ObjectResponse;
+import org.hisp.dhis.support.TestTags;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
-public class UserGroupApiTest {
+@Tag(TestTags.INTEGRATION)
+class UserGroupApiTest {
   @Test
   void testGetUserGroup() {
     Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
