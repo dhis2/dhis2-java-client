@@ -28,22 +28,24 @@
 package org.hisp.dhis.response.objects;
 
 import static org.hisp.dhis.util.CollectionUtils.notEmpty;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.List;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.hisp.dhis.response.BaseHttpResponse;
 import org.hisp.dhis.response.Status;
 import org.hisp.dhis.response.objects.internal.Response;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 @Setter
+@ToString
 @NoArgsConstructor
 public class ObjectsResponse extends BaseHttpResponse {
   @JsonProperty private Status status;
+  
+  @JsonProperty private String message;
 
   @JsonProperty private List<TypeReport> typeReports = new ArrayList<>();
 
@@ -67,16 +69,6 @@ public class ObjectsResponse extends BaseHttpResponse {
 
   private boolean hasResponse() {
     return response != null;
-  }
-
-  @Override
-  public String toString() {
-    return new ToStringBuilder(this)
-        .append("status", status)
-        .append("httpStatusCode", httpStatusCode)
-        .append("stats", stats)
-        .append("typeReport", getTypeReport())
-        .toString();
   }
 
   public Status getStatus() {
