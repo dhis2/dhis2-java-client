@@ -27,10 +27,17 @@
  */
 package org.hisp.dhis;
 
+import static org.hisp.dhis.support.Assertions.assertNotEmpty;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import java.util.List;
 import org.hisp.dhis.model.Dhis2Objects;
 import org.hisp.dhis.model.Option;
 import org.hisp.dhis.model.OptionSet;
+import org.hisp.dhis.model.ValueType;
+import org.hisp.dhis.response.Status;
+import org.hisp.dhis.response.objects.ObjectStatistics;
 import org.hisp.dhis.response.objects.ObjectsResponse;
 import org.hisp.dhis.support.TestTags;
 import org.junit.jupiter.api.Tag;
@@ -49,8 +56,8 @@ class MetadataApiTest {
 
     Option oB = new Option();
     oB.setId("UxQR6MUFmhH");
-    oB.setCode("Americano");
-    oB.setName("AMERICANO");
+    oB.setCode("AMERICANO");
+    oB.setName("Americano");
 
     Option oC = new Option();
     oC.setId("kQYbXoTUVYL");
@@ -63,6 +70,7 @@ class MetadataApiTest {
     optionSet.setId("gKdxTM8BcI7");
     optionSet.setName("Coffee");
     optionSet.setCode("COFFEE");
+    optionSet.setValueType(ValueType.TEXT);
     optionSet.setOptions(options);
 
     List<OptionSet> optionSets = List.of(optionSet);
@@ -73,6 +81,15 @@ class MetadataApiTest {
 
     ObjectsResponse response = dhis2.saveMetadataObjects(objects);
 
-    System.out.println(response);
+    assertEquals(Status.OK, response.getStatus());
+    assertEquals(200, response.getHttpStatusCode());
+
+    ObjectStatistics stats = response.getStats();
+
+    assertNotNull(stats);
+    assertEquals(4, stats.getTotal());
+
+    assertNotEmpty(response.getTypeReports());
+    assertEquals(2, response.getTypeReports().size());
   }
 }

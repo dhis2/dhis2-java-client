@@ -27,14 +27,14 @@
  */
 package org.hisp.dhis.response;
 
-import java.util.ArrayList;
-import java.util.List;
-import org.apache.hc.core5.http.Header;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.apache.hc.core5.http.Header;
 
 /** Base response class. */
 @Getter
