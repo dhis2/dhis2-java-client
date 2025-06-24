@@ -30,7 +30,6 @@ package org.hisp.dhis;
 import static org.hisp.dhis.Constants.SUPER_ADMIN_AUTH;
 import static org.hisp.dhis.util.CollectionUtils.asList;
 import static org.hisp.dhis.util.CollectionUtils.list;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -442,6 +441,22 @@ public class Dhis2 extends BaseDhis2 {
     return String.format("dataStore/%s/%s", namespace, key);
   }
 
+  // -------------------------------------------------------------------------
+  // Metadata
+  // -------------------------------------------------------------------------
+
+  /**
+   * Saves or updates metadata objects.
+   *
+   * @param objects the {@link Dhis2Objects}.
+   * @return {@link ObjectsResponse} holding information about the operation.
+   */
+  protected ObjectsResponse saveMetadataObjects(Dhis2Objects objects) {
+    URI url = config.getResolvedUrl("metadata");
+
+    return executeJsonPostPutRequest(new HttpPost(url), objects, ObjectsResponse.class);
+  }
+  
   // -------------------------------------------------------------------------
   // Org unit
   // -------------------------------------------------------------------------
