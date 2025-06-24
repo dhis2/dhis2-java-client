@@ -42,10 +42,14 @@ import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.hisp.dhis.response.Dhis2ClientException;
 
+/** Utilities for XML parsing and serialization. */
 @Slf4j
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class JacksonXmlUtils {
   /** Default date format. */
   private static final String DATE_FORMAT = "yyyy-MM-dd";
