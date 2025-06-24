@@ -27,12 +27,12 @@
  */
 package org.hisp.dhis.model.trackedentity;
 
+import org.hisp.dhis.model.IdentifiableObject;
+import org.hisp.dhis.model.Program;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hisp.dhis.model.IdentifiableObject;
-import org.hisp.dhis.model.Program;
 
 @Getter
 @Setter
@@ -47,4 +47,8 @@ public class ProgramTrackedEntityAttribute extends IdentifiableObject {
   @JsonProperty private Boolean displayInList;
 
   @JsonProperty private Boolean mandatory;
+  
+  @JsonProperty private Boolean allowFutureDate;
+  
+  @JsonProperty private Boolean searchable;
 }
