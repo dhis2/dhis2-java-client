@@ -28,7 +28,6 @@
 package org.hisp.dhis.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -39,15 +38,73 @@ import lombok.Setter;
 public class Attribute extends NameableObject {
   @JsonProperty private ValueType valueType;
 
-  @JsonProperty private List<String> objectTypes;
-
   @JsonProperty private Boolean mandatory;
 
   @JsonProperty private Boolean unique;
 
+  @JsonProperty private Boolean categoryAttribute;
+
+  @JsonProperty private Boolean categoryOptionAttribute;
+
+  @JsonProperty private Boolean categoryOptionComboAttribute;
+
+  @JsonProperty private Boolean categoryOptionGroupAttribute;
+
+  @JsonProperty private Boolean categoryOptionGroupSetAttribute;
+
+  @JsonProperty private Boolean constantAttribute;
+
   @JsonProperty private Boolean dataElementAttribute;
+
+  @JsonProperty private Boolean dataElementGroupAttribute;
+
+  @JsonProperty private Boolean dataElementGroupSetAttribute;
+
+  @JsonProperty private Boolean dataSetAttribute;
+
+  @JsonProperty private Boolean documentAttribute;
+
+  @JsonProperty private Boolean indicatorAttribute;
+
+  @JsonProperty private Boolean indicatorGroupAttribute;
+
+  @JsonProperty private Boolean legendSetAttribute;
+
+  @JsonProperty private Boolean mapAttribute;
+
+  @JsonProperty private Boolean optionAttribute;
+
+  @JsonProperty private Boolean optionSetAttribute;
+
+  @JsonProperty private Boolean organisationUnitAttribute;
+
+  @JsonProperty private Boolean organisationUnitGroupAttribute;
+
+  @JsonProperty private Boolean organisationUnitGroupSetAttribute;
 
   @JsonProperty private Boolean programAttribute;
 
+  @JsonProperty private Boolean programIndicatorAttribute;
+
   @JsonProperty private Boolean programStageAttribute;
+
+  @JsonProperty private Boolean relationshipTypeAttribute;
+
+  @JsonProperty private Boolean sectionAttribute;
+
+  @JsonProperty private Boolean sqlViewAttribute;
+
+  @JsonProperty private Boolean trackedEntityAttributeAttribute;
+
+  @JsonProperty private Boolean trackedEntityTypeAttribute;
+
+  @JsonProperty private Boolean userAttribute;
+
+  @JsonProperty private Boolean userGroupAttribute;
+
+  @JsonProperty private Boolean validationRuleAttribute;
+
+  @JsonProperty private Boolean validationRuleGroupAttribute;
+
+  @JsonProperty private Boolean visualizationAttribute;
 }

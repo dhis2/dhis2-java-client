@@ -82,12 +82,11 @@ class AttributeApiTest {
     attribute.setDataElementAttribute(true);
     attribute.setProgramStageAttribute(true);
     attribute.setMandatory(true);
-    attribute.setObjectTypes(List.of("PROGRAM_STAGE"));
 
     // Create
     ObjectResponse createRespA = dhis2.saveAttribute(attribute);
 
-    validateResponse(createRespA, HttpStatus.CREATED, 201);
+    assertResponse(createRespA, HttpStatus.CREATED, 201);
 
     String attributeUid = createRespA.getResponse().getUid();
 
@@ -109,7 +108,7 @@ class AttributeApiTest {
     // Update
     ObjectResponse updateRespA = dhis2.updateAttribute(attribute);
 
-    validateResponse(updateRespA, HttpStatus.OK, 200);
+    assertResponse(updateRespA, HttpStatus.OK, 200);
     assertEquals(attributeUid, updateRespA.getResponse().getUid(), updateRespA.toString());
 
     // Get Updated
@@ -121,10 +120,10 @@ class AttributeApiTest {
     // Remove
     ObjectResponse removeRespA = dhis2.removeAttribute(attributeUid);
 
-    validateResponse(removeRespA, HttpStatus.OK, 200);
+    assertResponse(removeRespA, HttpStatus.OK, 200);
   }
 
-  private void validateResponse(
+  private void assertResponse(
       ObjectResponse objectResponse, HttpStatus httpStatus, int expectedStatusCode) {
     assertEquals(
         expectedStatusCode,
