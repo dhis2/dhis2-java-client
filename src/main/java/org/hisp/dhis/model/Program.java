@@ -63,6 +63,14 @@ public class Program extends NameableObject {
 
   @JsonProperty private List<ProgramStage> programStages = new ArrayList<>();
 
+  @JsonProperty private Boolean displayIncidentDate;
+
+  @JsonProperty private Boolean onlyEnrollOnce;
+
+  @JsonProperty private Boolean displayFrontPageList;
+
+  @JsonProperty private Integer minAttributesRequiredToSearch;
+
   public Program(String id, String name) {
     this.id = id;
     this.name = name;
