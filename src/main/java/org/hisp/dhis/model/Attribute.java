@@ -27,7 +27,27 @@
  */
 package org.hisp.dhis.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.List;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter
+@Setter
 @NoArgsConstructor
-public class Attribute extends NameableObject {}
+public class Attribute extends NameableObject {
+  @JsonProperty private ValueType valueType;
+
+  @JsonProperty private List<String> objectTypes;
+
+  @JsonProperty private Boolean mandatory;
+
+  @JsonProperty private Boolean unique;
+
+  @JsonProperty private Boolean dataElementAttribute;
+
+  @JsonProperty private Boolean programAttribute;
+
+  @JsonProperty private Boolean programStageAttribute;
+}
