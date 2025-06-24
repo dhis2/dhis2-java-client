@@ -45,4 +45,17 @@ public class ErrorReport {
   @JsonProperty private String mainId;
 
   @JsonProperty private String errorProperty;
+
+  /**
+   * Constructor.
+   *
+   * @param message the message.
+   * @param mainKlass the type.
+   * @param mainId the identifier.
+   */
+  public ErrorReport(String message, String mainKlass, String mainId) {
+    this.message = message;
+    this.mainKlass = mainKlass;
+    this.mainId = mainId;
+  }
 }
