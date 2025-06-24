@@ -47,4 +47,8 @@ public class ProgramTrackedEntityAttribute extends IdentifiableObject {
   @JsonProperty private Boolean displayInList;
 
   @JsonProperty private Boolean mandatory;
+
+  @JsonProperty private Boolean allowFutureDate;
+
+  @JsonProperty private Boolean searchable;
 }

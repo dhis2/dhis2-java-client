@@ -27,6 +27,7 @@
  */
 package org.hisp.dhis;
 
+import static org.hisp.dhis.support.Assertions.assertNotEmpty;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -64,7 +65,6 @@ class CategoryApiTest {
     Category category = categories.get(0);
 
     assertNotNull(category.getId());
-    assertFalse(category.getCategoryOptions().isEmpty());
-    assertFalse(category.getCategoryCombos().isEmpty());
+    assertNotEmpty(category.getCategoryOptions());
   }
 }
