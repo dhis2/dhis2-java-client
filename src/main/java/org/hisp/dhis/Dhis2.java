@@ -55,6 +55,7 @@ import org.apache.hc.core5.net.URIBuilder;
 import org.hisp.dhis.auth.AccessTokenAuthentication;
 import org.hisp.dhis.auth.BasicAuthentication;
 import org.hisp.dhis.auth.CookieAuthentication;
+import org.hisp.dhis.model.Attribute;
 import org.hisp.dhis.model.Category;
 import org.hisp.dhis.model.CategoryCombo;
 import org.hisp.dhis.model.CategoryOption;
@@ -2552,6 +2553,85 @@ public class Dhis2 extends BaseDhis2 {
             query,
             Dhis2Objects.class)
         .getPeriodTypes();
+  }
+
+  // -------------------------------------------------------------------------
+  // Attribute
+  // -------------------------------------------------------------------------
+
+  /**
+   * Retrieves a {@link Attribute}.
+   *
+   * @param id the object identifier.
+   * @return the {@link Attribute}.
+   * @throws Dhis2ClientException if the object does not exist.
+   */
+  public Attribute getAttribute(String id) {
+    return getObject(
+        config
+            .getResolvedUriBuilder()
+            .appendPath("attributes")
+            .appendPath(id)
+            .addParameter(FIELDS_PARAM, ATTRIBUTE_FIELDS),
+        Query.instance(),
+        Attribute.class);
+  }
+
+  /**
+   * Retrieves a {@link Attribute}.
+   *
+   * @param query the {@link Query}.
+   * @return a list of {@link Attribute}.
+   */
+  public List<Attribute> getAttributes(Query query) {
+    return getObject(
+            config
+                .getResolvedUriBuilder()
+                .appendPath("attributes")
+                .addParameter(FIELDS_PARAM, ATTRIBUTE_FIELDS),
+            query,
+            Dhis2Objects.class)
+        .getAttributes();
+  }
+
+  /**
+   * Saves a {@link Attribute}.
+   *
+   * @param attribute the object to save.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse saveAttribute(Attribute attribute) {
+    return saveMetadataObject("attributes", attribute);
+  }
+
+  /**
+   * Saves or updates the list of {@link Attribute}.
+   *
+   * @param attributes the list of {@link Attribute}.
+   * @return {@link ObjectsResponse} holding information about the operation.
+   */
+  public ObjectsResponse saveAttributes(List<Attribute> attributes) {
+    return saveMetadataObjects(new Dhis2Objects().setAttributes(attributes));
+  }
+
+  /**
+   * Updates a {@link Attribute}.
+   *
+   * @param attribute the object to update.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse updateAttribute(Attribute attribute) {
+    return updateMetadataObject(String.format("attributes/%s", attribute.getId()), attribute);
+  }
+
+  /**
+   * Removes a {@link Attribute}.
+   *
+   * @param id the identifier of the object to remove.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse removeAttribute(String id) {
+    return removeMetadataObject(String.format("attributes/%s", id));
   }
 
   // -------------------------------------------------------------------------

@@ -222,6 +222,14 @@ public class BaseDhis2 {
           "%s,contentType,contentLength,contentMd5,domain,hasMultipleStorageFiles,storageStatus",
           ID_FIELDS);
 
+  /** Attributes fields. */
+  protected static final String ATTRIBUTE_FIELDS =
+      String.format(
+          """
+        %1$s,valueType,objectTypes,mandatory,unique,\
+        dataElementAttribute,programAttribute,programStageAttribute""",
+          NAME_FIELDS);
+
   /** Indicator type fields. */
   protected static final String INDICATOR_TYPE_FIELDS =
       String.format("%s,factor,number", NAME_FIELDS);
