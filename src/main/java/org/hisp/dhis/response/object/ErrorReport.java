@@ -45,10 +45,10 @@ public class ErrorReport {
   @JsonProperty private String mainId;
 
   @JsonProperty private String errorProperty;
-  
+
   /**
    * Constructor.
-   * 
+   *
    * @param message the message.
    * @param mainKlass the type.
    * @param mainId the identifier.
