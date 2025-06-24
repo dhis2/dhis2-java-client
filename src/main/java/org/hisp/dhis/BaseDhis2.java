@@ -337,6 +337,10 @@ public class BaseDhis2 {
   /** UserGroup fields. */
   protected static final String USER_GROUP_FIELDS = String.format("%1$s,users[%1$s]", ID_FIELDS);
 
+  /** UserRole fields. */
+  protected static final String USER_ROLE_FIELDS =
+      String.format("%1$s,description,authorities,restrictions,users[%1$s]", ID_FIELDS);
+
   protected static final String VALIDATION_SIDE_FIELDS =
       "expression,description,displayDescription,slidingWindow,missingValueStrategy";
 
