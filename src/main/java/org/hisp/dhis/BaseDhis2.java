@@ -50,6 +50,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
@@ -78,7 +79,6 @@ import org.apache.hc.core5.http.io.entity.StringEntity;
 import org.apache.hc.core5.http.message.BasicHeader;
 import org.apache.hc.core5.http.message.BasicNameValuePair;
 import org.apache.hc.core5.net.URIBuilder;
-import org.hisp.dhis.model.Dhis2Objects;
 import org.hisp.dhis.model.IdentifiableObject;
 import org.hisp.dhis.model.completedatasetregistration.CompleteDataSetRegistrationImportOptions;
 import org.hisp.dhis.model.datavalueset.DataValueSet;
@@ -112,7 +112,6 @@ import org.hisp.dhis.response.Response;
 import org.hisp.dhis.response.Status;
 import org.hisp.dhis.response.completedatasetregistration.CompleteDataSetRegistrationResponse;
 import org.hisp.dhis.response.object.ObjectResponse;
-import org.hisp.dhis.response.objects.ObjectsResponse;
 import org.hisp.dhis.util.DateTimeUtils;
 import org.hisp.dhis.util.HttpUtils;
 import org.hisp.dhis.util.JacksonUtils;
@@ -142,6 +141,9 @@ public class BaseDhis2 {
 
   /** Warn log level. */
   private static final String LOG_LEVEL_WARN = "warn";
+
+  /** Override current log level for debugging here. */
+  private static final Optional<String> LOG_LEVEL = Optional.empty();
 
   // Status codes
 
@@ -1483,18 +1485,6 @@ public class BaseDhis2 {
   }
 
   /**
-   * Saves or updates metadata objects.
-   *
-   * @param objects the {@link Dhis2Objects}.
-   * @return {@link ObjectsResponse} holding information about the operation.
-   */
-  protected ObjectsResponse saveMetadataObjects(Dhis2Objects objects) {
-    URI url = config.getResolvedUrl("metadata");
-
-    return executeJsonPostPutRequest(new HttpPost(url), objects, ObjectsResponse.class);
-  }
-
-  /**
    * Updates an object using HTTP PUT.
    *
    * @param path the URL path relative to the API end point.
@@ -1643,6 +1633,10 @@ public class BaseDhis2 {
    * @return the log level.
    */
   private String getLogLevel() {
+    if (LOG_LEVEL.isPresent()) {
+      return LOG_LEVEL.get();
+    }
+
     return System.getProperty(LOG_LEVEL_SYSTEM_PROPERTY);
   }
 }

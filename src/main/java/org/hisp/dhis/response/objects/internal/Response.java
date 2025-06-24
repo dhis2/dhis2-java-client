@@ -33,14 +33,18 @@ import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import org.hisp.dhis.response.Status;
 import org.hisp.dhis.response.objects.ObjectStatistics;
 import org.hisp.dhis.response.objects.TypeReport;
 
 @Setter
 @Getter
+@ToString
 @NoArgsConstructor
 public class Response {
+  @JsonProperty private String responseType;
+
   @JsonProperty private Status status;
 
   @JsonProperty private List<TypeReport> typeReports = new ArrayList<>();

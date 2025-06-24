@@ -31,6 +31,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.hisp.dhis.response.object.ObjectReport;
@@ -38,6 +39,7 @@ import org.hisp.dhis.response.object.ObjectReport;
 @Getter
 @Setter
 @ToString
+@NoArgsConstructor
 public class TypeReport {
   @JsonProperty private String klass;
 

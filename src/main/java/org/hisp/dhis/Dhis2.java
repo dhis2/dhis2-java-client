@@ -443,6 +443,22 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   // -------------------------------------------------------------------------
+  // Metadata
+  // -------------------------------------------------------------------------
+
+  /**
+   * Saves or updates metadata objects.
+   *
+   * @param objects the {@link Dhis2Objects}.
+   * @return {@link ObjectsResponse} holding information about the operation.
+   */
+  protected ObjectsResponse saveMetadataObjects(Dhis2Objects objects) {
+    URI url = config.getResolvedUrl("metadata");
+
+    return executeJsonPostPutRequest(new HttpPost(url), objects, ObjectsResponse.class);
+  }
+
+  // -------------------------------------------------------------------------
   // Org unit
   // -------------------------------------------------------------------------
 

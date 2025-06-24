@@ -31,28 +31,18 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.apache.commons.lang3.builder.ToStringBuilder;
+import lombok.ToString;
 import org.hisp.dhis.response.Response;
 import org.hisp.dhis.response.Status;
 
 @Getter
 @Setter
+@ToString
 @NoArgsConstructor
 public class ObjectResponse extends Response {
   @JsonProperty protected ObjectReport response;
 
   public ObjectResponse(Status status, Integer httpStatusCode, String message) {
     super(status, httpStatusCode, message);
-  }
-
-  @Override
-  public String toString() {
-    return new ToStringBuilder(this)
-        .append("status", status)
-        .append("httpStatusCode", httpStatusCode)
-        .append("errorCode", errorCode)
-        .append("message", message)
-        .append("response", response)
-        .toString();
   }
 }

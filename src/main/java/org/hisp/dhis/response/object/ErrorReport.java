@@ -28,7 +28,8 @@
 package org.hisp.dhis.response.object;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -38,17 +39,20 @@ import lombok.ToString;
 @Setter
 @ToString
 @NoArgsConstructor
-@AllArgsConstructor
 public class ErrorReport {
   @JsonProperty private String message;
 
   @JsonProperty private String mainKlass;
 
-  @JsonProperty private String errorCode;
-
   @JsonProperty private String mainId;
 
+  @JsonProperty private String errorCode;
+
+  @JsonProperty private String errorKlass;
+
   @JsonProperty private String errorProperty;
+
+  @JsonProperty private List<String> errorProperties = new ArrayList<String>();
 
   /**
    * Constructor.

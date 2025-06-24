@@ -45,4 +45,6 @@ public class ObjectStatistics {
   @JsonProperty private Integer deleted;
 
   @JsonProperty private Integer ignored;
+
+  @JsonProperty private Integer total;
 }
