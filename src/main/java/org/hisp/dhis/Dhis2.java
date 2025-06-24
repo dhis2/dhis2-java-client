@@ -111,6 +111,7 @@ import org.hisp.dhis.model.trackedentity.TrackedEntityType;
 import org.hisp.dhis.model.tracker.TrackedEntityObjects;
 import org.hisp.dhis.model.user.User;
 import org.hisp.dhis.model.user.UserGroup;
+import org.hisp.dhis.model.user.UserRole;
 import org.hisp.dhis.model.validation.Period;
 import org.hisp.dhis.model.validation.Validation;
 import org.hisp.dhis.model.validation.ValidationRule;
@@ -2412,6 +2413,85 @@ public class Dhis2 extends BaseDhis2 {
    */
   public ObjectResponse removeUserGroup(String id) {
     return removeMetadataObject(String.format("userGroups/%s", id));
+  }
+
+  // -------------------------------------------------------------------------
+  // User roles
+  // -------------------------------------------------------------------------
+
+  /**
+   * Retrieves a {@link UserRole}.
+   *
+   * @param id the object identifier.
+   * @return the {@link UserRole}.
+   * @throws Dhis2ClientException if the object does not exist.
+   */
+  public UserRole getUserRole(String id) {
+    return getObject(
+        config
+            .getResolvedUriBuilder()
+            .appendPath("userRoles")
+            .appendPath(id)
+            .addParameter(FIELDS_PARAM, USER_ROLE_FIELDS),
+        Query.instance(),
+        UserRole.class);
+  }
+
+  /**
+   * Retrieves a list of {@link UserRole}.
+   *
+   * @param query the {@link Query}.
+   * @return list of {@link UserRole}.
+   */
+  public List<UserRole> getUserRoles(Query query) {
+    return getObject(
+            config
+                .getResolvedUriBuilder()
+                .appendPath("userRoles")
+                .addParameter(FIELDS_PARAM, USER_ROLE_FIELDS),
+            query,
+            Dhis2Objects.class)
+        .getUserRoles();
+  }
+
+  /**
+   * Saves a {@link UserRole}.
+   *
+   * @param userRole the object to save.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse saveUserRole(UserRole userRole) {
+    return saveMetadataObject("userRoles", userRole);
+  }
+
+  /**
+   * Saves or updates the list of {@link UserRole}.
+   *
+   * @param userRoles the list of {@link UserRole}.
+   * @return {@link ObjectsResponse} holding information about the operation.
+   */
+  public ObjectsResponse saveUserRoles(List<UserRole> userRoles) {
+    return saveMetadataObjects(new Dhis2Objects().setUserRoles(userRoles));
+  }
+
+  /**
+   * Updates a {@link UserRole}.
+   *
+   * @param userRole the object to update.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse updateUserRole(UserRole userRole) {
+    return updateMetadataObject(String.format("userRoles/%s", userRole.getId()), userRole);
+  }
+
+  /**
+   * Removes a {@link UserRole}.
+   *
+   * @param id the identifier of the object to remove.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse removeUserRole(String id) {
+    return removeMetadataObject(String.format("userRoles/%s", id));
   }
 
   // -------------------------------------------------------------------------
