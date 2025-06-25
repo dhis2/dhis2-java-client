@@ -34,7 +34,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import org.hisp.dhis.model.trackedentity.ProgramTrackedEntityAttribute;
 
 @Getter
 @Setter
@@ -44,9 +43,6 @@ public class ProgramObjects {
   @JsonProperty private List<Program> programs = new ArrayList<>();
 
   @JsonProperty private List<ProgramSection> programSections = new ArrayList<>();
-
-  @JsonProperty
-  private List<ProgramTrackedEntityAttribute> programTrackedEntityAttributes = new ArrayList<>();
 
   @JsonProperty private List<ProgramStage> programStages = new ArrayList<>();
 
