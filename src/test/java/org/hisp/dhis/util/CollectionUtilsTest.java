@@ -31,6 +31,7 @@ import static org.hisp.dhis.util.CollectionUtils.firstMatch;
 import static org.hisp.dhis.util.CollectionUtils.get;
 import static org.hisp.dhis.util.CollectionUtils.list;
 import static org.hisp.dhis.util.CollectionUtils.mapToList;
+import static org.hisp.dhis.util.CollectionUtils.mapToMap;
 import static org.hisp.dhis.util.CollectionUtils.mutableList;
 import static org.hisp.dhis.util.CollectionUtils.mutableSet;
 import static org.hisp.dhis.util.CollectionUtils.set;
@@ -39,6 +40,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import org.hisp.dhis.model.DataElement;
 import org.hisp.dhis.support.TestTags;
@@ -111,6 +113,25 @@ class CollectionUtilsTest {
     List<String> expected = List.of("jUb6fnbZPhV", "qEiCafULhoW", "wOahXFjLq4V");
 
     assertEquals(expected, mapToList(list, DataElement::getId));
+  }
+
+  @Test
+  void testMapToMap() {
+    DataElement deA = new DataElement();
+    deA.setId("jUb6fnbZPhV");
+    DataElement deB = new DataElement();
+    deB.setId("qEiCafULhoW");
+    DataElement deC = new DataElement();
+    deC.setId("wOahXFjLq4V");
+
+    List<DataElement> list = List.of(deA, deB, deC);
+
+    Map<String, DataElement> map = mapToMap(list, DataElement::getId);
+
+    assertEquals(3, map.keySet().size());
+    assertEquals(deA.getId(), map.get(deA.getId()).getId());
+    assertEquals(deB.getId(), map.get(deB.getId()).getId());
+    assertEquals(deC.getId(), map.get(deC.getId()).getId());
   }
 
   @Test

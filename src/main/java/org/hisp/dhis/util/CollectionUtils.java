@@ -33,6 +33,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -115,6 +116,20 @@ public class CollectionUtils {
    */
   public static <T, U> List<T> mapToList(List<U> objects, Function<U, T> mapper) {
     return objects.stream().map(mapper).toList();
+  }
+
+  /**
+   * Maps the given list of objects of type U to a map where the keys are of type T. Null objects
+   * are not allowed.
+   *
+   * @param <T> type for keys.
+   * @param <U> type for values.
+   * @param objects the objects of U.
+   * @param keyMapper the function to map each object to a key of type T.
+   * @return a map with keys of type T and values of type U.
+   */
+  public static <T, U> Map<T, U> mapToMap(List<U> objects, Function<U, T> keyMapper) {
+    return objects.stream().collect(Collectors.toMap(keyMapper, Function.identity()));
   }
 
   /**
