@@ -345,7 +345,7 @@ public class DateTimeUtils {
    * @param string the date string.
    * @return a {@link Date} if the string is valid, null otherwise.
    */
-  private static Date parse(String format, String string) {
+  public static Date parse(String format, String string) {
     try {
       return getUtcDateFormat(format).parse(string);
     } catch (ParseException ex) {
