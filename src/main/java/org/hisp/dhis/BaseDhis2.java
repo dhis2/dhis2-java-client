@@ -36,8 +36,6 @@ import static org.apache.hc.core5.http.HttpStatus.SC_UNAUTHORIZED;
 import static org.hisp.dhis.util.CollectionUtils.asList;
 import static org.hisp.dhis.util.CollectionUtils.toCommaSeparated;
 import static org.hisp.dhis.util.HttpUtils.getUriAsString;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -53,7 +51,6 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -115,6 +112,8 @@ import org.hisp.dhis.response.object.ObjectResponse;
 import org.hisp.dhis.util.DateTimeUtils;
 import org.hisp.dhis.util.HttpUtils;
 import org.hisp.dhis.util.JacksonUtils;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author Lars Helge Overland
@@ -314,25 +313,44 @@ public class BaseDhis2 {
           trackedEntity,trackedEntityType,createdAt,createdAtClient,updatedAt,updatedAtClient,\
           orgUnit,inactive,deleted,potentialDuplicate,geometry,storedBy,\
           attributes[attribute,displayName,code,createdAt,updatedAt,valueType,value],\
-          enrollments[%s]""",
+          enrollments[%1$s]""",
           TRACKED_ENTITY_ENROLLMENT_FIELDS);
 
+  protected static final String PROGRAM_SECTION_FIELDS = 
+      String.format(
+          """
+          %1$s,sortOrder,program[%1$s],trackedEntityAttributes[%1$s]""",
+          NAME_FIELDS);
+  
+  protected static final String PROGRAM_STAGE_SECTION_FIELDS =
+    String.format(
+        """
+        %1$s,programStage[%1$s],formName,sortOrder,dataElements[%1$s],programIndicators[%1$s]""",
+        NAME_FIELDS);
+  
+  protected static final String PROGRAM_STAGE_FIELDS = 
+      String.format(
+          """
+          %1$s,programStageDataElements[%2$s],\
+          programStageSections[%3$s]""",
+          NAME_FIELDS, 
+          PROGRAM_STAGE_DATA_ELEMENT_FIELDS, 
+          PROGRAM_STAGE_SECTION_FIELDS);
+  
   /** Program fields. */
   protected static final String PROGRAM_FIELDS =
       String.format(
           """
           %1$s,programType,trackedEntityType[%2$s],categoryCombo[%1$s,categories[%3$s]],\
-          programSections[%1$s,sortOrder,program[%1$s],trackedEntityAttributes[%1$s]],\
-          programStages[%1$s,\
-          programStageDataElements[%4$s],\
-          programStageSections[%1$s,programStage[%1$s],formName,sortOrder,\
-          dataElements[%1$s],programIndicators[%1$s]]],\
+          programSections[%4$s],\
+          programStages[%5$s],\
           programTrackedEntityAttributes[id,code,name,\
-          program[%1$s],trackedEntityAttribute[%5$s],sortOrder,displayInList,mandatory]""",
+          program[%1$s],trackedEntityAttribute[%6$s],sortOrder,displayInList,mandatory]""",
           NAME_FIELDS,
           TRACKED_ENTITY_TYPE_FIELDS,
           CATEGORY_FIELDS,
-          PROGRAM_STAGE_DATA_ELEMENT_FIELDS,
+          PROGRAM_SECTION_FIELDS,
+          PROGRAM_STAGE_FIELDS,
           TRACKED_ENTITY_ATTRIBUTE_FIELDS);
 
   /** User fields. */
