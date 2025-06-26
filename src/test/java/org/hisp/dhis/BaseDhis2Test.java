@@ -29,6 +29,7 @@ package org.hisp.dhis;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import java.io.IOException;
 import org.hisp.dhis.model.AggregationType;
 import org.hisp.dhis.model.DataDomain;
@@ -87,8 +88,29 @@ class BaseDhis2Test {
   }
 
   @Test
-  void testGetProgramFields() {
-    String expected = """
+  void testProgramStageFields() {
+    String expected =
+        """
+        id,code,name,created,lastUpdated,attributeValues,shortName,description,\
+        programStageDataElements[id,code,name,created,lastUpdated,attributeValues,shortName,description,\
+        programStage[id,code,name,created,lastUpdated,attributeValues,shortName,description],\
+        dataElement[id,code,name,created,lastUpdated,attributeValues,shortName,description,\
+        aggregationType,valueType,domainType,url,legendSets[id,code,name,created,lastUpdated,\
+        attributeValues,shortName,description],optionSet[id,code,name,created,lastUpdated,\
+        attributeValues,valueType,version]],compulsory,displayInReports,skipSynchronization,\
+        skipAnalytics,sortOrder],programStageSections[id,code,name,created,lastUpdated,\
+        attributeValues,shortName,description,programStage[id,code,name,created,lastUpdated,\
+        attributeValues,shortName,description],formName,sortOrder,\
+        dataElements[id,code,name,created,lastUpdated,attributeValues,shortName,description],\
+        programIndicators[id,code,name,created,lastUpdated,attributeValues,shortName,description]]""";
+
+    assertEquals(expected, BaseDhis2.PROGRAM_STAGE_FIELDS);
+  }
+
+  @Test
+  void testProgramFields() {
+    String expected =
+        """
         id,code,name,created,lastUpdated,attributeValues,shortName,description,programType,\
         trackedEntityType[id,code,name,created,lastUpdated,attributeValues,shortName,description,\
         trackedEntityTypeAttributes[id,trackedEntityAttribute[\
@@ -116,8 +138,7 @@ class BaseDhis2Test {
         attributeValues,shortName,description],\
         trackedEntityAttribute[id,code,name,created,lastUpdated,attributeValues,shortName,\
         description,valueType,aggregationType,confidential,unique],sortOrder,displayInList,mandatory]""";
-    
-    
+
     assertEquals(expected, BaseDhis2.PROGRAM_FIELDS);
   }
 }

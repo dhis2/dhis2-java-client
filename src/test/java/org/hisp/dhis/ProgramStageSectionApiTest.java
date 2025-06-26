@@ -32,22 +32,22 @@ import static org.hisp.dhis.support.Assertions.assertNotEmpty;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import org.hisp.dhis.model.ProgramStage;
+import org.hisp.dhis.model.ProgramStageSection;
 import org.hisp.dhis.support.TestTags;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 @Tag(TestTags.INTEGRATION)
-class ProgramStageApiTest {
+class ProgramStageSectionApiTest {
   @Test
-  void getGetProgramStage() {
+  void getGetProgramStageSection() {
     Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
 
-    ProgramStage programStage = dhis2.getProgramStage("A03MvHHogjR");
+    ProgramStageSection section = dhis2.getProgramStageSection("OeSqs7pkKqI");
 
-    assertNotNull(programStage);
-    assertEquals("A03MvHHogjR", programStage.getId());
-    assertNotBlank(programStage.getName());
-    assertNotEmpty(programStage.getProgramStageDataElements());
+    assertNotNull(section);
+    assertEquals("OeSqs7pkKqI", section.getId());
+    assertNotBlank(section.getName());
+    assertNotEmpty(section.getDataElements());
   }
 }

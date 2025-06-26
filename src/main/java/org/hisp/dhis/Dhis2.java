@@ -30,6 +30,7 @@ package org.hisp.dhis;
 import static org.hisp.dhis.Constants.SUPER_ADMIN_AUTH;
 import static org.hisp.dhis.util.CollectionUtils.asList;
 import static org.hisp.dhis.util.CollectionUtils.list;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -1852,7 +1853,7 @@ public class Dhis2 extends BaseDhis2 {
     return getObject(
         config
             .getResolvedUriBuilder()
-            .appendPath("programStages")
+            .appendPath("programSections")
             .appendPath(id)
             .addParameter(FIELDS_PARAM, PROGRAM_SECTION_FIELDS),
         Query.instance(),
