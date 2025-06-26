@@ -314,25 +314,42 @@ public class BaseDhis2 {
           trackedEntity,trackedEntityType,createdAt,createdAtClient,updatedAt,updatedAtClient,\
           orgUnit,inactive,deleted,potentialDuplicate,geometry,storedBy,\
           attributes[attribute,displayName,code,createdAt,updatedAt,valueType,value],\
-          enrollments[%s]""",
+          enrollments[%1$s]""",
           TRACKED_ENTITY_ENROLLMENT_FIELDS);
+
+  protected static final String PROGRAM_SECTION_FIELDS =
+      String.format(
+          """
+          %1$s,sortOrder,program[%1$s],trackedEntityAttributes[%1$s]""",
+          NAME_FIELDS);
+
+  protected static final String PROGRAM_STAGE_SECTION_FIELDS =
+      String.format(
+          """
+        %1$s,programStage[%1$s],formName,sortOrder,dataElements[%1$s],programIndicators[%1$s]""",
+          NAME_FIELDS);
+
+  protected static final String PROGRAM_STAGE_FIELDS =
+      String.format(
+          """
+          %1$s,programStageDataElements[%2$s],\
+          programStageSections[%3$s]""",
+          NAME_FIELDS, PROGRAM_STAGE_DATA_ELEMENT_FIELDS, PROGRAM_STAGE_SECTION_FIELDS);
 
   /** Program fields. */
   protected static final String PROGRAM_FIELDS =
       String.format(
           """
           %1$s,programType,trackedEntityType[%2$s],categoryCombo[%1$s,categories[%3$s]],\
-          programSections[%1$s,sortOrder,program[%1$s],trackedEntityAttributes[%1$s]],\
-          programStages[%1$s,\
-          programStageDataElements[%4$s],\
-          programStageSections[%1$s,programStage[%1$s],formName,sortOrder,\
-          dataElements[%1$s],programIndicators[%1$s]]],\
+          programSections[%4$s],\
+          programStages[%5$s],\
           programTrackedEntityAttributes[id,code,name,\
-          program[%1$s],trackedEntityAttribute[%5$s],sortOrder,displayInList,mandatory]""",
+          program[%1$s],trackedEntityAttribute[%6$s],sortOrder,displayInList,mandatory]""",
           NAME_FIELDS,
           TRACKED_ENTITY_TYPE_FIELDS,
           CATEGORY_FIELDS,
-          PROGRAM_STAGE_DATA_ELEMENT_FIELDS,
+          PROGRAM_SECTION_FIELDS,
+          PROGRAM_STAGE_FIELDS,
           TRACKED_ENTITY_ATTRIBUTE_FIELDS);
 
   /** User fields. */

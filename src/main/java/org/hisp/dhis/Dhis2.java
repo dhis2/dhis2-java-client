@@ -86,6 +86,9 @@ import org.hisp.dhis.model.OrgUnitLevel;
 import org.hisp.dhis.model.PeriodType;
 import org.hisp.dhis.model.Program;
 import org.hisp.dhis.model.ProgramIndicator;
+import org.hisp.dhis.model.ProgramSection;
+import org.hisp.dhis.model.ProgramStage;
+import org.hisp.dhis.model.ProgramStageSection;
 import org.hisp.dhis.model.SystemInfo;
 import org.hisp.dhis.model.SystemSettings;
 import org.hisp.dhis.model.TableHook;
@@ -1811,6 +1814,72 @@ public class Dhis2 extends BaseDhis2 {
    */
   public Response addOrgUnitToProgram(String program, String orgUnit) {
     return addToCollection("programs", program, "organisationUnits", orgUnit);
+  }
+
+  // -------------------------------------------------------------------------
+  // Program stage
+  // -------------------------------------------------------------------------
+
+  /**
+   * Retrieves a {@link ProgramStage}.
+   *
+   * @param id the object identifier.
+   * @return the {@link ProgramStage}.
+   * @throws Dhis2ClientException if the object does not exist.
+   */
+  public ProgramStage getProgramStage(String id) {
+    return getObject(
+        config
+            .getResolvedUriBuilder()
+            .appendPath("programStages")
+            .appendPath(id)
+            .addParameter(FIELDS_PARAM, PROGRAM_STAGE_FIELDS),
+        Query.instance(),
+        ProgramStage.class);
+  }
+
+  // -------------------------------------------------------------------------
+  // Program section
+  // -------------------------------------------------------------------------
+
+  /**
+   * Retrieves a {@link ProgramSection}.
+   *
+   * @param id the object identifier.
+   * @return the {@link ProgramStage}.
+   * @throws Dhis2ClientException if the object does not exist.
+   */
+  public ProgramSection getProgramSection(String id) {
+    return getObject(
+        config
+            .getResolvedUriBuilder()
+            .appendPath("programSections")
+            .appendPath(id)
+            .addParameter(FIELDS_PARAM, PROGRAM_SECTION_FIELDS),
+        Query.instance(),
+        ProgramSection.class);
+  }
+
+  // -------------------------------------------------------------------------
+  // Program stage section
+  // -------------------------------------------------------------------------
+
+  /**
+   * Retrieves a {@link ProgramStageSection}.
+   *
+   * @param id the object identifier.
+   * @return the {@link ProgramStageSection}.
+   * @throws Dhis2ClientException if the object does not exist.
+   */
+  public ProgramStageSection getProgramStageSection(String id) {
+    return getObject(
+        config
+            .getResolvedUriBuilder()
+            .appendPath("programStageSections")
+            .appendPath(id)
+            .addParameter(FIELDS_PARAM, PROGRAM_STAGE_SECTION_FIELDS),
+        Query.instance(),
+        ProgramStageSection.class);
   }
 
   // -------------------------------------------------------------------------

@@ -55,9 +55,8 @@ class BaseDhis2Test {
     assertEquals("HkSu7IWlvrM", string);
   }
 
-  /** Test deserialize to data element. */
   @Test
-  void testDeserializeObject() throws IOException {
+  void testDeserializeDataElement() throws IOException {
     Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
 
     String content =
@@ -86,5 +85,60 @@ class BaseDhis2Test {
     assertEquals(AggregationType.SUM, object.getAggregationType());
     assertEquals(ValueType.NUMBER, object.getValueType());
     assertEquals(DataDomain.AGGREGATE, object.getDomainType());
+  }
+
+  @Test
+  void testProgramStageFields() {
+    String expected =
+        """
+        id,code,name,created,lastUpdated,attributeValues,shortName,description,\
+        programStageDataElements[id,code,name,created,lastUpdated,attributeValues,shortName,description,\
+        programStage[id,code,name,created,lastUpdated,attributeValues,shortName,description],\
+        dataElement[id,code,name,created,lastUpdated,attributeValues,shortName,description,\
+        aggregationType,valueType,domainType,url,legendSets[id,code,name,created,lastUpdated,\
+        attributeValues,shortName,description],optionSet[id,code,name,created,lastUpdated,\
+        attributeValues,valueType,version]],compulsory,displayInReports,skipSynchronization,\
+        skipAnalytics,sortOrder],programStageSections[id,code,name,created,lastUpdated,\
+        attributeValues,shortName,description,programStage[id,code,name,created,lastUpdated,\
+        attributeValues,shortName,description],formName,sortOrder,\
+        dataElements[id,code,name,created,lastUpdated,attributeValues,shortName,description],\
+        programIndicators[id,code,name,created,lastUpdated,attributeValues,shortName,description]]""";
+
+    assertEquals(expected, BaseDhis2.PROGRAM_STAGE_FIELDS);
+  }
+
+  @Test
+  void testProgramFields() {
+    String expected =
+        """
+        id,code,name,created,lastUpdated,attributeValues,shortName,description,programType,\
+        trackedEntityType[id,code,name,created,lastUpdated,attributeValues,shortName,description,\
+        trackedEntityTypeAttributes[id,trackedEntityAttribute[\
+        id,code,name,created,lastUpdated,attributeValues,shortName,description,valueType,\
+        aggregationType,confidential,unique],displayInList,mandatory,searchable]],\
+        categoryCombo[id,code,name,created,lastUpdated,attributeValues,shortName,description,\
+        categories[id,code,name,created,lastUpdated,attributeValues,shortName,description,dataDimensionType,dataDimension,\
+        categoryOptions[id,code,name,created,lastUpdated,attributeValues],\
+        categoryCombos[id,code,name,created,lastUpdated,attributeValues]]],\
+        programSections[id,code,name,created,lastUpdated,attributeValues,shortName,description,sortOrder,\
+        program[id,code,name,created,lastUpdated,attributeValues,shortName,description],\
+        trackedEntityAttributes[id,code,name,created,lastUpdated,attributeValues,shortName,description]],\
+        programStages[id,code,name,created,lastUpdated,attributeValues,shortName,description,\
+        programStageDataElements[id,code,name,created,lastUpdated,attributeValues,shortName,\
+        description,programStage[id,code,name,created,lastUpdated,attributeValues,shortName,description],\
+        dataElement[id,code,name,created,lastUpdated,attributeValues,shortName,description,\
+        aggregationType,valueType,domainType,url,legendSets[id,code,name,created,lastUpdated,\
+        attributeValues,shortName,description],optionSet[id,code,name,created,lastUpdated,\
+        attributeValues,valueType,version]],compulsory,displayInReports,skipSynchronization,skipAnalytics,sortOrder],\
+        programStageSections[id,code,name,created,lastUpdated,attributeValues,shortName,\
+        description,programStage[id,code,name,created,lastUpdated,attributeValues,shortName,description],\
+        formName,sortOrder,dataElements[id,code,name,created,lastUpdated,attributeValues,shortName,description],\
+        programIndicators[id,code,name,created,lastUpdated,attributeValues,shortName,description]]],\
+        programTrackedEntityAttributes[id,code,name,program[id,code,name,created,lastUpdated,\
+        attributeValues,shortName,description],\
+        trackedEntityAttribute[id,code,name,created,lastUpdated,attributeValues,shortName,\
+        description,valueType,aggregationType,confidential,unique],sortOrder,displayInList,mandatory]""";
+
+    assertEquals(expected, BaseDhis2.PROGRAM_FIELDS);
   }
 }
