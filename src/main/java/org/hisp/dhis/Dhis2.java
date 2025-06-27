@@ -309,6 +309,20 @@ public class Dhis2 extends BaseDhis2 {
         Me.class);
   }
 
+  /**
+   * Indicates whether the current user authentication is valid.
+   *
+   * @return true if the user authentication is valid, false otherwise.
+   */
+  public boolean isValidAuth() {
+    try {
+      getMe();
+      return true;
+    } catch (Dhis2ClientException ex) {
+      return false;
+    }
+  }
+
   // -------------------------------------------------------------------------
   // Data store
   // -------------------------------------------------------------------------

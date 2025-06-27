@@ -27,8 +27,11 @@
  */
 package org.hisp.dhis;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.apache.hc.client5.http.classic.methods.HttpGet;
@@ -85,6 +88,31 @@ class Dhis2AuthTest {
     Dhis2 dhis2 = new Dhis2(config);
 
     assertNotNull(dhis2.getDataElements(Query.instance()));
+  }
+
+  @Test
+  void testGetUserAuthorization() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    List<String> authorization = dhis2.getUserAuthorization();
+
+    assertNotNull(authorization);
+    assertFalse(authorization.isEmpty());
+  }
+
+  @Test
+  void testIsValidAuthSuccess() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    assertTrue(dhis2.isValidAuth());
+  }
+
+  @Test
+  void testIsValidAuthFailure() {
+    Dhis2Config config = new Dhis2Config(TestFixture.DEFAULT_URL, "admin", "NJvPYP^uOB8mL7");
+    Dhis2 dhis2 = new Dhis2(config);
+
+    assertFalse(dhis2.isValidAuth());
   }
 
   private String getSessionId(Dhis2Config basicAuthConfig) throws Exception {
