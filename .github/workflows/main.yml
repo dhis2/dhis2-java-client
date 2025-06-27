@@ -31,8 +31,5 @@ jobs:
         env:
           SONATYPE_PORTAL_USERNAME: ${{ secrets.SONATYPE_PORTAL_USERNAME }}
           SONATYPE_PORTAL_PASSWORD: ${{ secrets.SONATYPE_PORTAL_PASSWORD }}
-          GPG_PASSPHRASE: ${{ secrets.PGP_PASSPHRASE }}
-          GPG_SECRET_KEYS: ${{ secrets.PGP_PRIVATE_KEY }}
         run: |
-          echo -e "$GPG_SECRET_KEYS" | gpg --import --no-tty --batch --yes
-          mvn clean deploy --settings .mvn/settings.xml -Dgpg.skip=false -Dmaven.test.skip=true -B
+          mvn clean deploy --settings .mvn/settings.xml -Dmaven.test.skip=true -B
