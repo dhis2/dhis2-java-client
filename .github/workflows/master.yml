@@ -29,13 +29,16 @@ jobs:
         with:
           java-version: 17
           distribution: temurin
+
       - name: Remove snapshot
         run: mvn -B versions:set -DremoveSnapshot -DgenerateBackupPoms=false
+
       - name: Release Maven package
-        uses: samuelmeuli/action-maven-publish@v1
-        with:
-          gpg_private_key: ${{ secrets.PGP_PRIVATE_KEY }}
-          gpg_passphrase: ${{ secrets.PGP_PASSPHRASE }}
-          nexus_username: ${{ secrets.SONATYPE_OSSRH_USERNAME }}
-          nexus_password: ${{ secrets.SONATYPE_OSSRH_PASSWORD }}
-          maven_profiles: "deploy"
+        env:
+          SONATYPE_PORTAL_USERNAME: ${{ secrets.SONATYPE_PORTAL_USERNAME }}
+          SONATYPE_PORTAL_PASSWORD: ${{ secrets.SONATYPE_PORTAL_PASSWORD }}
+          GPG_PASSPHRASE: ${{ secrets.PGP_PASSPHRASE }}
+          GPG_SECRET_KEYS: ${{ secrets.PGP_PRIVATE_KEY }}
+        run: |
+          echo -e "$GPG_SECRET_KEYS" | gpg --import --no-tty --batch --yes
+          mvn clean deploy --settings .mvn/settings.xml -Dgpg.skip=false -Dmaven.test.skip=true -B
