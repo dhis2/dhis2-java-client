@@ -43,11 +43,12 @@ class ConstantClassGeneratorTest {
             setIdObject(new DataElement(), "BJuEIzwRi0o", "ELEVATION", "Elevation"),
             setIdObject(new DataElement(), "RMGGvQFLsF4", "PRECIPITATION", "Precipitation"));
 
-    String actual = ConstantClassGenerator.toConstantClass("DataElement", objects);
+    String actual =
+        ConstantClassGenerator.toConstantClass("DataElement", "org.hisp.dhis2.common", objects);
 
     String expected =
         """
-        package com.bao.gateway.model.dhis2.common;
+        package org.hisp.dhis2.common;
 
         /**
          * DataElement constants.

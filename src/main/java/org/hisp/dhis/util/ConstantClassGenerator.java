@@ -52,13 +52,14 @@ public class ConstantClassGenerator {
    * Java class will contain constants for each object, where the object <code>code</code> is the
    * variable name, and the object <code>ID</code> is the value.
    *
-   * @param type the class type name.
+   * @param typeName the class type name.
+   * @param packageName the package name for the class.
    * @param objects the list of {@link IdentifiableObject}.
    * @return the string representation of the Java class.
    */
-  public static String toConstantClass(String type, List<? extends IdentifiableObject> objects) {
-    String className = toClassName(type);
-    String pckg = "com.bao.gateway.model.dhis2.common";
+  public static String toConstantClass(
+      String typeName, String packageName, List<? extends IdentifiableObject> objects) {
+    String className = toClassName(typeName);
     StringWriter writer = new StringWriter();
 
     writer.write(
@@ -71,7 +72,7 @@ public class ConstantClassGenerator {
             \s*/
             public class %s {
             """,
-            pckg, type, className));
+            packageName, typeName, className));
 
     for (IdentifiableObject object : objects) {
       String variable =
