@@ -41,7 +41,7 @@ import org.apache.commons.io.FileUtils;
 import org.hisp.dhis.model.IdentifiableObject;
 
 /**
- * Generator of string values and files for Java classes. Converts DHIS2 {@link IdentifiableObjects}
+ * Generator of string values and files for Java classes. Converts DHIS2 {@link IdentifiableObject}
  * into Java constant classes.
  */
 @Slf4j
