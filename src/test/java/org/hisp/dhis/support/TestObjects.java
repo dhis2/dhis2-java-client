@@ -30,6 +30,7 @@ package org.hisp.dhis.support;
 import java.util.Date;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.hisp.dhis.model.IdentifiableObject;
 import org.hisp.dhis.model.NameableObject;
 import org.hisp.dhis.util.UidUtils;
 
@@ -41,16 +42,51 @@ public class TestObjects {
    * @param <T>
    * @param object the {@link NameableObject}.
    * @param chr the character to use for names and codes.
-   * @return
+   * @return the object.
    */
   public static <T extends NameableObject> T set(T object, char chr) {
-    object.setId(UidUtils.generateCode(10) + chr);
-    object.setCreated(new Date());
-    object.setLastUpdated(new Date());
-    object.setCode("Code" + chr);
-    object.setName("Name" + chr);
+    setIdObject(object, chr);
     object.setShortName("ShortName" + chr);
     object.setDescription("Description" + chr);
+    return object;
+  }
+
+  /**
+   * Sets identifiable properties on the given object.
+   *
+   * @param <T>
+   * @param object the {@link IdentifiableObject}.
+   * @param chr the character to use for names and codes.
+   * @return the object.
+   */
+  public static <T extends IdentifiableObject> T setIdObject(T object, char chr) {
+    Date now = new Date();
+    object.setId(UidUtils.generateCode(10) + chr);
+    object.setCreated(now);
+    object.setLastUpdated(now);
+    object.setCode("Code" + chr);
+    object.setName("Name" + chr);
+    return object;
+  }
+
+  /**
+   * Sets identifiable properties on the given object.
+   *
+   * @param <T>
+   * @param object the {@link IdentifiableObject}.
+   * @param id the identifier.
+   * @param code the code.
+   * @param name the name.
+   * @return the object.
+   */
+  public static <T extends IdentifiableObject> T setIdObject(
+      T object, String id, String code, String name) {
+    Date now = new Date();
+    object.setId(id);
+    object.setCreated(now);
+    object.setLastUpdated(now);
+    object.setCode(code);
+    object.setName(name);
     return object;
   }
 }
