@@ -36,7 +36,7 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 @Tag(TestTags.INTEGRATION)
-class DataElementsApiTest {
+class DataElementApiTest {
   @Test
   void testGetDataElement() {
     Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
