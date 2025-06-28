@@ -34,11 +34,11 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
+import org.apache.commons.io.FileUtils;
+import org.hisp.dhis.model.IdentifiableObject;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.io.FileUtils;
-import org.hisp.dhis.model.IdentifiableObject;
 
 /**
  * Generator of string values and files for Java classes. Converts DHIS2 objects into Java constant
@@ -113,7 +113,7 @@ public class ConstantClassGenerator {
     String fileName = String.format("%s.java", className);
 
     String homeDir = System.getProperty("user.home");
-    String classDir = String.format("%s/%s/classes", targetDir, homeDir);
+    String classDir = String.format("%s/%s/classes", homeDir, targetDir);
     String filePath = String.format("%s/%s", classDir, fileName);
 
     try {
