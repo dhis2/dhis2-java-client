@@ -34,6 +34,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Objects;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -79,7 +80,7 @@ public class ConstantClassGenerator {
                     """
                     \s\spublic static final String %s = "%s";
                     """,
-                    object.getCode(), object.getId())));
+                    toJavaVariable(object.getCode()), object.getId())));
 
     writer.write(
         """
@@ -121,7 +122,7 @@ public class ConstantClassGenerator {
                     """
                     \s\s%s("%s"),
                     """,
-                    object.getCode(), object.getName())));
+                    toJavaVariable(object.getCode()), object.getName())));
 
     TextUtils.replaceLast(writer, ",", ";");
 
@@ -186,7 +187,35 @@ public class ConstantClassGenerator {
    * @param type the type to convert.
    * @return the class name.
    */
-  private static String toClassName(String type) {
+  static String toClassName(String type) {
     return String.format("%s%s", "Dhis2", type);
+  }
+
+  /**
+   * Converts a given string into a valid Java variable name.
+   *
+   * @param input The input string to convert.
+   * @return A string that is a valid Java variable name.
+   */
+  static String toJavaVariable(String input) {
+    Objects.requireNonNull(input);
+
+    // Replace hyphens and spaces with underscores
+    String result = input.replaceAll("[\\s-]", "_");
+
+    // Remove invalid characters
+    result = result.replaceAll("[^a-zA-Z0-9_]", "");
+
+    // If after cleaning, the string is empty, provide a default name
+    if (result.isEmpty()) {
+      return "_EMPTY";
+    }
+
+    // Ensure the variable name does not start with a digit
+    if (Character.isDigit(result.charAt(0))) {
+      result = "_" + result;
+    }
+
+    return result;
   }
 }
