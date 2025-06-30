@@ -79,8 +79,8 @@ public class ConstantClassGenerator {
             writer.write(
                 String.format(
                     """
-            \s\spublic static final String %s = "%s";
-            """,
+                    \s\spublic static final String %s = "%s";
+                    """,
                     object.getCode(), object.getId())));
 
     writer.write(
@@ -123,8 +123,8 @@ public class ConstantClassGenerator {
             writer.append(
                 String.format(
                     """
-        \s\s%s("%s"),
-        """,
+                    \s\s%s("%s"),
+                    """,
                     object.getCode(), object.getName())));
 
     TextUtils.replaceLast(writer, ",", ";");
