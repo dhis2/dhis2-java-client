@@ -87,7 +87,6 @@ public class TextUtils {
    * @param builder the {@link StringBuilder}.
    * @param text the text to replace.
    * @param replacement the replacement text.
-   * @return the {@link StringBuilder}.
    */
   public static void replaceLast(StringBuilder builder, String text, String replacement) {
     int lastIndex = builder.lastIndexOf(text);
