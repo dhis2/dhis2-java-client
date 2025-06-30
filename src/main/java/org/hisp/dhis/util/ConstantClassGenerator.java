@@ -35,11 +35,11 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Objects;
+import org.apache.commons.io.FileUtils;
+import org.hisp.dhis.model.IdentifiableObject;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.io.FileUtils;
-import org.hisp.dhis.model.IdentifiableObject;
 
 /**
  * Generator of string values and files for Java classes. Converts DHIS2 objects into Java constant
@@ -100,7 +100,7 @@ public class ConstantClassGenerator {
    * @param objects the list of {@link IdentifiableObject}.
    * @return the string representation of the Java enum.
    */
-  public static String toEnum(
+  public static String toValueEnum(
       String typeName, String packageName, List<? extends IdentifiableObject> objects) {
     final String className = toClassName(typeName);
     final StringBuilder writer = new StringBuilder();
@@ -146,6 +146,69 @@ public class ConstantClassGenerator {
     return writer.toString();
   }
 
+  /**
+   * Converts the given class type name and objects to a string representation of a Java enum. The
+   * Java enum will contain constants for each object, where the object <code>code</code> is the
+   * enum name, and the object <code>ID</code> is the enum value.
+   *
+   * @param typeName the class type name.
+   * @param packageName the package name for the class.
+   * @param objects the list of {@link IdentifiableObject}.
+   * @return the string representation of the Java enum.
+   */
+  public static String toNameValueEnum(
+      String typeName, String packageName, List<? extends IdentifiableObject> objects) {
+    final String className = toClassName(typeName);
+    final StringBuilder writer = new StringBuilder();
+
+    writer.append(
+        String.format(
+            """
+            package %s;
+
+            /** %s enumeration. */
+            public enum %s {
+            """,
+            packageName, typeName, className));
+
+    objects.forEach(
+        object ->
+            writer.append(
+                String.format(
+                    """
+                    \s\s%s("%s", "%s"),
+                    """,
+                    toJavaVariable(object.getCode()), object.getCode(), object.getName())));
+
+    TextUtils.replaceLast(writer, ",", ";");
+
+    writer.append(
+        String.format(
+            """
+
+            \s\sprivate final String name;
+            
+            \s\sprivate final String value;
+
+            \s\s%s(String name, String value) {
+            \s\s\s\sthis.name = name;
+            \s\s\s\sthis.value = value;
+            \s\s}
+            
+            \s\spublic String getName() {
+            \s\s\s\sreturn name;
+            \s\s}
+
+            \s\spublic String getValue() {
+            \s\s\s\sreturn value;
+            \s\s}
+            }
+            """,
+            className));
+
+    return writer.toString();
+  }
+  
   /**
    * Writes a class of the given type. The class file is written to the following location.
    *
