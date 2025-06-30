@@ -67,9 +67,7 @@ public class ConstantClassGenerator {
             """
             package %s;
 
-            /**
-            \s* %s constants.
-            \s*/
+            /** %s constants. */
             public class %s {
             """,
             packageName, typeName, className));
@@ -111,9 +109,7 @@ public class ConstantClassGenerator {
             """
             package %s;
 
-            /**
-            \s* %s enumeration.
-            \s*/
+            /** %s enumeration. */
             public enum %s {
             """,
             packageName, typeName, className));
