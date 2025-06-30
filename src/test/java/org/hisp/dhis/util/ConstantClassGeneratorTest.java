@@ -51,9 +51,7 @@ class ConstantClassGeneratorTest {
         """
         package org.hisp.dhis2.common;
 
-        /**
-         * DataElement constants.
-         */
+        /** DataElement constants. */
         public class Dhis2DataElement {
           public static final String TEMPERATURE = "MdUnibraB1i";
           public static final String ELEVATION = "BJuEIzwRi0o";
@@ -80,9 +78,7 @@ class ConstantClassGeneratorTest {
         """
         package org.hisp.dhis2.common;
 
-        /**
-         * HttpStatus enumeration.
-         */
+        /** HttpStatus enumeration. */
         public enum Dhis2HttpStatus {
           OK("200"),
           CREATED("201"),
