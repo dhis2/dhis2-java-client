@@ -35,11 +35,11 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Objects;
-import org.apache.commons.io.FileUtils;
-import org.hisp.dhis.model.IdentifiableObject;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.FileUtils;
+import org.hisp.dhis.model.IdentifiableObject;
 
 /**
  * Generator of string values and files for Java classes. Converts DHIS2 objects into Java constant
@@ -187,14 +187,14 @@ public class ConstantClassGenerator {
             """
 
             \s\sprivate final String name;
-            
+
             \s\sprivate final String value;
 
             \s\s%s(String name, String value) {
             \s\s\s\sthis.name = name;
             \s\s\s\sthis.value = value;
             \s\s}
-            
+
             \s\spublic String getName() {
             \s\s\s\sreturn name;
             \s\s}
@@ -208,7 +208,7 @@ public class ConstantClassGenerator {
 
     return writer.toString();
   }
-  
+
   /**
    * Writes a class of the given type. The class file is written to the following location.
    *

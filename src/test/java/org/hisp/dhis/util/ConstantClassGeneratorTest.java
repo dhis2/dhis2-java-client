@@ -33,6 +33,7 @@ import static org.hisp.dhis.util.ConstantClassGenerator.toJavaVariable;
 import static org.hisp.dhis.util.ConstantClassGenerator.toNameValueEnum;
 import static org.hisp.dhis.util.ConstantClassGenerator.toValueEnum;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.util.List;
 import org.hisp.dhis.model.DataElement;
 import org.hisp.dhis.model.Option;
@@ -130,26 +131,26 @@ class ConstantClassGeneratorTest {
           FOUND("FOUND", "302"),
           TEMPORARY_REDIRECT("TEMPORARY-REDIRECT", "307"),
           CONFLICT("CONFLICT", "409");
-        
+
           private final String name;
-        
+
           private final String value;
-        
+
           Dhis2HttpStatus(String name, String value) {
             this.name = name;
             this.value = value;
           }
-        
+
           public String getName() {
             return name;
           }
-        
+
           public String getValue() {
             return value;
           }
         }
         """;
-    
+
     assertEquals(expected, actual);
   }
 
