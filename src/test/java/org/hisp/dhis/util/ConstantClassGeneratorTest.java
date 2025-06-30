@@ -28,6 +28,9 @@
 package org.hisp.dhis.util;
 
 import static org.hisp.dhis.support.TestObjects.setIdObject;
+import static org.hisp.dhis.util.ConstantClassGenerator.toConstantClass;
+import static org.hisp.dhis.util.ConstantClassGenerator.toEnum;
+import static org.hisp.dhis.util.ConstantClassGenerator.toJavaVariable;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
@@ -44,8 +47,7 @@ class ConstantClassGeneratorTest {
             setIdObject(new DataElement(), "BJuEIzwRi0o", "ELEVATION", "Elevation"),
             setIdObject(new DataElement(), "RMGGvQFLsF4", "PRECIPITATION", "Precipitation"));
 
-    String actual =
-        ConstantClassGenerator.toConstantClass("DataElement", "org.hisp.dhis2.common", objects);
+    String actual = toConstantClass("DataElement", "org.hisp.dhis2.common", objects);
 
     String expected =
         """
@@ -72,7 +74,7 @@ class ConstantClassGeneratorTest {
             setIdObject(new Option(), "hZpftMUf3GG", "FOUND", "302"),
             setIdObject(new Option(), "Pxu57c55bLE", "CONFLICT", "409"));
 
-    String actual = ConstantClassGenerator.toEnum("HttpStatus", "org.hisp.dhis2.common", objects);
+    String actual = toEnum("HttpStatus", "org.hisp.dhis2.common", objects);
 
     String expected =
         """
@@ -99,5 +101,13 @@ class ConstantClassGeneratorTest {
         """;
 
     assertEquals(expected, actual);
+  }
+
+  @Test
+  void testToJavaVariable() {
+    assertEquals("MOVED_PERMANENTLY", toJavaVariable("MOVED PERMANENTLY"));
+    assertEquals("MOVED_PERMANENTLY", toJavaVariable("MOVED-PERMANENTLY"));
+    assertEquals("MOVED_PERMANENTLY", toJavaVariable("MO(V)ED-#PERM/ANENTLY"));
+    assertEquals("MOVED_PERMANENTLY", toJavaVariable("MOV&ED #PERM/ANENTLY"));
   }
 }
