@@ -29,8 +29,9 @@ package org.hisp.dhis.util;
 
 import static org.hisp.dhis.support.TestObjects.setIdObject;
 import static org.hisp.dhis.util.ConstantClassGenerator.toConstantClass;
-import static org.hisp.dhis.util.ConstantClassGenerator.toEnum;
 import static org.hisp.dhis.util.ConstantClassGenerator.toJavaVariable;
+import static org.hisp.dhis.util.ConstantClassGenerator.toNameValueEnum;
+import static org.hisp.dhis.util.ConstantClassGenerator.toValueEnum;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
@@ -65,16 +66,17 @@ class ConstantClassGeneratorTest {
   }
 
   @Test
-  void testToEnum() {
+  void testToValueEnum() {
     List<Option> objects =
         List.of(
             setIdObject(new Option(), "frDDBbpwjgf", "OK", "200"),
             setIdObject(new Option(), "DEwVRyKpmog", "CREATED", "201"),
             setIdObject(new Option(), "YscMPNMuZ12", "MOVED_PERMANENTLY", "301"),
             setIdObject(new Option(), "hZpftMUf3GG", "FOUND", "302"),
+            setIdObject(new Option(), "sBYU4b8XqFc", "TEMPORARY_REDIRECT", "307"),
             setIdObject(new Option(), "Pxu57c55bLE", "CONFLICT", "409"));
 
-    String actual = toEnum("HttpStatus", "org.hisp.dhis2.common", objects);
+    String actual = toValueEnum("HttpStatus", "org.hisp.dhis2.common", objects);
 
     String expected =
         """
@@ -86,12 +88,61 @@ class ConstantClassGeneratorTest {
           CREATED("201"),
           MOVED_PERMANENTLY("301"),
           FOUND("302"),
+          TEMPORARY_REDIRECT("307"),
           CONFLICT("409");
 
           private final String value;
 
           Dhis2HttpStatus(String value) {
             this.value = value;
+          }
+
+          public String getValue() {
+            return value;
+          }
+        }
+        """;
+
+    assertEquals(expected, actual);
+  }
+
+  @Test
+  void testToNameValueEnum() {
+    List<Option> objects =
+        List.of(
+            setIdObject(new Option(), "frDDBbpwjgf", "OK", "200"),
+            setIdObject(new Option(), "DEwVRyKpmog", "CREATED", "201"),
+            setIdObject(new Option(), "YscMPNMuZ12", "MOVED-PERMANENTLY", "301"),
+            setIdObject(new Option(), "hZpftMUf3GG", "FOUND", "302"),
+            setIdObject(new Option(), "sBYU4b8XqFc", "TEMPORARY-REDIRECT", "307"),
+            setIdObject(new Option(), "Pxu57c55bLE", "CONFLICT", "409"));
+
+    String actual = toNameValueEnum("HttpStatus", "org.hisp.dhis2.common", objects);
+
+    String expected =
+        """
+        package org.hisp.dhis2.common;
+
+        /** HttpStatus enumeration. */
+        public enum Dhis2HttpStatus {
+          OK("OK", "200"),
+          CREATED("CREATED", "201"),
+          MOVED_PERMANENTLY("MOVED-PERMANENTLY", "301"),
+          FOUND("FOUND", "302"),
+          TEMPORARY_REDIRECT("TEMPORARY-REDIRECT", "307"),
+          CONFLICT("CONFLICT", "409");
+
+          private final String name;
+
+          private final String value;
+
+          Dhis2HttpStatus(String name, String value) {
+            this.name = name;
+            this.value = value;
+          }
+
+          public String getName() {
+            return name;
           }
 
           public String getValue() {
