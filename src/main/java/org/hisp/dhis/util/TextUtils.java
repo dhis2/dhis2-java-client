@@ -80,4 +80,19 @@ public class TextUtils {
 
     return PATTTERN_VARIABLE.matcher(input).matches();
   }
+
+  /**
+   * Replaces the last instance of the given character with the given replacement character.
+   *
+   * @param builder the {@link StringBuilder}.
+   * @param text the text to replace.
+   * @param replacement the replacement text.
+   * @return the {@link StringBuilder}.
+   */
+  public static void replaceLast(StringBuilder builder, String text, String replacement) {
+    int lastIndex = builder.lastIndexOf(text);
+    if (lastIndex != -1) {
+      builder.replace(lastIndex, lastIndex + text.length(), replacement);
+    }
+  }
 }

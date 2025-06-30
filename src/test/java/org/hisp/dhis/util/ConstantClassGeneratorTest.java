@@ -32,6 +32,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
 import org.hisp.dhis.model.DataElement;
+import org.hisp.dhis.model.Option;
 import org.junit.jupiter.api.Test;
 
 class ConstantClassGeneratorTest {
@@ -57,6 +58,47 @@ class ConstantClassGeneratorTest {
           public static final String TEMPERATURE = "MdUnibraB1i";
           public static final String ELEVATION = "BJuEIzwRi0o";
           public static final String PRECIPITATION = "RMGGvQFLsF4";
+        }
+        """;
+
+    assertEquals(expected, actual);
+  }
+
+  @Test
+  void testToEnum() {
+    List<Option> objects =
+        List.of(
+            setIdObject(new Option(), "frDDBbpwjgf", "OK", "200"),
+            setIdObject(new Option(), "DEwVRyKpmog", "CREATED", "201"),
+            setIdObject(new Option(), "YscMPNMuZ12", "MOVED_PERMANENTLY", "301"),
+            setIdObject(new Option(), "hZpftMUf3GG", "FOUND", "302"),
+            setIdObject(new Option(), "Pxu57c55bLE", "CONFLICT", "409"));
+
+    String actual = ConstantClassGenerator.toEnum("HttpStatus", "org.hisp.dhis2.common", objects);
+
+    String expected =
+        """
+        package org.hisp.dhis2.common;
+
+        /**
+         * HttpStatus enumeration.
+         */
+        public enum Dhis2HttpStatus {
+          OK("200"),
+          CREATED("201"),
+          MOVED_PERMANENTLY("301"),
+          FOUND("302"),
+          CONFLICT("409");
+
+          private final String value;
+
+          Dhis2HttpStatus(String value) {
+            this.value = value;
+          }
+
+          public String getValue() {
+            return value;
+          }
         }
         """;
 

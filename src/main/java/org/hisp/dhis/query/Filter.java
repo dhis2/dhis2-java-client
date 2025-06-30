@@ -27,7 +27,7 @@
  */
 package org.hisp.dhis.query;
 
-import java.util.List;
+import java.util.Collection;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -165,7 +165,7 @@ public class Filter {
    * @param values the filter values.
    * @return a {@link Filter}.
    */
-  public static Filter in(String property, List<String> values) {
+  public static Filter in(String property, Collection<String> values) {
     return new Filter(property, Operator.IN, values);
   }
 }

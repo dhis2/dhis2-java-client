@@ -34,11 +34,11 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
-import org.apache.commons.io.FileUtils;
-import org.hisp.dhis.model.IdentifiableObject;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.FileUtils;
+import org.hisp.dhis.model.IdentifiableObject;
 
 /**
  * Generator of string values and files for Java classes. Converts DHIS2 objects into Java constant
@@ -74,19 +74,77 @@ public class ConstantClassGenerator {
             """,
             packageName, typeName, className));
 
-    for (IdentifiableObject object : objects) {
-      String variable =
-          String.format(
-              """
-              \s\spublic static final String %s = "%s";
-              """,
-              object.getCode(), object.getId());
-      writer.write(variable);
-    }
+    objects.forEach(
+        object ->
+            writer.write(
+                String.format(
+                    """
+            \s\spublic static final String %s = "%s";
+            """,
+                    object.getCode(), object.getId())));
+
     writer.write(
         """
         }
         """);
+
+    return writer.toString();
+  }
+
+  /**
+   * Converts the given class type name and objects to a string representation of a Java enum. The
+   * Java enum will contain constants for each object, where the object <code>code</code> is the
+   * enum name, and the object <code>ID</code> is the enum value.
+   *
+   * @param typeName the class type name.
+   * @param packageName the package name for the class.
+   * @param objects the list of {@link IdentifiableObject}.
+   * @return the string representation of the Java enum.
+   */
+  public static String toEnum(
+      String typeName, String packageName, List<? extends IdentifiableObject> objects) {
+    final String className = toClassName(typeName);
+    final StringBuilder writer = new StringBuilder();
+
+    writer.append(
+        String.format(
+            """
+            package %s;
+
+            /**
+            \s* %s enumeration.
+            \s*/
+            public enum %s {
+            """,
+            packageName, typeName, className));
+
+    objects.forEach(
+        object ->
+            writer.append(
+                String.format(
+                    """
+        \s\s%s("%s"),
+        """,
+                    object.getCode(), object.getName())));
+
+    TextUtils.replaceLast(writer, ",", ";");
+
+    writer.append(
+        String.format(
+            """
+
+            \s\sprivate final String value;
+
+            \s\s%s(String value) {
+            \s\s\s\sthis.value = value;
+            \s\s}
+
+            \s\spublic String getValue() {
+            \s\s\s\sreturn value;
+            \s\s}
+            }
+            """,
+            className));
 
     return writer.toString();
   }

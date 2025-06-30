@@ -61,4 +61,22 @@ class TextUtilsTest {
     assertFalse(TextUtils.isVariable("blue_color"));
     assertFalse(TextUtils.isVariable("blue${color}"));
   }
+
+  @Test
+  void testReplaceLastSuccess() {
+    StringBuilder builder = new StringBuilder("OK,CREATED,FOUND,CONFLICT,");
+    TextUtils.replaceLast(builder, ",", ";");
+    String expected = "OK,CREATED,FOUND,CONFLICT;";
+
+    assertEquals(expected, builder.toString());
+  }
+
+  @Test
+  void testReplaceNotFound() {
+    StringBuilder builder = new StringBuilder("OK,CREATED,FOUND,CONFLICT,");
+    TextUtils.replaceLast(builder, "-", ";");
+    String expected = "OK,CREATED,FOUND,CONFLICT,";
+
+    assertEquals(expected, builder.toString());
+  }
 }
