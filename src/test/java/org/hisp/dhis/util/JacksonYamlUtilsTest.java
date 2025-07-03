@@ -36,7 +36,7 @@ import org.hisp.dhis.model.Container;
 import org.hisp.dhis.model.Product;
 import org.junit.jupiter.api.Test;
 
-class JacksonYamUtilsTest {
+class JacksonYamlUtilsTest {
   @Test
   void testToYamlObject() {
     String expected =
@@ -49,7 +49,7 @@ class JacksonYamUtilsTest {
     object.setId("YDb6ff4R3a8");
     object.setName("ThinkPadT14s");
 
-    String actual = JacksonYamUtils.toYamlString(object);
+    String actual = JacksonYamlUtils.toYamlString(object);
 
     assertEquals(expected, actual);
   }
@@ -75,7 +75,7 @@ class JacksonYamUtilsTest {
 
     Container products = new Container(List.of(pA, pB));
 
-    String actual = JacksonYamUtils.toYamlString(products);
+    String actual = JacksonYamlUtils.toYamlString(products);
 
     assertEquals(expected, actual);
   }
@@ -91,7 +91,7 @@ class JacksonYamUtilsTest {
           name: "Dell XPS 13"
         """;
 
-    Container container = JacksonYamUtils.fromYaml(yaml, Container.class);
+    Container container = JacksonYamlUtils.fromYaml(yaml, Container.class);
 
     assertNotNull(container);
     assertNotEmpty(container.getProducts());
