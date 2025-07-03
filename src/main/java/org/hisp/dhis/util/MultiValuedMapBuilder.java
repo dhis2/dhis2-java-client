@@ -27,62 +27,47 @@
  */
 package org.hisp.dhis.util;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
+import org.apache.commons.collections4.MultiValuedMap;
+import org.apache.commons.collections4.multimap.ArrayListValuedHashMap;
 
-/** Utilities for numbers. */
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class NumberUtils {
-  /**
-   * Scales (rounds) the given double value to the given scale.
-   *
-   * @param value the double value.
-   * @param scale the scale or decimals.
-   * @return the scaled value.
-   */
-  public static double round(double value, int scale) {
-    return new BigDecimal(value).setScale(scale, RoundingMode.HALF_UP).doubleValue();
+/**
+ * Builder of multivalued maps.
+ *
+ * <p>Example usage:
+ *
+ * <pre>{@code
+ * MultiValuedMap<K, V> = new MultiValuedMapBuilder<K, V>()
+ *   .put(key, value)
+ *   .put(key, value2)
+ *   .put(key2, value3)
+ *   .build();
+ * }</pre>
+ */
+public class MultiValuedMapBuilder<K, V> {
+  private final MultiValuedMap<K, V> map;
+
+  public MultiValuedMapBuilder() {
+    map = new ArrayListValuedHashMap<>();
   }
 
   /**
-   * Converts the given integer to a string.
+   * Associates the specified value with the specified key in this map.
    *
-   * @param number the integer.
-   * @return a string.
+   * @param key the key.
+   * @param value the value.
+   * @return this {@link MultiValuedMapBuilder}.
    */
-  public static String toString(Integer number) {
-    return number == null ? null : String.valueOf(number);
+  public MultiValuedMapBuilder<K, V> put(K key, V value) {
+    this.map.put(key, value);
+    return this;
   }
 
   /**
-   * Converts the given double to a string.
+   * Builds the multivalued map.
    *
-   * @param number the integer.
-   * @return a string.
+   * @return the {@link MultiValuedMap}.
    */
-  public static String toString(Double number) {
-    return number == null ? null : String.valueOf(number);
-  }
-
-  /**
-   * Converts the given string to an integer.
-   *
-   * @param string the string.
-   * @return an integer.
-   */
-  public static Integer toInteger(String string) {
-    return org.apache.commons.lang3.math.NumberUtils.createInteger(string);
-  }
-
-  /**
-   * Converts the given string to an double.
-   *
-   * @param string the string.
-   * @return an integer.
-   */
-  public static Double toDouble(String string) {
-    return org.apache.commons.lang3.math.NumberUtils.createDouble(string);
+  public MultiValuedMap<K, V> build() {
+    return this.map;
   }
 }

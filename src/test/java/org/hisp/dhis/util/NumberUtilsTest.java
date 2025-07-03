@@ -27,62 +27,45 @@
  */
 package org.hisp.dhis.util;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
+import static org.junit.jupiter.api.Assertions.*;
 
-/** Utilities for numbers. */
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class NumberUtils {
-  /**
-   * Scales (rounds) the given double value to the given scale.
-   *
-   * @param value the double value.
-   * @param scale the scale or decimals.
-   * @return the scaled value.
-   */
-  public static double round(double value, int scale) {
-    return new BigDecimal(value).setScale(scale, RoundingMode.HALF_UP).doubleValue();
+import org.junit.jupiter.api.Test;
+
+class NumberUtilsTest {
+  @Test
+  void testRound() {
+    assertEquals(124.0, NumberUtils.round(123.988, 1));
+    assertEquals(123.4, NumberUtils.round(123.411, 1));
+    assertEquals(123.0, NumberUtils.round(123.011, 1));
   }
 
-  /**
-   * Converts the given integer to a string.
-   *
-   * @param number the integer.
-   * @return a string.
-   */
-  public static String toString(Integer number) {
-    return number == null ? null : String.valueOf(number);
+  @Test
+  void testToInteger() {
+    assertEquals(643, NumberUtils.toInteger("643"));
+    assertEquals(4, NumberUtils.toInteger("4"));
+    assertNull(NumberUtils.toInteger(null));
   }
 
-  /**
-   * Converts the given double to a string.
-   *
-   * @param number the integer.
-   * @return a string.
-   */
-  public static String toString(Double number) {
-    return number == null ? null : String.valueOf(number);
+  @Test
+  void testToString() {
+    assertEquals("643", NumberUtils.toString(643));
+    assertEquals("4", NumberUtils.toString(4));
+    assertNull(NumberUtils.toString((Integer) null));
   }
 
-  /**
-   * Converts the given string to an integer.
-   *
-   * @param string the string.
-   * @return an integer.
-   */
-  public static Integer toInteger(String string) {
-    return org.apache.commons.lang3.math.NumberUtils.createInteger(string);
+  @Test
+  void testToDouble() {
+    assertEquals(643.2, NumberUtils.toDouble("643.2"));
+    assertEquals(4.55, NumberUtils.toDouble("4.55"));
+    assertEquals(42, NumberUtils.toDouble("42"));
+    assertNull(NumberUtils.toDouble(null));
   }
 
-  /**
-   * Converts the given string to an double.
-   *
-   * @param string the string.
-   * @return an integer.
-   */
-  public static Double toDouble(String string) {
-    return org.apache.commons.lang3.math.NumberUtils.createDouble(string);
+  @Test
+  void testDoubleToString() {
+    assertEquals("643.88", NumberUtils.toString(643.88));
+    assertEquals("4.1", NumberUtils.toString(4.1));
+    assertEquals("10", NumberUtils.toString(10));
+    assertNull(NumberUtils.toString((Double) null));
   }
 }
