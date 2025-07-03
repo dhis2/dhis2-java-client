@@ -28,22 +28,54 @@
 package org.hisp.dhis.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
+import java.util.List;
+import org.hisp.dhis.model.Container;
 import org.hisp.dhis.model.Product;
 import org.junit.jupiter.api.Test;
 
 class JacksonXmlUtilsTest {
   @Test
-  void testToXmlString() {
+  void testToXmlStringObject() {
     String expected =
         """
-        <product><id>YDb6ff4R3a8</id><name>ThinkPadT14s</name></product>""";
+        <product><id>YDb6ff4R3a8</id><name>ThinkPadT14s</name></product>\
+        """;
 
     Product object = new Product();
     object.setId("YDb6ff4R3a8");
     object.setName("ThinkPadT14s");
 
     String actual = JacksonXmlUtils.toXmlString(object);
+
+    assertEquals(expected, actual);
+  }
+  @Test
+  void testToXmlStringObjectList() {
+    String expected =
+        """
+        <container>\
+        <products>\
+        <product>\
+        <id>YDb6ff4R3a8</id><name>ThinkPad T14s</name>\
+        </product>\
+        <product>\
+        <id>p84TSR7yXnc</id><name>Dell XPS 13</name>\
+        </product>\
+        </products>\
+        </container>\
+        """;
+
+    Product pA = new Product();
+    pA.setId("YDb6ff4R3a8");
+    pA.setName("ThinkPad T14s");
+    
+    Product pB = new Product();
+    pB.setId("p84TSR7yXnc");
+    pB.setName("Dell XPS 13");
+
+    Container products = new Container(List.of(pA, pB));
+    
+    String actual = JacksonXmlUtils.toXmlString(products);
 
     assertEquals(expected, actual);
   }

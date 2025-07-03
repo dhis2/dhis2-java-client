@@ -48,7 +48,7 @@ public class JacksonUtils {
   private static final ObjectMapper OBJECT_MAPPER;
 
   static {
-    OBJECT_MAPPER = getObjectMapperInternal();
+    OBJECT_MAPPER = getMapper();
   }
 
   /**
@@ -65,7 +65,7 @@ public class JacksonUtils {
    *
    * @return an {@link ObjectMapper}.
    */
-  private static ObjectMapper getObjectMapperInternal() {
+  private static ObjectMapper getMapper() {
     ObjectMapper objectMapper = new ObjectMapper();
     objectMapper.registerModule(new JtsModule());
     objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
