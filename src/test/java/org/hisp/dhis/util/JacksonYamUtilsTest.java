@@ -28,6 +28,7 @@
 package org.hisp.dhis.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.util.List;
 import org.hisp.dhis.model.Container;
 import org.hisp.dhis.model.Product;
@@ -50,7 +51,7 @@ class JacksonYamUtilsTest {
 
     assertEquals(expected, actual);
   }
-  
+
   @Test
   void testToYamlObjects() {
     String expected =
@@ -76,7 +77,6 @@ class JacksonYamUtilsTest {
 
     assertEquals(expected, actual);
   }
-  
 
   String yaml =
       """

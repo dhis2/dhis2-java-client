@@ -149,14 +149,14 @@ public class JacksonUtils {
   /**
    * Deserializes JSON from the given {@link InputStream} into an object of the specified type.
    *
-   * @param input the {@link InputStream} containing JSON data.
+   * @param in the {@link InputStream} containing JSON data.
    * @param type the class of the target type.
    * @param <T> the type of the object to return.
    * @return an object of type T.
    */
-  public static <T> T fromJson(InputStream input, Class<T> type) {
+  public static <T> T fromJson(InputStream in, Class<T> type) {
     try {
-      return OBJECT_MAPPER.readValue(input, type);
+      return OBJECT_MAPPER.readValue(in, type);
     } catch (IOException ex) {
       throw new UncheckedIOException(ex);
     }

@@ -93,7 +93,7 @@ public class JacksonYamUtils {
   /**
    * Deserializes YAML from the given {@link InputStream} into an object of the specified type.
    *
-   * @param input the {@link InputStream} containing YAML data.
+   * @param in the {@link InputStream} containing YAML data.
    * @param type the class of the target type.
    * @param <T> the type of the object to return.
    * @return an object of type T.
