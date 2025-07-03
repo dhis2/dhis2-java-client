@@ -66,11 +66,7 @@
   </properties>
 
   <dependencies>
-    <dependency>
-      <groupId>org.apache.httpcomponents.client5</groupId>
-      <artifactId>httpclient5</artifactId>
-      <version>${httpclient5.version}</version>
-    </dependency>
+    <!-- Apache Commons -->
     <dependency>
       <groupId>commons-io</groupId>
       <artifactId>commons-io</artifactId>
@@ -91,22 +87,7 @@
       <artifactId>commons-codec</artifactId>
       <version>${commons-codec.version}</version>
     </dependency>
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-api</artifactId>
-      <version>${slf4j.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-simple</artifactId>
-      <version>${slf4j.version}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.maven</groupId>
-      <artifactId>maven-artifact</artifactId>
-      <version>${maven-artifact.version}</version>
-    </dependency>
+    <!-- Jackson -->
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-core</artifactId>
@@ -123,9 +104,32 @@
       <version>${jackson.version}</version>
     </dependency>
     <dependency>
+      <groupId>com.graphhopper.external</groupId>
+      <artifactId>jackson-datatype-jts</artifactId>
+      <version>${jackson-datatype-jts.version}</version>
+    </dependency>
+    <dependency>
       <groupId>com.fasterxml.jackson.dataformat</groupId>
       <artifactId>jackson-dataformat-xml</artifactId>
       <version>${jackson.version}</version>
+    </dependency>
+    <!-- SLF4J -->
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>${slf4j.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-simple</artifactId>
+      <version>${slf4j.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <!-- Other -->
+    <dependency>
+      <groupId>org.apache.httpcomponents.client5</groupId>
+      <artifactId>httpclient5</artifactId>
+      <version>${httpclient5.version}</version>
     </dependency>
     <dependency>
       <groupId>org.locationtech.jts.io</groupId>
@@ -138,15 +142,9 @@
       <version>${jts.version}</version>
     </dependency>
     <dependency>
-      <groupId>com.graphhopper.external</groupId>
-      <artifactId>jackson-datatype-jts</artifactId>
-      <version>${jackson-datatype-jts.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.projectlombok</groupId>
-      <artifactId>lombok</artifactId>
-      <version>${lombok.version}</version>
-      <scope>provided</scope>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-artifact</artifactId>
+      <version>${maven-artifact.version}</version>
     </dependency>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
