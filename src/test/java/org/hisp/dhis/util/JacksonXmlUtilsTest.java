@@ -27,7 +27,9 @@
  */
 package org.hisp.dhis.util;
 
+import static org.hisp.dhis.support.Assertions.assertNotEmpty;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.List;
 import org.hisp.dhis.model.Container;
@@ -80,6 +82,30 @@ class JacksonXmlUtilsTest {
     String actual = JacksonXmlUtils.toXmlString(products);
 
     assertEquals(expected, actual);
+  }
+
+  @Test
+  void testFromXmlString() {
+    String xml =
+        """
+        <container>\
+          <products>\
+            <product>\
+              <id>YDb6ff4R3a8</id>
+              <name>ThinkPad T14s</name>\
+            </product>\
+            <product>\
+              <id>p84TSR7yXnc</id>
+              <name>Dell XPS 13</name>\
+            </product>\
+          </products>\
+        </container>\
+        """;
+
+    Container container = JacksonXmlUtils.fromXml(xml, Container.class);
+
+    assertNotNull(container);
+    assertNotEmpty(container.getProducts());
   }
 
   @Test

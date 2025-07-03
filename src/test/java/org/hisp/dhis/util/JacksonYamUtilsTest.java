@@ -27,7 +27,9 @@
  */
 package org.hisp.dhis.util;
 
+import static org.hisp.dhis.support.Assertions.assertNotEmpty;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.List;
 import org.hisp.dhis.model.Container;
@@ -78,25 +80,20 @@ class JacksonYamUtilsTest {
     assertEquals(expected, actual);
   }
 
-  String yaml =
-      """
+  @Test
+  void testFromYaml() {
+    String yaml =
+        """
+        products:
+        - id: "YDb6ff4R3a8"
+          name: "ThinkPad T14s"
+        - id: "p84TSR7yXnc"
+          name: "Dell XPS 13"
+        """;
 
-      definitions:
-        caches:
-          sonar: ~/.sonar/cache
-        services:
-          docker:
-            memory: 2048
-          redis:
-            image: redis:alpine
-        steps:
-          - step: &check-formatting
-              size: 4x
-              name: Check formatting
-              caches:
-                - maven
-              script:
-                # Check code formatting with Spotless
-                - mvn -B -f analytics-platform/pom.xml spotless:check
-          """;
+    Container container = JacksonYamUtils.fromYaml(yaml, Container.class);
+
+    assertNotNull(container);
+    assertNotEmpty(container.getProducts());
+  }
 }
