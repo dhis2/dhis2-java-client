@@ -41,14 +41,15 @@ class JacksonXmlUtilsTest {
         <product><id>YDb6ff4R3a8</id><name>ThinkPadT14s</name></product>\
         """;
 
-    Product object = new Product();
-    object.setId("YDb6ff4R3a8");
-    object.setName("ThinkPadT14s");
+    Product product = new Product();
+    product.setId("YDb6ff4R3a8");
+    product.setName("ThinkPadT14s");
 
-    String actual = JacksonXmlUtils.toXmlString(object);
+    String actual = JacksonXmlUtils.toXmlString(product);
 
     assertEquals(expected, actual);
   }
+
   @Test
   void testToXmlStringObjectList() {
     String expected =
@@ -68,13 +69,13 @@ class JacksonXmlUtilsTest {
     Product pA = new Product();
     pA.setId("YDb6ff4R3a8");
     pA.setName("ThinkPad T14s");
-    
+
     Product pB = new Product();
     pB.setId("p84TSR7yXnc");
     pB.setName("Dell XPS 13");
 
     Container products = new Container(List.of(pA, pB));
-    
+
     String actual = JacksonXmlUtils.toXmlString(products);
 
     assertEquals(expected, actual);

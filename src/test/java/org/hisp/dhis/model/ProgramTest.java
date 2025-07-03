@@ -29,6 +29,7 @@ package org.hisp.dhis.model;
 
 import static org.hisp.dhis.support.Assertions.assertContainsExactlyInOrder;
 import static org.hisp.dhis.support.TestObjects.set;
+
 import java.util.List;
 import org.hisp.dhis.support.TestTags;
 import org.junit.jupiter.api.Tag;
