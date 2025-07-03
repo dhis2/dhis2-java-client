@@ -27,17 +27,17 @@
  */
 package org.hisp.dhis.util;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.UncheckedIOException;
+import java.text.SimpleDateFormat;
 import com.bedatadriven.jackson.datatype.jts.JtsModule;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.UncheckedIOException;
-import java.text.SimpleDateFormat;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -97,6 +97,20 @@ public class JacksonUtils {
   public static String toJsonString(Object value) {
     try {
       return OBJECT_MAPPER.writeValueAsString(value);
+    } catch (IOException ex) {
+      throw new UncheckedIOException(ex);
+    }
+  }
+
+  /**
+   * Serializes the given object to JSON and returns the result as a formatted String.
+   *
+   * @param value the object value to serialize.
+   * @return a JSON representation of the given object as a formatted String.
+   */
+  public static String toFormattedJsonString(Object value) {
+    try {
+      return OBJECT_MAPPER.writerWithDefaultPrettyPrinter().writeValueAsString(value);
     } catch (IOException ex) {
       throw new UncheckedIOException(ex);
     }
