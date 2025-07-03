@@ -48,4 +48,25 @@ class JacksonUtilsTest {
 
     assertEquals(expected, actual);
   }
+
+  @Test
+  void testToFormattedJsonString() {
+    String expected =
+        """
+        {
+          "id" : "YDb6ff4R3a8",
+          "code" : "NEG",
+          "name" : "Negative",
+          "attributeValues" : [ ]
+        }""";
+
+    Option option = new Option();
+    option.setId("YDb6ff4R3a8");
+    option.setCode("NEG");
+    option.setName("Negative");
+
+    String actual = JacksonUtils.toFormattedJsonString(option);
+
+    assertEquals(expected, actual);
+  }
 }

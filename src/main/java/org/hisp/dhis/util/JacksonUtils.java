@@ -103,6 +103,20 @@ public class JacksonUtils {
   }
 
   /**
+   * Serializes the given object to JSON and returns the result as a formatted String.
+   *
+   * @param value the object value to serialize.
+   * @return a JSON representation of the given object as a formatted String.
+   */
+  public static String toFormattedJsonString(Object value) {
+    try {
+      return OBJECT_MAPPER.writerWithDefaultPrettyPrinter().writeValueAsString(value);
+    } catch (IOException ex) {
+      throw new UncheckedIOException(ex);
+    }
+  }
+
+  /**
    * Converts the given JSON string into a {@link JsonNode}.
    *
    * @param value the JSON string to convert.
