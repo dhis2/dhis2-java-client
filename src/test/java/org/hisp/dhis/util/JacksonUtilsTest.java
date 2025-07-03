@@ -28,6 +28,7 @@
 package org.hisp.dhis.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.hisp.dhis.model.Option;
 import org.junit.jupiter.api.Test;
 
@@ -47,7 +48,7 @@ class JacksonUtilsTest {
 
     assertEquals(expected, actual);
   }
-  
+
   @Test
   void testToFormattedJsonString() {
     String expected =
