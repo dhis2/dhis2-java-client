@@ -27,25 +27,85 @@
  */
 package org.hisp.dhis.util;
 
+import static org.hisp.dhis.support.Assertions.assertNotEmpty;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import java.util.List;
+import org.hisp.dhis.model.Container;
 import org.hisp.dhis.model.Product;
 import org.junit.jupiter.api.Test;
 
 class JacksonXmlUtilsTest {
   @Test
-  void testToXmlString() {
+  void testToXmlStringObject() {
     String expected =
         """
-        <product><id>YDb6ff4R3a8</id><name>ThinkPadT14s</name></product>""";
+        <product><id>YDb6ff4R3a8</id><name>ThinkPadT14s</name></product>\
+        """;
 
-    Product object = new Product();
-    object.setId("YDb6ff4R3a8");
-    object.setName("ThinkPadT14s");
+    Product product = new Product();
+    product.setId("YDb6ff4R3a8");
+    product.setName("ThinkPadT14s");
 
-    String actual = JacksonXmlUtils.toXmlString(object);
+    String actual = JacksonXmlUtils.toXmlString(product);
 
     assertEquals(expected, actual);
+  }
+
+  @Test
+  void testToXmlStringObjectList() {
+    String expected =
+        """
+        <container>\
+        <products>\
+        <product>\
+        <id>YDb6ff4R3a8</id><name>ThinkPad T14s</name>\
+        </product>\
+        <product>\
+        <id>p84TSR7yXnc</id><name>Dell XPS 13</name>\
+        </product>\
+        </products>\
+        </container>\
+        """;
+
+    Product pA = new Product();
+    pA.setId("YDb6ff4R3a8");
+    pA.setName("ThinkPad T14s");
+
+    Product pB = new Product();
+    pB.setId("p84TSR7yXnc");
+    pB.setName("Dell XPS 13");
+
+    Container products = new Container(List.of(pA, pB));
+
+    String actual = JacksonXmlUtils.toXmlString(products);
+
+    assertEquals(expected, actual);
+  }
+
+  @Test
+  void testFromXmlString() {
+    String xml =
+        """
+        <container>\
+          <products>\
+            <product>\
+              <id>YDb6ff4R3a8</id>
+              <name>ThinkPad T14s</name>\
+            </product>\
+            <product>\
+              <id>p84TSR7yXnc</id>
+              <name>Dell XPS 13</name>\
+            </product>\
+          </products>\
+        </container>\
+        """;
+
+    Container container = JacksonXmlUtils.fromXml(xml, Container.class);
+
+    assertNotNull(container);
+    assertNotEmpty(container.getProducts());
   }
 
   @Test

@@ -58,7 +58,7 @@ public class JacksonXmlUtils {
   private static final XmlMapper XML_MAPPER;
 
   static {
-    XML_MAPPER = getXmlMapperInternal();
+    XML_MAPPER = getMapper();
   }
 
   /**
@@ -85,11 +85,11 @@ public class JacksonXmlUtils {
   }
 
   /**
-   * Creates and configures a new {@link XmlMapper} instance with default settings.
+   * Creates and configures a new {@link XmlMapper} instance.
    *
    * @return a new {@link XmlMapper} instance.
    */
-  private static XmlMapper getXmlMapperInternal() {
+  private static XmlMapper getMapper() {
     XmlMapper xmlMapper = new XmlMapper();
     xmlMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
     xmlMapper.disable(DeserializationFeature.FAIL_ON_IGNORED_PROPERTIES);
@@ -146,14 +146,14 @@ public class JacksonXmlUtils {
   /**
    * Deserializes XML from the given {@link InputStream} into an object of the specified type.
    *
-   * @param input the {@link InputStream} containing XML data.
+   * @param in the {@link InputStream} containing XML data.
    * @param type the class of the target type.
    * @param <T> the type of the object to return.
    * @return an object of type T.
    */
-  public static <T> T fromXml(InputStream input, Class<T> type) {
+  public static <T> T fromXml(InputStream in, Class<T> type) {
     try {
-      return XML_MAPPER.readValue(input, type);
+      return XML_MAPPER.readValue(in, type);
     } catch (IOException ex) {
       throw new UncheckedIOException(ex);
     }

@@ -48,7 +48,7 @@ public class JacksonUtils {
   private static final ObjectMapper OBJECT_MAPPER;
 
   static {
-    OBJECT_MAPPER = getObjectMapperInternal();
+    OBJECT_MAPPER = getMapper();
   }
 
   /**
@@ -65,7 +65,7 @@ public class JacksonUtils {
    *
    * @return an {@link ObjectMapper}.
    */
-  private static ObjectMapper getObjectMapperInternal() {
+  private static ObjectMapper getMapper() {
     ObjectMapper objectMapper = new ObjectMapper();
     objectMapper.registerModule(new JtsModule());
     objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
@@ -149,14 +149,14 @@ public class JacksonUtils {
   /**
    * Deserializes JSON from the given {@link InputStream} into an object of the specified type.
    *
-   * @param input the {@link InputStream} containing JSON data.
+   * @param in the {@link InputStream} containing JSON data.
    * @param type the class of the target type.
    * @param <T> the type of the object to return.
    * @return an object of type T.
    */
-  public static <T> T fromJson(InputStream input, Class<T> type) {
+  public static <T> T fromJson(InputStream in, Class<T> type) {
     try {
-      return OBJECT_MAPPER.readValue(input, type);
+      return OBJECT_MAPPER.readValue(in, type);
     } catch (IOException ex) {
       throw new UncheckedIOException(ex);
     }
