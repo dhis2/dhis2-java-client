@@ -30,7 +30,6 @@ package org.hisp.dhis;
 import static org.hisp.dhis.Constants.SUPER_ADMIN_AUTH;
 import static org.hisp.dhis.util.CollectionUtils.asList;
 import static org.hisp.dhis.util.CollectionUtils.list;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -544,8 +543,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return true if the object exists.
    */
   public boolean isOrgUnit(String id) {
-    return objectExists(
-        config.getResolvedUriBuilder().appendPath("organisationUnits").appendPath(id));
+    return objectExists("organisationUnits", id);
   }
 
   /**
@@ -683,6 +681,16 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   /**
+   * Indicates whether an {@link OrgUnitGroup} exists.
+   *
+   * @param id the object identifier.
+   * @return true if the object exists.
+   */
+  public boolean isOrgUnitGroup(String id) {
+    return objectExists("organisationUnitGroups", id);
+  }
+
+  /**
    * Retrieves a list of {@link OrgUnitGroup}.
    *
    * @param query the {@link Query}.
@@ -776,6 +784,16 @@ public class Dhis2 extends BaseDhis2 {
             .addParameter(FIELDS_PARAM, ORG_UNIT_GROUP_SET_FIELDS),
         Query.instance(),
         OrgUnitGroupSet.class);
+  }
+
+  /**
+   * Indicates whether an {@link OrgUnitGroupSet} exists.
+   *
+   * @param id the object identifier.
+   * @return true if the object exists.
+   */
+  public boolean isOrgUnitGroupSet(String id) {
+    return objectExists("organisationUnitGroupSets", id);
   }
 
   /**
@@ -914,6 +932,16 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   /**
+   * Indicates whether a {@link CategoryOption} exists.
+   *
+   * @param id the object identifier.
+   * @return true if the object exists.
+   */
+  public boolean isCategoryOption(String id) {
+    return objectExists("categoryOptions", id);
+  }
+
+  /**
    * Retrieves a list of {@link CategoryOption}.
    *
    * @param query the {@link Query}.
@@ -1005,7 +1033,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return true if the object exists.
    */
   public boolean isCategory(String id) {
-    return objectExists(config.getResolvedUriBuilder().appendPath("categories").appendPath(id));
+    return objectExists("categories", id);
   }
 
   /**
@@ -1068,6 +1096,16 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   /**
+   * Indicates whether a {@link CategoryCombo} exists.
+   *
+   * @param id the object identifier.
+   * @return true if the object exists.
+   */
+  public boolean isCategoryCombo(String id) {
+    return objectExists("categoryCombos", id);
+  }
+
+  /**
    * Retrieves a list of {@link CategoryCombo}.
    *
    * @param query the {@link Query}.
@@ -1104,6 +1142,16 @@ public class Dhis2 extends BaseDhis2 {
             .addParameter(FIELDS_PARAM, CATEGORY_OPTION_COMBO_FIELDS),
         Query.instance(),
         CategoryOptionCombo.class);
+  }
+
+  /**
+   * Indicates whether a {@link CategoryOptionCombo} exists.
+   *
+   * @param id the object identifier.
+   * @return true if the object exists.
+   */
+  public boolean isCategoryOptionCombo(String id) {
+    return objectExists("categoryOptionCombos", id);
   }
 
   /**
@@ -1192,7 +1240,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return true if the object exists.
    */
   public boolean isDataElement(String id) {
-    return objectExists(config.getResolvedUriBuilder().appendPath("dataElements").appendPath(id));
+    return objectExists("dataElements", id);
   }
 
   /**
@@ -1287,6 +1335,16 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   /**
+   * Indicates whether a {@link DataElementGroup} exists.
+   *
+   * @param id the object identifier.
+   * @return true if the object exists.
+   */
+  public boolean isDataElementGroup(String id) {
+    return objectExists("dataElementGroups", id);
+  }
+
+  /**
    * Retrieves a list of {@link DataElementGroup}.
    *
    * @param query the {@link Query}.
@@ -1340,6 +1398,16 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   /**
+   * Indicates whether a {@link DataElementGroupSet} exists.
+   *
+   * @param id the object identifier.
+   * @return true if the object exists.
+   */
+  public boolean isDataElementGroupSet(String id) {
+    return objectExists("dataElementGroupSets", id);
+  }
+
+  /**
    * Retrieves a list of {@link DataElementGroupSet}.
    *
    * @param query the {@link Query}.
@@ -1376,6 +1444,16 @@ public class Dhis2 extends BaseDhis2 {
             .addParameter(FIELDS_PARAM, DOCUMENT_FIELDS),
         Query.instance(),
         Document.class);
+  }
+
+  /**
+   * Indicates whether a {@link Document} exists.
+   *
+   * @param id the object identifier.
+   * @return true if the object exists.
+   */
+  public boolean isDocument(String id) {
+    return objectExists("documents", id);
   }
 
   /**
@@ -1448,6 +1526,16 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   /**
+   * Indicates whether a {@link Indicator} exists.
+   *
+   * @param id the object identifier.
+   * @return true if the object exists.
+   */
+  public boolean isIndicator(String id) {
+    return objectExists("indicators", id);
+  }
+
+  /**
    * Retrieves a list of {@link Indicator}.
    *
    * @param query the {@link Query}.
@@ -1496,6 +1584,16 @@ public class Dhis2 extends BaseDhis2 {
             .addParameter(FIELDS_PARAM, fieldsParams),
         Query.instance(),
         IndicatorGroup.class);
+  }
+
+  /**
+   * Indicates whether a {@link IndicatorGroup} exists.
+   *
+   * @param id the object identifier.
+   * @return true if the object exists.
+   */
+  public boolean isIndicatorGroup(String id) {
+    return objectExists("indicatorGroups", id);
   }
 
   /**
@@ -1552,6 +1650,16 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   /**
+   * Indicates whether a {@link IndicatorGroupSet} exists.
+   *
+   * @param id the object identifier.
+   * @return true if the object exists.
+   */
+  public boolean isIndicatorGroupSet(String id) {
+    return objectExists("indicatorGroupSets", id);
+  }
+
+  /**
    * Retrieves a list of {@link IndicatorGroupSet}.
    *
    * @param query the {@link Query}.
@@ -1598,6 +1706,16 @@ public class Dhis2 extends BaseDhis2 {
             .addParameter(FIELDS_PARAM, INDICATOR_TYPE_FIELDS),
         Query.instance(),
         IndicatorType.class);
+  }
+
+  /**
+   * Indicates whether a {@link IndicatorType} exists.
+   *
+   * @param id the object identifier.
+   * @return true if the object exists.
+   */
+  public boolean isIndicatorType(String id) {
+    return objectExists("indicatorTypes", id);
   }
 
   /**
@@ -1652,6 +1770,16 @@ public class Dhis2 extends BaseDhis2 {
             .addParameter(FIELDS_PARAM, fieldsParam),
         Query.instance(),
         DataSet.class);
+  }
+
+  /**
+   * Indicates whether a {@link DataSet} exists.
+   *
+   * @param id the object identifier.
+   * @return true if the object exists.
+   */
+  public boolean isDataSet(String id) {
+    return objectExists("dataSets", id);
   }
 
   /**
@@ -1788,7 +1916,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return true if the object exists.
    */
   public boolean isProgram(String id) {
-    return objectExists(config.getResolvedUriBuilder().appendPath("programs").appendPath(id));
+    return objectExists("programs", id);
   }
 
   /**
@@ -1929,6 +2057,16 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   /**
+   * Indicates whether a {@link ProgramIndicator} exists.
+   *
+   * @param id the object identifier.
+   * @return true if the object exists.
+   */
+  public boolean isProgramIndicator(String id) {
+    return objectExists("programIndicators", id);
+  }
+
+  /**
    * Retrieves a list of {@link ProgramIndicator}.
    *
    * @param query the {@link Query}.
@@ -1965,6 +2103,16 @@ public class Dhis2 extends BaseDhis2 {
             .addParameter(FIELDS_PARAM, TRACKED_ENTITY_TYPE_FIELDS),
         Query.instance(),
         TrackedEntityType.class);
+  }
+
+  /**
+   * Indicates whether a {@link TrackedEntityType} exists.
+   *
+   * @param id the object identifier.
+   * @return true if the object exists.
+   */
+  public boolean isTrackedEntityType(String id) {
+    return objectExists("trackedEntityTypes", id);
   }
 
   /**
@@ -2017,6 +2165,16 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   /**
+   * Indicates whether a {@link CategoryOptionGroup} exists.
+   *
+   * @param id the object identifier.
+   * @return true if the object exists.
+   */
+  public boolean isCategoryOptionGroup(String id) {
+    return objectExists("categoryOptionGroups", id);
+  }
+
+  /**
    * Retrieves a list of {@link CategoryOptionGroup}.
    *
    * @param query the {@link Query}.
@@ -2063,6 +2221,16 @@ public class Dhis2 extends BaseDhis2 {
             .addParameter(FIELDS_PARAM, CATEGORY_OPTION_GROUP_SET_FIELDS),
         Query.instance(),
         CategoryOptionGroupSet.class);
+  }
+
+  /**
+   * Indicates whether a {@link CategoryOptionGroupSet} exists.
+   *
+   * @param id the object identifier.
+   * @return true if the object exists.
+   */
+  public boolean isCategoryOptionGroupSet(String id) {
+    return objectExists("categoryOptionGroupSets", id);
   }
 
   /**
@@ -2117,6 +2285,16 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   /**
+   * Indicates whether a {@link OptionSet} exists.
+   *
+   * @param id the object identifier.
+   * @return true if the object exists.
+   */
+  public boolean isOptionSet(String id) {
+    return objectExists("optionSets", id);
+  }
+
+  /**
    * Retrieves a list of {@link OptionSet}.
    *
    * @param query the {@link Query}.
@@ -2158,6 +2336,16 @@ public class Dhis2 extends BaseDhis2 {
             .addParameter(FIELDS_PARAM, ID_FIELDS),
         Query.instance(),
         Option.class);
+  }
+
+  /**
+   * Indicates whether a {@link Option} exists.
+   *
+   * @param id the object identifier.
+   * @return true if the object exists.
+   */
+  public boolean isOption(String id) {
+    return objectExists("options", id);
   }
 
   /**
@@ -2234,6 +2422,16 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   /**
+   * Indicates whether a {@link TableHook} exists.
+   *
+   * @param id the object identifier.
+   * @return true if the object exists.
+   */
+  public boolean isTableHook(String id) {
+    return objectExists("analyticsTableHooks", id);
+  }
+
+  /**
    * Retrieves a list of {@link TableHook}.
    *
    * @param query the {@link Query}.
@@ -2280,6 +2478,16 @@ public class Dhis2 extends BaseDhis2 {
             .addParameter(FIELDS_PARAM, NAME_FIELDS),
         Query.instance(),
         Visualization.class);
+  }
+
+  /**
+   * Indicates whether a {@link Visualization} exists.
+   *
+   * @param id the object identifier.
+   * @return true if the object exists.
+   */
+  public boolean isVisualization(String id) {
+    return objectExists("visualizations", id);
   }
 
   /**
@@ -2381,6 +2589,16 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   /**
+   * Indicates whether a {@link Dashboard} exists.
+   *
+   * @param id the object identifier.
+   * @return true if the object exists.
+   */
+  public boolean isDashboard(String id) {
+    return objectExists("dashboards", id);
+  }
+
+  /**
    * Retrieves a list of {@link Dashboard}.
    *
    * @param query the {@link Query}.
@@ -2456,6 +2674,16 @@ public class Dhis2 extends BaseDhis2 {
             .addParameter(FIELDS_PARAM, USER_GROUP_FIELDS),
         Query.instance(),
         UserGroup.class);
+  }
+
+  /**
+   * Indicates whether a {@link UserGroup} exists.
+   *
+   * @param id the object identifier.
+   * @return true if the object exists.
+   */
+  public boolean isUserGroup(String id) {
+    return objectExists("userGroups", id);
   }
 
   /**
@@ -2538,6 +2766,16 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   /**
+   * Indicates whether a {@link UserRole} exists.
+   *
+   * @param id the object identifier.
+   * @return true if the object exists.
+   */
+  public boolean isUserRole(String id) {
+    return objectExists("userRoles", id);
+  }
+
+  /**
    * Retrieves a list of {@link UserRole}.
    *
    * @param query the {@link Query}.
@@ -2617,6 +2855,16 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   /**
+   * Indicates whether a {@link Dimension} exists.
+   *
+   * @param id the object identifier.
+   * @return true if the object exists.
+   */
+  public boolean isDimension(String id) {
+    return objectExists("dimensions", id);
+  }
+
+  /**
    * Retrieves a list of {@link Dimension}.
    *
    * @param query the {@link Query}.
@@ -2674,6 +2922,16 @@ public class Dhis2 extends BaseDhis2 {
             .addParameter(FIELDS_PARAM, ATTRIBUTE_FIELDS),
         Query.instance(),
         Attribute.class);
+  }
+
+  /**
+   * Indicates whether a {@link Attribute} exists.
+   *
+   * @param id the object identifier.
+   * @return true if the object exists.
+   */
+  public boolean isAttribute(String id) {
+    return objectExists("attributes", id);
   }
 
   /**

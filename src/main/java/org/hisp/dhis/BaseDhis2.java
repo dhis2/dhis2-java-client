@@ -36,8 +36,6 @@ import static org.apache.hc.core5.http.HttpStatus.SC_UNAUTHORIZED;
 import static org.hisp.dhis.util.CollectionUtils.asList;
 import static org.hisp.dhis.util.CollectionUtils.toCommaSeparated;
 import static org.hisp.dhis.util.HttpUtils.getUriAsString;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -53,14 +51,12 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.hc.client5.http.HttpResponseException;
 import org.apache.hc.client5.http.classic.methods.HttpDelete;
 import org.apache.hc.client5.http.classic.methods.HttpGet;
-import org.apache.hc.client5.http.classic.methods.HttpHead;
 import org.apache.hc.client5.http.classic.methods.HttpPost;
 import org.apache.hc.client5.http.classic.methods.HttpPut;
 import org.apache.hc.client5.http.classic.methods.HttpUriRequestBase;
@@ -115,6 +111,8 @@ import org.hisp.dhis.response.object.ObjectResponse;
 import org.hisp.dhis.util.DateTimeUtils;
 import org.hisp.dhis.util.HttpUtils;
 import org.hisp.dhis.util.JacksonUtils;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author Lars Helge Overland
@@ -429,11 +427,24 @@ public class BaseDhis2 {
   /**
    * Indicates whether an object exists using HTTP HEAD.
    *
+   * @param path the endpoint path without slashes, e.g. {@code dataElements}.
+   * @param id the object identifier.
+   * @return true if the object exists.
+   */
+  protected boolean objectExists(String path, String id) {
+    return objectExists(config.getResolvedUriBuilder().appendPath(path).appendPath(id));
+  }
+  
+  /**
+   * Indicates whether an object exists using HTTP GET.
+   * 
+   * <p>Note that using HTTP HEAD is more efficient but not supported by DHIS2 personal access tokens per 01.06.2025.
+   *
    * @param uriBuilder the URI builder.
    * @return true if the object exists.
    */
   protected boolean objectExists(URIBuilder uriBuilder) {
-    HttpHead request = withAuth(new HttpHead(HttpUtils.build(uriBuilder)));
+    HttpGet request = withAuth(new HttpGet(HttpUtils.build(uriBuilder)));
 
     try (CloseableHttpResponse response = httpClient.execute(request)) {
       return HttpStatus.OK.value() == response.getCode();
