@@ -27,6 +27,7 @@
  */
 package org.hisp.dhis.response;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -138,5 +139,15 @@ public class Response extends BaseHttpResponse {
     }
 
     return null;
+  }
+
+  /**
+   * Checks whether the status is {@code Status.OK}.
+   *
+   * @return true if the status is {@code Status.OK}.
+   */
+  @JsonIgnore
+  public boolean isStatusOk() {
+    return Status.OK.equals(status);
   }
 }

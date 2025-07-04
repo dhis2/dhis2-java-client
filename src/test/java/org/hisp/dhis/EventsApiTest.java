@@ -29,7 +29,11 @@ package org.hisp.dhis;
 
 import static org.hisp.dhis.util.CollectionUtils.list;
 import static org.hisp.dhis.util.DateTimeUtils.toDate;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 import org.hisp.dhis.model.event.Event;
@@ -101,6 +105,7 @@ class EventsApiTest {
     EventResponse response = dhis2.saveEvents(events);
 
     assertNotNull(response);
+    assertTrue(response.isStatusOk());
     assertEquals(Status.OK, response.getStatus(), response.toString());
     assertEquals(2, response.getStats().getCreated());
     assertEquals(0, response.getStats().getUpdated());
@@ -242,6 +247,7 @@ class EventsApiTest {
     EventResponse response = dhis2.saveEvents(events);
 
     assertNotNull(response);
+    assertFalse(response.isStatusOk());
     assertEquals(Status.ERROR, response.getStatus(), response.toString());
     assertEquals(1, response.getStats().getIgnored());
     assertEquals(1, response.getValidationReport().getErrorReports().size());
