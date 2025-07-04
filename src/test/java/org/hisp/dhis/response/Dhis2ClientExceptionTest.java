@@ -28,6 +28,8 @@
 package org.hisp.dhis.response;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
@@ -46,5 +48,16 @@ class Dhis2ClientExceptionTest {
     assertEquals("Forbidden", ex.getMessage());
     assertEquals(403, ex.getStatusCode());
     assertEquals(HttpStatus.FORBIDDEN, ex.getHttpStatus());
+  }
+
+  @Test
+  void testIsMethods() {
+    assertTrue(new Dhis2ClientException("Unauthorized", 401).isUnauthorized());
+    assertTrue(new Dhis2ClientException("Forbidden", 403).isForbidden());
+    assertTrue(new Dhis2ClientException("Not Found", 404).isNotFound());
+
+    assertFalse(new Dhis2ClientException("Bad Request", 400).isUnauthorized());
+    assertFalse(new Dhis2ClientException("Method Not Allowed", 405).isForbidden());
+    assertFalse(new Dhis2ClientException("Conflict", 409).isNotFound());
   }
 }

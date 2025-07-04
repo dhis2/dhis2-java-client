@@ -110,6 +110,33 @@ public class Dhis2ClientException extends RuntimeException {
   }
 
   /**
+   * Indicates whether the exception is caused by invalid authentication credentials.
+   *
+   * @return true if the exception is caused by invalid authentication credentials.
+   */
+  public boolean isUnauthorized() {
+    return HttpStatus.UNAUTHORIZED == httpStatus;
+  }
+
+  /**
+   * Indicates whether the exception is caused by insufficient permissions.
+   *
+   * @return true if the exception is caused by insufficient permissions.
+   */
+  public boolean isForbidden() {
+    return HttpStatus.FORBIDDEN == httpStatus;
+  }
+
+  /**
+   * Indicates whether the exception is caused by the requested object not existing.
+   *
+   * @return true if the exception is caused by the requested object not existing.
+   */
+  public boolean isNotFound() {
+    return HttpStatus.NOT_FOUND == httpStatus;
+  }
+
+  /**
    * Returns a formatted message with the status code and error code.
    *
    * @param message the original message.
