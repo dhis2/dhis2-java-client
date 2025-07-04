@@ -31,6 +31,7 @@ import static org.hisp.dhis.support.Assertions.assertNotEmpty;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 import org.hisp.dhis.model.Category;
@@ -42,7 +43,7 @@ import org.junit.jupiter.api.Test;
 @Tag(TestTags.INTEGRATION)
 class CategoryApiTest {
   @Test
-  void getCategoryOption() {
+  void testGetCategory() {
     Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
 
     Category category = dhis2.getCategory("EC40NXmsTVu");
@@ -51,6 +52,14 @@ class CategoryApiTest {
     assertEquals("EC40NXmsTVu", category.getId());
     assertFalse(category.getCategoryOptions().isEmpty());
     assertFalse(category.getCategoryCombos().isEmpty());
+  }
+
+  @Test
+  void testIsCategory() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    assertTrue(dhis2.isCategory("EC40NXmsTVu"));
+    assertFalse(dhis2.isCategory("QpzunzrlpQh"));
   }
 
   @Test

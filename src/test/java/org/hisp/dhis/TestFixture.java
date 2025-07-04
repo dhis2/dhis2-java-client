@@ -30,11 +30,15 @@ package org.hisp.dhis;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
+/**
+ * Test fixture constants. Note that the URLs point to DHIS2 play instances, where the versions and
+ * URLs will change over time.
+ */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class TestFixture {
   public static final String DEV_URL = "https://play.im.dhis2.org/dev";
 
-  public static final String V41_URL = "https://play.im.dhis2.org/stable-2-41-4";
+  public static final String V41_URL = "https://play.im.dhis2.org/stable-2-41-4-1";
 
   public static final String LOCAL_URL = "http://localhost/dhis";
 

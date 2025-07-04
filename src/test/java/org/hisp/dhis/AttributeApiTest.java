@@ -46,7 +46,7 @@ import org.junit.jupiter.api.Test;
 @Tag(TestTags.INTEGRATION)
 class AttributeApiTest {
   @Test
-  void testGetAttributeById() {
+  void testGetAttribute() {
     Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
 
     Attribute attribute = dhis2.getAttribute("Z4X3J7jMLYV");
@@ -55,6 +55,14 @@ class AttributeApiTest {
     assertEquals("Z4X3J7jMLYV", attribute.getId());
     assertEquals("Classification", attribute.getName());
     assertEquals("CLASSIFICATION", attribute.getCode());
+  }
+
+  @Test
+  void testIsAttribute() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    assertTrue(dhis2.isAttribute("Z4X3J7jMLYV"));
+    assertFalse(dhis2.isAttribute("DRhlGBgFBXK"));
   }
 
   @Test

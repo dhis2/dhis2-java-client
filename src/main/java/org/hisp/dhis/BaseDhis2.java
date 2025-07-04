@@ -32,6 +32,7 @@ import static org.apache.hc.core5.http.HttpStatus.SC_BAD_REQUEST;
 import static org.apache.hc.core5.http.HttpStatus.SC_CONFLICT;
 import static org.apache.hc.core5.http.HttpStatus.SC_FORBIDDEN;
 import static org.apache.hc.core5.http.HttpStatus.SC_NOT_FOUND;
+import static org.apache.hc.core5.http.HttpStatus.SC_OK;
 import static org.apache.hc.core5.http.HttpStatus.SC_UNAUTHORIZED;
 import static org.hisp.dhis.util.CollectionUtils.asList;
 import static org.hisp.dhis.util.CollectionUtils.toCommaSeparated;
@@ -60,7 +61,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.hc.client5.http.HttpResponseException;
 import org.apache.hc.client5.http.classic.methods.HttpDelete;
 import org.apache.hc.client5.http.classic.methods.HttpGet;
-import org.apache.hc.client5.http.classic.methods.HttpHead;
 import org.apache.hc.client5.http.classic.methods.HttpPost;
 import org.apache.hc.client5.http.classic.methods.HttpPut;
 import org.apache.hc.client5.http.classic.methods.HttpUriRequestBase;
@@ -429,14 +429,30 @@ public class BaseDhis2 {
   /**
    * Indicates whether an object exists using HTTP HEAD.
    *
+   * @param path the endpoint path without slashes, e.g. {@code dataElements}.
+   * @param id the object identifier.
+   * @return true if the object exists.
+   */
+  protected boolean objectExists(String path, String id) {
+    return objectExists(config.getResolvedUriBuilder().appendPath(path).appendPath(id));
+  }
+
+  /**
+   * Indicates whether an object exists using HTTP GET.
+   *
+   * <p>Note that using HTTP HEAD is more efficient but not supported by DHIS2 personal access
+   * tokens per 01.06.2025.
+   *
    * @param uriBuilder the URI builder.
    * @return true if the object exists.
    */
   protected boolean objectExists(URIBuilder uriBuilder) {
-    HttpHead request = withAuth(new HttpHead(HttpUtils.build(uriBuilder)));
+    HttpGet request = withAuth(new HttpGet(HttpUtils.build(uriBuilder)));
+    request.setHeader(HEADER_ACCEPT_JSON);
 
     try (CloseableHttpResponse response = httpClient.execute(request)) {
-      return HttpStatus.OK.value() == response.getCode();
+      log.info("Response status code: {}", response.getCode());
+      return SC_OK == response.getCode();
     } catch (IOException ex) {
       return false;
     }
