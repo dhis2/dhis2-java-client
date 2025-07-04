@@ -106,6 +106,7 @@ class EventsApiTest {
 
     assertNotNull(response);
     assertFalse(response.hasErrorReports());
+    assertTrue(response.isStatusOk());
     assertEquals(Status.OK, response.getStatus(), response.toString());
     assertEquals(2, response.getStats().getCreated());
     assertEquals(0, response.getStats().getUpdated());
