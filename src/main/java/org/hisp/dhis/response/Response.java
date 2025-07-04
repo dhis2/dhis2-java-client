@@ -141,6 +141,11 @@ public class Response extends BaseHttpResponse {
     return null;
   }
 
+  /**
+   * Checks whether the status is {@code Status.OK}.
+   *
+   * @return true if the status is {@code Status.OK}.
+   */
   @JsonIgnore
   public boolean isStatusOk() {
     return Status.OK.equals(status);
