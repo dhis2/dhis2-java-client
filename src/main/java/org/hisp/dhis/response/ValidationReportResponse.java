@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004-2024, University of Oslo
+ * Copyright (c) 2004-2025, University of Oslo
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,21 +25,36 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.hisp.dhis.response.event;
+package org.hisp.dhis.response;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.hisp.dhis.response.Status;
-import org.hisp.dhis.response.ValidationReportResponse;
+import org.hisp.dhis.response.event.ValidationReport;
 
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
-public class EventResponse extends ValidationReportResponse {
-  public EventResponse(Status status, Integer httpStatusCode, String message) {
+public class ValidationReportResponse extends Response {
+  @JsonProperty private ValidationReport validationReport;
+
+  @JsonProperty private Stats stats;
+
+  public ValidationReportResponse(Status status, Integer httpStatusCode, String message) {
     super(status, httpStatusCode, message);
+  }
+
+  @JsonIgnore
+  public boolean hasValidationReport() {
+    return validationReport != null;
+  }
+
+  @JsonIgnore
+  public boolean hasErrorReports() {
+    return hasValidationReport() && validationReport.hasErrorReports();
   }
 }
