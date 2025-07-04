@@ -78,7 +78,7 @@ public class TrackedEntityTypeApiTest {
   void testIsTrackedEntityType() {
     Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
 
-    assertTrue(dhis2.isTrackedEntityType("kfwLSxq7mXk"));
+    assertTrue(dhis2.isTrackedEntityType("nEenWmSyUEp"));
     assertFalse(dhis2.isTrackedEntityType("sqXtGfOo3ko"));
   }
 
