@@ -32,6 +32,7 @@ import static org.apache.hc.core5.http.HttpStatus.SC_BAD_REQUEST;
 import static org.apache.hc.core5.http.HttpStatus.SC_CONFLICT;
 import static org.apache.hc.core5.http.HttpStatus.SC_FORBIDDEN;
 import static org.apache.hc.core5.http.HttpStatus.SC_NOT_FOUND;
+import static org.apache.hc.core5.http.HttpStatus.SC_OK;
 import static org.apache.hc.core5.http.HttpStatus.SC_UNAUTHORIZED;
 import static org.hisp.dhis.util.CollectionUtils.asList;
 import static org.hisp.dhis.util.CollectionUtils.toCommaSeparated;
@@ -447,9 +448,11 @@ public class BaseDhis2 {
    */
   protected boolean objectExists(URIBuilder uriBuilder) {
     HttpGet request = withAuth(new HttpGet(HttpUtils.build(uriBuilder)));
+    request.setHeader(HEADER_ACCEPT_JSON);
 
     try (CloseableHttpResponse response = httpClient.execute(request)) {
-      return HttpStatus.OK.value() == response.getCode();
+      log.info("Response status code: {}", response.getCode());
+      return SC_OK == response.getCode();
     } catch (IOException ex) {
       return false;
     }
