@@ -32,6 +32,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.util.List;
 import org.hisp.dhis.model.Category;
 import org.hisp.dhis.query.Query;
@@ -52,11 +53,11 @@ class CategoryApiTest {
     assertFalse(category.getCategoryOptions().isEmpty());
     assertFalse(category.getCategoryCombos().isEmpty());
   }
-  
+
   @Test
   void testIsCategory() {
     Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
-    
+
     assertTrue(dhis2.isCategory("EC40NXmsTVu"));
     assertFalse(dhis2.isCategory("QpzunzrlpQh"));
   }
