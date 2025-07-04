@@ -30,7 +30,9 @@ package org.hisp.dhis;
 import static org.hisp.dhis.support.Assertions.assertNotBlank;
 import static org.hisp.dhis.support.Assertions.assertNotEmpty;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 import org.hisp.dhis.model.trackedentity.TrackedEntityAttribute;
@@ -70,6 +72,14 @@ public class TrackedEntityTypeApiTest {
     assertNotNull(tea.getId());
     assertNotBlank(tea.getName());
     assertNotNull(tea.getValueType());
+  }
+
+  @Test
+  void testIsTrackedEntityType() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    assertTrue(dhis2.isTrackedEntityType("kfwLSxq7mXk"));
+    assertFalse(dhis2.isTrackedEntityType("sqXtGfOo3ko"));
   }
 
   @Test
