@@ -2104,7 +2104,7 @@ public class Dhis2 extends BaseDhis2 {
    * @param type the object to update.
    * @return {@link ObjectResponse} holding information about the operation.
    */
-  public ObjectResponse updateDataElement(TrackedEntityType type) {
+  public ObjectResponse updateTrackedEntityType(TrackedEntityType type) {
     return updateMetadataObject(String.format("trackedEntityTypes/%s", type.getId()), type);
   }
 
