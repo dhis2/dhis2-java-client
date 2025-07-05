@@ -2091,11 +2091,21 @@ public class Dhis2 extends BaseDhis2 {
   /**
    * Saves a {@link TrackedEntityType}.
    *
-   * @param dataElementGroup the object to save.
+   * @param type the object to save.
    * @return {@link ObjectResponse} holding information about the operation.
    */
-  public ObjectResponse saveTrackedEntityType(TrackedEntityType trackedEntityType) {
-    return saveMetadataObject("trackedEntityTypes", trackedEntityType);
+  public ObjectResponse saveTrackedEntityType(TrackedEntityType type) {
+    return saveMetadataObject("trackedEntityTypes", type);
+  }
+
+  /**
+   * Updates a {@link TrackedEntityType}.
+   *
+   * @param type the object to update.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse updateDataElement(TrackedEntityType type) {
+    return updateMetadataObject(String.format("trackedEntityTypes/%s", type.getId()), type);
   }
 
   /**
@@ -3389,36 +3399,32 @@ public class Dhis2 extends BaseDhis2 {
   /**
    * Saves a {@link TrackedEntityAttribute}.
    *
-   * @param trackedEntityAttribute the tracked entity attribute object to save.
+   * @param attribute the tracked entity attribute object to save.
    * @return {@link ObjectResponse} holding information about the operation.
    */
-  public ObjectResponse saveTrackedEntityAttribute(TrackedEntityAttribute trackedEntityAttribute) {
-    return saveMetadataObject("trackedEntityAttributes", trackedEntityAttribute);
+  public ObjectResponse saveTrackedEntityAttribute(TrackedEntityAttribute attribute) {
+    return saveMetadataObject("trackedEntityAttributes", attribute);
   }
 
   /**
    * Saves or updates the list of {@link TrackedEntityAttribute}.
    *
-   * @param trackedEntityAttributes the list of {@link TrackedEntityAttribute}.
+   * @param attributes the list of {@link TrackedEntityAttribute}.
    * @return {@link ObjectsResponse} holding information about the operation.
    */
-  public ObjectsResponse saveTrackedEntityAttributes(
-      List<TrackedEntityAttribute> trackedEntityAttributes) {
-    return saveMetadataObjects(
-        new Dhis2Objects().setTrackedEntityAttributes(trackedEntityAttributes));
+  public ObjectsResponse saveTrackedEntityAttributes(List<TrackedEntityAttribute> attributes) {
+    return saveMetadataObjects(new Dhis2Objects().setTrackedEntityAttributes(attributes));
   }
 
   /**
    * Updates a {@link TrackedEntityAttribute}.
    *
-   * @param trackedEntityAttribute the tracked entity attribute object to update.
+   * @param attribute the tracked entity attribute object to update.
    * @return {@link ObjectResponse} holding information about the operation.
    */
-  public ObjectResponse updateTrackedEntityAttribute(
-      TrackedEntityAttribute trackedEntityAttribute) {
+  public ObjectResponse updateTrackedEntityAttribute(TrackedEntityAttribute attribute) {
     return updateMetadataObject(
-        String.format("trackedEntityAttributes/%s", trackedEntityAttribute.getId()),
-        trackedEntityAttribute);
+        String.format("trackedEntityAttributes/%s", attribute.getId()), attribute);
   }
 
   /**
