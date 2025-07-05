@@ -41,7 +41,11 @@ import org.hisp.dhis.model.trackedentity.TrackedEntityTypeAttribute;
 import org.hisp.dhis.query.Filter;
 import org.hisp.dhis.query.Order;
 import org.hisp.dhis.query.Query;
+import org.hisp.dhis.response.HttpStatus;
+import org.hisp.dhis.response.Status;
+import org.hisp.dhis.response.object.ObjectResponse;
 import org.hisp.dhis.support.TestTags;
+import org.hisp.dhis.util.UidUtils;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
@@ -96,5 +100,31 @@ public class TrackedEntityTypeApiTest {
     assertEquals("hyKZglfYp0C", types.get(0).getId());
     assertEquals("kIeke8tAQnd", types.get(1).getId());
     assertEquals("nEenWmSyUEp", types.get(2).getId());
+  }
+
+  @Test
+  void testSaveRemoveTrackedEntityType() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    String id = UidUtils.generateUid();
+    String code = "Code" + id;
+    String name = "Name" + id;
+
+    TrackedEntityType tet = new TrackedEntityType();
+    tet.setId(id);
+    tet.setCode(code);
+    tet.setName(name);
+
+    ObjectResponse saveResponse = dhis2.saveTrackedEntityType(tet);
+
+    assertNotNull(saveResponse);
+    assertEquals(Status.OK, saveResponse.getStatus());
+    assertEquals(HttpStatus.CREATED, saveResponse.getHttpStatus());
+
+    ObjectResponse removeResponse = dhis2.removeTrackedEntityType(id);
+
+    assertNotNull(removeResponse);
+    assertEquals(Status.OK, removeResponse.getStatus());
+    assertEquals(HttpStatus.OK, removeResponse.getHttpStatus());
   }
 }
