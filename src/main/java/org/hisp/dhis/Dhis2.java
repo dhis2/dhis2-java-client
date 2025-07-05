@@ -2089,6 +2089,26 @@ public class Dhis2 extends BaseDhis2 {
   // -------------------------------------------------------------------------
 
   /**
+   * Saves a {@link TrackedEntityType}.
+   *
+   * @param dataElementGroup the object to save.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse saveTrackedEntityType(TrackedEntityType trackedEntityType) {
+    return saveMetadataObject("trackedEntityTypes", trackedEntityType);
+  }
+
+  /**
+   * Removes an {@link TrackedEntityType}.
+   *
+   * @param id the identifier of the object to remove.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse removeTrackedEntityType(String id) {
+    return removeMetadataObject(String.format("trackedEntityTypes/%s", id));
+  }
+
+  /**
    * Retrieves a {@link TrackedEntityType}.
    *
    * @param id the object identifier.
