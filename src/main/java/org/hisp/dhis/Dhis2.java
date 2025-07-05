@@ -1173,6 +1173,124 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   // -------------------------------------------------------------------------
+  // Category option group
+  // -------------------------------------------------------------------------
+
+  /**
+   * Removes a {@link CategoryOptionGroup}.
+   *
+   * @param id the identifier of the object to remove.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse removeCategoryOptionGroup(String id) {
+    return removeMetadataObject(String.format("categoryOptionGroups/%s", id));
+  }
+
+  /**
+   * Retrieves an {@link CategoryOptionGroup}.
+   *
+   * @param id the object identifier.
+   * @return the {@link CategoryOptionGroup}.
+   * @throws Dhis2ClientException if the object does not exist.
+   */
+  public CategoryOptionGroup getCategoryOptionGroup(String id) {
+    return getObject(
+        config
+            .getResolvedUriBuilder()
+            .appendPath("categoryOptionGroups")
+            .appendPath(id)
+            .addParameter(FIELDS_PARAM, CATEGORY_OPTION_GROUP_FIELDS),
+        Query.instance(),
+        CategoryOptionGroup.class);
+  }
+
+  /**
+   * Indicates whether a {@link CategoryOptionGroup} exists.
+   *
+   * @param id the object identifier.
+   * @return true if the object exists.
+   */
+  public boolean isCategoryOptionGroup(String id) {
+    return objectExists("categoryOptionGroups", id);
+  }
+
+  /**
+   * Retrieves a list of {@link CategoryOptionGroup}.
+   *
+   * @param query the {@link Query}.
+   * @return list of {@link CategoryOptionGroup}.
+   */
+  public List<CategoryOptionGroup> getCategoryOptionGroups(Query query) {
+    return getObject(
+            config
+                .getResolvedUriBuilder()
+                .appendPath("categoryOptionGroups")
+                .addParameter(FIELDS_PARAM, CATEGORY_OPTION_GROUP_FIELDS),
+            query,
+            Dhis2Objects.class)
+        .getCategoryOptionGroups();
+  }
+
+  // -------------------------------------------------------------------------
+  // Category option group set
+  // -------------------------------------------------------------------------
+
+  /**
+   * Removes a {@link CategoryOptionGroupSet}.
+   *
+   * @param id the identifier of the object to remove.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse removeCategoryOptionGroupSet(String id) {
+    return removeMetadataObject(String.format("categoryOptionGroupSets/%s", id));
+  }
+
+  /**
+   * Retrieves an {@link CategoryOptionGroupSet}.
+   *
+   * @param id the object identifier.
+   * @return the {@link CategoryOptionGroupSet}.
+   * @throws Dhis2ClientException if the object does not exist.
+   */
+  public CategoryOptionGroupSet getCategoryOptionGroupSet(String id) {
+    return getObject(
+        config
+            .getResolvedUriBuilder()
+            .appendPath("categoryOptionGroupSets")
+            .appendPath(id)
+            .addParameter(FIELDS_PARAM, CATEGORY_OPTION_GROUP_SET_FIELDS),
+        Query.instance(),
+        CategoryOptionGroupSet.class);
+  }
+
+  /**
+   * Indicates whether a {@link CategoryOptionGroupSet} exists.
+   *
+   * @param id the object identifier.
+   * @return true if the object exists.
+   */
+  public boolean isCategoryOptionGroupSet(String id) {
+    return objectExists("categoryOptionGroupSets", id);
+  }
+
+  /**
+   * Retrieves a list of {@link CategoryOptionGroupSet}.
+   *
+   * @param query the {@link Query}.
+   * @return list of {@link CategoryOptionGroupSet}.
+   */
+  public List<CategoryOptionGroupSet> getCategoryOptionGroupSets(Query query) {
+    return getObject(
+            config
+                .getResolvedUriBuilder()
+                .appendPath("categoryOptionGroupSets")
+                .addParameter(FIELDS_PARAM, CATEGORY_OPTION_GROUP_SET_FIELDS),
+            query,
+            Dhis2Objects.class)
+        .getCategoryOptionGroupSets();
+  }
+
+  // -------------------------------------------------------------------------
   // Data element
   // -------------------------------------------------------------------------
 
@@ -1423,75 +1541,6 @@ public class Dhis2 extends BaseDhis2 {
             query,
             Dhis2Objects.class)
         .getDataElementGroupSets();
-  }
-
-  // -------------------------------------------------------------------------
-  // Document
-  // -------------------------------------------------------------------------
-
-  /**
-   * Retrieves a {@link Document}.
-   *
-   * @param id the object identifier.
-   * @return the {@link Document}.
-   * @throws Dhis2ClientException if the object does not exist.
-   */
-  public Document getDocument(String id) {
-    return getObject(
-        config
-            .getResolvedUriBuilder()
-            .appendPath("documents")
-            .appendPath(id)
-            .addParameter(FIELDS_PARAM, DOCUMENT_FIELDS),
-        Query.instance(),
-        Document.class);
-  }
-
-  /**
-   * Indicates whether a {@link Document} exists.
-   *
-   * @param id the object identifier.
-   * @return true if the object exists.
-   */
-  public boolean isDocument(String id) {
-    return objectExists("documents", id);
-  }
-
-  /**
-   * Retrieves a list of {@link Document}.
-   *
-   * @param query the {@link Query}.
-   * @return list of {@link Document}.
-   */
-  public List<Document> getDocuments(Query query) {
-    return getObject(
-            config
-                .getResolvedUriBuilder()
-                .appendPath("documents")
-                .addParameter(FIELDS_PARAM, DOCUMENT_FIELDS),
-            query,
-            Dhis2Objects.class)
-        .getDocuments();
-  }
-
-  /**
-   * Writes the data for the {@link Document} to the given {@link OutputStream}.
-   *
-   * @param id the document identifier.
-   * @param out the {@link OutputStream} to write data to.
-   */
-  public void writeDocumentData(String id, OutputStream out) {
-    URI uri =
-        HttpUtils.build(
-            config
-                .getResolvedUriBuilder()
-                .appendPath("documents")
-                .appendPath(id)
-                .appendPath("data"));
-
-    CloseableHttpResponse response = getHttpResponse(uri, List.of());
-
-    writeToStream(response, out);
   }
 
   // -------------------------------------------------------------------------
@@ -2164,124 +2213,6 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   // -------------------------------------------------------------------------
-  // Category option group
-  // -------------------------------------------------------------------------
-
-  /**
-   * Removes a {@link CategoryOptionGroup}.
-   *
-   * @param id the identifier of the object to remove.
-   * @return {@link ObjectResponse} holding information about the operation.
-   */
-  public ObjectResponse removeCategoryOptionGroup(String id) {
-    return removeMetadataObject(String.format("categoryOptionGroups/%s", id));
-  }
-
-  /**
-   * Retrieves an {@link CategoryOptionGroup}.
-   *
-   * @param id the object identifier.
-   * @return the {@link CategoryOptionGroup}.
-   * @throws Dhis2ClientException if the object does not exist.
-   */
-  public CategoryOptionGroup getCategoryOptionGroup(String id) {
-    return getObject(
-        config
-            .getResolvedUriBuilder()
-            .appendPath("categoryOptionGroups")
-            .appendPath(id)
-            .addParameter(FIELDS_PARAM, CATEGORY_OPTION_GROUP_FIELDS),
-        Query.instance(),
-        CategoryOptionGroup.class);
-  }
-
-  /**
-   * Indicates whether a {@link CategoryOptionGroup} exists.
-   *
-   * @param id the object identifier.
-   * @return true if the object exists.
-   */
-  public boolean isCategoryOptionGroup(String id) {
-    return objectExists("categoryOptionGroups", id);
-  }
-
-  /**
-   * Retrieves a list of {@link CategoryOptionGroup}.
-   *
-   * @param query the {@link Query}.
-   * @return list of {@link CategoryOptionGroup}.
-   */
-  public List<CategoryOptionGroup> getCategoryOptionGroups(Query query) {
-    return getObject(
-            config
-                .getResolvedUriBuilder()
-                .appendPath("categoryOptionGroups")
-                .addParameter(FIELDS_PARAM, CATEGORY_OPTION_GROUP_FIELDS),
-            query,
-            Dhis2Objects.class)
-        .getCategoryOptionGroups();
-  }
-
-  // -------------------------------------------------------------------------
-  // Category option group set
-  // -------------------------------------------------------------------------
-
-  /**
-   * Removes a {@link CategoryOptionGroupSet}.
-   *
-   * @param id the identifier of the object to remove.
-   * @return {@link ObjectResponse} holding information about the operation.
-   */
-  public ObjectResponse removeCategoryOptionGroupSet(String id) {
-    return removeMetadataObject(String.format("categoryOptionGroupSets/%s", id));
-  }
-
-  /**
-   * Retrieves an {@link CategoryOptionGroupSet}.
-   *
-   * @param id the object identifier.
-   * @return the {@link CategoryOptionGroupSet}.
-   * @throws Dhis2ClientException if the object does not exist.
-   */
-  public CategoryOptionGroupSet getCategoryOptionGroupSet(String id) {
-    return getObject(
-        config
-            .getResolvedUriBuilder()
-            .appendPath("categoryOptionGroupSets")
-            .appendPath(id)
-            .addParameter(FIELDS_PARAM, CATEGORY_OPTION_GROUP_SET_FIELDS),
-        Query.instance(),
-        CategoryOptionGroupSet.class);
-  }
-
-  /**
-   * Indicates whether a {@link CategoryOptionGroupSet} exists.
-   *
-   * @param id the object identifier.
-   * @return true if the object exists.
-   */
-  public boolean isCategoryOptionGroupSet(String id) {
-    return objectExists("categoryOptionGroupSets", id);
-  }
-
-  /**
-   * Retrieves a list of {@link CategoryOptionGroupSet}.
-   *
-   * @param query the {@link Query}.
-   * @return list of {@link CategoryOptionGroupSet}.
-   */
-  public List<CategoryOptionGroupSet> getCategoryOptionGroupSets(Query query) {
-    return getObject(
-            config
-                .getResolvedUriBuilder()
-                .appendPath("categoryOptionGroupSets")
-                .addParameter(FIELDS_PARAM, CATEGORY_OPTION_GROUP_SET_FIELDS),
-            query,
-            Dhis2Objects.class)
-        .getCategoryOptionGroupSets();
-  }
-
-  // -------------------------------------------------------------------------
   // Option sets
   // -------------------------------------------------------------------------
 
@@ -2477,6 +2408,75 @@ public class Dhis2 extends BaseDhis2 {
             query,
             Dhis2Objects.class)
         .getAnalyticsTableHooks();
+  }
+
+  // -------------------------------------------------------------------------
+  // Document
+  // -------------------------------------------------------------------------
+
+  /**
+   * Retrieves a {@link Document}.
+   *
+   * @param id the object identifier.
+   * @return the {@link Document}.
+   * @throws Dhis2ClientException if the object does not exist.
+   */
+  public Document getDocument(String id) {
+    return getObject(
+        config
+            .getResolvedUriBuilder()
+            .appendPath("documents")
+            .appendPath(id)
+            .addParameter(FIELDS_PARAM, DOCUMENT_FIELDS),
+        Query.instance(),
+        Document.class);
+  }
+
+  /**
+   * Indicates whether a {@link Document} exists.
+   *
+   * @param id the object identifier.
+   * @return true if the object exists.
+   */
+  public boolean isDocument(String id) {
+    return objectExists("documents", id);
+  }
+
+  /**
+   * Retrieves a list of {@link Document}.
+   *
+   * @param query the {@link Query}.
+   * @return list of {@link Document}.
+   */
+  public List<Document> getDocuments(Query query) {
+    return getObject(
+            config
+                .getResolvedUriBuilder()
+                .appendPath("documents")
+                .addParameter(FIELDS_PARAM, DOCUMENT_FIELDS),
+            query,
+            Dhis2Objects.class)
+        .getDocuments();
+  }
+
+  /**
+   * Writes the data for the {@link Document} to the given {@link OutputStream}.
+   *
+   * @param id the document identifier.
+   * @param out the {@link OutputStream} to write data to.
+   */
+  public void writeDocumentData(String id, OutputStream out) {
+    URI uri =
+        HttpUtils.build(
+            config
+                .getResolvedUriBuilder()
+                .appendPath("documents")
+                .appendPath(id)
+                .appendPath("data"));
+
+    CloseableHttpResponse response = getHttpResponse(uri, List.of());
+
+    writeToStream(response, out);
   }
 
   // -------------------------------------------------------------------------
@@ -2779,6 +2779,46 @@ public class Dhis2 extends BaseDhis2 {
   // -------------------------------------------------------------------------
 
   /**
+   * Saves a {@link UserRole}.
+   *
+   * @param userRole the object to save.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse saveUserRole(UserRole userRole) {
+    return saveMetadataObject("userRoles", userRole);
+  }
+
+  /**
+   * Saves or updates the list of {@link UserRole}.
+   *
+   * @param userRoles the list of {@link UserRole}.
+   * @return {@link ObjectsResponse} holding information about the operation.
+   */
+  public ObjectsResponse saveUserRoles(List<UserRole> userRoles) {
+    return saveMetadataObjects(new Dhis2Objects().setUserRoles(userRoles));
+  }
+
+  /**
+   * Updates a {@link UserRole}.
+   *
+   * @param userRole the object to update.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse updateUserRole(UserRole userRole) {
+    return updateMetadataObject(String.format("userRoles/%s", userRole.getId()), userRole);
+  }
+
+  /**
+   * Removes a {@link UserRole}.
+   *
+   * @param id the identifier of the object to remove.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse removeUserRole(String id) {
+    return removeMetadataObject(String.format("userRoles/%s", id));
+  }
+
+  /**
    * Retrieves a {@link UserRole}.
    *
    * @param id the object identifier.
@@ -2821,46 +2861,6 @@ public class Dhis2 extends BaseDhis2 {
             query,
             Dhis2Objects.class)
         .getUserRoles();
-  }
-
-  /**
-   * Saves a {@link UserRole}.
-   *
-   * @param userRole the object to save.
-   * @return {@link ObjectResponse} holding information about the operation.
-   */
-  public ObjectResponse saveUserRole(UserRole userRole) {
-    return saveMetadataObject("userRoles", userRole);
-  }
-
-  /**
-   * Saves or updates the list of {@link UserRole}.
-   *
-   * @param userRoles the list of {@link UserRole}.
-   * @return {@link ObjectsResponse} holding information about the operation.
-   */
-  public ObjectsResponse saveUserRoles(List<UserRole> userRoles) {
-    return saveMetadataObjects(new Dhis2Objects().setUserRoles(userRoles));
-  }
-
-  /**
-   * Updates a {@link UserRole}.
-   *
-   * @param userRole the object to update.
-   * @return {@link ObjectResponse} holding information about the operation.
-   */
-  public ObjectResponse updateUserRole(UserRole userRole) {
-    return updateMetadataObject(String.format("userRoles/%s", userRole.getId()), userRole);
-  }
-
-  /**
-   * Removes a {@link UserRole}.
-   *
-   * @param id the identifier of the object to remove.
-   * @return {@link ObjectResponse} holding information about the operation.
-   */
-  public ObjectResponse removeUserRole(String id) {
-    return removeMetadataObject(String.format("userRoles/%s", id));
   }
 
   // -------------------------------------------------------------------------
