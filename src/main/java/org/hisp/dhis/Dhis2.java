@@ -30,7 +30,6 @@ package org.hisp.dhis;
 import static org.hisp.dhis.Constants.SUPER_ADMIN_AUTH;
 import static org.hisp.dhis.util.CollectionUtils.asList;
 import static org.hisp.dhis.util.CollectionUtils.list;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -78,6 +77,7 @@ import org.hisp.dhis.model.IndicatorGroup;
 import org.hisp.dhis.model.IndicatorGroupSet;
 import org.hisp.dhis.model.IndicatorType;
 import org.hisp.dhis.model.Me;
+import org.hisp.dhis.model.MetadataEntity;
 import org.hisp.dhis.model.Option;
 import org.hisp.dhis.model.OptionSet;
 import org.hisp.dhis.model.OrgUnit;
@@ -486,7 +486,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectResponse} holding information about the operation.
    */
   public ObjectResponse saveAnalyticsTableHook(AnalyticsTableHook hook) {
-    return saveMetadataObject("analyticsTableHooks", hook);
+    return saveMetadataObject(MetadataEntity.ANALYTICS_TABLE_HOOK, hook);
   }
 
   /**
@@ -613,7 +613,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectResponse} holding information about the operation.
    */
   public ObjectResponse saveAttribute(Attribute attribute) {
-    return saveMetadataObject("attributes", attribute);
+    return saveMetadataObject(MetadataEntity.ATTRIBUTE, attribute);
   }
 
   /**
@@ -657,7 +657,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectResponse} holding information about the operation.
    */
   public ObjectResponse saveCategoryOption(CategoryOption categoryOption) {
-    return saveMetadataObject("categoryOptions", categoryOption);
+    return saveMetadataObject(MetadataEntity.CATEGORY_OPTION, categoryOption);
   }
 
   /**
@@ -753,7 +753,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectResponse} holding information about the operation.
    */
   public ObjectResponse saveCategory(Category category) {
-    return saveMetadataObject("categories", category);
+    return saveMetadataObject(MetadataEntity.CATEGORY, category);
   }
 
   /**
@@ -842,7 +842,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectResponse} holding information about the operation.
    */
   public ObjectResponse saveCategoryCombo(CategoryCombo categoryCombo) {
-    return saveMetadataObject("categoryCombos", categoryCombo);
+    return saveMetadataObject(MetadataEntity.CATEGORY_COMBO, categoryCombo);
   }
 
   /**
@@ -1137,7 +1137,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectResponse} holding information about the operation.
    */
   public ObjectResponse saveDataElement(DataElement dataElement) {
-    return saveMetadataObject("dataElements", dataElement);
+    return saveMetadataObject(MetadataEntity.DATA_ELEMENT, dataElement);
   }
 
   /**
@@ -1234,7 +1234,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectResponse} holding information about the operation.
    */
   public ObjectResponse saveDataElementGroup(DataElementGroup dataElementGroup) {
-    return saveMetadataObject("dataElementGroups", dataElementGroup);
+    return saveMetadataObject(MetadataEntity.DATA_ELEMENT_GROUP, dataElementGroup);
   }
 
   /**
@@ -1821,7 +1821,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectResponse} holding information about the operation.
    */
   public ObjectResponse saveOrgUnit(OrgUnit orgUnit) {
-    return saveMetadataObject("organisationUnits", orgUnit);
+    return saveMetadataObject(MetadataEntity.ORG_UNIT, orgUnit);
   }
 
   /**
@@ -1961,7 +1961,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectResponse} holding information about the operation.
    */
   public ObjectResponse saveOrgUnitGroup(OrgUnitGroup orgUnitGroup) {
-    return saveMetadataObject("organisationUnitGroups", orgUnitGroup);
+    return saveMetadataObject(MetadataEntity.ORG_UNIT_GROUP, orgUnitGroup);
   }
 
   /**
@@ -2070,7 +2070,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectResponse} holding information about the operation.
    */
   public ObjectResponse saveOrgUnitGroupSet(OrgUnitGroupSet orgUnitGroupSet) {
-    return saveMetadataObject("organisationUnitGroupSets", orgUnitGroupSet);
+    return saveMetadataObject(MetadataEntity.ORG_UNIT_GROUP_SET, orgUnitGroupSet);
   }
 
   /**
@@ -2585,7 +2585,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectResponse} holding information about the operation.
    */
   public ObjectResponse saveTrackedEntityType(TrackedEntityType type) {
-    return saveMetadataObject("trackedEntityTypes", type);
+    return saveMetadataObject(MetadataEntity.TRACKED_ENTITY_TYPE, type);
   }
 
   /**
@@ -2664,7 +2664,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectResponse} holding information about the operation.
    */
   public ObjectResponse saveTrackedEntityAttribute(TrackedEntityAttribute attribute) {
-    return saveMetadataObject("trackedEntityAttributes", attribute);
+    return saveMetadataObject(MetadataEntity.TRACKED_ENTITY_ATTRIBUTE, attribute);
   }
 
   /**
@@ -2821,7 +2821,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectResponse} holding information about the operation.
    */
   public ObjectResponse saveUserGroup(UserGroup userGroup) {
-    return saveMetadataObject("userGroups", userGroup);
+    return saveMetadataObject(MetadataEntity.USER_GROUP, userGroup);
   }
 
   /**
@@ -2865,7 +2865,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectResponse} holding information about the operation.
    */
   public ObjectResponse saveUserRole(UserRole userRole) {
-    return saveMetadataObject("userRoles", userRole);
+    return saveMetadataObject(MetadataEntity.USER_ROLE, userRole);
   }
 
   /**

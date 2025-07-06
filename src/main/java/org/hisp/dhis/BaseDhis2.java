@@ -37,8 +37,6 @@ import static org.apache.hc.core5.http.HttpStatus.SC_UNAUTHORIZED;
 import static org.hisp.dhis.util.CollectionUtils.asList;
 import static org.hisp.dhis.util.CollectionUtils.toCommaSeparated;
 import static org.hisp.dhis.util.HttpUtils.getUriAsString;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -54,7 +52,6 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -80,6 +77,7 @@ import org.apache.hc.core5.http.message.BasicHeader;
 import org.apache.hc.core5.http.message.BasicNameValuePair;
 import org.apache.hc.core5.net.URIBuilder;
 import org.hisp.dhis.model.IdentifiableObject;
+import org.hisp.dhis.model.MetadataEntity;
 import org.hisp.dhis.model.completedatasetregistration.CompleteDataSetRegistrationImportOptions;
 import org.hisp.dhis.model.datavalueset.DataValueSet;
 import org.hisp.dhis.model.datavalueset.DataValueSetImportOptions;
@@ -115,6 +113,8 @@ import org.hisp.dhis.response.object.ObjectResponse;
 import org.hisp.dhis.util.DateTimeUtils;
 import org.hisp.dhis.util.HttpUtils;
 import org.hisp.dhis.util.JacksonUtils;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author Lars Helge Overland
@@ -1480,8 +1480,8 @@ public class BaseDhis2 {
    * @return {@link ObjectResponse} holding information about the operation.
    * @throws Dhis2ClientException if unauthorized, access denied or resource not found.
    */
-  protected ObjectResponse saveMetadataObject(String path, IdentifiableObject object) {
-    return saveObject(path, object, ObjectResponse.class);
+  protected ObjectResponse saveMetadataObject(MetadataEntity entity, IdentifiableObject object) {
+    return saveObject(entity.getPath(), object, ObjectResponse.class);
   }
 
   /**
