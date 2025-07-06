@@ -37,7 +37,6 @@ import lombok.experimental.Accessors;
 import org.hisp.dhis.model.completedatasetregistration.CompleteDataSetRegistration;
 import org.hisp.dhis.model.dashboard.Dashboard;
 import org.hisp.dhis.model.relationship.RelationshipType;
-import org.hisp.dhis.model.trackedentity.ProgramTrackedEntityAttribute;
 import org.hisp.dhis.model.trackedentity.TrackedEntityAttribute;
 import org.hisp.dhis.model.trackedentity.TrackedEntityType;
 import org.hisp.dhis.model.user.User;
@@ -75,6 +74,8 @@ public class Dhis2Objects {
 
   @JsonProperty private List<DataElementGroup> dataElementGroups = new ArrayList<>();
 
+  @JsonProperty private List<DataElementGroupSet> dataElementGroupSets = new ArrayList<>();
+
   @JsonProperty private List<DataSet> dataSets = new ArrayList<>();
 
   @JsonProperty private List<Dimension> dimensions = new ArrayList<>();
@@ -83,13 +84,13 @@ public class Dhis2Objects {
 
   @JsonProperty private List<FileResource> fileResources = new ArrayList<>();
 
-  @JsonProperty private List<IndicatorType> indicatorTypes = new ArrayList<>();
-
   @JsonProperty private List<Indicator> indicators = new ArrayList<>();
 
   @JsonProperty private List<IndicatorGroup> indicatorGroups = new ArrayList<>();
 
   @JsonProperty private List<IndicatorGroupSet> indicatorGroupSets = new ArrayList<>();
+
+  @JsonProperty private List<IndicatorType> indicatorTypes = new ArrayList<>();
 
   @JsonProperty private List<OrgUnit> organisationUnits = new ArrayList<>();
 
@@ -98,8 +99,6 @@ public class Dhis2Objects {
   @JsonProperty private List<OrgUnitGroupSet> organisationUnitGroupSets = new ArrayList<>();
 
   @JsonProperty private List<OrgUnitLevel> organisationUnitLevels = new ArrayList<>();
-
-  @JsonProperty private List<DataElementGroupSet> dataElementGroupSets = new ArrayList<>();
 
   @JsonProperty private List<GeoMap> maps = new ArrayList<GeoMap>();
 
@@ -117,14 +116,9 @@ public class Dhis2Objects {
 
   @JsonProperty private List<ProgramIndicator> programIndicators = new ArrayList<>();
 
-  @JsonProperty private List<ProgramStageDataElement> programStageDataElements = new ArrayList<>();
-
   @JsonProperty private List<RelationshipType> relationshipTypes = new ArrayList<>();
 
   @JsonProperty private List<TrackedEntityType> trackedEntityTypes = new ArrayList<>();
-
-  @JsonProperty
-  private List<ProgramTrackedEntityAttribute> programTrackedEntityAttributes = new ArrayList<>();
 
   @JsonProperty private List<TrackedEntityAttribute> trackedEntityAttributes = new ArrayList<>();
 
