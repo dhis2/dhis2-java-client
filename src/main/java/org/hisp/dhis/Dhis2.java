@@ -846,6 +846,16 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   /**
+   * Updates a {@link CategoryCombo}.
+   *
+   * @param categoryCombo the object to update.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse updateCategoryCombo(CategoryCombo categoryCombo) {
+    return updateMetadataObject(MetadataEntity.CATEGORY_COMBO, categoryCombo);
+  }
+
+  /**
    * Removes a {@link CategoryCombo}.
    *
    * @param id the identifier of the object to remove.
