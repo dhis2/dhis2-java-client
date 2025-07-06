@@ -1481,7 +1481,7 @@ public class BaseDhis2 {
    * @return {@link ObjectResponse} holding information about the operation.
    * @throws Dhis2ClientException if unauthorized, access denied or resource not found.
    */
-  protected ObjectResponse saveMetadataObject(MetadataEntity entity, IdentifiableObject object) {
+  public ObjectResponse saveMetadataObject(MetadataEntity entity, IdentifiableObject object) {
     return saveObject(entity.getPath(), object, ObjectResponse.class);
   }
 
@@ -1525,7 +1525,7 @@ public class BaseDhis2 {
    * @param object the object to save.
    * @return {@link ObjectResponse} holding information about the operation.
    */
-  protected ObjectResponse updateMetadataObject(MetadataEntity entity, IdentifiableObject object) {
+  public ObjectResponse updateMetadataObject(MetadataEntity entity, IdentifiableObject object) {
     String path = String.format("%s/%s", entity.getPath(), object.getId());
 
     Map<String, String> params = Map.of(SKIP_SHARING_PARAM, "true");
