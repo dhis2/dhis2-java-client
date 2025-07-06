@@ -27,9 +27,14 @@
  */
 package org.hisp.dhis.model;
 
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+
 /** Enumeration of DHIS2 metadata entities. */
+@Getter
+@RequiredArgsConstructor
 public enum MetadatEntity {
-  ANALYTICS_TABLE_HOOK,
+  TABLE_HOOK,
   ATTRIBUTE,
   CATEGORY_OPTION,
   CATEGORY,

@@ -55,6 +55,7 @@ import org.apache.hc.core5.net.URIBuilder;
 import org.hisp.dhis.auth.AccessTokenAuthentication;
 import org.hisp.dhis.auth.BasicAuthentication;
 import org.hisp.dhis.auth.CookieAuthentication;
+import org.hisp.dhis.model.AnalyticsTableHook;
 import org.hisp.dhis.model.Attribute;
 import org.hisp.dhis.model.Category;
 import org.hisp.dhis.model.CategoryCombo;
@@ -91,7 +92,6 @@ import org.hisp.dhis.model.ProgramStage;
 import org.hisp.dhis.model.ProgramStageSection;
 import org.hisp.dhis.model.SystemInfo;
 import org.hisp.dhis.model.SystemSettings;
-import org.hisp.dhis.model.TableHook;
 import org.hisp.dhis.model.Visualization;
 import org.hisp.dhis.model.analytics.AnalyticsData;
 import org.hisp.dhis.model.completedatasetregistration.CompleteDataSetRegistration;
@@ -2332,38 +2332,38 @@ public class Dhis2 extends BaseDhis2 {
   // -------------------------------------------------------------------------
 
   /**
-   * Saves a {@link TableHook}.
+   * Saves a {@link AnalyticsTableHook}.
    *
    * @param tableHook the object to save.
    * @return {@link ObjectResponse} holding information about the operation.
    */
-  public ObjectResponse saveTableHook(TableHook tableHook) {
+  public ObjectResponse saveTableHook(AnalyticsTableHook tableHook) {
     return saveMetadataObject("analyticsTableHooks", tableHook);
   }
 
   /**
-   * Saves or updates the list of {@link TableHook}.
+   * Saves or updates the list of {@link AnalyticsTableHook}.
    *
-   * @param tableHooks the list of {@link TableHook}.
+   * @param tableHooks the list of {@link AnalyticsTableHook}.
    * @return {@link ObjectsResponse} holding information about the operation.
    */
-  public ObjectsResponse saveTableHooks(List<TableHook> tableHooks) {
+  public ObjectsResponse saveTableHooks(List<AnalyticsTableHook> tableHooks) {
     return saveMetadataObjects(new Dhis2Objects().setAnalyticsTableHooks(tableHooks));
   }
 
   /**
-   * Updates a {@link TableHook}.
+   * Updates a {@link AnalyticsTableHook}.
    *
    * @param tableHook the object to update.
    * @return {@link ObjectResponse} holding information about the operation.
    */
-  public ObjectResponse updateTableHook(TableHook tableHook) {
+  public ObjectResponse updateTableHook(AnalyticsTableHook tableHook) {
     return updateMetadataObject(
         String.format("analyticsTableHooks/%s", tableHook.getId()), tableHook);
   }
 
   /**
-   * Removes a {@link TableHook}.
+   * Removes a {@link AnalyticsTableHook}.
    *
    * @param id the identifier of the object to remove.
    * @return {@link ObjectResponse} holding information about the operation.
@@ -2373,18 +2373,18 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   /**
-   * Retrieves an {@link TableHook}.
+   * Retrieves an {@link AnalyticsTableHook}.
    *
    * @param id the identifier of the table hook.
-   * @return the {@link TableHook}.
+   * @return the {@link AnalyticsTableHook}.
    * @throws Dhis2ClientException if the object does not exist.
    */
-  public TableHook getTableHook(String id) {
-    return getObject("analyticsTableHooks", id, TableHook.class);
+  public AnalyticsTableHook getTableHook(String id) {
+    return getObject("analyticsTableHooks", id, AnalyticsTableHook.class);
   }
 
   /**
-   * Indicates whether a {@link TableHook} exists.
+   * Indicates whether a {@link AnalyticsTableHook} exists.
    *
    * @param id the object identifier.
    * @return true if the object exists.
@@ -2394,12 +2394,12 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   /**
-   * Retrieves a list of {@link TableHook}.
+   * Retrieves a list of {@link AnalyticsTableHook}.
    *
    * @param query the {@link Query}.
-   * @return list of {@link TableHook}.
+   * @return list of {@link AnalyticsTableHook}.
    */
-  public List<TableHook> getTableHooks(Query query) {
+  public List<AnalyticsTableHook> getTableHooks(Query query) {
     return getObject(
             config
                 .getResolvedUriBuilder()
