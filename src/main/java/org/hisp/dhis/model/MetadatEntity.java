@@ -34,7 +34,7 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public enum MetadatEntity {
-  TABLE_HOOK,
+  ANALYTICS_TABLE_HOOK,
   ATTRIBUTE,
   CATEGORY_OPTION,
   CATEGORY,
