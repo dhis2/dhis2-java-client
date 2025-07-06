@@ -507,7 +507,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectResponse} holding information about the operation.
    */
   public ObjectResponse updateAnalyticsTableHook(AnalyticsTableHook hook) {
-    return updateMetadataObject(String.format("analyticsTableHooks/%s", hook.getId()), hook);
+    return updateMetadataObject(MetadataEntity.ANALYTICS_TABLE_HOOK, hook);
   }
 
   /**
@@ -634,7 +634,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectResponse} holding information about the operation.
    */
   public ObjectResponse updateAttribute(Attribute attribute) {
-    return updateMetadataObject(String.format("attributes/%s", attribute.getId()), attribute);
+    return updateMetadataObject(MetadataEntity.ATTRIBUTE, attribute);
   }
 
   /**
@@ -678,8 +678,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectResponse} holding information about the operation.
    */
   public ObjectResponse updateCategoryOption(CategoryOption categoryOption) {
-    return updateMetadataObject(
-        String.format("categoryOptions/%s", categoryOption.getId()), categoryOption);
+    return updateMetadataObject(MetadataEntity.CATEGORY_OPTION, categoryOption);
   }
 
   /**
@@ -774,7 +773,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectResponse} holding information about the operation.
    */
   public ObjectResponse updateCategory(Category category) {
-    return updateMetadataObject(String.format("categories/%s", category.getId()), category);
+    return updateMetadataObject(MetadataEntity.CATEGORY, category);
   }
 
   /**
@@ -1158,7 +1157,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectResponse} holding information about the operation.
    */
   public ObjectResponse updateDataElement(DataElement dataElement) {
-    return updateMetadataObject(String.format("dataElements/%s", dataElement.getId()), dataElement);
+    return updateMetadataObject(MetadataEntity.DATA_ELEMENT, dataElement);
   }
 
   /**
@@ -1255,8 +1254,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectResponse} holding information about the operation.
    */
   public ObjectResponse updateDataElementGroup(DataElementGroup dataElementGroup) {
-    return updateMetadataObject(
-        String.format("dataElementGroups/%s", dataElementGroup.getId()), dataElementGroup);
+    return updateMetadataObject(MetadataEntity.DATA_ELEMENT_GROUP, dataElementGroup);
   }
 
   /**
@@ -1842,7 +1840,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectResponse} holding information about the operation.
    */
   public ObjectResponse updateOrgUnit(OrgUnit orgUnit) {
-    return updateMetadataObject(String.format("organisationUnits/%s", orgUnit.getId()), orgUnit);
+    return updateMetadataObject(MetadataEntity.ORG_UNIT, orgUnit);
   }
 
   /**
@@ -1982,8 +1980,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectResponse} holding information about the operation.
    */
   public ObjectResponse updateOrgUnitGroup(OrgUnitGroup orgUnitGroup) {
-    return updateMetadataObject(
-        String.format("organisationUnitGroups/%s", orgUnitGroup.getId()), orgUnitGroup);
+    return updateMetadataObject(MetadataEntity.ORG_UNIT_GROUP, orgUnitGroup);
   }
 
   /**
@@ -2091,8 +2088,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectResponse} holding information about the operation.
    */
   public ObjectResponse updateOrgUnitGroupSet(OrgUnitGroupSet orgUnitGroupSet) {
-    return updateMetadataObject(
-        String.format("organisationUnitGroupSets/%s", orgUnitGroupSet.getId()), orgUnitGroupSet);
+    return updateMetadataObject(MetadataEntity.ORG_UNIT_GROUP_SET, orgUnitGroupSet);
   }
 
   /**
@@ -2596,7 +2592,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectResponse} holding information about the operation.
    */
   public ObjectResponse updateTrackedEntityType(TrackedEntityType type) {
-    return updateMetadataObject(String.format("trackedEntityTypes/%s", type.getId()), type);
+    return updateMetadataObject(MetadataEntity.TRACKED_ENTITY_TYPE, type);
   }
 
   /**
@@ -2685,8 +2681,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectResponse} holding information about the operation.
    */
   public ObjectResponse updateTrackedEntityAttribute(TrackedEntityAttribute attribute) {
-    return updateMetadataObject(
-        String.format("trackedEntityAttributes/%s", attribute.getId()), attribute);
+    return updateMetadataObject(MetadataEntity.TRACKED_ENTITY_ATTRIBUTE, attribute);
   }
 
   /**
@@ -2842,7 +2837,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectResponse} holding information about the operation.
    */
   public ObjectResponse updateUserGroup(UserGroup userGroup) {
-    return updateMetadataObject(String.format("userGroups/%s", userGroup.getId()), userGroup);
+    return updateMetadataObject(MetadataEntity.USER_GROUP, userGroup);
   }
 
   /**
@@ -2886,7 +2881,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectResponse} holding information about the operation.
    */
   public ObjectResponse updateUserRole(UserRole userRole) {
-    return updateMetadataObject(String.format("userRoles/%s", userRole.getId()), userRole);
+    return updateMetadataObject(MetadataEntity.USER_ROLE, userRole);
   }
 
   /**
