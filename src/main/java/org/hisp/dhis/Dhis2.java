@@ -476,397 +476,85 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   // -------------------------------------------------------------------------
-  // Org unit
+  // Analytics table hook
   // -------------------------------------------------------------------------
 
   /**
-   * Saves a {@link OrgUnit}.
+   * Saves a {@link AnalyticsTableHook}.
    *
-   * @param orgUnit the object to save.
+   * @param hook the object to save.
    * @return {@link ObjectResponse} holding information about the operation.
    */
-  public ObjectResponse saveOrgUnit(OrgUnit orgUnit) {
-    return saveMetadataObject("organisationUnits", orgUnit);
+  public ObjectResponse saveAnalyticsTableHook(AnalyticsTableHook hook) {
+    return saveMetadataObject("analyticsTableHooks", hook);
   }
 
   /**
-   * Saves or updates the list of {@link OrgUnit}.
+   * Saves or updates the list of {@link AnalyticsTableHook}.
    *
-   * @param orgUnits the list of {@link OrgUnit}.
+   * @param hooks the list of {@link AnalyticsTableHook}.
    * @return {@link ObjectsResponse} holding information about the operation.
    */
-  public ObjectsResponse saveOrgUnits(List<OrgUnit> orgUnits) {
-    return saveMetadataObjects(new Dhis2Objects().setOrganisationUnits(orgUnits));
+  public ObjectsResponse saveAnalyticsTableHook(List<AnalyticsTableHook> hooks) {
+    return saveMetadataObjects(new Dhis2Objects().setAnalyticsTableHooks(hooks));
   }
 
   /**
-   * Updates a {@link OrgUnit}.
+   * Updates a {@link AnalyticsTableHook}.
    *
-   * @param orgUnit the object to update.
+   * @param hook the object to update.
    * @return {@link ObjectResponse} holding information about the operation.
    */
-  public ObjectResponse updateOrgUnit(OrgUnit orgUnit) {
-    return updateMetadataObject(String.format("organisationUnits/%s", orgUnit.getId()), orgUnit);
+  public ObjectResponse updateAnalyticsTableHook(AnalyticsTableHook hook) {
+    return updateMetadataObject(String.format("analyticsTableHooks/%s", hook.getId()), hook);
   }
 
   /**
-   * Removes a {@link OrgUnit}.
+   * Removes a {@link AnalyticsTableHook}.
    *
    * @param id the identifier of the object to remove.
    * @return {@link ObjectResponse} holding information about the operation.
    */
-  public ObjectResponse removeOrgUnit(String id) {
-    return removeMetadataObject(String.format("organisationUnits/%s", id));
+  public ObjectResponse removeAnalyticsTableHook(String id) {
+    return removeMetadataObject(String.format("analyticsTableHooks/%s", id));
   }
 
   /**
-   * Retrieves an {@link OrgUnit}.
+   * Retrieves an {@link AnalyticsTableHook}.
    *
-   * @param id the object identifier.
-   * @return the {@link OrgUnit}.
+   * @param id the identifier of the table hook.
+   * @return the {@link AnalyticsTableHook}.
    * @throws Dhis2ClientException if the object does not exist.
    */
-  public OrgUnit getOrgUnit(String id) {
-    return getObject(
-        config
-            .getResolvedUriBuilder()
-            .appendPath("organisationUnits")
-            .appendPath(id)
-            .addParameter(FIELDS_PARAM, ORG_UNIT_FIELDS),
-        Query.instance(),
-        OrgUnit.class);
+  public AnalyticsTableHook getAnalyticsTableHook(String id) {
+    return getObject("analyticsTableHooks", id, AnalyticsTableHook.class);
   }
 
   /**
-   * Indicates whether an {@link OrgUnit} exists.
+   * Indicates whether a {@link AnalyticsTableHook} exists.
    *
    * @param id the object identifier.
    * @return true if the object exists.
    */
-  public boolean isOrgUnit(String id) {
-    return objectExists("organisationUnits", id);
+  public boolean isAnalyticsTableHook(String id) {
+    return objectExists("analyticsTableHooks", id);
   }
 
   /**
-   * Retrieves a list of {@link OrgUnit} which represents the sub-hierarchy of the given parent org
-   * unit.
+   * Retrieves a list of {@link AnalyticsTableHook}.
    *
-   * @param id the identifier of the parent org unit.
-   * @param level the org unit level, relative to the level of the parent org unit, where 1 is the
-   *     level immediately below.
    * @param query the {@link Query}.
-   * @return list of {@link OrgUnit}.
+   * @return list of {@link AnalyticsTableHook}.
    */
-  public List<OrgUnit> getOrgUnitSubHierarchy(String id, Integer level, Query query) {
+  public List<AnalyticsTableHook> getAnalyticsTableHooks(Query query) {
     return getObject(
             config
                 .getResolvedUriBuilder()
-                .appendPath("organisationUnits")
-                .appendPath(id)
-                .addParameter(FIELDS_PARAM, ORG_UNIT_FIELDS)
-                .addParameter("level", String.valueOf(level)),
+                .appendPath("analyticsTableHooks")
+                .addParameter(FIELDS_PARAM, ID_FIELDS),
             query,
             Dhis2Objects.class)
-        .getOrganisationUnits();
-  }
-
-  /**
-   * Retrieves a list of {@link OrgUnit}.
-   *
-   * @param query the {@link Query}.
-   * @return list of {@link OrgUnit}.
-   */
-  public List<OrgUnit> getOrgUnits(Query query) {
-    return getObject(
-            config
-                .getResolvedUriBuilder()
-                .appendPath("organisationUnits")
-                .addParameter(FIELDS_PARAM, ORG_UNIT_FIELDS),
-            query,
-            Dhis2Objects.class)
-        .getOrganisationUnits();
-  }
-
-  // -------------------------------------------------------------------------
-  // Org unit merge and split
-  // -------------------------------------------------------------------------
-
-  /**
-   * Performs an org unit split operation.
-   *
-   * @param request the {@link OrgUnitSplitRequest}.
-   * @return the {@link Response} holding information about the operation.
-   */
-  public Response splitOrgUnit(OrgUnitSplitRequest request) {
-    URI url = config.getResolvedUrl("organisationUnits/split");
-
-    return executeJsonPostPutRequest(new HttpPost(url), request, Response.class);
-  }
-
-  /**
-   * Performs an org unit merge operation.
-   *
-   * @param request the {@link OrgUnitMergeRequest request}.
-   * @return the {@link Response} holding information about the operation.
-   */
-  public Response mergeOrgUnits(OrgUnitMergeRequest request) {
-    URI url = config.getResolvedUrl("organisationUnits/merge");
-
-    return executeJsonPostPutRequest(new HttpPost(url), request, Response.class);
-  }
-
-  // -------------------------------------------------------------------------
-  // Org unit group
-  // -------------------------------------------------------------------------
-
-  /**
-   * Saves a {@link OrgUnitGroup}.
-   *
-   * @param orgUnitGroup the object to save.
-   * @return {@link ObjectResponse} holding information about the operation.
-   */
-  public ObjectResponse saveOrgUnitGroup(OrgUnitGroup orgUnitGroup) {
-    return saveMetadataObject("organisationUnitGroups", orgUnitGroup);
-  }
-
-  /**
-   * Saves or updates the list of {@link OrgUnitGroup}.
-   *
-   * @param orgUnitGroups the list of {@link OrgUnitGroup}.
-   * @return {@link ObjectsResponse} holding information about the operation.
-   */
-  public ObjectsResponse saveOrgUnitGroups(List<OrgUnitGroup> orgUnitGroups) {
-    return saveMetadataObjects(new Dhis2Objects().setOrganisationUnitGroups(orgUnitGroups));
-  }
-
-  /**
-   * Updates a {@link OrgUnitGroup}.
-   *
-   * @param orgUnitGroup the object to update.
-   * @return {@link ObjectResponse} holding information about the operation.
-   */
-  public ObjectResponse updateOrgUnitGroup(OrgUnitGroup orgUnitGroup) {
-    return updateMetadataObject(
-        String.format("organisationUnitGroups/%s", orgUnitGroup.getId()), orgUnitGroup);
-  }
-
-  /**
-   * Removes a {@link OrgUnitGroup}.
-   *
-   * @param id the identifier of the object to remove.
-   * @return {@link ObjectResponse} holding information about the operation.
-   */
-  public ObjectResponse removeOrgUnitGroup(String id) {
-    return removeMetadataObject(String.format("organisationUnitGroups/%s", id));
-  }
-
-  /**
-   * Retrieves an {@link OrgUnitGroup}.
-   *
-   * @param id the object identifier.
-   * @return the {@link OrgUnitGroup}.
-   * @throws Dhis2ClientException if the object does not exist.
-   */
-  public OrgUnitGroup getOrgUnitGroup(String id) {
-    String fieldsParams =
-        String.format("%1$s,organisationUnits[%2$s]", NAME_FIELDS, ORG_UNIT_FIELDS);
-
-    return getObject(
-        config
-            .getResolvedUriBuilder()
-            .appendPath("organisationUnitGroups")
-            .appendPath(id)
-            .addParameter(FIELDS_PARAM, fieldsParams),
-        Query.instance(),
-        OrgUnitGroup.class);
-  }
-
-  /**
-   * Indicates whether an {@link OrgUnitGroup} exists.
-   *
-   * @param id the object identifier.
-   * @return true if the object exists.
-   */
-  public boolean isOrgUnitGroup(String id) {
-    return objectExists("organisationUnitGroups", id);
-  }
-
-  /**
-   * Retrieves a list of {@link OrgUnitGroup}.
-   *
-   * @param query the {@link Query}.
-   * @return list of {@link OrgUnitGroup}.
-   */
-  public List<OrgUnitGroup> getOrgUnitGroups(Query query) {
-    String fieldsParams =
-        query.isExpandAssociations()
-            ? String.format("%1$s,organisationUnits[id,code,name]", NAME_FIELDS)
-            : NAME_FIELDS;
-
-    return getObject(
-            config
-                .getResolvedUriBuilder()
-                .appendPath("organisationUnitGroups")
-                .addParameter(FIELDS_PARAM, fieldsParams),
-            query,
-            Dhis2Objects.class)
-        .getOrganisationUnitGroups();
-  }
-
-  /**
-   * Adds the program to the org unit.
-   *
-   * @param orgUnitGroup the org unit group identifier.
-   * @param orgUnit the org unit identifier.
-   * @return a {@link Response}.
-   */
-  public Response addOrgUnitToOrgUnitGroup(String orgUnitGroup, String orgUnit) {
-    return addToCollection("organisationUnitGroups", orgUnitGroup, "organisationUnits", orgUnit);
-  }
-
-  // -------------------------------------------------------------------------
-  // Org unit group set
-  // -------------------------------------------------------------------------
-
-  /**
-   * Saves a {@link OrgUnitGroupSet}.
-   *
-   * @param orgUnitGroupSet the object to save.
-   * @return {@link ObjectResponse} holding information about the operation.
-   */
-  public ObjectResponse saveOrgUnitGroupSet(OrgUnitGroupSet orgUnitGroupSet) {
-    return saveMetadataObject("organisationUnitGroupSets", orgUnitGroupSet);
-  }
-
-  /**
-   * Saves or updates the list of {@link OrgUnitGroupSet}.
-   *
-   * @param orgUnitGroupSets the list of {@link OrgUnitGroupSet}.
-   * @return {@link ObjectsResponse} holding information about the operation.
-   */
-  public ObjectsResponse saveOrgUnitGroupSets(List<OrgUnitGroupSet> orgUnitGroupSets) {
-    return saveMetadataObjects(new Dhis2Objects().setOrganisationUnitGroupSets(orgUnitGroupSets));
-  }
-
-  /**
-   * Updates a {@link OrgUnitGroupSet}.
-   *
-   * @param orgUnitGroupSet the object to update.
-   * @return {@link ObjectResponse} holding information about the operation.
-   */
-  public ObjectResponse updateOrgUnitGroupSet(OrgUnitGroupSet orgUnitGroupSet) {
-    return updateMetadataObject(
-        String.format("organisationUnitGroupSets/%s", orgUnitGroupSet.getId()), orgUnitGroupSet);
-  }
-
-  /**
-   * Removes a {@link OrgUnitGroupSet}.
-   *
-   * @param id the identifier of the object to remove.
-   * @return {@link ObjectResponse} holding information about the operation.
-   */
-  public ObjectResponse removeOrgUnitGroupSet(String id) {
-    return removeMetadataObject(String.format("organisationUnitGroupSets/%s", id));
-  }
-
-  /**
-   * Retrieves an {@link OrgUnitGroupSet}.
-   *
-   * @param id the object identifier.
-   * @return the {@link OrgUnitGroupSet}.
-   * @throws Dhis2ClientException if the object does not exist.
-   */
-  public OrgUnitGroupSet getOrgUnitGroupSet(String id) {
-    return getObject(
-        config
-            .getResolvedUriBuilder()
-            .appendPath("organisationUnitGroupSets")
-            .appendPath(id)
-            .addParameter(FIELDS_PARAM, ORG_UNIT_GROUP_SET_FIELDS),
-        Query.instance(),
-        OrgUnitGroupSet.class);
-  }
-
-  /**
-   * Indicates whether an {@link OrgUnitGroupSet} exists.
-   *
-   * @param id the object identifier.
-   * @return true if the object exists.
-   */
-  public boolean isOrgUnitGroupSet(String id) {
-    return objectExists("organisationUnitGroupSets", id);
-  }
-
-  /**
-   * Retrieves a list of {@link OrgUnitGroupSet}.
-   *
-   * @param query the {@link Query}.
-   * @return list of {@link OrgUnitGroupSet}.
-   */
-  public List<OrgUnitGroupSet> getOrgUnitGroupSets(Query query) {
-    return getObject(
-            config
-                .getResolvedUriBuilder()
-                .appendPath("organisationUnitGroupSets")
-                .addParameter(FIELDS_PARAM, ORG_UNIT_GROUP_SET_FIELDS),
-            query,
-            Dhis2Objects.class)
-        .getOrganisationUnitGroupSets();
-  }
-
-  // -------------------------------------------------------------------------
-  // Org unit level
-  // -------------------------------------------------------------------------
-
-  /**
-   * Retrieves an {@link OrgUnitLevel}.
-   *
-   * @param id the object identifier.
-   * @return the {@link OrgUnitLevel}.
-   * @throws Dhis2ClientException if the object does not exist.
-   */
-  public OrgUnitLevel getOrgUnitLevel(String id) {
-    return getObject(
-        config
-            .getResolvedUriBuilder()
-            .appendPath("organisationUnitLevels")
-            .appendPath(id)
-            .addParameter(FIELDS_PARAM, String.format("%s,level", ID_FIELDS)),
-        Query.instance(),
-        OrgUnitLevel.class);
-  }
-
-  /**
-   * Retrieves a list of {@link OrgUnitLevel}.
-   *
-   * @param query the {@link Query}.
-   * @return list of {@link OrgUnitLevel}.
-   */
-  public List<OrgUnitLevel> getOrgUnitLevels(Query query) {
-    return getObject(
-            config
-                .getResolvedUriBuilder()
-                .appendPath("organisationUnitLevels")
-                .addParameter(FIELDS_PARAM, String.format("%s,level", ID_FIELDS)),
-            query,
-            Dhis2Objects.class)
-        .getOrganisationUnitLevels();
-  }
-
-  /**
-   * Retrieves a list of "filled" {@link OrgUnitLevel}, meaning any gaps in the persisted levels
-   * will be inserted by generated levels.
-   *
-   * @return list of {@link OrgUnitLevel}.
-   */
-  public List<OrgUnitLevel> getFilledOrgUnitLevels() {
-    // Using array, DHIS2 should have used a wrapper entity
-
-    return asList(
-        getObject(
-            config.getResolvedUriBuilder().appendPath("filledOrganisationUnitLevels"),
-            Query.instance(),
-            OrgUnitLevel[].class));
+        .getAnalyticsTableHooks();
   }
 
   // -------------------------------------------------------------------------
@@ -1928,6 +1616,400 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   // -------------------------------------------------------------------------
+  // Org unit
+  // -------------------------------------------------------------------------
+
+  /**
+   * Saves a {@link OrgUnit}.
+   *
+   * @param orgUnit the object to save.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse saveOrgUnit(OrgUnit orgUnit) {
+    return saveMetadataObject("organisationUnits", orgUnit);
+  }
+
+  /**
+   * Saves or updates the list of {@link OrgUnit}.
+   *
+   * @param orgUnits the list of {@link OrgUnit}.
+   * @return {@link ObjectsResponse} holding information about the operation.
+   */
+  public ObjectsResponse saveOrgUnits(List<OrgUnit> orgUnits) {
+    return saveMetadataObjects(new Dhis2Objects().setOrganisationUnits(orgUnits));
+  }
+
+  /**
+   * Updates a {@link OrgUnit}.
+   *
+   * @param orgUnit the object to update.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse updateOrgUnit(OrgUnit orgUnit) {
+    return updateMetadataObject(String.format("organisationUnits/%s", orgUnit.getId()), orgUnit);
+  }
+
+  /**
+   * Removes a {@link OrgUnit}.
+   *
+   * @param id the identifier of the object to remove.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse removeOrgUnit(String id) {
+    return removeMetadataObject(String.format("organisationUnits/%s", id));
+  }
+
+  /**
+   * Retrieves an {@link OrgUnit}.
+   *
+   * @param id the object identifier.
+   * @return the {@link OrgUnit}.
+   * @throws Dhis2ClientException if the object does not exist.
+   */
+  public OrgUnit getOrgUnit(String id) {
+    return getObject(
+        config
+            .getResolvedUriBuilder()
+            .appendPath("organisationUnits")
+            .appendPath(id)
+            .addParameter(FIELDS_PARAM, ORG_UNIT_FIELDS),
+        Query.instance(),
+        OrgUnit.class);
+  }
+
+  /**
+   * Indicates whether an {@link OrgUnit} exists.
+   *
+   * @param id the object identifier.
+   * @return true if the object exists.
+   */
+  public boolean isOrgUnit(String id) {
+    return objectExists("organisationUnits", id);
+  }
+
+  /**
+   * Retrieves a list of {@link OrgUnit} which represents the sub-hierarchy of the given parent org
+   * unit.
+   *
+   * @param id the identifier of the parent org unit.
+   * @param level the org unit level, relative to the level of the parent org unit, where 1 is the
+   *     level immediately below.
+   * @param query the {@link Query}.
+   * @return list of {@link OrgUnit}.
+   */
+  public List<OrgUnit> getOrgUnitSubHierarchy(String id, Integer level, Query query) {
+    return getObject(
+            config
+                .getResolvedUriBuilder()
+                .appendPath("organisationUnits")
+                .appendPath(id)
+                .addParameter(FIELDS_PARAM, ORG_UNIT_FIELDS)
+                .addParameter("level", String.valueOf(level)),
+            query,
+            Dhis2Objects.class)
+        .getOrganisationUnits();
+  }
+
+  /**
+   * Retrieves a list of {@link OrgUnit}.
+   *
+   * @param query the {@link Query}.
+   * @return list of {@link OrgUnit}.
+   */
+  public List<OrgUnit> getOrgUnits(Query query) {
+    return getObject(
+            config
+                .getResolvedUriBuilder()
+                .appendPath("organisationUnits")
+                .addParameter(FIELDS_PARAM, ORG_UNIT_FIELDS),
+            query,
+            Dhis2Objects.class)
+        .getOrganisationUnits();
+  }
+
+  // -------------------------------------------------------------------------
+  // Org unit merge and split
+  // -------------------------------------------------------------------------
+
+  /**
+   * Performs an org unit split operation.
+   *
+   * @param request the {@link OrgUnitSplitRequest}.
+   * @return the {@link Response} holding information about the operation.
+   */
+  public Response splitOrgUnit(OrgUnitSplitRequest request) {
+    URI url = config.getResolvedUrl("organisationUnits/split");
+
+    return executeJsonPostPutRequest(new HttpPost(url), request, Response.class);
+  }
+
+  /**
+   * Performs an org unit merge operation.
+   *
+   * @param request the {@link OrgUnitMergeRequest request}.
+   * @return the {@link Response} holding information about the operation.
+   */
+  public Response mergeOrgUnits(OrgUnitMergeRequest request) {
+    URI url = config.getResolvedUrl("organisationUnits/merge");
+
+    return executeJsonPostPutRequest(new HttpPost(url), request, Response.class);
+  }
+
+  // -------------------------------------------------------------------------
+  // Org unit group
+  // -------------------------------------------------------------------------
+
+  /**
+   * Saves a {@link OrgUnitGroup}.
+   *
+   * @param orgUnitGroup the object to save.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse saveOrgUnitGroup(OrgUnitGroup orgUnitGroup) {
+    return saveMetadataObject("organisationUnitGroups", orgUnitGroup);
+  }
+
+  /**
+   * Saves or updates the list of {@link OrgUnitGroup}.
+   *
+   * @param orgUnitGroups the list of {@link OrgUnitGroup}.
+   * @return {@link ObjectsResponse} holding information about the operation.
+   */
+  public ObjectsResponse saveOrgUnitGroups(List<OrgUnitGroup> orgUnitGroups) {
+    return saveMetadataObjects(new Dhis2Objects().setOrganisationUnitGroups(orgUnitGroups));
+  }
+
+  /**
+   * Updates a {@link OrgUnitGroup}.
+   *
+   * @param orgUnitGroup the object to update.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse updateOrgUnitGroup(OrgUnitGroup orgUnitGroup) {
+    return updateMetadataObject(
+        String.format("organisationUnitGroups/%s", orgUnitGroup.getId()), orgUnitGroup);
+  }
+
+  /**
+   * Removes a {@link OrgUnitGroup}.
+   *
+   * @param id the identifier of the object to remove.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse removeOrgUnitGroup(String id) {
+    return removeMetadataObject(String.format("organisationUnitGroups/%s", id));
+  }
+
+  /**
+   * Retrieves an {@link OrgUnitGroup}.
+   *
+   * @param id the object identifier.
+   * @return the {@link OrgUnitGroup}.
+   * @throws Dhis2ClientException if the object does not exist.
+   */
+  public OrgUnitGroup getOrgUnitGroup(String id) {
+    String fieldsParams =
+        String.format("%1$s,organisationUnits[%2$s]", NAME_FIELDS, ORG_UNIT_FIELDS);
+
+    return getObject(
+        config
+            .getResolvedUriBuilder()
+            .appendPath("organisationUnitGroups")
+            .appendPath(id)
+            .addParameter(FIELDS_PARAM, fieldsParams),
+        Query.instance(),
+        OrgUnitGroup.class);
+  }
+
+  /**
+   * Indicates whether an {@link OrgUnitGroup} exists.
+   *
+   * @param id the object identifier.
+   * @return true if the object exists.
+   */
+  public boolean isOrgUnitGroup(String id) {
+    return objectExists("organisationUnitGroups", id);
+  }
+
+  /**
+   * Retrieves a list of {@link OrgUnitGroup}.
+   *
+   * @param query the {@link Query}.
+   * @return list of {@link OrgUnitGroup}.
+   */
+  public List<OrgUnitGroup> getOrgUnitGroups(Query query) {
+    String fieldsParams =
+        query.isExpandAssociations()
+            ? String.format("%1$s,organisationUnits[id,code,name]", NAME_FIELDS)
+            : NAME_FIELDS;
+
+    return getObject(
+            config
+                .getResolvedUriBuilder()
+                .appendPath("organisationUnitGroups")
+                .addParameter(FIELDS_PARAM, fieldsParams),
+            query,
+            Dhis2Objects.class)
+        .getOrganisationUnitGroups();
+  }
+
+  /**
+   * Adds the program to the org unit.
+   *
+   * @param orgUnitGroup the org unit group identifier.
+   * @param orgUnit the org unit identifier.
+   * @return a {@link Response}.
+   */
+  public Response addOrgUnitToOrgUnitGroup(String orgUnitGroup, String orgUnit) {
+    return addToCollection("organisationUnitGroups", orgUnitGroup, "organisationUnits", orgUnit);
+  }
+
+  // -------------------------------------------------------------------------
+  // Org unit group set
+  // -------------------------------------------------------------------------
+
+  /**
+   * Saves a {@link OrgUnitGroupSet}.
+   *
+   * @param orgUnitGroupSet the object to save.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse saveOrgUnitGroupSet(OrgUnitGroupSet orgUnitGroupSet) {
+    return saveMetadataObject("organisationUnitGroupSets", orgUnitGroupSet);
+  }
+
+  /**
+   * Saves or updates the list of {@link OrgUnitGroupSet}.
+   *
+   * @param orgUnitGroupSets the list of {@link OrgUnitGroupSet}.
+   * @return {@link ObjectsResponse} holding information about the operation.
+   */
+  public ObjectsResponse saveOrgUnitGroupSets(List<OrgUnitGroupSet> orgUnitGroupSets) {
+    return saveMetadataObjects(new Dhis2Objects().setOrganisationUnitGroupSets(orgUnitGroupSets));
+  }
+
+  /**
+   * Updates a {@link OrgUnitGroupSet}.
+   *
+   * @param orgUnitGroupSet the object to update.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse updateOrgUnitGroupSet(OrgUnitGroupSet orgUnitGroupSet) {
+    return updateMetadataObject(
+        String.format("organisationUnitGroupSets/%s", orgUnitGroupSet.getId()), orgUnitGroupSet);
+  }
+
+  /**
+   * Removes a {@link OrgUnitGroupSet}.
+   *
+   * @param id the identifier of the object to remove.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse removeOrgUnitGroupSet(String id) {
+    return removeMetadataObject(String.format("organisationUnitGroupSets/%s", id));
+  }
+
+  /**
+   * Retrieves an {@link OrgUnitGroupSet}.
+   *
+   * @param id the object identifier.
+   * @return the {@link OrgUnitGroupSet}.
+   * @throws Dhis2ClientException if the object does not exist.
+   */
+  public OrgUnitGroupSet getOrgUnitGroupSet(String id) {
+    return getObject(
+        config
+            .getResolvedUriBuilder()
+            .appendPath("organisationUnitGroupSets")
+            .appendPath(id)
+            .addParameter(FIELDS_PARAM, ORG_UNIT_GROUP_SET_FIELDS),
+        Query.instance(),
+        OrgUnitGroupSet.class);
+  }
+
+  /**
+   * Indicates whether an {@link OrgUnitGroupSet} exists.
+   *
+   * @param id the object identifier.
+   * @return true if the object exists.
+   */
+  public boolean isOrgUnitGroupSet(String id) {
+    return objectExists("organisationUnitGroupSets", id);
+  }
+
+  /**
+   * Retrieves a list of {@link OrgUnitGroupSet}.
+   *
+   * @param query the {@link Query}.
+   * @return list of {@link OrgUnitGroupSet}.
+   */
+  public List<OrgUnitGroupSet> getOrgUnitGroupSets(Query query) {
+    return getObject(
+            config
+                .getResolvedUriBuilder()
+                .appendPath("organisationUnitGroupSets")
+                .addParameter(FIELDS_PARAM, ORG_UNIT_GROUP_SET_FIELDS),
+            query,
+            Dhis2Objects.class)
+        .getOrganisationUnitGroupSets();
+  }
+
+  // -------------------------------------------------------------------------
+  // Org unit level
+  // -------------------------------------------------------------------------
+
+  /**
+   * Retrieves an {@link OrgUnitLevel}.
+   *
+   * @param id the object identifier.
+   * @return the {@link OrgUnitLevel}.
+   * @throws Dhis2ClientException if the object does not exist.
+   */
+  public OrgUnitLevel getOrgUnitLevel(String id) {
+    return getObject(
+        config
+            .getResolvedUriBuilder()
+            .appendPath("organisationUnitLevels")
+            .appendPath(id)
+            .addParameter(FIELDS_PARAM, String.format("%s,level", ID_FIELDS)),
+        Query.instance(),
+        OrgUnitLevel.class);
+  }
+
+  /**
+   * Retrieves a list of {@link OrgUnitLevel}.
+   *
+   * @param query the {@link Query}.
+   * @return list of {@link OrgUnitLevel}.
+   */
+  public List<OrgUnitLevel> getOrgUnitLevels(Query query) {
+    return getObject(
+            config
+                .getResolvedUriBuilder()
+                .appendPath("organisationUnitLevels")
+                .addParameter(FIELDS_PARAM, String.format("%s,level", ID_FIELDS)),
+            query,
+            Dhis2Objects.class)
+        .getOrganisationUnitLevels();
+  }
+
+  /**
+   * Retrieves a list of "filled" {@link OrgUnitLevel}, meaning any gaps in the persisted levels
+   * will be inserted by generated levels.
+   *
+   * @return list of {@link OrgUnitLevel}.
+   */
+  public List<OrgUnitLevel> getFilledOrgUnitLevels() {
+    // Using array, DHIS2 should have used a wrapper entity
+
+    return asList(
+        getObject(
+            config.getResolvedUriBuilder().appendPath("filledOrganisationUnitLevels"),
+            Query.instance(),
+            OrgUnitLevel[].class));
+  }
+
+  // -------------------------------------------------------------------------
   // Program
   // -------------------------------------------------------------------------
 
@@ -2325,89 +2407,6 @@ public class Dhis2 extends BaseDhis2 {
             query,
             Dhis2Objects.class)
         .getOptions();
-  }
-
-  // -------------------------------------------------------------------------
-  // Table hook
-  // -------------------------------------------------------------------------
-
-  /**
-   * Saves a {@link AnalyticsTableHook}.
-   *
-   * @param tableHook the object to save.
-   * @return {@link ObjectResponse} holding information about the operation.
-   */
-  public ObjectResponse saveTableHook(AnalyticsTableHook tableHook) {
-    return saveMetadataObject("analyticsTableHooks", tableHook);
-  }
-
-  /**
-   * Saves or updates the list of {@link AnalyticsTableHook}.
-   *
-   * @param tableHooks the list of {@link AnalyticsTableHook}.
-   * @return {@link ObjectsResponse} holding information about the operation.
-   */
-  public ObjectsResponse saveTableHooks(List<AnalyticsTableHook> tableHooks) {
-    return saveMetadataObjects(new Dhis2Objects().setAnalyticsTableHooks(tableHooks));
-  }
-
-  /**
-   * Updates a {@link AnalyticsTableHook}.
-   *
-   * @param tableHook the object to update.
-   * @return {@link ObjectResponse} holding information about the operation.
-   */
-  public ObjectResponse updateTableHook(AnalyticsTableHook tableHook) {
-    return updateMetadataObject(
-        String.format("analyticsTableHooks/%s", tableHook.getId()), tableHook);
-  }
-
-  /**
-   * Removes a {@link AnalyticsTableHook}.
-   *
-   * @param id the identifier of the object to remove.
-   * @return {@link ObjectResponse} holding information about the operation.
-   */
-  public ObjectResponse removeTableHook(String id) {
-    return removeMetadataObject(String.format("analyticsTableHooks/%s", id));
-  }
-
-  /**
-   * Retrieves an {@link AnalyticsTableHook}.
-   *
-   * @param id the identifier of the table hook.
-   * @return the {@link AnalyticsTableHook}.
-   * @throws Dhis2ClientException if the object does not exist.
-   */
-  public AnalyticsTableHook getTableHook(String id) {
-    return getObject("analyticsTableHooks", id, AnalyticsTableHook.class);
-  }
-
-  /**
-   * Indicates whether a {@link AnalyticsTableHook} exists.
-   *
-   * @param id the object identifier.
-   * @return true if the object exists.
-   */
-  public boolean isTableHook(String id) {
-    return objectExists("analyticsTableHooks", id);
-  }
-
-  /**
-   * Retrieves a list of {@link AnalyticsTableHook}.
-   *
-   * @param query the {@link Query}.
-   * @return list of {@link AnalyticsTableHook}.
-   */
-  public List<AnalyticsTableHook> getTableHooks(Query query) {
-    return getObject(
-            config
-                .getResolvedUriBuilder()
-                .appendPath("analyticsTableHooks")
-                .addParameter(FIELDS_PARAM, ID_FIELDS),
-            query,
-            Dhis2Objects.class)
-        .getAnalyticsTableHooks();
   }
 
   // -------------------------------------------------------------------------
