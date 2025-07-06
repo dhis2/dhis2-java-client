@@ -130,7 +130,7 @@ public class Dhis2Objects {
 
   @JsonProperty private List<UserRole> userRoles = new ArrayList<>();
 
-  @JsonProperty private List<Visualization> visualizations = new ArrayList<>();
-
   @JsonProperty private List<ValidationRule> validationRules = new ArrayList<>();
+
+  @JsonProperty private List<Visualization> visualizations = new ArrayList<>();
 }
