@@ -49,7 +49,7 @@ import org.hisp.dhis.model.validation.ValidationRule;
 @Accessors(chain = true)
 @NoArgsConstructor
 public class Dhis2Objects {
-  @JsonProperty private List<TableHook> analyticsTableHooks = new ArrayList<>();
+  @JsonProperty private List<AnalyticsTableHook> analyticsTableHooks = new ArrayList<>();
 
   @JsonProperty private List<Attribute> attributes = new ArrayList<>();
 

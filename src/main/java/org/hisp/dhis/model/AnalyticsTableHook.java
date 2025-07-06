@@ -35,7 +35,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class TableHook extends IdentifiableObject {
+public class AnalyticsTableHook extends IdentifiableObject {
   @JsonProperty private TablePhase phase;
 
   @JsonProperty private ResourceTableType resourceTableType;
