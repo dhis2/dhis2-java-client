@@ -558,6 +558,95 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   // -------------------------------------------------------------------------
+  // Attribute
+  // -------------------------------------------------------------------------
+
+  /**
+   * Retrieves a {@link Attribute}.
+   *
+   * @param id the object identifier.
+   * @return the {@link Attribute}.
+   * @throws Dhis2ClientException if the object does not exist.
+   */
+  public Attribute getAttribute(String id) {
+    return getObject(
+        config
+            .getResolvedUriBuilder()
+            .appendPath("attributes")
+            .appendPath(id)
+            .addParameter(FIELDS_PARAM, ATTRIBUTE_FIELDS),
+        Query.instance(),
+        Attribute.class);
+  }
+
+  /**
+   * Indicates whether a {@link Attribute} exists.
+   *
+   * @param id the object identifier.
+   * @return true if the object exists.
+   */
+  public boolean isAttribute(String id) {
+    return objectExists("attributes", id);
+  }
+
+  /**
+   * Retrieves a {@link Attribute}.
+   *
+   * @param query the {@link Query}.
+   * @return a list of {@link Attribute}.
+   */
+  public List<Attribute> getAttributes(Query query) {
+    return getObject(
+            config
+                .getResolvedUriBuilder()
+                .appendPath("attributes")
+                .addParameter(FIELDS_PARAM, ATTRIBUTE_FIELDS),
+            query,
+            Dhis2Objects.class)
+        .getAttributes();
+  }
+
+  /**
+   * Saves a {@link Attribute}.
+   *
+   * @param attribute the object to save.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse saveAttribute(Attribute attribute) {
+    return saveMetadataObject("attributes", attribute);
+  }
+
+  /**
+   * Saves or updates the list of {@link Attribute}.
+   *
+   * @param attributes the list of {@link Attribute}.
+   * @return {@link ObjectsResponse} holding information about the operation.
+   */
+  public ObjectsResponse saveAttributes(List<Attribute> attributes) {
+    return saveMetadataObjects(new Dhis2Objects().setAttributes(attributes));
+  }
+
+  /**
+   * Updates a {@link Attribute}.
+   *
+   * @param attribute the object to update.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse updateAttribute(Attribute attribute) {
+    return updateMetadataObject(String.format("attributes/%s", attribute.getId()), attribute);
+  }
+
+  /**
+   * Removes a {@link Attribute}.
+   *
+   * @param id the identifier of the object to remove.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse removeAttribute(String id) {
+    return removeMetadataObject(String.format("attributes/%s", id));
+  }
+
+  // -------------------------------------------------------------------------
   // Category option
   // -------------------------------------------------------------------------
 
@@ -979,6 +1068,65 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   // -------------------------------------------------------------------------
+  // Dashboard
+  // -------------------------------------------------------------------------
+
+  /**
+   * Removes a {@link Dashboard}.
+   *
+   * @param id the identifier of the object to remove.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse removeDashboard(String id) {
+    return removeMetadataObject(String.format("dashboards/%s", id));
+  }
+
+  /**
+   * Retrieves a {@link Dashboard}.
+   *
+   * @param id the object identifier.
+   * @return the {@link Dashboard}.
+   * @throws Dhis2ClientException if the object does not exist.
+   */
+  public Dashboard getDashboard(String id) {
+    return getObject(
+        config
+            .getResolvedUriBuilder()
+            .appendPath("dashboards")
+            .appendPath(id)
+            .addParameter(FIELDS_PARAM, DASHBOARD_FIELDS),
+        Query.instance(),
+        Dashboard.class);
+  }
+
+  /**
+   * Indicates whether a {@link Dashboard} exists.
+   *
+   * @param id the object identifier.
+   * @return true if the object exists.
+   */
+  public boolean isDashboard(String id) {
+    return objectExists("dashboards", id);
+  }
+
+  /**
+   * Retrieves a list of {@link Dashboard}.
+   *
+   * @param query the {@link Query}.
+   * @return list of {@link Dashboard}.
+   */
+  public List<Dashboard> getDashboards(Query query) {
+    return getObject(
+            config
+                .getResolvedUriBuilder()
+                .appendPath("dashboards")
+                .addParameter(FIELDS_PARAM, DASHBOARD_FIELDS),
+            query,
+            Dhis2Objects.class)
+        .getDashboards();
+  }
+
+  // -------------------------------------------------------------------------
   // Data element
   // -------------------------------------------------------------------------
 
@@ -1232,6 +1380,195 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   // -------------------------------------------------------------------------
+  // DataSet
+  // -------------------------------------------------------------------------
+
+  /**
+   * Removes a {@link DataSet}.
+   *
+   * @param id the identifier of the object to remove.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse removeDataSet(String id) {
+    return removeMetadataObject(String.format("dataSets/%s", id));
+  }
+
+  /**
+   * Retrieves an {@link DataSet}.
+   *
+   * @param id the object identifier.
+   * @return the {@link DataSet}.
+   * @throws Dhis2ClientException if the object does not exist.
+   */
+  public DataSet getDataSet(String id) {
+    String fieldsParam =
+        String.format(
+            "%1$s,organisationUnits[%2$s],workflow[%2$s],indicators[%2$s],sections[%2$s],legendSets[%2$s]",
+            DATA_SET_FIELDS, NAME_FIELDS);
+
+    return getObject(
+        config
+            .getResolvedUriBuilder()
+            .appendPath("dataSets")
+            .appendPath(id)
+            .addParameter(FIELDS_PARAM, fieldsParam),
+        Query.instance(),
+        DataSet.class);
+  }
+
+  /**
+   * Indicates whether a {@link DataSet} exists.
+   *
+   * @param id the object identifier.
+   * @return true if the object exists.
+   */
+  public boolean isDataSet(String id) {
+    return objectExists("dataSets", id);
+  }
+
+  /**
+   * Retrieves a list of {@link DataSet}.
+   *
+   * @param query the {@link Query}.
+   * @return list of {@link DataSet}.
+   */
+  public List<DataSet> getDataSets(Query query) {
+    String fieldsParam =
+        query.isExpandAssociations()
+            ? String.format(
+                "%1$s,organisationUnits[%2$s],workflow[%2$s],indicators[%2$s],sections[%2$s],legendSets[%2$s]",
+                DATA_SET_FIELDS, NAME_FIELDS)
+            : DATA_SET_FIELDS;
+
+    return getObject(
+            config
+                .getResolvedUriBuilder()
+                .appendPath("dataSets")
+                .addParameter(FIELDS_PARAM, fieldsParam),
+            query,
+            Dhis2Objects.class)
+        .getDataSets();
+  }
+
+  // -------------------------------------------------------------------------
+  // Dimension
+  // -------------------------------------------------------------------------
+
+  /**
+   * Retrieves a {@link Dimension}.
+   *
+   * @param id the identifier of the dimension.
+   * @return the {@link Dimension}.
+   * @throws Dhis2ClientException if the object does not exist.
+   */
+  public Dimension getDimension(String id) {
+    return getObject(
+        config
+            .getResolvedUriBuilder()
+            .appendPath("dimensions")
+            .appendPath(id)
+            .addParameter(FIELDS_PARAM, String.format("%s,dimensionType", ID_FIELDS)),
+        Query.instance(),
+        Dimension.class);
+  }
+
+  /**
+   * Indicates whether a {@link Dimension} exists.
+   *
+   * @param id the object identifier.
+   * @return true if the object exists.
+   */
+  public boolean isDimension(String id) {
+    return objectExists("dimensions", id);
+  }
+
+  /**
+   * Retrieves a list of {@link Dimension}.
+   *
+   * @param query the {@link Query}.
+   * @return list of {@link Dimension}.
+   */
+  public List<Dimension> getDimensions(Query query) {
+    return getObject(
+            config
+                .getResolvedUriBuilder()
+                .appendPath("dimensions")
+                .addParameter(FIELDS_PARAM, String.format("%s,dimensionType", ID_FIELDS)),
+            query,
+            Dhis2Objects.class)
+        .getDimensions();
+  }
+
+  // -------------------------------------------------------------------------
+  // Document
+  // -------------------------------------------------------------------------
+
+  /**
+   * Retrieves a {@link Document}.
+   *
+   * @param id the object identifier.
+   * @return the {@link Document}.
+   * @throws Dhis2ClientException if the object does not exist.
+   */
+  public Document getDocument(String id) {
+    return getObject(
+        config
+            .getResolvedUriBuilder()
+            .appendPath("documents")
+            .appendPath(id)
+            .addParameter(FIELDS_PARAM, DOCUMENT_FIELDS),
+        Query.instance(),
+        Document.class);
+  }
+
+  /**
+   * Indicates whether a {@link Document} exists.
+   *
+   * @param id the object identifier.
+   * @return true if the object exists.
+   */
+  public boolean isDocument(String id) {
+    return objectExists("documents", id);
+  }
+
+  /**
+   * Retrieves a list of {@link Document}.
+   *
+   * @param query the {@link Query}.
+   * @return list of {@link Document}.
+   */
+  public List<Document> getDocuments(Query query) {
+    return getObject(
+            config
+                .getResolvedUriBuilder()
+                .appendPath("documents")
+                .addParameter(FIELDS_PARAM, DOCUMENT_FIELDS),
+            query,
+            Dhis2Objects.class)
+        .getDocuments();
+  }
+
+  /**
+   * Writes the data for the {@link Document} to the given {@link OutputStream}.
+   *
+   * @param id the document identifier.
+   * @param out the {@link OutputStream} to write data to.
+   */
+  public void writeDocumentData(String id, OutputStream out) {
+    URI uri =
+        HttpUtils.build(
+            config
+                .getResolvedUriBuilder()
+                .appendPath("documents")
+                .appendPath(id)
+                .appendPath("data"));
+
+    CloseableHttpResponse response = getHttpResponse(uri, List.of());
+
+    writeToStream(response, out);
+  }
+
+  // -------------------------------------------------------------------------
   // Indicator
   // -------------------------------------------------------------------------
 
@@ -1471,148 +1808,6 @@ public class Dhis2 extends BaseDhis2 {
             query,
             Dhis2Objects.class)
         .getIndicatorTypes();
-  }
-
-  // -------------------------------------------------------------------------
-  // DataSet
-  // -------------------------------------------------------------------------
-
-  /**
-   * Removes a {@link DataSet}.
-   *
-   * @param id the identifier of the object to remove.
-   * @return {@link ObjectResponse} holding information about the operation.
-   */
-  public ObjectResponse removeDataSet(String id) {
-    return removeMetadataObject(String.format("dataSets/%s", id));
-  }
-
-  /**
-   * Retrieves an {@link DataSet}.
-   *
-   * @param id the object identifier.
-   * @return the {@link DataSet}.
-   * @throws Dhis2ClientException if the object does not exist.
-   */
-  public DataSet getDataSet(String id) {
-    String fieldsParam =
-        String.format(
-            "%1$s,organisationUnits[%2$s],workflow[%2$s],indicators[%2$s],sections[%2$s],legendSets[%2$s]",
-            DATA_SET_FIELDS, NAME_FIELDS);
-
-    return getObject(
-        config
-            .getResolvedUriBuilder()
-            .appendPath("dataSets")
-            .appendPath(id)
-            .addParameter(FIELDS_PARAM, fieldsParam),
-        Query.instance(),
-        DataSet.class);
-  }
-
-  /**
-   * Indicates whether a {@link DataSet} exists.
-   *
-   * @param id the object identifier.
-   * @return true if the object exists.
-   */
-  public boolean isDataSet(String id) {
-    return objectExists("dataSets", id);
-  }
-
-  /**
-   * Retrieves a list of {@link DataSet}.
-   *
-   * @param query the {@link Query}.
-   * @return list of {@link DataSet}.
-   */
-  public List<DataSet> getDataSets(Query query) {
-    String fieldsParam =
-        query.isExpandAssociations()
-            ? String.format(
-                "%1$s,organisationUnits[%2$s],workflow[%2$s],indicators[%2$s],sections[%2$s],legendSets[%2$s]",
-                DATA_SET_FIELDS, NAME_FIELDS)
-            : DATA_SET_FIELDS;
-
-    return getObject(
-            config
-                .getResolvedUriBuilder()
-                .appendPath("dataSets")
-                .addParameter(FIELDS_PARAM, fieldsParam),
-            query,
-            Dhis2Objects.class)
-        .getDataSets();
-  }
-
-  // -------------------------------------------------------------------------
-  // CompleteDataSetRegistration
-  // -------------------------------------------------------------------------
-
-  /**
-   * Retrieves a list of {@link CompleteDataSetRegistration}.
-   *
-   * @param query the {@link Query}.
-   * @return list of {@link CompleteDataSetRegistration}.
-   */
-  public List<CompleteDataSetRegistration> getCompleteDataSetRegistrations(
-      CompleteDataSetRegistrationQuery query) {
-    Objects.requireNonNull(query, "query must be specified");
-
-    URIBuilder uriBuilder =
-        config.getResolvedUriBuilder().appendPath("completeDataSetRegistrations");
-
-    URI uri = getCompleteDataSetRegistrationQuery(uriBuilder, query);
-
-    return getObjectFromUrl(uri, Dhis2Objects.class).getCompleteDataSetRegistrations();
-  }
-
-  /**
-   * Saves or updates the list of {@link CompleteDataSetRegistration}.
-   *
-   * @param completeDataSetRegistrations the list of {@link CompleteDataSetRegistration}.
-   * @param options import options {@link CompleteDataSetRegistrationImportOptions}.
-   * @return {@link CompleteDataSetRegistrationResponse} holding information about the operation.
-   */
-  public CompleteDataSetRegistrationResponse saveCompleteDataSetRegistrations(
-      List<CompleteDataSetRegistration> completeDataSetRegistrations,
-      CompleteDataSetRegistrationImportOptions options) {
-    Dhis2Objects entityObject =
-        new Dhis2Objects().setCompleteDataSetRegistrations(completeDataSetRegistrations);
-
-    StringEntity entity = new StringEntity(toJsonString(entityObject), StandardCharsets.UTF_8);
-
-    return saveCompleteDataSetRegistrations(entity, options);
-  }
-
-  /**
-   * Saves a complete data set registration payload in JSON format represented by the given file.
-   *
-   * @param file the file representing the complete data set registration JSON payload.
-   * @param options the {@link CompleteDataSetRegistrationImportOptions}.
-   * @return {@link CompleteDataSetRegistrationResponse} holding information about the operation.
-   */
-  public CompleteDataSetRegistrationResponse saveCompleteDataSetRegistrations(
-      File file, CompleteDataSetRegistrationImportOptions options) {
-    FileEntity fileEntity = new FileEntity(file, ContentType.APPLICATION_JSON);
-
-    return saveCompleteDataSetRegistrations(fileEntity, options);
-  }
-
-  /**
-   * Saves a complete data set registration payload in JSON format represented by the given input
-   * stream.
-   *
-   * @param inputStream the input stream representing the complete data set registration JSON
-   *     payload.
-   * @param options the {@link CompleteDataSetRegistrationImportOptions}.
-   * @return {@link CompleteDataSetRegistrationResponse} holding information about the operation.
-   */
-  public CompleteDataSetRegistrationResponse saveCompleteDataSetRegistrations(
-      InputStream inputStream, CompleteDataSetRegistrationImportOptions options) {
-    InputStreamEntity inputStreamEntity =
-        new InputStreamEntity(inputStream, ContentType.APPLICATION_JSON);
-
-    return saveCompleteDataSetRegistrations(inputStreamEntity, options);
   }
 
   // -------------------------------------------------------------------------
@@ -2010,6 +2205,170 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   // -------------------------------------------------------------------------
+  // Maps
+  // -------------------------------------------------------------------------
+
+  /**
+   * Removes a {@link GeoMap}.
+   *
+   * @param id the identifier of the object to remove.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse removeMap(String id) {
+    return removeMetadataObject(String.format("maps/%s", id));
+  }
+
+  /**
+   * Retrieves a {@link GeoMap}.
+   *
+   * @param id the object identifier.
+   * @return the {@link GeoMap}.
+   * @throws Dhis2ClientException if the object does not exist.
+   */
+  public GeoMap getMap(String id) {
+    return getObject(
+        config
+            .getResolvedUriBuilder()
+            .appendPath("maps")
+            .appendPath(id)
+            .addParameter(FIELDS_PARAM, NAME_FIELDS),
+        Query.instance(),
+        GeoMap.class);
+  }
+
+  /**
+   * Retrieves a list of {@link GeoMap}.
+   *
+   * @param query the {@link Query}.
+   * @return list of {@link GeoMap}.
+   */
+  public List<GeoMap> getMaps(Query query) {
+    return getObject(
+            config
+                .getResolvedUriBuilder()
+                .appendPath("maps")
+                .addParameter(FIELDS_PARAM, NAME_FIELDS),
+            query,
+            Dhis2Objects.class)
+        .getMaps();
+  }
+
+  // -------------------------------------------------------------------------
+  // Option sets
+  // -------------------------------------------------------------------------
+
+  /**
+   * Removes an {@link OptionSet}.
+   *
+   * @param id the identifier of the object to remove.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse removeOptionSet(String id) {
+    return removeMetadataObject(String.format("optionSets/%s", id));
+  }
+
+  /**
+   * Retrieves an {@link OptionSet}.
+   *
+   * @param id the object identifier.
+   * @return the {@link OptionSet}.
+   * @throws Dhis2ClientException if the object does not exist.
+   */
+  public OptionSet getOptionSet(String id) {
+    String fieldsParam = String.format("%1$s,options[%2$s]", OPTION_SET_FIELDS, NAME_FIELDS);
+
+    return getObject(
+        config
+            .getResolvedUriBuilder()
+            .appendPath("optionSets")
+            .appendPath(id)
+            .addParameter(FIELDS_PARAM, fieldsParam),
+        Query.instance(),
+        OptionSet.class);
+  }
+
+  /**
+   * Indicates whether a {@link OptionSet} exists.
+   *
+   * @param id the object identifier.
+   * @return true if the object exists.
+   */
+  public boolean isOptionSet(String id) {
+    return objectExists("optionSets", id);
+  }
+
+  /**
+   * Retrieves a list of {@link OptionSet}.
+   *
+   * @param query the {@link Query}.
+   * @return list of {@link OptionSet}.
+   */
+  public List<OptionSet> getOptionSets(Query query) {
+    String fieldsParam =
+        query.isExpandAssociations()
+            ? String.format("%1$s,options[%2$s]", ID_FIELDS, NAME_FIELDS)
+            : OPTION_SET_FIELDS;
+
+    return getObject(
+            config
+                .getResolvedUriBuilder()
+                .appendPath("optionSets")
+                .addParameter(FIELDS_PARAM, fieldsParam),
+            query,
+            Dhis2Objects.class)
+        .getOptionSets();
+  }
+
+  // -------------------------------------------------------------------------
+  // Options
+  // -------------------------------------------------------------------------
+
+  /**
+   * Retrieves an {@link Option}.
+   *
+   * @param id the object identifier.
+   * @return the {@link Option}.
+   * @throws Dhis2ClientException if the object does not exist.
+   */
+  public Option getOption(String id) {
+    return getObject(
+        config
+            .getResolvedUriBuilder()
+            .appendPath("options")
+            .appendPath(id)
+            .addParameter(FIELDS_PARAM, ID_FIELDS),
+        Query.instance(),
+        Option.class);
+  }
+
+  /**
+   * Indicates whether a {@link Option} exists.
+   *
+   * @param id the object identifier.
+   * @return true if the object exists.
+   */
+  public boolean isOption(String id) {
+    return objectExists("options", id);
+  }
+
+  /**
+   * Retrieves a list of {@link Option}.
+   *
+   * @param query the {@link Query}.
+   * @return list of {@link Option}.
+   */
+  public List<Option> getOptions(Query query) {
+    return getObject(
+            config
+                .getResolvedUriBuilder()
+                .appendPath("options")
+                .addParameter(FIELDS_PARAM, ID_FIELDS),
+            query,
+            Dhis2Objects.class)
+        .getOptions();
+  }
+
+  // -------------------------------------------------------------------------
   // Program
   // -------------------------------------------------------------------------
 
@@ -2091,28 +2450,6 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   // -------------------------------------------------------------------------
-  // Program stage
-  // -------------------------------------------------------------------------
-
-  /**
-   * Retrieves a {@link ProgramStage}.
-   *
-   * @param id the object identifier.
-   * @return the {@link ProgramStage}.
-   * @throws Dhis2ClientException if the object does not exist.
-   */
-  public ProgramStage getProgramStage(String id) {
-    return getObject(
-        config
-            .getResolvedUriBuilder()
-            .appendPath("programStages")
-            .appendPath(id)
-            .addParameter(FIELDS_PARAM, PROGRAM_STAGE_FIELDS),
-        Query.instance(),
-        ProgramStage.class);
-  }
-
-  // -------------------------------------------------------------------------
   // Program section
   // -------------------------------------------------------------------------
 
@@ -2132,6 +2469,28 @@ public class Dhis2 extends BaseDhis2 {
             .addParameter(FIELDS_PARAM, PROGRAM_SECTION_FIELDS),
         Query.instance(),
         ProgramSection.class);
+  }
+
+  // -------------------------------------------------------------------------
+  // Program stage
+  // -------------------------------------------------------------------------
+
+  /**
+   * Retrieves a {@link ProgramStage}.
+   *
+   * @param id the object identifier.
+   * @return the {@link ProgramStage}.
+   * @throws Dhis2ClientException if the object does not exist.
+   */
+  public ProgramStage getProgramStage(String id) {
+    return getObject(
+        config
+            .getResolvedUriBuilder()
+            .appendPath("programStages")
+            .appendPath(id)
+            .addParameter(FIELDS_PARAM, PROGRAM_STAGE_FIELDS),
+        Query.instance(),
+        ProgramStage.class);
   }
 
   // -------------------------------------------------------------------------
@@ -2295,354 +2654,76 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   // -------------------------------------------------------------------------
-  // Option sets
+  // Tracked entity attributes
   // -------------------------------------------------------------------------
 
   /**
-   * Removes an {@link OptionSet}.
+   * Saves a {@link TrackedEntityAttribute}.
    *
-   * @param id the identifier of the object to remove.
+   * @param attribute the tracked entity attribute object to save.
    * @return {@link ObjectResponse} holding information about the operation.
    */
-  public ObjectResponse removeOptionSet(String id) {
-    return removeMetadataObject(String.format("optionSets/%s", id));
+  public ObjectResponse saveTrackedEntityAttribute(TrackedEntityAttribute attribute) {
+    return saveMetadataObject("trackedEntityAttributes", attribute);
   }
 
   /**
-   * Retrieves an {@link OptionSet}.
+   * Saves or updates the list of {@link TrackedEntityAttribute}.
    *
-   * @param id the object identifier.
-   * @return the {@link OptionSet}.
-   * @throws Dhis2ClientException if the object does not exist.
+   * @param attributes the list of {@link TrackedEntityAttribute}.
+   * @return {@link ObjectsResponse} holding information about the operation.
    */
-  public OptionSet getOptionSet(String id) {
-    String fieldsParam = String.format("%1$s,options[%2$s]", OPTION_SET_FIELDS, NAME_FIELDS);
-
-    return getObject(
-        config
-            .getResolvedUriBuilder()
-            .appendPath("optionSets")
-            .appendPath(id)
-            .addParameter(FIELDS_PARAM, fieldsParam),
-        Query.instance(),
-        OptionSet.class);
+  public ObjectsResponse saveTrackedEntityAttributes(List<TrackedEntityAttribute> attributes) {
+    return saveMetadataObjects(new Dhis2Objects().setTrackedEntityAttributes(attributes));
   }
 
   /**
-   * Indicates whether a {@link OptionSet} exists.
+   * Updates a {@link TrackedEntityAttribute}.
    *
-   * @param id the object identifier.
-   * @return true if the object exists.
-   */
-  public boolean isOptionSet(String id) {
-    return objectExists("optionSets", id);
-  }
-
-  /**
-   * Retrieves a list of {@link OptionSet}.
-   *
-   * @param query the {@link Query}.
-   * @return list of {@link OptionSet}.
-   */
-  public List<OptionSet> getOptionSets(Query query) {
-    String fieldsParam =
-        query.isExpandAssociations()
-            ? String.format("%1$s,options[%2$s]", ID_FIELDS, NAME_FIELDS)
-            : OPTION_SET_FIELDS;
-
-    return getObject(
-            config
-                .getResolvedUriBuilder()
-                .appendPath("optionSets")
-                .addParameter(FIELDS_PARAM, fieldsParam),
-            query,
-            Dhis2Objects.class)
-        .getOptionSets();
-  }
-
-  // -------------------------------------------------------------------------
-  // Options
-  // -------------------------------------------------------------------------
-
-  /**
-   * Retrieves an {@link Option}.
-   *
-   * @param id the object identifier.
-   * @return the {@link Option}.
-   * @throws Dhis2ClientException if the object does not exist.
-   */
-  public Option getOption(String id) {
-    return getObject(
-        config
-            .getResolvedUriBuilder()
-            .appendPath("options")
-            .appendPath(id)
-            .addParameter(FIELDS_PARAM, ID_FIELDS),
-        Query.instance(),
-        Option.class);
-  }
-
-  /**
-   * Indicates whether a {@link Option} exists.
-   *
-   * @param id the object identifier.
-   * @return true if the object exists.
-   */
-  public boolean isOption(String id) {
-    return objectExists("options", id);
-  }
-
-  /**
-   * Retrieves a list of {@link Option}.
-   *
-   * @param query the {@link Query}.
-   * @return list of {@link Option}.
-   */
-  public List<Option> getOptions(Query query) {
-    return getObject(
-            config
-                .getResolvedUriBuilder()
-                .appendPath("options")
-                .addParameter(FIELDS_PARAM, ID_FIELDS),
-            query,
-            Dhis2Objects.class)
-        .getOptions();
-  }
-
-  // -------------------------------------------------------------------------
-  // Document
-  // -------------------------------------------------------------------------
-
-  /**
-   * Retrieves a {@link Document}.
-   *
-   * @param id the object identifier.
-   * @return the {@link Document}.
-   * @throws Dhis2ClientException if the object does not exist.
-   */
-  public Document getDocument(String id) {
-    return getObject(
-        config
-            .getResolvedUriBuilder()
-            .appendPath("documents")
-            .appendPath(id)
-            .addParameter(FIELDS_PARAM, DOCUMENT_FIELDS),
-        Query.instance(),
-        Document.class);
-  }
-
-  /**
-   * Indicates whether a {@link Document} exists.
-   *
-   * @param id the object identifier.
-   * @return true if the object exists.
-   */
-  public boolean isDocument(String id) {
-    return objectExists("documents", id);
-  }
-
-  /**
-   * Retrieves a list of {@link Document}.
-   *
-   * @param query the {@link Query}.
-   * @return list of {@link Document}.
-   */
-  public List<Document> getDocuments(Query query) {
-    return getObject(
-            config
-                .getResolvedUriBuilder()
-                .appendPath("documents")
-                .addParameter(FIELDS_PARAM, DOCUMENT_FIELDS),
-            query,
-            Dhis2Objects.class)
-        .getDocuments();
-  }
-
-  /**
-   * Writes the data for the {@link Document} to the given {@link OutputStream}.
-   *
-   * @param id the document identifier.
-   * @param out the {@link OutputStream} to write data to.
-   */
-  public void writeDocumentData(String id, OutputStream out) {
-    URI uri =
-        HttpUtils.build(
-            config
-                .getResolvedUriBuilder()
-                .appendPath("documents")
-                .appendPath(id)
-                .appendPath("data"));
-
-    CloseableHttpResponse response = getHttpResponse(uri, List.of());
-
-    writeToStream(response, out);
-  }
-
-  // -------------------------------------------------------------------------
-  // Visualization
-  // -------------------------------------------------------------------------
-
-  /**
-   * Removes a {@link Visualization}.
-   *
-   * @param id the identifier of the object to remove.
+   * @param attribute the tracked entity attribute object to update.
    * @return {@link ObjectResponse} holding information about the operation.
    */
-  public ObjectResponse removeVisualization(String id) {
-    return removeMetadataObject(String.format("visualizations/%s", id));
+  public ObjectResponse updateTrackedEntityAttribute(TrackedEntityAttribute attribute) {
+    return updateMetadataObject(
+        String.format("trackedEntityAttributes/%s", attribute.getId()), attribute);
   }
 
   /**
-   * Retrieves a {@link Visualization}.
+   * Removes a {@link TrackedEntityAttribute}.
    *
-   * @param id the object identifier.
-   * @return the {@link Visualization}.
-   * @throws Dhis2ClientException if the object does not exist.
-   */
-  public Visualization getVisualization(String id) {
-    return getObject(
-        config
-            .getResolvedUriBuilder()
-            .appendPath("visualizations")
-            .appendPath(id)
-            .addParameter(FIELDS_PARAM, NAME_FIELDS),
-        Query.instance(),
-        Visualization.class);
-  }
-
-  /**
-   * Indicates whether a {@link Visualization} exists.
-   *
-   * @param id the object identifier.
-   * @return true if the object exists.
-   */
-  public boolean isVisualization(String id) {
-    return objectExists("visualizations", id);
-  }
-
-  /**
-   * Retrieves a list of {@link Visualization}.
-   *
-   * @param query the {@link Query}.
-   * @return list of {@link Visualization}.
-   */
-  public List<Visualization> getVisualizations(Query query) {
-    return getObject(
-            config
-                .getResolvedUriBuilder()
-                .appendPath("visualizations")
-                .addParameter(FIELDS_PARAM, NAME_FIELDS),
-            query,
-            Dhis2Objects.class)
-        .getVisualizations();
-  }
-
-  // -------------------------------------------------------------------------
-  // Maps
-  // -------------------------------------------------------------------------
-
-  /**
-   * Removes a {@link GeoMap}.
-   *
-   * @param id the identifier of the object to remove.
+   * @param id the identifier of the tracked entity attribute to remove.
    * @return {@link ObjectResponse} holding information about the operation.
    */
-  public ObjectResponse removeMap(String id) {
-    return removeMetadataObject(String.format("maps/%s", id));
+  public ObjectResponse removeTrackedEntityAttribute(String id) {
+    return removeMetadataObject(String.format("trackedEntityAttributes/%s", id));
   }
 
   /**
-   * Retrieves a {@link GeoMap}.
+   * Retrieves an {@link TrackedEntityAttribute}.
    *
-   * @param id the object identifier.
-   * @return the {@link GeoMap}.
+   * @param id the identifier of the tracked entity attribute.
+   * @return the {@link TrackedEntityAttribute}.
    * @throws Dhis2ClientException if the object does not exist.
    */
-  public GeoMap getMap(String id) {
-    return getObject(
-        config
-            .getResolvedUriBuilder()
-            .appendPath("maps")
-            .appendPath(id)
-            .addParameter(FIELDS_PARAM, NAME_FIELDS),
-        Query.instance(),
-        GeoMap.class);
+  public TrackedEntityAttribute getTrackedEntityAttribute(String id) {
+    return getObject("trackedEntityAttributes", id, TrackedEntityAttribute.class);
   }
 
   /**
-   * Retrieves a list of {@link GeoMap}.
+   * Retrieves a list of {@link TrackedEntityAttribute}.
    *
    * @param query the {@link Query}.
-   * @return list of {@link GeoMap}.
+   * @return list of {@link TrackedEntityAttribute}.
    */
-  public List<GeoMap> getMaps(Query query) {
+  public List<TrackedEntityAttribute> getTrackedEntityAttributes(Query query) {
     return getObject(
             config
                 .getResolvedUriBuilder()
-                .appendPath("maps")
-                .addParameter(FIELDS_PARAM, NAME_FIELDS),
+                .appendPath("trackedEntityAttributes")
+                .addParameter(FIELDS_PARAM, TRACKED_ENTITY_ATTRIBUTE_FIELDS),
             query,
             Dhis2Objects.class)
-        .getMaps();
-  }
-
-  // -------------------------------------------------------------------------
-  // Dashboard
-  // -------------------------------------------------------------------------
-
-  /**
-   * Removes a {@link Dashboard}.
-   *
-   * @param id the identifier of the object to remove.
-   * @return {@link ObjectResponse} holding information about the operation.
-   */
-  public ObjectResponse removeDashboard(String id) {
-    return removeMetadataObject(String.format("dashboards/%s", id));
-  }
-
-  /**
-   * Retrieves a {@link Dashboard}.
-   *
-   * @param id the object identifier.
-   * @return the {@link Dashboard}.
-   * @throws Dhis2ClientException if the object does not exist.
-   */
-  public Dashboard getDashboard(String id) {
-    return getObject(
-        config
-            .getResolvedUriBuilder()
-            .appendPath("dashboards")
-            .appendPath(id)
-            .addParameter(FIELDS_PARAM, DASHBOARD_FIELDS),
-        Query.instance(),
-        Dashboard.class);
-  }
-
-  /**
-   * Indicates whether a {@link Dashboard} exists.
-   *
-   * @param id the object identifier.
-   * @return true if the object exists.
-   */
-  public boolean isDashboard(String id) {
-    return objectExists("dashboards", id);
-  }
-
-  /**
-   * Retrieves a list of {@link Dashboard}.
-   *
-   * @param query the {@link Query}.
-   * @return list of {@link Dashboard}.
-   */
-  public List<Dashboard> getDashboards(Query query) {
-    return getObject(
-            config
-                .getResolvedUriBuilder()
-                .appendPath("dashboards")
-                .addParameter(FIELDS_PARAM, DASHBOARD_FIELDS),
-            query,
-            Dhis2Objects.class)
-        .getDashboards();
+        .getTrackedEntityAttributes();
   }
 
   // -------------------------------------------------------------------------
@@ -2863,52 +2944,62 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   // -------------------------------------------------------------------------
-  // Dimension
+  // Visualization
   // -------------------------------------------------------------------------
 
   /**
-   * Retrieves a {@link Dimension}.
+   * Removes a {@link Visualization}.
    *
-   * @param id the identifier of the dimension.
-   * @return the {@link Dimension}.
-   * @throws Dhis2ClientException if the object does not exist.
+   * @param id the identifier of the object to remove.
+   * @return {@link ObjectResponse} holding information about the operation.
    */
-  public Dimension getDimension(String id) {
-    return getObject(
-        config
-            .getResolvedUriBuilder()
-            .appendPath("dimensions")
-            .appendPath(id)
-            .addParameter(FIELDS_PARAM, String.format("%s,dimensionType", ID_FIELDS)),
-        Query.instance(),
-        Dimension.class);
+  public ObjectResponse removeVisualization(String id) {
+    return removeMetadataObject(String.format("visualizations/%s", id));
   }
 
   /**
-   * Indicates whether a {@link Dimension} exists.
+   * Retrieves a {@link Visualization}.
+   *
+   * @param id the object identifier.
+   * @return the {@link Visualization}.
+   * @throws Dhis2ClientException if the object does not exist.
+   */
+  public Visualization getVisualization(String id) {
+    return getObject(
+        config
+            .getResolvedUriBuilder()
+            .appendPath("visualizations")
+            .appendPath(id)
+            .addParameter(FIELDS_PARAM, NAME_FIELDS),
+        Query.instance(),
+        Visualization.class);
+  }
+
+  /**
+   * Indicates whether a {@link Visualization} exists.
    *
    * @param id the object identifier.
    * @return true if the object exists.
    */
-  public boolean isDimension(String id) {
-    return objectExists("dimensions", id);
+  public boolean isVisualization(String id) {
+    return objectExists("visualizations", id);
   }
 
   /**
-   * Retrieves a list of {@link Dimension}.
+   * Retrieves a list of {@link Visualization}.
    *
    * @param query the {@link Query}.
-   * @return list of {@link Dimension}.
+   * @return list of {@link Visualization}.
    */
-  public List<Dimension> getDimensions(Query query) {
+  public List<Visualization> getVisualizations(Query query) {
     return getObject(
             config
                 .getResolvedUriBuilder()
-                .appendPath("dimensions")
-                .addParameter(FIELDS_PARAM, String.format("%s,dimensionType", ID_FIELDS)),
+                .appendPath("visualizations")
+                .addParameter(FIELDS_PARAM, NAME_FIELDS),
             query,
             Dhis2Objects.class)
-        .getDimensions();
+        .getVisualizations();
   }
 
   // -------------------------------------------------------------------------
@@ -2930,95 +3021,6 @@ public class Dhis2 extends BaseDhis2 {
             query,
             Dhis2Objects.class)
         .getPeriodTypes();
-  }
-
-  // -------------------------------------------------------------------------
-  // Attribute
-  // -------------------------------------------------------------------------
-
-  /**
-   * Retrieves a {@link Attribute}.
-   *
-   * @param id the object identifier.
-   * @return the {@link Attribute}.
-   * @throws Dhis2ClientException if the object does not exist.
-   */
-  public Attribute getAttribute(String id) {
-    return getObject(
-        config
-            .getResolvedUriBuilder()
-            .appendPath("attributes")
-            .appendPath(id)
-            .addParameter(FIELDS_PARAM, ATTRIBUTE_FIELDS),
-        Query.instance(),
-        Attribute.class);
-  }
-
-  /**
-   * Indicates whether a {@link Attribute} exists.
-   *
-   * @param id the object identifier.
-   * @return true if the object exists.
-   */
-  public boolean isAttribute(String id) {
-    return objectExists("attributes", id);
-  }
-
-  /**
-   * Retrieves a {@link Attribute}.
-   *
-   * @param query the {@link Query}.
-   * @return a list of {@link Attribute}.
-   */
-  public List<Attribute> getAttributes(Query query) {
-    return getObject(
-            config
-                .getResolvedUriBuilder()
-                .appendPath("attributes")
-                .addParameter(FIELDS_PARAM, ATTRIBUTE_FIELDS),
-            query,
-            Dhis2Objects.class)
-        .getAttributes();
-  }
-
-  /**
-   * Saves a {@link Attribute}.
-   *
-   * @param attribute the object to save.
-   * @return {@link ObjectResponse} holding information about the operation.
-   */
-  public ObjectResponse saveAttribute(Attribute attribute) {
-    return saveMetadataObject("attributes", attribute);
-  }
-
-  /**
-   * Saves or updates the list of {@link Attribute}.
-   *
-   * @param attributes the list of {@link Attribute}.
-   * @return {@link ObjectsResponse} holding information about the operation.
-   */
-  public ObjectsResponse saveAttributes(List<Attribute> attributes) {
-    return saveMetadataObjects(new Dhis2Objects().setAttributes(attributes));
-  }
-
-  /**
-   * Updates a {@link Attribute}.
-   *
-   * @param attribute the object to update.
-   * @return {@link ObjectResponse} holding information about the operation.
-   */
-  public ObjectResponse updateAttribute(Attribute attribute) {
-    return updateMetadataObject(String.format("attributes/%s", attribute.getId()), attribute);
-  }
-
-  /**
-   * Removes a {@link Attribute}.
-   *
-   * @param id the identifier of the object to remove.
-   * @return {@link ObjectResponse} holding information about the operation.
-   */
-  public ObjectResponse removeAttribute(String id) {
-    return removeMetadataObject(String.format("attributes/%s", id));
   }
 
   // -------------------------------------------------------------------------
@@ -3213,6 +3215,77 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   // -------------------------------------------------------------------------
+  // CompleteDataSetRegistration
+  // -------------------------------------------------------------------------
+
+  /**
+   * Retrieves a list of {@link CompleteDataSetRegistration}.
+   *
+   * @param query the {@link Query}.
+   * @return list of {@link CompleteDataSetRegistration}.
+   */
+  public List<CompleteDataSetRegistration> getCompleteDataSetRegistrations(
+      CompleteDataSetRegistrationQuery query) {
+    Objects.requireNonNull(query, "query must be specified");
+
+    URIBuilder uriBuilder =
+        config.getResolvedUriBuilder().appendPath("completeDataSetRegistrations");
+
+    URI uri = getCompleteDataSetRegistrationQuery(uriBuilder, query);
+
+    return getObjectFromUrl(uri, Dhis2Objects.class).getCompleteDataSetRegistrations();
+  }
+
+  /**
+   * Saves or updates the list of {@link CompleteDataSetRegistration}.
+   *
+   * @param completeDataSetRegistrations the list of {@link CompleteDataSetRegistration}.
+   * @param options import options {@link CompleteDataSetRegistrationImportOptions}.
+   * @return {@link CompleteDataSetRegistrationResponse} holding information about the operation.
+   */
+  public CompleteDataSetRegistrationResponse saveCompleteDataSetRegistrations(
+      List<CompleteDataSetRegistration> completeDataSetRegistrations,
+      CompleteDataSetRegistrationImportOptions options) {
+    Dhis2Objects entityObject =
+        new Dhis2Objects().setCompleteDataSetRegistrations(completeDataSetRegistrations);
+
+    StringEntity entity = new StringEntity(toJsonString(entityObject), StandardCharsets.UTF_8);
+
+    return saveCompleteDataSetRegistrations(entity, options);
+  }
+
+  /**
+   * Saves a complete data set registration payload in JSON format represented by the given file.
+   *
+   * @param file the file representing the complete data set registration JSON payload.
+   * @param options the {@link CompleteDataSetRegistrationImportOptions}.
+   * @return {@link CompleteDataSetRegistrationResponse} holding information about the operation.
+   */
+  public CompleteDataSetRegistrationResponse saveCompleteDataSetRegistrations(
+      File file, CompleteDataSetRegistrationImportOptions options) {
+    FileEntity fileEntity = new FileEntity(file, ContentType.APPLICATION_JSON);
+
+    return saveCompleteDataSetRegistrations(fileEntity, options);
+  }
+
+  /**
+   * Saves a complete data set registration payload in JSON format represented by the given input
+   * stream.
+   *
+   * @param inputStream the input stream representing the complete data set registration JSON
+   *     payload.
+   * @param options the {@link CompleteDataSetRegistrationImportOptions}.
+   * @return {@link CompleteDataSetRegistrationResponse} holding information about the operation.
+   */
+  public CompleteDataSetRegistrationResponse saveCompleteDataSetRegistrations(
+      InputStream inputStream, CompleteDataSetRegistrationImportOptions options) {
+    InputStreamEntity inputStreamEntity =
+        new InputStreamEntity(inputStream, ContentType.APPLICATION_JSON);
+
+    return saveCompleteDataSetRegistrations(inputStreamEntity, options);
+  }
+
+  // -------------------------------------------------------------------------
   // Event
   // -------------------------------------------------------------------------
 
@@ -3389,79 +3462,6 @@ public class Dhis2 extends BaseDhis2 {
             .appendPath("trackedEntities")
             .addParameter(FIELDS_PARAM, TRACKED_ENTITY_FIELDS),
         query);
-  }
-
-  // -------------------------------------------------------------------------
-  // Tracked entity attributes
-  // -------------------------------------------------------------------------
-
-  /**
-   * Saves a {@link TrackedEntityAttribute}.
-   *
-   * @param attribute the tracked entity attribute object to save.
-   * @return {@link ObjectResponse} holding information about the operation.
-   */
-  public ObjectResponse saveTrackedEntityAttribute(TrackedEntityAttribute attribute) {
-    return saveMetadataObject("trackedEntityAttributes", attribute);
-  }
-
-  /**
-   * Saves or updates the list of {@link TrackedEntityAttribute}.
-   *
-   * @param attributes the list of {@link TrackedEntityAttribute}.
-   * @return {@link ObjectsResponse} holding information about the operation.
-   */
-  public ObjectsResponse saveTrackedEntityAttributes(List<TrackedEntityAttribute> attributes) {
-    return saveMetadataObjects(new Dhis2Objects().setTrackedEntityAttributes(attributes));
-  }
-
-  /**
-   * Updates a {@link TrackedEntityAttribute}.
-   *
-   * @param attribute the tracked entity attribute object to update.
-   * @return {@link ObjectResponse} holding information about the operation.
-   */
-  public ObjectResponse updateTrackedEntityAttribute(TrackedEntityAttribute attribute) {
-    return updateMetadataObject(
-        String.format("trackedEntityAttributes/%s", attribute.getId()), attribute);
-  }
-
-  /**
-   * Removes a {@link TrackedEntityAttribute}.
-   *
-   * @param id the identifier of the tracked entity attribute to remove.
-   * @return {@link ObjectResponse} holding information about the operation.
-   */
-  public ObjectResponse removeTrackedEntityAttribute(String id) {
-    return removeMetadataObject(String.format("trackedEntityAttributes/%s", id));
-  }
-
-  /**
-   * Retrieves an {@link TrackedEntityAttribute}.
-   *
-   * @param id the identifier of the tracked entity attribute.
-   * @return the {@link TrackedEntityAttribute}.
-   * @throws Dhis2ClientException if the object does not exist.
-   */
-  public TrackedEntityAttribute getTrackedEntityAttribute(String id) {
-    return getObject("trackedEntityAttributes", id, TrackedEntityAttribute.class);
-  }
-
-  /**
-   * Retrieves a list of {@link TrackedEntityAttribute}.
-   *
-   * @param query the {@link Query}.
-   * @return list of {@link TrackedEntityAttribute}.
-   */
-  public List<TrackedEntityAttribute> getTrackedEntityAttributes(Query query) {
-    return getObject(
-            config
-                .getResolvedUriBuilder()
-                .appendPath("trackedEntityAttributes")
-                .addParameter(FIELDS_PARAM, TRACKED_ENTITY_ATTRIBUTE_FIELDS),
-            query,
-            Dhis2Objects.class)
-        .getTrackedEntityAttributes();
   }
 
   // -------------------------------------------------------------------------
