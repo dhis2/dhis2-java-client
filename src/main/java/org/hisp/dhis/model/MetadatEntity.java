@@ -27,6 +27,7 @@
  */
 package org.hisp.dhis.model;
 
+/** Enumeration of DHIS2 metadata entities. */
 public enum MetadatEntity {
   ANALYTICS_TABLE_HOOK,
   ATTRIBUTE,
