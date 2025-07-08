@@ -1334,6 +1334,36 @@ public class Dhis2 extends BaseDhis2 {
   // -------------------------------------------------------------------------
 
   /**
+   * Saves a {@link DataElementGroupSet}.
+   *
+   * @param dataElementGroupSet the object to save.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse saveDataElementGroupSet(DataElementGroupSet dataElementGroupSet) {
+    return saveMetadataObject(MetadataEntity.DATA_ELEMENT_GROUP_SET, dataElementGroupSet);
+  }
+
+  /**
+   * Saves or updates the list of {@link DataElementGroupSet}.
+   *
+   * @param dataElementGroupSets the list of {@link DataElementGroupSet}.
+   * @return {@link ObjectsResponse} holding information about the operation.
+   */
+  public ObjectsResponse saveDataElementGroupSets(List<DataElementGroupSet> dataElementGroupSets) {
+    return saveMetadataObjects(new Dhis2Objects().setDataElementGroupSets(dataElementGroupSets));
+  }
+
+  /**
+   * Updates a {@link DataElementGroupSet}.
+   *
+   * @param dataElementGroupSet the object to update.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse updateDataElementGroupSet(DataElementGroupSet dataElementGroupSet) {
+    return updateMetadataObject(MetadataEntity.DATA_ELEMENT_GROUP_SET, dataElementGroupSet);
+  }
+
+  /**
    * Removes a {@link DataElementGroupSet}.
    *
    * @param id the identifier of the object to remove.
