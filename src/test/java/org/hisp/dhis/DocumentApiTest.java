@@ -27,13 +27,18 @@
  */
 package org.hisp.dhis;
 
+import static java.nio.charset.StandardCharsets.UTF_8;
+import static org.hisp.dhis.ApiTestUtils.assertSuccessResponse;
 import static org.hisp.dhis.support.Assertions.assertNotBlank;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.hisp.dhis.model.Document;
+import org.hisp.dhis.response.HttpStatus;
+import org.hisp.dhis.response.object.ObjectResponse;
 import org.hisp.dhis.support.TestTags;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -53,5 +58,47 @@ class DocumentApiTest {
     assertTrue(document.getExternal());
     assertTrue(document.isExternal());
     assertFalse(document.isAttachment());
+  }
+
+  @Test
+  void testSaveWriteDocumentDataAndRemoveDocument() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    String documentURL = TestFixture.DEFAULT_URL + "/api/options/Y1ILwhy5VDY.json";
+
+    Document document = new Document();
+    document.setName("Test Document");
+    document.setCode("DOC_TEST_CODE");
+    document.setUrl(documentURL);
+    document.setAttachment(true);
+    document.setExternal(true);
+
+    // Create
+    ObjectResponse createRespA = dhis2.saveDocument(document);
+    assertSuccessResponse(createRespA, HttpStatus.CREATED, 201);
+    String documentUid = createRespA.getResponse().getUid();
+
+    // Get
+    document = dhis2.getDocument(documentUid);
+
+    assertNotNull(document);
+    assertEquals(documentUid, document.getId());
+    assertEquals("Test Document", document.getName());
+    assertEquals("DOC_TEST_CODE", document.getCode());
+    assertEquals(documentURL, document.getUrl());
+    assertTrue(document.isExternal());
+    assertTrue(document.isAttachment());
+
+    // Write document data
+    ByteArrayOutputStream out = new ByteArrayOutputStream();
+    dhis2.writeDocumentData(documentUid, out);
+
+    String docValue = out.toString(UTF_8);
+    assertNotNull(docValue);
+    assertTrue(docValue.contains("Y1ILwhy5VDY"));
+
+    // Remove
+    ObjectResponse removeRespA = dhis2.removeDocument(documentUid);
+    assertSuccessResponse(removeRespA, HttpStatus.OK, 200);
   }
 }
