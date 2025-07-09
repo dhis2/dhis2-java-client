@@ -27,6 +27,7 @@
  */
 package org.hisp.dhis;
 
+import static org.hisp.dhis.ApiTestUtils.assertSuccessResponse;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -34,6 +35,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import java.util.List;
 import org.hisp.dhis.model.IndicatorGroupSet;
 import org.hisp.dhis.query.Query;
+import org.hisp.dhis.response.HttpStatus;
+import org.hisp.dhis.response.object.ObjectResponse;
 import org.hisp.dhis.support.TestTags;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -60,5 +63,59 @@ class IndicatorGroupSetApiTest {
     assertNotNull(groupSets);
     assertFalse(groupSets.isEmpty());
     assertNotNull(groupSets.get(0).getId());
+  }
+
+  @Test
+  void testCreateUpdateAndDeleteIndicator() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+    IndicatorGroupSet indicatorGroupSet = new IndicatorGroupSet();
+    indicatorGroupSet.setName("Sample indicator group set");
+    indicatorGroupSet.setCode("IGS_SAMPLE_CODE");
+    indicatorGroupSet.setDescription("Sample description");
+    indicatorGroupSet.setShortName("Sample short name");
+    indicatorGroupSet.setCompulsory(true);
+    indicatorGroupSet.setIndicatorGroups(List.of(dhis2.getIndicatorGroup("pKHOV0uwPJk")));
+
+    // Create
+    ObjectResponse createRespA = dhis2.saveIndicatorGroupSet(indicatorGroupSet);
+
+    assertSuccessResponse(createRespA, HttpStatus.CREATED, 201);
+
+    String indicatorGroupSetUid = createRespA.getResponse().getUid();
+
+    // Get
+    indicatorGroupSet = dhis2.getIndicatorGroupSet(indicatorGroupSetUid);
+
+    assertNotNull(indicatorGroupSet);
+    assertEquals(indicatorGroupSetUid, indicatorGroupSet.getId());
+    assertEquals("Sample indicator group set", indicatorGroupSet.getName());
+    assertEquals("IGS_SAMPLE_CODE", indicatorGroupSet.getCode());
+    assertEquals("Sample description", indicatorGroupSet.getDescription());
+    assertEquals("Sample short name", indicatorGroupSet.getShortName());
+    assertNotNull(indicatorGroupSet.getCreated());
+    assertNotNull(indicatorGroupSet.getLastUpdated());
+    assertNotNull(indicatorGroupSet.getIndicatorGroups());
+    assertFalse(indicatorGroupSet.getIndicatorGroups().isEmpty());
+
+    String updatedName = "Sample indicator group set updated";
+    indicatorGroupSet.setName(updatedName);
+
+    // Update
+    ObjectResponse updateRespA = dhis2.updateIndicatorGroupSet(indicatorGroupSet);
+
+    assertSuccessResponse(updateRespA, HttpStatus.OK, 200);
+    assertEquals(indicatorGroupSetUid, updateRespA.getResponse().getUid(), updateRespA.toString());
+
+    // Get Updated
+    indicatorGroupSet = dhis2.getIndicatorGroupSet(indicatorGroupSetUid);
+
+    assertNotNull(indicatorGroupSet);
+    assertEquals(indicatorGroupSetUid, indicatorGroupSet.getId());
+    assertEquals(updatedName, indicatorGroupSet.getName());
+
+    // Remove
+    ObjectResponse removeRespA = dhis2.removeIndicatorGroupSet(indicatorGroupSetUid);
+
+    assertSuccessResponse(removeRespA, HttpStatus.OK, 200);
   }
 }

@@ -1666,6 +1666,36 @@ public class Dhis2 extends BaseDhis2 {
         .getIndicators();
   }
 
+  /**
+   * Saves a {@link Indicator}.
+   *
+   * @param indicator the indicator object to save.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse saveIndicator(Indicator indicator) {
+    return saveMetadataObject(MetadataEntity.INDICATOR, indicator);
+  }
+
+  /**
+   * Saves or updates the list of {@link Indicator}.
+   *
+   * @param indicators the list of {@link Indicator}.
+   * @return {@link ObjectsResponse} holding information about the operation.
+   */
+  public ObjectsResponse saveIndicators(List<Indicator> indicators) {
+    return saveMetadataObjects(new Dhis2Objects().setIndicators(indicators));
+  }
+
+  /**
+   * Updates a {@link Indicator}.
+   *
+   * @param indicator the indicator object to update.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse updateIndicator(Indicator indicator) {
+    return updateMetadataObject(MetadataEntity.INDICATOR, indicator);
+  }
+
   // -------------------------------------------------------------------------
   // Indicator group
   // -------------------------------------------------------------------------
@@ -1731,6 +1761,36 @@ public class Dhis2 extends BaseDhis2 {
         .getIndicatorGroups();
   }
 
+  /**
+   * Saves a {@link IndicatorGroup}.
+   *
+   * @param indicatorGroup the indicator group object to save.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse saveIndicatorGroup(IndicatorGroup indicatorGroup) {
+    return saveMetadataObject(MetadataEntity.INDICATOR_GROUP, indicatorGroup);
+  }
+
+  /**
+   * Saves or updates the list of {@link IndicatorGroup}.
+   *
+   * @param indicatorGroups the list of {@link IndicatorGroup}.
+   * @return {@link ObjectsResponse} holding information about the operation.
+   */
+  public ObjectsResponse saveIndicatorGroups(List<IndicatorGroup> indicatorGroups) {
+    return saveMetadataObjects(new Dhis2Objects().setIndicatorGroups(indicatorGroups));
+  }
+
+  /**
+   * Updates a {@link IndicatorGroup}.
+   *
+   * @param indicatorGroup the indicator group object to update.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse updateIndicatorGroup(IndicatorGroup indicatorGroup) {
+    return updateMetadataObject(MetadataEntity.INDICATOR_GROUP, indicatorGroup);
+  }
+
   // -------------------------------------------------------------------------
   // Indicator group set
   // -------------------------------------------------------------------------
@@ -1790,6 +1850,36 @@ public class Dhis2 extends BaseDhis2 {
         .getIndicatorGroupSets();
   }
 
+  /**
+   * Saves a {@link IndicatorGroupSet}.
+   *
+   * @param indicatorGroupSet the indicator group set object to save.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse saveIndicatorGroupSet(IndicatorGroupSet indicatorGroupSet) {
+    return saveMetadataObject(MetadataEntity.INDICATOR_GROUP_SET, indicatorGroupSet);
+  }
+
+  /**
+   * Saves or updates the list of {@link IndicatorGroupSet}.
+   *
+   * @param indicatorGroupSets the list of {@link IndicatorGroupSet}.
+   * @return {@link ObjectsResponse} holding information about the operation.
+   */
+  public ObjectsResponse saveIndicatorGroupSets(List<IndicatorGroupSet> indicatorGroupSets) {
+    return saveMetadataObjects(new Dhis2Objects().setIndicatorGroupSets(indicatorGroupSets));
+  }
+
+  /**
+   * Updates a {@link IndicatorGroupSet}.
+   *
+   * @param indicatorGroupSet the indicator group set object to update.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse updateIndicatorGroupSet(IndicatorGroupSet indicatorGroupSet) {
+    return updateMetadataObject(MetadataEntity.INDICATOR_GROUP_SET, indicatorGroupSet);
+  }
+
   // -------------------------------------------------------------------------
   // Indicator Type
   // -------------------------------------------------------------------------
@@ -1842,11 +1932,41 @@ public class Dhis2 extends BaseDhis2 {
     return getObject(
             config
                 .getResolvedUriBuilder()
-                .appendPath("indicators")
-                .addParameter(FIELDS_PARAM, INDICATOR_FIELDS),
+                .appendPath("indicatorTypes")
+                .addParameter(FIELDS_PARAM, INDICATOR_TYPE_FIELDS),
             query,
             Dhis2Objects.class)
         .getIndicatorTypes();
+  }
+
+  /**
+   * Saves a {@link IndicatorType}.
+   *
+   * @param indicatorType the indicator type object to save.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse saveIndicatorType(IndicatorType indicatorType) {
+    return saveMetadataObject(MetadataEntity.INDICATOR_TYPE, indicatorType);
+  }
+
+  /**
+   * Saves or updates the list of {@link IndicatorType}.
+   *
+   * @param indicatorTypes the list of {@link IndicatorType}.
+   * @return {@link ObjectsResponse} holding information about the operation.
+   */
+  public ObjectsResponse saveIndicatorTypes(List<IndicatorType> indicatorTypes) {
+    return saveMetadataObjects(new Dhis2Objects().setIndicatorTypes(indicatorTypes));
+  }
+
+  /**
+   * Updates a {@link IndicatorType}.
+   *
+   * @param indicatorType the indicator type object to update.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse updateIndicatorType(IndicatorType indicatorType) {
+    return updateMetadataObject(MetadataEntity.INDICATOR_TYPE, indicatorType);
   }
 
   // -------------------------------------------------------------------------

@@ -235,7 +235,7 @@ public class BaseDhis2 {
 
   /** Indicator type fields. */
   protected static final String INDICATOR_TYPE_FIELDS =
-      String.format("%s,factor,number", NAME_FIELDS);
+      String.format("%s,factor,number", ID_FIELDS);
 
   /** Indicator fields. */
   protected static final String INDICATOR_FIELDS =

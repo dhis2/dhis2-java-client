@@ -27,16 +27,20 @@
  */
 package org.hisp.dhis;
 
+import static org.hisp.dhis.ApiTestUtils.assertSuccessResponse;
 import static org.hisp.dhis.support.Assertions.assertNotEmpty;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 import org.hisp.dhis.model.Indicator;
 import org.hisp.dhis.model.IndicatorType;
 import org.hisp.dhis.query.Filter;
 import org.hisp.dhis.query.Query;
+import org.hisp.dhis.response.HttpStatus;
+import org.hisp.dhis.response.object.ObjectResponse;
 import org.hisp.dhis.support.TestTags;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -80,5 +84,69 @@ class IndicatorApiTest {
 
     assertNotEmpty(indicators);
     assertEquals(3, indicators.size());
+  }
+
+  @Test
+  void testCreateUpdateAndDeleteIndicator() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+    Indicator indicator = new Indicator();
+    indicator.setName("Sample indicator");
+    indicator.setCode("IND_SAMPLE_CODE");
+    indicator.setDescription("Sample description");
+    indicator.setShortName("Sample short name");
+    indicator.setNumerator("Sample numerator");
+    indicator.setDenominator("Sample denominator");
+    indicator.setAnnualized(true);
+    indicator.setNumeratorDescription("Sample numerator description");
+    indicator.setDenominatorDescription("Sample denominator description");
+    indicator.setUrl(TestFixture.DEFAULT_URL);
+    indicator.setIndicatorType(dhis2.getIndicatorType("bWuNrMHEoZ0"));
+
+    // Create
+    ObjectResponse createRespA = dhis2.saveIndicator(indicator);
+
+    assertSuccessResponse(createRespA, HttpStatus.CREATED, 201);
+
+    String indicatorUid = createRespA.getResponse().getUid();
+
+    // Get
+    indicator = dhis2.getIndicator(indicatorUid);
+
+    assertNotNull(indicator);
+    assertEquals(indicatorUid, indicator.getId());
+    assertEquals("Sample indicator", indicator.getName());
+    assertEquals("IND_SAMPLE_CODE", indicator.getCode());
+    assertEquals("Sample description", indicator.getDescription());
+    assertEquals("Sample short name", indicator.getShortName());
+    assertEquals("Sample numerator", indicator.getNumerator());
+    assertEquals("Sample denominator", indicator.getDenominator());
+    assertTrue(indicator.isAnnualized());
+    assertEquals("Sample numerator description", indicator.getNumeratorDescription());
+    assertEquals("Sample denominator description", indicator.getDenominatorDescription());
+    assertEquals(TestFixture.DEFAULT_URL, indicator.getUrl());
+    assertNotNull(indicator.getCreated());
+    assertNotNull(indicator.getLastUpdated());
+    assertNotNull(indicator.getIndicatorType());
+
+    String updatedName = "Sample indicator updated";
+    indicator.setName(updatedName);
+
+    // Update
+    ObjectResponse updateRespA = dhis2.updateIndicator(indicator);
+
+    assertSuccessResponse(updateRespA, HttpStatus.OK, 200);
+    assertEquals(indicatorUid, updateRespA.getResponse().getUid(), updateRespA.toString());
+
+    // Get Updated
+    indicator = dhis2.getIndicator(indicatorUid);
+
+    assertNotNull(indicator);
+    assertEquals(indicatorUid, indicator.getId());
+    assertEquals(updatedName, indicator.getName());
+
+    // Remove
+    ObjectResponse removeRespA = dhis2.removeIndicator(indicatorUid);
+
+    assertSuccessResponse(removeRespA, HttpStatus.OK, 200);
   }
 }
