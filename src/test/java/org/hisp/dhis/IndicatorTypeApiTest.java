@@ -49,14 +49,14 @@ class IndicatorTypeApiTest {
   void testGetIndicatorType() {
     Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
 
-    IndicatorType indicator = dhis2.getIndicatorType("JkWynlWMjJR");
-    assertNotNull(indicator);
-    assertEquals("JkWynlWMjJR", indicator.getId());
-    assertEquals("Number (Factor 1)", indicator.getName());
-    assertEquals(1, indicator.getFactor());
-    assertTrue(indicator.getNumber());
-    assertNotNull(indicator.getCreated());
-    assertNotNull(indicator.getLastUpdated());
+    IndicatorType indicatorType = dhis2.getIndicatorType("JkWynlWMjJR");
+    assertNotNull(indicatorType);
+    assertEquals("JkWynlWMjJR", indicatorType.getId());
+    assertEquals("Number (Factor 1)", indicatorType.getName());
+    assertEquals(1, indicatorType.getFactor());
+    assertTrue(indicatorType.getNumber());
+    assertNotNull(indicatorType.getCreated());
+    assertNotNull(indicatorType.getLastUpdated());
   }
 
   @Test
@@ -66,10 +66,10 @@ class IndicatorTypeApiTest {
     Query query =
         Query.instance().addFilter(Filter.in("id", List.of("bWuNrMHEoZ0", "vQ0dGV9EDrw")));
 
-    List<IndicatorType> indicators = dhis2.getIndicatorTypes(query);
+    List<IndicatorType> indicatorTypes = dhis2.getIndicatorTypes(query);
 
-    assertNotEmpty(indicators);
-    assertEquals(2, indicators.size());
+    assertNotEmpty(indicatorTypes);
+    assertEquals(2, indicatorTypes.size());
   }
 
   @Test
