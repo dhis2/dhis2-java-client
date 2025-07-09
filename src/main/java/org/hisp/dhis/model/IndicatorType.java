@@ -35,7 +35,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class IndicatorType extends NameableObject {
+public class IndicatorType extends IdentifiableObject {
   @JsonProperty private Integer factor;
 
   @JsonProperty private Boolean number;
