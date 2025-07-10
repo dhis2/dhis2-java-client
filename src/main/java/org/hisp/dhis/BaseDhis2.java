@@ -321,7 +321,8 @@ public class BaseDhis2 {
   protected static final String RELATIONSHIP_TYPE_FIELDS =
       String.format(
           """
-          %1$s,fromConstraint,toConstraint,description,bidirectional,fromToName,toFromName,referral""",
+          %1$s,fromConstraint,toConstraint,description,bidirectional,fromToName,\
+          toFromName,referral""",
           ID_FIELDS);
 
   protected static final String PROGRAM_SECTION_FIELDS =
