@@ -108,6 +108,7 @@ import org.hisp.dhis.model.enrollment.EnrollmentsResult;
 import org.hisp.dhis.model.event.Event;
 import org.hisp.dhis.model.event.Events;
 import org.hisp.dhis.model.event.EventsResult;
+import org.hisp.dhis.model.relationship.RelationshipType;
 import org.hisp.dhis.model.relationship.RelationshipsResult;
 import org.hisp.dhis.model.trackedentity.TrackedEntitiesResult;
 import org.hisp.dhis.model.trackedentity.TrackedEntity;
@@ -3555,6 +3556,95 @@ public class Dhis2 extends BaseDhis2 {
     URI url = getRelationshipQuery(uriBuilder, query);
 
     return getObjectFromUrl(url, RelationshipsResult.class);
+  }
+
+  // -------------------------------------------------------------------------
+  // Relationship type
+  // -------------------------------------------------------------------------
+
+  /**
+   * Retrieves a {@link RelationshipType}.
+   *
+   * @param id the object identifier.
+   * @return the {@link RelationshipType}.
+   * @throws Dhis2ClientException if the object does not exist.
+   */
+  public RelationshipType getRelationshipType(String id) {
+    return getObject(
+        config
+            .getResolvedUriBuilder()
+            .appendPath("relationshipTypes")
+            .appendPath(id)
+            .addParameter(FIELDS_PARAM, RELATIONSHIP_TYPE_FIELDS),
+        Query.instance(),
+        RelationshipType.class);
+  }
+
+  /**
+   * Indicates whether a {@link RelationshipType} exists.
+   *
+   * @param id the object identifier.
+   * @return true if the object exists.
+   */
+  public boolean isRelationshipType(String id) {
+    return objectExists("relationshipTypes", id);
+  }
+
+  /**
+   * Retrieves a {@link RelationshipType}.
+   *
+   * @param query the {@link Query}.
+   * @return a list of {@link RelationshipType}.
+   */
+  public List<RelationshipType> getRelationshipTypes(Query query) {
+    return getObject(
+            config
+                .getResolvedUriBuilder()
+                .appendPath("relationshipTypes")
+                .addParameter(FIELDS_PARAM, RELATIONSHIP_TYPE_FIELDS),
+            query,
+            Dhis2Objects.class)
+        .getRelationshipTypes();
+  }
+
+  /**
+   * Saves a {@link RelationshipType}.
+   *
+   * @param relationshipType the object to save.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse saveRelationshipType(RelationshipType relationshipType) {
+    return saveMetadataObject(MetadataEntity.RELATIONSHIP_TYPE, relationshipType);
+  }
+
+  /**
+   * Saves or updates the list of {@link RelationshipType}.
+   *
+   * @param relationshipTypes the list of {@link RelationshipType}.
+   * @return {@link ObjectsResponse} holding information about the operation.
+   */
+  public ObjectsResponse saveRelationshipTypes(List<RelationshipType> relationshipTypes) {
+    return saveMetadataObjects(new Dhis2Objects().setRelationshipTypes(relationshipTypes));
+  }
+
+  /**
+   * Updates a {@link RelationshipType}.
+   *
+   * @param relationshipType the object to update.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse updateRelationshipType(RelationshipType relationshipType) {
+    return updateMetadataObject(MetadataEntity.RELATIONSHIP_TYPE, relationshipType);
+  }
+
+  /**
+   * Removes a {@link RelationshipType}.
+   *
+   * @param id the identifier of the object to remove.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse removeRelationshipType(String id) {
+    return removeMetadataObject(String.format("relationshipTypes/%s", id));
   }
 
   // -------------------------------------------------------------------------
