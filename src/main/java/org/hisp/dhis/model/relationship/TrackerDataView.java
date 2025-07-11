@@ -25,53 +25,23 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.hisp.dhis.model;
+package org.hisp.dhis.model.relationship;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.io.Serializable;
+import java.util.LinkedHashSet;
+import java.util.Set;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
-/** Enumeration of DHIS2 metadata entities. */
 @Getter
-@RequiredArgsConstructor
-public enum MetadataEntity {
-  ANALYTICS_TABLE_HOOK("analyticsTableHooks"),
-  ATTRIBUTE("attributes"),
-  CATEGORY_OPTION("categoryOptions"),
-  CATEGORY("categories"),
-  CATEGORY_COMBO("categoryCombos"),
-  CATEGORY_OPTION_COMBO("categoryOptionCombos"),
-  CATEGORY_OPTION_GROUP("categoryOptionGroups"),
-  CATEGORY_OPTION_GROUP_SET("categoryOptionGroupSets"),
-  DASHBOARD("dashboards"),
-  DATA_ELEMENT("dataElements"),
-  DATA_ELEMENT_GROUP("dataElementGroups"),
-  DATA_ELEMENT_GROUP_SET("dataElementGroupSets"),
-  DATA_SET("dataSets"),
-  DOCUMENT("documents"),
-  INDICATOR("indicators"),
-  INDICATOR_GROUP("indicatorGroups"),
-  INDICATOR_GROUP_SET("indicatorGroupSets"),
-  INDICATOR_TYPE("indicatorTypes"),
-  ORG_UNIT("organisationUnits"),
-  ORG_UNIT_GROUP("organisationUnitGroups"),
-  ORG_UNIT_GROUP_SET("organisationUnitGroupSets"),
-  ORG_UNIT_LEVEL("organisationUnitLevels"),
-  MAP("maps"),
-  OPTION_SET("optionSets"),
-  OPTION("options"),
-  PROGRAM("programs"),
-  PROGRAM_SECTION("programSections"),
-  PROGRAM_STAGE("programStages"),
-  PROGRAM_STAGE_SECTION("programStageSections"),
-  PROGRAM_INDICATOR("programIndicators"),
-  RELATIONSHIP_TYPE("relationshipTypes"),
-  TRACKED_ENTITY_TYPE("trackedEntityTypes"),
-  TRACKED_ENTITY_ATTRIBUTE("trackedEntityAttributes"),
-  USER("users"),
-  USER_GROUP("userGroups"),
-  USER_ROLE("userRoles"),
-  VISUALIZATION("visualizations");
+@Setter
+@ToString
+@NoArgsConstructor
+public class TrackerDataView implements Serializable {
+  @JsonProperty private Set<String> attributes = new LinkedHashSet<>();
 
-  /** API path. */
-  private final String path;
+  @JsonProperty private Set<String> dataElements = new LinkedHashSet<>();
 }
