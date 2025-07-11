@@ -28,15 +28,18 @@
 package org.hisp.dhis;
 
 import static org.hisp.dhis.ApiTestUtils.assertSuccessResponse;
+import static org.hisp.dhis.model.relationship.RelationshipEntity.PROGRAM_STAGE_INSTANCE;
+import static org.hisp.dhis.model.relationship.RelationshipEntity.TRACKED_ENTITY_INSTANCE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
+import java.util.Set;
 import org.hisp.dhis.model.relationship.RelationshipConstraint;
-import org.hisp.dhis.model.relationship.RelationshipEntity;
 import org.hisp.dhis.model.relationship.RelationshipType;
+import org.hisp.dhis.model.relationship.TrackerDataView;
 import org.hisp.dhis.query.Query;
 import org.hisp.dhis.response.HttpStatus;
 import org.hisp.dhis.response.object.ObjectResponse;
@@ -46,7 +49,6 @@ import org.junit.jupiter.api.Test;
 
 @Tag(TestTags.INTEGRATION)
 class RelationshipTypeApiTest {
-
   @Test
   void testGetRelationshipType() {
     Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
@@ -63,7 +65,7 @@ class RelationshipTypeApiTest {
 
     RelationshipConstraint constraint = relationshipType.getFromConstraint();
     assertNotNull(constraint);
-    assertEquals(RelationshipEntity.PROGRAM_STAGE_INSTANCE, constraint.getRelationshipEntity());
+    assertEquals(PROGRAM_STAGE_INSTANCE, constraint.getRelationshipEntity());
     assertNotNull(constraint.getProgramStage());
     assertEquals("A03MvHHogjR", constraint.getProgramStage().getId());
   }
@@ -99,14 +101,22 @@ class RelationshipTypeApiTest {
     relationshipType.setBidirectional(true);
     relationshipType.setReferral(true);
 
+    TrackerDataView trackerDataViewFrom = new TrackerDataView();
+    trackerDataViewFrom.setDataElements(Set.of("a3kGcGDCuk6"));
+
     RelationshipConstraint fromConstraint = new RelationshipConstraint();
-    fromConstraint.setRelationshipEntity(RelationshipEntity.PROGRAM_STAGE_INSTANCE);
+    fromConstraint.setRelationshipEntity(PROGRAM_STAGE_INSTANCE);
     fromConstraint.setProgramStage(dhis2.getProgramStage("A03MvHHogjR"));
+    fromConstraint.setTrackerDataView(trackerDataViewFrom);
     relationshipType.setFromConstraint(fromConstraint);
 
+    TrackerDataView trackerDataViewTo = new TrackerDataView();
+    trackerDataViewTo.setAttributes(Set.of("lZGmxYbs97q"));
+
     RelationshipConstraint toConstraint = new RelationshipConstraint();
-    toConstraint.setRelationshipEntity(RelationshipEntity.TRACKED_ENTITY_INSTANCE);
+    toConstraint.setRelationshipEntity(TRACKED_ENTITY_INSTANCE);
     toConstraint.setTrackedEntityType(dhis2.getTrackedEntityType("nEenWmSyUEp"));
+    toConstraint.setTrackerDataView(trackerDataViewTo);
     relationshipType.setToConstraint(toConstraint);
 
     // Create
@@ -121,32 +131,12 @@ class RelationshipTypeApiTest {
 
     assertNotNull(relationshipType);
     assertEquals(relationshipTypeUid, savedRelationshipType.getId());
-    assertEquals(relationshipType.getName(), savedRelationshipType.getName());
-    assertEquals(relationshipType.getCode(), savedRelationshipType.getCode());
-    assertEquals(relationshipType.getDescription(), savedRelationshipType.getDescription());
-    assertEquals(relationshipType.getFromToName(), savedRelationshipType.getFromToName());
-    assertEquals(relationshipType.getToFromName(), savedRelationshipType.getToFromName());
-    assertTrue(relationshipType.getBidirectional());
-    assertTrue(relationshipType.getReferral());
-    assertNotNull(savedRelationshipType.getCreated());
-    assertNotNull(savedRelationshipType.getLastUpdated());
+    validateSavedRelationshipType(relationshipType, savedRelationshipType);
 
-    RelationshipConstraint savedFromConstraint = savedRelationshipType.getFromConstraint();
-    assertNotNull(savedFromConstraint);
-    assertEquals(
-        RelationshipEntity.PROGRAM_STAGE_INSTANCE, savedFromConstraint.getRelationshipEntity());
-    assertEquals("A03MvHHogjR", savedFromConstraint.getProgramStage().getId());
-
-    RelationshipConstraint savedToConstraint = savedRelationshipType.getToConstraint();
-    assertNotNull(savedToConstraint);
-    assertEquals(
-        RelationshipEntity.TRACKED_ENTITY_INSTANCE, savedToConstraint.getRelationshipEntity());
-    assertEquals("nEenWmSyUEp", savedToConstraint.getTrackedEntityType().getId());
-
+    // Update
     String updatedName = "Sample relationship type updated";
     savedRelationshipType.setName(updatedName);
 
-    // Update
     ObjectResponse updateRespA = dhis2.updateRelationshipType(savedRelationshipType);
 
     assertSuccessResponse(updateRespA, HttpStatus.OK, 200);
@@ -162,5 +152,38 @@ class RelationshipTypeApiTest {
     ObjectResponse removeRespA = dhis2.removeRelationshipType(relationshipTypeUid);
 
     assertSuccessResponse(removeRespA, HttpStatus.OK, 200);
+  }
+
+  private void validateSavedRelationshipType(
+      RelationshipType relationshipType, RelationshipType savedRelationshipType) {
+    assertEquals(relationshipType.getName(), savedRelationshipType.getName());
+    assertEquals(relationshipType.getCode(), savedRelationshipType.getCode());
+    assertEquals(relationshipType.getDescription(), savedRelationshipType.getDescription());
+    assertEquals(relationshipType.getFromToName(), savedRelationshipType.getFromToName());
+    assertEquals(relationshipType.getToFromName(), savedRelationshipType.getToFromName());
+    assertTrue(relationshipType.getBidirectional());
+    assertTrue(relationshipType.getReferral());
+    assertNotNull(savedRelationshipType.getCreated());
+    assertNotNull(savedRelationshipType.getLastUpdated());
+
+    // Validate from constraint
+    RelationshipConstraint savedFromConstraint = savedRelationshipType.getFromConstraint();
+    assertNotNull(savedFromConstraint);
+    assertEquals(PROGRAM_STAGE_INSTANCE, savedFromConstraint.getRelationshipEntity());
+    assertEquals("A03MvHHogjR", savedFromConstraint.getProgramStage().getId());
+
+    Set<String> savedDataElements = savedFromConstraint.getTrackerDataView().getDataElements();
+    TrackerDataView trackerDataViewFrom = relationshipType.getFromConstraint().getTrackerDataView();
+    assertEquals(trackerDataViewFrom.getDataElements(), savedDataElements);
+
+    // Validate to constraint
+    RelationshipConstraint savedToConstraint = savedRelationshipType.getToConstraint();
+    assertNotNull(savedToConstraint);
+    assertEquals(TRACKED_ENTITY_INSTANCE, savedToConstraint.getRelationshipEntity());
+    assertEquals("nEenWmSyUEp", savedToConstraint.getTrackedEntityType().getId());
+
+    Set<String> savedAttributes = savedToConstraint.getTrackerDataView().getAttributes();
+    TrackerDataView trackerDataViewTo = relationshipType.getToConstraint().getTrackerDataView();
+    assertEquals(trackerDataViewTo.getAttributes(), savedAttributes);
   }
 }

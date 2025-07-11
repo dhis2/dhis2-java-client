@@ -29,26 +29,19 @@ package org.hisp.dhis.model.relationship;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
+import java.util.LinkedHashSet;
+import java.util.Set;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.hisp.dhis.model.Program;
-import org.hisp.dhis.model.ProgramStage;
-import org.hisp.dhis.model.trackedentity.TrackedEntityType;
 
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
-public class RelationshipConstraint implements Serializable {
-  @JsonProperty private RelationshipEntity relationshipEntity;
+public class TrackerDataView implements Serializable {
+  @JsonProperty private Set<String> attributes = new LinkedHashSet<>();
 
-  @JsonProperty private TrackedEntityType trackedEntityType;
-
-  @JsonProperty private Program program;
-
-  @JsonProperty private ProgramStage programStage;
-
-  @JsonProperty private TrackerDataView trackerDataView;
+  @JsonProperty private Set<String> dataElements = new LinkedHashSet<>();
 }
