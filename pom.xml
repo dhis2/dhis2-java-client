@@ -58,7 +58,7 @@
     <maven-artifact.version>3.9.4</maven-artifact.version>
     <maven-surefire-plugin.version>3.5.2</maven-surefire-plugin.version>
     <commons-io.version>2.19.0</commons-io.version>
-    <commons-lang3.version>3.17.0</commons-lang3.version>
+    <commons-lang3.version>3.18.0</commons-lang3.version>
     <commons-collections4.version>4.5.0</commons-collections4.version>
     <commons-codec.version>1.18.0</commons-codec.version>
     <spotless.version>2.44.3</spotless.version>
