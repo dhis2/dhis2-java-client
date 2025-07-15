@@ -1589,6 +1589,16 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   /**
+   * Saves a {@link Document}.
+   *
+   * @param document the object to save.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse saveDocument(Document document) {
+    return saveMetadataObject(MetadataEntity.DOCUMENT, document);
+  }
+
+  /**
    * Writes the data for the {@link Document} to the given {@link OutputStream}.
    *
    * @param id the document identifier.
@@ -1606,6 +1616,16 @@ public class Dhis2 extends BaseDhis2 {
     CloseableHttpResponse response = getHttpResponse(uri, List.of());
 
     writeToStream(response, out);
+  }
+
+  /**
+   * Removes a {@link Document}.
+   *
+   * @param id the identifier of the object to remove.
+   * @return {@link Document} holding information about the operation.
+   */
+  public ObjectResponse removeDocument(String id) {
+    return removeMetadataObject(String.format("documents/%s", id));
   }
 
   // -------------------------------------------------------------------------
