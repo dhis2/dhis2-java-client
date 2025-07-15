@@ -30,7 +30,6 @@ package org.hisp.dhis;
 import static org.hisp.dhis.Constants.SUPER_ADMIN_AUTH;
 import static org.hisp.dhis.util.CollectionUtils.asList;
 import static org.hisp.dhis.util.CollectionUtils.list;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -601,14 +600,7 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if the object does not exist.
    */
   public Attribute getAttribute(String id) {
-    return getObject(
-        config
-            .getResolvedUriBuilder()
-            .appendPath("attributes")
-            .appendPath(id)
-            .addParameter(FIELDS_PARAM, ATTRIBUTE_FIELDS),
-        Query.instance(),
-        Attribute.class);
+    return getMetadataObject(MetadataEntity.ATTRIBUTE, id, ATTRIBUTE_FIELDS);
   }
 
   /**
@@ -690,14 +682,7 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if the object does not exist.
    */
   public CategoryOption getCategoryOption(String id) {
-    return getObject(
-        config
-            .getResolvedUriBuilder()
-            .appendPath("categoryOptions")
-            .appendPath(id)
-            .addParameter(FIELDS_PARAM, CATEGORY_OPTION_FIELDS),
-        Query.instance(),
-        CategoryOption.class);
+    return getMetadataObject(MetadataEntity.CATEGORY_OPTION, id, CATEGORY_OPTION_FIELDS);
   }
 
   /**
@@ -785,14 +770,7 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if the object does not exist.
    */
   public Category getCategory(String id) {
-    return getObject(
-        config
-            .getResolvedUriBuilder()
-            .appendPath("categories")
-            .appendPath(id)
-            .addParameter(FIELDS_PARAM, CATEGORY_FIELDS),
-        Query.instance(),
-        Category.class);
+    return getMetadataObject(MetadataEntity.CATEGORY, id, CATEGORY_FIELDS);
   }
 
   /**
@@ -864,14 +842,7 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if the object does not exist.
    */
   public CategoryCombo getCategoryCombo(String id) {
-    return getObject(
-        config
-            .getResolvedUriBuilder()
-            .appendPath("categoryCombos")
-            .appendPath(id)
-            .addParameter(FIELDS_PARAM, CATEGORY_COMBO_FIELDS),
-        Query.instance(),
-        CategoryCombo.class);
+    return getMetadataObject(MetadataEntity.CATEGORY_COMBO, id, CATEGORY_COMBO_FIELDS);
   }
 
   /**
@@ -923,14 +894,7 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if the object does not exist.
    */
   public CategoryOptionCombo getCategoryOptionCombo(String id) {
-    return getObject(
-        config
-            .getResolvedUriBuilder()
-            .appendPath("categoryOptionCombos")
-            .appendPath(id)
-            .addParameter(FIELDS_PARAM, CATEGORY_OPTION_COMBO_FIELDS),
-        Query.instance(),
-        CategoryOptionCombo.class);
+    return getMetadataObject(MetadataEntity.CATEGORY_OPTION_COMBO, id, CATEGORY_OPTION_COMBO_FIELDS);
   }
 
   /**
@@ -972,14 +936,7 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if the object does not exist.
    */
   public CategoryOptionGroup getCategoryOptionGroup(String id) {
-    return getObject(
-        config
-            .getResolvedUriBuilder()
-            .appendPath("categoryOptionGroups")
-            .appendPath(id)
-            .addParameter(FIELDS_PARAM, CATEGORY_OPTION_GROUP_FIELDS),
-        Query.instance(),
-        CategoryOptionGroup.class);
+    return getMetadataObject(MetadataEntity.CATEGORY_OPTION_GROUP, id, CATEGORY_OPTION_GROUP_FIELDS);
   }
 
   /**
@@ -1031,14 +988,7 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if the object does not exist.
    */
   public CategoryOptionGroupSet getCategoryOptionGroupSet(String id) {
-    return getObject(
-        config
-            .getResolvedUriBuilder()
-            .appendPath("categoryOptionGroupSets")
-            .appendPath(id)
-            .addParameter(FIELDS_PARAM, CATEGORY_OPTION_GROUP_SET_FIELDS),
-        Query.instance(),
-        CategoryOptionGroupSet.class);
+    return getMetadataObject(MetadataEntity.CATEGORY_OPTION_GROUP_SET, id, CATEGORY_OPTION_GROUP_SET_FIELDS);
   }
 
   /**
@@ -1090,14 +1040,7 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if the object does not exist.
    */
   public Dashboard getDashboard(String id) {
-    return getObject(
-        config
-            .getResolvedUriBuilder()
-            .appendPath("dashboards")
-            .appendPath(id)
-            .addParameter(FIELDS_PARAM, DASHBOARD_FIELDS),
-        Query.instance(),
-        Dashboard.class);
+    return getMetadataObject(MetadataEntity.DASHBOARD, id, DASHBOARD_FIELDS);
   }
 
   /**
@@ -1179,14 +1122,7 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if the object does not exist.
    */
   public DataElement getDataElement(String id) {
-    return getObject(
-        config
-            .getResolvedUriBuilder()
-            .appendPath("dataElements")
-            .appendPath(id)
-            .addParameter(FIELDS_PARAM, DATA_ELEMENT_FIELDS),
-        Query.instance(),
-        DataElement.class);
+    return getMetadataObject(MetadataEntity.DATA_ELEMENT, id, DATA_ELEMENT_FIELDS);
   }
 
   /**
@@ -1279,14 +1215,7 @@ public class Dhis2 extends BaseDhis2 {
     String fieldsParams =
         String.format("%1$s,dataElements[%2$s]", NAME_FIELDS, DATA_ELEMENT_FIELDS);
 
-    return getObject(
-        config
-            .getResolvedUriBuilder()
-            .appendPath("dataElementGroups")
-            .appendPath(id)
-            .addParameter(FIELDS_PARAM, fieldsParams),
-        Query.instance(),
-        DataElementGroup.class);
+    return getMetadataObject(MetadataEntity.DATA_ELEMENT_GROUP, id, fieldsParams);
   }
 
   /**
@@ -1372,14 +1301,7 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if the object does not exist.
    */
   public DataElementGroupSet getDataElementGroupSet(String id) {
-    return getObject(
-        config
-            .getResolvedUriBuilder()
-            .appendPath("dataElementGroupSets")
-            .appendPath(id)
-            .addParameter(FIELDS_PARAM, DATA_ELEMENT_GROUP_SET_FIELDS),
-        Query.instance(),
-        DataElementGroupSet.class);
+    return getMetadataObject(MetadataEntity.DATA_ELEMENT_GROUP_SET, id, DATA_ELEMENT_GROUP_SET_FIELDS);
   }
 
   /**
@@ -1436,14 +1358,7 @@ public class Dhis2 extends BaseDhis2 {
             "%1$s,organisationUnits[%2$s],workflow[%2$s],indicators[%2$s],sections[%2$s],legendSets[%2$s]",
             DATA_SET_FIELDS, NAME_FIELDS);
 
-    return getObject(
-        config
-            .getResolvedUriBuilder()
-            .appendPath("dataSets")
-            .appendPath(id)
-            .addParameter(FIELDS_PARAM, fieldsParam),
-        Query.instance(),
-        DataSet.class);
+    return getMetadataObject(MetadataEntity.DATA_SET, id, fieldsParam);
   }
 
   /**
@@ -1507,7 +1422,7 @@ public class Dhis2 extends BaseDhis2 {
             .getResolvedUriBuilder()
             .appendPath("dimensions")
             .appendPath(id)
-            .addParameter(FIELDS_PARAM, String.format("%s,dimensionType", ID_FIELDS)),
+            .addParameter(FIELDS_PARAM, DIMENSION_FIELDS),
         Query.instance(),
         Dimension.class);
   }
@@ -1561,14 +1476,7 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if the object does not exist.
    */
   public Document getDocument(String id) {
-    return getObject(
-        config
-            .getResolvedUriBuilder()
-            .appendPath("documents")
-            .appendPath(id)
-            .addParameter(FIELDS_PARAM, DOCUMENT_FIELDS),
-        Query.instance(),
-        Document.class);
+    return getMetadataObject(MetadataEntity.DOCUMENT, id, DOCUMENT_FIELDS);
   }
 
   /**
@@ -1670,14 +1578,7 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if the object does not exist.
    */
   public Indicator getIndicator(String id) {
-    return getObject(
-        config
-            .getResolvedUriBuilder()
-            .appendPath("indicators")
-            .appendPath(id)
-            .addParameter(FIELDS_PARAM, INDICATOR_FIELDS),
-        Query.instance(),
-        Indicator.class);
+    return getMetadataObject(MetadataEntity.INDICATOR, id, INDICATOR_FIELDS);
   }
 
   /**
@@ -1761,14 +1662,7 @@ public class Dhis2 extends BaseDhis2 {
   public IndicatorGroup getIndicatorGroup(String id) {
     String fieldsParams = String.format("%1$s,indicators[%2$s]", NAME_FIELDS, INDICATOR_FIELDS);
 
-    return getObject(
-        config
-            .getResolvedUriBuilder()
-            .appendPath("indicatorGroups")
-            .appendPath(id)
-            .addParameter(FIELDS_PARAM, fieldsParams),
-        Query.instance(),
-        IndicatorGroup.class);
+    return getMetadataObject(MetadataEntity.INDICATOR_GROUP, id, fieldsParams);
   }
 
   /**
@@ -1854,14 +1748,7 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if the object does not exist.
    */
   public IndicatorGroupSet getIndicatorGroupSet(String id) {
-    return getObject(
-        config
-            .getResolvedUriBuilder()
-            .appendPath("indicatorGroupSets")
-            .appendPath(id)
-            .addParameter(FIELDS_PARAM, INDICATOR_GROUP_SET_FIELDS),
-        Query.instance(),
-        IndicatorGroupSet.class);
+    return getMetadataObject(MetadataEntity.INDICATOR_GROUP_SET, id, INDICATOR_GROUP_SET_FIELDS);
   }
 
   /**
@@ -1943,14 +1830,7 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if the object does not exist.
    */
   public IndicatorType getIndicatorType(String id) {
-    return getObject(
-        config
-            .getResolvedUriBuilder()
-            .appendPath("indicatorTypes")
-            .appendPath(id)
-            .addParameter(FIELDS_PARAM, INDICATOR_TYPE_FIELDS),
-        Query.instance(),
-        IndicatorType.class);
+    return getMetadataObject(MetadataEntity.INDICATOR_TYPE, id, INDICATOR_TYPE_FIELDS);
   }
 
   /**
@@ -2032,14 +1912,7 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if the object does not exist.
    */
   public OrgUnit getOrgUnit(String id) {
-    return getObject(
-        config
-            .getResolvedUriBuilder()
-            .appendPath("organisationUnits")
-            .appendPath(id)
-            .addParameter(FIELDS_PARAM, ORG_UNIT_FIELDS),
-        Query.instance(),
-        OrgUnit.class);
+    return getMetadataObject(MetadataEntity.ORG_UNIT, id, ORG_UNIT_FIELDS);
   }
 
   /**
@@ -2175,14 +2048,7 @@ public class Dhis2 extends BaseDhis2 {
     String fieldsParams =
         String.format("%1$s,organisationUnits[%2$s]", NAME_FIELDS, ORG_UNIT_FIELDS);
 
-    return getObject(
-        config
-            .getResolvedUriBuilder()
-            .appendPath("organisationUnitGroups")
-            .appendPath(id)
-            .addParameter(FIELDS_PARAM, fieldsParams),
-        Query.instance(),
-        OrgUnitGroup.class);
+    return getMetadataObject(MetadataEntity.ORG_UNIT_GROUP, id, fieldsParams);
   }
 
   /**
@@ -2280,14 +2146,7 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if the object does not exist.
    */
   public OrgUnitGroupSet getOrgUnitGroupSet(String id) {
-    return getObject(
-        config
-            .getResolvedUriBuilder()
-            .appendPath("organisationUnitGroupSets")
-            .appendPath(id)
-            .addParameter(FIELDS_PARAM, ORG_UNIT_GROUP_SET_FIELDS),
-        Query.instance(),
-        OrgUnitGroupSet.class);
+    return getMetadataObject(MetadataEntity.ORG_UNIT_GROUP_SET, id, ORG_UNIT_GROUP_SET_FIELDS);
   }
 
   /**
@@ -2339,14 +2198,7 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if the object does not exist.
    */
   public OrgUnitLevel getOrgUnitLevel(String id) {
-    return getObject(
-        config
-            .getResolvedUriBuilder()
-            .appendPath("organisationUnitLevels")
-            .appendPath(id)
-            .addParameter(FIELDS_PARAM, String.format("%s,level", ID_FIELDS)),
-        Query.instance(),
-        OrgUnitLevel.class);
+    return getMetadataObject(MetadataEntity.ORG_UNIT_LEVEL, id, ORG_UNIT_LEVEL_FIELDS);
   }
 
   /**
@@ -2404,14 +2256,7 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if the object does not exist.
    */
   public GeoMap getMap(String id) {
-    return getObject(
-        config
-            .getResolvedUriBuilder()
-            .appendPath("maps")
-            .appendPath(id)
-            .addParameter(FIELDS_PARAM, NAME_FIELDS),
-        Query.instance(),
-        GeoMap.class);
+    return getMetadataObject(MetadataEntity.MAP, id, NAME_FIELDS);
   }
 
   /**
