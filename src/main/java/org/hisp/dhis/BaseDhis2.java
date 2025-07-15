@@ -431,7 +431,41 @@ public class BaseDhis2 {
    */
   protected <T> T getObject(URIBuilder uriBuilder, Query query, Class<T> type) {
     URI url = getObjectQuery(uriBuilder, query);
+
     return getObjectFromUrl(url, type);
+  }
+
+  /**
+   * Retrieves a metadata object.
+   *
+   * @param <T> the type.
+   * @param entity the {@link MetadataEntity}.
+   * @param id the metadata object identifier.
+   * @return a metadata object.
+   */
+  @SuppressWarnings("unchecked")
+  public <T extends IdentifiableObject> T getMetadataObject(MetadataEntity entity, String id) {
+    return (T) getObject(entity.getPath(), id, entity.getType());
+  }
+
+  /**
+   * Retrieves an object.
+   *
+   * @param <T> the type.
+   * @param path the URL path.
+   * @param id the object identifier.
+   * @param type the class type of the object.
+   * @return the object.
+   * @throws Dhis2ClientException if unauthorized, access denied or resource not found.
+   */
+  protected <T> T getObject(String path, String id, Class<T> type) {
+    try {
+      URI url = config.getResolvedUriBuilder().appendPath(path).appendPath(id).build();
+
+      return getObjectFromUrl(url, type);
+    } catch (URISyntaxException ex) {
+      throw new RuntimeException(ex);
+    }
   }
 
   /**
@@ -1104,26 +1138,6 @@ public class BaseDhis2 {
       return StringUtils.join(values, ';');
     } else {
       return filter.getValue();
-    }
-  }
-
-  /**
-   * Retrieves an object.
-   *
-   * @param <T> the type.
-   * @param path the URL path.
-   * @param id the object identifier.
-   * @param type the class type of the object.
-   * @return the object.
-   * @throws Dhis2ClientException if unauthorized, access denied or resource not found.
-   */
-  protected <T> T getObject(String path, String id, Class<T> type) {
-    try {
-      URI url = config.getResolvedUriBuilder().appendPath(path).appendPath(id).build();
-
-      return getObjectFromUrl(url, type);
-    } catch (URISyntaxException ex) {
-      throw new RuntimeException(ex);
     }
   }
 
