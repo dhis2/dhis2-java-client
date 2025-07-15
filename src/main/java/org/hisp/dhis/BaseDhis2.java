@@ -1570,7 +1570,8 @@ public class BaseDhis2 {
   /**
    * Removes an object using HTTP DELETE.
    *
-   * @param the object to delete.
+   * @param entity the {@link MetadataEntity}.
+   * @param id the object identifier.
    * @return {@link ObjectResponse} holding information about the operation.
    */
   protected ObjectResponse removeMetadataObject(MetadataEntity entity, String id) {
