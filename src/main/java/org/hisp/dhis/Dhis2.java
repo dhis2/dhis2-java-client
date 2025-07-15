@@ -539,7 +539,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return true if the object exists.
    */
   public boolean isAnalyticsTableHook(String id) {
-    return objectExists("analyticsTableHooks", id);
+    return objectExists(MetadataEntity.ANALYTICS_TABLE_HOOK, id);
   }
 
   /**
@@ -562,51 +562,6 @@ public class Dhis2 extends BaseDhis2 {
   // -------------------------------------------------------------------------
   // Attribute
   // -------------------------------------------------------------------------
-
-  /**
-   * Retrieves a {@link Attribute}.
-   *
-   * @param id the object identifier.
-   * @return the {@link Attribute}.
-   * @throws Dhis2ClientException if the object does not exist.
-   */
-  public Attribute getAttribute(String id) {
-    return getObject(
-        config
-            .getResolvedUriBuilder()
-            .appendPath("attributes")
-            .appendPath(id)
-            .addParameter(FIELDS_PARAM, ATTRIBUTE_FIELDS),
-        Query.instance(),
-        Attribute.class);
-  }
-
-  /**
-   * Indicates whether a {@link Attribute} exists.
-   *
-   * @param id the object identifier.
-   * @return true if the object exists.
-   */
-  public boolean isAttribute(String id) {
-    return objectExists("attributes", id);
-  }
-
-  /**
-   * Retrieves a {@link Attribute}.
-   *
-   * @param query the {@link Query}.
-   * @return a list of {@link Attribute}.
-   */
-  public List<Attribute> getAttributes(Query query) {
-    return getObject(
-            config
-                .getResolvedUriBuilder()
-                .appendPath("attributes")
-                .addParameter(FIELDS_PARAM, ATTRIBUTE_FIELDS),
-            query,
-            Dhis2Objects.class)
-        .getAttributes();
-  }
 
   /**
    * Saves a {@link Attribute}.
@@ -636,6 +591,51 @@ public class Dhis2 extends BaseDhis2 {
    */
   public ObjectResponse updateAttribute(Attribute attribute) {
     return updateMetadataObject(attribute);
+  }
+
+  /**
+   * Retrieves a {@link Attribute}.
+   *
+   * @param id the object identifier.
+   * @return the {@link Attribute}.
+   * @throws Dhis2ClientException if the object does not exist.
+   */
+  public Attribute getAttribute(String id) {
+    return getObject(
+        config
+            .getResolvedUriBuilder()
+            .appendPath("attributes")
+            .appendPath(id)
+            .addParameter(FIELDS_PARAM, ATTRIBUTE_FIELDS),
+        Query.instance(),
+        Attribute.class);
+  }
+
+  /**
+   * Indicates whether a {@link Attribute} exists.
+   *
+   * @param id the object identifier.
+   * @return true if the object exists.
+   */
+  public boolean isAttribute(String id) {
+    return objectExists(MetadataEntity.ATTRIBUTE, id);
+  }
+
+  /**
+   * Retrieves a {@link Attribute}.
+   *
+   * @param query the {@link Query}.
+   * @return a list of {@link Attribute}.
+   */
+  public List<Attribute> getAttributes(Query query) {
+    return getObject(
+            config
+                .getResolvedUriBuilder()
+                .appendPath("attributes")
+                .addParameter(FIELDS_PARAM, ATTRIBUTE_FIELDS),
+            query,
+            Dhis2Objects.class)
+        .getAttributes();
   }
 
   /**
@@ -683,16 +683,6 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   /**
-   * Removes a {@link CategoryOption}.
-   *
-   * @param id the identifier of the object to remove.
-   * @return {@link ObjectResponse} holding information about the operation.
-   */
-  public ObjectResponse removeCategoryOption(String id) {
-    return removeMetadataObject(MetadataEntity.CATEGORY_OPTION, id);
-  }
-
-  /**
    * Retrieves an {@link CategoryOption}.
    *
    * @param id the object identifier.
@@ -717,7 +707,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return true if the object exists.
    */
   public boolean isCategoryOption(String id) {
-    return objectExists("categoryOptions", id);
+    return objectExists(MetadataEntity.CATEGORY_OPTION, id);
   }
 
   /**
@@ -741,6 +731,16 @@ public class Dhis2 extends BaseDhis2 {
             query,
             Dhis2Objects.class)
         .getCategoryOptions();
+  }
+
+  /**
+   * Removes a {@link CategoryOption}.
+   *
+   * @param id the identifier of the object to remove.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse removeCategoryOption(String id) {
+    return removeMetadataObject(MetadataEntity.CATEGORY_OPTION, id);
   }
 
   // -------------------------------------------------------------------------
@@ -778,16 +778,6 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   /**
-   * Removes a {@link Category}.
-   *
-   * @param id the identifier of the object to remove.
-   * @return {@link ObjectResponse} holding information about the operation.
-   */
-  public ObjectResponse removeCategory(String id) {
-    return removeMetadataObject(MetadataEntity.CATEGORY, id);
-  }
-
-  /**
    * Retrieves an {@link Category}.
    *
    * @param id the object identifier.
@@ -812,7 +802,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return true if the object exists.
    */
   public boolean isCategory(String id) {
-    return objectExists("categories", id);
+    return objectExists(MetadataEntity.CATEGORY, id);
   }
 
   /**
@@ -830,6 +820,16 @@ public class Dhis2 extends BaseDhis2 {
             query,
             Dhis2Objects.class)
         .getCategories();
+  }
+
+  /**
+   * Removes a {@link Category}.
+   *
+   * @param id the identifier of the object to remove.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse removeCategory(String id) {
+    return removeMetadataObject(MetadataEntity.CATEGORY, id);
   }
 
   // -------------------------------------------------------------------------
@@ -857,16 +857,6 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   /**
-   * Removes a {@link CategoryCombo}.
-   *
-   * @param id the identifier of the object to remove.
-   * @return {@link ObjectResponse} holding information about the operation.
-   */
-  public ObjectResponse removeCategoryCombo(String id) {
-    return removeMetadataObject(MetadataEntity.CATEGORY_COMBO, id);
-  }
-
-  /**
    * Retrieves an {@link CategoryCombo}.
    *
    * @param id the object identifier.
@@ -891,7 +881,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return true if the object exists.
    */
   public boolean isCategoryCombo(String id) {
-    return objectExists("categoryCombos", id);
+    return objectExists(MetadataEntity.CATEGORY_COMBO, id);
   }
 
   /**
@@ -909,6 +899,16 @@ public class Dhis2 extends BaseDhis2 {
             query,
             Dhis2Objects.class)
         .getCategoryCombos();
+  }
+
+  /**
+   * Removes a {@link CategoryCombo}.
+   *
+   * @param id the identifier of the object to remove.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse removeCategoryCombo(String id) {
+    return removeMetadataObject(MetadataEntity.CATEGORY_COMBO, id);
   }
 
   // -------------------------------------------------------------------------
@@ -940,7 +940,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return true if the object exists.
    */
   public boolean isCategoryOptionCombo(String id) {
-    return objectExists("categoryOptionCombos", id);
+    return objectExists(MetadataEntity.CATEGORY_OPTION_COMBO, id);
   }
 
   /**
@@ -963,16 +963,6 @@ public class Dhis2 extends BaseDhis2 {
   // -------------------------------------------------------------------------
   // Category option group
   // -------------------------------------------------------------------------
-
-  /**
-   * Removes a {@link CategoryOptionGroup}.
-   *
-   * @param id the identifier of the object to remove.
-   * @return {@link ObjectResponse} holding information about the operation.
-   */
-  public ObjectResponse removeCategoryOptionGroup(String id) {
-    return removeMetadataObject(MetadataEntity.CATEGORY_OPTION_GROUP, id);
-  }
 
   /**
    * Retrieves an {@link CategoryOptionGroup}.
@@ -999,7 +989,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return true if the object exists.
    */
   public boolean isCategoryOptionGroup(String id) {
-    return objectExists("categoryOptionGroups", id);
+    return objectExists(MetadataEntity.CATEGORY_OPTION_GROUP, id);
   }
 
   /**
@@ -1019,19 +1009,19 @@ public class Dhis2 extends BaseDhis2 {
         .getCategoryOptionGroups();
   }
 
-  // -------------------------------------------------------------------------
-  // Category option group set
-  // -------------------------------------------------------------------------
-
   /**
-   * Removes a {@link CategoryOptionGroupSet}.
+   * Removes a {@link CategoryOptionGroup}.
    *
    * @param id the identifier of the object to remove.
    * @return {@link ObjectResponse} holding information about the operation.
    */
-  public ObjectResponse removeCategoryOptionGroupSet(String id) {
-    return removeMetadataObject(MetadataEntity.CATEGORY_OPTION_GROUP_SET, id);
+  public ObjectResponse removeCategoryOptionGroup(String id) {
+    return removeMetadataObject(MetadataEntity.CATEGORY_OPTION_GROUP, id);
   }
+
+  // -------------------------------------------------------------------------
+  // Category option group set
+  // -------------------------------------------------------------------------
 
   /**
    * Retrieves an {@link CategoryOptionGroupSet}.
@@ -1058,7 +1048,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return true if the object exists.
    */
   public boolean isCategoryOptionGroupSet(String id) {
-    return objectExists("categoryOptionGroupSets", id);
+    return objectExists(MetadataEntity.CATEGORY_OPTION_GROUP_SET, id);
   }
 
   /**
@@ -1078,19 +1068,19 @@ public class Dhis2 extends BaseDhis2 {
         .getCategoryOptionGroupSets();
   }
 
-  // -------------------------------------------------------------------------
-  // Dashboard
-  // -------------------------------------------------------------------------
-
   /**
-   * Removes a {@link Dashboard}.
+   * Removes a {@link CategoryOptionGroupSet}.
    *
    * @param id the identifier of the object to remove.
    * @return {@link ObjectResponse} holding information about the operation.
    */
-  public ObjectResponse removeDashboard(String id) {
-    return removeMetadataObject(MetadataEntity.DASHBOARD, id);
+  public ObjectResponse removeCategoryOptionGroupSet(String id) {
+    return removeMetadataObject(MetadataEntity.CATEGORY_OPTION_GROUP_SET, id);
   }
+
+  // -------------------------------------------------------------------------
+  // Dashboard
+  // -------------------------------------------------------------------------
 
   /**
    * Retrieves a {@link Dashboard}.
@@ -1117,7 +1107,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return true if the object exists.
    */
   public boolean isDashboard(String id) {
-    return objectExists("dashboards", id);
+    return objectExists(MetadataEntity.DASHBOARD, id);
   }
 
   /**
@@ -1135,6 +1125,16 @@ public class Dhis2 extends BaseDhis2 {
             query,
             Dhis2Objects.class)
         .getDashboards();
+  }
+
+  /**
+   * Removes a {@link Dashboard}.
+   *
+   * @param id the identifier of the object to remove.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse removeDashboard(String id) {
+    return removeMetadataObject(MetadataEntity.DASHBOARD, id);
   }
 
   // -------------------------------------------------------------------------
@@ -1172,16 +1172,6 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   /**
-   * Removes a {@link DataElement}.
-   *
-   * @param id the identifier of the object to remove.
-   * @return {@link ObjectResponse} holding information about the operation.
-   */
-  public ObjectResponse removeDataElement(String id) {
-    return removeMetadataObject(MetadataEntity.DATA_ELEMENT, id);
-  }
-
-  /**
    * Retrieves an {@link DataElement}.
    *
    * @param id the object identifier.
@@ -1206,7 +1196,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return true if the object exists.
    */
   public boolean isDataElement(String id) {
-    return objectExists("dataElements", id);
+    return objectExists(MetadataEntity.DATA_ELEMENT, id);
   }
 
   /**
@@ -1232,6 +1222,16 @@ public class Dhis2 extends BaseDhis2 {
             query,
             Dhis2Objects.class)
         .getDataElements();
+  }
+
+  /**
+   * Removes a {@link DataElement}.
+   *
+   * @param id the identifier of the object to remove.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse removeDataElement(String id) {
+    return removeMetadataObject(MetadataEntity.DATA_ELEMENT, id);
   }
 
   // -------------------------------------------------------------------------
@@ -1269,16 +1269,6 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   /**
-   * Removes a {@link DataElementGroup}.
-   *
-   * @param id the identifier of the object to remove.
-   * @return {@link ObjectResponse} holding information about the operation.
-   */
-  public ObjectResponse removeDataElementGroup(String id) {
-    return removeMetadataObject(MetadataEntity.DATA_ELEMENT_GROUP, id);
-  }
-
-  /**
    * Retrieves an {@link DataElementGroup}.
    *
    * @param id the object identifier.
@@ -1306,7 +1296,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return true if the object exists.
    */
   public boolean isDataElementGroup(String id) {
-    return objectExists("dataElementGroups", id);
+    return objectExists(MetadataEntity.DATA_ELEMENT_GROUP, id);
   }
 
   /**
@@ -1328,6 +1318,16 @@ public class Dhis2 extends BaseDhis2 {
             query,
             Dhis2Objects.class)
         .getDataElementGroups();
+  }
+
+  /**
+   * Removes a {@link DataElementGroup}.
+   *
+   * @param id the identifier of the object to remove.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse removeDataElementGroup(String id) {
+    return removeMetadataObject(MetadataEntity.DATA_ELEMENT_GROUP, id);
   }
 
   // -------------------------------------------------------------------------
@@ -1365,16 +1365,6 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   /**
-   * Removes a {@link DataElementGroupSet}.
-   *
-   * @param id the identifier of the object to remove.
-   * @return {@link ObjectResponse} holding information about the operation.
-   */
-  public ObjectResponse removeDataElementGroupSet(String id) {
-    return removeMetadataObject(MetadataEntity.DATA_ELEMENT_GROUP_SET, id);
-  }
-
-  /**
    * Retrieves an {@link DataElementGroupSet}.
    *
    * @param id the object identifier.
@@ -1399,7 +1389,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return true if the object exists.
    */
   public boolean isDataElementGroupSet(String id) {
-    return objectExists("dataElementGroupSets", id);
+    return objectExists(MetadataEntity.DATA_ELEMENT_GROUP_SET, id);
   }
 
   /**
@@ -1419,19 +1409,19 @@ public class Dhis2 extends BaseDhis2 {
         .getDataElementGroupSets();
   }
 
-  // -------------------------------------------------------------------------
-  // DataSet
-  // -------------------------------------------------------------------------
-
   /**
-   * Removes a {@link DataSet}.
+   * Removes a {@link DataElementGroupSet}.
    *
    * @param id the identifier of the object to remove.
    * @return {@link ObjectResponse} holding information about the operation.
    */
-  public ObjectResponse removeDataSet(String id) {
-    return removeMetadataObject(MetadataEntity.DATA_SET, id);
+  public ObjectResponse removeDataElementGroupSet(String id) {
+    return removeMetadataObject(MetadataEntity.DATA_ELEMENT_GROUP_SET, id);
   }
+
+  // -------------------------------------------------------------------------
+  // DataSet
+  // -------------------------------------------------------------------------
 
   /**
    * Retrieves an {@link DataSet}.
@@ -1463,7 +1453,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return true if the object exists.
    */
   public boolean isDataSet(String id) {
-    return objectExists("dataSets", id);
+    return objectExists(MetadataEntity.DATA_SET, id);
   }
 
   /**
@@ -1488,6 +1478,16 @@ public class Dhis2 extends BaseDhis2 {
             query,
             Dhis2Objects.class)
         .getDataSets();
+  }
+
+  /**
+   * Removes a {@link DataSet}.
+   *
+   * @param id the identifier of the object to remove.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse removeDataSet(String id) {
+    return removeMetadataObject(MetadataEntity.DATA_SET, id);
   }
 
   // -------------------------------------------------------------------------
@@ -1519,7 +1519,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return true if the object exists.
    */
   public boolean isDimension(String id) {
-    return objectExists("dimensions", id);
+    return objectExists(String.format("dimensions/%s", id));
   }
 
   /**
@@ -1578,7 +1578,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return true if the object exists.
    */
   public boolean isDocument(String id) {
-    return objectExists("documents", id);
+    return objectExists(MetadataEntity.DOCUMENT, id);
   }
 
   /**
@@ -1643,6 +1643,16 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   /**
+   * Saves or updates the list of {@link Indicator}.
+   *
+   * @param indicators the list of {@link Indicator}.
+   * @return {@link ObjectsResponse} holding information about the operation.
+   */
+  public ObjectsResponse saveIndicators(List<Indicator> indicators) {
+    return saveMetadataObjects(new Dhis2Objects().setIndicators(indicators));
+  }
+
+  /**
    * Updates a {@link Indicator}.
    *
    * @param indicator the indicator object to update.
@@ -1650,16 +1660,6 @@ public class Dhis2 extends BaseDhis2 {
    */
   public ObjectResponse updateIndicator(Indicator indicator) {
     return updateMetadataObject(indicator);
-  }
-
-  /**
-   * Removes an {@link Indicator}.
-   *
-   * @param id the identifier of the object to remove.
-   * @return {@link ObjectResponse} holding information about the operation.
-   */
-  public ObjectResponse removeIndicator(String id) {
-    return removeMetadataObject(MetadataEntity.INDICATOR, id);
   }
 
   /**
@@ -1687,7 +1687,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return true if the object exists.
    */
   public boolean isIndicator(String id) {
-    return objectExists("indicators", id);
+    return objectExists(MetadataEntity.INDICATOR, id);
   }
 
   /**
@@ -1708,13 +1708,13 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   /**
-   * Saves or updates the list of {@link Indicator}.
+   * Removes an {@link Indicator}.
    *
-   * @param indicators the list of {@link Indicator}.
-   * @return {@link ObjectsResponse} holding information about the operation.
+   * @param id the identifier of the object to remove.
+   * @return {@link ObjectResponse} holding information about the operation.
    */
-  public ObjectsResponse saveIndicators(List<Indicator> indicators) {
-    return saveMetadataObjects(new Dhis2Objects().setIndicators(indicators));
+  public ObjectResponse removeIndicator(String id) {
+    return removeMetadataObject(MetadataEntity.INDICATOR, id);
   }
 
   // -------------------------------------------------------------------------
@@ -1752,16 +1752,6 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   /**
-   * Removes an {@link IndicatorGroup}.
-   *
-   * @param id the identifier of the object to remove.
-   * @return {@link ObjectResponse} holding information about the operation.
-   */
-  public ObjectResponse removeIndicatorGroup(String id) {
-    return removeMetadataObject(MetadataEntity.INDICATOR_GROUP, id);
-  }
-
-  /**
    * Retrieves an {@link IndicatorGroup}.
    *
    * @param id the object identifier.
@@ -1788,7 +1778,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return true if the object exists.
    */
   public boolean isIndicatorGroup(String id) {
-    return objectExists("indicatorGroups", id);
+    return objectExists(MetadataEntity.INDICATOR_GROUP, id);
   }
 
   /**
@@ -1810,6 +1800,16 @@ public class Dhis2 extends BaseDhis2 {
             query,
             Dhis2Objects.class)
         .getIndicatorGroups();
+  }
+
+  /**
+   * Removes an {@link IndicatorGroup}.
+   *
+   * @param id the identifier of the object to remove.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse removeIndicatorGroup(String id) {
+    return removeMetadataObject(MetadataEntity.INDICATOR_GROUP, id);
   }
 
   // -------------------------------------------------------------------------
@@ -1847,16 +1847,6 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   /**
-   * Removes an {@link IndicatorGroupSet}.
-   *
-   * @param id the identifier of the object to remove.
-   * @return {@link ObjectResponse} holding information about the operation.
-   */
-  public ObjectResponse removeIndicatorGroupSet(String id) {
-    return removeMetadataObject(MetadataEntity.INDICATOR_GROUP_SET, id);
-  }
-
-  /**
    * Retrieves an {@link IndicatorGroupSet}.
    *
    * @param id the object identifier.
@@ -1881,7 +1871,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return true if the object exists.
    */
   public boolean isIndicatorGroupSet(String id) {
-    return objectExists("indicatorGroupSets", id);
+    return objectExists(MetadataEntity.INDICATOR_GROUP_SET, id);
   }
 
   /**
@@ -1899,6 +1889,16 @@ public class Dhis2 extends BaseDhis2 {
             query,
             Dhis2Objects.class)
         .getIndicatorGroupSets();
+  }
+
+  /**
+   * Removes an {@link IndicatorGroupSet}.
+   *
+   * @param id the identifier of the object to remove.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse removeIndicatorGroupSet(String id) {
+    return removeMetadataObject(MetadataEntity.INDICATOR_GROUP_SET, id);
   }
 
   // -------------------------------------------------------------------------
@@ -1936,16 +1936,6 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   /**
-   * Removes an {@link IndicatorType}.
-   *
-   * @param id the identifier of the object to remove.
-   * @return {@link ObjectResponse} holding information about the operation.
-   */
-  public ObjectResponse removeIndicatorType(String id) {
-    return removeMetadataObject(MetadataEntity.INDICATOR_TYPE, id);
-  }
-
-  /**
    * Retrieves an {@link IndicatorType}.
    *
    * @param id the object identifier.
@@ -1970,7 +1960,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return true if the object exists.
    */
   public boolean isIndicatorType(String id) {
-    return objectExists("indicatorTypes", id);
+    return objectExists(MetadataEntity.INDICATOR_TYPE, id);
   }
 
   /**
@@ -1988,6 +1978,16 @@ public class Dhis2 extends BaseDhis2 {
             query,
             Dhis2Objects.class)
         .getIndicatorTypes();
+  }
+
+  /**
+   * Removes an {@link IndicatorType}.
+   *
+   * @param id the identifier of the object to remove.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse removeIndicatorType(String id) {
+    return removeMetadataObject(MetadataEntity.INDICATOR_TYPE, id);
   }
 
   // -------------------------------------------------------------------------
@@ -2025,16 +2025,6 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   /**
-   * Removes a {@link OrgUnit}.
-   *
-   * @param id the identifier of the object to remove.
-   * @return {@link ObjectResponse} holding information about the operation.
-   */
-  public ObjectResponse removeOrgUnit(String id) {
-    return removeMetadataObject(MetadataEntity.ORG_UNIT, id);
-  }
-
-  /**
    * Retrieves an {@link OrgUnit}.
    *
    * @param id the object identifier.
@@ -2059,7 +2049,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return true if the object exists.
    */
   public boolean isOrgUnit(String id) {
-    return objectExists("organisationUnits", id);
+    return objectExists(MetadataEntity.ORG_UNIT, id);
   }
 
   /**
@@ -2100,6 +2090,16 @@ public class Dhis2 extends BaseDhis2 {
             query,
             Dhis2Objects.class)
         .getOrganisationUnits();
+  }
+
+  /**
+   * Removes a {@link OrgUnit}.
+   *
+   * @param id the identifier of the object to remove.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse removeOrgUnit(String id) {
+    return removeMetadataObject(MetadataEntity.ORG_UNIT, id);
   }
 
   // -------------------------------------------------------------------------
@@ -2165,16 +2165,6 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   /**
-   * Removes a {@link OrgUnitGroup}.
-   *
-   * @param id the identifier of the object to remove.
-   * @return {@link ObjectResponse} holding information about the operation.
-   */
-  public ObjectResponse removeOrgUnitGroup(String id) {
-    return removeMetadataObject(MetadataEntity.ORG_UNIT_GROUP, id);
-  }
-
-  /**
    * Retrieves an {@link OrgUnitGroup}.
    *
    * @param id the object identifier.
@@ -2202,7 +2192,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return true if the object exists.
    */
   public boolean isOrgUnitGroup(String id) {
-    return objectExists("organisationUnitGroups", id);
+    return objectExists(MetadataEntity.ORG_UNIT_GROUP, id);
   }
 
   /**
@@ -2236,6 +2226,16 @@ public class Dhis2 extends BaseDhis2 {
    */
   public Response addOrgUnitToOrgUnitGroup(String orgUnitGroup, String orgUnit) {
     return addToCollection("organisationUnitGroups", orgUnitGroup, "organisationUnits", orgUnit);
+  }
+
+  /**
+   * Removes a {@link OrgUnitGroup}.
+   *
+   * @param id the identifier of the object to remove.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse removeOrgUnitGroup(String id) {
+    return removeMetadataObject(MetadataEntity.ORG_UNIT_GROUP, id);
   }
 
   // -------------------------------------------------------------------------
@@ -2273,16 +2273,6 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   /**
-   * Removes a {@link OrgUnitGroupSet}.
-   *
-   * @param id the identifier of the object to remove.
-   * @return {@link ObjectResponse} holding information about the operation.
-   */
-  public ObjectResponse removeOrgUnitGroupSet(String id) {
-    return removeMetadataObject(MetadataEntity.ORG_UNIT_GROUP_SET, id);
-  }
-
-  /**
    * Retrieves an {@link OrgUnitGroupSet}.
    *
    * @param id the object identifier.
@@ -2307,7 +2297,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return true if the object exists.
    */
   public boolean isOrgUnitGroupSet(String id) {
-    return objectExists("organisationUnitGroupSets", id);
+    return objectExists(MetadataEntity.ORG_UNIT_GROUP_SET, id);
   }
 
   /**
@@ -2325,6 +2315,16 @@ public class Dhis2 extends BaseDhis2 {
             query,
             Dhis2Objects.class)
         .getOrganisationUnitGroupSets();
+  }
+
+  /**
+   * Removes a {@link OrgUnitGroupSet}.
+   *
+   * @param id the identifier of the object to remove.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse removeOrgUnitGroupSet(String id) {
+    return removeMetadataObject(MetadataEntity.ORG_UNIT_GROUP_SET, id);
   }
 
   // -------------------------------------------------------------------------
@@ -2436,16 +2436,6 @@ public class Dhis2 extends BaseDhis2 {
   // -------------------------------------------------------------------------
 
   /**
-   * Removes an {@link OptionSet}.
-   *
-   * @param id the identifier of the object to remove.
-   * @return {@link ObjectResponse} holding information about the operation.
-   */
-  public ObjectResponse removeOptionSet(String id) {
-    return removeMetadataObject(MetadataEntity.OPTION_SET, id);
-  }
-
-  /**
    * Retrieves an {@link OptionSet}.
    *
    * @param id the object identifier.
@@ -2472,7 +2462,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return true if the object exists.
    */
   public boolean isOptionSet(String id) {
-    return objectExists("optionSets", id);
+    return objectExists(MetadataEntity.OPTION_SET, id);
   }
 
   /**
@@ -2495,6 +2485,16 @@ public class Dhis2 extends BaseDhis2 {
             query,
             Dhis2Objects.class)
         .getOptionSets();
+  }
+
+  /**
+   * Removes an {@link OptionSet}.
+   *
+   * @param id the identifier of the object to remove.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse removeOptionSet(String id) {
+    return removeMetadataObject(MetadataEntity.OPTION_SET, id);
   }
 
   // -------------------------------------------------------------------------
@@ -2526,7 +2526,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return true if the object exists.
    */
   public boolean isOption(String id) {
-    return objectExists("options", id);
+    return objectExists(MetadataEntity.OPTION, id);
   }
 
   /**
@@ -2549,16 +2549,6 @@ public class Dhis2 extends BaseDhis2 {
   // -------------------------------------------------------------------------
   // Program
   // -------------------------------------------------------------------------
-
-  /**
-   * Removes a {@link Program}.
-   *
-   * @param id the identifier of the object to remove.
-   * @return {@link ObjectResponse} holding information about the operation.
-   */
-  public ObjectResponse removeProgram(String id) {
-    return removeMetadataObject(MetadataEntity.PROGRAM, id);
-  }
 
   /**
    * Retrieves a {@link Program}.
@@ -2585,7 +2575,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return true if the object exists.
    */
   public boolean isProgram(String id) {
-    return objectExists("programs", id);
+    return objectExists(MetadataEntity.PROGRAM, id);
   }
 
   /**
@@ -2625,6 +2615,16 @@ public class Dhis2 extends BaseDhis2 {
    */
   public Response addOrgUnitToProgram(String program, String orgUnit) {
     return addToCollection("programs", program, "organisationUnits", orgUnit);
+  }
+
+  /**
+   * Removes a {@link Program}.
+   *
+   * @param id the identifier of the object to remove.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse removeProgram(String id) {
+    return removeMetadataObject(MetadataEntity.PROGRAM, id);
   }
 
   // -------------------------------------------------------------------------
@@ -2698,16 +2698,6 @@ public class Dhis2 extends BaseDhis2 {
   // -------------------------------------------------------------------------
 
   /**
-   * Removes a {@link ProgramIndicator}.
-   *
-   * @param id the identifier of the object to remove.
-   * @return {@link ObjectResponse} holding information about the operation.
-   */
-  public ObjectResponse removeProgramIndicator(String id) {
-    return removeMetadataObject(MetadataEntity.PROGRAM_INDICATOR, id);
-  }
-
-  /**
    * Retrieves a {@link ProgramIndicator}.
    *
    * @param id the object identifier.
@@ -2732,7 +2722,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return true if the object exists.
    */
   public boolean isProgramIndicator(String id) {
-    return objectExists("programIndicators", id);
+    return objectExists(MetadataEntity.PROGRAM_INDICATOR, id);
   }
 
   /**
@@ -2750,6 +2740,16 @@ public class Dhis2 extends BaseDhis2 {
             query,
             Dhis2Objects.class)
         .getProgramIndicators();
+  }
+
+  /**
+   * Removes a {@link ProgramIndicator}.
+   *
+   * @param id the identifier of the object to remove.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse removeProgramIndicator(String id) {
+    return removeMetadataObject(MetadataEntity.PROGRAM_INDICATOR, id);
   }
 
   // -------------------------------------------------------------------------
@@ -2777,16 +2777,6 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   /**
-   * Removes an {@link TrackedEntityType}.
-   *
-   * @param id the identifier of the object to remove.
-   * @return {@link ObjectResponse} holding information about the operation.
-   */
-  public ObjectResponse removeTrackedEntityType(String id) {
-    return removeMetadataObject(MetadataEntity.TRACKED_ENTITY_TYPE, id);
-  }
-
-  /**
    * Retrieves a {@link TrackedEntityType}.
    *
    * @param id the object identifier.
@@ -2811,7 +2801,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return true if the object exists.
    */
   public boolean isTrackedEntityType(String id) {
-    return objectExists("trackedEntityTypes", id);
+    return objectExists(MetadataEntity.TRACKED_ENTITY_TYPE, id);
   }
 
   /**
@@ -2829,6 +2819,16 @@ public class Dhis2 extends BaseDhis2 {
             query,
             Dhis2Objects.class)
         .getTrackedEntityTypes();
+  }
+
+  /**
+   * Removes an {@link TrackedEntityType}.
+   *
+   * @param id the identifier of the object to remove.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse removeTrackedEntityType(String id) {
+    return removeMetadataObject(MetadataEntity.TRACKED_ENTITY_TYPE, id);
   }
 
   // -------------------------------------------------------------------------
@@ -2971,7 +2971,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return true if the object exists.
    */
   public boolean isUserGroup(String id) {
-    return objectExists("userGroups", id);
+    return objectExists(MetadataEntity.USER_GROUP, id);
   }
 
   /**
@@ -3066,16 +3066,6 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   /**
-   * Removes a {@link UserRole}.
-   *
-   * @param id the identifier of the object to remove.
-   * @return {@link ObjectResponse} holding information about the operation.
-   */
-  public ObjectResponse removeUserRole(String id) {
-    return removeMetadataObject(MetadataEntity.USER_ROLE, id);
-  }
-
-  /**
    * Retrieves a {@link UserRole}.
    *
    * @param id the object identifier.
@@ -3100,7 +3090,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return true if the object exists.
    */
   public boolean isUserRole(String id) {
-    return objectExists("userRoles", id);
+    return objectExists(MetadataEntity.USER_ROLE, id);
   }
 
   /**
@@ -3118,6 +3108,16 @@ public class Dhis2 extends BaseDhis2 {
             query,
             Dhis2Objects.class)
         .getUserRoles();
+  }
+
+  /**
+   * Removes a {@link UserRole}.
+   *
+   * @param id the identifier of the object to remove.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse removeUserRole(String id) {
+    return removeMetadataObject(MetadataEntity.USER_ROLE, id);
   }
 
   // -------------------------------------------------------------------------
@@ -3159,7 +3159,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return true if the object exists.
    */
   public boolean isVisualization(String id) {
-    return objectExists("visualizations", id);
+    return objectExists(MetadataEntity.VISUALIZATION, id);
   }
 
   /**
@@ -3757,7 +3757,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return true if the object exists.
    */
   public boolean isRelationshipType(String id) {
-    return objectExists("relationshipTypes", id);
+    return objectExists(MetadataEntity.RELATIONSHIP_TYPE, id);
   }
 
   /**

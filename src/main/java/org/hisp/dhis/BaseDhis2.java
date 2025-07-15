@@ -437,12 +437,13 @@ public class BaseDhis2 {
   /**
    * Indicates whether an object exists using HTTP HEAD.
    *
-   * @param path the endpoint path without slashes, e.g. {@code dataElements}.
+   * @param entity the {@link MetadataEntity}.
    * @param id the object identifier.
    * @return true if the object exists.
    */
-  protected boolean objectExists(String path, String id) {
-    return objectExists(config.getResolvedUriBuilder().appendPath(path).appendPath(id));
+  protected boolean objectExists(MetadataEntity entity, String id) {
+
+    return objectExists(config.getResolvedUriBuilder().appendPath(entity.getPath()).appendPath(id));
   }
 
   /**
