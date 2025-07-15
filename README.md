@@ -214,13 +214,13 @@ dataElement.setDomainType(DataDomain.AGGREGATE);
 ObjectResponse response = dhis2.saveMetadataObject(dataElement);
 ```
 
-To update a metadata object.
+To update a metadata object:
 
 ```java
 ObjectResponse response = dhis2.updateMetadataObject(dataElement);
 ```
 
-To remove a metadata object.
+To remove a metadata object:
 
 ```java
 ObjectResponse response = dhis2.removeMetadataObject(dataElement);
