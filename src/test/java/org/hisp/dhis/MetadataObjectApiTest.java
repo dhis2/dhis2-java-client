@@ -77,6 +77,12 @@ class MetadataObjectApiTest {
     assertEquals(HttpStatus.OK, removeResponse.getHttpStatus());
   }
 
+  /**
+   * Creates a {@link DataElement}.
+   *
+   * @param uid the identifier.
+   * @return a {@link DataElement}.
+   */
   private DataElement getDataElement(String uid) {
     DataElement object = new DataElement();
     object.setId(uid);
