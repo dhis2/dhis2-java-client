@@ -78,7 +78,6 @@ import org.hisp.dhis.model.IndicatorGroup;
 import org.hisp.dhis.model.IndicatorGroupSet;
 import org.hisp.dhis.model.IndicatorType;
 import org.hisp.dhis.model.Me;
-import org.hisp.dhis.model.MetadataEntity;
 import org.hisp.dhis.model.Option;
 import org.hisp.dhis.model.OptionSet;
 import org.hisp.dhis.model.OrgUnit;
@@ -488,7 +487,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectResponse} holding information about the operation.
    */
   public ObjectResponse saveAnalyticsTableHook(AnalyticsTableHook hook) {
-    return saveMetadataObject(MetadataEntity.ANALYTICS_TABLE_HOOK, hook);
+    return saveMetadataObject(hook);
   }
 
   /**
@@ -508,7 +507,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectResponse} holding information about the operation.
    */
   public ObjectResponse updateAnalyticsTableHook(AnalyticsTableHook hook) {
-    return updateMetadataObject(MetadataEntity.ANALYTICS_TABLE_HOOK, hook);
+    return updateMetadataObject(hook);
   }
 
   /**
@@ -615,7 +614,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectResponse} holding information about the operation.
    */
   public ObjectResponse saveAttribute(Attribute attribute) {
-    return saveMetadataObject(MetadataEntity.ATTRIBUTE, attribute);
+    return saveMetadataObject(attribute);
   }
 
   /**
@@ -635,7 +634,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectResponse} holding information about the operation.
    */
   public ObjectResponse updateAttribute(Attribute attribute) {
-    return updateMetadataObject(MetadataEntity.ATTRIBUTE, attribute);
+    return updateMetadataObject(attribute);
   }
 
   /**
@@ -659,7 +658,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectResponse} holding information about the operation.
    */
   public ObjectResponse saveCategoryOption(CategoryOption categoryOption) {
-    return saveMetadataObject(MetadataEntity.CATEGORY_OPTION, categoryOption);
+    return saveMetadataObject(categoryOption);
   }
 
   /**
@@ -679,7 +678,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectResponse} holding information about the operation.
    */
   public ObjectResponse updateCategoryOption(CategoryOption categoryOption) {
-    return updateMetadataObject(MetadataEntity.CATEGORY_OPTION, categoryOption);
+    return updateMetadataObject(categoryOption);
   }
 
   /**
@@ -754,7 +753,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectResponse} holding information about the operation.
    */
   public ObjectResponse saveCategory(Category category) {
-    return saveMetadataObject(MetadataEntity.CATEGORY, category);
+    return saveMetadataObject(category);
   }
 
   /**
@@ -774,7 +773,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectResponse} holding information about the operation.
    */
   public ObjectResponse updateCategory(Category category) {
-    return updateMetadataObject(MetadataEntity.CATEGORY, category);
+    return updateMetadataObject(category);
   }
 
   /**
@@ -843,7 +842,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectResponse} holding information about the operation.
    */
   public ObjectResponse saveCategoryCombo(CategoryCombo categoryCombo) {
-    return saveMetadataObject(MetadataEntity.CATEGORY_COMBO, categoryCombo);
+    return saveMetadataObject(categoryCombo);
   }
 
   /**
@@ -853,7 +852,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectResponse} holding information about the operation.
    */
   public ObjectResponse updateCategoryCombo(CategoryCombo categoryCombo) {
-    return updateMetadataObject(MetadataEntity.CATEGORY_COMBO, categoryCombo);
+    return updateMetadataObject(categoryCombo);
   }
 
   /**
@@ -1148,7 +1147,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectResponse} holding information about the operation.
    */
   public ObjectResponse saveDataElement(DataElement dataElement) {
-    return saveMetadataObject(MetadataEntity.DATA_ELEMENT, dataElement);
+    return saveMetadataObject(dataElement);
   }
 
   /**
@@ -1168,7 +1167,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectResponse} holding information about the operation.
    */
   public ObjectResponse updateDataElement(DataElement dataElement) {
-    return updateMetadataObject(MetadataEntity.DATA_ELEMENT, dataElement);
+    return updateMetadataObject(dataElement);
   }
 
   /**
@@ -1245,7 +1244,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectResponse} holding information about the operation.
    */
   public ObjectResponse saveDataElementGroup(DataElementGroup dataElementGroup) {
-    return saveMetadataObject(MetadataEntity.DATA_ELEMENT_GROUP, dataElementGroup);
+    return saveMetadataObject(dataElementGroup);
   }
 
   /**
@@ -1265,7 +1264,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectResponse} holding information about the operation.
    */
   public ObjectResponse updateDataElementGroup(DataElementGroup dataElementGroup) {
-    return updateMetadataObject(MetadataEntity.DATA_ELEMENT_GROUP, dataElementGroup);
+    return updateMetadataObject(dataElementGroup);
   }
 
   /**
@@ -1341,7 +1340,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectResponse} holding information about the operation.
    */
   public ObjectResponse saveDataElementGroupSet(DataElementGroupSet dataElementGroupSet) {
-    return saveMetadataObject(MetadataEntity.DATA_ELEMENT_GROUP_SET, dataElementGroupSet);
+    return saveMetadataObject(dataElementGroupSet);
   }
 
   /**
@@ -1361,7 +1360,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectResponse} holding information about the operation.
    */
   public ObjectResponse updateDataElementGroupSet(DataElementGroupSet dataElementGroupSet) {
-    return updateMetadataObject(MetadataEntity.DATA_ELEMENT_GROUP_SET, dataElementGroupSet);
+    return updateMetadataObject(dataElementGroupSet);
   }
 
   /**
@@ -1544,6 +1543,16 @@ public class Dhis2 extends BaseDhis2 {
   // -------------------------------------------------------------------------
 
   /**
+   * Saves a {@link Document}.
+   *
+   * @param document the object to save.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse saveDocument(Document document) {
+    return saveMetadataObject(document);
+  }
+
+  /**
    * Retrieves a {@link Document}.
    *
    * @param id the object identifier.
@@ -1589,16 +1598,6 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   /**
-   * Saves a {@link Document}.
-   *
-   * @param document the object to save.
-   * @return {@link ObjectResponse} holding information about the operation.
-   */
-  public ObjectResponse saveDocument(Document document) {
-    return saveMetadataObject(MetadataEntity.DOCUMENT, document);
-  }
-
-  /**
    * Writes the data for the {@link Document} to the given {@link OutputStream}.
    *
    * @param id the document identifier.
@@ -1631,6 +1630,26 @@ public class Dhis2 extends BaseDhis2 {
   // -------------------------------------------------------------------------
   // Indicator
   // -------------------------------------------------------------------------
+
+  /**
+   * Saves a {@link Indicator}.
+   *
+   * @param indicator the indicator object to save.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse saveIndicator(Indicator indicator) {
+    return saveMetadataObject(indicator);
+  }
+
+  /**
+   * Updates a {@link Indicator}.
+   *
+   * @param indicator the indicator object to update.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse updateIndicator(Indicator indicator) {
+    return updateMetadataObject(indicator);
+  }
 
   /**
    * Removes an {@link Indicator}.
@@ -1688,16 +1707,6 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   /**
-   * Saves a {@link Indicator}.
-   *
-   * @param indicator the indicator object to save.
-   * @return {@link ObjectResponse} holding information about the operation.
-   */
-  public ObjectResponse saveIndicator(Indicator indicator) {
-    return saveMetadataObject(MetadataEntity.INDICATOR, indicator);
-  }
-
-  /**
    * Saves or updates the list of {@link Indicator}.
    *
    * @param indicators the list of {@link Indicator}.
@@ -1707,19 +1716,39 @@ public class Dhis2 extends BaseDhis2 {
     return saveMetadataObjects(new Dhis2Objects().setIndicators(indicators));
   }
 
-  /**
-   * Updates a {@link Indicator}.
-   *
-   * @param indicator the indicator object to update.
-   * @return {@link ObjectResponse} holding information about the operation.
-   */
-  public ObjectResponse updateIndicator(Indicator indicator) {
-    return updateMetadataObject(MetadataEntity.INDICATOR, indicator);
-  }
-
   // -------------------------------------------------------------------------
   // Indicator group
   // -------------------------------------------------------------------------
+
+  /**
+   * Saves a {@link IndicatorGroup}.
+   *
+   * @param indicatorGroup the indicator group object to save.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse saveIndicatorGroup(IndicatorGroup indicatorGroup) {
+    return saveMetadataObject(indicatorGroup);
+  }
+
+  /**
+   * Saves or updates the list of {@link IndicatorGroup}.
+   *
+   * @param indicatorGroups the list of {@link IndicatorGroup}.
+   * @return {@link ObjectsResponse} holding information about the operation.
+   */
+  public ObjectsResponse saveIndicatorGroups(List<IndicatorGroup> indicatorGroups) {
+    return saveMetadataObjects(new Dhis2Objects().setIndicatorGroups(indicatorGroups));
+  }
+
+  /**
+   * Updates a {@link IndicatorGroup}.
+   *
+   * @param indicatorGroup the indicator group object to update.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse updateIndicatorGroup(IndicatorGroup indicatorGroup) {
+    return updateMetadataObject(indicatorGroup);
+  }
 
   /**
    * Removes an {@link IndicatorGroup}.
@@ -1782,39 +1811,39 @@ public class Dhis2 extends BaseDhis2 {
         .getIndicatorGroups();
   }
 
-  /**
-   * Saves a {@link IndicatorGroup}.
-   *
-   * @param indicatorGroup the indicator group object to save.
-   * @return {@link ObjectResponse} holding information about the operation.
-   */
-  public ObjectResponse saveIndicatorGroup(IndicatorGroup indicatorGroup) {
-    return saveMetadataObject(MetadataEntity.INDICATOR_GROUP, indicatorGroup);
-  }
-
-  /**
-   * Saves or updates the list of {@link IndicatorGroup}.
-   *
-   * @param indicatorGroups the list of {@link IndicatorGroup}.
-   * @return {@link ObjectsResponse} holding information about the operation.
-   */
-  public ObjectsResponse saveIndicatorGroups(List<IndicatorGroup> indicatorGroups) {
-    return saveMetadataObjects(new Dhis2Objects().setIndicatorGroups(indicatorGroups));
-  }
-
-  /**
-   * Updates a {@link IndicatorGroup}.
-   *
-   * @param indicatorGroup the indicator group object to update.
-   * @return {@link ObjectResponse} holding information about the operation.
-   */
-  public ObjectResponse updateIndicatorGroup(IndicatorGroup indicatorGroup) {
-    return updateMetadataObject(MetadataEntity.INDICATOR_GROUP, indicatorGroup);
-  }
-
   // -------------------------------------------------------------------------
   // Indicator group set
   // -------------------------------------------------------------------------
+
+  /**
+   * Saves a {@link IndicatorGroupSet}.
+   *
+   * @param indicatorGroupSet the indicator group set object to save.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse saveIndicatorGroupSet(IndicatorGroupSet indicatorGroupSet) {
+    return saveMetadataObject(indicatorGroupSet);
+  }
+
+  /**
+   * Saves or updates the list of {@link IndicatorGroupSet}.
+   *
+   * @param indicatorGroupSets the list of {@link IndicatorGroupSet}.
+   * @return {@link ObjectsResponse} holding information about the operation.
+   */
+  public ObjectsResponse saveIndicatorGroupSets(List<IndicatorGroupSet> indicatorGroupSets) {
+    return saveMetadataObjects(new Dhis2Objects().setIndicatorGroupSets(indicatorGroupSets));
+  }
+
+  /**
+   * Updates a {@link IndicatorGroupSet}.
+   *
+   * @param indicatorGroupSet the indicator group set object to update.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse updateIndicatorGroupSet(IndicatorGroupSet indicatorGroupSet) {
+    return updateMetadataObject(indicatorGroupSet);
+  }
 
   /**
    * Removes an {@link IndicatorGroupSet}.
@@ -1871,39 +1900,39 @@ public class Dhis2 extends BaseDhis2 {
         .getIndicatorGroupSets();
   }
 
-  /**
-   * Saves a {@link IndicatorGroupSet}.
-   *
-   * @param indicatorGroupSet the indicator group set object to save.
-   * @return {@link ObjectResponse} holding information about the operation.
-   */
-  public ObjectResponse saveIndicatorGroupSet(IndicatorGroupSet indicatorGroupSet) {
-    return saveMetadataObject(MetadataEntity.INDICATOR_GROUP_SET, indicatorGroupSet);
-  }
-
-  /**
-   * Saves or updates the list of {@link IndicatorGroupSet}.
-   *
-   * @param indicatorGroupSets the list of {@link IndicatorGroupSet}.
-   * @return {@link ObjectsResponse} holding information about the operation.
-   */
-  public ObjectsResponse saveIndicatorGroupSets(List<IndicatorGroupSet> indicatorGroupSets) {
-    return saveMetadataObjects(new Dhis2Objects().setIndicatorGroupSets(indicatorGroupSets));
-  }
-
-  /**
-   * Updates a {@link IndicatorGroupSet}.
-   *
-   * @param indicatorGroupSet the indicator group set object to update.
-   * @return {@link ObjectResponse} holding information about the operation.
-   */
-  public ObjectResponse updateIndicatorGroupSet(IndicatorGroupSet indicatorGroupSet) {
-    return updateMetadataObject(MetadataEntity.INDICATOR_GROUP_SET, indicatorGroupSet);
-  }
-
   // -------------------------------------------------------------------------
   // Indicator Type
   // -------------------------------------------------------------------------
+
+  /**
+   * Saves a {@link IndicatorType}.
+   *
+   * @param indicatorType the indicator type object to save.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse saveIndicatorType(IndicatorType indicatorType) {
+    return saveMetadataObject(indicatorType);
+  }
+
+  /**
+   * Saves or updates the list of {@link IndicatorType}.
+   *
+   * @param indicatorTypes the list of {@link IndicatorType}.
+   * @return {@link ObjectsResponse} holding information about the operation.
+   */
+  public ObjectsResponse saveIndicatorTypes(List<IndicatorType> indicatorTypes) {
+    return saveMetadataObjects(new Dhis2Objects().setIndicatorTypes(indicatorTypes));
+  }
+
+  /**
+   * Updates a {@link IndicatorType}.
+   *
+   * @param indicatorType the indicator type object to update.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse updateIndicatorType(IndicatorType indicatorType) {
+    return updateMetadataObject(indicatorType);
+  }
 
   /**
    * Removes an {@link IndicatorType}.
@@ -1960,36 +1989,6 @@ public class Dhis2 extends BaseDhis2 {
         .getIndicatorTypes();
   }
 
-  /**
-   * Saves a {@link IndicatorType}.
-   *
-   * @param indicatorType the indicator type object to save.
-   * @return {@link ObjectResponse} holding information about the operation.
-   */
-  public ObjectResponse saveIndicatorType(IndicatorType indicatorType) {
-    return saveMetadataObject(MetadataEntity.INDICATOR_TYPE, indicatorType);
-  }
-
-  /**
-   * Saves or updates the list of {@link IndicatorType}.
-   *
-   * @param indicatorTypes the list of {@link IndicatorType}.
-   * @return {@link ObjectsResponse} holding information about the operation.
-   */
-  public ObjectsResponse saveIndicatorTypes(List<IndicatorType> indicatorTypes) {
-    return saveMetadataObjects(new Dhis2Objects().setIndicatorTypes(indicatorTypes));
-  }
-
-  /**
-   * Updates a {@link IndicatorType}.
-   *
-   * @param indicatorType the indicator type object to update.
-   * @return {@link ObjectResponse} holding information about the operation.
-   */
-  public ObjectResponse updateIndicatorType(IndicatorType indicatorType) {
-    return updateMetadataObject(MetadataEntity.INDICATOR_TYPE, indicatorType);
-  }
-
   // -------------------------------------------------------------------------
   // Org unit
   // -------------------------------------------------------------------------
@@ -2001,7 +2000,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectResponse} holding information about the operation.
    */
   public ObjectResponse saveOrgUnit(OrgUnit orgUnit) {
-    return saveMetadataObject(MetadataEntity.ORG_UNIT, orgUnit);
+    return saveMetadataObject(orgUnit);
   }
 
   /**
@@ -2021,7 +2020,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectResponse} holding information about the operation.
    */
   public ObjectResponse updateOrgUnit(OrgUnit orgUnit) {
-    return updateMetadataObject(MetadataEntity.ORG_UNIT, orgUnit);
+    return updateMetadataObject(orgUnit);
   }
 
   /**
@@ -2141,7 +2140,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectResponse} holding information about the operation.
    */
   public ObjectResponse saveOrgUnitGroup(OrgUnitGroup orgUnitGroup) {
-    return saveMetadataObject(MetadataEntity.ORG_UNIT_GROUP, orgUnitGroup);
+    return saveMetadataObject(orgUnitGroup);
   }
 
   /**
@@ -2161,7 +2160,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectResponse} holding information about the operation.
    */
   public ObjectResponse updateOrgUnitGroup(OrgUnitGroup orgUnitGroup) {
-    return updateMetadataObject(MetadataEntity.ORG_UNIT_GROUP, orgUnitGroup);
+    return updateMetadataObject(orgUnitGroup);
   }
 
   /**
@@ -2249,7 +2248,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectResponse} holding information about the operation.
    */
   public ObjectResponse saveOrgUnitGroupSet(OrgUnitGroupSet orgUnitGroupSet) {
-    return saveMetadataObject(MetadataEntity.ORG_UNIT_GROUP_SET, orgUnitGroupSet);
+    return saveMetadataObject(orgUnitGroupSet);
   }
 
   /**
@@ -2269,7 +2268,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectResponse} holding information about the operation.
    */
   public ObjectResponse updateOrgUnitGroupSet(OrgUnitGroupSet orgUnitGroupSet) {
-    return updateMetadataObject(MetadataEntity.ORG_UNIT_GROUP_SET, orgUnitGroupSet);
+    return updateMetadataObject(orgUnitGroupSet);
   }
 
   /**
@@ -2763,7 +2762,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectResponse} holding information about the operation.
    */
   public ObjectResponse saveTrackedEntityType(TrackedEntityType type) {
-    return saveMetadataObject(MetadataEntity.TRACKED_ENTITY_TYPE, type);
+    return saveMetadataObject(type);
   }
 
   /**
@@ -2773,7 +2772,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectResponse} holding information about the operation.
    */
   public ObjectResponse updateTrackedEntityType(TrackedEntityType type) {
-    return updateMetadataObject(MetadataEntity.TRACKED_ENTITY_TYPE, type);
+    return updateMetadataObject(type);
   }
 
   /**
@@ -2842,7 +2841,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectResponse} holding information about the operation.
    */
   public ObjectResponse saveTrackedEntityAttribute(TrackedEntityAttribute attribute) {
-    return saveMetadataObject(MetadataEntity.TRACKED_ENTITY_ATTRIBUTE, attribute);
+    return saveMetadataObject(attribute);
   }
 
   /**
@@ -2862,7 +2861,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectResponse} holding information about the operation.
    */
   public ObjectResponse updateTrackedEntityAttribute(TrackedEntityAttribute attribute) {
-    return updateMetadataObject(MetadataEntity.TRACKED_ENTITY_ATTRIBUTE, attribute);
+    return updateMetadataObject(attribute);
   }
 
   /**
@@ -2998,7 +2997,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectResponse} holding information about the operation.
    */
   public ObjectResponse saveUserGroup(UserGroup userGroup) {
-    return saveMetadataObject(MetadataEntity.USER_GROUP, userGroup);
+    return saveMetadataObject(userGroup);
   }
 
   /**
@@ -3018,7 +3017,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectResponse} holding information about the operation.
    */
   public ObjectResponse updateUserGroup(UserGroup userGroup) {
-    return updateMetadataObject(MetadataEntity.USER_GROUP, userGroup);
+    return updateMetadataObject(userGroup);
   }
 
   /**
@@ -3042,7 +3041,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectResponse} holding information about the operation.
    */
   public ObjectResponse saveUserRole(UserRole userRole) {
-    return saveMetadataObject(MetadataEntity.USER_ROLE, userRole);
+    return saveMetadataObject(userRole);
   }
 
   /**
@@ -3062,7 +3061,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectResponse} holding information about the operation.
    */
   public ObjectResponse updateUserRole(UserRole userRole) {
-    return updateMetadataObject(MetadataEntity.USER_ROLE, userRole);
+    return updateMetadataObject(userRole);
   }
 
   /**
@@ -3703,6 +3702,36 @@ public class Dhis2 extends BaseDhis2 {
   // -------------------------------------------------------------------------
 
   /**
+   * Saves a {@link RelationshipType}.
+   *
+   * @param relationshipType the object to save.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse saveRelationshipType(RelationshipType relationshipType) {
+    return saveMetadataObject(relationshipType);
+  }
+
+  /**
+   * Saves or updates the list of {@link RelationshipType}.
+   *
+   * @param relationshipTypes the list of {@link RelationshipType}.
+   * @return {@link ObjectsResponse} holding information about the operation.
+   */
+  public ObjectsResponse saveRelationshipTypes(List<RelationshipType> relationshipTypes) {
+    return saveMetadataObjects(new Dhis2Objects().setRelationshipTypes(relationshipTypes));
+  }
+
+  /**
+   * Updates a {@link RelationshipType}.
+   *
+   * @param relationshipType the object to update.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse updateRelationshipType(RelationshipType relationshipType) {
+    return updateMetadataObject(relationshipType);
+  }
+
+  /**
    * Retrieves a {@link RelationshipType}.
    *
    * @param id the object identifier.
@@ -3745,36 +3774,6 @@ public class Dhis2 extends BaseDhis2 {
             query,
             Dhis2Objects.class)
         .getRelationshipTypes();
-  }
-
-  /**
-   * Saves a {@link RelationshipType}.
-   *
-   * @param relationshipType the object to save.
-   * @return {@link ObjectResponse} holding information about the operation.
-   */
-  public ObjectResponse saveRelationshipType(RelationshipType relationshipType) {
-    return saveMetadataObject(MetadataEntity.RELATIONSHIP_TYPE, relationshipType);
-  }
-
-  /**
-   * Saves or updates the list of {@link RelationshipType}.
-   *
-   * @param relationshipTypes the list of {@link RelationshipType}.
-   * @return {@link ObjectsResponse} holding information about the operation.
-   */
-  public ObjectsResponse saveRelationshipTypes(List<RelationshipType> relationshipTypes) {
-    return saveMetadataObjects(new Dhis2Objects().setRelationshipTypes(relationshipTypes));
-  }
-
-  /**
-   * Updates a {@link RelationshipType}.
-   *
-   * @param relationshipType the object to update.
-   * @return {@link ObjectResponse} holding information about the operation.
-   */
-  public ObjectResponse updateRelationshipType(RelationshipType relationshipType) {
-    return updateMetadataObject(MetadataEntity.RELATIONSHIP_TYPE, relationshipType);
   }
 
   /**
