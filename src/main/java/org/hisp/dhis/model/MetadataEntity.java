@@ -90,8 +90,7 @@ public enum MetadataEntity {
   public static <T extends IdentifiableObject> MetadataEntity from(T object) {
     if (object == null) {
       return null;
-    }
-    if (object instanceof AnalyticsTableHook) {
+    } else if (object instanceof AnalyticsTableHook) {
       return ANALYTICS_TABLE_HOOK;
     } else if (object instanceof Attribute) {
       return ATTRIBUTE;
