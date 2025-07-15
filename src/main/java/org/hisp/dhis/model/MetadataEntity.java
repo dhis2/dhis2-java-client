@@ -29,6 +29,12 @@ package org.hisp.dhis.model;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.hisp.dhis.model.dashboard.Dashboard;
+import org.hisp.dhis.model.trackedentity.TrackedEntityAttribute;
+import org.hisp.dhis.model.trackedentity.TrackedEntityType;
+import org.hisp.dhis.model.user.User;
+import org.hisp.dhis.model.user.UserGroup;
+import org.hisp.dhis.model.user.UserRole;
 
 /** Enumeration of DHIS2 metadata entities. */
 @Getter
@@ -73,4 +79,83 @@ public enum MetadataEntity {
 
   /** API path. */
   private final String path;
+
+  public <T extends IdentifiableObject> MetadataEntity fromType(T object) {
+    if (object instanceof AnalyticsTableHook) {
+      return ANALYTICS_TABLE_HOOK;
+    } else if (object instanceof Attribute) {
+      return ATTRIBUTE;
+    } else if (object instanceof CategoryOption) {
+      return CATEGORY_OPTION;
+    } else if (object instanceof Category) {
+      return CATEGORY;
+    } else if (object instanceof CategoryCombo) {
+      return CATEGORY_COMBO;
+    } else if (object instanceof CategoryOptionCombo) {
+      return CATEGORY_OPTION_COMBO;
+    } else if (object instanceof CategoryOptionGroup) {
+      return CATEGORY_OPTION_GROUP;
+    } else if (object instanceof CategoryOptionGroupSet) {
+      return CATEGORY_OPTION_GROUP_SET;
+    } else if (object instanceof Dashboard) {
+      return DASHBOARD;
+    } else if (object instanceof DataElement) {
+      return DATA_ELEMENT;
+    } else if (object instanceof DataElementGroup) {
+      return DATA_ELEMENT_GROUP;
+    } else if (object instanceof DataElementGroupSet) {
+      return DATA_ELEMENT_GROUP_SET;
+    } else if (object instanceof DataSet) {
+      return DATA_SET;
+    } else if (object instanceof Document) {
+      return DOCUMENT;
+    } else if (object instanceof Indicator) {
+      return INDICATOR;
+    } else if (object instanceof IndicatorGroup) {
+      return INDICATOR_GROUP;
+    } else if (object instanceof IndicatorGroupSet) {
+      return INDICATOR_GROUP_SET;
+    } else if (object instanceof IndicatorType) {
+      return INDICATOR_TYPE;
+    } else if (object instanceof OrgUnit) {
+      return ORG_UNIT;
+    } else if (object instanceof OrgUnitGroup) {
+      return ORG_UNIT_GROUP;
+    } else if (object instanceof OrgUnitGroupSet) {
+      return ORG_UNIT_GROUP_SET;
+    } else if (object instanceof OrgUnitLevel) {
+      return ORG_UNIT_LEVEL;
+    } else if (object instanceof GeoMap) {
+      return MAP;
+    } else if (object instanceof OptionSet) {
+      return OPTION_SET;
+    } else if (object instanceof Option) {
+      return OPTION;
+    } else if (object instanceof Program) {
+      return PROGRAM;
+    } else if (object instanceof ProgramSection) {
+      return PROGRAM_SECTION;
+    } else if (object instanceof ProgramStage) {
+      return PROGRAM_STAGE;
+    } else if (object instanceof ProgramStageSection) {
+      return PROGRAM_STAGE_SECTION;
+    } else if (object instanceof ProgramIndicator) {
+      return PROGRAM_INDICATOR;
+    } else if (object instanceof TrackedEntityType) {
+      return TRACKED_ENTITY_TYPE;
+    } else if (object instanceof TrackedEntityAttribute) {
+      return TRACKED_ENTITY_ATTRIBUTE;
+    } else if (object instanceof User) {
+      return USER;
+    } else if (object instanceof UserGroup) {
+      return USER_GROUP;
+    } else if (object instanceof UserRole) {
+      return USER_ROLE;
+    } else if (object instanceof Visualization) {
+      return VISUALIZATION;
+    } else {
+      throw new IllegalArgumentException(
+          "Unsupported metadata type: " + object.getClass().getSimpleName());
+    }
+  }
 }

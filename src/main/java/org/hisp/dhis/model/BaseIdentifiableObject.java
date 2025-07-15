@@ -40,7 +40,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class IdentifiableObject implements Serializable {
+public class BaseIdentifiableObject implements Serializable {
   @JsonProperty protected String id;
 
   @JsonProperty protected String code;
@@ -150,7 +150,7 @@ public class IdentifiableObject implements Serializable {
       return false;
     }
 
-    final IdentifiableObject other = (IdentifiableObject) o;
+    final BaseIdentifiableObject other = (BaseIdentifiableObject) o;
 
     return Objects.equals(getId(), other.getId());
   }
