@@ -30,7 +30,6 @@ package org.hisp.dhis;
 import static org.hisp.dhis.Constants.SUPER_ADMIN_AUTH;
 import static org.hisp.dhis.util.CollectionUtils.asList;
 import static org.hisp.dhis.util.CollectionUtils.list;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -78,6 +77,7 @@ import org.hisp.dhis.model.IndicatorGroup;
 import org.hisp.dhis.model.IndicatorGroupSet;
 import org.hisp.dhis.model.IndicatorType;
 import org.hisp.dhis.model.Me;
+import org.hisp.dhis.model.MetadataEntity;
 import org.hisp.dhis.model.Option;
 import org.hisp.dhis.model.OptionSet;
 import org.hisp.dhis.model.OrgUnit;
@@ -517,7 +517,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectResponse} holding information about the operation.
    */
   public ObjectResponse removeAnalyticsTableHook(String id) {
-    return removeMetadataObject(String.format("analyticsTableHooks/%s", id));
+    return removeMetadataObject(MetadataEntity.ANALYTICS_TABLE_HOOK, id);
   }
 
   /**
@@ -644,7 +644,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectResponse} holding information about the operation.
    */
   public ObjectResponse removeAttribute(String id) {
-    return removeMetadataObject(String.format("attributes/%s", id));
+    return removeMetadataObject(MetadataEntity.ATTRIBUTE, id);
   }
 
   // -------------------------------------------------------------------------
@@ -688,7 +688,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectResponse} holding information about the operation.
    */
   public ObjectResponse removeCategoryOption(String id) {
-    return removeMetadataObject(String.format("categoryOptions/%s", id));
+    return removeMetadataObject(MetadataEntity.CATEGORY_OPTION, id);
   }
 
   /**
@@ -783,7 +783,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectResponse} holding information about the operation.
    */
   public ObjectResponse removeCategory(String id) {
-    return removeMetadataObject(String.format("categories/%s", id));
+    return removeMetadataObject(MetadataEntity.CATEGORY, id);
   }
 
   /**
@@ -862,7 +862,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectResponse} holding information about the operation.
    */
   public ObjectResponse removeCategoryCombo(String id) {
-    return removeMetadataObject(String.format("categoryCombos/%s", id));
+    return removeMetadataObject(MetadataEntity.CATEGORY_COMBO, id);
   }
 
   /**
@@ -970,7 +970,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectResponse} holding information about the operation.
    */
   public ObjectResponse removeCategoryOptionGroup(String id) {
-    return removeMetadataObject(String.format("categoryOptionGroups/%s", id));
+    return removeMetadataObject(MetadataEntity.CATEGORY_OPTION_GROUP, id);
   }
 
   /**
@@ -1029,7 +1029,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectResponse} holding information about the operation.
    */
   public ObjectResponse removeCategoryOptionGroupSet(String id) {
-    return removeMetadataObject(String.format("categoryOptionGroupSets/%s", id));
+    return removeMetadataObject(MetadataEntity.CATEGORY_OPTION_GROUP_SET, id);
   }
 
   /**
@@ -1088,7 +1088,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectResponse} holding information about the operation.
    */
   public ObjectResponse removeDashboard(String id) {
-    return removeMetadataObject(String.format("dashboards/%s", id));
+    return removeMetadataObject(MetadataEntity.DASHBOARD, id);
   }
 
   /**
@@ -1177,7 +1177,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectResponse} holding information about the operation.
    */
   public ObjectResponse removeDataElement(String id) {
-    return removeMetadataObject(String.format("dataElements/%s", id));
+    return removeMetadataObject(MetadataEntity.DATA_ELEMENT, id);
   }
 
   /**
@@ -1274,7 +1274,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectResponse} holding information about the operation.
    */
   public ObjectResponse removeDataElementGroup(String id) {
-    return removeMetadataObject(String.format("dataElementGroups/%s", id));
+    return removeMetadataObject(MetadataEntity.DATA_ELEMENT_GROUP, id);
   }
 
   /**
@@ -1370,7 +1370,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectResponse} holding information about the operation.
    */
   public ObjectResponse removeDataElementGroupSet(String id) {
-    return removeMetadataObject(String.format("dataElementGroupSets/%s", id));
+    return removeMetadataObject(MetadataEntity.DATA_ELEMENT_GROUP_SET, id);
   }
 
   /**
@@ -1429,7 +1429,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectResponse} holding information about the operation.
    */
   public ObjectResponse removeDataSet(String id) {
-    return removeMetadataObject(String.format("dataSets/%s", id));
+    return removeMetadataObject(MetadataEntity.DATA_SET, id);
   }
 
   /**
@@ -1624,7 +1624,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link Document} holding information about the operation.
    */
   public ObjectResponse removeDocument(String id) {
-    return removeMetadataObject(String.format("documents/%s", id));
+    return removeMetadataObject(MetadataEntity.DOCUMENT, id);
   }
 
   // -------------------------------------------------------------------------
@@ -1658,7 +1658,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectResponse} holding information about the operation.
    */
   public ObjectResponse removeIndicator(String id) {
-    return removeMetadataObject(String.format("indicators/%s", id));
+    return removeMetadataObject(MetadataEntity.INDICATOR, id);
   }
 
   /**
@@ -1757,7 +1757,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectResponse} holding information about the operation.
    */
   public ObjectResponse removeIndicatorGroup(String id) {
-    return removeMetadataObject(String.format("indicatorGroups/%s", id));
+    return removeMetadataObject(MetadataEntity.INDICATOR_GROUP, id);
   }
 
   /**
@@ -1852,7 +1852,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectResponse} holding information about the operation.
    */
   public ObjectResponse removeIndicatorGroupSet(String id) {
-    return removeMetadataObject(String.format("indicatorGroupSets/%s", id));
+    return removeMetadataObject(MetadataEntity.INDICATOR_GROUP_SET, id);
   }
 
   /**
@@ -1941,7 +1941,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectResponse} holding information about the operation.
    */
   public ObjectResponse removeIndicatorType(String id) {
-    return removeMetadataObject(String.format("indicatorTypes/%s", id));
+    return removeMetadataObject(MetadataEntity.INDICATOR_TYPE, id);
   }
 
   /**
@@ -2030,7 +2030,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectResponse} holding information about the operation.
    */
   public ObjectResponse removeOrgUnit(String id) {
-    return removeMetadataObject(String.format("organisationUnits/%s", id));
+    return removeMetadataObject(MetadataEntity.ORG_UNIT, id);
   }
 
   /**
@@ -2170,7 +2170,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectResponse} holding information about the operation.
    */
   public ObjectResponse removeOrgUnitGroup(String id) {
-    return removeMetadataObject(String.format("organisationUnitGroups/%s", id));
+    return removeMetadataObject(MetadataEntity.ORG_UNIT_GROUP, id);
   }
 
   /**
@@ -2278,7 +2278,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectResponse} holding information about the operation.
    */
   public ObjectResponse removeOrgUnitGroupSet(String id) {
-    return removeMetadataObject(String.format("organisationUnitGroupSets/%s", id));
+    return removeMetadataObject(MetadataEntity.ORG_UNIT_GROUP_SET, id);
   }
 
   /**
@@ -2392,7 +2392,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectResponse} holding information about the operation.
    */
   public ObjectResponse removeMap(String id) {
-    return removeMetadataObject(String.format("maps/%s", id));
+    return removeMetadataObject(MetadataEntity.MAP, id);
   }
 
   /**
@@ -2441,7 +2441,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectResponse} holding information about the operation.
    */
   public ObjectResponse removeOptionSet(String id) {
-    return removeMetadataObject(String.format("optionSets/%s", id));
+    return removeMetadataObject(MetadataEntity.OPTION_SET, id);
   }
 
   /**
@@ -2556,7 +2556,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectResponse} holding information about the operation.
    */
   public ObjectResponse removeProgram(String id) {
-    return removeMetadataObject(String.format("programs/%s", id));
+    return removeMetadataObject(MetadataEntity.PROGRAM, id);
   }
 
   /**
@@ -2703,7 +2703,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectResponse} holding information about the operation.
    */
   public ObjectResponse removeProgramIndicator(String id) {
-    return removeMetadataObject(String.format("programIndicators/%s", id));
+    return removeMetadataObject(MetadataEntity.PROGRAM_INDICATOR, id);
   }
 
   /**
@@ -2782,7 +2782,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectResponse} holding information about the operation.
    */
   public ObjectResponse removeTrackedEntityType(String id) {
-    return removeMetadataObject(String.format("trackedEntityTypes/%s", id));
+    return removeMetadataObject(MetadataEntity.TRACKED_ENTITY_TYPE, id);
   }
 
   /**
@@ -2871,7 +2871,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectResponse} holding information about the operation.
    */
   public ObjectResponse removeTrackedEntityAttribute(String id) {
-    return removeMetadataObject(String.format("trackedEntityAttributes/%s", id));
+    return removeMetadataObject(MetadataEntity.TRACKED_ENTITY_ATTRIBUTE, id);
   }
 
   /**
@@ -3027,7 +3027,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectResponse} holding information about the operation.
    */
   public ObjectResponse removeUserGroup(String id) {
-    return removeMetadataObject(String.format("userGroups/%s", id));
+    return removeMetadataObject(MetadataEntity.USER_GROUP, id);
   }
 
   // -------------------------------------------------------------------------
@@ -3071,7 +3071,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectResponse} holding information about the operation.
    */
   public ObjectResponse removeUserRole(String id) {
-    return removeMetadataObject(String.format("userRoles/%s", id));
+    return removeMetadataObject(MetadataEntity.USER_ROLE, id);
   }
 
   /**
@@ -3130,7 +3130,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectResponse} holding information about the operation.
    */
   public ObjectResponse removeVisualization(String id) {
-    return removeMetadataObject(String.format("visualizations/%s", id));
+    return removeMetadataObject(MetadataEntity.VISUALIZATION, id);
   }
 
   /**
@@ -3783,7 +3783,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectResponse} holding information about the operation.
    */
   public ObjectResponse removeRelationshipType(String id) {
-    return removeMetadataObject(String.format("relationshipTypes/%s", id));
+    return removeMetadataObject(MetadataEntity.RELATIONSHIP_TYPE, id);
   }
 
   // -------------------------------------------------------------------------
