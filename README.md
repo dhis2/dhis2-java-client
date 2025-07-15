@@ -199,6 +199,8 @@ String message = response.getMessage();
 
 This section explains generic metadata object operations. In scenarios where dynamic handling of metadata is needed, several generic metadata objects are available.
 
+### Create object
+
 To create a metadata object, in this case, a data element:
 
 ```java
@@ -213,12 +215,15 @@ dataElement.setDomainType(DataDomain.AGGREGATE);
 
 ObjectResponse response = dhis2.saveMetadataObject(dataElement);
 ```
+### Update object
 
 To update a metadata object:
 
 ```java
 ObjectResponse response = dhis2.updateMetadataObject(dataElement);
 ```
+
+### Remove object
 
 To remove a metadata object:
 
