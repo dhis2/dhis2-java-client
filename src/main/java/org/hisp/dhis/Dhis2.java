@@ -30,6 +30,7 @@ package org.hisp.dhis;
 import static org.hisp.dhis.Constants.SUPER_ADMIN_AUTH;
 import static org.hisp.dhis.util.CollectionUtils.asList;
 import static org.hisp.dhis.util.CollectionUtils.list;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -894,7 +895,8 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if the object does not exist.
    */
   public CategoryOptionCombo getCategoryOptionCombo(String id) {
-    return getMetadataObject(MetadataEntity.CATEGORY_OPTION_COMBO, id, CATEGORY_OPTION_COMBO_FIELDS);
+    return getMetadataObject(
+        MetadataEntity.CATEGORY_OPTION_COMBO, id, CATEGORY_OPTION_COMBO_FIELDS);
   }
 
   /**
@@ -936,7 +938,8 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if the object does not exist.
    */
   public CategoryOptionGroup getCategoryOptionGroup(String id) {
-    return getMetadataObject(MetadataEntity.CATEGORY_OPTION_GROUP, id, CATEGORY_OPTION_GROUP_FIELDS);
+    return getMetadataObject(
+        MetadataEntity.CATEGORY_OPTION_GROUP, id, CATEGORY_OPTION_GROUP_FIELDS);
   }
 
   /**
@@ -988,7 +991,8 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if the object does not exist.
    */
   public CategoryOptionGroupSet getCategoryOptionGroupSet(String id) {
-    return getMetadataObject(MetadataEntity.CATEGORY_OPTION_GROUP_SET, id, CATEGORY_OPTION_GROUP_SET_FIELDS);
+    return getMetadataObject(
+        MetadataEntity.CATEGORY_OPTION_GROUP_SET, id, CATEGORY_OPTION_GROUP_SET_FIELDS);
   }
 
   /**
@@ -1301,7 +1305,8 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if the object does not exist.
    */
   public DataElementGroupSet getDataElementGroupSet(String id) {
-    return getMetadataObject(MetadataEntity.DATA_ELEMENT_GROUP_SET, id, DATA_ELEMENT_GROUP_SET_FIELDS);
+    return getMetadataObject(
+        MetadataEntity.DATA_ELEMENT_GROUP_SET, id, DATA_ELEMENT_GROUP_SET_FIELDS);
   }
 
   /**

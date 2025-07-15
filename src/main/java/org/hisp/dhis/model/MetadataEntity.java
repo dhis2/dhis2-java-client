@@ -28,6 +28,9 @@
 package org.hisp.dhis.model;
 
 import static java.lang.String.format;
+
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import org.hisp.dhis.model.dashboard.Dashboard;
 import org.hisp.dhis.model.relationship.RelationshipType;
 import org.hisp.dhis.model.trackedentity.TrackedEntityAttribute;
@@ -37,8 +40,6 @@ import org.hisp.dhis.model.user.UserGroup;
 import org.hisp.dhis.model.user.UserRole;
 import org.hisp.dhis.response.Dhis2ClientException;
 import org.hisp.dhis.response.HttpStatus;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
 /** Enumeration of DHIS2 metadata entities. */
 @Getter
@@ -87,7 +88,7 @@ public enum MetadataEntity {
 
   /** API path. */
   private final String path;
-  
+
   /**
    * Converts the given object to the corresponding {@link MetadataEntity}.
    *
