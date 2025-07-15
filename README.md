@@ -199,7 +199,7 @@ String message = response.getMessage();
 
 This section explains generic metadata object operations. In scenarios where dynamic handling of metadata is needed, several generic metadata objects are available.
 
-To create a metadata object, in this case a data element:
+To create a metadata object, in this case, a data element:
 
 ```java
 DataElement dataElement = new DataElement();
