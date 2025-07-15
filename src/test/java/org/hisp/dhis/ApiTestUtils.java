@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004-2024, University of Oslo
+ * Copyright (c) 2004-2025, University of Oslo
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,24 +25,26 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.hisp.dhis.model;
+package org.hisp.dhis;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.ArrayList;
-import java.util.List;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-@Getter
-@Setter
-@NoArgsConstructor
-public class DataElementGroupSet extends NameableObject {
-  @JsonProperty private Boolean compulsory;
+import org.hisp.dhis.response.HttpStatus;
+import org.hisp.dhis.response.Status;
+import org.hisp.dhis.response.object.ObjectResponse;
 
-  @JsonProperty private Boolean dataDimension;
+class ApiTestUtils {
 
-  @JsonProperty private DimensionType dimensionType;
-
-  @JsonProperty private List<DataElementGroup> dataElementGroups = new ArrayList<>();
+  static void assertSuccessResponse(
+      ObjectResponse objectResponse, HttpStatus httpStatus, int expectedStatusCode) {
+    assertEquals(
+        expectedStatusCode,
+        objectResponse.getHttpStatusCode().intValue(),
+        objectResponse.toString());
+    assertEquals(httpStatus, objectResponse.getHttpStatus(), objectResponse.toString());
+    assertEquals(Status.OK, objectResponse.getStatus(), objectResponse.toString());
+    assertNotNull(objectResponse.getResponse());
+    assertNotNull(objectResponse.getResponse().getUid());
+  }
 }

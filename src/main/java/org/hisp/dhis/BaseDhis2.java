@@ -235,7 +235,7 @@ public class BaseDhis2 {
 
   /** Indicator type fields. */
   protected static final String INDICATOR_TYPE_FIELDS =
-      String.format("%s,factor,number", NAME_FIELDS);
+      String.format("%s,factor,number", ID_FIELDS);
 
   /** Indicator fields. */
   protected static final String INDICATOR_FIELDS =
@@ -317,6 +317,13 @@ public class BaseDhis2 {
           attributes[attribute,displayName,code,createdAt,updatedAt,valueType,value],\
           enrollments[%1$s]""",
           TRACKED_ENTITY_ENROLLMENT_FIELDS);
+
+  protected static final String RELATIONSHIP_TYPE_FIELDS =
+      String.format(
+          """
+          %1$s,fromConstraint,toConstraint,description,bidirectional,fromToName,\
+          toFromName,referral""",
+          ID_FIELDS);
 
   protected static final String PROGRAM_SECTION_FIELDS =
       String.format(

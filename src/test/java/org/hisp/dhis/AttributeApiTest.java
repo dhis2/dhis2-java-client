@@ -27,6 +27,7 @@
  */
 package org.hisp.dhis;
 
+import static org.hisp.dhis.ApiTestUtils.assertSuccessResponse;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -37,7 +38,6 @@ import org.hisp.dhis.model.Attribute;
 import org.hisp.dhis.model.ValueType;
 import org.hisp.dhis.query.Query;
 import org.hisp.dhis.response.HttpStatus;
-import org.hisp.dhis.response.Status;
 import org.hisp.dhis.response.object.ObjectResponse;
 import org.hisp.dhis.support.TestTags;
 import org.junit.jupiter.api.Tag;
@@ -94,7 +94,7 @@ class AttributeApiTest {
     // Create
     ObjectResponse createRespA = dhis2.saveAttribute(attribute);
 
-    assertResponse(createRespA, HttpStatus.CREATED, 201);
+    assertSuccessResponse(createRespA, HttpStatus.CREATED, 201);
 
     String attributeUid = createRespA.getResponse().getUid();
 
@@ -116,7 +116,7 @@ class AttributeApiTest {
     // Update
     ObjectResponse updateRespA = dhis2.updateAttribute(attribute);
 
-    assertResponse(updateRespA, HttpStatus.OK, 200);
+    assertSuccessResponse(updateRespA, HttpStatus.OK, 200);
     assertEquals(attributeUid, updateRespA.getResponse().getUid(), updateRespA.toString());
 
     // Get Updated
@@ -128,18 +128,6 @@ class AttributeApiTest {
     // Remove
     ObjectResponse removeRespA = dhis2.removeAttribute(attributeUid);
 
-    assertResponse(removeRespA, HttpStatus.OK, 200);
-  }
-
-  private void assertResponse(
-      ObjectResponse objectResponse, HttpStatus httpStatus, int expectedStatusCode) {
-    assertEquals(
-        expectedStatusCode,
-        objectResponse.getHttpStatusCode().intValue(),
-        objectResponse.toString());
-    assertEquals(httpStatus, objectResponse.getHttpStatus(), objectResponse.toString());
-    assertEquals(Status.OK, objectResponse.getStatus(), objectResponse.toString());
-    assertNotNull(objectResponse.getResponse());
-    assertNotNull(objectResponse.getResponse().getUid());
+    assertSuccessResponse(removeRespA, HttpStatus.OK, 200);
   }
 }

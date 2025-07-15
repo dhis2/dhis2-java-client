@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004-2024, University of Oslo
+ * Copyright (c) 2004-2025, University of Oslo
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -28,12 +28,14 @@
 package org.hisp.dhis;
 
 import static org.hisp.dhis.ApiTestUtils.assertSuccessResponse;
+import static org.hisp.dhis.support.Assertions.assertNotEmpty;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
-import org.hisp.dhis.model.IndicatorGroup;
+import org.hisp.dhis.model.IndicatorType;
+import org.hisp.dhis.query.Filter;
 import org.hisp.dhis.query.Query;
 import org.hisp.dhis.response.HttpStatus;
 import org.hisp.dhis.response.object.ObjectResponse;
@@ -42,73 +44,80 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 @Tag(TestTags.INTEGRATION)
-class IndicatorGroupApiTest {
+class IndicatorTypeApiTest {
   @Test
-  void testGetIndicatorGroup() {
+  void testGetIndicatorType() {
     Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
 
-    IndicatorGroup group = dhis2.getIndicatorGroup("pKHOV0uwPJk");
-
-    assertNotNull(group);
-    assertEquals("pKHOV0uwPJk", group.getId());
-    assertFalse(group.getIndicators().isEmpty());
+    IndicatorType indicatorType = dhis2.getIndicatorType("JkWynlWMjJR");
+    assertNotNull(indicatorType);
+    assertEquals("JkWynlWMjJR", indicatorType.getId());
+    assertEquals("Number (Factor 1)", indicatorType.getName());
+    assertEquals(1, indicatorType.getFactor());
+    assertTrue(indicatorType.getNumber());
+    assertNotNull(indicatorType.getCreated());
+    assertNotNull(indicatorType.getLastUpdated());
   }
 
   @Test
-  void testIndicatorGroups() {
+  void testGetIndicatorTypesWithInFilter() {
     Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
 
-    List<IndicatorGroup> groups = dhis2.getIndicatorGroups(Query.instance());
+    Query query =
+        Query.instance().addFilter(Filter.in("id", List.of("bWuNrMHEoZ0", "vQ0dGV9EDrw")));
 
-    assertNotNull(groups);
-    assertFalse(groups.isEmpty());
-    assertNotNull(groups.get(0).getId());
+    List<IndicatorType> indicatorTypes = dhis2.getIndicatorTypes(query);
+
+    assertNotEmpty(indicatorTypes);
+    assertEquals(2, indicatorTypes.size());
   }
 
   @Test
-  void testCreateUpdateAndDeleteIndicatorGroup() {
+  void testCreateUpdateAndDeleteIndicatorType() {
     Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
-    IndicatorGroup indicatorGroup = new IndicatorGroup();
-    indicatorGroup.setName("Sample indicator group");
-    indicatorGroup.setCode("IG_SAMPLE_CODE");
-    indicatorGroup.setDescription("Sample description");
+    IndicatorType indicatorType = new IndicatorType();
+    indicatorType.setName("Sample indicator type");
+    indicatorType.setCode("IT_SAMPLE_CODE");
+    indicatorType.setNumber(true);
+    indicatorType.setFactor(2);
 
     // Create
-    ObjectResponse createRespA = dhis2.saveIndicatorGroup(indicatorGroup);
+    ObjectResponse createRespA = dhis2.saveIndicatorType(indicatorType);
 
     assertSuccessResponse(createRespA, HttpStatus.CREATED, 201);
 
-    String indicatorGroupUid = createRespA.getResponse().getUid();
+    String indicatorTypeUid = createRespA.getResponse().getUid();
 
     // Get
-    indicatorGroup = dhis2.getIndicatorGroup(indicatorGroupUid);
+    indicatorType = dhis2.getIndicatorType(indicatorTypeUid);
 
-    assertNotNull(indicatorGroup);
-    assertEquals(indicatorGroupUid, indicatorGroup.getId());
-    assertEquals("Sample indicator group", indicatorGroup.getName());
-    assertEquals("IG_SAMPLE_CODE", indicatorGroup.getCode());
-    assertEquals("Sample description", indicatorGroup.getDescription());
-    assertNotNull(indicatorGroup.getCreated());
-    assertNotNull(indicatorGroup.getLastUpdated());
+    assertNotNull(indicatorType);
+    assertEquals(indicatorTypeUid, indicatorType.getId());
+    assertEquals("Sample indicator type", indicatorType.getName());
+    assertEquals("IT_SAMPLE_CODE", indicatorType.getCode());
+    assertEquals(2, indicatorType.getFactor());
+    assertTrue(indicatorType.getNumber());
+    assertNotNull(indicatorType.getCreated());
+    assertNotNull(indicatorType.getLastUpdated());
 
-    String updatedName = "Sample indicator group updated";
-    indicatorGroup.setName(updatedName);
+    String updatedName = "Sample indicator type updated";
+    indicatorType.setName(updatedName);
 
     // Update
-    ObjectResponse updateRespA = dhis2.updateIndicatorGroup(indicatorGroup);
+    ObjectResponse updateRespA = dhis2.updateIndicatorType(indicatorType);
 
     assertSuccessResponse(updateRespA, HttpStatus.OK, 200);
-    assertEquals(indicatorGroupUid, updateRespA.getResponse().getUid(), updateRespA.toString());
+    assertEquals(indicatorTypeUid, updateRespA.getResponse().getUid(), updateRespA.toString());
 
     // Get Updated
-    indicatorGroup = dhis2.getIndicatorGroup(indicatorGroupUid);
+    indicatorType = dhis2.getIndicatorType(indicatorTypeUid);
 
-    assertNotNull(indicatorGroup);
-    assertEquals(indicatorGroupUid, indicatorGroup.getId());
-    assertEquals(updatedName, indicatorGroup.getName());
+    assertNotNull(indicatorType);
+    assertEquals(indicatorTypeUid, indicatorType.getId());
+    assertEquals(updatedName, indicatorType.getName());
 
     // Remove
-    ObjectResponse removeRespA = dhis2.removeIndicatorGroup(indicatorGroupUid);
+    ObjectResponse removeRespA = dhis2.removeIndicatorType(indicatorTypeUid);
 
     assertSuccessResponse(removeRespA, HttpStatus.OK, 200);
   }

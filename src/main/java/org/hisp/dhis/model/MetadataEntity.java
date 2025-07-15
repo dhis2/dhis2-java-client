@@ -70,6 +70,7 @@ public enum MetadataEntity {
   PROGRAM_STAGE("programStages"),
   PROGRAM_STAGE_SECTION("programStageSections"),
   PROGRAM_INDICATOR("programIndicators"),
+  RELATIONSHIP_TYPE("relationshipTypes"),
   TRACKED_ENTITY_TYPE("trackedEntityTypes"),
   TRACKED_ENTITY_ATTRIBUTE("trackedEntityAttributes"),
   USER("users"),

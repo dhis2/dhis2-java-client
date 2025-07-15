@@ -27,6 +27,7 @@
  */
 package org.hisp.dhis.model.relationship;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -37,4 +38,18 @@ import org.hisp.dhis.model.IdentifiableObject;
 @Setter
 @ToString
 @NoArgsConstructor
-public class RelationshipType extends IdentifiableObject {}
+public class RelationshipType extends IdentifiableObject {
+  @JsonProperty private RelationshipConstraint fromConstraint;
+
+  @JsonProperty private RelationshipConstraint toConstraint;
+
+  @JsonProperty private String description;
+
+  @JsonProperty private Boolean bidirectional;
+
+  @JsonProperty private String fromToName;
+
+  @JsonProperty private String toFromName;
+
+  @JsonProperty private Boolean referral;
+}
