@@ -27,6 +27,8 @@
  */
 package org.hisp.dhis.model;
 
+import static java.lang.String.format;
+
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.hisp.dhis.model.dashboard.Dashboard;
@@ -36,6 +38,8 @@ import org.hisp.dhis.model.trackedentity.TrackedEntityType;
 import org.hisp.dhis.model.user.User;
 import org.hisp.dhis.model.user.UserGroup;
 import org.hisp.dhis.model.user.UserRole;
+import org.hisp.dhis.response.Dhis2ClientException;
+import org.hisp.dhis.response.HttpStatus;
 
 /** Enumeration of DHIS2 metadata entities. */
 @Getter
@@ -91,7 +95,7 @@ public enum MetadataEntity {
    */
   public static <T extends IdentifiableObject> MetadataEntity from(T object) {
     if (object == null) {
-      return null;
+      throw new Dhis2ClientException("Object is null", HttpStatus.BAD_REQUEST);
     } else if (object instanceof AnalyticsTableHook) {
       return ANALYTICS_TABLE_HOOK;
     } else if (object instanceof Attribute) {
@@ -167,8 +171,8 @@ public enum MetadataEntity {
     } else if (object instanceof Visualization) {
       return VISUALIZATION;
     } else {
-      throw new IllegalArgumentException(
-          "Unsupported metadata type: " + object.getClass().getSimpleName());
+      String msg = format("Unsupported metadata type: {}", object.getClass().getSimpleName());
+      throw new Dhis2ClientException(msg, HttpStatus.BAD_REQUEST);
     }
   }
 }
