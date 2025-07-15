@@ -30,6 +30,7 @@ package org.hisp.dhis.model;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.hisp.dhis.model.dashboard.Dashboard;
+import org.hisp.dhis.model.relationship.RelationshipType;
 import org.hisp.dhis.model.trackedentity.TrackedEntityAttribute;
 import org.hisp.dhis.model.trackedentity.TrackedEntityType;
 import org.hisp.dhis.model.user.User;
@@ -151,6 +152,8 @@ public enum MetadataEntity {
       return PROGRAM_STAGE_SECTION;
     } else if (object instanceof ProgramIndicator) {
       return PROGRAM_INDICATOR;
+    } else if (object instanceof RelationshipType) {
+      return RELATIONSHIP_TYPE;
     } else if (object instanceof TrackedEntityType) {
       return TRACKED_ENTITY_TYPE;
     } else if (object instanceof TrackedEntityAttribute) {
