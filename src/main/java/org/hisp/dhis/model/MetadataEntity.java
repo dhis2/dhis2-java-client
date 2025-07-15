@@ -28,9 +28,6 @@
 package org.hisp.dhis.model;
 
 import static java.lang.String.format;
-
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import org.hisp.dhis.model.dashboard.Dashboard;
 import org.hisp.dhis.model.relationship.RelationshipType;
 import org.hisp.dhis.model.trackedentity.TrackedEntityAttribute;
@@ -40,6 +37,8 @@ import org.hisp.dhis.model.user.UserGroup;
 import org.hisp.dhis.model.user.UserRole;
 import org.hisp.dhis.response.Dhis2ClientException;
 import org.hisp.dhis.response.HttpStatus;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 /** Enumeration of DHIS2 metadata entities. */
 @Getter
@@ -171,7 +170,7 @@ public enum MetadataEntity {
     } else if (object instanceof Visualization) {
       return VISUALIZATION;
     } else {
-      String msg = format("Unsupported metadata type: {}", object.getClass().getSimpleName());
+      String msg = format("Unsupported metadata type: %s", object.getClass().getSimpleName());
       throw new Dhis2ClientException(msg, HttpStatus.BAD_REQUEST);
     }
   }
