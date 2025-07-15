@@ -195,19 +195,50 @@ boolean success = response.getHttpStatus().is2xxSuccessful();
 String message = response.getMessage();
 ```
 
+## Metadata objects
+
+This section explains generic metadata object operations. In scenarios where dynamic handling of metadata is needed, several generic metadata objects are available.
+
+To create a metadata object, in this case a data element:
+
+```java
+DataElement dataElement = new DataElement();
+dataElement.setId("n5U1wOiyoUr");
+dataElement.setCode("BCG_DOSE");
+dataElement.setName("BCG doses given");
+dataElement.setShortName("BCG doses given");
+dataElement.setValueType(ValueType.INTEGER);
+dataElement.setAggregationType(AggregationType.SUM);
+dataElement.setDomainType(DataDomain.AGGREGATE);
+
+ObjectResponse response = dhis2.saveMetadataObject(dataElement);
+```
+
+To update a metadata object:
+
+```java
+ObjectResponse response = dhis2.updateMetadataObject(dataElement);
+```
+
+To remove a metadata object:
+
+```java
+ObjectResponse response = dhis2.removeMetadataObject(dataElement);
+```
+
 ## Users
 
 This section explains operations for DHIS2 users.
 
 ### Get user
 
-To get a user by ID.
+To get a user by ID:
 
 ```java
 User user = dhis2.getUser("xE7jOejl9FI");
 ```
 
-To get a user by username.
+To get a user by username:
 
 ```java
 List<User> users = dhis2.getUsers(Query.instance()
