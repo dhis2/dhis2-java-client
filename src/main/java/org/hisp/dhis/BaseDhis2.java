@@ -441,8 +441,7 @@ public class BaseDhis2 {
    * @param id the object identifier.
    * @return true if the object exists.
    */
-  protected boolean objectExists(MetadataEntity entity, String id) {
-
+  public boolean objectExists(MetadataEntity entity, String id) {
     return objectExists(config.getResolvedUriBuilder().appendPath(entity.getPath()).appendPath(id));
   }
 
