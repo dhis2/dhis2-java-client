@@ -1476,12 +1476,13 @@ public class BaseDhis2 {
   /**
    * Saves a metadata object using HTTP POST.
    *
-   * @param entity the {@link MetadataEntity}.
    * @param object the object to save.
    * @return {@link ObjectResponse} holding information about the operation.
    * @throws Dhis2ClientException if unauthorized, access denied or resource not found.
    */
-  public ObjectResponse saveMetadataObject(MetadataEntity entity, IdentifiableObject object) {
+  public ObjectResponse saveMetadataObject(IdentifiableObject object) {
+    MetadataEntity entity = MetadataEntity.from(object);
+
     return saveObject(entity.getPath(), object, ObjectResponse.class);
   }
 
@@ -1521,11 +1522,12 @@ public class BaseDhis2 {
   /**
    * Updates an object using HTTP PUT.
    *
-   * @param entity the {@link MetadataEntity}.
    * @param object the object to save.
    * @return {@link ObjectResponse} holding information about the operation.
    */
-  public ObjectResponse updateMetadataObject(MetadataEntity entity, IdentifiableObject object) {
+  public ObjectResponse updateMetadataObject(IdentifiableObject object) {
+    MetadataEntity entity = MetadataEntity.from(object);
+
     String path = String.format("%s/%s", entity.getPath(), object.getId());
 
     Map<String, String> params = Map.of(SKIP_SHARING_PARAM, "true");

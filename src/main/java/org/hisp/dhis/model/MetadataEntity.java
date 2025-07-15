@@ -80,7 +80,14 @@ public enum MetadataEntity {
   /** API path. */
   private final String path;
 
-  public <T extends IdentifiableObject> MetadataEntity fromType(T object) {
+  /**
+   * Converts the given object to the corresponding {@link MetadataEntity}.
+   *
+   * @param <T> the type.
+   * @param object the object.
+   * @return the {@link MetadataEntity}.
+   */
+  public static <T extends IdentifiableObject> MetadataEntity from(T object) {
     if (object instanceof AnalyticsTableHook) {
       return ANALYTICS_TABLE_HOOK;
     } else if (object instanceof Attribute) {
