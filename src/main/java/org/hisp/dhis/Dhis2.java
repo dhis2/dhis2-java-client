@@ -529,7 +529,7 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if the object does not exist.
    */
   public AnalyticsTableHook getAnalyticsTableHook(String id) {
-    return getMetadataObject(MetadataEntity.ANALYTICS_TABLE_HOOK, id);
+    return getObject("analyticsTableHooks", id, AnalyticsTableHook.class);
   }
 
   /**

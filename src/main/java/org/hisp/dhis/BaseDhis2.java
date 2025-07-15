@@ -436,19 +436,6 @@ public class BaseDhis2 {
   }
 
   /**
-   * Retrieves a metadata object.
-   *
-   * @param <T> the type.
-   * @param entity the {@link MetadataEntity}.
-   * @param id the metadata object identifier.
-   * @return a metadata object.
-   */
-  @SuppressWarnings("unchecked")
-  public <T extends IdentifiableObject> T getMetadataObject(MetadataEntity entity, String id) {
-    return (T) getObject(entity.getPath(), id, entity.getType());
-  }
-
-  /**
    * Retrieves an object.
    *
    * @param <T> the type.
