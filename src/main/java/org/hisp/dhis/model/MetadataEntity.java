@@ -64,6 +64,9 @@ import static org.hisp.dhis.ApiFields.USER_FIELDS;
 import static org.hisp.dhis.ApiFields.USER_GROUP_FIELDS;
 import static org.hisp.dhis.ApiFields.USER_ROLE_FIELDS;
 import static org.hisp.dhis.ApiFields.VISUALIZATION_FIELDS;
+
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import org.hisp.dhis.model.dashboard.Dashboard;
 import org.hisp.dhis.model.relationship.RelationshipType;
 import org.hisp.dhis.model.trackedentity.TrackedEntityAttribute;
@@ -73,25 +76,28 @@ import org.hisp.dhis.model.user.UserGroup;
 import org.hisp.dhis.model.user.UserRole;
 import org.hisp.dhis.response.Dhis2ClientException;
 import org.hisp.dhis.response.HttpStatus;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
 /** Enumeration of DHIS2 metadata entities. */
 @Getter
 @RequiredArgsConstructor
 public enum MetadataEntity {
-  ANALYTICS_TABLE_HOOK(AnalyticsTableHook.class, ANALYTICS_TABLE_HOOK_FIELDS, "analyticsTableHooks"),
+  ANALYTICS_TABLE_HOOK(
+      AnalyticsTableHook.class, ANALYTICS_TABLE_HOOK_FIELDS, "analyticsTableHooks"),
   ATTRIBUTE(Attribute.class, ATTRIBUTE_FIELDS, "attributes"),
   CATEGORY_OPTION(CategoryOption.class, CATEGORY_OPTION_EXT_FIELDS, "categoryOptions"),
   CATEGORY(Category.class, CATEGORY_FIELDS, "categories"),
   CATEGORY_COMBO(CategoryCombo.class, CATEGORY_COMBO_FIELDS, "categoryCombos"),
-  CATEGORY_OPTION_COMBO(CategoryOptionCombo.class, CATEGORY_OPTION_COMBO_FIELDS, "categoryOptionCombos"),
-  CATEGORY_OPTION_GROUP(CategoryOptionGroup.class, CATEGORY_OPTION_GROUP_FIELDS, "categoryOptionGroups"),
-  CATEGORY_OPTION_GROUP_SET(CategoryOptionGroupSet.class, CATEGORY_OPTION_GROUP_SET_FIELDS, "categoryOptionGroupSets"),
+  CATEGORY_OPTION_COMBO(
+      CategoryOptionCombo.class, CATEGORY_OPTION_COMBO_FIELDS, "categoryOptionCombos"),
+  CATEGORY_OPTION_GROUP(
+      CategoryOptionGroup.class, CATEGORY_OPTION_GROUP_FIELDS, "categoryOptionGroups"),
+  CATEGORY_OPTION_GROUP_SET(
+      CategoryOptionGroupSet.class, CATEGORY_OPTION_GROUP_SET_FIELDS, "categoryOptionGroupSets"),
   DASHBOARD(Dashboard.class, DASHBOARD_FIELDS, "dashboards"),
   DATA_ELEMENT(DataElement.class, DATA_ELEMENT_EXT_FIELDS, "dataElements"),
   DATA_ELEMENT_GROUP(DataElementGroup.class, DATA_ELEMENT_GROUP_EXT_FIELDS, "dataElementGroups"),
-  DATA_ELEMENT_GROUP_SET(DataElementGroupSet.class, DATA_ELEMENT_GROUP_SET_FIELDS, "dataElementGroupSets"),
+  DATA_ELEMENT_GROUP_SET(
+      DataElementGroupSet.class, DATA_ELEMENT_GROUP_SET_FIELDS, "dataElementGroupSets"),
   DATA_SET(DataSet.class, DATA_SET_EXT_FIELDS, "dataSets"),
   DOCUMENT(Document.class, DOCUMENT_FIELDS, "documents"),
   INDICATOR(Indicator.class, INDICATOR_FIELDS, "indicators"),
@@ -108,11 +114,13 @@ public enum MetadataEntity {
   PROGRAM(Program.class, PROGRAM_EXT_FIELDS, "programs"),
   PROGRAM_SECTION(ProgramSection.class, PROGRAM_SECTION_FIELDS, "programSections"),
   PROGRAM_STAGE(ProgramStage.class, PROGRAM_STAGE_FIELDS, "programStages"),
-  PROGRAM_STAGE_SECTION(ProgramStageSection.class, PROGRAM_STAGE_SECTION_FIELDS, "programStageSections"),
+  PROGRAM_STAGE_SECTION(
+      ProgramStageSection.class, PROGRAM_STAGE_SECTION_FIELDS, "programStageSections"),
   PROGRAM_INDICATOR(ProgramIndicator.class, PROGRAM_INDICATOR_FIELDS, "programIndicators"),
   RELATIONSHIP_TYPE(RelationshipType.class, RELATIONSHIP_TYPE_FIELDS, "relationshipTypes"),
   TRACKED_ENTITY_TYPE(TrackedEntityType.class, TRACKED_ENTITY_TYPE_FIELDS, "trackedEntityTypes"),
-  TRACKED_ENTITY_ATTRIBUTE(TrackedEntityAttribute.class, TRACKED_ENTITY_ATTRIBUTE_FIELDS, "trackedEntityAttributes"),
+  TRACKED_ENTITY_ATTRIBUTE(
+      TrackedEntityAttribute.class, TRACKED_ENTITY_ATTRIBUTE_FIELDS, "trackedEntityAttributes"),
   USER(User.class, USER_FIELDS, "users"),
   USER_GROUP(UserGroup.class, USER_GROUP_FIELDS, "userGroups"),
   USER_ROLE(UserRole.class, USER_ROLE_FIELDS, "userRoles"),
@@ -123,7 +131,7 @@ public enum MetadataEntity {
 
   /** Extensive API fields. */
   private final String extFields;
-  
+
   /** API path. */
   private final String path;
 

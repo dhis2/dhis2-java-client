@@ -37,8 +37,8 @@ public class ApiFields {
 
   /** Nameable object fields. */
   public static final String NAME_FIELDS = String.format("%s,shortName,description", ID_FIELDS);
-  
-  public static final String ANALYTICS_TABLE_HOOK_FIELDS = 
+
+  public static final String ANALYTICS_TABLE_HOOK_FIELDS =
       String.format("%s,phase,resourceTableType,analyticsTableType,sql", ID_FIELDS);
 
   /** Category option fields. */
@@ -82,7 +82,7 @@ public class ApiFields {
 
   /** Option fields. */
   public static final String OPTION_FIELDS = NAME_FIELDS;
-  
+
   /** Option set fields. */
   public static final String OPTION_SET_FIELDS = String.format("%s,valueType,version", ID_FIELDS);
 
@@ -250,7 +250,7 @@ public class ApiFields {
           %1$s,fromConstraint,toConstraint,description,bidirectional,fromToName,\
           toFromName,referral""",
           ID_FIELDS);
-  
+
   /** Program indicator fields. */
   public static final String PROGRAM_INDICATOR_FIELDS = NAME_FIELDS;
 
@@ -338,7 +338,7 @@ public class ApiFields {
           id,leftsideValue,rightsideValue,dayInPeriod,notificationSent,\
           validationRule[%1$s],period[%2$s],organisationUnit[%2$s],attributeOptionCombo[%2$s]""",
           VALIDATION_RULE_FIELDS, ID_FIELDS);
-  
+
   /** Visualization fields. */
   public static final String VISUALIZATION_FIELDS = NAME_FIELDS;
 }
