@@ -554,7 +554,6 @@ public class Dhis2 extends BaseDhis2 {
    *
    * @param entity the {@link MetadataEntity}.
    * @param id the object identifier.
-   * @param fields the fields to include in the response.
    * @param <T> the type.
    * @return the metadata object.
    */
