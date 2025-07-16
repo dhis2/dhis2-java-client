@@ -64,7 +64,7 @@ class MetadataObjectApiTest {
     // Get
 
     DataElement retrieved =
-        dhis2.getMetadataObject(entity, uidA, BaseDhis2.DATA_ELEMENT_EXT_FIELDS);
+        dhis2.getMetadataObject(entity, uidA, ApiFields.DATA_ELEMENT_EXT_FIELDS);
 
     assertNotNull(retrieved);
 
