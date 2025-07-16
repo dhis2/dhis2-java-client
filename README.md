@@ -229,7 +229,7 @@ ObjectResponse response = dhis2.updateMetadataObject(dataElement);
 To retrieve a metadata object by identifier:
 
 ```java
-DataElement dataElemnet = dhis2
+DataElement dataElement = dhis2
     .getMetadataObject(MetadataEntity.DATA_ELEMENT, "n5U1wOiyoUr");
 ```
 
