@@ -29,6 +29,7 @@ package org.hisp.dhis;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import java.io.IOException;
 import org.hisp.dhis.model.AggregationType;
 import org.hisp.dhis.model.DataDomain;
