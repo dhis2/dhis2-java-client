@@ -29,6 +29,7 @@ package org.hisp.dhis;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import java.io.IOException;
 import org.hisp.dhis.model.AggregationType;
 import org.hisp.dhis.model.DataDomain;
@@ -143,7 +144,7 @@ class BaseDhis2Test {
 
   @Test
   void testProgramFields() {
-    String expected = 
+    String expected =
         """
         id,code,name,created,lastUpdated,attributeValues,shortName,description,programType,\
         trackedEntityType[id,code,name,created,lastUpdated,attributeValues,shortName,description],\
