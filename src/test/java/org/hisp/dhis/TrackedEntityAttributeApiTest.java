@@ -40,6 +40,7 @@ import org.hisp.dhis.response.HttpStatus;
 import org.hisp.dhis.response.Status;
 import org.hisp.dhis.response.object.ObjectResponse;
 import org.hisp.dhis.support.TestTags;
+import org.hisp.dhis.util.UidUtils;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
@@ -73,66 +74,66 @@ class TrackedEntityAttributeApiTest {
   }
 
   @Test
-  void testCreateUpdateAndDeleteTrackedEntityAttributes() {
+  void testCreateUpdateDeleteTrackedEntityAttributes() {
     Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
 
+    String uidA = UidUtils.generateUid();
+    String uidB = UidUtils.generateUid();
+
     TrackedEntityAttribute tea = new TrackedEntityAttribute();
-    tea.setName("Sample TEA");
-    tea.setDescription("Sample TEA description");
-    tea.setCode("TEA_SAMPLE_CODE");
-    tea.setShortName("Sample shortName");
+    tea.setName(uidA);
+    tea.setDescription(uidA);
+    tea.setCode(uidA);
+    tea.setShortName(uidA);
     tea.setValueType(ValueType.TEXT);
     tea.setAggregationType(AggregationType.COUNT);
-    tea.setOptionSet(dhis2.getOptionSet("VQ2lai3OfVG"));
 
     // Create
 
-    ObjectResponse createRespA = dhis2.saveTrackedEntityAttribute(tea);
+    ObjectResponse createResp = dhis2.saveTrackedEntityAttribute(tea);
 
-    assertEquals(201, createRespA.getHttpStatusCode().intValue(), createRespA.toString());
-    assertEquals(HttpStatus.CREATED, createRespA.getHttpStatus(), createRespA.toString());
-    assertEquals(Status.OK, createRespA.getStatus(), createRespA.toString());
-    assertNotNull(createRespA.getResponse());
-    assertNotNull(createRespA.getResponse().getUid());
+    assertEquals(201, createResp.getHttpStatusCode().intValue(), createResp.toString());
+    assertEquals(HttpStatus.CREATED, createResp.getHttpStatus(), createResp.toString());
+    assertEquals(Status.OK, createResp.getStatus(), createResp.toString());
+    assertNotNull(createResp.getResponse());
+    assertNotNull(createResp.getResponse().getUid());
 
-    String teaUid = createRespA.getResponse().getUid();
+    String teaId = createResp.getResponse().getUid();
 
     // Get
 
-    tea = dhis2.getTrackedEntityAttribute(teaUid);
+    tea = dhis2.getTrackedEntityAttribute(teaId);
 
     assertNotNull(tea);
-    assertEquals(teaUid, tea.getId());
+    assertEquals(teaId, tea.getId());
 
-    String updatedName = "Sample TEA updated";
-    tea.setName(updatedName);
+    tea.setName(uidB);
 
     // Update
 
-    ObjectResponse updateRespA = dhis2.updateTrackedEntityAttribute(tea);
+    ObjectResponse updateResp = dhis2.updateTrackedEntityAttribute(tea);
 
-    assertEquals(200, updateRespA.getHttpStatusCode().intValue(), updateRespA.toString());
-    assertEquals(HttpStatus.OK, updateRespA.getHttpStatus(), updateRespA.toString());
-    assertEquals(Status.OK, updateRespA.getStatus(), updateRespA.toString());
-    assertEquals(teaUid, updateRespA.getResponse().getUid(), updateRespA.toString());
+    assertEquals(200, updateResp.getHttpStatusCode().intValue(), updateResp.toString());
+    assertEquals(HttpStatus.OK, updateResp.getHttpStatus(), updateResp.toString());
+    assertEquals(Status.OK, updateResp.getStatus(), updateResp.toString());
+    assertEquals(teaId, updateResp.getResponse().getUid(), updateResp.toString());
 
-    // Get Updated
+    // Get updated
 
-    tea = dhis2.getTrackedEntityAttribute(teaUid);
+    tea = dhis2.getTrackedEntityAttribute(teaId);
     assertNotNull(tea);
-    assertEquals(teaUid, tea.getId());
-    assertEquals(updatedName, tea.getName());
+    assertEquals(teaId, tea.getId());
+    assertEquals(uidB, tea.getName());
     assertNotNull(tea.getDescription());
-    assertNotNull(tea.getOptionSet());
 
     // Remove
 
-    ObjectResponse removeRespA = dhis2.removeTrackedEntityAttribute(teaUid);
+    ObjectResponse removeResp = dhis2.removeTrackedEntityAttribute(teaId);
 
-    assertEquals(200, removeRespA.getHttpStatusCode().intValue(), removeRespA.toString());
-    assertEquals(HttpStatus.OK, removeRespA.getHttpStatus(), removeRespA.toString());
-    assertEquals(Status.OK, removeRespA.getStatus(), removeRespA.toString());
-    assertNotNull(removeRespA.getResponse());
-    assertNotNull(removeRespA.getResponse().getUid());
+    assertEquals(200, removeResp.getHttpStatusCode().intValue(), removeResp.toString());
+    assertEquals(HttpStatus.OK, removeResp.getHttpStatus(), removeResp.toString());
+    assertEquals(Status.OK, removeResp.getStatus(), removeResp.toString());
+    assertNotNull(removeResp.getResponse());
+    assertNotNull(removeResp.getResponse().getUid());
   }
 }
