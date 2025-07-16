@@ -28,6 +28,7 @@
 package org.hisp.dhis;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.hisp.dhis.model.AggregationType;
 import org.hisp.dhis.model.DataDomain;
@@ -59,6 +60,12 @@ class MetadataObjectApiTest {
 
     assertEquals(Status.OK, createResponse.getStatus());
     assertEquals(HttpStatus.CREATED, createResponse.getHttpStatus());
+
+    // Get
+
+    DataElement retrieved = dhis2.getMetadataObject(entity, uidA, "*");
+
+    assertNotNull(retrieved);
 
     // Update
 

@@ -210,10 +210,17 @@ public class BaseDhis2 {
           "%1$s,aggregationType,valueType,domainType,url,legendSets[%1$s],optionSet[%2$s]",
           NAME_FIELDS, OPTION_SET_FIELDS);
 
+  /** Data element group fields. */
+  protected static final String DATA_ELEMENT_GROUP_FIELDS =
+      String.format("%1$s,dataElements[%2$s]", NAME_FIELDS, DATA_ELEMENT_FIELDS);
+
   /** Data element group set fields. */
   protected static final String DATA_ELEMENT_GROUP_SET_FIELDS =
       String.format(
           "%1$s,compulsory,dataDimension,dimensionType,dataElementGroups[%1$s]", NAME_FIELDS);
+
+  /** Dimension fields. */
+  protected static final String DIMENSION_FIELDS = String.format("%s,dimensionType", ID_FIELDS);
 
   /** Document fields. */
   protected static final String DOCUMENT_FIELDS =
@@ -245,6 +252,10 @@ public class BaseDhis2 {
           denominator,denominatorDescription,url,indicatorType[%2$s]""",
           NAME_FIELDS, INDICATOR_TYPE_FIELDS);
 
+  /** Indicator group fields. */
+  protected static final String INDICATOR_GROUP_FIELDS =
+      String.format("%1$s,indicators[%2$s]", NAME_FIELDS, INDICATOR_FIELDS);
+
   /** Indicator group set fields. */
   protected static final String INDICATOR_GROUP_SET_FIELDS =
       String.format("%1$s,compulsory,indicatorGroups[%1$s]", NAME_FIELDS);
@@ -270,10 +281,17 @@ public class BaseDhis2 {
           contactPerson,address,email,phoneNumber""",
           NAME_FIELDS, NAME_FIELDS);
 
+  /** Org unit group fields. */
+  protected static final String ORG_UNIT_GROUP_FIELDS =
+      String.format("%1$s,organisationUnits[%2$s]", NAME_FIELDS, ORG_UNIT_FIELDS);
+
   /** Org unit group set fields. */
   protected static final String ORG_UNIT_GROUP_SET_FIELDS =
       String.format(
           "%1$s,dataDimension,compulsory,organisationUnitGroups[%2$s]", NAME_FIELDS, ID_FIELDS);
+
+  /** Org unit level fields. */
+  protected static final String ORG_UNIT_LEVEL_FIELDS = String.format("%s,level", ID_FIELDS);
 
   /** Me / current user fields. */
   protected static final String ME_FIELDS =
@@ -1500,7 +1518,7 @@ public class BaseDhis2 {
    * @param path the URL path relative to the API end point.
    * @param object the object to save.
    * @param type the class type for the response entity.
-   * @param <T> class.
+   * @param <T> the type.
    * @return object holding information about the operation.
    * @throws Dhis2ClientException if unauthorized, access denied or resource not found.
    */
@@ -1516,7 +1534,7 @@ public class BaseDhis2 {
    * @param uriBuilder the URI builder.
    * @param object the object to save.
    * @param type the class type for the response entity.
-   * @param <T> class.
+   * @param <T> the type.
    * @return object holding information about the operation.
    * @throws Dhis2ClientException if unauthorized, access denied or resource not found.
    */
@@ -1548,7 +1566,7 @@ public class BaseDhis2 {
    * @param params the map of query parameter names and values to include in the URL.
    * @param object the object to save.
    * @param type the class type for the response entity.
-   * @param <T> class.
+   * @param <T> the type.
    * @return response object holding information about the operation.
    */
   protected <T extends BaseHttpResponse> T updateObject(
@@ -1565,6 +1583,31 @@ public class BaseDhis2 {
     } catch (URISyntaxException ex) {
       throw new Dhis2ClientException("Invalid URI syntax", ex);
     }
+  }
+
+  /**
+   * Retrieves a metadata object using HTTP GET.
+   *
+   * @param entity the {@link MetadataEntity}.
+   * @param id the object identifier.
+   * @param fields the fields to include in the response.
+   * @param <T> the type.
+   * @return the metadata object.
+   */
+  @SuppressWarnings("unchecked")
+  public <T extends IdentifiableObject> T getMetadataObject(
+      MetadataEntity entity, String id, String fields) {
+    // Unchecked cast is safe as all metadata entities extend identifiable object
+    Class<T> type = (Class<T>) entity.getType();
+
+    return getObject(
+        config
+            .getResolvedUriBuilder()
+            .appendPath(entity.getPath())
+            .appendPath(id)
+            .addParameter(FIELDS_PARAM, fields),
+        Query.instance(),
+        type);
   }
 
   /**
@@ -1585,7 +1628,7 @@ public class BaseDhis2 {
    *
    * @param path the URL path relative to the API end point.
    * @param type the class type for the response entity.
-   * @param <T> class.
+   * @param <T> type.
    * @return object holding information about the operation.
    */
   protected <T extends BaseHttpResponse> T removeObject(String path, Class<T> type) {

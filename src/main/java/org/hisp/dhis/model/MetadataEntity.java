@@ -83,7 +83,7 @@ public enum MetadataEntity {
   USER_ROLE(UserRole.class, "userRoles"),
   VISUALIZATION(Visualization.class, "visualizations");
 
-  /** The class type. */
+  /** Class type. */
   private final Class<? extends IdentifiableObject> type;
 
   /** API path. */
