@@ -34,25 +34,33 @@ import static org.hisp.dhis.ApiFields.CATEGORY_COMBO_FIELDS;
 import static org.hisp.dhis.ApiFields.CATEGORY_FIELDS;
 import static org.hisp.dhis.ApiFields.CATEGORY_OPTION_COMBO_FIELDS;
 import static org.hisp.dhis.ApiFields.CATEGORY_OPTION_EXT_FIELDS;
+import static org.hisp.dhis.ApiFields.CATEGORY_OPTION_FIELDS;
 import static org.hisp.dhis.ApiFields.CATEGORY_OPTION_GROUP_FIELDS;
 import static org.hisp.dhis.ApiFields.CATEGORY_OPTION_GROUP_SET_FIELDS;
 import static org.hisp.dhis.ApiFields.DASHBOARD_FIELDS;
 import static org.hisp.dhis.ApiFields.DATA_ELEMENT_EXT_FIELDS;
 import static org.hisp.dhis.ApiFields.DATA_ELEMENT_GROUP_EXT_FIELDS;
+import static org.hisp.dhis.ApiFields.DATA_ELEMENT_GROUP_FIELDS;
 import static org.hisp.dhis.ApiFields.DATA_ELEMENT_GROUP_SET_FIELDS;
 import static org.hisp.dhis.ApiFields.DATA_SET_EXT_FIELDS;
+import static org.hisp.dhis.ApiFields.DATA_SET_FIELDS;
 import static org.hisp.dhis.ApiFields.DOCUMENT_FIELDS;
 import static org.hisp.dhis.ApiFields.INDICATOR_FIELDS;
 import static org.hisp.dhis.ApiFields.INDICATOR_GROUP_EXT_FIELDS;
+import static org.hisp.dhis.ApiFields.INDICATOR_GROUP_FIELDS;
 import static org.hisp.dhis.ApiFields.INDICATOR_GROUP_SET_FIELDS;
 import static org.hisp.dhis.ApiFields.INDICATOR_TYPE_FIELDS;
 import static org.hisp.dhis.ApiFields.MAP_FIELDS;
 import static org.hisp.dhis.ApiFields.OPTION_FIELDS;
 import static org.hisp.dhis.ApiFields.OPTION_SET_EXT_FIELDS;
+import static org.hisp.dhis.ApiFields.OPTION_SET_FIELDS;
 import static org.hisp.dhis.ApiFields.ORG_UNIT_FIELDS;
 import static org.hisp.dhis.ApiFields.ORG_UNIT_GROUP_EXT_FIELDS;
+import static org.hisp.dhis.ApiFields.ORG_UNIT_GROUP_FIELDS;
 import static org.hisp.dhis.ApiFields.ORG_UNIT_GROUP_SET_FIELDS;
+import static org.hisp.dhis.ApiFields.ORG_UNIT_LEVEL_FIELDS;
 import static org.hisp.dhis.ApiFields.PROGRAM_EXT_FIELDS;
+import static org.hisp.dhis.ApiFields.PROGRAM_FIELDS;
 import static org.hisp.dhis.ApiFields.PROGRAM_INDICATOR_FIELDS;
 import static org.hisp.dhis.ApiFields.PROGRAM_SECTION_FIELDS;
 import static org.hisp.dhis.ApiFields.PROGRAM_STAGE_FIELDS;
@@ -81,53 +89,198 @@ import org.hisp.dhis.response.HttpStatus;
 @Getter
 @RequiredArgsConstructor
 public enum MetadataEntity {
+  // spotless:off
   ANALYTICS_TABLE_HOOK(
-      AnalyticsTableHook.class, ANALYTICS_TABLE_HOOK_FIELDS, "analyticsTableHooks"),
-  ATTRIBUTE(Attribute.class, ATTRIBUTE_FIELDS, "attributes"),
-  CATEGORY_OPTION(CategoryOption.class, CATEGORY_OPTION_EXT_FIELDS, "categoryOptions"),
-  CATEGORY(Category.class, CATEGORY_FIELDS, "categories"),
-  CATEGORY_COMBO(CategoryCombo.class, CATEGORY_COMBO_FIELDS, "categoryCombos"),
+      AnalyticsTableHook.class,
+      ANALYTICS_TABLE_HOOK_FIELDS,
+      ANALYTICS_TABLE_HOOK_FIELDS,
+      "analyticsTableHooks"),
+  ATTRIBUTE(
+      Attribute.class, 
+      ATTRIBUTE_FIELDS, 
+      ATTRIBUTE_FIELDS, 
+      "attributes"),
+  CATEGORY_OPTION(
+      CategoryOption.class, 
+      CATEGORY_OPTION_FIELDS, 
+      CATEGORY_OPTION_EXT_FIELDS, 
+      "categoryOptions"),
+  CATEGORY(Category.class, 
+      CATEGORY_FIELDS, 
+      CATEGORY_FIELDS, 
+      "categories"),
+  CATEGORY_COMBO(
+      CategoryCombo.class, 
+      CATEGORY_COMBO_FIELDS, 
+      CATEGORY_COMBO_FIELDS, 
+      "categoryCombos"),
   CATEGORY_OPTION_COMBO(
-      CategoryOptionCombo.class, CATEGORY_OPTION_COMBO_FIELDS, "categoryOptionCombos"),
+      CategoryOptionCombo.class,
+      CATEGORY_OPTION_COMBO_FIELDS,
+      CATEGORY_OPTION_COMBO_FIELDS,
+      "categoryOptionCombos"),
   CATEGORY_OPTION_GROUP(
-      CategoryOptionGroup.class, CATEGORY_OPTION_GROUP_FIELDS, "categoryOptionGroups"),
+      CategoryOptionGroup.class,
+      CATEGORY_OPTION_GROUP_FIELDS,
+      CATEGORY_OPTION_GROUP_FIELDS,
+      "categoryOptionGroups"),
   CATEGORY_OPTION_GROUP_SET(
-      CategoryOptionGroupSet.class, CATEGORY_OPTION_GROUP_SET_FIELDS, "categoryOptionGroupSets"),
-  DASHBOARD(Dashboard.class, DASHBOARD_FIELDS, "dashboards"),
-  DATA_ELEMENT(DataElement.class, DATA_ELEMENT_EXT_FIELDS, "dataElements"),
-  DATA_ELEMENT_GROUP(DataElementGroup.class, DATA_ELEMENT_GROUP_EXT_FIELDS, "dataElementGroups"),
+      CategoryOptionGroupSet.class,
+      CATEGORY_OPTION_GROUP_SET_FIELDS,
+      CATEGORY_OPTION_GROUP_SET_FIELDS,
+      "categoryOptionGroupSets"),
+  DASHBOARD(
+      Dashboard.class, 
+      DASHBOARD_FIELDS, 
+      DASHBOARD_FIELDS, 
+      "dashboards"),
+  DATA_ELEMENT(
+      DataElement.class, 
+      DATA_ELEMENT_EXT_FIELDS, 
+      DATA_ELEMENT_EXT_FIELDS, 
+      "dataElements"),
+  DATA_ELEMENT_GROUP(
+      DataElementGroup.class,
+      DATA_ELEMENT_GROUP_FIELDS,
+      DATA_ELEMENT_GROUP_EXT_FIELDS,
+      "dataElementGroups"),
   DATA_ELEMENT_GROUP_SET(
-      DataElementGroupSet.class, DATA_ELEMENT_GROUP_SET_FIELDS, "dataElementGroupSets"),
-  DATA_SET(DataSet.class, DATA_SET_EXT_FIELDS, "dataSets"),
-  DOCUMENT(Document.class, DOCUMENT_FIELDS, "documents"),
-  INDICATOR(Indicator.class, INDICATOR_FIELDS, "indicators"),
-  INDICATOR_GROUP(IndicatorGroup.class, INDICATOR_GROUP_EXT_FIELDS, "indicatorGroups"),
-  INDICATOR_GROUP_SET(IndicatorGroupSet.class, INDICATOR_GROUP_SET_FIELDS, "indicatorGroupSets"),
-  INDICATOR_TYPE(IndicatorType.class, INDICATOR_TYPE_FIELDS, "indicatorTypes"),
-  ORG_UNIT(OrgUnit.class, ORG_UNIT_FIELDS, "organisationUnits"),
-  ORG_UNIT_GROUP(OrgUnitGroup.class, ORG_UNIT_GROUP_EXT_FIELDS, "organisationUnitGroups"),
-  ORG_UNIT_GROUP_SET(OrgUnitGroupSet.class, ORG_UNIT_GROUP_SET_FIELDS, "organisationUnitGroupSets"),
-  ORG_UNIT_LEVEL(OrgUnitLevel.class, ORG_UNIT_GROUP_SET_FIELDS, "organisationUnitLevels"),
-  MAP(GeoMap.class, MAP_FIELDS, "maps"),
-  OPTION_SET(OptionSet.class, OPTION_SET_EXT_FIELDS, "optionSets"),
-  OPTION(Option.class, OPTION_FIELDS, "options"),
-  PROGRAM(Program.class, PROGRAM_EXT_FIELDS, "programs"),
-  PROGRAM_SECTION(ProgramSection.class, PROGRAM_SECTION_FIELDS, "programSections"),
-  PROGRAM_STAGE(ProgramStage.class, PROGRAM_STAGE_FIELDS, "programStages"),
+      DataElementGroupSet.class,
+      DATA_ELEMENT_GROUP_SET_FIELDS,
+      DATA_ELEMENT_GROUP_SET_FIELDS,
+      "dataElementGroupSets"),
+  DATA_SET(
+      DataSet.class, 
+      DATA_SET_FIELDS, 
+      DATA_SET_EXT_FIELDS, 
+      "dataSets"),
+  DOCUMENT(
+      Document.class, 
+      DOCUMENT_FIELDS, 
+      DOCUMENT_FIELDS, 
+      "documents"),
+  INDICATOR(
+      Indicator.class, 
+      INDICATOR_FIELDS, 
+      INDICATOR_FIELDS, 
+      "indicators"),
+  INDICATOR_GROUP(
+      IndicatorGroup.class, 
+      INDICATOR_GROUP_FIELDS, 
+      INDICATOR_GROUP_EXT_FIELDS, 
+      "indicatorGroups"),
+  INDICATOR_GROUP_SET(
+      IndicatorGroupSet.class,
+      INDICATOR_GROUP_SET_FIELDS,
+      INDICATOR_GROUP_SET_FIELDS,
+      "indicatorGroupSets"),
+  INDICATOR_TYPE(
+      IndicatorType.class, 
+      INDICATOR_TYPE_FIELDS, 
+      INDICATOR_TYPE_FIELDS, 
+      "indicatorTypes"),
+  ORG_UNIT(OrgUnit.class, 
+      ORG_UNIT_FIELDS, 
+      ORG_UNIT_FIELDS, 
+      "organisationUnits"),
+  ORG_UNIT_GROUP(
+      OrgUnitGroup.class,
+      ORG_UNIT_GROUP_FIELDS,
+      ORG_UNIT_GROUP_EXT_FIELDS,
+      "organisationUnitGroups"),
+  ORG_UNIT_GROUP_SET(
+      OrgUnitGroupSet.class,
+      ORG_UNIT_GROUP_SET_FIELDS,
+      ORG_UNIT_GROUP_SET_FIELDS,
+      "organisationUnitGroupSets"),
+  ORG_UNIT_LEVEL(
+      OrgUnitLevel.class, 
+      ORG_UNIT_LEVEL_FIELDS, 
+      ORG_UNIT_LEVEL_FIELDS, 
+      "organisationUnitLevels"),
+  MAP(
+      GeoMap.class, 
+      MAP_FIELDS, 
+      MAP_FIELDS, 
+      "maps"),
+  OPTION_SET(
+      OptionSet.class, 
+      OPTION_SET_FIELDS, 
+      OPTION_SET_EXT_FIELDS, 
+      "optionSets"),
+  OPTION(
+      Option.class, 
+      OPTION_FIELDS, 
+      OPTION_FIELDS, 
+      "options"),
+  PROGRAM(
+      Program.class, 
+      PROGRAM_FIELDS, 
+      PROGRAM_EXT_FIELDS, 
+      "programs"),
+  PROGRAM_SECTION(
+      ProgramSection.class, 
+      PROGRAM_SECTION_FIELDS, 
+      PROGRAM_SECTION_FIELDS, 
+      "programSections"),
+  PROGRAM_STAGE(
+      ProgramStage.class, 
+      PROGRAM_STAGE_FIELDS, 
+      PROGRAM_STAGE_FIELDS, 
+      "programStages"),
   PROGRAM_STAGE_SECTION(
-      ProgramStageSection.class, PROGRAM_STAGE_SECTION_FIELDS, "programStageSections"),
-  PROGRAM_INDICATOR(ProgramIndicator.class, PROGRAM_INDICATOR_FIELDS, "programIndicators"),
-  RELATIONSHIP_TYPE(RelationshipType.class, RELATIONSHIP_TYPE_FIELDS, "relationshipTypes"),
-  TRACKED_ENTITY_TYPE(TrackedEntityType.class, TRACKED_ENTITY_TYPE_FIELDS, "trackedEntityTypes"),
+      ProgramStageSection.class,
+      PROGRAM_STAGE_SECTION_FIELDS,
+      PROGRAM_STAGE_SECTION_FIELDS,
+      "programStageSections"),
+  PROGRAM_INDICATOR(
+      ProgramIndicator.class,
+      PROGRAM_INDICATOR_FIELDS,
+      PROGRAM_INDICATOR_FIELDS,
+      "programIndicators"),
+  RELATIONSHIP_TYPE(
+      RelationshipType.class,
+      RELATIONSHIP_TYPE_FIELDS,
+      RELATIONSHIP_TYPE_FIELDS,
+      "relationshipTypes"),
+  TRACKED_ENTITY_TYPE(
+      TrackedEntityType.class,
+      TRACKED_ENTITY_TYPE_FIELDS,
+      TRACKED_ENTITY_TYPE_FIELDS,
+      "trackedEntityTypes"),
   TRACKED_ENTITY_ATTRIBUTE(
-      TrackedEntityAttribute.class, TRACKED_ENTITY_ATTRIBUTE_FIELDS, "trackedEntityAttributes"),
-  USER(User.class, USER_FIELDS, "users"),
-  USER_GROUP(UserGroup.class, USER_GROUP_FIELDS, "userGroups"),
-  USER_ROLE(UserRole.class, USER_ROLE_FIELDS, "userRoles"),
-  VISUALIZATION(Visualization.class, VISUALIZATION_FIELDS, "visualizations");
+      TrackedEntityAttribute.class,
+      TRACKED_ENTITY_ATTRIBUTE_FIELDS,
+      TRACKED_ENTITY_ATTRIBUTE_FIELDS,
+      "trackedEntityAttributes"),
+  USER(
+      User.class, 
+      USER_FIELDS, 
+      USER_FIELDS, 
+      "users"),
+  USER_GROUP(
+      UserGroup.class, 
+      USER_GROUP_FIELDS, 
+      USER_GROUP_FIELDS, 
+      "userGroups"),
+  USER_ROLE(
+      UserRole.class, 
+      USER_ROLE_FIELDS, 
+      USER_ROLE_FIELDS, 
+      "userRoles"),
+  VISUALIZATION(
+      Visualization.class, 
+      VISUALIZATION_FIELDS, 
+      VISUALIZATION_FIELDS, 
+      "visualizations");
+
+  // spotless:on
 
   /** Class type. */
   private final Class<? extends IdentifiableObject> type;
+
+  /** Regular API fields. */
+  private final String fields;
 
   /** Extensive API fields. */
   private final String extFields;

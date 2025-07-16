@@ -253,12 +253,9 @@
             <licenseHeader>
               <file>license-header</file>
             </licenseHeader>
+            <toggleOffOn/>
           </java>
           <pom>
-            <toggleOffOn>
-              <off>@formatter:off</off>
-              <on>@formatter:on</on>
-            </toggleOffOn>
             <includes>
               <include>pom.xml</include>
             </includes>

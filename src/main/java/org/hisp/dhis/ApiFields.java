@@ -108,6 +108,9 @@ public class ApiFields {
           DATA_ELEMENT_FIELDS);
 
   /** Data element group fields. */
+  public static final String DATA_ELEMENT_GROUP_FIELDS = NAME_FIELDS;
+
+  /** Data element group extended fields. */
   public static final String DATA_ELEMENT_GROUP_EXT_FIELDS =
       String.format("%1$s,dataElements[%2$s]", NAME_FIELDS, DATA_ELEMENT_FIELDS);
 
@@ -149,6 +152,9 @@ public class ApiFields {
           NAME_FIELDS, INDICATOR_TYPE_FIELDS);
 
   /** Indicator group fields. */
+  public static final String INDICATOR_GROUP_FIELDS = NAME_FIELDS;
+
+  /** Indicator group fields. */
   public static final String INDICATOR_GROUP_EXT_FIELDS =
       String.format("%1$s,indicators[%2$s]", NAME_FIELDS, INDICATOR_FIELDS);
 
@@ -182,6 +188,9 @@ public class ApiFields {
           %s,path,level,parent[%s],openingDate,closedDate,comment,url,
           contactPerson,address,email,phoneNumber""",
           NAME_FIELDS, NAME_FIELDS);
+
+  /** Org unit group fields. */
+  public static final String ORG_UNIT_GROUP_FIELDS = NAME_FIELDS;
 
   /** Org unit group fields. */
   public static final String ORG_UNIT_GROUP_EXT_FIELDS =
