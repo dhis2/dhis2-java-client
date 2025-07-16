@@ -31,7 +31,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Objects;
 import lombok.Getter;
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Strings;
 import org.apache.hc.core5.net.URIBuilder;
 import org.hisp.dhis.auth.AccessTokenAuthentication;
 import org.hisp.dhis.auth.Authentication;
@@ -87,8 +87,8 @@ public class Dhis2Config {
    * @param url the URL string.
    * @return a URL string.
    */
-  private String normalizeUrl(String url) {
-    return StringUtils.removeEnd(url, "/");
+  String normalizeUrl(String url) {
+    return Strings.CS.removeEnd(url, "/");
   }
 
   /**

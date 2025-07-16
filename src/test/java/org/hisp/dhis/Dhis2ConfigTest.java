@@ -94,4 +94,12 @@ class Dhis2ConfigTest {
 
     assertThrows(Dhis2ClientException.class, () -> config.getResolvedUrl("indicators"));
   }
+
+  @Test
+  void testNormalizeUrl() {
+    Dhis2Config config = new Dhis2Config("https://play.dhis2.org/dev", "admin", "district");
+
+    assertEquals("https://dhis2.org/dev", config.normalizeUrl("https://dhis2.org/dev/"));
+    assertEquals("https://dhis2.org/dev", config.normalizeUrl("https://dhis2.org/dev"));
+  }
 }
