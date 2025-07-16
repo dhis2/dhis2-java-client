@@ -27,6 +27,7 @@
  */
 package org.hisp.dhis;
 
+import static org.hisp.dhis.ApiFields.ANALYTICS_TABLE_HOOK_FIELDS;
 import static org.hisp.dhis.ApiFields.ATTRIBUTE_FIELDS;
 import static org.hisp.dhis.ApiFields.CATEGORY_COMBO_FIELDS;
 import static org.hisp.dhis.ApiFields.CATEGORY_FIELDS;
@@ -51,6 +52,7 @@ import static org.hisp.dhis.ApiFields.INDICATOR_FIELDS;
 import static org.hisp.dhis.ApiFields.INDICATOR_GROUP_EXT_FIELDS;
 import static org.hisp.dhis.ApiFields.INDICATOR_GROUP_SET_FIELDS;
 import static org.hisp.dhis.ApiFields.INDICATOR_TYPE_FIELDS;
+import static org.hisp.dhis.ApiFields.MAP_FIELDS;
 import static org.hisp.dhis.ApiFields.ME_FIELDS;
 import static org.hisp.dhis.ApiFields.NAME_FIELDS;
 import static org.hisp.dhis.ApiFields.OPTION_SET_EXT_FIELDS;
@@ -61,6 +63,7 @@ import static org.hisp.dhis.ApiFields.ORG_UNIT_GROUP_SET_FIELDS;
 import static org.hisp.dhis.ApiFields.ORG_UNIT_LEVEL_FIELDS;
 import static org.hisp.dhis.ApiFields.PROGRAM_EXT_FIELDS;
 import static org.hisp.dhis.ApiFields.PROGRAM_FIELDS;
+import static org.hisp.dhis.ApiFields.PROGRAM_INDICATOR_FIELDS;
 import static org.hisp.dhis.ApiFields.PROGRAM_SECTION_FIELDS;
 import static org.hisp.dhis.ApiFields.PROGRAM_STAGE_FIELDS;
 import static org.hisp.dhis.ApiFields.PROGRAM_STAGE_SECTION_FIELDS;
@@ -72,6 +75,7 @@ import static org.hisp.dhis.ApiFields.USER_FIELDS;
 import static org.hisp.dhis.ApiFields.USER_GROUP_FIELDS;
 import static org.hisp.dhis.ApiFields.USER_ROLE_FIELDS;
 import static org.hisp.dhis.ApiFields.VALIDATION_RULE_FIELDS;
+import static org.hisp.dhis.ApiFields.VISUALIZATION_FIELDS;
 import static org.hisp.dhis.Constants.SUPER_ADMIN_AUTH;
 import static org.hisp.dhis.util.CollectionUtils.asList;
 import static org.hisp.dhis.util.CollectionUtils.list;
@@ -574,7 +578,7 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if the object does not exist.
    */
   public AnalyticsTableHook getAnalyticsTableHook(String id) {
-    return getObject("analyticsTableHooks", id, AnalyticsTableHook.class);
+    return getMetadataObject(MetadataEntity.ANALYTICS_TABLE_HOOK, id, ANALYTICS_TABLE_HOOK_FIELDS);
   }
 
   /**
@@ -2274,7 +2278,7 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if the object does not exist.
    */
   public GeoMap getMap(String id) {
-    return getMetadataObject(MetadataEntity.MAP, id, NAME_FIELDS);
+    return getMetadataObject(MetadataEntity.MAP, id, MAP_FIELDS);
   }
 
   /**
@@ -2288,7 +2292,7 @@ public class Dhis2 extends BaseDhis2 {
             config
                 .getResolvedUriBuilder()
                 .appendPath("maps")
-                .addParameter(FIELDS_PARAM, NAME_FIELDS),
+                .addParameter(FIELDS_PARAM, MAP_FIELDS),
             query,
             Dhis2Objects.class)
         .getMaps();
@@ -2537,7 +2541,7 @@ public class Dhis2 extends BaseDhis2 {
             config
                 .getResolvedUriBuilder()
                 .appendPath("programIndicators")
-                .addParameter(FIELDS_PARAM, NAME_FIELDS),
+                .addParameter(FIELDS_PARAM, PROGRAM_INDICATOR_FIELDS),
             query,
             Dhis2Objects.class)
         .getProgramIndicators();
@@ -2551,6 +2555,88 @@ public class Dhis2 extends BaseDhis2 {
    */
   public ObjectResponse removeProgramIndicator(String id) {
     return removeMetadataObject(MetadataEntity.PROGRAM_INDICATOR, id);
+  }
+
+  // -------------------------------------------------------------------------
+  // Relationship type
+  // -------------------------------------------------------------------------
+
+  /**
+   * Saves a {@link RelationshipType}.
+   *
+   * @param relationshipType the object to save.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse saveRelationshipType(RelationshipType relationshipType) {
+    return saveMetadataObject(relationshipType);
+  }
+
+  /**
+   * Saves or updates the list of {@link RelationshipType}.
+   *
+   * @param relationshipTypes the list of {@link RelationshipType}.
+   * @return {@link ObjectsResponse} holding information about the operation.
+   */
+  public ObjectsResponse saveRelationshipTypes(List<RelationshipType> relationshipTypes) {
+    return saveMetadataObjects(new Dhis2Objects().setRelationshipTypes(relationshipTypes));
+  }
+
+  /**
+   * Updates a {@link RelationshipType}.
+   *
+   * @param relationshipType the object to update.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse updateRelationshipType(RelationshipType relationshipType) {
+    return updateMetadataObject(relationshipType);
+  }
+
+  /**
+   * Retrieves a {@link RelationshipType}.
+   *
+   * @param id the object identifier.
+   * @return the {@link RelationshipType}.
+   * @throws Dhis2ClientException if the object does not exist.
+   */
+  public RelationshipType getRelationshipType(String id) {
+    return getMetadataObject(MetadataEntity.RELATIONSHIP_TYPE, id, RELATIONSHIP_TYPE_FIELDS);
+  }
+
+  /**
+   * Indicates whether a {@link RelationshipType} exists.
+   *
+   * @param id the object identifier.
+   * @return true if the object exists.
+   */
+  public boolean isRelationshipType(String id) {
+    return objectExists(MetadataEntity.RELATIONSHIP_TYPE, id);
+  }
+
+  /**
+   * Retrieves a {@link RelationshipType}.
+   *
+   * @param query the {@link Query}.
+   * @return a list of {@link RelationshipType}.
+   */
+  public List<RelationshipType> getRelationshipTypes(Query query) {
+    return getObject(
+            config
+                .getResolvedUriBuilder()
+                .appendPath("relationshipTypes")
+                .addParameter(FIELDS_PARAM, RELATIONSHIP_TYPE_FIELDS),
+            query,
+            Dhis2Objects.class)
+        .getRelationshipTypes();
+  }
+
+  /**
+   * Removes a {@link RelationshipType}.
+   *
+   * @param id the identifier of the object to remove.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse removeRelationshipType(String id) {
+    return removeMetadataObject(MetadataEntity.RELATIONSHIP_TYPE, id);
   }
 
   // -------------------------------------------------------------------------
@@ -2930,7 +3016,7 @@ public class Dhis2 extends BaseDhis2 {
             config
                 .getResolvedUriBuilder()
                 .appendPath("visualizations")
-                .addParameter(FIELDS_PARAM, NAME_FIELDS),
+                .addParameter(FIELDS_PARAM, VISUALIZATION_FIELDS),
             query,
             Dhis2Objects.class)
         .getVisualizations();
@@ -3463,88 +3549,6 @@ public class Dhis2 extends BaseDhis2 {
     URI url = getRelationshipQuery(uriBuilder, query);
 
     return getObjectFromUrl(url, RelationshipsResult.class);
-  }
-
-  // -------------------------------------------------------------------------
-  // Relationship type
-  // -------------------------------------------------------------------------
-
-  /**
-   * Saves a {@link RelationshipType}.
-   *
-   * @param relationshipType the object to save.
-   * @return {@link ObjectResponse} holding information about the operation.
-   */
-  public ObjectResponse saveRelationshipType(RelationshipType relationshipType) {
-    return saveMetadataObject(relationshipType);
-  }
-
-  /**
-   * Saves or updates the list of {@link RelationshipType}.
-   *
-   * @param relationshipTypes the list of {@link RelationshipType}.
-   * @return {@link ObjectsResponse} holding information about the operation.
-   */
-  public ObjectsResponse saveRelationshipTypes(List<RelationshipType> relationshipTypes) {
-    return saveMetadataObjects(new Dhis2Objects().setRelationshipTypes(relationshipTypes));
-  }
-
-  /**
-   * Updates a {@link RelationshipType}.
-   *
-   * @param relationshipType the object to update.
-   * @return {@link ObjectResponse} holding information about the operation.
-   */
-  public ObjectResponse updateRelationshipType(RelationshipType relationshipType) {
-    return updateMetadataObject(relationshipType);
-  }
-
-  /**
-   * Retrieves a {@link RelationshipType}.
-   *
-   * @param id the object identifier.
-   * @return the {@link RelationshipType}.
-   * @throws Dhis2ClientException if the object does not exist.
-   */
-  public RelationshipType getRelationshipType(String id) {
-    return getMetadataObject(MetadataEntity.RELATIONSHIP_TYPE, id, RELATIONSHIP_TYPE_FIELDS);
-  }
-
-  /**
-   * Indicates whether a {@link RelationshipType} exists.
-   *
-   * @param id the object identifier.
-   * @return true if the object exists.
-   */
-  public boolean isRelationshipType(String id) {
-    return objectExists(MetadataEntity.RELATIONSHIP_TYPE, id);
-  }
-
-  /**
-   * Retrieves a {@link RelationshipType}.
-   *
-   * @param query the {@link Query}.
-   * @return a list of {@link RelationshipType}.
-   */
-  public List<RelationshipType> getRelationshipTypes(Query query) {
-    return getObject(
-            config
-                .getResolvedUriBuilder()
-                .appendPath("relationshipTypes")
-                .addParameter(FIELDS_PARAM, RELATIONSHIP_TYPE_FIELDS),
-            query,
-            Dhis2Objects.class)
-        .getRelationshipTypes();
-  }
-
-  /**
-   * Removes a {@link RelationshipType}.
-   *
-   * @param id the identifier of the object to remove.
-   * @return {@link ObjectResponse} holding information about the operation.
-   */
-  public ObjectResponse removeRelationshipType(String id) {
-    return removeMetadataObject(MetadataEntity.RELATIONSHIP_TYPE, id);
   }
 
   // -------------------------------------------------------------------------
