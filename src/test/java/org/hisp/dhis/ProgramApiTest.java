@@ -31,11 +31,11 @@ import static org.hisp.dhis.support.Assertions.assertNotBlank;
 import static org.hisp.dhis.support.Assertions.assertNotEmpty;
 import static org.hisp.dhis.support.Assertions.assertSize;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.List;
 import org.hisp.dhis.model.DataElement;
+import org.hisp.dhis.model.OrgUnit;
 import org.hisp.dhis.model.Program;
 import org.hisp.dhis.model.ProgramIndicator;
 import org.hisp.dhis.model.ProgramSection;
@@ -69,18 +69,21 @@ class ProgramApiTest {
     assertNotNull(pr.getCreated());
     assertNotNull(pr.getLastUpdated());
     assertEquals(ProgramType.WITH_REGISTRATION, pr.getProgramType());
+    assertNotEmpty(pr.getOrganisationUnits());
     assertNotEmpty(pr.getTrackedEntityTypeAttributes());
     assertNotEmpty(pr.getNonConfidentialTrackedEntityAttributes());
     assertNotEmpty(pr.getTrackedEntityAttributes());
     assertNotEmpty(pr.getNonConfidentialTrackedEntityAttributes());
 
     TrackedEntityType tet = pr.getTrackedEntityType();
+
     assertNotNull(tet);
     assertEquals("nEenWmSyUEp", tet.getId());
     assertNotBlank(tet.getName());
     assertNotEmpty(tet.getTrackedEntityTypeAttributes());
 
-    TrackedEntityTypeAttribute teta = tet.getTrackedEntityTypeAttributes().iterator().next();
+    TrackedEntityTypeAttribute teta = tet.getTrackedEntityTypeAttributes().get(0);
+
     assertNotNull(teta);
     assertEquals("Jdd8hMStmvF", teta.getId());
     assertNotNull(teta.getTrackedEntityAttribute());
@@ -88,10 +91,15 @@ class ProgramApiTest {
     assertEquals("MMD_PER_ID", teta.getTrackedEntityAttribute().getCode());
     assertNotBlank(teta.getTrackedEntityAttribute().getName());
 
+    OrgUnit ou = pr.getOrganisationUnits().get(0);
+
+    assertNotNull(ou);
+    assertNotBlank(ou.getId());
+
     assertNotEmpty(pr.getProgramTrackedEntityAttributes());
     assertNotEmpty(pr.getProgramStages());
 
-    ProgramTrackedEntityAttribute ptea = pr.getProgramTrackedEntityAttributes().iterator().next();
+    ProgramTrackedEntityAttribute ptea = pr.getProgramTrackedEntityAttributes().get(0);
 
     assertNotNull(ptea);
     assertNotBlank(ptea.getId());
@@ -105,7 +113,7 @@ class ProgramApiTest {
     assertNotNull(tea);
     assertNotBlank(tea.getId());
 
-    ProgramStage ps = pr.getProgramStages().iterator().next();
+    ProgramStage ps = pr.getProgramStages().get(0);
 
     assertNotNull(ps);
     assertNotBlank(ps.getId());
@@ -115,7 +123,7 @@ class ProgramApiTest {
     assertNotEmpty(ps.getDataElements());
     assertNotEmpty(ps.getAnalyticsDataElements());
 
-    ProgramStageDataElement psde = ps.getProgramStageDataElements().iterator().next();
+    ProgramStageDataElement psde = ps.getProgramStageDataElements().get(0);
 
     assertNotNull(psde);
 
@@ -150,9 +158,15 @@ class ProgramApiTest {
     assertEquals("eBAyeGv0exc", pr.getId());
     assertNotBlank(pr.getName());
     assertNotBlank(pr.getShortName());
+    assertNotEmpty(pr.getOrganisationUnits());
     assertNotNull(pr.getProgramStages());
     assertNotNull(pr.getProgramStageSections());
-    assertFalse(pr.getProgramStageSections().isEmpty());
+    assertNotEmpty(pr.getProgramStageSections());
+
+    OrgUnit ou = pr.getOrganisationUnits().get(0);
+
+    assertNotNull(ou);
+    assertNotBlank(ou.getId());
 
     ProgramStage ps = pr.getProgramStages().get(0);
 
@@ -195,9 +209,15 @@ class ProgramApiTest {
     assertEquals("qDkgAbB5Jlk", pr.getId());
     assertNotBlank(pr.getName());
     assertNotBlank(pr.getShortName());
+    assertNotEmpty(pr.getOrganisationUnits());
     assertNotNull(pr.getProgramStages());
     assertNotNull(pr.getProgramStageSections());
-    assertFalse(pr.getProgramStageSections().isEmpty());
+    assertNotEmpty(pr.getProgramStageSections());
+
+    OrgUnit ou = pr.getOrganisationUnits().get(0);
+
+    assertNotNull(ou);
+    assertNotBlank(ou.getId());
 
     List<ProgramSection> sections = pr.getProgramSections();
     assertNotEmpty(sections);
@@ -239,10 +259,10 @@ class ProgramApiTest {
     assertEquals("IpHINAT79UW", program.getId());
     assertEquals(ProgramType.WITH_REGISTRATION, program.getProgramType());
 
-    assertFalse(program.getTrackedEntityAttributes().isEmpty());
+    assertNotEmpty(program.getTrackedEntityAttributes());
     assertNotNull(program.getTrackedEntityAttributes().get(0));
 
-    assertFalse(program.getProgramTrackedEntityAttributes().isEmpty());
+    assertNotEmpty(program.getProgramTrackedEntityAttributes());
     assertNotNull(program.getProgramTrackedEntityAttributes().get(0));
     assertNotNull(program.getProgramTrackedEntityAttributes().get(0).getId());
 
@@ -253,13 +273,13 @@ class ProgramApiTest {
     assertNotNull(tea.getId());
     assertNotNull(tea.getValueType());
 
-    assertFalse(program.getProgramStages().isEmpty());
+    assertNotEmpty(program.getProgramStages());
 
     ProgramStage ps = program.getProgramStages().get(0);
 
     assertNotNull(ps);
     assertNotNull(ps.getId());
-    assertFalse(ps.getProgramStageDataElements().isEmpty());
+    assertNotEmpty(ps.getProgramStageDataElements());
 
     ProgramStageDataElement psde = ps.getProgramStageDataElements().get(0);
 
@@ -280,8 +300,7 @@ class ProgramApiTest {
 
     List<Program> programs = dhis2.getPrograms(Query.instance());
 
-    assertNotNull(programs);
-    assertFalse(programs.isEmpty());
+    assertNotEmpty(programs);
     assertNotNull(programs.get(0));
   }
 

@@ -56,6 +56,8 @@ public class Program extends NameableObject {
 
   @JsonProperty private CategoryCombo categoryCombo;
 
+  @JsonProperty private List<OrgUnit> organisationUnits = new ArrayList<>();
+
   @JsonProperty
   private List<ProgramTrackedEntityAttribute> programTrackedEntityAttributes = new ArrayList<>();
 
