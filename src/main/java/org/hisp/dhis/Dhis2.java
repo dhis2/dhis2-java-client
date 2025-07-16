@@ -27,7 +27,6 @@
  */
 package org.hisp.dhis;
 
-import static org.hisp.dhis.ApiFields.ANALYTICS_TABLE_HOOK_FIELDS;
 import static org.hisp.dhis.ApiFields.ATTRIBUTE_FIELDS;
 import static org.hisp.dhis.ApiFields.CATEGORY_COMBO_FIELDS;
 import static org.hisp.dhis.ApiFields.CATEGORY_FIELDS;
@@ -60,13 +59,9 @@ import static org.hisp.dhis.ApiFields.OPTION_SET_FIELDS;
 import static org.hisp.dhis.ApiFields.ORG_UNIT_FIELDS;
 import static org.hisp.dhis.ApiFields.ORG_UNIT_GROUP_EXT_FIELDS;
 import static org.hisp.dhis.ApiFields.ORG_UNIT_GROUP_SET_FIELDS;
-import static org.hisp.dhis.ApiFields.ORG_UNIT_LEVEL_FIELDS;
 import static org.hisp.dhis.ApiFields.PROGRAM_EXT_FIELDS;
 import static org.hisp.dhis.ApiFields.PROGRAM_FIELDS;
 import static org.hisp.dhis.ApiFields.PROGRAM_INDICATOR_FIELDS;
-import static org.hisp.dhis.ApiFields.PROGRAM_SECTION_FIELDS;
-import static org.hisp.dhis.ApiFields.PROGRAM_STAGE_FIELDS;
-import static org.hisp.dhis.ApiFields.PROGRAM_STAGE_SECTION_FIELDS;
 import static org.hisp.dhis.ApiFields.RELATIONSHIP_TYPE_FIELDS;
 import static org.hisp.dhis.ApiFields.TRACKED_ENTITY_ATTRIBUTE_FIELDS;
 import static org.hisp.dhis.ApiFields.TRACKED_ENTITY_FIELDS;
@@ -564,8 +559,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return the metadata object.
    */
   @SuppressWarnings("unchecked")
-  public <T extends IdentifiableObject> T getMetadataObject(
-      MetadataEntity entity, String id, String fields) {
+  public <T extends IdentifiableObject> T getMetadataObject(MetadataEntity entity, String id) {
     // Unchecked cast is safe as all metadata entities extend identifiable object
     Class<T> type = (Class<T>) entity.getType();
 
@@ -574,7 +568,7 @@ public class Dhis2 extends BaseDhis2 {
             .getResolvedUriBuilder()
             .appendPath(entity.getPath())
             .appendPath(id)
-            .addParameter(FIELDS_PARAM, fields),
+            .addParameter(FIELDS_PARAM, entity.getExtFields()),
         Query.instance(),
         type);
   }
@@ -644,7 +638,7 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if the object does not exist.
    */
   public AnalyticsTableHook getAnalyticsTableHook(String id) {
-    return getMetadataObject(MetadataEntity.ANALYTICS_TABLE_HOOK, id, ANALYTICS_TABLE_HOOK_FIELDS);
+    return getMetadataObject(MetadataEntity.ANALYTICS_TABLE_HOOK, id);
   }
 
   /**
@@ -716,7 +710,7 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if the object does not exist.
    */
   public Attribute getAttribute(String id) {
-    return getMetadataObject(MetadataEntity.ATTRIBUTE, id, ATTRIBUTE_FIELDS);
+    return getMetadataObject(MetadataEntity.ATTRIBUTE, id);
   }
 
   /**
@@ -798,7 +792,7 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if the object does not exist.
    */
   public CategoryOption getCategoryOption(String id) {
-    return getMetadataObject(MetadataEntity.CATEGORY_OPTION, id, CATEGORY_OPTION_EXT_FIELDS);
+    return getMetadataObject(MetadataEntity.CATEGORY_OPTION, id);
   }
 
   /**
@@ -883,7 +877,7 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if the object does not exist.
    */
   public Category getCategory(String id) {
-    return getMetadataObject(MetadataEntity.CATEGORY, id, CATEGORY_FIELDS);
+    return getMetadataObject(MetadataEntity.CATEGORY, id);
   }
 
   /**
@@ -955,7 +949,7 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if the object does not exist.
    */
   public CategoryCombo getCategoryCombo(String id) {
-    return getMetadataObject(MetadataEntity.CATEGORY_COMBO, id, CATEGORY_COMBO_FIELDS);
+    return getMetadataObject(MetadataEntity.CATEGORY_COMBO, id);
   }
 
   /**
@@ -1007,8 +1001,7 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if the object does not exist.
    */
   public CategoryOptionCombo getCategoryOptionCombo(String id) {
-    return getMetadataObject(
-        MetadataEntity.CATEGORY_OPTION_COMBO, id, CATEGORY_OPTION_COMBO_FIELDS);
+    return getMetadataObject(MetadataEntity.CATEGORY_OPTION_COMBO, id);
   }
 
   /**
@@ -1050,8 +1043,7 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if the object does not exist.
    */
   public CategoryOptionGroup getCategoryOptionGroup(String id) {
-    return getMetadataObject(
-        MetadataEntity.CATEGORY_OPTION_GROUP, id, CATEGORY_OPTION_GROUP_FIELDS);
+    return getMetadataObject(MetadataEntity.CATEGORY_OPTION_GROUP, id);
   }
 
   /**
@@ -1103,8 +1095,7 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if the object does not exist.
    */
   public CategoryOptionGroupSet getCategoryOptionGroupSet(String id) {
-    return getMetadataObject(
-        MetadataEntity.CATEGORY_OPTION_GROUP_SET, id, CATEGORY_OPTION_GROUP_SET_FIELDS);
+    return getMetadataObject(MetadataEntity.CATEGORY_OPTION_GROUP_SET, id);
   }
 
   /**
@@ -1156,7 +1147,7 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if the object does not exist.
    */
   public Dashboard getDashboard(String id) {
-    return getMetadataObject(MetadataEntity.DASHBOARD, id, DASHBOARD_FIELDS);
+    return getMetadataObject(MetadataEntity.DASHBOARD, id);
   }
 
   /**
@@ -1238,7 +1229,7 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if the object does not exist.
    */
   public DataElement getDataElement(String id) {
-    return getMetadataObject(MetadataEntity.DATA_ELEMENT, id, DATA_ELEMENT_EXT_FIELDS);
+    return getMetadataObject(MetadataEntity.DATA_ELEMENT, id);
   }
 
   /**
@@ -1323,7 +1314,7 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if the object does not exist.
    */
   public DataElementGroup getDataElementGroup(String id) {
-    return getMetadataObject(MetadataEntity.DATA_ELEMENT_GROUP, id, DATA_ELEMENT_GROUP_EXT_FIELDS);
+    return getMetadataObject(MetadataEntity.DATA_ELEMENT_GROUP, id);
   }
 
   /**
@@ -1408,8 +1399,7 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if the object does not exist.
    */
   public DataElementGroupSet getDataElementGroupSet(String id) {
-    return getMetadataObject(
-        MetadataEntity.DATA_ELEMENT_GROUP_SET, id, DATA_ELEMENT_GROUP_SET_FIELDS);
+    return getMetadataObject(MetadataEntity.DATA_ELEMENT_GROUP_SET, id);
   }
 
   /**
@@ -1461,7 +1451,7 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if the object does not exist.
    */
   public DataSet getDataSet(String id) {
-    return getMetadataObject(MetadataEntity.DATA_SET, id, DATA_SET_EXT_FIELDS);
+    return getMetadataObject(MetadataEntity.DATA_SET, id);
   }
 
   /**
@@ -1574,7 +1564,7 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if the object does not exist.
    */
   public Document getDocument(String id) {
-    return getMetadataObject(MetadataEntity.DOCUMENT, id, DOCUMENT_FIELDS);
+    return getMetadataObject(MetadataEntity.DOCUMENT, id);
   }
 
   /**
@@ -1676,7 +1666,7 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if the object does not exist.
    */
   public Indicator getIndicator(String id) {
-    return getMetadataObject(MetadataEntity.INDICATOR, id, INDICATOR_FIELDS);
+    return getMetadataObject(MetadataEntity.INDICATOR, id);
   }
 
   /**
@@ -1758,7 +1748,7 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if the object does not exist.
    */
   public IndicatorGroup getIndicatorGroup(String id) {
-    return getMetadataObject(MetadataEntity.INDICATOR_GROUP, id, INDICATOR_GROUP_EXT_FIELDS);
+    return getMetadataObject(MetadataEntity.INDICATOR_GROUP, id);
   }
 
   /**
@@ -1842,7 +1832,7 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if the object does not exist.
    */
   public IndicatorGroupSet getIndicatorGroupSet(String id) {
-    return getMetadataObject(MetadataEntity.INDICATOR_GROUP_SET, id, INDICATOR_GROUP_SET_FIELDS);
+    return getMetadataObject(MetadataEntity.INDICATOR_GROUP_SET, id);
   }
 
   /**
@@ -1924,7 +1914,7 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if the object does not exist.
    */
   public IndicatorType getIndicatorType(String id) {
-    return getMetadataObject(MetadataEntity.INDICATOR_TYPE, id, INDICATOR_TYPE_FIELDS);
+    return getMetadataObject(MetadataEntity.INDICATOR_TYPE, id);
   }
 
   /**
@@ -2006,7 +1996,7 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if the object does not exist.
    */
   public OrgUnit getOrgUnit(String id) {
-    return getMetadataObject(MetadataEntity.ORG_UNIT, id, ORG_UNIT_FIELDS);
+    return getMetadataObject(MetadataEntity.ORG_UNIT, id);
   }
 
   /**
@@ -2139,7 +2129,7 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if the object does not exist.
    */
   public OrgUnitGroup getOrgUnitGroup(String id) {
-    return getMetadataObject(MetadataEntity.ORG_UNIT_GROUP, id, ORG_UNIT_GROUP_EXT_FIELDS);
+    return getMetadataObject(MetadataEntity.ORG_UNIT_GROUP, id);
   }
 
   /**
@@ -2234,7 +2224,7 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if the object does not exist.
    */
   public OrgUnitGroupSet getOrgUnitGroupSet(String id) {
-    return getMetadataObject(MetadataEntity.ORG_UNIT_GROUP_SET, id, ORG_UNIT_GROUP_SET_FIELDS);
+    return getMetadataObject(MetadataEntity.ORG_UNIT_GROUP_SET, id);
   }
 
   /**
@@ -2286,7 +2276,7 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if the object does not exist.
    */
   public OrgUnitLevel getOrgUnitLevel(String id) {
-    return getMetadataObject(MetadataEntity.ORG_UNIT_LEVEL, id, ORG_UNIT_LEVEL_FIELDS);
+    return getMetadataObject(MetadataEntity.ORG_UNIT_LEVEL, id);
   }
 
   /**
@@ -2344,7 +2334,7 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if the object does not exist.
    */
   public GeoMap getMap(String id) {
-    return getMetadataObject(MetadataEntity.MAP, id, MAP_FIELDS);
+    return getMetadataObject(MetadataEntity.MAP, id);
   }
 
   /**
@@ -2376,7 +2366,7 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if the object does not exist.
    */
   public OptionSet getOptionSet(String id) {
-    return getMetadataObject(MetadataEntity.OPTION_SET, id, OPTION_SET_EXT_FIELDS);
+    return getMetadataObject(MetadataEntity.OPTION_SET, id);
   }
 
   /**
@@ -2430,7 +2420,7 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if the object does not exist.
    */
   public Option getOption(String id) {
-    return getMetadataObject(MetadataEntity.OPTION, id, ID_FIELDS);
+    return getMetadataObject(MetadataEntity.OPTION, id);
   }
 
   /**
@@ -2472,7 +2462,7 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if the object does not exist.
    */
   public Program getProgram(String id) {
-    return getMetadataObject(MetadataEntity.PROGRAM, id, PROGRAM_EXT_FIELDS);
+    return getMetadataObject(MetadataEntity.PROGRAM, id);
   }
 
   /**
@@ -2537,7 +2527,7 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if the object does not exist.
    */
   public ProgramSection getProgramSection(String id) {
-    return getMetadataObject(MetadataEntity.PROGRAM_SECTION, id, PROGRAM_SECTION_FIELDS);
+    return getMetadataObject(MetadataEntity.PROGRAM_SECTION, id);
   }
 
   // -------------------------------------------------------------------------
@@ -2552,7 +2542,7 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if the object does not exist.
    */
   public ProgramStage getProgramStage(String id) {
-    return getMetadataObject(MetadataEntity.PROGRAM_STAGE, id, PROGRAM_STAGE_FIELDS);
+    return getMetadataObject(MetadataEntity.PROGRAM_STAGE, id);
   }
 
   // -------------------------------------------------------------------------
@@ -2567,8 +2557,7 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if the object does not exist.
    */
   public ProgramStageSection getProgramStageSection(String id) {
-    return getMetadataObject(
-        MetadataEntity.PROGRAM_STAGE_SECTION, id, PROGRAM_STAGE_SECTION_FIELDS);
+    return getMetadataObject(MetadataEntity.PROGRAM_STAGE_SECTION, id);
   }
 
   // -------------------------------------------------------------------------
@@ -2583,7 +2572,7 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if the object does not exist.
    */
   public ProgramIndicator getProgramIndicator(String id) {
-    return getMetadataObject(MetadataEntity.PROGRAM_INDICATOR, id, NAME_FIELDS);
+    return getMetadataObject(MetadataEntity.PROGRAM_INDICATOR, id);
   }
 
   /**
@@ -2665,7 +2654,7 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if the object does not exist.
    */
   public RelationshipType getRelationshipType(String id) {
-    return getMetadataObject(MetadataEntity.RELATIONSHIP_TYPE, id, RELATIONSHIP_TYPE_FIELDS);
+    return getMetadataObject(MetadataEntity.RELATIONSHIP_TYPE, id);
   }
 
   /**
@@ -2737,7 +2726,7 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if the object does not exist.
    */
   public TrackedEntityType getTrackedEntityType(String id) {
-    return getMetadataObject(MetadataEntity.TRACKED_ENTITY_TYPE, id, TRACKED_ENTITY_TYPE_FIELDS);
+    return getMetadataObject(MetadataEntity.TRACKED_ENTITY_TYPE, id);
   }
 
   /**
@@ -2829,8 +2818,7 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if the object does not exist.
    */
   public TrackedEntityAttribute getTrackedEntityAttribute(String id) {
-    return getMetadataObject(
-        MetadataEntity.TRACKED_ENTITY_ATTRIBUTE, id, TRACKED_ENTITY_ATTRIBUTE_FIELDS);
+    return getMetadataObject(MetadataEntity.TRACKED_ENTITY_ATTRIBUTE, id);
   }
 
   /**
@@ -2862,7 +2850,7 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if the object does not exist.
    */
   public User getUser(String id) {
-    return getMetadataObject(MetadataEntity.USER, id, USER_FIELDS);
+    return getMetadataObject(MetadataEntity.USER, id);
   }
 
   /**
@@ -2924,7 +2912,7 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if the object does not exist.
    */
   public UserGroup getUserGroup(String id) {
-    return getMetadataObject(MetadataEntity.USER_GROUP, id, USER_GROUP_FIELDS);
+    return getMetadataObject(MetadataEntity.USER_GROUP, id);
   }
 
   /**
@@ -3006,7 +2994,7 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if the object does not exist.
    */
   public UserRole getUserRole(String id) {
-    return getMetadataObject(MetadataEntity.USER_ROLE, id, USER_ROLE_FIELDS);
+    return getMetadataObject(MetadataEntity.USER_ROLE, id);
   }
 
   /**
@@ -3058,7 +3046,7 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if the object does not exist.
    */
   public Visualization getVisualization(String id) {
-    return getMetadataObject(MetadataEntity.VISUALIZATION, id, NAME_FIELDS);
+    return getMetadataObject(MetadataEntity.VISUALIZATION, id);
   }
 
   /**
