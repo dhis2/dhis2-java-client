@@ -928,10 +928,10 @@ public class BaseDhis2 {
     try (CloseableHttpResponse response = httpClient.execute(request)) {
       handleErrors(response, request.getRequestUri());
 
-      int statusCode = response.getCode();
+      int code = response.getCode();
       String responseBody = EntityUtils.toString(response.getEntity());
 
-      log(statusCode, "Response body: '{}'", responseBody);
+      log(code, "Response body: '{}'", responseBody);
 
       T responseMessage = objectMapper.readValue(responseBody, type);
 
@@ -1074,7 +1074,7 @@ public class BaseDhis2 {
     if (ERROR_STATUS_CODES.contains(code)) {
       String message = String.format("%s (%d)", getErrorMessage(code), code);
 
-      log.warn("Error URL: '{}'", url);
+      log(code, "Error URL: '{}'", url);
 
       throw new Dhis2ClientException(message, code);
     }
@@ -1098,7 +1098,7 @@ public class BaseDhis2 {
     if (GET_ERROR_STATUS_CODES.contains(code)) {
       String responseBody = EntityUtils.toString(response.getEntity());
 
-      log.warn("Response body: '{}'", responseBody);
+      log(code, "Response body: '{}'", responseBody);
 
       Response objResp = readValue(responseBody, Response.class);
 
