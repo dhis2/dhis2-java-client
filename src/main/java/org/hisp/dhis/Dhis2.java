@@ -30,6 +30,7 @@ package org.hisp.dhis;
 import static org.hisp.dhis.Constants.SUPER_ADMIN_AUTH;
 import static org.hisp.dhis.util.CollectionUtils.asList;
 import static org.hisp.dhis.util.CollectionUtils.list;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -682,7 +683,7 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if the object does not exist.
    */
   public CategoryOption getCategoryOption(String id) {
-    return getMetadataObject(MetadataEntity.CATEGORY_OPTION, id, CATEGORY_OPTION_FIELDS);
+    return getMetadataObject(MetadataEntity.CATEGORY_OPTION, id, CATEGORY_OPTION_EXT_FIELDS);
   }
 
   /**
@@ -703,11 +704,8 @@ public class Dhis2 extends BaseDhis2 {
    */
   public List<CategoryOption> getCategoryOptions(Query query) {
     String fieldsParam =
-        query.isExpandAssociations()
-            ? String.format(
-                "%1$s,categoryOptionCombos[id,name],organisationUnits[id,name]",
-                CATEGORY_OPTION_FIELDS)
-            : CATEGORY_OPTION_FIELDS;
+        query.isExpandAssociations() ? CATEGORY_OPTION_EXT_FIELDS : CATEGORY_OPTION_FIELDS;
+
     return getObject(
             config
                 .getResolvedUriBuilder()
@@ -1125,7 +1123,7 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if the object does not exist.
    */
   public DataElement getDataElement(String id) {
-    return getMetadataObject(MetadataEntity.DATA_ELEMENT, id, DATA_ELEMENT_FIELDS);
+    return getMetadataObject(MetadataEntity.DATA_ELEMENT, id, DATA_ELEMENT_EXT_FIELDS);
   }
 
   /**
@@ -1146,13 +1144,8 @@ public class Dhis2 extends BaseDhis2 {
    */
   public List<DataElement> getDataElements(Query query) {
     String fieldsParam =
-        query.isExpandAssociations()
-            ? String.format(
-                """
-                %1$s,dataElementGroups[id,code,name,groupSets[id,code,name]],\
-                dataSetElements[dataSet[id,name,periodType,workflow[id,name]]]""",
-                DATA_ELEMENT_FIELDS)
-            : DATA_ELEMENT_FIELDS;
+        query.isExpandAssociations() ? DATA_ELEMENT_EXT_FIELDS : DATA_ELEMENT_FIELDS;
+
     return getObject(
             config
                 .getResolvedUriBuilder()
@@ -1235,8 +1228,9 @@ public class Dhis2 extends BaseDhis2 {
    * @return list of {@link DataElementGroup}.
    */
   public List<DataElementGroup> getDataElementGroups(Query query) {
-    String fieldsParams = query.isExpandAssociations() ? DATA_ELEMENT_GROUP_EXT_FIELDS : NAME_FIELDS;
-    
+    String fieldsParams =
+        query.isExpandAssociations() ? DATA_ELEMENT_GROUP_EXT_FIELDS : NAME_FIELDS;
+
     return getObject(
             config
                 .getResolvedUriBuilder()
@@ -1352,12 +1346,7 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if the object does not exist.
    */
   public DataSet getDataSet(String id) {
-    String fieldsParam =
-        String.format(
-            "%1$s,organisationUnits[%2$s],workflow[%2$s],indicators[%2$s],sections[%2$s],legendSets[%2$s]",
-            DATA_SET_FIELDS, NAME_FIELDS);
-
-    return getMetadataObject(MetadataEntity.DATA_SET, id, fieldsParam);
+    return getMetadataObject(MetadataEntity.DATA_SET, id, DATA_SET_EXT_FIELDS);
   }
 
   /**
@@ -1377,12 +1366,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return list of {@link DataSet}.
    */
   public List<DataSet> getDataSets(Query query) {
-    String fieldsParam =
-        query.isExpandAssociations()
-            ? String.format(
-                "%1$s,organisationUnits[%2$s],workflow[%2$s],indicators[%2$s],sections[%2$s],legendSets[%2$s]",
-                DATA_SET_FIELDS, NAME_FIELDS)
-            : DATA_SET_FIELDS;
+    String fieldsParam = query.isExpandAssociations() ? DATA_SET_EXT_FIELDS : DATA_SET_FIELDS;
 
     return getObject(
             config
@@ -2277,9 +2261,7 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if the object does not exist.
    */
   public OptionSet getOptionSet(String id) {
-    String fieldsParam = String.format("%1$s,options[%2$s]", OPTION_SET_FIELDS, NAME_FIELDS);
-
-    return getMetadataObject(MetadataEntity.OPTION_SET, id, fieldsParam);
+    return getMetadataObject(MetadataEntity.OPTION_SET, id, OPTION_SET_EXT_FIELDS);
   }
 
   /**
@@ -2299,10 +2281,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return list of {@link OptionSet}.
    */
   public List<OptionSet> getOptionSets(Query query) {
-    String fieldsParam =
-        query.isExpandAssociations()
-            ? String.format("%1$s,options[%2$s]", ID_FIELDS, NAME_FIELDS)
-            : OPTION_SET_FIELDS;
+    String fieldsParam = query.isExpandAssociations() ? OPTION_SET_EXT_FIELDS : OPTION_SET_FIELDS;
 
     return getObject(
             config
@@ -2378,7 +2357,7 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if the object does not exist.
    */
   public Program getProgram(String id) {
-    return getMetadataObject(MetadataEntity.PROGRAM, id, PROGRAM_FIELDS);
+    return getMetadataObject(MetadataEntity.PROGRAM, id, PROGRAM_EXT_FIELDS);
   }
 
   /**
@@ -2398,16 +2377,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return list of {@link Program}.
    */
   public List<Program> getPrograms(Query query) {
-    String fieldsParam =
-        query.isExpandAssociations()
-            ? PROGRAM_FIELDS
-            : String.format(
-                """
-                %1$s,programType,trackedEntityType[%1$s],categoryCombo[%1$s],\
-                programSections[%1$s],\
-                programStages[%1$s],\
-                programTrackedEntityAttributes[id,code,name,trackedEntityAttribute[%2$s]]""",
-                NAME_FIELDS, TRACKED_ENTITY_ATTRIBUTE_FIELDS);
+    String fieldsParam = query.isExpandAssociations() ? PROGRAM_FIELDS : PROGRAM_EXT_FIELDS;
 
     return getObject(
             config
