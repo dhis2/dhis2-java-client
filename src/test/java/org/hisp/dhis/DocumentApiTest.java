@@ -40,6 +40,7 @@ import org.hisp.dhis.model.Document;
 import org.hisp.dhis.response.HttpStatus;
 import org.hisp.dhis.response.object.ObjectResponse;
 import org.hisp.dhis.support.TestTags;
+import org.hisp.dhis.util.UidUtils;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
@@ -63,12 +64,13 @@ class DocumentApiTest {
   @Test
   void testSaveWriteDocumentDataAndRemoveDocument() {
     Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+    String uid = UidUtils.generateUid();
 
     String documentURL = TestFixture.DEFAULT_URL + "/api/options/Y1ILwhy5VDY.json";
 
     Document document = new Document();
-    document.setName("Test Document");
-    document.setCode("DOC_TEST_CODE");
+    document.setName(uid);
+    document.setCode(uid);
     document.setUrl(documentURL);
     document.setAttachment(true);
     document.setExternal(true);
@@ -83,8 +85,8 @@ class DocumentApiTest {
 
     assertNotNull(document);
     assertEquals(documentUid, document.getId());
-    assertEquals("Test Document", document.getName());
-    assertEquals("DOC_TEST_CODE", document.getCode());
+    assertEquals(uid, document.getName());
+    assertEquals(uid, document.getCode());
     assertEquals(documentURL, document.getUrl());
     assertTrue(document.isExternal());
     assertTrue(document.isAttachment());

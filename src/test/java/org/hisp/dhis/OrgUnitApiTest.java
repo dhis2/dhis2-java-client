@@ -90,8 +90,8 @@ class OrgUnitApiTest {
     Attribute atB = new Attribute();
     atB.setId("n2xYlNbsfko");
 
-    AttributeValue avA = new AttributeValue(atA, "KE7651");
-    AttributeValue avB = new AttributeValue(atB, "NG8749");
+    AttributeValue avA = new AttributeValue(atA, "KE " + uidA);
+    AttributeValue avB = new AttributeValue(atB, "NG " + uidA);
 
     OrgUnit ouA = new OrgUnit(uidA, uidA, uidA);
     ouA.setOpeningDate(new Date());
