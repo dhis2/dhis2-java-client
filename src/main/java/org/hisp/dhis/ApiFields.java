@@ -37,13 +37,9 @@ public class ApiFields {
 
   /** Nameable object fields. */
   public static final String NAME_FIELDS = String.format("%s,shortName,description", ID_FIELDS);
-
-  /** Option set fields. */
-  public static final String OPTION_SET_FIELDS = String.format("%s,valueType,version", ID_FIELDS);
-
-  /** Option set extended fields. */
-  public static final String OPTION_SET_EXT_FIELDS =
-      String.format("%1$s,options[%2$s]", OPTION_SET_FIELDS, NAME_FIELDS);
+  
+  public static final String ANALYTICS_TABLE_HOOK_FIELDS = 
+      String.format("%s,phase,resourceTableType,analyticsTableType,sql", ID_FIELDS);
 
   /** Category option fields. */
   public static final String CATEGORY_OPTION_FIELDS =
@@ -83,6 +79,16 @@ public class ApiFields {
       String.format(
           "%1$s,dataDimensionType,dataDimension,categoryOptions[%2$s],categoryCombos[%2$s]",
           NAME_FIELDS, ID_FIELDS);
+
+  /** Option fields. */
+  public static final String OPTION_FIELDS = NAME_FIELDS;
+  
+  /** Option set fields. */
+  public static final String OPTION_SET_FIELDS = String.format("%s,valueType,version", ID_FIELDS);
+
+  /** Option set extended fields. */
+  public static final String OPTION_SET_EXT_FIELDS =
+      String.format("%1$s,options[%2$s]", OPTION_SET_FIELDS, NAME_FIELDS);
 
   /** Data element group set fields. */
   public static final String DASHBOARD_FIELDS = String.format("%1$s,embedded[*]", NAME_FIELDS);
@@ -189,6 +195,9 @@ public class ApiFields {
   /** Org unit level fields. */
   public static final String ORG_UNIT_LEVEL_FIELDS = String.format("%s,level", ID_FIELDS);
 
+  /** Map fields. */
+  public static final String MAP_FIELDS = NAME_FIELDS;
+
   /** Me / current user fields. */
   public static final String ME_FIELDS =
       String.format(
@@ -217,12 +226,14 @@ public class ApiFields {
           displayInList,mandatory,searchable]""",
           NAME_FIELDS, TRACKED_ENTITY_ATTRIBUTE_FIELDS);
 
+  /** Tracked entity enrollment fields. */
   public static final String TRACKED_ENTITY_ENROLLMENT_FIELDS =
       """
       enrollment,program,trackedEntity,status,orgUnit,createdAt,createdAtClient,\
       updatedAt,updatedAtClient,enrolledAt,occurredAt,completedAt,\
       followUp,deleted,completedBy,storedBy""";
 
+  /** Tracked entity type fields. */
   public static final String TRACKED_ENTITY_FIELDS =
       String.format(
           """
@@ -232,25 +243,32 @@ public class ApiFields {
           enrollments[%1$s]""",
           TRACKED_ENTITY_ENROLLMENT_FIELDS);
 
+  /** Relationship type fields. */
   public static final String RELATIONSHIP_TYPE_FIELDS =
       String.format(
           """
           %1$s,fromConstraint,toConstraint,description,bidirectional,fromToName,\
           toFromName,referral""",
           ID_FIELDS);
+  
+  /** Program indicator fields. */
+  public static final String PROGRAM_INDICATOR_FIELDS = NAME_FIELDS;
 
+  /** Program section fields. */
   public static final String PROGRAM_SECTION_FIELDS =
       String.format(
           """
           %1$s,sortOrder,program[%1$s],trackedEntityAttributes[%1$s]""",
           NAME_FIELDS);
 
+  /** Program stage section fields. */
   public static final String PROGRAM_STAGE_SECTION_FIELDS =
       String.format(
           """
         %1$s,programStage[%1$s],formName,sortOrder,dataElements[%1$s],programIndicators[%1$s]""",
           NAME_FIELDS);
 
+  /** Program stage fields. */
   public static final String PROGRAM_STAGE_FIELDS =
       String.format(
           """
@@ -320,4 +338,7 @@ public class ApiFields {
           id,leftsideValue,rightsideValue,dayInPeriod,notificationSent,\
           validationRule[%1$s],period[%2$s],organisationUnit[%2$s],attributeOptionCombo[%2$s]""",
           VALIDATION_RULE_FIELDS, ID_FIELDS);
+  
+  /** Visualization fields. */
+  public static final String VISUALIZATION_FIELDS = NAME_FIELDS;
 }
