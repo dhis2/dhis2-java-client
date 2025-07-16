@@ -224,6 +224,15 @@ To update a metadata object:
 ObjectResponse response = dhis2.updateMetadataObject(dataElement);
 ```
 
+### Get object
+
+To retrieve a metadata object by identifier:
+
+```java
+DataElement dataElemnet = dhis2
+    .getMetadataObject(MetadataEntity.DATA_ELEMENT, "n5U1wOiyoUr");
+```
+
 ### Remove object
 
 To remove a metadata object:
