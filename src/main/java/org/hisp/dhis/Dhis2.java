@@ -547,6 +547,7 @@ public class Dhis2 extends BaseDhis2 {
   public <T extends IdentifiableObject> T getMetadataObject(MetadataEntity entity, String id) {
     // Unchecked cast is safe as all metadata entities extend identifiable object
     String path = entity.getPath();
+    String fields = entity.getExtFields();
     Class<T> type = (Class<T>) entity.getType();
 
     return getObject(
@@ -554,7 +555,7 @@ public class Dhis2 extends BaseDhis2 {
             .getResolvedUriBuilder()
             .appendPath(path)
             .appendPath(id)
-            .addParameter(FIELDS_PARAM, path),
+            .addParameter(FIELDS_PARAM, fields),
         Query.instance(),
         type);
   }
@@ -569,10 +570,10 @@ public class Dhis2 extends BaseDhis2 {
    */
   public Dhis2Objects getMetadataObjects(MetadataEntity entity, Query query) {
     String path = entity.getPath();
-    String fieldsParam = query.isExpandAssociations() ? entity.getExtFields() : entity.getFields();
+    String fields = query.isExpandAssociations() ? entity.getExtFields() : entity.getFields();
 
     return getObject(
-        config.getResolvedUriBuilder().appendPath(path).addParameter(FIELDS_PARAM, fieldsParam),
+        config.getResolvedUriBuilder().appendPath(path).addParameter(FIELDS_PARAM, fields),
         query,
         Dhis2Objects.class);
   }
