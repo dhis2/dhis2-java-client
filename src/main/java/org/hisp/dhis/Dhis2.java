@@ -30,7 +30,6 @@ package org.hisp.dhis;
 import static org.hisp.dhis.Constants.SUPER_ADMIN_AUTH;
 import static org.hisp.dhis.util.CollectionUtils.asList;
 import static org.hisp.dhis.util.CollectionUtils.list;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -1216,7 +1215,7 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if the object does not exist.
    */
   public DataElementGroup getDataElementGroup(String id) {
-    return getMetadataObject(MetadataEntity.DATA_ELEMENT_GROUP, id, DATA_ELEMENT_GROUP_FIELDS);
+    return getMetadataObject(MetadataEntity.DATA_ELEMENT_GROUP, id, DATA_ELEMENT_GROUP_EXT_FIELDS);
   }
 
   /**
@@ -1236,7 +1235,8 @@ public class Dhis2 extends BaseDhis2 {
    * @return list of {@link DataElementGroup}.
    */
   public List<DataElementGroup> getDataElementGroups(Query query) {
-    String fieldsParams = query.isExpandAssociations() ? DATA_ELEMENT_GROUP_FIELDS : NAME_FIELDS;
+    String fieldsParams = query.isExpandAssociations() ? DATA_ELEMENT_GROUP_EXT_FIELDS : NAME_FIELDS;
+    
     return getObject(
             config
                 .getResolvedUriBuilder()
@@ -1659,7 +1659,7 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if the object does not exist.
    */
   public IndicatorGroup getIndicatorGroup(String id) {
-    return getMetadataObject(MetadataEntity.INDICATOR_GROUP, id, INDICATOR_GROUP_FIELDS);
+    return getMetadataObject(MetadataEntity.INDICATOR_GROUP, id, INDICATOR_GROUP_EXT_FIELDS);
   }
 
   /**
@@ -1679,7 +1679,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return list of {@link IndicatorGroup}.
    */
   public List<IndicatorGroup> getIndicatorGroups(Query query) {
-    String fieldsParams = query.isExpandAssociations() ? INDICATOR_GROUP_FIELDS : NAME_FIELDS;
+    String fieldsParams = query.isExpandAssociations() ? INDICATOR_GROUP_EXT_FIELDS : NAME_FIELDS;
 
     return getObject(
             config
@@ -2040,7 +2040,7 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if the object does not exist.
    */
   public OrgUnitGroup getOrgUnitGroup(String id) {
-    return getMetadataObject(MetadataEntity.ORG_UNIT_GROUP, id, ORG_UNIT_GROUP_FIELDS);
+    return getMetadataObject(MetadataEntity.ORG_UNIT_GROUP, id, ORG_UNIT_GROUP_EXT_FIELDS);
   }
 
   /**
@@ -2060,7 +2060,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return list of {@link OrgUnitGroup}.
    */
   public List<OrgUnitGroup> getOrgUnitGroups(Query query) {
-    String fieldsParams = query.isExpandAssociations() ? ORG_UNIT_GROUP_FIELDS : NAME_FIELDS;
+    String fieldsParams = query.isExpandAssociations() ? ORG_UNIT_GROUP_EXT_FIELDS : NAME_FIELDS;
 
     return getObject(
             config

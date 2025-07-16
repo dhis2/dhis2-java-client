@@ -211,7 +211,7 @@ public class BaseDhis2 {
           NAME_FIELDS, OPTION_SET_FIELDS);
 
   /** Data element group fields. */
-  protected static final String DATA_ELEMENT_GROUP_FIELDS =
+  protected static final String DATA_ELEMENT_GROUP_EXT_FIELDS =
       String.format("%1$s,dataElements[%2$s]", NAME_FIELDS, DATA_ELEMENT_FIELDS);
 
   /** Data element group set fields. */
@@ -253,7 +253,7 @@ public class BaseDhis2 {
           NAME_FIELDS, INDICATOR_TYPE_FIELDS);
 
   /** Indicator group fields. */
-  protected static final String INDICATOR_GROUP_FIELDS =
+  protected static final String INDICATOR_GROUP_EXT_FIELDS =
       String.format("%1$s,indicators[%2$s]", NAME_FIELDS, INDICATOR_FIELDS);
 
   /** Indicator group set fields. */
@@ -282,7 +282,7 @@ public class BaseDhis2 {
           NAME_FIELDS, NAME_FIELDS);
 
   /** Org unit group fields. */
-  protected static final String ORG_UNIT_GROUP_FIELDS =
+  protected static final String ORG_UNIT_GROUP_EXT_FIELDS =
       String.format("%1$s,organisationUnits[%2$s]", NAME_FIELDS, ORG_UNIT_FIELDS);
 
   /** Org unit group set fields. */
