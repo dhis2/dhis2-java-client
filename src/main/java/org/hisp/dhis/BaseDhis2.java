@@ -210,6 +210,10 @@ public class BaseDhis2 {
           "%1$s,aggregationType,valueType,domainType,url,legendSets[%1$s],optionSet[%2$s]",
           NAME_FIELDS, OPTION_SET_FIELDS);
 
+  /** Data element group fields. */
+  protected static final String DATA_ELEMENT_GROUP_FIELDS =
+      String.format("%1$s,dataElements[%2$s]", NAME_FIELDS, DATA_ELEMENT_FIELDS);
+
   /** Data element group set fields. */
   protected static final String DATA_ELEMENT_GROUP_SET_FIELDS =
       String.format(
@@ -248,6 +252,10 @@ public class BaseDhis2 {
           denominator,denominatorDescription,url,indicatorType[%2$s]""",
           NAME_FIELDS, INDICATOR_TYPE_FIELDS);
 
+  /** Indicator group fields. */
+  protected static final String INDICATOR_GROUP_FIELDS =
+      String.format("%1$s,indicators[%2$s]", NAME_FIELDS, INDICATOR_FIELDS);
+
   /** Indicator group set fields. */
   protected static final String INDICATOR_GROUP_SET_FIELDS =
       String.format("%1$s,compulsory,indicatorGroups[%1$s]", NAME_FIELDS);
@@ -272,6 +280,10 @@ public class BaseDhis2 {
           %s,path,level,parent[%s],openingDate,closedDate,comment,url,
           contactPerson,address,email,phoneNumber""",
           NAME_FIELDS, NAME_FIELDS);
+
+  /** Org unit group fields. */
+  protected static final String ORG_UNIT_GROUP_FIELDS =
+      String.format("%1$s,organisationUnits[%2$s]", NAME_FIELDS, ORG_UNIT_FIELDS);
 
   /** Org unit group set fields. */
   protected static final String ORG_UNIT_GROUP_SET_FIELDS =

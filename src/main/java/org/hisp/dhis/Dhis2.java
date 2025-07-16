@@ -1216,10 +1216,7 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if the object does not exist.
    */
   public DataElementGroup getDataElementGroup(String id) {
-    String fieldsParams =
-        String.format("%1$s,dataElements[%2$s]", NAME_FIELDS, DATA_ELEMENT_FIELDS);
-
-    return getMetadataObject(MetadataEntity.DATA_ELEMENT_GROUP, id, fieldsParams);
+    return getMetadataObject(MetadataEntity.DATA_ELEMENT_GROUP, id, DATA_ELEMENT_GROUP_FIELDS);
   }
 
   /**
@@ -1239,10 +1236,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return list of {@link DataElementGroup}.
    */
   public List<DataElementGroup> getDataElementGroups(Query query) {
-    String fieldsParams =
-        query.isExpandAssociations()
-            ? String.format("%1$s,dataElements[%2$s]", NAME_FIELDS, DATA_ELEMENT_FIELDS)
-            : NAME_FIELDS;
+    String fieldsParams = query.isExpandAssociations() ? DATA_ELEMENT_GROUP_FIELDS : NAME_FIELDS;
     return getObject(
             config
                 .getResolvedUriBuilder()
@@ -1665,9 +1659,7 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if the object does not exist.
    */
   public IndicatorGroup getIndicatorGroup(String id) {
-    String fieldsParams = String.format("%1$s,indicators[%2$s]", NAME_FIELDS, INDICATOR_FIELDS);
-
-    return getMetadataObject(MetadataEntity.INDICATOR_GROUP, id, fieldsParams);
+    return getMetadataObject(MetadataEntity.INDICATOR_GROUP, id, INDICATOR_GROUP_FIELDS);
   }
 
   /**
@@ -1687,10 +1679,8 @@ public class Dhis2 extends BaseDhis2 {
    * @return list of {@link IndicatorGroup}.
    */
   public List<IndicatorGroup> getIndicatorGroups(Query query) {
-    String fieldsParams =
-        query.isExpandAssociations()
-            ? String.format("%1$s,indicators[%2$s]", NAME_FIELDS, INDICATOR_FIELDS)
-            : NAME_FIELDS;
+    String fieldsParams = query.isExpandAssociations() ? INDICATOR_GROUP_FIELDS : NAME_FIELDS;
+
     return getObject(
             config
                 .getResolvedUriBuilder()
@@ -2050,10 +2040,7 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if the object does not exist.
    */
   public OrgUnitGroup getOrgUnitGroup(String id) {
-    String fieldsParams =
-        String.format("%1$s,organisationUnits[%2$s]", NAME_FIELDS, ORG_UNIT_FIELDS);
-
-    return getMetadataObject(MetadataEntity.ORG_UNIT_GROUP, id, fieldsParams);
+    return getMetadataObject(MetadataEntity.ORG_UNIT_GROUP, id, ORG_UNIT_GROUP_FIELDS);
   }
 
   /**
@@ -2073,10 +2060,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return list of {@link OrgUnitGroup}.
    */
   public List<OrgUnitGroup> getOrgUnitGroups(Query query) {
-    String fieldsParams =
-        query.isExpandAssociations()
-            ? String.format("%1$s,organisationUnits[id,code,name]", NAME_FIELDS)
-            : NAME_FIELDS;
+    String fieldsParams = query.isExpandAssociations() ? ORG_UNIT_GROUP_FIELDS : NAME_FIELDS;
 
     return getObject(
             config
@@ -2295,14 +2279,7 @@ public class Dhis2 extends BaseDhis2 {
   public OptionSet getOptionSet(String id) {
     String fieldsParam = String.format("%1$s,options[%2$s]", OPTION_SET_FIELDS, NAME_FIELDS);
 
-    return getObject(
-        config
-            .getResolvedUriBuilder()
-            .appendPath("optionSets")
-            .appendPath(id)
-            .addParameter(FIELDS_PARAM, fieldsParam),
-        Query.instance(),
-        OptionSet.class);
+    return getMetadataObject(MetadataEntity.OPTION_SET, id, fieldsParam);
   }
 
   /**
@@ -2359,14 +2336,7 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if the object does not exist.
    */
   public Option getOption(String id) {
-    return getObject(
-        config
-            .getResolvedUriBuilder()
-            .appendPath("options")
-            .appendPath(id)
-            .addParameter(FIELDS_PARAM, ID_FIELDS),
-        Query.instance(),
-        Option.class);
+    return getMetadataObject(MetadataEntity.OPTION, id, ID_FIELDS);
   }
 
   /**
@@ -2408,14 +2378,7 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if the object does not exist.
    */
   public Program getProgram(String id) {
-    return getObject(
-        config
-            .getResolvedUriBuilder()
-            .appendPath("programs")
-            .appendPath(id)
-            .addParameter(FIELDS_PARAM, PROGRAM_FIELDS),
-        Query.instance(),
-        Program.class);
+    return getMetadataObject(MetadataEntity.PROGRAM, id, PROGRAM_FIELDS);
   }
 
   /**
@@ -2489,14 +2452,7 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if the object does not exist.
    */
   public ProgramSection getProgramSection(String id) {
-    return getObject(
-        config
-            .getResolvedUriBuilder()
-            .appendPath("programSections")
-            .appendPath(id)
-            .addParameter(FIELDS_PARAM, PROGRAM_SECTION_FIELDS),
-        Query.instance(),
-        ProgramSection.class);
+    return getMetadataObject(MetadataEntity.PROGRAM_SECTION, id, PROGRAM_SECTION_FIELDS);
   }
 
   // -------------------------------------------------------------------------
@@ -2511,14 +2467,7 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if the object does not exist.
    */
   public ProgramStage getProgramStage(String id) {
-    return getObject(
-        config
-            .getResolvedUriBuilder()
-            .appendPath("programStages")
-            .appendPath(id)
-            .addParameter(FIELDS_PARAM, PROGRAM_STAGE_FIELDS),
-        Query.instance(),
-        ProgramStage.class);
+    return getMetadataObject(MetadataEntity.PROGRAM_STAGE, id, PROGRAM_STAGE_FIELDS);
   }
 
   // -------------------------------------------------------------------------
@@ -2533,14 +2482,8 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if the object does not exist.
    */
   public ProgramStageSection getProgramStageSection(String id) {
-    return getObject(
-        config
-            .getResolvedUriBuilder()
-            .appendPath("programStageSections")
-            .appendPath(id)
-            .addParameter(FIELDS_PARAM, PROGRAM_STAGE_SECTION_FIELDS),
-        Query.instance(),
-        ProgramStageSection.class);
+    return getMetadataObject(
+        MetadataEntity.PROGRAM_STAGE_SECTION, id, PROGRAM_STAGE_SECTION_FIELDS);
   }
 
   // -------------------------------------------------------------------------
@@ -2555,14 +2498,7 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if the object does not exist.
    */
   public ProgramIndicator getProgramIndicator(String id) {
-    return getObject(
-        config
-            .getResolvedUriBuilder()
-            .appendPath("programIndicators")
-            .appendPath(id)
-            .addParameter(FIELDS_PARAM, NAME_FIELDS),
-        Query.instance(),
-        ProgramIndicator.class);
+    return getMetadataObject(MetadataEntity.PROGRAM_INDICATOR, id, NAME_FIELDS);
   }
 
   /**
@@ -2634,14 +2570,7 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if the object does not exist.
    */
   public TrackedEntityType getTrackedEntityType(String id) {
-    return getObject(
-        config
-            .getResolvedUriBuilder()
-            .appendPath("trackedEntityTypes")
-            .appendPath(id)
-            .addParameter(FIELDS_PARAM, TRACKED_ENTITY_TYPE_FIELDS),
-        Query.instance(),
-        TrackedEntityType.class);
+    return getMetadataObject(MetadataEntity.TRACKED_ENTITY_TYPE, id, TRACKED_ENTITY_TYPE_FIELDS);
   }
 
   /**
@@ -2733,7 +2662,8 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if the object does not exist.
    */
   public TrackedEntityAttribute getTrackedEntityAttribute(String id) {
-    return getObject("trackedEntityAttributes", id, TrackedEntityAttribute.class);
+    return getMetadataObject(
+        MetadataEntity.TRACKED_ENTITY_ATTRIBUTE, id, TRACKED_ENTITY_ATTRIBUTE_FIELDS);
   }
 
   /**
@@ -2765,14 +2695,7 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if the object does not exist.
    */
   public User getUser(String id) {
-    return getObject(
-        config
-            .getResolvedUriBuilder()
-            .appendPath("users")
-            .appendPath(id)
-            .addParameter(FIELDS_PARAM, USER_FIELDS),
-        Query.instance(),
-        User.class);
+    return getMetadataObject(MetadataEntity.USER, id, USER_FIELDS);
   }
 
   /**
@@ -2795,51 +2718,6 @@ public class Dhis2 extends BaseDhis2 {
   // -------------------------------------------------------------------------
   // User groups
   // -------------------------------------------------------------------------
-
-  /**
-   * Retrieves a {@link UserGroup}.
-   *
-   * @param id the object identifier.
-   * @return the {@link UserGroup}.
-   * @throws Dhis2ClientException if the object does not exist.
-   */
-  public UserGroup getUserGroup(String id) {
-    return getObject(
-        config
-            .getResolvedUriBuilder()
-            .appendPath("userGroups")
-            .appendPath(id)
-            .addParameter(FIELDS_PARAM, USER_GROUP_FIELDS),
-        Query.instance(),
-        UserGroup.class);
-  }
-
-  /**
-   * Indicates whether a {@link UserGroup} exists.
-   *
-   * @param id the object identifier.
-   * @return true if the object exists.
-   */
-  public boolean isUserGroup(String id) {
-    return objectExists(MetadataEntity.USER_GROUP, id);
-  }
-
-  /**
-   * Retrieves a list of {@link UserGroup}.
-   *
-   * @param query the {@link Query}.
-   * @return list of {@link UserGroup}.
-   */
-  public List<UserGroup> getUserGroups(Query query) {
-    return getObject(
-            config
-                .getResolvedUriBuilder()
-                .appendPath("userGroups")
-                .addParameter(FIELDS_PARAM, USER_GROUP_FIELDS),
-            query,
-            Dhis2Objects.class)
-        .getUserGroups();
-  }
 
   /**
    * Saves a {@link UserGroup}.
@@ -2869,6 +2747,44 @@ public class Dhis2 extends BaseDhis2 {
    */
   public ObjectResponse updateUserGroup(UserGroup userGroup) {
     return updateMetadataObject(userGroup);
+  }
+
+  /**
+   * Retrieves a {@link UserGroup}.
+   *
+   * @param id the object identifier.
+   * @return the {@link UserGroup}.
+   * @throws Dhis2ClientException if the object does not exist.
+   */
+  public UserGroup getUserGroup(String id) {
+    return getMetadataObject(MetadataEntity.USER_GROUP, id, USER_GROUP_FIELDS);
+  }
+
+  /**
+   * Indicates whether a {@link UserGroup} exists.
+   *
+   * @param id the object identifier.
+   * @return true if the object exists.
+   */
+  public boolean isUserGroup(String id) {
+    return objectExists(MetadataEntity.USER_GROUP, id);
+  }
+
+  /**
+   * Retrieves a list of {@link UserGroup}.
+   *
+   * @param query the {@link Query}.
+   * @return list of {@link UserGroup}.
+   */
+  public List<UserGroup> getUserGroups(Query query) {
+    return getObject(
+            config
+                .getResolvedUriBuilder()
+                .appendPath("userGroups")
+                .addParameter(FIELDS_PARAM, USER_GROUP_FIELDS),
+            query,
+            Dhis2Objects.class)
+        .getUserGroups();
   }
 
   /**
@@ -2923,14 +2839,7 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if the object does not exist.
    */
   public UserRole getUserRole(String id) {
-    return getObject(
-        config
-            .getResolvedUriBuilder()
-            .appendPath("userRoles")
-            .appendPath(id)
-            .addParameter(FIELDS_PARAM, USER_ROLE_FIELDS),
-        Query.instance(),
-        UserRole.class);
+    return getMetadataObject(MetadataEntity.USER_ROLE, id, USER_ROLE_FIELDS);
   }
 
   /**
@@ -2975,16 +2884,6 @@ public class Dhis2 extends BaseDhis2 {
   // -------------------------------------------------------------------------
 
   /**
-   * Removes a {@link Visualization}.
-   *
-   * @param id the identifier of the object to remove.
-   * @return {@link ObjectResponse} holding information about the operation.
-   */
-  public ObjectResponse removeVisualization(String id) {
-    return removeMetadataObject(MetadataEntity.VISUALIZATION, id);
-  }
-
-  /**
    * Retrieves a {@link Visualization}.
    *
    * @param id the object identifier.
@@ -2992,14 +2891,7 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if the object does not exist.
    */
   public Visualization getVisualization(String id) {
-    return getObject(
-        config
-            .getResolvedUriBuilder()
-            .appendPath("visualizations")
-            .appendPath(id)
-            .addParameter(FIELDS_PARAM, NAME_FIELDS),
-        Query.instance(),
-        Visualization.class);
+    return getMetadataObject(MetadataEntity.VISUALIZATION, id, NAME_FIELDS);
   }
 
   /**
@@ -3027,6 +2919,16 @@ public class Dhis2 extends BaseDhis2 {
             query,
             Dhis2Objects.class)
         .getVisualizations();
+  }
+
+  /**
+   * Removes a {@link Visualization}.
+   *
+   * @param id the identifier of the object to remove.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse removeVisualization(String id) {
+    return removeMetadataObject(MetadataEntity.VISUALIZATION, id);
   }
 
   // -------------------------------------------------------------------------
@@ -3590,14 +3492,7 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if the object does not exist.
    */
   public RelationshipType getRelationshipType(String id) {
-    return getObject(
-        config
-            .getResolvedUriBuilder()
-            .appendPath("relationshipTypes")
-            .appendPath(id)
-            .addParameter(FIELDS_PARAM, RELATIONSHIP_TYPE_FIELDS),
-        Query.instance(),
-        RelationshipType.class);
+    return getMetadataObject(MetadataEntity.RELATIONSHIP_TYPE, id, RELATIONSHIP_TYPE_FIELDS);
   }
 
   /**
