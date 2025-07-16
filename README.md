@@ -233,6 +233,16 @@ DataElement dataElement = dhis2
     .getMetadataObject(MetadataEntity.DATA_ELEMENT, "n5U1wOiyoUr");
 ```
 
+### Query objects
+
+To query metadata objects:
+
+```java
+List<DataElement> dataElements = dhis2
+    .getMetadataObjects(entity, Query.instance()
+        .addFilter(Filter.eq("id", "n5U1wOiyoUr")));
+```
+
 ### Remove object
 
 To remove a metadata object:
