@@ -167,11 +167,20 @@ public class BaseDhis2 {
   protected static final String OPTION_SET_FIELDS =
       String.format("%s,valueType,version", ID_FIELDS);
 
+  /** Option set extended fields. */
+  protected static final String OPTION_SET_EXT_FIELDS =
+      String.format("%1$s,options[%2$s]", OPTION_SET_FIELDS, NAME_FIELDS);
+
   /** Category option fields. */
   protected static final String CATEGORY_OPTION_FIELDS =
       String.format(
           "%1$s,shortName,startDate,endDate,formName,categories[%1$s],organisationUnits[%1$s]",
           NAME_FIELDS);
+
+  /** Category option extended fields. */
+  protected static final String CATEGORY_OPTION_EXT_FIELDS =
+      String.format(
+          "%1$s,categoryOptionCombos[id,name],organisationUnits[id,name]", CATEGORY_OPTION_FIELDS);
 
   /** Category option combo fields. */
   protected static final String CATEGORY_OPTION_COMBO_FIELDS =
@@ -210,8 +219,16 @@ public class BaseDhis2 {
           "%1$s,aggregationType,valueType,domainType,url,legendSets[%1$s],optionSet[%2$s]",
           NAME_FIELDS, OPTION_SET_FIELDS);
 
+  /** Data element extended fields. */
+  protected static final String DATA_ELEMENT_EXT_FIELDS =
+      String.format(
+          """
+          %1$s,dataElementGroups[id,code,name,groupSets[id,code,name]],\
+          dataSetElements[dataSet[id,name,periodType,workflow[id,name]]]""",
+          DATA_ELEMENT_FIELDS);
+
   /** Data element group fields. */
-  protected static final String DATA_ELEMENT_GROUP_FIELDS =
+  protected static final String DATA_ELEMENT_GROUP_EXT_FIELDS =
       String.format("%1$s,dataElements[%2$s]", NAME_FIELDS, DATA_ELEMENT_FIELDS);
 
   /** Data element group set fields. */
@@ -253,7 +270,7 @@ public class BaseDhis2 {
           NAME_FIELDS, INDICATOR_TYPE_FIELDS);
 
   /** Indicator group fields. */
-  protected static final String INDICATOR_GROUP_FIELDS =
+  protected static final String INDICATOR_GROUP_EXT_FIELDS =
       String.format("%1$s,indicators[%2$s]", NAME_FIELDS, INDICATOR_FIELDS);
 
   /** Indicator group set fields. */
@@ -273,6 +290,12 @@ public class BaseDhis2 {
           fieldCombinationRequired,mobile,dataEntryForm[%2$s]""",
           NAME_FIELDS, ID_FIELDS);
 
+  /** Data set extended fields. */
+  protected static final String DATA_SET_EXT_FIELDS =
+      String.format(
+          "%1$s,organisationUnits[%2$s],workflow[%2$s],indicators[%2$s],sections[%2$s],legendSets[%2$s]",
+          DATA_SET_FIELDS, NAME_FIELDS);
+
   /** Org unit fields. */
   protected static final String ORG_UNIT_FIELDS =
       String.format(
@@ -282,7 +305,7 @@ public class BaseDhis2 {
           NAME_FIELDS, NAME_FIELDS);
 
   /** Org unit group fields. */
-  protected static final String ORG_UNIT_GROUP_FIELDS =
+  protected static final String ORG_UNIT_GROUP_EXT_FIELDS =
       String.format("%1$s,organisationUnits[%2$s]", NAME_FIELDS, ORG_UNIT_FIELDS);
 
   /** Org unit group set fields. */
@@ -363,7 +386,7 @@ public class BaseDhis2 {
           NAME_FIELDS, PROGRAM_STAGE_DATA_ELEMENT_FIELDS, PROGRAM_STAGE_SECTION_FIELDS);
 
   /** Program fields. */
-  protected static final String PROGRAM_FIELDS =
+  protected static final String PROGRAM_EXT_FIELDS =
       String.format(
           """
           %1$s,programType,trackedEntityType[%2$s],categoryCombo[%1$s,categories[%3$s]],\
@@ -377,6 +400,17 @@ public class BaseDhis2 {
           PROGRAM_SECTION_FIELDS,
           PROGRAM_STAGE_FIELDS,
           TRACKED_ENTITY_ATTRIBUTE_FIELDS);
+
+  /** Program extended fields. */
+  protected static final String PROGRAM_FIELDS =
+      String.format(
+          """
+          %1$s,programType,trackedEntityType[%1$s],categoryCombo[%1$s],\
+          programSections[%1$s],\
+          programStages[%1$s],\
+          programTrackedEntityAttributes[id,code,name,\
+          program[%1$s],trackedEntityAttribute[%2$s],sortOrder,displayInList,mandatory]""",
+          NAME_FIELDS, TRACKED_ENTITY_ATTRIBUTE_FIELDS);
 
   /** User fields. */
   protected static final String USER_FIELDS =
