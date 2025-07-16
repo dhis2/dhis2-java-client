@@ -928,9 +928,10 @@ public class BaseDhis2 {
     try (CloseableHttpResponse response = httpClient.execute(request)) {
       handleErrors(response, request.getRequestUri());
 
+      int code = response.getCode();
       String responseBody = EntityUtils.toString(response.getEntity());
 
-      log("Response body: '{}'", responseBody);
+      log(code, "Response body: '{}'", responseBody);
 
       T responseMessage = objectMapper.readValue(responseBody, type);
 
@@ -1073,7 +1074,7 @@ public class BaseDhis2 {
     if (ERROR_STATUS_CODES.contains(code)) {
       String message = String.format("%s (%d)", getErrorMessage(code), code);
 
-      log("Error URL: '{}'", url);
+      log(code, "Error URL: '{}'", url);
 
       throw new Dhis2ClientException(message, code);
     }
@@ -1097,7 +1098,7 @@ public class BaseDhis2 {
     if (GET_ERROR_STATUS_CODES.contains(code)) {
       String responseBody = EntityUtils.toString(response.getEntity());
 
-      log("Conflict response body: '{}'", responseBody);
+      log(code, "Response body: '{}'", responseBody);
 
       Response objResp = readValue(responseBody, Response.class);
 
@@ -1369,7 +1370,23 @@ public class BaseDhis2 {
   }
 
   /**
-   * Logs the message at debug level.
+   * Logs the message. If the given status code indicates an error, the message is logged at <code>
+   * WARN</code> level. Otherwise logging is delegated to <code>log(String, Object...)</code>.
+   *
+   * @param statusCode the HTTP status code.
+   * @param format the message format.
+   * @param arguments the message arguments.
+   */
+  private void log(int statusCode, String format, Object arguments) {
+    if (statusCode >= 400 && statusCode < 600) {
+      log.warn(format, arguments);
+    } else {
+      log(format, arguments);
+    }
+  }
+
+  /**
+   * Logs the message.
    *
    * <p>To log messages at info level during tests:
    *

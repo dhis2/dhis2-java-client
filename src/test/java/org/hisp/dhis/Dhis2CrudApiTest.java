@@ -47,16 +47,16 @@ import org.junit.jupiter.api.Test;
 @Tag(TestTags.INTEGRATION)
 class Dhis2CrudApiTest {
   @Test
-  void testCategoryOption() {
+  void testCrudCategoryOption() {
     Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
 
     String uid = UidUtils.generateUid();
     OrgUnit ouA = new OrgUnit("ueuQlqb8ccl", null);
     OrgUnit ouB = new OrgUnit("Rp268JB6Ne4", null);
 
-    String codeA = "CAT_OPT__" + uid;
-    String nameA = "Category option name__" + uid;
-    String shortNameA = "Category option short name__" + uid;
+    String codeA = "CAT_OPT_" + uid;
+    String nameA = "Category option name " + uid;
+    String shortNameA = "Category option short name " + uid;
 
     CategoryOption coA = new CategoryOption();
     coA.setCode(codeA);
@@ -127,13 +127,14 @@ class Dhis2CrudApiTest {
   }
 
   @Test
-  void testOrgUnitGroup() {
+  void testCrudOrgUnitGroup() {
     Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
 
+    String uid = UidUtils.generateUid();
     OrgUnitGroup ougA = new OrgUnitGroup();
-    ougA.setCode("ORG_UNIT_GROUP__A");
-    ougA.setName("OUG name__A");
-    ougA.setShortName("OUG short name__A");
+    ougA.setCode("ORG_UNIT_GROUP_" + uid);
+    ougA.setName("OUG name " + uid);
+    ougA.setShortName("OUG short name " + uid);
 
     // Create
 
@@ -154,7 +155,7 @@ class Dhis2CrudApiTest {
     assertNotNull(ougA);
     assertEquals(uidA, ougA.getId());
 
-    String name = "Category updated name__A";
+    String name = "Category updated name " + uid;
 
     ougA.setName(name);
 

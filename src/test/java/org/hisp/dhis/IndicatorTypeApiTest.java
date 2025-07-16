@@ -40,6 +40,7 @@ import org.hisp.dhis.query.Query;
 import org.hisp.dhis.response.HttpStatus;
 import org.hisp.dhis.response.object.ObjectResponse;
 import org.hisp.dhis.support.TestTags;
+import org.hisp.dhis.util.UidUtils;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
@@ -75,9 +76,12 @@ class IndicatorTypeApiTest {
   @Test
   void testCreateUpdateAndDeleteIndicatorType() {
     Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+    String uidA = UidUtils.generateUid();
+    String uidB = UidUtils.generateUid();
+
     IndicatorType indicatorType = new IndicatorType();
-    indicatorType.setName("Sample indicator type");
-    indicatorType.setCode("IT_SAMPLE_CODE");
+    indicatorType.setName(uidA);
+    indicatorType.setCode(uidA);
     indicatorType.setNumber(true);
     indicatorType.setFactor(2);
 
@@ -93,14 +97,14 @@ class IndicatorTypeApiTest {
 
     assertNotNull(indicatorType);
     assertEquals(indicatorTypeUid, indicatorType.getId());
-    assertEquals("Sample indicator type", indicatorType.getName());
-    assertEquals("IT_SAMPLE_CODE", indicatorType.getCode());
+    assertEquals(uidA, indicatorType.getName());
+    assertEquals(uidA, indicatorType.getCode());
     assertEquals(2, indicatorType.getFactor());
     assertTrue(indicatorType.getNumber());
     assertNotNull(indicatorType.getCreated());
     assertNotNull(indicatorType.getLastUpdated());
 
-    String updatedName = "Sample indicator type updated";
+    String updatedName = uidB;
     indicatorType.setName(updatedName);
 
     // Update

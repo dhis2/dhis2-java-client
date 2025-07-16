@@ -27,21 +27,7 @@
  */
 package org.hisp.dhis;
 
-import static org.hisp.dhis.ApiFields.ATTRIBUTE_FIELDS;
-import static org.hisp.dhis.ApiFields.CATEGORY_COMBO_FIELDS;
-import static org.hisp.dhis.ApiFields.CATEGORY_FIELDS;
 import static org.hisp.dhis.ApiFields.CATEGORY_OPTION_COMBO_FIELDS;
-import static org.hisp.dhis.ApiFields.CATEGORY_OPTION_EXT_FIELDS;
-import static org.hisp.dhis.ApiFields.CATEGORY_OPTION_FIELDS;
-import static org.hisp.dhis.ApiFields.CATEGORY_OPTION_GROUP_FIELDS;
-import static org.hisp.dhis.ApiFields.CATEGORY_OPTION_GROUP_SET_FIELDS;
-import static org.hisp.dhis.ApiFields.DASHBOARD_FIELDS;
-import static org.hisp.dhis.ApiFields.DATA_ELEMENT_EXT_FIELDS;
-import static org.hisp.dhis.ApiFields.DATA_ELEMENT_FIELDS;
-import static org.hisp.dhis.ApiFields.DATA_ELEMENT_GROUP_EXT_FIELDS;
-import static org.hisp.dhis.ApiFields.DATA_ELEMENT_GROUP_SET_FIELDS;
-import static org.hisp.dhis.ApiFields.DATA_SET_EXT_FIELDS;
-import static org.hisp.dhis.ApiFields.DATA_SET_FIELDS;
 import static org.hisp.dhis.ApiFields.DATA_SET_VALIDATION_FIELDS;
 import static org.hisp.dhis.ApiFields.DIMENSION_FIELDS;
 import static org.hisp.dhis.ApiFields.DOCUMENT_FIELDS;
@@ -271,7 +257,6 @@ public class Dhis2 extends BaseDhis2 {
       return HttpStatus.valueOf(statusCode);
     } catch (IOException ex) {
       // Return status code for exception of type HttpResponseException
-
       if (ex instanceof HttpResponseException) {
         int statusCode = ((HttpResponseException) ex).getStatusCode();
         return HttpStatus.valueOf(statusCode);
@@ -531,8 +516,9 @@ public class Dhis2 extends BaseDhis2 {
    */
   public ObjectResponse saveMetadataObject(IdentifiableObject object) {
     MetadataEntity entity = MetadataEntity.from(object);
+    String path = entity.getPath();
 
-    return saveObject(entity.getPath(), object, ObjectResponse.class);
+    return saveObject(path, object, ObjectResponse.class);
   }
 
   /**
@@ -560,16 +546,36 @@ public class Dhis2 extends BaseDhis2 {
   @SuppressWarnings("unchecked")
   public <T extends IdentifiableObject> T getMetadataObject(MetadataEntity entity, String id) {
     // Unchecked cast is safe as all metadata entities extend identifiable object
+    String path = entity.getPath();
+    String fields = entity.getExtFields();
     Class<T> type = (Class<T>) entity.getType();
 
     return getObject(
         config
             .getResolvedUriBuilder()
-            .appendPath(entity.getPath())
+            .appendPath(path)
             .appendPath(id)
-            .addParameter(FIELDS_PARAM, entity.getExtFields()),
+            .addParameter(FIELDS_PARAM, fields),
         Query.instance(),
         type);
+  }
+
+  /**
+   * Returns a collection of metadata objects based on the given query wrapped in {@link
+   * Dhis2Objects}.
+   *
+   * @param entity the {@link MetadataEntity}.
+   * @param query the {@link Query}.
+   * @return a {@link Dhis2Objects}.
+   */
+  public Dhis2Objects getMetadataObjects(MetadataEntity entity, Query query) {
+    String path = entity.getPath();
+    String fields = query.isExpandAssociations() ? entity.getExtFields() : entity.getFields();
+
+    return getObject(
+        config.getResolvedUriBuilder().appendPath(path).addParameter(FIELDS_PARAM, fields),
+        query,
+        Dhis2Objects.class);
   }
 
   /**
@@ -657,14 +663,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return list of {@link AnalyticsTableHook}.
    */
   public List<AnalyticsTableHook> getAnalyticsTableHooks(Query query) {
-    return getObject(
-            config
-                .getResolvedUriBuilder()
-                .appendPath("analyticsTableHooks")
-                .addParameter(FIELDS_PARAM, ID_FIELDS),
-            query,
-            Dhis2Objects.class)
-        .getAnalyticsTableHooks();
+    return getMetadataObjects(MetadataEntity.ANALYTICS_TABLE_HOOK, query).getAnalyticsTableHooks();
   }
 
   // -------------------------------------------------------------------------
@@ -729,14 +728,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return a list of {@link Attribute}.
    */
   public List<Attribute> getAttributes(Query query) {
-    return getObject(
-            config
-                .getResolvedUriBuilder()
-                .appendPath("attributes")
-                .addParameter(FIELDS_PARAM, ATTRIBUTE_FIELDS),
-            query,
-            Dhis2Objects.class)
-        .getAttributes();
+    return getMetadataObjects(MetadataEntity.ATTRIBUTE, query).getAttributes();
   }
 
   /**
@@ -811,17 +803,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return list of {@link CategoryOption}.
    */
   public List<CategoryOption> getCategoryOptions(Query query) {
-    String fieldsParam =
-        query.isExpandAssociations() ? CATEGORY_OPTION_EXT_FIELDS : CATEGORY_OPTION_FIELDS;
-
-    return getObject(
-            config
-                .getResolvedUriBuilder()
-                .appendPath("categoryOptions")
-                .addParameter(FIELDS_PARAM, fieldsParam),
-            query,
-            Dhis2Objects.class)
-        .getCategoryOptions();
+    return getMetadataObjects(MetadataEntity.CATEGORY_OPTION, query).getCategoryOptions();
   }
 
   /**
@@ -896,14 +878,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return list of {@link Category}.
    */
   public List<Category> getCategories(Query query) {
-    return getObject(
-            config
-                .getResolvedUriBuilder()
-                .appendPath("categories")
-                .addParameter(FIELDS_PARAM, CATEGORY_FIELDS),
-            query,
-            Dhis2Objects.class)
-        .getCategories();
+    return getMetadataObjects(MetadataEntity.CATEGORY, query).getCategories();
   }
 
   /**
@@ -968,14 +943,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return list of {@link CategoryCombo}.
    */
   public List<CategoryCombo> getCategoryCombos(Query query) {
-    return getObject(
-            config
-                .getResolvedUriBuilder()
-                .appendPath("categoryCombos")
-                .addParameter(FIELDS_PARAM, CATEGORY_COMBO_FIELDS),
-            query,
-            Dhis2Objects.class)
-        .getCategoryCombos();
+    return getMetadataObjects(MetadataEntity.CATEGORY_COMBO, query).getCategoryCombos();
   }
 
   /**
@@ -1062,13 +1030,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return list of {@link CategoryOptionGroup}.
    */
   public List<CategoryOptionGroup> getCategoryOptionGroups(Query query) {
-    return getObject(
-            config
-                .getResolvedUriBuilder()
-                .appendPath("categoryOptionGroups")
-                .addParameter(FIELDS_PARAM, CATEGORY_OPTION_GROUP_FIELDS),
-            query,
-            Dhis2Objects.class)
+    return getMetadataObjects(MetadataEntity.CATEGORY_OPTION_GROUP, query)
         .getCategoryOptionGroups();
   }
 
@@ -1114,13 +1076,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return list of {@link CategoryOptionGroupSet}.
    */
   public List<CategoryOptionGroupSet> getCategoryOptionGroupSets(Query query) {
-    return getObject(
-            config
-                .getResolvedUriBuilder()
-                .appendPath("categoryOptionGroupSets")
-                .addParameter(FIELDS_PARAM, CATEGORY_OPTION_GROUP_SET_FIELDS),
-            query,
-            Dhis2Objects.class)
+    return getMetadataObjects(MetadataEntity.CATEGORY_OPTION_GROUP_SET, query)
         .getCategoryOptionGroupSets();
   }
 
@@ -1166,14 +1122,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return list of {@link Dashboard}.
    */
   public List<Dashboard> getDashboards(Query query) {
-    return getObject(
-            config
-                .getResolvedUriBuilder()
-                .appendPath("dashboards")
-                .addParameter(FIELDS_PARAM, DASHBOARD_FIELDS),
-            query,
-            Dhis2Objects.class)
-        .getDashboards();
+    return getMetadataObjects(MetadataEntity.DASHBOARD, query).getDashboards();
   }
 
   /**
@@ -1248,17 +1197,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return list of {@link DataElement}.
    */
   public List<DataElement> getDataElements(Query query) {
-    String fieldsParam =
-        query.isExpandAssociations() ? DATA_ELEMENT_EXT_FIELDS : DATA_ELEMENT_FIELDS;
-
-    return getObject(
-            config
-                .getResolvedUriBuilder()
-                .appendPath("dataElements")
-                .addParameter(FIELDS_PARAM, fieldsParam),
-            query,
-            Dhis2Objects.class)
-        .getDataElements();
+    return getMetadataObjects(MetadataEntity.DATA_ELEMENT, query).getDataElements();
   }
 
   /**
@@ -1333,17 +1272,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return list of {@link DataElementGroup}.
    */
   public List<DataElementGroup> getDataElementGroups(Query query) {
-    String fieldsParams =
-        query.isExpandAssociations() ? DATA_ELEMENT_GROUP_EXT_FIELDS : NAME_FIELDS;
-
-    return getObject(
-            config
-                .getResolvedUriBuilder()
-                .appendPath("dataElementGroups")
-                .addParameter(FIELDS_PARAM, fieldsParams),
-            query,
-            Dhis2Objects.class)
-        .getDataElementGroups();
+    return getMetadataObjects(MetadataEntity.DATA_ELEMENT_GROUP, query).getDataElementGroups();
   }
 
   /**
@@ -1418,13 +1347,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return list of {@link DataElementGroupSet}.
    */
   public List<DataElementGroupSet> getDataElementGroupSets(Query query) {
-    return getObject(
-            config
-                .getResolvedUriBuilder()
-                .appendPath("dataElementGroupSets")
-                .addParameter(FIELDS_PARAM, DATA_ELEMENT_GROUP_SET_FIELDS),
-            query,
-            Dhis2Objects.class)
+    return getMetadataObjects(MetadataEntity.DATA_ELEMENT_GROUP_SET, query)
         .getDataElementGroupSets();
   }
 
@@ -1470,16 +1393,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return list of {@link DataSet}.
    */
   public List<DataSet> getDataSets(Query query) {
-    String fieldsParam = query.isExpandAssociations() ? DATA_SET_EXT_FIELDS : DATA_SET_FIELDS;
-
-    return getObject(
-            config
-                .getResolvedUriBuilder()
-                .appendPath("dataSets")
-                .addParameter(FIELDS_PARAM, fieldsParam),
-            query,
-            Dhis2Objects.class)
-        .getDataSets();
+    return getMetadataObjects(MetadataEntity.DATA_SET, query).getDataSets();
   }
 
   /**

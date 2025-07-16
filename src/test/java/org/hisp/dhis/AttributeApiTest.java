@@ -40,6 +40,7 @@ import org.hisp.dhis.query.Query;
 import org.hisp.dhis.response.HttpStatus;
 import org.hisp.dhis.response.object.ObjectResponse;
 import org.hisp.dhis.support.TestTags;
+import org.hisp.dhis.util.UidUtils;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
@@ -78,18 +79,20 @@ class AttributeApiTest {
   @Test
   void testCreateUpdateAndDeleteAttributes() {
     Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+    String uidA = UidUtils.generateUid();
+    String uidB = UidUtils.generateUid();
 
     Attribute attribute = new Attribute();
     attribute.setValueType(ValueType.TEXT);
-    attribute.setName("Sample attribute");
-    attribute.setCode("AT_SAMPLE_CODE");
-    attribute.setDescription("Sample description");
-    attribute.setShortName("Sample short name");
-    attribute.setUnique(true);
+    attribute.setName(uidA);
+    attribute.setCode(uidA);
+    attribute.setShortName(uidA);
+    attribute.setDescription(uidA);
+    attribute.setUnique(false);
     attribute.setProgramAttribute(true);
     attribute.setDataElementAttribute(true);
     attribute.setProgramStageAttribute(true);
-    attribute.setMandatory(true);
+    attribute.setMandatory(false);
 
     // Create
     ObjectResponse createRespA = dhis2.saveAttribute(attribute);
@@ -104,14 +107,14 @@ class AttributeApiTest {
     assertNotNull(attribute);
     assertEquals(attributeUid, attribute.getId());
     assertEquals(ValueType.TEXT, attribute.getValueType());
-    assertEquals("Sample attribute", attribute.getName());
-    assertEquals("AT_SAMPLE_CODE", attribute.getCode());
-    assertEquals("Sample description", attribute.getDescription());
-    assertEquals("Sample short name", attribute.getShortName());
-    assertTrue(attribute.getUnique());
+    assertEquals(uidA, attribute.getName());
+    assertEquals(uidA, attribute.getCode());
+    assertEquals(uidA, attribute.getShortName());
+    assertEquals(uidA, attribute.getDescription());
+    assertFalse(attribute.getUnique());
+    assertFalse(attribute.getMandatory());
 
-    String updatedName = "Sample attribute updated";
-    attribute.setName(updatedName);
+    attribute.setName(uidB);
 
     // Update
     ObjectResponse updateRespA = dhis2.updateAttribute(attribute);
@@ -123,7 +126,7 @@ class AttributeApiTest {
     attribute = dhis2.getAttribute(attributeUid);
     assertNotNull(attribute);
     assertEquals(attributeUid, attribute.getId());
-    assertEquals(updatedName, attribute.getName());
+    assertEquals(uidB, attribute.getName());
 
     // Remove
     ObjectResponse removeRespA = dhis2.removeAttribute(attributeUid);

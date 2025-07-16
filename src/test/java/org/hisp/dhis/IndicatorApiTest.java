@@ -42,6 +42,7 @@ import org.hisp.dhis.query.Query;
 import org.hisp.dhis.response.HttpStatus;
 import org.hisp.dhis.response.object.ObjectResponse;
 import org.hisp.dhis.support.TestTags;
+import org.hisp.dhis.util.UidUtils;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
@@ -89,11 +90,14 @@ class IndicatorApiTest {
   @Test
   void testCreateUpdateAndDeleteIndicator() {
     Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+    String uidA = UidUtils.generateUid();
+    String uidB = UidUtils.generateUid();
+
     Indicator indicator = new Indicator();
-    indicator.setName("Sample indicator");
-    indicator.setCode("IND_SAMPLE_CODE");
-    indicator.setDescription("Sample description");
-    indicator.setShortName("Sample short name");
+    indicator.setName(uidA);
+    indicator.setCode(uidA);
+    indicator.setShortName(uidA);
+    indicator.setDescription(uidA);
     indicator.setNumerator("Sample numerator");
     indicator.setDenominator("Sample denominator");
     indicator.setAnnualized(true);
@@ -114,10 +118,10 @@ class IndicatorApiTest {
 
     assertNotNull(indicator);
     assertEquals(indicatorUid, indicator.getId());
-    assertEquals("Sample indicator", indicator.getName());
-    assertEquals("IND_SAMPLE_CODE", indicator.getCode());
-    assertEquals("Sample description", indicator.getDescription());
-    assertEquals("Sample short name", indicator.getShortName());
+    assertEquals(uidA, indicator.getName());
+    assertEquals(uidA, indicator.getCode());
+    assertEquals(uidA, indicator.getShortName());
+    assertEquals(uidA, indicator.getDescription());
     assertEquals("Sample numerator", indicator.getNumerator());
     assertEquals("Sample denominator", indicator.getDenominator());
     assertTrue(indicator.isAnnualized());
@@ -128,8 +132,7 @@ class IndicatorApiTest {
     assertNotNull(indicator.getLastUpdated());
     assertNotNull(indicator.getIndicatorType());
 
-    String updatedName = "Sample indicator updated";
-    indicator.setName(updatedName);
+    indicator.setName(uidB);
 
     // Update
     ObjectResponse updateRespA = dhis2.updateIndicator(indicator);
@@ -142,7 +145,7 @@ class IndicatorApiTest {
 
     assertNotNull(indicator);
     assertEquals(indicatorUid, indicator.getId());
-    assertEquals(updatedName, indicator.getName());
+    assertEquals(uidB, indicator.getName());
 
     // Remove
     ObjectResponse removeRespA = dhis2.removeIndicator(indicatorUid);
