@@ -27,14 +27,18 @@
  */
 package org.hisp.dhis;
 
+import static org.hisp.dhis.support.Assertions.assertNotEmpty;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.hisp.dhis.model.AggregationType;
 import org.hisp.dhis.model.DataDomain;
 import org.hisp.dhis.model.DataElement;
+import org.hisp.dhis.model.Dhis2Objects;
 import org.hisp.dhis.model.MetadataEntity;
 import org.hisp.dhis.model.ValueType;
+import org.hisp.dhis.query.Filter;
+import org.hisp.dhis.query.Query;
 import org.hisp.dhis.response.HttpStatus;
 import org.hisp.dhis.response.Status;
 import org.hisp.dhis.response.object.ObjectResponse;
@@ -66,6 +70,13 @@ class MetadataObjectApiTest {
     DataElement retrieved = dhis2.getMetadataObject(entity, uidA);
 
     assertNotNull(retrieved);
+
+    // Query
+
+    Dhis2Objects objects =
+        dhis2.getMetadataObjects(entity, Query.instance().addFilter(Filter.eq("id", uidA)));
+
+    assertNotEmpty(objects.getDataElements());
 
     // Update
 
