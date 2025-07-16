@@ -29,7 +29,6 @@ package org.hisp.dhis;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-
 import java.io.IOException;
 import org.hisp.dhis.model.AggregationType;
 import org.hisp.dhis.model.DataDomain;
@@ -108,7 +107,7 @@ class BaseDhis2Test {
   }
 
   @Test
-  void testProgramFields() {
+  void testProgramExtFields() {
     String expected =
         """
         id,code,name,created,lastUpdated,attributeValues,shortName,description,programType,\
@@ -136,6 +135,23 @@ class BaseDhis2Test {
         programIndicators[id,code,name,created,lastUpdated,attributeValues,shortName,description]]],\
         programTrackedEntityAttributes[id,code,name,program[id,code,name,created,lastUpdated,\
         attributeValues,shortName,description],\
+        trackedEntityAttribute[id,code,name,created,lastUpdated,attributeValues,shortName,\
+        description,valueType,aggregationType,confidential,unique],sortOrder,displayInList,mandatory]""";
+
+    assertEquals(expected, BaseDhis2.PROGRAM_EXT_FIELDS);
+  }
+
+  @Test
+  void testProgramFields() {
+    String expected = 
+        """
+        id,code,name,created,lastUpdated,attributeValues,shortName,description,programType,\
+        trackedEntityType[id,code,name,created,lastUpdated,attributeValues,shortName,description],\
+        categoryCombo[id,code,name,created,lastUpdated,attributeValues,shortName,description],\
+        programSections[id,code,name,created,lastUpdated,attributeValues,shortName,description],\
+        programStages[id,code,name,created,lastUpdated,attributeValues,shortName,description],\
+        programTrackedEntityAttributes[id,code,name,\
+        program[id,code,name,created,lastUpdated,attributeValues,shortName,description],\
         trackedEntityAttribute[id,code,name,created,lastUpdated,attributeValues,shortName,\
         description,valueType,aggregationType,confidential,unique],sortOrder,displayInList,mandatory]""";
 
