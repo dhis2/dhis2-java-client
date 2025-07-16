@@ -111,7 +111,8 @@ class AttributeApiTest {
     assertEquals(uidA, attribute.getCode());
     assertEquals(uidA, attribute.getShortName());
     assertEquals(uidA, attribute.getDescription());
-    assertTrue(attribute.getUnique());
+    assertFalse(attribute.getUnique());
+    assertFalse(attribute.getMandatory());
 
     attribute.setName(uidB);
 
