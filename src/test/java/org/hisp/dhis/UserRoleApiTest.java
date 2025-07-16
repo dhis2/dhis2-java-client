@@ -38,6 +38,7 @@ import org.hisp.dhis.response.HttpStatus;
 import org.hisp.dhis.response.Status;
 import org.hisp.dhis.response.object.ObjectResponse;
 import org.hisp.dhis.support.TestTags;
+import org.hisp.dhis.util.UidUtils;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
@@ -69,11 +70,13 @@ class UserRoleApiTest {
   @Test
   void testCreateUpdateAndDeleteUserRoles() {
     Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+    String uidA = UidUtils.generateUid();
+    String uidB = UidUtils.generateUid();
 
     UserRole userRole = new UserRole();
-    userRole.setName("Sample userRole");
-    userRole.setCode("UR_SAMPLE_CODE");
-    userRole.setDescription("Sample userRole description");
+    userRole.setName(uidA);
+    userRole.setCode(uidA);
+    userRole.setDescription(uidA);
 
     // Create
     ObjectResponse createRespA = dhis2.saveUserRole(userRole);
@@ -87,11 +90,10 @@ class UserRoleApiTest {
 
     assertNotNull(userRole);
     assertEquals(userRoleUid, userRole.getId());
-    assertEquals("Sample userRole", userRole.getName());
-    assertEquals("Sample userRole description", userRole.getDescription());
+    assertEquals(uidA, userRole.getName());
+    assertEquals(uidA, userRole.getDescription());
 
-    String updatedName = "Sample userRole updated";
-    userRole.setName(updatedName);
+    userRole.setName(uidB);
 
     // Update
     ObjectResponse updateRespA = dhis2.updateUserRole(userRole);
@@ -103,7 +105,7 @@ class UserRoleApiTest {
     userRole = dhis2.getUserRole(userRoleUid);
     assertNotNull(userRole);
     assertEquals(userRoleUid, userRole.getId());
-    assertEquals(updatedName, userRole.getName());
+    assertEquals(uidB, userRole.getName());
 
     // Remove
     ObjectResponse removeRespA = dhis2.removeUserRole(userRoleUid);
