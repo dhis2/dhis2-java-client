@@ -79,7 +79,6 @@ import org.apache.hc.core5.http.io.entity.StringEntity;
 import org.apache.hc.core5.http.message.BasicHeader;
 import org.apache.hc.core5.http.message.BasicNameValuePair;
 import org.apache.hc.core5.net.URIBuilder;
-import org.hisp.dhis.model.IdentifiableObject;
 import org.hisp.dhis.model.MetadataEntity;
 import org.hisp.dhis.model.completedatasetregistration.CompleteDataSetRegistrationImportOptions;
 import org.hisp.dhis.model.datavalueset.DataValueSet;
@@ -112,7 +111,6 @@ import org.hisp.dhis.response.HttpStatus;
 import org.hisp.dhis.response.Response;
 import org.hisp.dhis.response.Status;
 import org.hisp.dhis.response.completedatasetregistration.CompleteDataSetRegistrationResponse;
-import org.hisp.dhis.response.object.ObjectResponse;
 import org.hisp.dhis.util.DateTimeUtils;
 import org.hisp.dhis.util.HttpUtils;
 import org.hisp.dhis.util.JacksonUtils;
@@ -1243,19 +1241,6 @@ public class BaseDhis2 {
   // -------------------------------------------------------------------------
 
   /**
-   * Saves a metadata object using HTTP POST.
-   *
-   * @param object the object to save.
-   * @return {@link ObjectResponse} holding information about the operation.
-   * @throws Dhis2ClientException if unauthorized, access denied or resource not found.
-   */
-  public ObjectResponse saveMetadataObject(IdentifiableObject object) {
-    MetadataEntity entity = MetadataEntity.from(object);
-
-    return saveObject(entity.getPath(), object, ObjectResponse.class);
-  }
-
-  /**
    * Saves an object using HTTP POST.
    *
    * @param path the URL path relative to the API end point.
@@ -1291,20 +1276,6 @@ public class BaseDhis2 {
   /**
    * Updates an object using HTTP PUT.
    *
-   * @param object the object to save.
-   * @return {@link ObjectResponse} holding information about the operation.
-   */
-  public ObjectResponse updateMetadataObject(IdentifiableObject object) {
-    MetadataEntity entity = MetadataEntity.from(object);
-    String path = String.format("%s/%s", entity.getPath(), object.getId());
-    Map<String, String> params = Map.of(SKIP_SHARING_PARAM, "true");
-
-    return updateObject(path, params, object, ObjectResponse.class);
-  }
-
-  /**
-   * Updates an object using HTTP PUT.
-   *
    * @param path the URL path relative to the API end point.
    * @param params the map of query parameter names and values to include in the URL.
    * @param object the object to save.
@@ -1326,44 +1297,6 @@ public class BaseDhis2 {
     } catch (URISyntaxException ex) {
       throw new Dhis2ClientException("Invalid URI syntax", ex);
     }
-  }
-
-  /**
-   * Retrieves a metadata object using HTTP GET.
-   *
-   * @param entity the {@link MetadataEntity}.
-   * @param id the object identifier.
-   * @param fields the fields to include in the response.
-   * @param <T> the type.
-   * @return the metadata object.
-   */
-  @SuppressWarnings("unchecked")
-  public <T extends IdentifiableObject> T getMetadataObject(
-      MetadataEntity entity, String id, String fields) {
-    // Unchecked cast is safe as all metadata entities extend identifiable object
-    Class<T> type = (Class<T>) entity.getType();
-
-    return getObject(
-        config
-            .getResolvedUriBuilder()
-            .appendPath(entity.getPath())
-            .appendPath(id)
-            .addParameter(FIELDS_PARAM, fields),
-        Query.instance(),
-        type);
-  }
-
-  /**
-   * Removes an object using HTTP DELETE.
-   *
-   * @param entity the {@link MetadataEntity}.
-   * @param id the object identifier.
-   * @return {@link ObjectResponse} holding information about the operation.
-   */
-  protected ObjectResponse removeMetadataObject(MetadataEntity entity, String id) {
-    String path = String.format("%s/%s", entity.getPath(), id);
-
-    return removeObject(path, ObjectResponse.class);
   }
 
   /**
