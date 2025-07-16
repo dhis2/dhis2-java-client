@@ -88,11 +88,11 @@ class AttributeApiTest {
     attribute.setCode(uidA);
     attribute.setShortName(uidA);
     attribute.setDescription(uidA);
-    attribute.setUnique(true);
+    attribute.setUnique(false);
     attribute.setProgramAttribute(true);
     attribute.setDataElementAttribute(true);
     attribute.setProgramStageAttribute(true);
-    attribute.setMandatory(true);
+    attribute.setMandatory(false);
 
     // Create
     ObjectResponse createRespA = dhis2.saveAttribute(attribute);
