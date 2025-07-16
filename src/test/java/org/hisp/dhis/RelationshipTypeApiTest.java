@@ -44,6 +44,7 @@ import org.hisp.dhis.query.Query;
 import org.hisp.dhis.response.HttpStatus;
 import org.hisp.dhis.response.object.ObjectResponse;
 import org.hisp.dhis.support.TestTags;
+import org.hisp.dhis.util.UidUtils;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
@@ -91,11 +92,13 @@ class RelationshipTypeApiTest {
   @Test
   void testCreateUpdateAndDeleteRelationshipTypes() {
     Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+    String uidA = UidUtils.generateUid();
+    String uidB = UidUtils.generateUid();
 
     RelationshipType relationshipType = new RelationshipType();
-    relationshipType.setName("Sample relationship type");
-    relationshipType.setCode("RT_SAMPLE_CODE");
-    relationshipType.setDescription("Sample relationship type description");
+    relationshipType.setName(uidA);
+    relationshipType.setCode(uidA);
+    relationshipType.setDescription(uidA);
     relationshipType.setFromToName("Sample relationship type from to");
     relationshipType.setToFromName("Sample relationship type to from");
     relationshipType.setBidirectional(true);
@@ -134,8 +137,7 @@ class RelationshipTypeApiTest {
     validateSavedRelationshipType(relationshipType, savedRelationshipType);
 
     // Update
-    String updatedName = "Sample relationship type updated";
-    savedRelationshipType.setName(updatedName);
+    savedRelationshipType.setName(uidB);
 
     ObjectResponse updateRespA = dhis2.updateRelationshipType(savedRelationshipType);
 
@@ -146,7 +148,7 @@ class RelationshipTypeApiTest {
     relationshipType = dhis2.getRelationshipType(relationshipTypeUid);
     assertNotNull(relationshipType);
     assertEquals(relationshipTypeUid, relationshipType.getId());
-    assertEquals(updatedName, relationshipType.getName());
+    assertEquals(uidB, relationshipType.getName());
 
     // Remove
     ObjectResponse removeRespA = dhis2.removeRelationshipType(relationshipTypeUid);

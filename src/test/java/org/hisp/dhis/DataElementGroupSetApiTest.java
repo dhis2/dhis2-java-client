@@ -42,6 +42,7 @@ import org.hisp.dhis.query.Query;
 import org.hisp.dhis.response.HttpStatus;
 import org.hisp.dhis.response.object.ObjectResponse;
 import org.hisp.dhis.support.TestTags;
+import org.hisp.dhis.util.UidUtils;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
@@ -104,12 +105,14 @@ class DataElementGroupSetApiTest {
   @Test
   void testCreateUpdateAndDeleteDataElementGroupSet() {
     Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+    String uidA = UidUtils.generateUid();
+    String uidB = UidUtils.generateUid();
 
     DataElementGroupSet dataElementGroupSet = new DataElementGroupSet();
-    dataElementGroupSet.setName("Sample Data Element Group Set");
-    dataElementGroupSet.setCode("DEGS_SAMPLE_CODE");
-    dataElementGroupSet.setDescription("Sample description");
-    dataElementGroupSet.setShortName("Sample short name");
+    dataElementGroupSet.setName(uidA);
+    dataElementGroupSet.setCode(uidA);
+    dataElementGroupSet.setShortName(uidA);
+    dataElementGroupSet.setDescription(uidA);
     dataElementGroupSet.setDataDimension(true);
     dataElementGroupSet.setDimensionType(DimensionType.DATA_ELEMENT_GROUP_SET);
     dataElementGroupSet.setCompulsory(true);
@@ -128,18 +131,17 @@ class DataElementGroupSetApiTest {
 
     assertNotNull(dataElementGroupSet);
     assertEquals(dataElementGroupSetUid, dataElementGroupSet.getId());
-    assertEquals("Sample Data Element Group Set", dataElementGroupSet.getName());
-    assertEquals("DEGS_SAMPLE_CODE", dataElementGroupSet.getCode());
-    assertEquals("Sample description", dataElementGroupSet.getDescription());
-    assertEquals("Sample short name", dataElementGroupSet.getShortName());
+    assertEquals(uidA, dataElementGroupSet.getName());
+    assertEquals(uidA, dataElementGroupSet.getCode());
+    assertEquals(uidA, dataElementGroupSet.getDescription());
+    assertEquals(uidA, dataElementGroupSet.getShortName());
     assertEquals(DimensionType.DATA_ELEMENT_GROUP_SET, dataElementGroupSet.getDimensionType());
     assertTrue(dataElementGroupSet.getDataDimension());
     assertTrue(dataElementGroupSet.getCompulsory());
     assertNotNull(dataElementGroupSet.getDataElementGroups());
     assertFalse(dataElementGroupSet.getDataElementGroups().isEmpty());
 
-    String updatedName = "Sample DEGS updated";
-    dataElementGroupSet.setName(updatedName);
+    dataElementGroupSet.setName(uidB);
 
     // Update
     ObjectResponse updateRespA = dhis2.updateDataElementGroupSet(dataElementGroupSet);
@@ -152,7 +154,7 @@ class DataElementGroupSetApiTest {
     dataElementGroupSet = dhis2.getDataElementGroupSet(dataElementGroupSetUid);
     assertNotNull(dataElementGroupSet);
     assertEquals(dataElementGroupSetUid, dataElementGroupSet.getId());
-    assertEquals(updatedName, dataElementGroupSet.getName());
+    assertEquals(uidB, dataElementGroupSet.getName());
 
     // Remove
     ObjectResponse removeRespA = dhis2.removeDataElementGroupSet(dataElementGroupSetUid);

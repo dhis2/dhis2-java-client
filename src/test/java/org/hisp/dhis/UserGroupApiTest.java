@@ -39,6 +39,7 @@ import org.hisp.dhis.response.HttpStatus;
 import org.hisp.dhis.response.Status;
 import org.hisp.dhis.response.object.ObjectResponse;
 import org.hisp.dhis.support.TestTags;
+import org.hisp.dhis.util.UidUtils;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
@@ -69,12 +70,14 @@ class UserGroupApiTest {
   @Test
   void testCreateUpdateAndDeleteUserGroups() {
     Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+    String uidA = UidUtils.generateUid();
+    String uidB = UidUtils.generateUid();
 
     User user = dhis2.getUser("xE7jOejl9FI");
 
     UserGroup userGroup = new UserGroup();
-    userGroup.setName("Sample userGroup");
-    userGroup.setCode("UG_SAMPLE_CODE");
+    userGroup.setName(uidA);
+    userGroup.setCode(uidA);
     userGroup.setUsers(List.of(user));
 
     // Create
@@ -91,8 +94,7 @@ class UserGroupApiTest {
     assertEquals(userGroupUid, userGroup.getId());
     assertFalse(userGroup.getUsers().isEmpty());
 
-    String updatedName = "Sample userGroup updated";
-    userGroup.setName(updatedName);
+    userGroup.setName(uidB);
 
     // Update
     ObjectResponse updateRespA = dhis2.updateUserGroup(userGroup);
@@ -104,7 +106,7 @@ class UserGroupApiTest {
     userGroup = dhis2.getUserGroup(userGroupUid);
     assertNotNull(userGroup);
     assertEquals(userGroupUid, userGroup.getId());
-    assertEquals(updatedName, userGroup.getName());
+    assertEquals(uidB, userGroup.getName());
 
     // Remove
     ObjectResponse removeRespA = dhis2.removeUserGroup(userGroupUid);
