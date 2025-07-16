@@ -38,6 +38,7 @@ import org.hisp.dhis.query.Query;
 import org.hisp.dhis.response.HttpStatus;
 import org.hisp.dhis.response.object.ObjectResponse;
 import org.hisp.dhis.support.TestTags;
+import org.hisp.dhis.util.UidUtils;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
@@ -68,10 +69,13 @@ class IndicatorGroupApiTest {
   @Test
   void testCreateUpdateAndDeleteIndicatorGroup() {
     Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+    String uidA = UidUtils.generateUid();
+    String uidB = UidUtils.generateUid();
+
     IndicatorGroup indicatorGroup = new IndicatorGroup();
-    indicatorGroup.setName("Sample indicator group");
-    indicatorGroup.setCode("IG_SAMPLE_CODE");
-    indicatorGroup.setDescription("Sample description");
+    indicatorGroup.setName(uidA);
+    indicatorGroup.setCode(uidA);
+    indicatorGroup.setDescription(uidA);
 
     // Create
     ObjectResponse createRespA = dhis2.saveIndicatorGroup(indicatorGroup);
@@ -85,14 +89,13 @@ class IndicatorGroupApiTest {
 
     assertNotNull(indicatorGroup);
     assertEquals(indicatorGroupUid, indicatorGroup.getId());
-    assertEquals("Sample indicator group", indicatorGroup.getName());
-    assertEquals("IG_SAMPLE_CODE", indicatorGroup.getCode());
-    assertEquals("Sample description", indicatorGroup.getDescription());
+    assertEquals(uidA, indicatorGroup.getName());
+    assertEquals(uidA, indicatorGroup.getCode());
+    assertEquals(uidA, indicatorGroup.getDescription());
     assertNotNull(indicatorGroup.getCreated());
     assertNotNull(indicatorGroup.getLastUpdated());
 
-    String updatedName = "Sample indicator group updated";
-    indicatorGroup.setName(updatedName);
+    indicatorGroup.setName(uidB);
 
     // Update
     ObjectResponse updateRespA = dhis2.updateIndicatorGroup(indicatorGroup);
@@ -105,7 +108,7 @@ class IndicatorGroupApiTest {
 
     assertNotNull(indicatorGroup);
     assertEquals(indicatorGroupUid, indicatorGroup.getId());
-    assertEquals(updatedName, indicatorGroup.getName());
+    assertEquals(uidB, indicatorGroup.getName());
 
     // Remove
     ObjectResponse removeRespA = dhis2.removeIndicatorGroup(indicatorGroupUid);
