@@ -290,6 +290,7 @@ public class ApiFields {
       String.format(
           """
           %1$s,programType,trackedEntityType[%2$s],categoryCombo[%1$s,categories[%3$s]],\
+          organisationUnits[%1$s],\
           programSections[%4$s],\
           programStages[%5$s],\
           programTrackedEntityAttributes[id,code,name,\

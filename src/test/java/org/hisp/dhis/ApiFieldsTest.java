@@ -68,6 +68,7 @@ class ApiFieldsTest {
         categories[id,code,name,created,lastUpdated,attributeValues,shortName,description,dataDimensionType,dataDimension,\
         categoryOptions[id,code,name,created,lastUpdated,attributeValues],\
         categoryCombos[id,code,name,created,lastUpdated,attributeValues]]],\
+        organisationUnits[id,code,name,created,lastUpdated,attributeValues,shortName,description],\
         programSections[id,code,name,created,lastUpdated,attributeValues,shortName,description,sortOrder,\
         program[id,code,name,created,lastUpdated,attributeValues,shortName,description],\
         trackedEntityAttributes[id,code,name,created,lastUpdated,attributeValues,shortName,description]],\
