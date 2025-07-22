@@ -32,6 +32,7 @@ import static org.hisp.dhis.support.Assertions.assertNotEmpty;
 import static org.hisp.dhis.support.Assertions.assertSize;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import java.io.InputStream;
 import java.util.List;
 import org.hisp.dhis.model.DataElement;
@@ -66,30 +67,30 @@ class ProgramApiTest {
   @Test
   void testSaveRemoveProgramObjects() {
     Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
-    
+
     InputStream input = new ClassPathFile("metadata/program-address-book.json").getInputStream();
     ProgramObjects objects = JacksonUtils.fromJson(input, ProgramObjects.class);
-    
+
     assertNotNull(objects);
     assertNotEmpty(objects.getPrograms());
-    
+
     Program pr = objects.getPrograms().get(0);
-    
+
     assertNotNull(pr);
     assertEquals("dIFNZrYGcOB", pr.getId());
-    
+
     ObjectsResponse saveResponse = dhis2.saveProgram(objects);
-    
+
     assertNotNull(saveResponse);
     assertEquals(Status.OK, saveResponse.getStatus());
-    
+
     ObjectResponse removeResponse = dhis2.removeProgram("dIFNZrYGcOB");
-    
+
     assertNotNull(removeResponse);
     assertEquals(Status.OK, removeResponse.getStatus());
     assertEquals(HttpStatus.OK, removeResponse.getHttpStatus());
   }
-  
+
   @Test
   void testGetProgramObjectsChildProgramme() {
     Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
