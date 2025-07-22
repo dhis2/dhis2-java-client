@@ -34,6 +34,7 @@ import static org.hisp.dhis.support.Assertions.assertSize;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.io.InputStream;
 import java.util.List;
 import org.hisp.dhis.model.DataElement;
@@ -143,7 +144,7 @@ class ProgramApiTest {
     assertNotNull(pr.getMinAttributesRequiredToSearch());
     assertNotNull(pr.getMaxTeiCountToReturn());
     assertEquals(ProgramAccessLevel.OPEN, pr.getAccessLevel());
-        
+
     ProgramTrackedEntityAttribute ptea = pr.getProgramTrackedEntityAttributes().get(0);
     assertNotNull(ptea);
     assertEquals("NkvU4urhVNv", ptea.getId());
