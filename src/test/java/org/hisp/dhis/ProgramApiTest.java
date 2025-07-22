@@ -126,6 +126,16 @@ class ProgramApiTest {
     Program pr = retrieved.getPrograms().get(0);
     assertNotNull(pr);
     assertEquals(PR_ID, pr.getId());
+    assertEquals("Address Book", pr.getName());
+    assertEquals("Address Book", pr.getShortName());
+    assertEquals("ADDRESS_BOOK", pr.getCode());
+    assertEquals(ProgramType.WITH_REGISTRATION, pr.getProgramType());
+    assertNotNull(pr.getDisplayIncidentDate());
+    assertNotNull(pr.getOnlyEnrollOnce());
+    assertNotNull(pr.getDisplayFrontPageList());
+    assertNotNull(pr.getMinAttributesRequiredToSearch());
+    assertNotNull(pr.getMaxTeiCountToReturn());
+    assertNotNull(pr.getAccessLevel());
 
     ProgramStage ps = retrieved.getProgramStages().get(0);
     assertNotNull(ps);
@@ -162,6 +172,12 @@ class ProgramApiTest {
     assertNotNull(pr.getLastUpdated());
     assertEquals(ProgramType.WITH_REGISTRATION, pr.getProgramType());
     assertNotEmpty(pr.getOrganisationUnits());
+    assertNotNull(pr.getDisplayIncidentDate());
+    assertNotNull(pr.getOnlyEnrollOnce());
+    assertNotNull(pr.getDisplayFrontPageList());
+    assertNotNull(pr.getMinAttributesRequiredToSearch());
+    assertNotNull(pr.getMaxTeiCountToReturn());
+    assertNotNull(pr.getAccessLevel());
 
     ProgramStage ps = objects.getProgramStages().get(0);
 
@@ -188,6 +204,12 @@ class ProgramApiTest {
     assertNotEmpty(pr.getNonConfidentialTrackedEntityAttributes());
     assertNotEmpty(pr.getTrackedEntityAttributes());
     assertNotEmpty(pr.getNonConfidentialTrackedEntityAttributes());
+    assertNotNull(pr.getDisplayIncidentDate());
+    assertNotNull(pr.getOnlyEnrollOnce());
+    assertNotNull(pr.getDisplayFrontPageList());
+    assertNotNull(pr.getMinAttributesRequiredToSearch());
+    assertNotNull(pr.getMaxTeiCountToReturn());
+    assertNotNull(pr.getAccessLevel());
 
     TrackedEntityType tet = pr.getTrackedEntityType();
 
@@ -278,6 +300,12 @@ class ProgramApiTest {
     assertNotBlank(pr.getName());
     assertNotBlank(pr.getShortName());
     assertNotEmpty(pr.getOrganisationUnits());
+    assertNotNull(pr.getDisplayIncidentDate());
+    assertNotNull(pr.getOnlyEnrollOnce());
+    assertNotNull(pr.getDisplayFrontPageList());
+    assertNotNull(pr.getMinAttributesRequiredToSearch());
+    assertNotNull(pr.getMaxTeiCountToReturn());
+    assertNotNull(pr.getAccessLevel());
 
     ProgramStage ps = objects.getProgramStages().get(0);
 
@@ -300,6 +328,12 @@ class ProgramApiTest {
     assertNotEmpty(pr.getOrganisationUnits());
     assertNotNull(pr.getProgramStages());
     assertNotEmpty(pr.getProgramStageSections());
+    assertNotNull(pr.getDisplayIncidentDate());
+    assertNotNull(pr.getOnlyEnrollOnce());
+    assertNotNull(pr.getDisplayFrontPageList());
+    assertNotNull(pr.getMinAttributesRequiredToSearch());
+    assertNotNull(pr.getMaxTeiCountToReturn());
+    assertNotNull(pr.getAccessLevel());
 
     OrgUnit ou = pr.getOrganisationUnits().get(0);
 
@@ -355,6 +389,12 @@ class ProgramApiTest {
     assertNotBlank(pr.getName());
     assertNotBlank(pr.getShortName());
     assertNotEmpty(pr.getOrganisationUnits());
+    assertNotNull(pr.getDisplayIncidentDate());
+    assertNotNull(pr.getOnlyEnrollOnce());
+    assertNotNull(pr.getDisplayFrontPageList());
+    assertNotNull(pr.getMinAttributesRequiredToSearch());
+    assertNotNull(pr.getMaxTeiCountToReturn());
+    assertNotNull(pr.getAccessLevel());
 
     ProgramSection sc = objects.getProgramSections().get(0);
 
@@ -386,6 +426,12 @@ class ProgramApiTest {
     assertNotEmpty(pr.getOrganisationUnits());
     assertNotEmpty(pr.getProgramStages());
     assertNotEmpty(pr.getProgramStageSections());
+    assertNotNull(pr.getDisplayIncidentDate());
+    assertNotNull(pr.getOnlyEnrollOnce());
+    assertNotNull(pr.getDisplayFrontPageList());
+    assertNotNull(pr.getMinAttributesRequiredToSearch());
+    assertNotNull(pr.getMaxTeiCountToReturn());
+    assertNotNull(pr.getAccessLevel());
 
     OrgUnit ou = pr.getOrganisationUnits().get(0);
 
