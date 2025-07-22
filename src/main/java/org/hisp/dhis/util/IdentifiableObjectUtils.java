@@ -91,9 +91,9 @@ public class IdentifiableObjectUtils {
    * @param type the class type.
    * @return an {@link IdentifiableObject}.
    */
-  private static <T extends IdentifiableObject> T getInstance(T object, Class<T> type) {
+  static <T extends IdentifiableObject> T getInstance(T object, Class<T> type) {
     T idObject = newInstance(type);
-    object.setId(object.getId());
+    idObject.setId(object.getId());
     return idObject;
   }
 
@@ -104,7 +104,7 @@ public class IdentifiableObjectUtils {
    * @param type the class type.
    * @return an {@link IdentifiableObject}.
    */
-  private static <T extends IdentifiableObject> T newInstance(Class<T> type) {
+  static <T extends IdentifiableObject> T newInstance(Class<T> type) {
     try {
       return type.getDeclaredConstructor().newInstance();
     } catch (ReflectiveOperationException ex) {

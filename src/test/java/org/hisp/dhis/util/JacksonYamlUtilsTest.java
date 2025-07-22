@@ -34,8 +34,11 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import java.util.List;
 import org.hisp.dhis.model.Container;
 import org.hisp.dhis.model.Product;
+import org.hisp.dhis.support.TestTags;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
+@Tag(TestTags.UNIT)
 class JacksonYamlUtilsTest {
   @Test
   void testToYamlObject() {
