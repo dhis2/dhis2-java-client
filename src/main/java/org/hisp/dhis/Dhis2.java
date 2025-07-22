@@ -2252,6 +2252,12 @@ public class Dhis2 extends BaseDhis2 {
   // Program
   // -------------------------------------------------------------------------
 
+  /**
+   * Saves a program with {@link ProgramObjects}.
+   *
+   * @param objects the {@link ProgramObjects}.
+   * @return the {@link ObjectsResponse}.
+   */
   public ObjectsResponse saveProgram(ProgramObjects objects) {
     URI url = config.getResolvedUrl(PATH_METADATA);
 
