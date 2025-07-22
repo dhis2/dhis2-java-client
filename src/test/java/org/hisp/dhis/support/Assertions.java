@@ -32,7 +32,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import java.util.Collection;
 import java.util.List;
 import java.util.function.Predicate;
@@ -130,7 +129,7 @@ public class Assertions {
   }
 
   /**
-   * Asserts that the actual collection is empty.
+   * Asserts that the actual collection is empty and not null.
    *
    * @param actual the collection.
    */
