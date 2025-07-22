@@ -31,9 +31,10 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
+import org.hisp.dhis.model.BaseIdentifiableObject;
+import org.hisp.dhis.model.IdentifiableObject;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import org.hisp.dhis.model.IdentifiableObject;
 
 /** Utilities for {@link IdentifiableObject}. */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -64,5 +65,13 @@ public class IdentifiableObjectUtils {
         .filter(Objects::nonNull)
         .map(IdentifiableObject::getCode)
         .collect(Collectors.toList());
+  }
+  
+  public static List<IdentifiableObject> toIdentifierObjects(
+      Collection<? extends IdentifiableObject> objects) {
+    return objects.stream()
+        .filter(Objects::nonNull)
+        .map(o -> new BaseIdentifiableObject(o.getId()))
+        .toList();
   }
 }

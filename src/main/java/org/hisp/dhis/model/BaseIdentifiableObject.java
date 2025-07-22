@@ -27,19 +27,21 @@
  */
 package org.hisp.dhis.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
 @Getter
 @Setter
 @ToString
+@NoArgsConstructor
 public class BaseIdentifiableObject implements Serializable {
   @JsonProperty protected String id;
 
@@ -53,6 +55,19 @@ public class BaseIdentifiableObject implements Serializable {
 
   @JsonProperty protected Set<AttributeValue> attributeValues = new HashSet<>();
 
+  // -------------------------------------------------------------------------
+  // Constructors
+  // -------------------------------------------------------------------------
+
+  /**
+   * Constructor.
+   * 
+   * @param id the identifier.
+   */
+  public BaseIdentifiableObject(String id) {
+    this.id = id;
+  }
+  
   // -------------------------------------------------------------------------
   // Logic methods
   // -------------------------------------------------------------------------

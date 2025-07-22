@@ -38,7 +38,6 @@ import static org.hisp.dhis.ApiFields.VALIDATION_RULE_FIELDS;
 import static org.hisp.dhis.Constants.SUPER_ADMIN_AUTH;
 import static org.hisp.dhis.util.CollectionUtils.asList;
 import static org.hisp.dhis.util.CollectionUtils.list;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -2262,6 +2261,14 @@ public class Dhis2 extends BaseDhis2 {
     return getMetadataObject(MetadataEntity.PROGRAM, id);
   }
 
+  /**
+   * Converts the given {@link Program} to a {@link ProgramObjects}. Note that the the DHIS2
+   * metadata importer requires program metadata to follow the {@link ProgramObjects} structure with
+   * four root-level collections of objects.
+   * 
+   * @param program the {@link Program}.
+   * @return a {@link ProgramObjects}.
+   */
   private ProgramObjects getProgramObjects(Program program) {
     ProgramObjects objects = new ProgramObjects();
 
