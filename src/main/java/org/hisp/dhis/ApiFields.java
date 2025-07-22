@@ -295,8 +295,8 @@ public class ApiFields {
           programStages[%5$s],\
           programTrackedEntityAttributes[id,code,name,\
           program[%1$s],trackedEntityAttribute[%6$s],sortOrder,displayInList,mandatory],\
-          displayIncidentDate,onlyEnrollOnce,displayFrontPageList,minAttributesRequiredToSearch,\
-          maxTeiCountToReturn,accessLevel""",
+          version,displayIncidentDate,onlyEnrollOnce,displayFrontPageList,\
+          minAttributesRequiredToSearch,maxTeiCountToReturn,accessLevel""",
           NAME_FIELDS,
           TRACKED_ENTITY_TYPE_FIELDS,
           CATEGORY_FIELDS,
@@ -313,8 +313,8 @@ public class ApiFields {
           programStages[%1$s],\
           programTrackedEntityAttributes[id,code,name,\
           program[%1$s],trackedEntityAttribute[%2$s],sortOrder,displayInList,mandatory],\
-          displayIncidentDate,onlyEnrollOnce,displayFrontPageList,minAttributesRequiredToSearch,\
-          maxTeiCountToReturn,accessLevel""",
+          version,displayIncidentDate,onlyEnrollOnce,displayFrontPageList,\
+          minAttributesRequiredToSearch,maxTeiCountToReturn,accessLevel""",
           NAME_FIELDS, TRACKED_ENTITY_ATTRIBUTE_FIELDS);
 
   /** User fields. */

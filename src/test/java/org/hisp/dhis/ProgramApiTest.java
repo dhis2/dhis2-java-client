@@ -32,12 +32,12 @@ import static org.hisp.dhis.support.Assertions.assertNotEmpty;
 import static org.hisp.dhis.support.Assertions.assertSize;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-
 import java.io.InputStream;
 import java.util.List;
 import org.hisp.dhis.model.DataElement;
 import org.hisp.dhis.model.OrgUnit;
 import org.hisp.dhis.model.Program;
+import org.hisp.dhis.model.ProgramAccessLevel;
 import org.hisp.dhis.model.ProgramIndicator;
 import org.hisp.dhis.model.ProgramObjects;
 import org.hisp.dhis.model.ProgramSection;
@@ -130,12 +130,13 @@ class ProgramApiTest {
     assertEquals("Address Book", pr.getShortName());
     assertEquals("ADDRESS_BOOK", pr.getCode());
     assertEquals(ProgramType.WITH_REGISTRATION, pr.getProgramType());
+    assertEquals(1, pr.getVersion());
     assertNotNull(pr.getDisplayIncidentDate());
     assertNotNull(pr.getOnlyEnrollOnce());
     assertNotNull(pr.getDisplayFrontPageList());
     assertNotNull(pr.getMinAttributesRequiredToSearch());
     assertNotNull(pr.getMaxTeiCountToReturn());
-    assertNotNull(pr.getAccessLevel());
+    assertEquals(ProgramAccessLevel.OPEN, pr.getAccessLevel());
 
     ProgramStage ps = retrieved.getProgramStages().get(0);
     assertNotNull(ps);
@@ -172,6 +173,7 @@ class ProgramApiTest {
     assertNotNull(pr.getLastUpdated());
     assertEquals(ProgramType.WITH_REGISTRATION, pr.getProgramType());
     assertNotEmpty(pr.getOrganisationUnits());
+    assertNotNull(pr.getVersion());
     assertNotNull(pr.getDisplayIncidentDate());
     assertNotNull(pr.getOnlyEnrollOnce());
     assertNotNull(pr.getDisplayFrontPageList());
@@ -204,6 +206,7 @@ class ProgramApiTest {
     assertNotEmpty(pr.getNonConfidentialTrackedEntityAttributes());
     assertNotEmpty(pr.getTrackedEntityAttributes());
     assertNotEmpty(pr.getNonConfidentialTrackedEntityAttributes());
+    assertNotNull(pr.getVersion());
     assertNotNull(pr.getDisplayIncidentDate());
     assertNotNull(pr.getOnlyEnrollOnce());
     assertNotNull(pr.getDisplayFrontPageList());
@@ -300,6 +303,7 @@ class ProgramApiTest {
     assertNotBlank(pr.getName());
     assertNotBlank(pr.getShortName());
     assertNotEmpty(pr.getOrganisationUnits());
+    assertNotNull(pr.getVersion());
     assertNotNull(pr.getDisplayIncidentDate());
     assertNotNull(pr.getOnlyEnrollOnce());
     assertNotNull(pr.getDisplayFrontPageList());
@@ -328,6 +332,7 @@ class ProgramApiTest {
     assertNotEmpty(pr.getOrganisationUnits());
     assertNotNull(pr.getProgramStages());
     assertNotEmpty(pr.getProgramStageSections());
+    assertNotNull(pr.getVersion());
     assertNotNull(pr.getDisplayIncidentDate());
     assertNotNull(pr.getOnlyEnrollOnce());
     assertNotNull(pr.getDisplayFrontPageList());
@@ -389,6 +394,7 @@ class ProgramApiTest {
     assertNotBlank(pr.getName());
     assertNotBlank(pr.getShortName());
     assertNotEmpty(pr.getOrganisationUnits());
+    assertNotNull(pr.getVersion());
     assertNotNull(pr.getDisplayIncidentDate());
     assertNotNull(pr.getOnlyEnrollOnce());
     assertNotNull(pr.getDisplayFrontPageList());
@@ -426,6 +432,7 @@ class ProgramApiTest {
     assertNotEmpty(pr.getOrganisationUnits());
     assertNotEmpty(pr.getProgramStages());
     assertNotEmpty(pr.getProgramStageSections());
+    assertNotNull(pr.getVersion());
     assertNotNull(pr.getDisplayIncidentDate());
     assertNotNull(pr.getOnlyEnrollOnce());
     assertNotNull(pr.getDisplayFrontPageList());
