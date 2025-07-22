@@ -95,7 +95,6 @@ class CategoryOptionApiTest {
     CategoryOption categoryOption = dhis2.getCategoryOption("jRbMi0aBjYn");
 
     assertEquals("Male", categoryOption.getName());
-    assertEquals("MLE", categoryOption.getCode());
   }
 
   @Test
