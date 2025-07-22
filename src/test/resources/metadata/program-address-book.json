@@ -103,6 +103,7 @@
       "id": "msLqIoBRMva",
       "description": "",
       "name": "Information",
+      "sortOrder": 0,
       "program": {
         "id": "dIFNZrYGcOB"
       },
@@ -170,6 +171,7 @@
       "id": "UiiwU8uuNsz",
       "name": "Information",
       "description": "Information",
+      "sortOrder": 0,
       "programStage": {
         "id": "ArL19QmQUd1"
       },

@@ -45,7 +45,6 @@ class ProgramTest {
   @Test
   void testDeserializeProgramObjects() {
     InputStream input = new ClassPathFile("metadata/program-address-book.json").getInputStream();
-
     ProgramObjects objects = JacksonUtils.fromJson(input, ProgramObjects.class);
 
     assertNotNull(objects);
