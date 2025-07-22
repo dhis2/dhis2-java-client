@@ -1,0 +1,188 @@
+{
+  "programs": [
+    {
+      "id": "dIFNZrYGcOB",
+      "name": "Address Book",
+      "shortName": "Address Book",
+      "code": "ADDRESS_BOOK",
+      "programType": "WITH_REGISTRATION",
+      "accessLevel": "OPEN",
+      "version": "1",
+      "categoryCombo": {
+        "id": "bjDvmb4bfuf"
+      },
+      "trackedEntityType": {
+        "id": "nEenWmSyUEp"
+      },
+      "programTrackedEntityAttributes": [
+        {
+          "id": "NkvU4urhVNv",
+          "program": {
+            "id": "dIFNZrYGcOB"
+          },
+          "valueType": "TEXT",
+          "displayInList": true,
+          "trackedEntityAttribute": {
+            "id": "lZGmxYbs97q"
+          },
+          "mandatory": true
+        },
+        {
+          "id": "li2tdiYlT0T",
+          "program": {
+            "id": "dIFNZrYGcOB"
+          },
+          "valueType": "TEXT",
+          "displayInList": true,
+          "trackedEntityAttribute": {
+            "id": "w75KJ2mc4zz"
+          },
+          "mandatory": true
+        },
+        {
+          "id": "DwbygGkw8h4",
+          "program": {
+            "id": "dIFNZrYGcOB"
+          },
+          "valueType": "TEXT",
+          "displayInList": true,
+          "trackedEntityAttribute": {
+            "id": "zDhUuAYrxNC"
+          },
+          "mandatory": true
+        },
+        {
+          "id": "kEKhbGGgniH",
+          "program": {
+            "id": "dIFNZrYGcOB"
+          },
+          "valueType": "TEXT",
+          "displayInList": true,
+          "trackedEntityAttribute": {
+            "id": "VqEFza8wbwA"
+          },
+          "mandatory": true
+        },
+        {
+          "id": "R3LX4Lfjz1V",
+          "program": {
+            "id": "dIFNZrYGcOB"
+          },
+          "valueType": "PHONE_NUMBER",
+          "displayInList": true,
+          "trackedEntityAttribute": {
+            "id": "P2cwLGskgxn"
+          },
+          "mandatory": true
+        }
+      ],
+      "notificationTemplates": [
+      ],
+      "organisationUnits": [
+        {
+          "id": "DiszpKrYNg8"
+        },
+        {
+          "id": "g8upMTyEZGZ"
+        }
+      ],
+      "programSections": [
+        {
+          "id": "msLqIoBRMva"
+        }
+      ],
+      "programStages": [
+        {
+          "id": "ArL19QmQUd1"
+        }
+      ]
+    }
+  ],
+  "programSections": [
+    {
+      "id": "msLqIoBRMva",
+      "description": "",
+      "name": "Information",
+      "program": {
+        "id": "dIFNZrYGcOB"
+      },
+      "trackedEntityAttributes": [
+        {
+          "id": "lZGmxYbs97q"
+        },
+        {
+          "id": "w75KJ2mc4zz"
+        },
+        {
+          "id": "zDhUuAYrxNC"
+        },
+        {
+          "id": "VqEFza8wbwA"
+        },
+        {
+          "id": "P2cwLGskgxn"
+        }
+      ]
+    }
+  ],
+  "programStages": [
+    {
+      "id": "ArL19QmQUd1",
+      "name": "Vital Statistics",
+      "displayGenerateEventBox": false,
+      "autoGenerateEvent": false,
+      "program": {
+        "id": "dIFNZrYGcOB"
+      },
+      "programStageDataElements": [
+        {
+          "id": "r6vGOP54sJa",
+          "programStage": {
+            "id": "ArL19QmQUd1"
+          },
+          "dataElement": {
+            "id": "GieVkTxp4HH"
+          },
+          "compulsory": true
+        },
+        {
+          "id": "Fnz6H9q2rKk",
+          "programStage": {
+            "id": "ArL19QmQUd1"
+          },
+          "dataElement": {
+            "id": "vV9UWAZohSf"
+          },
+          "compulsory": true
+        }
+      ],
+      "notificationTemplates": [
+      ],
+      "programStageSections": [
+        {
+          "id": "UiiwU8uuNsz"
+        }
+      ]
+    }
+  ],
+  "programStageSections": [
+    {
+      "id": "UiiwU8uuNsz",
+      "name": "Information",
+      "description": "Information",
+      "programStage": {
+        "id": "ArL19QmQUd1"
+      },
+      "programIndicators": [
+      ],
+      "dataElements": [
+        {
+          "id": "GieVkTxp4HH"
+        },
+        {
+          "id": "vV9UWAZohSf"
+        }
+      ]
+    }
+  ]
+}
