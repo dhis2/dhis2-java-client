@@ -65,6 +65,8 @@ public class Program extends NameableObject {
 
   @JsonProperty private List<ProgramStage> programStages = new ArrayList<>();
 
+  @JsonProperty private Integer version;
+
   @JsonProperty private Boolean displayIncidentDate;
 
   @JsonProperty private Boolean onlyEnrollOnce;
