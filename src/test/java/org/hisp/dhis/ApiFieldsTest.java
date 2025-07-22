@@ -86,7 +86,9 @@ class ApiFieldsTest {
         programTrackedEntityAttributes[id,code,name,program[id,code,name,created,lastUpdated,\
         attributeValues,shortName,description],\
         trackedEntityAttribute[id,code,name,created,lastUpdated,attributeValues,shortName,\
-        description,valueType,aggregationType,confidential,unique],sortOrder,displayInList,mandatory]""";
+        description,valueType,aggregationType,confidential,unique],sortOrder,displayInList,mandatory],\
+        displayIncidentDate,onlyEnrollOnce,displayFrontPageList,minAttributesRequiredToSearch,\
+        maxTeiCountToReturn,accessLevel""";
 
     assertEquals(expected, ApiFields.PROGRAM_EXT_FIELDS);
   }
@@ -103,7 +105,9 @@ class ApiFieldsTest {
         programTrackedEntityAttributes[id,code,name,\
         program[id,code,name,created,lastUpdated,attributeValues,shortName,description],\
         trackedEntityAttribute[id,code,name,created,lastUpdated,attributeValues,shortName,\
-        description,valueType,aggregationType,confidential,unique],sortOrder,displayInList,mandatory]""";
+        description,valueType,aggregationType,confidential,unique],sortOrder,displayInList,mandatory],\
+        displayIncidentDate,onlyEnrollOnce,displayFrontPageList,minAttributesRequiredToSearch,\
+        maxTeiCountToReturn,accessLevel""";
 
     assertEquals(expected, ApiFields.PROGRAM_FIELDS);
   }

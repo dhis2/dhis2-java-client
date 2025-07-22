@@ -73,6 +73,10 @@ public class Program extends NameableObject {
 
   @JsonProperty private Integer minAttributesRequiredToSearch;
 
+  @JsonProperty private Integer maxTeiCountToReturn;
+
+  @JsonProperty private ProgramAccessLevel accessLevel;
+
   public Program(String id, String name) {
     this.id = id;
     this.name = name;
