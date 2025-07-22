@@ -32,7 +32,6 @@ import static org.hisp.dhis.support.Assertions.assertNotEmpty;
 import static org.hisp.dhis.support.Assertions.assertSize;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-
 import java.io.InputStream;
 import java.util.List;
 import org.hisp.dhis.model.DataElement;
@@ -87,11 +86,11 @@ class ProgramApiTest {
 
     pr.setName("Telephone Book");
 
-    ObjectsResponse updateParams = dhis2.saveProgram(objects);
+    ObjectsResponse updateResponse = dhis2.saveProgram(objects);
 
-    assertNotNull(updateParams);
-    assertNotNull(updateParams.getStats());
-    assertEquals(Status.OK, updateParams.getStatus());
+    assertNotNull(updateResponse);
+    assertNotNull(updateResponse.getStats());
+    assertEquals(Status.OK, updateResponse.getStatus());
 
     ObjectResponse removeResponse = dhis2.removeProgram("dIFNZrYGcOB");
 
