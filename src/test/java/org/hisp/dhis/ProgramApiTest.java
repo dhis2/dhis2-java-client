@@ -32,6 +32,7 @@ import static org.hisp.dhis.support.Assertions.assertNotEmpty;
 import static org.hisp.dhis.support.Assertions.assertSize;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import java.util.List;
 import org.hisp.dhis.model.DataElement;
 import org.hisp.dhis.model.OrgUnit;
@@ -56,7 +57,7 @@ import org.junit.jupiter.api.Test;
 
 @Tag(TestTags.INTEGRATION)
 class ProgramApiTest {
-  @Test 
+  @Test
   void testGetProgramObjectsChildProgramme() {
     Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
 
@@ -64,27 +65,31 @@ class ProgramApiTest {
 
     assertNotEmpty(objects.getPrograms());
     assertNotEmpty(objects.getProgramStages());
-    
+
     Program pr = objects.getPrograms().get(0);
 
     assertNotNull(pr);
     assertEquals("IpHINAT79UW", pr.getId());
     assertNotBlank(pr.getName());
     assertNotBlank(pr.getShortName());
-    
+    assertNotNull(pr.getCreated());
+    assertNotNull(pr.getLastUpdated());
+    assertEquals(ProgramType.WITH_REGISTRATION, pr.getProgramType());
+    assertNotEmpty(pr.getOrganisationUnits());
+
     ProgramStage ps = objects.getProgramStages().get(0);
 
     assertNotNull(ps);
     assertNotBlank(ps.getId());
-    assertNotBlank(ps.getName());    
+    assertNotBlank(ps.getName());
   }
-  
+
   @Test
   void testGetProgramChildProgramme() {
     Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
 
     Program pr = dhis2.getProgram("IpHINAT79UW");
-    
+
     assertNotNull(pr);
     assertEquals("IpHINAT79UW", pr.getId());
     assertNotBlank(pr.getName());
@@ -179,13 +184,14 @@ class ProgramApiTest {
 
     assertNotEmpty(objects.getPrograms());
     assertNotEmpty(objects.getProgramStages());
-    
+
     Program pr = objects.getPrograms().get(0);
 
     assertNotNull(pr);
     assertEquals("eBAyeGv0exc", pr.getId());
     assertNotBlank(pr.getName());
     assertNotBlank(pr.getShortName());
+    assertNotEmpty(pr.getOrganisationUnits());
 
     ProgramStage ps = objects.getProgramStages().get(0);
 
@@ -194,7 +200,7 @@ class ProgramApiTest {
     assertNotBlank(ps.getName());
     assertNotNull(ps.getProgramStageSections());
   }
-  
+
   @Test
   void testGetProgramInpatientCase() {
     Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
@@ -253,14 +259,26 @@ class ProgramApiTest {
     ProgramObjects objects = dhis2.getProgramObjects("qDkgAbB5Jlk");
 
     assertNotEmpty(objects.getPrograms());
+    assertNotEmpty(objects.getProgramSections());
     assertNotEmpty(objects.getProgramStages());
-    
+
     Program pr = objects.getPrograms().get(0);
 
     assertNotNull(pr);
     assertEquals("qDkgAbB5Jlk", pr.getId());
     assertNotBlank(pr.getName());
     assertNotBlank(pr.getShortName());
+    assertNotEmpty(pr.getOrganisationUnits());
+
+    ProgramSection sc = objects.getProgramSections().get(0);
+
+    assertNotNull(sc);
+    assertNotBlank(sc.getId());
+    assertNotBlank(sc.getName());
+    assertNotNull(sc.getProgram());
+    assertNotBlank(sc.getProgram().getId());
+    assertNotNull(sc.getSortOrder());
+    assertEquals("qDkgAbB5Jlk", sc.getProgram().getId());
 
     ProgramStage ps = objects.getProgramStages().get(0);
 
@@ -268,7 +286,7 @@ class ProgramApiTest {
     assertEquals("hYyB7FUS5eR", ps.getId());
     assertNotBlank(ps.getName());
   }
-  
+
   @Test
   void testGetProgramMalariaCaseDiagnosis() {
     Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
@@ -291,22 +309,23 @@ class ProgramApiTest {
     List<ProgramSection> sections = pr.getProgramSections();
     assertNotEmpty(sections);
 
-    ProgramSection section = sections.get(0);
-    assertNotBlank(section.getId());
-    assertNotBlank(section.getName());
-    assertNotNull(section.getProgram());
-    assertNotBlank(section.getProgram().getId());
-    assertNotNull(section.getSortOrder());
-    assertEquals("qDkgAbB5Jlk", section.getProgram().getId());
+    ProgramSection sc = sections.get(0);
+    assertNotNull(sc);
+    assertNotBlank(sc.getId());
+    assertNotBlank(sc.getName());
+    assertNotNull(sc.getProgram());
+    assertNotBlank(sc.getProgram().getId());
+    assertNotNull(sc.getSortOrder());
+    assertEquals("qDkgAbB5Jlk", sc.getProgram().getId());
 
-    List<TrackedEntityAttribute> attributes = section.getTrackedEntityAttributes();
+    List<TrackedEntityAttribute> attributes = sc.getTrackedEntityAttributes();
     assertNotNull(attributes);
     assertNotEmpty(attributes);
 
-    TrackedEntityAttribute attribute = attributes.get(0);
-    assertNotNull(attribute);
-    assertNotBlank(attribute.getId());
-    assertNotBlank(attribute.getName());
+    TrackedEntityAttribute tea = attributes.get(0);
+    assertNotNull(tea);
+    assertNotBlank(tea.getId());
+    assertNotBlank(tea.getName());
 
     ProgramStage ps = pr.getProgramStages().get(0);
 
@@ -347,7 +366,7 @@ class ProgramApiTest {
     assertNotNull(tea);
     assertNotNull(tea.getId());
     assertNotNull(tea.getValueType());
-    
+
     assertNotEmpty(program.getProgramStages());
 
     ProgramStage ps = program.getProgramStages().get(0);
