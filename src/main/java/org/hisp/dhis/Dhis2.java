@@ -38,6 +38,7 @@ import static org.hisp.dhis.ApiFields.VALIDATION_RULE_FIELDS;
 import static org.hisp.dhis.Constants.SUPER_ADMIN_AUTH;
 import static org.hisp.dhis.util.CollectionUtils.asList;
 import static org.hisp.dhis.util.CollectionUtils.list;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -2261,24 +2262,23 @@ public class Dhis2 extends BaseDhis2 {
     return getMetadataObject(MetadataEntity.PROGRAM, id);
   }
 
-  
   private ProgramObjects getProgramObjects(Program program) {
     ProgramObjects objects = new ProgramObjects();
-    
+
     List<Program> programs = List.of(program);
     List<ProgramSection> sections = new ArrayList<>(program.getProgramSections());
-    
+
     List<ProgramStage> stages = new ArrayList<>(program.getProgramStages());
     List<ProgramStageSection> stageSections = new ArrayList<>(program.getProgramStageSections());
-    
+
     objects.setPrograms(null);
     objects.setProgramSections(sections);
     objects.setProgramStages(null);
     objects.setProgramStageSections(stageSections);
-    
+
     return objects;
   }
-  
+
   /**
    * Indicates whether a {@link Program} exists.
    *
