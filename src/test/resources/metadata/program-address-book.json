@@ -23,9 +23,7 @@
           "valueType": "TEXT",
           "displayInList": true,
           "trackedEntityAttribute": {
-            "id": "lZGmxYbs97q",
-            "valueType": "TEXT",
-            "unique": true
+            "id": "lZGmxYbs97q"
           },
           "mandatory": true
         },
@@ -37,9 +35,7 @@
           "valueType": "TEXT",
           "displayInList": true,
           "trackedEntityAttribute": {
-            "id": "w75KJ2mc4zz",
-            "valueType": "TEXT",
-            "unique": false
+            "id": "w75KJ2mc4zz"
           },
           "mandatory": true
         },
@@ -51,9 +47,7 @@
           "valueType": "TEXT",
           "displayInList": true,
           "trackedEntityAttribute": {
-            "id": "zDhUuAYrxNC",
-            "valueType": "TEXT",
-            "unique": false
+            "id": "zDhUuAYrxNC"
           },
           "mandatory": true
         },
@@ -65,9 +59,7 @@
           "valueType": "TEXT",
           "displayInList": true,
           "trackedEntityAttribute": {
-            "id": "VqEFza8wbwA",
-            "valueType": "TEXT",
-            "unique": false
+            "id": "VqEFza8wbwA"
           },
           "mandatory": true
         },
@@ -79,9 +71,7 @@
           "valueType": "PHONE_NUMBER",
           "displayInList": true,
           "trackedEntityAttribute": {
-            "id": "P2cwLGskgxn",
-            "valueType": "PHONE_NUMBER",
-            "unique": false
+            "id": "P2cwLGskgxn"
           },
           "mandatory": true
         }
