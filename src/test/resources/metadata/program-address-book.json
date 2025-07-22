@@ -144,7 +144,7 @@
         },
         "externalAccess": false
       },
-      "name": "Vital statistics",
+      "name": "Vital Statistics",
       "displayGenerateEventBox": false,
       "autoGenerateEvent": false,
       "program": {
