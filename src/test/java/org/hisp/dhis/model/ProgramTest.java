@@ -28,15 +28,33 @@
 package org.hisp.dhis.model;
 
 import static org.hisp.dhis.support.Assertions.assertContainsExactlyInOrder;
+import static org.hisp.dhis.support.Assertions.assertNotEmpty;
 import static org.hisp.dhis.support.TestObjects.set;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import java.io.InputStream;
 import java.util.List;
 import org.hisp.dhis.support.TestTags;
+import org.hisp.dhis.util.ClassPathFile;
+import org.hisp.dhis.util.JacksonUtils;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 @Tag(TestTags.UNIT)
 class ProgramTest {
+  @Test
+  void testDeserializeProgramObjects() {
+    InputStream input = new ClassPathFile("metadata/program-address-book.json").getInputStream();
+
+    ProgramObjects objects = JacksonUtils.fromJson(input, ProgramObjects.class);
+
+    assertNotNull(objects);
+    assertNotEmpty(objects.getPrograms());
+    assertNotEmpty(objects.getProgramSections());
+    assertNotEmpty(objects.getProgramStages());
+    assertNotEmpty(objects.getProgramStageSections());
+  }
+
   @Test
   void testGetDataElements() {
     DataElement deA = set(new DataElement(), 'A');

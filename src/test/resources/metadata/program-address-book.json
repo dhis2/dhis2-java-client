@@ -1,0 +1,269 @@
+{
+  "programs": [
+    {
+      "id": "dIFNZrYGcOB",
+      "version": "1",
+      "name": "Address Book",
+      "shortName": "Address Book",
+      "code": "ADDRESS_BOOK",
+      "programType": "WITH_REGISTRATION",
+      "accessLevel": "OPEN",
+      "categoryCombo": {
+        "id": "bjDvmb4bfuf"
+      },
+      "trackedEntityType": {
+        "id": "nEenWmSyUEp"
+      },
+      "programTrackedEntityAttributes": [
+        {
+          "id": "NkvU4urhVNv",
+          "program": {
+            "id": "dIFNZrYGcOB"
+          },
+          "displayName": "undefined Unique ID",
+          "valueType": "TEXT",
+          "sortOrder": 1,
+          "displayInList": true,
+          "trackedEntityAttribute": {
+            "id": "lZGmxYbs97q",
+            "displayName": "Unique ID",
+            "valueType": "TEXT",
+            "unique": true,
+            "renderTypeOptions": [
+              "DEFAULT",
+              "VALUE",
+              "AUTOCOMPLETE",
+              "QR_CODE",
+              "BAR_CODE",
+              "GS1_DATAMATRIX"
+            ]
+          },
+          "mandatory": true
+        },
+        {
+          "id": "li2tdiYlT0T",
+          "program": {
+            "id": "dIFNZrYGcOB"
+          },
+          "displayName": "undefined First name",
+          "valueType": "TEXT",
+          "sortOrder": 2,
+          "displayInList": true,
+          "trackedEntityAttribute": {
+            "id": "w75KJ2mc4zz",
+            "displayName": "First name",
+            "valueType": "TEXT",
+            "unique": false,
+            "renderTypeOptions": [
+              "DEFAULT",
+              "VALUE",
+              "AUTOCOMPLETE",
+              "QR_CODE",
+              "BAR_CODE",
+              "GS1_DATAMATRIX"
+            ]
+          },
+          "mandatory": true
+        },
+        {
+          "id": "DwbygGkw8h4",
+          "program": {
+            "id": "dIFNZrYGcOB"
+          },
+          "displayName": "undefined Last name",
+          "valueType": "TEXT",
+          "sortOrder": 3,
+          "displayInList": true,
+          "trackedEntityAttribute": {
+            "id": "zDhUuAYrxNC",
+            "displayName": "Last name",
+            "valueType": "TEXT",
+            "unique": false,
+            "renderTypeOptions": [
+              "DEFAULT",
+              "VALUE",
+              "AUTOCOMPLETE",
+              "QR_CODE",
+              "BAR_CODE",
+              "GS1_DATAMATRIX"
+            ]
+          },
+          "mandatory": true
+        },
+        {
+          "id": "kEKhbGGgniH",
+          "program": {
+            "id": "dIFNZrYGcOB"
+          },
+          "displayName": "undefined Address",
+          "valueType": "TEXT",
+          "sortOrder": 5,
+          "displayInList": true,
+          "trackedEntityAttribute": {
+            "id": "VqEFza8wbwA",
+            "displayName": "Address",
+            "valueType": "TEXT",
+            "unique": false,
+            "renderTypeOptions": [
+              "DEFAULT",
+              "VALUE",
+              "AUTOCOMPLETE",
+              "QR_CODE",
+              "BAR_CODE",
+              "GS1_DATAMATRIX"
+            ]
+          },
+          "mandatory": true
+        },
+        {
+          "id": "R3LX4Lfjz1V",
+          "program": {
+            "id": "dIFNZrYGcOB"
+          },
+          "displayName": "undefined Phone number",
+          "valueType": "PHONE_NUMBER",
+          "sortOrder": 4,
+          "displayInList": true,
+          "trackedEntityAttribute": {
+            "id": "P2cwLGskgxn",
+            "displayName": "Phone number",
+            "valueType": "PHONE_NUMBER",
+            "unique": false,
+            "renderTypeOptions": [
+              "DEFAULT"
+            ]
+          },
+          "mandatory": true
+        }
+      ],
+      "notificationTemplates": [
+      ],
+      "organisationUnits": [
+        {
+          "id": "DiszpKrYNg8"
+        },
+        {
+          "id": "g8upMTyEZGZ"
+        }
+      ],
+      "programSections": [
+        {
+          "id": "msLqIoBRMva"
+        }
+      ],
+      "programStages": [
+        {
+          "id": "ArL19QmQUd1"
+        }
+      ]
+    }
+  ],
+  "programSections": [
+    {
+      "id": "msLqIoBRMva",
+      "description": "",
+      "renderType": {
+        "MOBILE": {
+          "type": "LISTING"
+        },
+        "DESKTOP": {
+          "type": "LISTING"
+        }
+      },
+      "sortOrder": 0,
+      "name": "Information",
+      "program": {
+        "id": "dIFNZrYGcOB"
+      },
+      "trackedEntityAttributes": [
+        {
+          "id": "lZGmxYbs97q"
+        },
+        {
+          "id": "w75KJ2mc4zz"
+        },
+        {
+          "id": "zDhUuAYrxNC"
+        },
+        {
+          "id": "VqEFza8wbwA"
+        },
+        {
+          "id": "P2cwLGskgxn"
+        }
+      ]
+    }
+  ],
+  "programStages": [
+    {
+      "id": "ArL19QmQUd1",
+      "sharing": {
+        "public": "rw------",
+        "userGroups": {
+        },
+        "users": {
+        },
+        "externalAccess": false
+      },
+      "sortOrder": 1,
+      "name": "Vital statistics",
+      "displayGenerateEventBox": false,
+      "autoGenerateEvent": false,
+      "program": {
+        "id": "dIFNZrYGcOB"
+      },
+      "programStageDataElements": [
+        {
+          "id": "r6vGOP54sJa",
+          "programStage": {
+            "id": "ArL19QmQUd1"
+          },
+          "dataElement": {
+            "id": "GieVkTxp4HH"
+          },
+          "sortOrder": 1,
+          "compulsory": true
+        },
+        {
+          "id": "Fnz6H9q2rKk",
+          "programStage": {
+            "id": "ArL19QmQUd1"
+          },
+          "dataElement": {
+            "id": "vV9UWAZohSf"
+          },
+          "sortOrder": 2,
+          "compulsory": true
+        }
+      ],
+      "notificationTemplates": [
+      ],
+      "programStageSections": [
+        {
+          "id": "UiiwU8uuNsz"
+        }
+      ]
+    }
+  ],
+  "programStageSections": [
+    {
+      "id": "UiiwU8uuNsz",
+      "name": "Information",
+      "description": "Information",
+      "sortOrder": 0,
+      "programStage": {
+        "id": "ArL19QmQUd1"
+      },
+      "programIndicators": [
+      ],
+      "dataElements": [
+        {
+          "id": "GieVkTxp4HH"
+        },
+        {
+          "id": "vV9UWAZohSf"
+        }
+      ]
+    }
+  ]
+}
