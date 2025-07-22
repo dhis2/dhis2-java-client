@@ -102,14 +102,6 @@
     {
       "id": "msLqIoBRMva",
       "description": "",
-      "renderType": {
-        "MOBILE": {
-          "type": "LISTING"
-        },
-        "DESKTOP": {
-          "type": "LISTING"
-        }
-      },
       "name": "Information",
       "program": {
         "id": "dIFNZrYGcOB"
@@ -136,14 +128,6 @@
   "programStages": [
     {
       "id": "ArL19QmQUd1",
-      "sharing": {
-        "public": "rw------",
-        "userGroups": {
-        },
-        "users": {
-        },
-        "externalAccess": false
-      },
       "name": "Vital Statistics",
       "displayGenerateEventBox": false,
       "autoGenerateEvent": false,
