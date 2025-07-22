@@ -110,7 +110,6 @@
           "type": "LISTING"
         }
       },
-      "sortOrder": 0,
       "name": "Information",
       "program": {
         "id": "dIFNZrYGcOB"
@@ -145,7 +144,6 @@
         },
         "externalAccess": false
       },
-      "sortOrder": 1,
       "name": "Vital statistics",
       "displayGenerateEventBox": false,
       "autoGenerateEvent": false,
@@ -161,7 +159,6 @@
           "dataElement": {
             "id": "GieVkTxp4HH"
           },
-          "sortOrder": 1,
           "compulsory": true
         },
         {
@@ -172,7 +169,6 @@
           "dataElement": {
             "id": "vV9UWAZohSf"
           },
-          "sortOrder": 2,
           "compulsory": true
         }
       ],
@@ -190,7 +186,6 @@
       "id": "UiiwU8uuNsz",
       "name": "Information",
       "description": "Information",
-      "sortOrder": 0,
       "programStage": {
         "id": "ArL19QmQUd1"
       },
