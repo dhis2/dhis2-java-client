@@ -34,14 +34,12 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
 @Getter
 @Setter
 @ToString
-@NoArgsConstructor
 public class IdentifiableObject implements Serializable {
   @JsonProperty protected String id;
 
@@ -54,19 +52,6 @@ public class IdentifiableObject implements Serializable {
   @JsonProperty protected Date lastUpdated;
 
   @JsonProperty protected Set<AttributeValue> attributeValues = new HashSet<>();
-
-  // -------------------------------------------------------------------------
-  // Constructors
-  // -------------------------------------------------------------------------
-
-  /**
-   * Constructor.
-   *
-   * @param id the identifier.
-   */
-  public IdentifiableObject(String id) {
-    this.id = id;
-  }
 
   // -------------------------------------------------------------------------
   // Logic methods
