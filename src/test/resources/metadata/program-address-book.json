@@ -20,23 +20,12 @@
           "program": {
             "id": "dIFNZrYGcOB"
           },
-          "displayName": "undefined Unique ID",
           "valueType": "TEXT",
-          "sortOrder": 1,
           "displayInList": true,
           "trackedEntityAttribute": {
             "id": "lZGmxYbs97q",
-            "displayName": "Unique ID",
             "valueType": "TEXT",
-            "unique": true,
-            "renderTypeOptions": [
-              "DEFAULT",
-              "VALUE",
-              "AUTOCOMPLETE",
-              "QR_CODE",
-              "BAR_CODE",
-              "GS1_DATAMATRIX"
-            ]
+            "unique": true
           },
           "mandatory": true
         },
@@ -45,23 +34,12 @@
           "program": {
             "id": "dIFNZrYGcOB"
           },
-          "displayName": "undefined First name",
           "valueType": "TEXT",
-          "sortOrder": 2,
           "displayInList": true,
           "trackedEntityAttribute": {
             "id": "w75KJ2mc4zz",
-            "displayName": "First name",
             "valueType": "TEXT",
-            "unique": false,
-            "renderTypeOptions": [
-              "DEFAULT",
-              "VALUE",
-              "AUTOCOMPLETE",
-              "QR_CODE",
-              "BAR_CODE",
-              "GS1_DATAMATRIX"
-            ]
+            "unique": false
           },
           "mandatory": true
         },
@@ -70,23 +48,12 @@
           "program": {
             "id": "dIFNZrYGcOB"
           },
-          "displayName": "undefined Last name",
           "valueType": "TEXT",
-          "sortOrder": 3,
           "displayInList": true,
           "trackedEntityAttribute": {
             "id": "zDhUuAYrxNC",
-            "displayName": "Last name",
             "valueType": "TEXT",
-            "unique": false,
-            "renderTypeOptions": [
-              "DEFAULT",
-              "VALUE",
-              "AUTOCOMPLETE",
-              "QR_CODE",
-              "BAR_CODE",
-              "GS1_DATAMATRIX"
-            ]
+            "unique": false
           },
           "mandatory": true
         },
@@ -95,23 +62,12 @@
           "program": {
             "id": "dIFNZrYGcOB"
           },
-          "displayName": "undefined Address",
           "valueType": "TEXT",
-          "sortOrder": 5,
           "displayInList": true,
           "trackedEntityAttribute": {
             "id": "VqEFza8wbwA",
-            "displayName": "Address",
             "valueType": "TEXT",
-            "unique": false,
-            "renderTypeOptions": [
-              "DEFAULT",
-              "VALUE",
-              "AUTOCOMPLETE",
-              "QR_CODE",
-              "BAR_CODE",
-              "GS1_DATAMATRIX"
-            ]
+            "unique": false
           },
           "mandatory": true
         },
@@ -120,18 +76,12 @@
           "program": {
             "id": "dIFNZrYGcOB"
           },
-          "displayName": "undefined Phone number",
           "valueType": "PHONE_NUMBER",
-          "sortOrder": 4,
           "displayInList": true,
           "trackedEntityAttribute": {
             "id": "P2cwLGskgxn",
-            "displayName": "Phone number",
             "valueType": "PHONE_NUMBER",
-            "unique": false,
-            "renderTypeOptions": [
-              "DEFAULT"
-            ]
+            "unique": false
           },
           "mandatory": true
         }
