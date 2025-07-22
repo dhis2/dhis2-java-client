@@ -20,7 +20,6 @@
           "program": {
             "id": "dIFNZrYGcOB"
           },
-          "valueType": "TEXT",
           "displayInList": true,
           "trackedEntityAttribute": {
             "id": "lZGmxYbs97q"
@@ -32,7 +31,6 @@
           "program": {
             "id": "dIFNZrYGcOB"
           },
-          "valueType": "TEXT",
           "displayInList": true,
           "trackedEntityAttribute": {
             "id": "w75KJ2mc4zz"
@@ -44,7 +42,6 @@
           "program": {
             "id": "dIFNZrYGcOB"
           },
-          "valueType": "TEXT",
           "displayInList": true,
           "trackedEntityAttribute": {
             "id": "zDhUuAYrxNC"
@@ -56,7 +53,6 @@
           "program": {
             "id": "dIFNZrYGcOB"
           },
-          "valueType": "TEXT",
           "displayInList": true,
           "trackedEntityAttribute": {
             "id": "VqEFza8wbwA"
@@ -68,7 +64,6 @@
           "program": {
             "id": "dIFNZrYGcOB"
           },
-          "valueType": "PHONE_NUMBER",
           "displayInList": true,
           "trackedEntityAttribute": {
             "id": "P2cwLGskgxn"
@@ -101,8 +96,8 @@
   "programSections": [
     {
       "id": "msLqIoBRMva",
-      "description": "",
       "name": "Information",
+      "description": "Information",
       "sortOrder": 0,
       "program": {
         "id": "dIFNZrYGcOB"

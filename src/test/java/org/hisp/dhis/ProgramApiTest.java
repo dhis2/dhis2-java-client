@@ -27,12 +27,13 @@
  */
 package org.hisp.dhis;
 
+import static org.hisp.dhis.support.Assertions.assertEmpty;
 import static org.hisp.dhis.support.Assertions.assertNotBlank;
 import static org.hisp.dhis.support.Assertions.assertNotEmpty;
 import static org.hisp.dhis.support.Assertions.assertSize;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.io.InputStream;
 import java.util.List;
 import org.hisp.dhis.model.DataElement;
@@ -119,10 +120,10 @@ class ProgramApiTest {
     ProgramObjects retrieved = dhis2.getProgramObjects(PR_ID);
 
     assertNotNull(retrieved);
-    assertEquals(1, retrieved.getPrograms().size());
-    assertEquals(1, retrieved.getProgramSections().size());
-    assertEquals(1, retrieved.getProgramStages().size());
-    assertEquals(1, retrieved.getProgramStageSections().size());
+    assertSize(1, retrieved.getPrograms());
+    assertSize(1, retrieved.getProgramSections());
+    assertSize(1, retrieved.getProgramStages());
+    assertSize(1, retrieved.getProgramStageSections());
 
     Program pr = retrieved.getPrograms().get(0);
     assertNotNull(pr);
@@ -130,6 +131,10 @@ class ProgramApiTest {
     assertEquals("Address Book", pr.getName());
     assertEquals("Address Book", pr.getShortName());
     assertEquals("ADDRESS_BOOK", pr.getCode());
+    assertSize(5, pr.getProgramTrackedEntityAttributes());
+    assertSize(2, pr.getOrganisationUnits());
+    assertSize(1, pr.getProgramSections());
+    assertSize(1, pr.getProgramStages());
     assertEquals(ProgramType.WITH_REGISTRATION, pr.getProgramType());
     assertEquals(1, pr.getVersion());
     assertNotNull(pr.getDisplayIncidentDate());
@@ -138,15 +143,35 @@ class ProgramApiTest {
     assertNotNull(pr.getMinAttributesRequiredToSearch());
     assertNotNull(pr.getMaxTeiCountToReturn());
     assertEquals(ProgramAccessLevel.OPEN, pr.getAccessLevel());
+        
+    ProgramTrackedEntityAttribute ptea = pr.getProgramTrackedEntityAttributes().get(0);
+    assertNotNull(ptea);
+    assertEquals("NkvU4urhVNv", ptea.getId());
+    assertNotNull(ptea.getProgram());
+    assertEquals(PR_ID, ptea.getProgram().getId());
+    assertNotNull(ptea.getTrackedEntityAttribute());
+    assertEquals("lZGmxYbs97q", ptea.getTrackedEntityAttribute().getId());
+    assertTrue(ptea.getMandatory());
 
     ProgramStage ps = retrieved.getProgramStages().get(0);
     assertNotNull(ps);
+    assertEquals("ArL19QmQUd1", ps.getId());
+    assertEquals("Vital Statistics", ps.getName());
+    assertSize(2, ps.getProgramStageDataElements());
+    assertSize(1, ps.getProgramStageSections());
 
     ProgramSection sc = retrieved.getProgramSections().get(0);
     assertNotNull(sc);
+    assertEquals("msLqIoBRMva", sc.getId());
+    assertEquals("Information", sc.getName());
+    assertEquals("Information", sc.getDescription());
 
     ProgramStageSection pss = retrieved.getProgramStageSections().get(0);
     assertNotNull(pss);
+    assertEquals("Information", pss.getName());
+    assertEquals("Information", pss.getDescription());
+    assertEmpty(pss.getProgramIndicators());
+    assertSize(2, pss.getDataElements());
 
     ObjectResponse removeResponse = dhis2.removeProgram(PR_ID);
 
@@ -483,7 +508,7 @@ class ProgramApiTest {
             Query.instance().withExpandAssociations().addFilter(Filter.eq("id", "IpHINAT79UW")));
 
     assertNotNull(programs);
-    assertEquals(1, programs.size());
+    assertSize(1, programs);
     assertNotNull(programs.get(0));
     assertEquals("IpHINAT79UW", programs.get(0).getId());
 
