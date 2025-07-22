@@ -28,13 +28,14 @@
 package org.hisp.dhis.util;
 
 import static java.lang.String.format;
+
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
-import org.hisp.dhis.model.IdentifiableObject;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.hisp.dhis.model.IdentifiableObject;
 
 /** Utilities for {@link IdentifiableObject}. */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -66,26 +67,25 @@ public class IdentifiableObjectUtils {
         .map(IdentifiableObject::getCode)
         .collect(Collectors.toList());
   }
-  
+
   /**
-   * Converts the given collection of identifiable objects to a new list of identifiable objects of the
-   * specified type.
+   * Converts the given collection of identifiable objects to a new list of identifiable objects of
+   * the specified type.
    *
    * @param <T> the type.
    * @param objects the collection of {@link IdentifiableObject}.
    * @param type the class type.
    * @return a list of identifiable objects.
    */
-  public static <T extends IdentifiableObject> List<T> toIdObjects(Collection<T> objects, Class<T> type) {
-    return objects.stream()
-        .filter(Objects::nonNull)
-        .map(o -> getInstance(o, type))
-        .toList();
+  public static <T extends IdentifiableObject> List<T> toIdObjects(
+      Collection<T> objects, Class<T> type) {
+    return objects.stream().filter(Objects::nonNull).map(o -> getInstance(o, type)).toList();
   }
-  
+
   /**
-   * Creates a new instance of the given identifiable object type and sets the identifier based on the given object.
-   * 
+   * Creates a new instance of the given identifiable object type and sets the identifier based on
+   * the given object.
+   *
    * @param <T> the type.
    * @param object the {@link IdentifiableObject}.
    * @param type the class type.
@@ -96,10 +96,10 @@ public class IdentifiableObjectUtils {
     object.setId(object.getId());
     return idObject;
   }
-  
+
   /**
    * Creates a new instance of the given identifiable object type.
-   * 
+   *
    * @param <T> the type.
    * @param type the class type.
    * @return an {@link IdentifiableObject}.
@@ -107,7 +107,7 @@ public class IdentifiableObjectUtils {
   private static <T extends IdentifiableObject> T newInstance(Class<T> type) {
     try {
       return type.getDeclaredConstructor().newInstance();
-    } catch(ReflectiveOperationException ex) {
+    } catch (ReflectiveOperationException ex) {
       String msg = format("Could not instantiate instance of type: %s", type.getSimpleName());
       throw new IllegalArgumentException(msg);
     }

@@ -39,6 +39,7 @@ import static org.hisp.dhis.Constants.SUPER_ADMIN_AUTH;
 import static org.hisp.dhis.util.CollectionUtils.asList;
 import static org.hisp.dhis.util.CollectionUtils.list;
 import static org.hisp.dhis.util.IdentifiableObjectUtils.toIdObjects;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -2261,10 +2262,10 @@ public class Dhis2 extends BaseDhis2 {
   public Program getProgram(String id) {
     return getMetadataObject(MetadataEntity.PROGRAM, id);
   }
-  
+
   /**
    * Retrieves a {@link ProgramObjects}.
-   * 
+   *
    * @param id the object identifier.
    * @return the {@link ProgramObjects}.
    * @throws Dhis2ClientException if the object does not exist.
@@ -2287,20 +2288,21 @@ public class Dhis2 extends BaseDhis2 {
     // Program stage sections
     for (ProgramStage stage : program.getProgramStages()) {
       objects.getProgramStageSections().addAll(stage.getProgramStageSections());
-      stage.setProgramStageSections(toIdObjects(stage.getProgramStageSections(), ProgramStageSection.class));
+      stage.setProgramStageSections(
+          toIdObjects(stage.getProgramStageSections(), ProgramStageSection.class));
     }
-    
+
     // Program sections
     objects.getProgramSections().addAll(program.getProgramSections());
     program.setProgramSections(toIdObjects(program.getProgramSections(), ProgramSection.class));
-    
+
     // Program stages
     objects.getProgramStages().addAll(program.getProgramStages());
     program.setProgramStages(toIdObjects(program.getProgramStages(), ProgramStage.class));
-    
+
     // Programs
     objects.getPrograms().add(program);
-    
+
     return objects;
   }
 

@@ -39,10 +39,10 @@ import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.TimeZone;
-import org.apache.commons.lang3.Strings;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.Strings;
 
 /** Utilities for date and time. */
 @Slf4j
@@ -124,7 +124,7 @@ public class DateTimeUtils {
    */
   public static LocalDateTime toLocalDateTime(String string) {
     string = Strings.CI.removeEnd(string, "z");
-    
+
     return LocalDateTime.parse(string);
   }
 
