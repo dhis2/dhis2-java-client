@@ -27,7 +27,11 @@
  */
 package org.hisp.dhis.model;
 
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter
+@Setter
 @NoArgsConstructor
 public class ProgramIndicator extends NameableObject {}

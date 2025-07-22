@@ -38,6 +38,7 @@ import static org.hisp.dhis.ApiFields.VALIDATION_RULE_FIELDS;
 import static org.hisp.dhis.Constants.SUPER_ADMIN_AUTH;
 import static org.hisp.dhis.util.CollectionUtils.asList;
 import static org.hisp.dhis.util.CollectionUtils.list;
+import static org.hisp.dhis.util.IdentifiableObjectUtils.toIdObjects;
 
 import java.io.File;
 import java.io.IOException;
@@ -97,6 +98,7 @@ import org.hisp.dhis.model.OrgUnitLevel;
 import org.hisp.dhis.model.PeriodType;
 import org.hisp.dhis.model.Program;
 import org.hisp.dhis.model.ProgramIndicator;
+import org.hisp.dhis.model.ProgramObjects;
 import org.hisp.dhis.model.ProgramSection;
 import org.hisp.dhis.model.ProgramStage;
 import org.hisp.dhis.model.ProgramStageSection;
@@ -480,7 +482,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link ObjectsResponse} holding information about the operation.
    */
   public ObjectsResponse saveMetadataObjects(Dhis2Objects objects) {
-    URI url = config.getResolvedUrl("metadata");
+    URI url = config.getResolvedUrl(PATH_METADATA);
 
     return executeJsonPostPutRequest(new HttpPost(url), objects, ObjectsResponse.class);
   }
@@ -2251,6 +2253,18 @@ public class Dhis2 extends BaseDhis2 {
   // -------------------------------------------------------------------------
 
   /**
+   * Saves a program with {@link ProgramObjects}.
+   *
+   * @param objects the {@link ProgramObjects}.
+   * @return the {@link ObjectsResponse}.
+   */
+  public ObjectsResponse saveProgram(ProgramObjects objects) {
+    URI url = config.getResolvedUrl(PATH_METADATA);
+
+    return executeJsonPostPutRequest(new HttpPost(url), objects, ObjectsResponse.class);
+  }
+
+  /**
    * Retrieves a {@link Program}.
    *
    * @param id the object identifier.
@@ -2259,6 +2273,49 @@ public class Dhis2 extends BaseDhis2 {
    */
   public Program getProgram(String id) {
     return getMetadataObject(MetadataEntity.PROGRAM, id);
+  }
+
+  /**
+   * Retrieves a {@link ProgramObjects}.
+   *
+   * @param id the object identifier.
+   * @return the {@link ProgramObjects}.
+   * @throws Dhis2ClientException if the object does not exist.
+   */
+  public ProgramObjects getProgramObjects(String id) {
+    return toProgramObjects(getProgram(id));
+  }
+
+  /**
+   * Converts the given {@link Program} to a {@link ProgramObjects}. Note that the the DHIS2
+   * metadata importer requires program metadata to follow the {@link ProgramObjects} structure with
+   * four root-level collections of objects.
+   *
+   * @param program the {@link Program}.
+   * @return a {@link ProgramObjects}.
+   */
+  private ProgramObjects toProgramObjects(Program program) {
+    ProgramObjects objects = new ProgramObjects();
+
+    // Program stage sections
+    for (ProgramStage stage : program.getProgramStages()) {
+      objects.getProgramStageSections().addAll(stage.getProgramStageSections());
+      stage.setProgramStageSections(
+          toIdObjects(stage.getProgramStageSections(), ProgramStageSection.class));
+    }
+
+    // Program sections
+    objects.getProgramSections().addAll(program.getProgramSections());
+    program.setProgramSections(toIdObjects(program.getProgramSections(), ProgramSection.class));
+
+    // Program stages
+    objects.getProgramStages().addAll(program.getProgramStages());
+    program.setProgramStages(toIdObjects(program.getProgramStages(), ProgramStage.class));
+
+    // Programs
+    objects.getPrograms().add(program);
+
+    return objects;
   }
 
   /**
@@ -3117,7 +3174,7 @@ public class Dhis2 extends BaseDhis2 {
     return saveObject(
         config
             .getResolvedUriBuilder()
-            .appendPath("tracker")
+            .appendPath(PATH_TRACKER)
             .setParameter("async", "false")
             .setParameter("importStrategy", ImportStrategy.CREATE_AND_UPDATE.name()),
         events,
@@ -3133,7 +3190,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link EventResponse} holding information about the operation.
    */
   public EventResponse saveEvents(InputStream inputStream) {
-    URIBuilder builder = config.getResolvedUriBuilder().appendPath("tracker");
+    URIBuilder builder = config.getResolvedUriBuilder().appendPath(PATH_TRACKER);
 
     HttpPost request =
         getPostRequest(
@@ -3156,7 +3213,7 @@ public class Dhis2 extends BaseDhis2 {
    */
   public Event getEvent(String id) {
     return getObject(
-        config.getResolvedUriBuilder().appendPath("tracker").appendPath("events").appendPath(id),
+        config.getResolvedUriBuilder().appendPath(PATH_TRACKER).appendPath("events").appendPath(id),
         Query.instance(),
         Event.class);
   }
@@ -3171,7 +3228,7 @@ public class Dhis2 extends BaseDhis2 {
    */
   public EventsResult getEvents(EventQuery query) {
     return getEventsResult(
-        config.getResolvedUriBuilder().appendPath("tracker").appendPath("events"), query);
+        config.getResolvedUriBuilder().appendPath(PATH_TRACKER).appendPath("events"), query);
   }
 
   /**
@@ -3186,7 +3243,7 @@ public class Dhis2 extends BaseDhis2 {
     return saveObject(
         config
             .getResolvedUriBuilder()
-            .appendPath("tracker")
+            .appendPath(PATH_TRACKER)
             .setParameter("async", "false")
             .setParameter("importStrategy", ImportStrategy.DELETE.name()),
         events,
@@ -3209,7 +3266,7 @@ public class Dhis2 extends BaseDhis2 {
     return saveObject(
         config
             .getResolvedUriBuilder()
-            .appendPath("tracker")
+            .appendPath(PATH_TRACKER)
             .setParameter("async", "false")
             .setParameter("importStrategy", "DELETE"),
         events,
@@ -3233,7 +3290,7 @@ public class Dhis2 extends BaseDhis2 {
       TrackedEntityObjects trackedEntityObjects, TrackedEntityImportParams params) {
     URIBuilder uriBuilder =
         getTrackedEntityImportParams(
-            config.getResolvedUriBuilder().appendPath("tracker").addParameter("async", "false"),
+            config.getResolvedUriBuilder().appendPath(PATH_TRACKER).addParameter("async", "false"),
             params);
 
     return saveObject(uriBuilder, trackedEntityObjects, TrackedEntityResponse.class);
@@ -3253,7 +3310,7 @@ public class Dhis2 extends BaseDhis2 {
     return getObject(
         config
             .getResolvedUriBuilder()
-            .appendPath("tracker")
+            .appendPath(PATH_TRACKER)
             .appendPath("trackedEntities")
             .appendPath(id)
             .addParameter(FIELDS_PARAM, TRACKED_ENTITY_FIELDS),
@@ -3274,7 +3331,7 @@ public class Dhis2 extends BaseDhis2 {
     return getTrackedEntitiesResult(
         config
             .getResolvedUriBuilder()
-            .appendPath("tracker")
+            .appendPath(PATH_TRACKER)
             .appendPath("trackedEntities")
             .addParameter(FIELDS_PARAM, TRACKED_ENTITY_FIELDS),
         query);
@@ -3296,7 +3353,7 @@ public class Dhis2 extends BaseDhis2 {
     return getObject(
         config
             .getResolvedUriBuilder()
-            .appendPath("tracker")
+            .appendPath(PATH_TRACKER)
             .appendPath("enrollments")
             .appendPath(id),
         Query.instance(),
@@ -3313,7 +3370,7 @@ public class Dhis2 extends BaseDhis2 {
    */
   public EnrollmentsResult getEnrollments(EnrollmentQuery query) {
     return getEnrollmentResult(
-        config.getResolvedUriBuilder().appendPath("tracker").appendPath("enrollments"), query);
+        config.getResolvedUriBuilder().appendPath(PATH_TRACKER).appendPath("enrollments"), query);
   }
 
   // -------------------------------------------------------------------------
@@ -3330,7 +3387,7 @@ public class Dhis2 extends BaseDhis2 {
    */
   public RelationshipsResult getRelationships(RelationshipQuery query) {
     URIBuilder uriBuilder =
-        config.getResolvedUriBuilder().appendPath("tracker").appendPath("relationships");
+        config.getResolvedUriBuilder().appendPath(PATH_TRACKER).appendPath("relationships");
 
     URI url = getRelationshipQuery(uriBuilder, query);
 

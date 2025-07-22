@@ -42,7 +42,7 @@ import java.util.TimeZone;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Strings;
 
 /** Utilities for date and time. */
 @Slf4j
@@ -123,7 +123,8 @@ public class DateTimeUtils {
    * @return a {@link LocalDateTime}.
    */
   public static LocalDateTime toLocalDateTime(String string) {
-    string = StringUtils.removeEndIgnoreCase(string, "z");
+    string = Strings.CI.removeEnd(string, "z");
+
     return LocalDateTime.parse(string);
   }
 

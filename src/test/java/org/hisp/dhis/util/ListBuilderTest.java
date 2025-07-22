@@ -30,8 +30,11 @@ package org.hisp.dhis.util;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
+import org.hisp.dhis.support.TestTags;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
+@Tag(TestTags.UNIT)
 class ListBuilderTest {
   @Test
   void testAdd() {

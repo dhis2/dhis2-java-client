@@ -273,7 +273,6 @@ public enum MetadataEntity {
       VISUALIZATION_FIELDS, 
       VISUALIZATION_FIELDS, 
       "visualizations");
-
   // spotless:on
 
   /** Class type. */
