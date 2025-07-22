@@ -2,12 +2,12 @@
   "programs": [
     {
       "id": "dIFNZrYGcOB",
-      "version": "1",
       "name": "Address Book",
       "shortName": "Address Book",
       "code": "ADDRESS_BOOK",
       "programType": "WITH_REGISTRATION",
       "accessLevel": "OPEN",
+      "version": "1",
       "categoryCombo": {
         "id": "bjDvmb4bfuf"
       },
