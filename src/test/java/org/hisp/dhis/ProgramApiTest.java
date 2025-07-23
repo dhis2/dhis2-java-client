@@ -32,6 +32,7 @@ import static org.hisp.dhis.support.Assertions.assertNotBlank;
 import static org.hisp.dhis.support.Assertions.assertNotEmpty;
 import static org.hisp.dhis.support.Assertions.assertSize;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -132,6 +133,15 @@ class ProgramApiTest {
     assertEquals("Address Book", pr.getName());
     assertEquals("Address Book", pr.getShortName());
     assertEquals("ADDRESS_BOOK", pr.getCode());
+    assertEquals("Registration date", pr.getEnrollmentDateLabel());
+    assertEquals("Registration", pr.getEnrollmentLabel());
+    assertFalse(pr.getDisplayIncidentDate());
+    assertTrue(pr.getOnlyEnrollOnce());
+    assertTrue(pr.getDisplayFrontPageList());
+    assertFalse(pr.getUseFirstStageDuringRegistration());
+    assertEquals(90, pr.getExpiryDays());
+    assertEquals(1, pr.getMinAttributesRequiredToSearch());
+    assertEquals(100, pr.getMaxTeiCountToReturn());
     assertSize(5, pr.getProgramTrackedEntityAttributes());
     assertSize(2, pr.getOrganisationUnits());
     assertSize(1, pr.getProgramSections());

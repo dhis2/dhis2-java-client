@@ -8,6 +8,15 @@
       "programType": "WITH_REGISTRATION",
       "accessLevel": "OPEN",
       "version": "1",
+      "enrollmentDateLabel": "Registration date",
+      "enrollmentLabel": "Registration",
+      "displayIncidentDate": false,
+      "onlyEnrollOnce": true,
+      "displayFrontPageList": true,
+      "useFirstStageDuringRegistration": false,
+      "expiryDays": 90,
+      "minAttributesRequiredToSearch": 1,
+      "maxTeiCountToReturn": 100,      
       "categoryCombo": {
         "id": "bjDvmb4bfuf"
       },
