@@ -46,6 +46,8 @@ import org.hisp.dhis.model.trackedentity.TrackedEntityTypeAttribute;
 @Setter
 @NoArgsConstructor
 public class Program extends NameableObject {
+  @JsonProperty private String formName;
+
   @JsonProperty private ProgramType programType;
 
   /**
@@ -65,6 +67,26 @@ public class Program extends NameableObject {
 
   @JsonProperty private List<ProgramStage> programStages = new ArrayList<>();
 
+  @JsonProperty private String enrollmentDateLabel;
+
+  @JsonProperty private String incidentDateLabel;
+
+  @JsonProperty private String enrollmentLabel;
+
+  @JsonProperty private String followUpLabel;
+
+  @JsonProperty private String orgUnitLabel;
+
+  @JsonProperty private String relationshipLabel;
+
+  @JsonProperty private String noteLabel;
+
+  @JsonProperty private String trackedEntityAttributeLabel;
+
+  @JsonProperty private String programStageLabel;
+
+  @JsonProperty private String eventLabel;
+
   @JsonProperty private Integer version;
 
   @JsonProperty private Boolean displayIncidentDate;
@@ -72,6 +94,10 @@ public class Program extends NameableObject {
   @JsonProperty private Boolean onlyEnrollOnce;
 
   @JsonProperty private Boolean displayFrontPageList;
+
+  @JsonProperty private Boolean useFirstStageDuringRegistration;
+
+  @JsonProperty private Integer expiryDays;
 
   @JsonProperty private Integer minAttributesRequiredToSearch;
 
