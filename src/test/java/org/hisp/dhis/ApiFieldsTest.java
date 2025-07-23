@@ -91,6 +91,7 @@ class ApiFieldsTest {
         orgUnitLabel,relationshipLabel,noteLabel,trackedEntityAttributeLabel,\
         programStageLabel,eventLabel,\
         version,displayIncidentDate,onlyEnrollOnce,displayFrontPageList,\
+        useFirstStageDuringRegistration,expiryDays,\
         minAttributesRequiredToSearch,maxTeiCountToReturn,accessLevel""";
 
     assertEquals(expected, ApiFields.PROGRAM_EXT_FIELDS);
@@ -113,6 +114,7 @@ class ApiFieldsTest {
         orgUnitLabel,relationshipLabel,noteLabel,trackedEntityAttributeLabel,\
         programStageLabel,eventLabel,\
         version,displayIncidentDate,onlyEnrollOnce,displayFrontPageList,\
+        useFirstStageDuringRegistration,expiryDays,\
         minAttributesRequiredToSearch,maxTeiCountToReturn,accessLevel""";
 
     assertEquals(expected, ApiFields.PROGRAM_FIELDS);

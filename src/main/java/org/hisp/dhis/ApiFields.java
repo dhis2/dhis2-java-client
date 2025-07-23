@@ -136,8 +136,8 @@ public class ApiFields {
   public static final String ATTRIBUTE_FIELDS =
       String.format(
           """
-        %1$s,valueType,objectTypes,mandatory,unique,\
-        dataElementAttribute,programAttribute,programStageAttribute""",
+          %1$s,valueType,objectTypes,mandatory,unique,\
+          dataElementAttribute,programAttribute,programStageAttribute""",
           NAME_FIELDS);
 
   /** Indicator type fields. */
