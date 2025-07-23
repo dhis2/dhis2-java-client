@@ -274,7 +274,7 @@ public class ApiFields {
   public static final String PROGRAM_STAGE_SECTION_FIELDS =
       String.format(
           """
-        %1$s,programStage[%1$s],formName,sortOrder,dataElements[%1$s],programIndicators[%1$s]""",
+          %1$s,programStage[%1$s],formName,sortOrder,dataElements[%1$s],programIndicators[%1$s]""",
           NAME_FIELDS);
 
   /** Program stage fields. */
@@ -289,13 +289,17 @@ public class ApiFields {
   public static final String PROGRAM_EXT_FIELDS =
       String.format(
           """
-          %1$s,programType,trackedEntityType[%2$s],categoryCombo[%1$s,categories[%3$s]],\
+          %1$s,formName,programType,trackedEntityType[%2$s],categoryCombo[%1$s,categories[%3$s]],\
           organisationUnits[%1$s],\
           programSections[%4$s],\
           programStages[%5$s],\
           programTrackedEntityAttributes[id,code,name,\
           program[%1$s],trackedEntityAttribute[%6$s],sortOrder,displayInList,mandatory],\
+          enrollmentDateLabel,incidentDateLabel,enrollmentLabel,followUpLabel,\
+          orgUnitLabel,relationshipLabel,noteLabel,trackedEntityAttributeLabel,\
+          programStageLabel,eventLabel,\
           version,displayIncidentDate,onlyEnrollOnce,displayFrontPageList,\
+          useFirstStageDuringRegistration,expiryDays,\
           minAttributesRequiredToSearch,maxTeiCountToReturn,accessLevel""",
           NAME_FIELDS,
           TRACKED_ENTITY_TYPE_FIELDS,
@@ -308,12 +312,16 @@ public class ApiFields {
   public static final String PROGRAM_FIELDS =
       String.format(
           """
-          %1$s,programType,trackedEntityType[%1$s],categoryCombo[%1$s],\
+          %1$s,formName,programType,trackedEntityType[%1$s],categoryCombo[%1$s],\
           programSections[%1$s],\
           programStages[%1$s],\
           programTrackedEntityAttributes[id,code,name,\
           program[%1$s],trackedEntityAttribute[%2$s],sortOrder,displayInList,mandatory],\
+          enrollmentDateLabel,incidentDateLabel,enrollmentLabel,followUpLabel,\
+          orgUnitLabel,relationshipLabel,noteLabel,trackedEntityAttributeLabel,\
+          programStageLabel,eventLabel,\
           version,displayIncidentDate,onlyEnrollOnce,displayFrontPageList,\
+          useFirstStageDuringRegistration,expiryDays,\
           minAttributesRequiredToSearch,maxTeiCountToReturn,accessLevel""",
           NAME_FIELDS, TRACKED_ENTITY_ATTRIBUTE_FIELDS);
 
