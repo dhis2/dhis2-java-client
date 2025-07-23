@@ -137,7 +137,10 @@ class ProgramApiTest {
     assertEquals("Registration", pr.getEnrollmentLabel());
     assertFalse(pr.getDisplayIncidentDate());
     assertTrue(pr.getOnlyEnrollOnce());
+    assertTrue(pr.getSelectEnrollmentDatesInFuture());
+    assertTrue(pr.getSelectIncidentDatesInFuture());
     assertTrue(pr.getDisplayFrontPageList());
+    assertFalse(pr.getSkipOffline());
     assertFalse(pr.getUseFirstStageDuringRegistration());
     assertEquals(90, pr.getExpiryDays());
     assertEquals(1, pr.getMinAttributesRequiredToSearch());
