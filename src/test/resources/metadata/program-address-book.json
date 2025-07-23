@@ -32,33 +32,39 @@
           "program": {
             "id": "dIFNZrYGcOB"
           },
-          "displayInList": true,
           "trackedEntityAttribute": {
             "id": "lZGmxYbs97q"
           },
-          "mandatory": true
+          "displayInList": true,
+          "mandatory": true,
+          "allowFutureDate": false,
+          "searchable": false
         },
         {
           "id": "li2tdiYlT0T",
           "program": {
             "id": "dIFNZrYGcOB"
           },
-          "displayInList": true,
           "trackedEntityAttribute": {
             "id": "w75KJ2mc4zz"
           },
-          "mandatory": true
+          "displayInList": true,
+          "mandatory": true,
+          "allowFutureDate": false,
+          "searchable": false
         },
         {
           "id": "DwbygGkw8h4",
           "program": {
             "id": "dIFNZrYGcOB"
           },
-          "displayInList": true,
           "trackedEntityAttribute": {
             "id": "zDhUuAYrxNC"
           },
-          "mandatory": true
+          "displayInList": true,
+          "mandatory": true,
+          "allowFutureDate": false,
+          "searchable": false
         },
         {
           "id": "kEKhbGGgniH",
@@ -76,11 +82,13 @@
           "program": {
             "id": "dIFNZrYGcOB"
           },
-          "displayInList": true,
           "trackedEntityAttribute": {
             "id": "P2cwLGskgxn"
           },
-          "mandatory": true
+          "displayInList": true,
+          "mandatory": true,
+          "allowFutureDate": false,
+          "searchable": false
         }
       ],
       "notificationTemplates": [
