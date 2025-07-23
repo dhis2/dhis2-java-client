@@ -46,6 +46,40 @@ public class ProgramStage extends NameableObject {
 
   @JsonProperty private List<ProgramStageSection> programStageSections = new ArrayList<>();
 
+  @JsonProperty private String formName;
+
+  @JsonProperty private String executionDateLabel;
+
+  @JsonProperty private String dueDateLabel;
+
+  @JsonProperty private String programStageLabel;
+
+  @JsonProperty private String eventLabel;
+
+  @JsonProperty private Boolean repeatable;
+
+  @JsonProperty private Boolean autoGenerateEvent;
+
+  @JsonProperty private Boolean displayGenerateEventBox;
+
+  @JsonProperty private Boolean blockEntryForm;
+
+  @JsonProperty private Boolean preGenerateUID;
+
+  @JsonProperty private Boolean remindCompleted;
+
+  @JsonProperty private Boolean generatedByEnrollmentDate;
+
+  @JsonProperty private Boolean allowGenerateNextVisit;
+
+  @JsonProperty private Boolean openAfterEnrollment;
+
+  @JsonProperty private Boolean hideDueDate;
+
+  @JsonProperty private Boolean enableUserAssignment;
+
+  @JsonProperty private Boolean referral;
+
   public ProgramStage(String id, String name) {
     this.id = id;
     this.name = name;
