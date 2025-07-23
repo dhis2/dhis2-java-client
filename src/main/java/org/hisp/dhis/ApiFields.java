@@ -298,8 +298,9 @@ public class ApiFields {
           enrollmentDateLabel,incidentDateLabel,enrollmentLabel,followUpLabel,\
           orgUnitLabel,relationshipLabel,noteLabel,trackedEntityAttributeLabel,\
           programStageLabel,eventLabel,\
-          version,displayIncidentDate,onlyEnrollOnce,displayFrontPageList,\
-          useFirstStageDuringRegistration,expiryDays,\
+          version,displayIncidentDate,ignoreOverdueEvents,onlyEnrollOnce,\
+          selectEnrollmentDatesInFuture,selectIncidentDatesInFuture,displayFrontPageList,\
+          skipOffline,useFirstStageDuringRegistration,expiryDays,\
           minAttributesRequiredToSearch,maxTeiCountToReturn,accessLevel""",
           NAME_FIELDS,
           TRACKED_ENTITY_TYPE_FIELDS,
@@ -320,8 +321,9 @@ public class ApiFields {
           enrollmentDateLabel,incidentDateLabel,enrollmentLabel,followUpLabel,\
           orgUnitLabel,relationshipLabel,noteLabel,trackedEntityAttributeLabel,\
           programStageLabel,eventLabel,\
-          version,displayIncidentDate,onlyEnrollOnce,displayFrontPageList,\
-          useFirstStageDuringRegistration,expiryDays,\
+          version,displayIncidentDate,ignoreOverdueEvents,onlyEnrollOnce,\
+          selectEnrollmentDatesInFuture,selectIncidentDatesInFuture,displayFrontPageList,\
+          skipOffline,useFirstStageDuringRegistration,expiryDays,\
           minAttributesRequiredToSearch,maxTeiCountToReturn,accessLevel""",
           NAME_FIELDS, TRACKED_ENTITY_ATTRIBUTE_FIELDS);
 
