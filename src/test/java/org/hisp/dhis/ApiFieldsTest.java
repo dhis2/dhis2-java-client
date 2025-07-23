@@ -59,7 +59,7 @@ class ApiFieldsTest {
   void testProgramExtFields() {
     String expected =
         """
-        id,code,name,created,lastUpdated,attributeValues,shortName,description,programType,\
+        id,code,name,created,lastUpdated,attributeValues,shortName,description,formName,programType,\
         trackedEntityType[id,code,name,created,lastUpdated,attributeValues,shortName,description,\
         trackedEntityTypeAttributes[id,trackedEntityAttribute[\
         id,code,name,created,lastUpdated,attributeValues,shortName,description,valueType,\
@@ -87,7 +87,11 @@ class ApiFieldsTest {
         attributeValues,shortName,description],\
         trackedEntityAttribute[id,code,name,created,lastUpdated,attributeValues,shortName,\
         description,valueType,aggregationType,confidential,unique],sortOrder,displayInList,mandatory],\
+        enrollmentDateLabel,incidentDateLabel,enrollmentLabel,followUpLabel,\
+        orgUnitLabel,relationshipLabel,noteLabel,trackedEntityAttributeLabel,\
+        programStageLabel,eventLabel,\
         version,displayIncidentDate,onlyEnrollOnce,displayFrontPageList,\
+        useFirstStageDuringRegistration,expiryDays,\
         minAttributesRequiredToSearch,maxTeiCountToReturn,accessLevel""";
 
     assertEquals(expected, ApiFields.PROGRAM_EXT_FIELDS);
@@ -97,7 +101,7 @@ class ApiFieldsTest {
   void testProgramFields() {
     String expected =
         """
-        id,code,name,created,lastUpdated,attributeValues,shortName,description,programType,\
+        id,code,name,created,lastUpdated,attributeValues,shortName,description,formName,programType,\
         trackedEntityType[id,code,name,created,lastUpdated,attributeValues,shortName,description],\
         categoryCombo[id,code,name,created,lastUpdated,attributeValues,shortName,description],\
         programSections[id,code,name,created,lastUpdated,attributeValues,shortName,description],\
@@ -106,7 +110,11 @@ class ApiFieldsTest {
         program[id,code,name,created,lastUpdated,attributeValues,shortName,description],\
         trackedEntityAttribute[id,code,name,created,lastUpdated,attributeValues,shortName,\
         description,valueType,aggregationType,confidential,unique],sortOrder,displayInList,mandatory],\
+        enrollmentDateLabel,incidentDateLabel,enrollmentLabel,followUpLabel,\
+        orgUnitLabel,relationshipLabel,noteLabel,trackedEntityAttributeLabel,\
+        programStageLabel,eventLabel,\
         version,displayIncidentDate,onlyEnrollOnce,displayFrontPageList,\
+        useFirstStageDuringRegistration,expiryDays,\
         minAttributesRequiredToSearch,maxTeiCountToReturn,accessLevel""";
 
     assertEquals(expected, ApiFields.PROGRAM_FIELDS);

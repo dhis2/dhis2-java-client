@@ -39,7 +39,7 @@ import org.hisp.dhis.support.TestTags;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
-@Tag(TestTags.UNIT)
+@Tag(TestTags.INTEGRATION)
 class Dhis2Test {
 
   @Test
