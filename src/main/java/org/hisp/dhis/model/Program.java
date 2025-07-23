@@ -91,9 +91,17 @@ public class Program extends NameableObject {
 
   @JsonProperty private Boolean displayIncidentDate;
 
+  @JsonProperty private Boolean ignoreOverdueEvents;
+
   @JsonProperty private Boolean onlyEnrollOnce;
 
+  @JsonProperty private Boolean selectEnrollmentDatesInFuture;
+
+  @JsonProperty private Boolean selectIncidentDatesInFuture;
+
   @JsonProperty private Boolean displayFrontPageList;
+
+  @JsonProperty private Boolean skipOffline;
 
   @JsonProperty private Boolean useFirstStageDuringRegistration;
 
