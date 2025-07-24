@@ -246,9 +246,13 @@ public class BaseDhis2 {
     HttpGet request = withAuth(new HttpGet(HttpUtils.build(uriBuilder)));
     request.setHeader(HEADER_ACCEPT_JSON);
 
-    try (CloseableHttpResponse response = httpClient.execute(request)) {
-      log.info("Response status code: {}", response.getCode());
-      return SC_OK == response.getCode();
+    try {
+      return httpClient.execute(
+          request,
+          response -> {
+            log.info("Response status code: {}", response.getCode());
+            return SC_OK == response.getCode();
+          });
     } catch (IOException ex) {
       return false;
     }
