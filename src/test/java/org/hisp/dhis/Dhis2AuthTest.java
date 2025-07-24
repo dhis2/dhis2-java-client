@@ -108,6 +108,7 @@ class Dhis2AuthTest {
   @Test
   void testIsValidAuthFailure() {
     Dhis2Config config = new Dhis2Config(TestFixture.DEFAULT_URL, "admin", "NJvPYP^uOB8mL7");
+
     Dhis2 dhis2 = new Dhis2(config);
 
     assertFalse(dhis2.isValidAuth());

@@ -67,6 +67,7 @@ import org.apache.hc.client5.http.classic.methods.HttpUriRequestBase;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
 import org.apache.hc.client5.http.impl.classic.HttpClients;
+import org.apache.hc.core5.http.ClassicHttpResponse;
 import org.apache.hc.core5.http.ContentType;
 import org.apache.hc.core5.http.Header;
 import org.apache.hc.core5.http.HttpEntity;
@@ -1022,7 +1023,7 @@ public class BaseDhis2 {
   protected <T> T getObjectFromUrl(URI url, Class<T> type) {
     log("Get URL: '{}'", url.toString());
 
-    try (CloseableHttpResponse response = getJsonHttpResponse(url)) {
+    try (CloseableHttpResponse response = getHttpResponse(url, List.of(HEADER_ACCEPT_JSON))) {
       handleErrors(response, url.toString());
       handleErrorsForGet(response, url.toString());
 
@@ -1043,16 +1044,6 @@ public class BaseDhis2 {
   }
 
   /**
-   * Gets a JSON {@link CloseableHttpResponse} for the given URL.
-   *
-   * @param url the URL.
-   * @return a {@link CloseableHttpResponse}.
-   */
-  protected CloseableHttpResponse getJsonHttpResponse(URI url) {
-    return getHttpResponse(url, List.of(HEADER_ACCEPT_JSON));
-  }
-
-  /**
    * Gets a {@link CloseableHttpResponse} for the given URL.
    *
    * @param headers the list of request {@link Header}.
@@ -1069,6 +1060,18 @@ public class BaseDhis2 {
     } catch (IOException ex) {
       throw new Dhis2ClientException("HTTP request failed", ex);
     }
+  }
+
+  /**
+   * Creates a HTTP GET request with the given URL and the <code>Accept</code> HTTP header set to
+   * <code>application/json</code>.
+   *
+   * @param url the {@link URI}.
+   * @param headers the list of {@link Header}.
+   * @return an {@link HttpGet} request.
+   */
+  protected HttpGet getJsonHttpGetRequest(URI url) {
+    return getHttpGetRequest(url, List.of(HEADER_ACCEPT_JSON));
   }
 
   /**
@@ -1194,27 +1197,29 @@ public class BaseDhis2 {
    *
    * @param response the {@link CloseableHttpResponse}.
    * @param file the file to write the response to.
+   * @return the number of bytes copied.
    * @throws Dhis2ClientException if the write operation failed.
    */
-  protected void writeToFile(CloseableHttpResponse response, File file) {
+  protected int writeToFile(CloseableHttpResponse response, File file) {
     try (FileOutputStream fileOut = FileUtils.openOutputStream(file);
         InputStream in = response.getEntity().getContent()) {
-      IOUtils.copy(in, fileOut);
+      return IOUtils.copy(in, fileOut);
     } catch (IOException ex) {
       throw new Dhis2ClientException("Failed to write to file", ex);
     }
   }
 
   /**
-   * Write the given {@link CloseableHttpResponse} to the given {@link OutputStream}.
+   * Write the given {@link ClassicHttpResponse} to the given {@link OutputStream}.
    *
    * @param response the {@link CloseableHttpResponse}.
    * @param out the output stream to write the response to.
+   * @return the number of bytes copied.
    * @throws Dhis2ClientException if the write operation failed.
    */
-  protected void writeToStream(CloseableHttpResponse response, OutputStream out) {
+  protected int writeToStream(ClassicHttpResponse response, OutputStream out) {
     try (InputStream in = response.getEntity().getContent()) {
-      IOUtils.copy(in, out);
+      return IOUtils.copy(in, out);
     } catch (IOException ex) {
       throw new Dhis2ClientException("Failed to write to output stream", ex);
     }

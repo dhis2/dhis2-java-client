@@ -1485,7 +1485,7 @@ public class Dhis2 extends BaseDhis2 {
    * @param out the {@link OutputStream} to write data to.
    */
   public void writeDocumentData(String id, OutputStream out) {
-    URI uri =
+    URI url =
         HttpUtils.build(
             config
                 .getResolvedUriBuilder()
@@ -1493,9 +1493,17 @@ public class Dhis2 extends BaseDhis2 {
                 .appendPath(id)
                 .appendPath("data"));
 
-    CloseableHttpResponse response = getHttpResponse(uri, List.of());
+    HttpGet request = getHttpGetRequest(url, List.of());
 
-    writeToStream(response, out);
+    try {
+      httpClient.execute(
+          request,
+          response -> {
+            return writeToStream(response, out);
+          });
+    } catch (IOException ex) {
+      throw new Dhis2ClientException("HTTP request failed", ex);
+    }
   }
 
   /**
@@ -3089,7 +3097,7 @@ public class Dhis2 extends BaseDhis2 {
                 .appendPath("dataValueSet.json"),
             query);
 
-    CloseableHttpResponse response = getJsonHttpResponse(url);
+    CloseableHttpResponse response = getHttpResponse(url, List.of(HEADER_ACCEPT_JSON));
 
     writeToFile(response, file);
   }
