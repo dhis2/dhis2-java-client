@@ -1077,11 +1077,7 @@ public class BaseDhis2 {
    */
   protected HttpGet getHttpGetRequest(URI url, List<Header> headers) {
     HttpGet request = withAuth(new HttpGet(url));
-
-    for (Header header : headers) {
-      request.setHeader(header);
-    }
-
+    headers.forEach(header -> request.setHeader(header));
     return request;
   }
 
