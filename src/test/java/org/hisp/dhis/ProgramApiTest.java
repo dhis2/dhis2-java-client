@@ -185,16 +185,28 @@ class ProgramApiTest {
     assertTrue(ps.getHideDueDate());
     assertFalse(ps.getDisplayGenerateEventBox());
 
+    ProgramStageDataElement psde = ps.getProgramStageDataElements().get(0);
+
+    assertNotNull(psde);
+    assertNotNull(psde.getProgramStage());
+    assertNotNull(psde.getDataElement());
+    assertTrue(psde.getCompulsory());
+    assertTrue(psde.getDisplayInReports());
+    assertFalse(psde.getSkipSynchronization());
+    assertFalse(psde.getSkipAnalytics());
+
     ProgramSection sc = retrieved.getProgramSections().get(0);
     assertNotNull(sc);
     assertEquals("msLqIoBRMva", sc.getId());
     assertEquals("Information", sc.getName());
     assertEquals("Information", sc.getDescription());
+    assertEquals(5, sc.getTrackedEntityAttributes().size());
 
     ProgramStageSection pss = retrieved.getProgramStageSections().get(0);
     assertNotNull(pss);
     assertEquals("Information", pss.getName());
     assertEquals("Information", pss.getDescription());
+    assertNotNull(pss.getProgramStage());
     assertEmpty(pss.getProgramIndicators());
     assertSize(2, pss.getDataElements());
 

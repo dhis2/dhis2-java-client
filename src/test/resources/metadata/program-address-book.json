@@ -159,7 +159,10 @@
           "dataElement": {
             "id": "GieVkTxp4HH"
           },
-          "compulsory": true
+          "compulsory": true,
+          "displayInReports": true,
+          "skipSynchronization": false,
+          "skipAnalytics": false          
         },
         {
           "id": "Fnz6H9q2rKk",
@@ -169,7 +172,10 @@
           "dataElement": {
             "id": "vV9UWAZohSf"
           },
-          "compulsory": true
+          "compulsory": true,
+          "displayInReports": true,
+          "skipSynchronization": false,
+          "skipAnalytics": false   
         }
       ],
       "notificationTemplates": [
