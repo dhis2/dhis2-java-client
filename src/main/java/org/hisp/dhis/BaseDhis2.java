@@ -937,24 +937,26 @@ public class BaseDhis2 {
   private <T extends BaseHttpResponse> T executeRequest(HttpUriRequestBase request, Class<T> type) {
     withAuth(request);
 
-    try (CloseableHttpResponse response = httpClient.execute(request)) {
-      handleErrors(response, request.getRequestUri());
+    try {
+      return httpClient.execute(
+          request,
+          response -> {
+            handleErrors(response, request.getRequestUri());
 
-      int code = response.getCode();
-      String responseBody = EntityUtils.toString(response.getEntity());
+            int code = response.getCode();
+            String responseBody = EntityUtils.toString(response.getEntity());
 
-      log(code, "Response body: '{}'", responseBody);
+            log(code, "Response body: '{}'", responseBody);
 
-      T responseMessage = objectMapper.readValue(responseBody, type);
+            T responseMessage = objectMapper.readValue(responseBody, type);
 
-      responseMessage.setHeaders(asList(response.getHeaders()));
-      responseMessage.setHttpStatusCode(response.getCode());
+            responseMessage.setHeaders(asList(response.getHeaders()));
+            responseMessage.setHttpStatusCode(response.getCode());
 
-      return responseMessage;
+            return responseMessage;
+          });
     } catch (IOException ex) {
       throw newDhis2ClientException(ex);
-    } catch (ParseException ex) {
-      throw new Dhis2ClientException("HTTP response could not be parsed", ex);
     }
   }
 
@@ -969,19 +971,22 @@ public class BaseDhis2 {
   protected Response executeRequest(HttpUriRequestBase request) {
     withAuth(request);
 
-    try (CloseableHttpResponse response = httpClient.execute(request)) {
-      handleErrors(response, request.getRequestUri());
+    try {
+      return httpClient.execute(
+          request,
+          response -> {
+            handleErrors(response, request.getRequestUri());
 
-      HttpStatus httpStatus = HttpStatus.valueOf(response.getCode());
-      Status status = httpStatus != null && httpStatus.is2xxSuccessful() ? Status.OK : Status.ERROR;
+            HttpStatus httpStatus = HttpStatus.valueOf(response.getCode());
+            Status status =
+                httpStatus != null && httpStatus.is2xxSuccessful() ? Status.OK : Status.ERROR;
 
-      Response resp = new Response();
-
-      resp.setHeaders(asList(response.getHeaders()));
-      resp.setStatus(status);
-      resp.setHttpStatusCode(response.getCode());
-
-      return resp;
+            Response resp = new Response();
+            resp.setHeaders(asList(response.getHeaders()));
+            resp.setStatus(status);
+            resp.setHttpStatusCode(response.getCode());
+            return resp;
+          });
     } catch (IOException ex) {
       throw newDhis2ClientException(ex);
     }
