@@ -8,7 +8,7 @@
       "programType": "WITH_REGISTRATION",
       "accessLevel": "OPEN",
       "version": "1",
-      "enrollmentDateLabel": "Registration date",
+      "enrollmentDateLabel": "Registration Date",
       "enrollmentLabel": "Registration",
       "displayIncidentDate": false,
       "onlyEnrollOnce": true,
@@ -145,8 +145,6 @@
     {
       "id": "ArL19QmQUd1",
       "name": "Vital Statistics",
-      "displayGenerateEventBox": false,
-      "autoGenerateEvent": false,
       "program": {
         "id": "dIFNZrYGcOB"
       },
@@ -178,7 +176,15 @@
         {
           "id": "UiiwU8uuNsz"
         }
-      ]
+      ],
+      "executionDateLabel": "Registration Date",
+      "programStageLabel": "Vital Statistics",
+      "repeatable": false,
+      "autoGenerateEvent": false,
+      "remindCompleted": true,
+      "openAfterEnrollment": false,
+      "hideDueDate": true,
+      "displayGenerateEventBox": false
     }
   ],
   "programStageSections": [

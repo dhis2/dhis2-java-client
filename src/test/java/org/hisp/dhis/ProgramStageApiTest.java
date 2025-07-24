@@ -48,6 +48,22 @@ class ProgramStageApiTest {
     assertNotNull(programStage);
     assertEquals("A03MvHHogjR", programStage.getId());
     assertNotBlank(programStage.getName());
+    assertNotNull(programStage.getCreated());
+    assertNotNull(programStage.getLastUpdated());
+    assertNotBlank(programStage.getDescription());
     assertNotEmpty(programStage.getProgramStageDataElements());
+    assertNotBlank(programStage.getExecutionDateLabel());
+    assertNotNull(programStage.getRepeatable());
+    assertNotNull(programStage.getAutoGenerateEvent());
+    assertNotNull(programStage.getDisplayGenerateEventBox());
+    assertNotNull(programStage.getBlockEntryForm());
+    assertNotNull(programStage.getPreGenerateUID());
+    assertNotNull(programStage.getRemindCompleted());
+    assertNotNull(programStage.getGeneratedByEnrollmentDate());
+    assertNotNull(programStage.getAllowGenerateNextVisit());
+    assertNotNull(programStage.getOpenAfterEnrollment());
+    assertNotNull(programStage.getHideDueDate());
+    assertNotNull(programStage.getEnableUserAssignment());
+    assertNotNull(programStage.getReferral());
   }
 }
