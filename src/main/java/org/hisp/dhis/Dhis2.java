@@ -1495,9 +1495,15 @@ public class Dhis2 extends BaseDhis2 {
 
     HttpGet request = getHttpGetRequest(url, List.of());
 
-    CloseableHttpResponse response = getHttpResponse(url, List.of());
-
-    writeToStream(response, out);
+    try {
+      httpClient.execute(
+          request,
+          response -> {
+            return writeToStream(response, out);
+          });
+    } catch (IOException ex) {
+      throw new Dhis2ClientException("HTTP request failed", ex);
+    }
   }
 
   /**

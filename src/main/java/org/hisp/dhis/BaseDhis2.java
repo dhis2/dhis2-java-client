@@ -67,6 +67,7 @@ import org.apache.hc.client5.http.classic.methods.HttpUriRequestBase;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
 import org.apache.hc.client5.http.impl.classic.HttpClients;
+import org.apache.hc.core5.http.ClassicHttpResponse;
 import org.apache.hc.core5.http.ContentType;
 import org.apache.hc.core5.http.Header;
 import org.apache.hc.core5.http.HttpEntity;
@@ -1218,15 +1219,16 @@ public class BaseDhis2 {
   }
 
   /**
-   * Write the given {@link CloseableHttpResponse} to the given {@link OutputStream}.
+   * Write the given {@link ClassicHttpResponse} to the given {@link OutputStream}.
    *
    * @param response the {@link CloseableHttpResponse}.
    * @param out the output stream to write the response to.
+   * @return the number of bytes copied.
    * @throws Dhis2ClientException if the write operation failed.
    */
-  protected void writeToStream(CloseableHttpResponse response, OutputStream out) {
+  protected int writeToStream(ClassicHttpResponse response, OutputStream out) {
     try (InputStream in = response.getEntity().getContent()) {
-      IOUtils.copy(in, out);
+      return IOUtils.copy(in, out);
     } catch (IOException ex) {
       throw new Dhis2ClientException("Failed to write to output stream", ex);
     }
