@@ -1195,12 +1195,12 @@ public class BaseDhis2 {
   /**
    * Write the given {@link CloseableHttpResponse} to the given {@link File}.
    *
-   * @param response the {@link CloseableHttpResponse}.
+   * @param response the {@link ClassicHttpResponse}.
    * @param file the file to write the response to.
    * @return the number of bytes copied.
    * @throws Dhis2ClientException if the write operation failed.
    */
-  protected int writeToFile(CloseableHttpResponse response, File file) {
+  protected int writeToFile(ClassicHttpResponse response, File file) {
     try (FileOutputStream fileOut = FileUtils.openOutputStream(file);
         InputStream in = response.getEntity().getContent()) {
       return IOUtils.copy(in, fileOut);
@@ -1212,7 +1212,7 @@ public class BaseDhis2 {
   /**
    * Write the given {@link ClassicHttpResponse} to the given {@link OutputStream}.
    *
-   * @param response the {@link CloseableHttpResponse}.
+   * @param response the {@link ClassicHttpResponse}.
    * @param out the output stream to write the response to.
    * @return the number of bytes copied.
    * @throws Dhis2ClientException if the write operation failed.

@@ -55,7 +55,6 @@ import org.apache.commons.lang3.Validate;
 import org.apache.hc.client5.http.HttpResponseException;
 import org.apache.hc.client5.http.classic.methods.HttpGet;
 import org.apache.hc.client5.http.classic.methods.HttpPost;
-import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
 import org.apache.hc.core5.http.ContentType;
 import org.apache.hc.core5.http.io.entity.FileEntity;
 import org.apache.hc.core5.http.io.entity.InputStreamEntity;
@@ -1483,8 +1482,9 @@ public class Dhis2 extends BaseDhis2 {
    *
    * @param id the document identifier.
    * @param out the {@link OutputStream} to write data to.
+   * @return the number of bytes copied.
    */
-  public void writeDocumentData(String id, OutputStream out) {
+  public int writeDocumentData(String id, OutputStream out) {
     URI url =
         HttpUtils.build(
             config
@@ -1496,7 +1496,7 @@ public class Dhis2 extends BaseDhis2 {
     HttpGet request = getHttpGetRequest(url, List.of());
 
     try {
-      httpClient.execute(
+      return httpClient.execute(
           request,
           response -> {
             return writeToStream(response, out);
@@ -3087,8 +3087,9 @@ public class Dhis2 extends BaseDhis2 {
    *
    * @param query the {@link AnalyticsQuery}.
    * @param file the {@link File}.
+   * @return the number of bytes copied.
    */
-  public void writeAnalyticsDataValueSet(AnalyticsQuery query, File file) {
+  public int writeAnalyticsDataValueSet(AnalyticsQuery query, File file) {
     URI url =
         getAnalyticsQuery(
             config
@@ -3097,9 +3098,17 @@ public class Dhis2 extends BaseDhis2 {
                 .appendPath("dataValueSet.json"),
             query);
 
-    CloseableHttpResponse response = getHttpResponse(url, List.of(HEADER_ACCEPT_JSON));
+    HttpGet request = getJsonHttpGetRequest(url);
 
-    writeToFile(response, file);
+    try {
+      return httpClient.execute(
+          request,
+          response -> {
+            return writeToFile(response, file);
+          });
+    } catch (IOException ex) {
+      throw new Dhis2ClientException("HTTP request failed", ex);
+    }
   }
 
   // -------------------------------------------------------------------------
