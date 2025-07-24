@@ -29,10 +29,39 @@ package org.hisp.dhis.model.trackedentity;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
-
+import java.util.Date;
+import org.hisp.dhis.util.DateTimeUtils;
+import org.hisp.dhis.util.JacksonUtils;
 import org.junit.jupiter.api.Test;
 
 class TrackedEntityTest {
+  @Test
+  void testDeserialize() {
+    Date dateTime = DateTimeUtils.toDateTime("2023-05-10T16:12:51.251");
+
+    TrackedEntity te = new TrackedEntity();
+    te.setTrackedEntity("cJ5VL10VSlZ");
+    te.setOrgUnit("DiszpKrYNg8");
+    te.setTrackedEntityType("nEenWmSyUEp");
+    te.setCreatedAt(dateTime);
+    te.setUpdatedAt(dateTime);
+
+    String actual = JacksonUtils.toJsonString(te);
+
+    String expected =
+        """
+        {\
+        "trackedEntity":"cJ5VL10VSlZ",\
+        "trackedEntityType":"nEenWmSyUEp",\
+        "createdAt":"2023-05-10T16:12:51.251",\
+        "updatedAt":"2023-05-10T16:12:51.251",\
+        "orgUnit":"DiszpKrYNg8",\
+        "attributes":[],\
+        "enrollments":[]}""";
+
+    assertEquals(expected, actual);
+  }
+  
   @Test
   void testGetAttributeValue() {
     TrackedEntity te = new TrackedEntity();
