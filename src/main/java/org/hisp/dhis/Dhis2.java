@@ -3054,7 +3054,7 @@ public class Dhis2 extends BaseDhis2 {
    */
   public AnalyticsData getAnalyticsData(AnalyticsQuery query) {
     return getAnalyticsResponse(
-        config.getResolvedUriBuilder().appendPath("analytics"), query, AnalyticsData.class);
+        config.getResolvedUriBuilder().appendPath(PATH_ANALYTICS), query, AnalyticsData.class);
   }
 
   // -------------------------------------------------------------------------
@@ -3069,7 +3069,7 @@ public class Dhis2 extends BaseDhis2 {
    */
   public DataValueSet getAnalyticsDataValueSet(AnalyticsQuery query) {
     return getAnalyticsResponse(
-        config.getResolvedUriBuilder().appendPath("analytics").appendPath("dataValueSet.json"),
+        config.getResolvedUriBuilder().appendPath(PATH_ANALYTICS).appendPath("dataValueSet.json"),
         query,
         DataValueSet.class);
   }
@@ -3083,7 +3083,10 @@ public class Dhis2 extends BaseDhis2 {
   public void writeAnalyticsDataValueSet(AnalyticsQuery query, File file) {
     URI url =
         getAnalyticsQuery(
-            config.getResolvedUriBuilder().appendPath("analytics").appendPath("dataValueSet.json"),
+            config
+                .getResolvedUriBuilder()
+                .appendPath(PATH_ANALYTICS)
+                .appendPath("dataValueSet.json"),
             query);
 
     CloseableHttpResponse response = getJsonHttpResponse(url);

@@ -130,6 +130,9 @@ public class BaseDhis2 {
   /** Tracker API path. */
   protected static final String PATH_TRACKER = "tracker";
 
+  /** Analytics API path. */
+  protected static final String PATH_ANALYTICS = "analytics";
+
   // Params
 
   /** Fields parameter. */
