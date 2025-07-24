@@ -1057,11 +1057,7 @@ public class BaseDhis2 {
    * @return a {@link CloseableHttpResponse}.
    */
   protected CloseableHttpResponse getHttpResponse(URI url, List<Header> headers) {
-    HttpGet request = withAuth(new HttpGet(url));
-
-    for (Header header : headers) {
-      request.setHeader(header);
-    }
+    HttpGet request = getHttpGetRequest(url, headers);
 
     log("Get request URL: '{}'", HttpUtils.asString(url));
 
@@ -1070,6 +1066,23 @@ public class BaseDhis2 {
     } catch (IOException ex) {
       throw new Dhis2ClientException("HTTP request failed", ex);
     }
+  }
+
+  /**
+   * Creates a HTTP GET request with the given URL and headers.
+   *
+   * @param url the {@link URI}.
+   * @param headers the list of {@link Header}.
+   * @return an {@link HttpGet} request.
+   */
+  protected HttpGet getHttpGetRequest(URI url, List<Header> headers) {
+    HttpGet request = withAuth(new HttpGet(url));
+
+    for (Header header : headers) {
+      request.setHeader(header);
+    }
+
+    return request;
   }
 
   /**
