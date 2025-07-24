@@ -54,7 +54,7 @@ public class IdentifiableObject implements Serializable {
 
   @JsonProperty protected Set<AttributeValue> attributeValues = new HashSet<>();
 
-  @JsonProperty Sharing sharing;
+  @JsonProperty protected Sharing sharing;
 
   // -------------------------------------------------------------------------
   // Logic methods
