@@ -39,8 +39,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.hc.client5.http.classic.methods.HttpGet;
 import org.apache.hc.client5.http.classic.methods.HttpPost;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
-import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
-import org.apache.hc.core5.http.ParseException;
 import org.apache.hc.core5.http.io.entity.EntityUtils;
 import org.hisp.dhis.response.BaseHttpResponse;
 import org.hisp.dhis.response.Dhis2ClientException;
@@ -145,23 +143,27 @@ public class Dhis2AsyncRequest {
    * @return a {link JobInfoResponseMessage}.
    */
   private JobInfoResponse postAsyncRequest(HttpPost request) {
-    try (CloseableHttpResponse response = httpClient.execute(request)) {
-      String body = EntityUtils.toString(response.getEntity());
+    try {
+      return httpClient.execute(
+          request,
+          response -> {
+            String body = EntityUtils.toString(response.getEntity());
 
-      JobInfoResponse message = objectMapper.readValue(body, JobInfoResponse.class);
+            JobInfoResponse message = objectMapper.readValue(body, JobInfoResponse.class);
 
-      if (!message.getHttpStatus().is2xxSuccessful()) {
-        String errorMessage =
-            String.format(
-                "Request failed, status: %s, code: %d, message: %s",
-                message.getHttpStatus(), message.getHttpStatusCode(), message.getMessage());
+            if (!message.getHttpStatus().is2xxSuccessful()) {
+              String errorMessage =
+                  String.format(
+                      "Request failed, status: %s, code: %d, message: %s",
+                      message.getHttpStatus(), message.getHttpStatusCode(), message.getMessage());
 
-        throw new Dhis2ClientException(errorMessage, message.getHttpStatusCode());
-      }
+              throw new Dhis2ClientException(errorMessage, message.getHttpStatusCode());
+            }
 
-      return message;
-    } catch (IOException | ParseException ex) {
-      throw new Dhis2ClientException("HTTP headers could not be parsed", ex);
+            return message;
+          });
+    } catch (IOException ex) {
+      throw new Dhis2ClientException("HTTP request failed", ex);
     }
   }
 
@@ -258,10 +260,14 @@ public class Dhis2AsyncRequest {
   private String getForBody(URI url) {
     HttpGet request = HttpUtils.withAuth(new HttpGet(url), config);
 
-    try (CloseableHttpResponse response = httpClient.execute(request)) {
-      return EntityUtils.toString(response.getEntity());
-    } catch (IOException | ParseException ex) {
-      throw new Dhis2ClientException("HTTP headers could not be parsed", ex);
+    try {
+      return httpClient.execute(
+          request,
+          response -> {
+            return EntityUtils.toString(response.getEntity());
+          });
+    } catch (IOException ex) {
+      throw new Dhis2ClientException("HTTP request failed", ex);
     }
   }
 
