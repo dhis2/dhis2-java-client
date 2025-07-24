@@ -1207,12 +1207,13 @@ public class BaseDhis2 {
    *
    * @param response the {@link CloseableHttpResponse}.
    * @param file the file to write the response to.
+   * @return the number of bytes copied.
    * @throws Dhis2ClientException if the write operation failed.
    */
-  protected void writeToFile(CloseableHttpResponse response, File file) {
+  protected int writeToFile(CloseableHttpResponse response, File file) {
     try (FileOutputStream fileOut = FileUtils.openOutputStream(file);
         InputStream in = response.getEntity().getContent()) {
-      IOUtils.copy(in, fileOut);
+      return IOUtils.copy(in, fileOut);
     } catch (IOException ex) {
       throw new Dhis2ClientException("Failed to write to file", ex);
     }
