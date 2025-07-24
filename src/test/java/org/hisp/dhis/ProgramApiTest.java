@@ -201,11 +201,13 @@ class ProgramApiTest {
     assertEquals("msLqIoBRMva", sc.getId());
     assertEquals("Information", sc.getName());
     assertEquals("Information", sc.getDescription());
+    assertEquals(5, sc.getTrackedEntityAttributes().size());
 
     ProgramStageSection pss = retrieved.getProgramStageSections().get(0);
     assertNotNull(pss);
     assertEquals("Information", pss.getName());
     assertEquals("Information", pss.getDescription());
+    assertNotNull(pss.getProgramStage());
     assertEmpty(pss.getProgramIndicators());
     assertSize(2, pss.getDataElements());
 
