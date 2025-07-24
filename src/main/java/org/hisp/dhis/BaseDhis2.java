@@ -130,6 +130,9 @@ public class BaseDhis2 {
   /** Tracker API path. */
   protected static final String PATH_TRACKER = "tracker";
 
+  /** Analytics API path. */
+  protected static final String PATH_ANALYTICS = "analytics";
+
   // Params
 
   /** Fields parameter. */
@@ -246,9 +249,13 @@ public class BaseDhis2 {
     HttpGet request = withAuth(new HttpGet(HttpUtils.build(uriBuilder)));
     request.setHeader(HEADER_ACCEPT_JSON);
 
-    try (CloseableHttpResponse response = httpClient.execute(request)) {
-      log.info("Response status code: {}", response.getCode());
-      return SC_OK == response.getCode();
+    try {
+      return httpClient.execute(
+          request,
+          response -> {
+            log.info("Response status code: {}", response.getCode());
+            return SC_OK == response.getCode();
+          });
     } catch (IOException ex) {
       return false;
     }
@@ -933,24 +940,26 @@ public class BaseDhis2 {
   private <T extends BaseHttpResponse> T executeRequest(HttpUriRequestBase request, Class<T> type) {
     withAuth(request);
 
-    try (CloseableHttpResponse response = httpClient.execute(request)) {
-      handleErrors(response, request.getRequestUri());
+    try {
+      return httpClient.execute(
+          request,
+          response -> {
+            handleErrors(response, request.getRequestUri());
 
-      int code = response.getCode();
-      String responseBody = EntityUtils.toString(response.getEntity());
+            int code = response.getCode();
+            String responseBody = EntityUtils.toString(response.getEntity());
 
-      log(code, "Response body: '{}'", responseBody);
+            log(code, "Response body: '{}'", responseBody);
 
-      T responseMessage = objectMapper.readValue(responseBody, type);
+            T responseMessage = objectMapper.readValue(responseBody, type);
 
-      responseMessage.setHeaders(asList(response.getHeaders()));
-      responseMessage.setHttpStatusCode(response.getCode());
+            responseMessage.setHeaders(asList(response.getHeaders()));
+            responseMessage.setHttpStatusCode(response.getCode());
 
-      return responseMessage;
+            return responseMessage;
+          });
     } catch (IOException ex) {
       throw newDhis2ClientException(ex);
-    } catch (ParseException ex) {
-      throw new Dhis2ClientException("HTTP response could not be parsed", ex);
     }
   }
 
@@ -965,19 +974,22 @@ public class BaseDhis2 {
   protected Response executeRequest(HttpUriRequestBase request) {
     withAuth(request);
 
-    try (CloseableHttpResponse response = httpClient.execute(request)) {
-      handleErrors(response, request.getRequestUri());
+    try {
+      return httpClient.execute(
+          request,
+          response -> {
+            handleErrors(response, request.getRequestUri());
 
-      HttpStatus httpStatus = HttpStatus.valueOf(response.getCode());
-      Status status = httpStatus != null && httpStatus.is2xxSuccessful() ? Status.OK : Status.ERROR;
+            HttpStatus httpStatus = HttpStatus.valueOf(response.getCode());
+            Status status =
+                httpStatus != null && httpStatus.is2xxSuccessful() ? Status.OK : Status.ERROR;
 
-      Response resp = new Response();
-
-      resp.setHeaders(asList(response.getHeaders()));
-      resp.setStatus(status);
-      resp.setHttpStatusCode(response.getCode());
-
-      return resp;
+            Response resp = new Response();
+            resp.setHeaders(asList(response.getHeaders()));
+            resp.setStatus(status);
+            resp.setHttpStatusCode(response.getCode());
+            return resp;
+          });
     } catch (IOException ex) {
       throw newDhis2ClientException(ex);
     }
@@ -1048,11 +1060,7 @@ public class BaseDhis2 {
    * @return a {@link CloseableHttpResponse}.
    */
   protected CloseableHttpResponse getHttpResponse(URI url, List<Header> headers) {
-    HttpGet request = withAuth(new HttpGet(url));
-
-    for (Header header : headers) {
-      request.setHeader(header);
-    }
+    HttpGet request = getHttpGetRequest(url, headers);
 
     log("Get request URL: '{}'", HttpUtils.asString(url));
 
@@ -1061,6 +1069,19 @@ public class BaseDhis2 {
     } catch (IOException ex) {
       throw new Dhis2ClientException("HTTP request failed", ex);
     }
+  }
+
+  /**
+   * Creates a HTTP GET request with the given URL and headers.
+   *
+   * @param url the {@link URI}.
+   * @param headers the list of {@link Header}.
+   * @return an {@link HttpGet} request.
+   */
+  protected HttpGet getHttpGetRequest(URI url, List<Header> headers) {
+    HttpGet request = withAuth(new HttpGet(url));
+    headers.forEach(header -> request.setHeader(header));
+    return request;
   }
 
   /**
