@@ -289,6 +289,13 @@ public class ApiFields {
           hideDueDate,enableUserAssignment,referral""",
           NAME_FIELDS, PROGRAM_STAGE_DATA_ELEMENT_FIELDS, PROGRAM_STAGE_SECTION_FIELDS);
 
+  public static final String PROGRAM_TRACKED_ENTITY_ATTRIBUTES_FIELDS =
+      String.format(
+          """
+          id,code,name,program[%1$s],trackedEntityAttribute[%2$s],\
+          sortOrder,displayInList,mandatory,allowFutureDate,searchable""",
+          NAME_FIELDS, TRACKED_ENTITY_ATTRIBUTE_FIELDS);
+
   /** Program fields. */
   public static final String PROGRAM_EXT_FIELDS =
       String.format(
@@ -297,8 +304,7 @@ public class ApiFields {
           organisationUnits[%1$s],\
           programSections[%4$s],\
           programStages[%5$s],\
-          programTrackedEntityAttributes[id,code,name,\
-          program[%1$s],trackedEntityAttribute[%6$s],sortOrder,displayInList,mandatory],\
+          programTrackedEntityAttributes[%6$s],\
           enrollmentDateLabel,incidentDateLabel,enrollmentLabel,followUpLabel,\
           orgUnitLabel,relationshipLabel,noteLabel,trackedEntityAttributeLabel,\
           programStageLabel,eventLabel,\
@@ -311,7 +317,7 @@ public class ApiFields {
           CATEGORY_FIELDS,
           PROGRAM_SECTION_FIELDS,
           PROGRAM_STAGE_FIELDS,
-          TRACKED_ENTITY_ATTRIBUTE_FIELDS);
+          PROGRAM_TRACKED_ENTITY_ATTRIBUTES_FIELDS);
 
   /** Program extended fields. */
   public static final String PROGRAM_FIELDS =
@@ -320,8 +326,7 @@ public class ApiFields {
           %1$s,formName,programType,trackedEntityType[%1$s],categoryCombo[%1$s],\
           programSections[%1$s],\
           programStages[%1$s],\
-          programTrackedEntityAttributes[id,code,name,\
-          program[%1$s],trackedEntityAttribute[%2$s],sortOrder,displayInList,mandatory],\
+          programTrackedEntityAttributes[%3$s],\
           enrollmentDateLabel,incidentDateLabel,enrollmentLabel,followUpLabel,\
           orgUnitLabel,relationshipLabel,noteLabel,trackedEntityAttributeLabel,\
           programStageLabel,eventLabel,\
@@ -329,7 +334,7 @@ public class ApiFields {
           selectEnrollmentDatesInFuture,selectIncidentDatesInFuture,displayFrontPageList,\
           skipOffline,useFirstStageDuringRegistration,expiryDays,\
           minAttributesRequiredToSearch,maxTeiCountToReturn,accessLevel""",
-          NAME_FIELDS, TRACKED_ENTITY_ATTRIBUTE_FIELDS);
+          NAME_FIELDS, TRACKED_ENTITY_ATTRIBUTE_FIELDS, PROGRAM_TRACKED_ENTITY_ATTRIBUTES_FIELDS);
 
   /** User fields. */
   public static final String USER_FIELDS =
