@@ -3097,7 +3097,7 @@ public class Dhis2 extends BaseDhis2 {
                 .appendPath("dataValueSet.json"),
             query);
 
-    CloseableHttpResponse response = getJsonHttpResponse(url);
+    CloseableHttpResponse response = getHttpResponse(url, List.of(HEADER_ACCEPT_JSON));
 
     writeToFile(response, file);
   }

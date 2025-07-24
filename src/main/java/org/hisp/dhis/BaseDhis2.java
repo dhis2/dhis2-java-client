@@ -1023,7 +1023,7 @@ public class BaseDhis2 {
   protected <T> T getObjectFromUrl(URI url, Class<T> type) {
     log("Get URL: '{}'", url.toString());
 
-    try (CloseableHttpResponse response = getJsonHttpResponse(url)) {
+    try (CloseableHttpResponse response = getHttpResponse(url, List.of(HEADER_ACCEPT_JSON))) {
       handleErrors(response, url.toString());
       handleErrorsForGet(response, url.toString());
 
@@ -1041,16 +1041,6 @@ public class BaseDhis2 {
     } catch (ParseException ex) {
       throw new Dhis2ClientException("HTTP response could not be parsed", ex);
     }
-  }
-
-  /**
-   * Gets a JSON {@link CloseableHttpResponse} for the given URL.
-   *
-   * @param url the URL.
-   * @return a {@link CloseableHttpResponse}.
-   */
-  protected CloseableHttpResponse getJsonHttpResponse(URI url) {
-    return getHttpResponse(url, List.of(HEADER_ACCEPT_JSON));
   }
 
   /**
