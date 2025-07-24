@@ -46,7 +46,11 @@ import org.hisp.dhis.auth.Authentication;
 /** Utilities for HTTP communication. */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class HttpUtils {
-  private static final Pattern PATTERN_BEARER = Pattern.compile("^Bearer\\s+(.+)$");
+  /** Pattern for matching a Bearer API token as part of a HTTP header value. */
+  public static final Pattern PATTERN_BEARER_TOKEN = Pattern.compile("^Bearer\\s+(.+)$");
+
+  /** Pattern for matching a session identifier as part of a session cookie value. */
+  public static final Pattern PATTERN_SESSION_ID = Pattern.compile("JSESSIONID=(\\w+);.*");
 
   /**
    * Adds a HTTP header for authentication based on the {@link Authentication} of the given {@link
@@ -161,7 +165,7 @@ public class HttpUtils {
       return null;
     }
 
-    Matcher matcher = PATTERN_BEARER.matcher(value);
+    Matcher matcher = PATTERN_BEARER_TOKEN.matcher(value);
     return matcher.matches() ? matcher.group(1) : null;
   }
 }

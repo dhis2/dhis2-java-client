@@ -33,10 +33,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import org.apache.hc.client5.http.classic.methods.HttpGet;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
-import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
 import org.apache.hc.client5.http.impl.classic.HttpClients;
 import org.apache.hc.core5.http.Header;
 import org.hisp.dhis.auth.Authentication;
@@ -121,14 +119,13 @@ class Dhis2AuthTest {
     HttpGet request = new HttpGet(TestFixture.DEFAULT_URL + "/api/dataElements.json");
     HttpUtils.withAuth(request, basicAuthConfig);
 
-    try (CloseableHttpResponse response = httpClient.execute(request)) {
-      Header cookie = response.getHeader("Set-Cookie");
-
-      Pattern pattern = Pattern.compile("JSESSIONID=(\\w+);.*");
-      Matcher matcher = pattern.matcher(cookie.getValue());
-      matcher.matches();
-
-      return matcher.group(1);
-    }
+    return httpClient.execute(
+        request,
+        response -> {
+          Header cookie = response.getHeader("Set-Cookie");
+          Matcher matcher = HttpUtils.PATTERN_SESSION_ID.matcher(cookie.getValue());
+          matcher.matches();
+          return matcher.group(1);
+        });
   }
 }
