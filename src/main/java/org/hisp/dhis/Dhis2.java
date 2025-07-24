@@ -39,7 +39,6 @@ import static org.hisp.dhis.Constants.SUPER_ADMIN_AUTH;
 import static org.hisp.dhis.util.CollectionUtils.asList;
 import static org.hisp.dhis.util.CollectionUtils.list;
 import static org.hisp.dhis.util.IdentifiableObjectUtils.toIdObjects;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -1485,15 +1484,17 @@ public class Dhis2 extends BaseDhis2 {
    * @param out the {@link OutputStream} to write data to.
    */
   public void writeDocumentData(String id, OutputStream out) {
-    URI uri =
+    URI url =
         HttpUtils.build(
             config
                 .getResolvedUriBuilder()
                 .appendPath("documents")
                 .appendPath(id)
                 .appendPath("data"));
+    
+    HttpGet request = getHttpGetRequest(url, List.of());
 
-    CloseableHttpResponse response = getHttpResponse(uri, List.of());
+    CloseableHttpResponse response = getHttpResponse(url, List.of());
 
     writeToStream(response, out);
   }
