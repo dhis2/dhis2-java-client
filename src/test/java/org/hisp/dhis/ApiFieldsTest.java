@@ -46,11 +46,16 @@ class ApiFieldsTest {
         aggregationType,valueType,domainType,url,legendSets[id,code,name,created,lastUpdated,\
         attributeValues,shortName,description],optionSet[id,code,name,created,lastUpdated,\
         attributeValues,valueType,version]],compulsory,displayInReports,skipSynchronization,\
-        skipAnalytics,sortOrder],programStageSections[id,code,name,created,lastUpdated,\
+        skipAnalytics,sortOrder],\
+        programStageSections[id,code,name,created,lastUpdated,\
         attributeValues,shortName,description,programStage[id,code,name,created,lastUpdated,\
         attributeValues,shortName,description],formName,sortOrder,\
         dataElements[id,code,name,created,lastUpdated,attributeValues,shortName,description],\
-        programIndicators[id,code,name,created,lastUpdated,attributeValues,shortName,description]]""";
+        programIndicators[id,code,name,created,lastUpdated,attributeValues,shortName,description]],\
+        formName,executionDateLabel,dueDateLabel,programStageLabel,eventLabel,\
+        repeatable,autoGenerateEvent,displayGenerateEventBox,blockEntryForm,preGenerateUID,\
+        remindCompleted,generatedByEnrollmentDate,allowGenerateNextVisit,openAfterEnrollment,\
+        hideDueDate,enableUserAssignment,referral""";
 
     assertEquals(expected, ApiFields.PROGRAM_STAGE_FIELDS);
   }
@@ -82,7 +87,11 @@ class ApiFieldsTest {
         programStageSections[id,code,name,created,lastUpdated,attributeValues,shortName,\
         description,programStage[id,code,name,created,lastUpdated,attributeValues,shortName,description],\
         formName,sortOrder,dataElements[id,code,name,created,lastUpdated,attributeValues,shortName,description],\
-        programIndicators[id,code,name,created,lastUpdated,attributeValues,shortName,description]]],\
+        programIndicators[id,code,name,created,lastUpdated,attributeValues,shortName,description]],\
+        formName,executionDateLabel,dueDateLabel,programStageLabel,eventLabel,\
+        repeatable,autoGenerateEvent,displayGenerateEventBox,blockEntryForm,preGenerateUID,\
+        remindCompleted,generatedByEnrollmentDate,allowGenerateNextVisit,openAfterEnrollment,\
+        hideDueDate,enableUserAssignment,referral],\
         programTrackedEntityAttributes[id,code,name,program[id,code,name,created,lastUpdated,\
         attributeValues,shortName,description],\
         trackedEntityAttribute[id,code,name,created,lastUpdated,attributeValues,shortName,\
