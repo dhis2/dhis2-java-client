@@ -80,6 +80,12 @@ public class ProgramStage extends NameableObject {
 
   @JsonProperty private Boolean referral;
 
+  /**
+   * Constructor.
+   *
+   * @param id the identifier.
+   * @param name the name.
+   */
   public ProgramStage(String id, String name) {
     this.id = id;
     this.name = name;

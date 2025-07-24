@@ -25,41 +25,23 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.hisp.dhis;
+package org.hisp.dhis.model.sharing;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import java.util.Date;
-import org.hisp.dhis.model.trackedentity.TrackedEntity;
-import org.hisp.dhis.util.DateTimeUtils;
-import org.hisp.dhis.util.JacksonUtils;
-import org.junit.jupiter.api.Test;
-
-class TrackedEntityTest {
-  @Test
-  void testDeserialize() {
-    Date dateTime = DateTimeUtils.toDateTime("2023-05-10T16:12:51.251");
-
-    TrackedEntity te = new TrackedEntity();
-    te.setTrackedEntity("cJ5VL10VSlZ");
-    te.setOrgUnit("DiszpKrYNg8");
-    te.setTrackedEntityType("nEenWmSyUEp");
-    te.setCreatedAt(dateTime);
-    te.setUpdatedAt(dateTime);
-
-    String actual = JacksonUtils.toJsonString(te);
-
-    String expected =
-        """
-        {\
-        "trackedEntity":"cJ5VL10VSlZ",\
-        "trackedEntityType":"nEenWmSyUEp",\
-        "createdAt":"2023-05-10T16:12:51.251",\
-        "updatedAt":"2023-05-10T16:12:51.251",\
-        "orgUnit":"DiszpKrYNg8",\
-        "attributes":[],\
-        "enrollments":[]}""";
-
-    assertEquals(expected, actual);
+@Getter
+@Setter
+@NoArgsConstructor
+public class UserGroupAccess extends AccessObject {
+  /**
+   * Constructor.
+   *
+   * @param access the access string.
+   * @param id the user group identifier.
+   */
+  public UserGroupAccess(String access, String id) {
+    super(access, id);
   }
 }
