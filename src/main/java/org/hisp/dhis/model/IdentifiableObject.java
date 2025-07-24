@@ -36,6 +36,7 @@ import java.util.Set;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.hisp.dhis.model.sharing.Sharing;
 
 @Getter
 @Setter
@@ -52,6 +53,8 @@ public class IdentifiableObject implements Serializable {
   @JsonProperty protected Date lastUpdated;
 
   @JsonProperty protected Set<AttributeValue> attributeValues = new HashSet<>();
+
+  @JsonProperty Sharing sharing;
 
   // -------------------------------------------------------------------------
   // Logic methods
