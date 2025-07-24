@@ -232,9 +232,13 @@ public class Dhis2 extends BaseDhis2 {
 
     HttpGet request = withAuth(new HttpGet(url));
 
-    try (CloseableHttpResponse response = httpClient.execute(request)) {
-      int statusCode = response.getCode();
-      return HttpStatus.valueOf(statusCode);
+    try {
+      return httpClient.execute(
+          request,
+          response -> {
+            int statusCode = response.getCode();
+            return HttpStatus.valueOf(statusCode);
+          });
     } catch (IOException ex) {
       // Return status code for exception of type HttpResponseException
       if (ex instanceof HttpResponseException) {
