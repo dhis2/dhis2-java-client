@@ -173,6 +173,7 @@
             "id": "vV9UWAZohSf"
           },
           "compulsory": true,
+          "displayInReports": true,
           "skipSynchronization": false,
           "skipAnalytics": false   
         }

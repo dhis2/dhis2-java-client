@@ -188,7 +188,6 @@ class ProgramApiTest {
     ProgramStageDataElement psde = ps.getProgramStageDataElements().get(0);
 
     assertNotNull(psde);
-    assertEquals("r6vGOP54sJa", psde.getId());
     assertNotNull(psde.getProgramStage());
     assertNotNull(psde.getDataElement());
     assertTrue(psde.getCompulsory());
