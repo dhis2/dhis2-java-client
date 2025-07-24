@@ -133,7 +133,7 @@ class ProgramApiTest {
     assertEquals("Address Book", pr.getName());
     assertEquals("Address Book", pr.getShortName());
     assertEquals("ADDRESS_BOOK", pr.getCode());
-    assertEquals("Registration date", pr.getEnrollmentDateLabel());
+    assertEquals("Registration Date", pr.getEnrollmentDateLabel());
     assertEquals("Registration", pr.getEnrollmentLabel());
     assertFalse(pr.getDisplayIncidentDate());
     assertTrue(pr.getOnlyEnrollOnce());
@@ -165,6 +165,7 @@ class ProgramApiTest {
     assertEquals(PR_ID, ptea.getProgram().getId());
     assertNotNull(ptea.getTrackedEntityAttribute());
     assertEquals("lZGmxYbs97q", ptea.getTrackedEntityAttribute().getId());
+    assertTrue(ptea.getDisplayInList());
     assertTrue(ptea.getMandatory());
 
     ProgramStage ps = retrieved.getProgramStages().get(0);
@@ -173,6 +174,14 @@ class ProgramApiTest {
     assertEquals("Vital Statistics", ps.getName());
     assertSize(2, ps.getProgramStageDataElements());
     assertSize(1, ps.getProgramStageSections());
+    assertEquals("Registration Date", ps.getExecutionDateLabel());
+    assertEquals("Vital Statistics", ps.getProgramStageLabel());
+    assertFalse(ps.getRepeatable());
+    assertFalse(ps.getAutoGenerateEvent());
+    assertTrue(ps.getRemindCompleted());
+    assertFalse(ps.getOpenAfterEnrollment());
+    assertTrue(ps.getHideDueDate());
+    assertFalse(ps.getDisplayGenerateEventBox());
 
     ProgramSection sc = retrieved.getProgramSections().get(0);
     assertNotNull(sc);

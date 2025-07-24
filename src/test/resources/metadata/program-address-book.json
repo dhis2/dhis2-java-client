@@ -8,7 +8,7 @@
       "programType": "WITH_REGISTRATION",
       "accessLevel": "OPEN",
       "version": "1",
-      "enrollmentDateLabel": "Registration date",
+      "enrollmentDateLabel": "Registration Date",
       "enrollmentLabel": "Registration",
       "displayIncidentDate": false,
       "onlyEnrollOnce": true,
@@ -32,33 +32,39 @@
           "program": {
             "id": "dIFNZrYGcOB"
           },
-          "displayInList": true,
           "trackedEntityAttribute": {
             "id": "lZGmxYbs97q"
           },
-          "mandatory": true
+          "displayInList": true,
+          "mandatory": true,
+          "allowFutureDate": false,
+          "searchable": false
         },
         {
           "id": "li2tdiYlT0T",
           "program": {
             "id": "dIFNZrYGcOB"
           },
-          "displayInList": true,
           "trackedEntityAttribute": {
             "id": "w75KJ2mc4zz"
           },
-          "mandatory": true
+          "displayInList": true,
+          "mandatory": true,
+          "allowFutureDate": false,
+          "searchable": false
         },
         {
           "id": "DwbygGkw8h4",
           "program": {
             "id": "dIFNZrYGcOB"
           },
-          "displayInList": true,
           "trackedEntityAttribute": {
             "id": "zDhUuAYrxNC"
           },
-          "mandatory": true
+          "displayInList": true,
+          "mandatory": true,
+          "allowFutureDate": false,
+          "searchable": false
         },
         {
           "id": "kEKhbGGgniH",
@@ -76,11 +82,13 @@
           "program": {
             "id": "dIFNZrYGcOB"
           },
-          "displayInList": true,
           "trackedEntityAttribute": {
             "id": "P2cwLGskgxn"
           },
-          "mandatory": true
+          "displayInList": true,
+          "mandatory": true,
+          "allowFutureDate": false,
+          "searchable": false
         }
       ],
       "notificationTemplates": [
@@ -137,8 +145,6 @@
     {
       "id": "ArL19QmQUd1",
       "name": "Vital Statistics",
-      "displayGenerateEventBox": false,
-      "autoGenerateEvent": false,
       "program": {
         "id": "dIFNZrYGcOB"
       },
@@ -170,7 +176,15 @@
         {
           "id": "UiiwU8uuNsz"
         }
-      ]
+      ],
+      "executionDateLabel": "Registration Date",
+      "programStageLabel": "Vital Statistics",
+      "repeatable": false,
+      "autoGenerateEvent": false,
+      "remindCompleted": true,
+      "openAfterEnrollment": false,
+      "hideDueDate": true,
+      "displayGenerateEventBox": false
     }
   ],
   "programStageSections": [

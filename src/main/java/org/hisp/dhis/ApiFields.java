@@ -282,7 +282,11 @@ public class ApiFields {
       String.format(
           """
           %1$s,programStageDataElements[%2$s],\
-          programStageSections[%3$s]""",
+          programStageSections[%3$s],\
+          formName,executionDateLabel,dueDateLabel,programStageLabel,eventLabel,\
+          repeatable,autoGenerateEvent,displayGenerateEventBox,blockEntryForm,preGenerateUID,\
+          remindCompleted,generatedByEnrollmentDate,allowGenerateNextVisit,openAfterEnrollment,\
+          hideDueDate,enableUserAssignment,referral""",
           NAME_FIELDS, PROGRAM_STAGE_DATA_ELEMENT_FIELDS, PROGRAM_STAGE_SECTION_FIELDS);
 
   /** Program fields. */
