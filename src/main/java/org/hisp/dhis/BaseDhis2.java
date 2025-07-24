@@ -1023,42 +1023,27 @@ public class BaseDhis2 {
   protected <T> T getObjectFromUrl(URI url, Class<T> type) {
     log("Get URL: '{}'", url.toString());
 
-    try (CloseableHttpResponse response = getHttpResponse(url, List.of(HEADER_ACCEPT_JSON))) {
-      handleErrors(response, url.toString());
-      handleErrorsForGet(response, url.toString());
-
-      String responseBody = EntityUtils.toString(response.getEntity());
-
-      log("Response body: '{}'", responseBody);
-
-      if (type == String.class) {
-        return (T) responseBody;
-      }
-
-      return readValue(responseBody, type);
-    } catch (IOException ex) {
-      throw new Dhis2ClientException("Failed to fetch object", ex);
-    } catch (ParseException ex) {
-      throw new Dhis2ClientException("HTTP response could not be parsed", ex);
-    }
-  }
-
-  /**
-   * Gets a {@link CloseableHttpResponse} for the given URL.
-   *
-   * @param headers the list of request {@link Header}.
-   * @param url the URL.
-   * @return a {@link CloseableHttpResponse}.
-   */
-  protected CloseableHttpResponse getHttpResponse(URI url, List<Header> headers) {
-    HttpGet request = getHttpGetRequest(url, headers);
-
-    log("Get request URL: '{}'", HttpUtils.asString(url));
+    HttpGet request = getJsonHttpGetRequest(url);
 
     try {
-      return httpClient.execute(request);
+      return httpClient.execute(
+          request,
+          response -> {
+            handleErrors(response, url.toString());
+            handleErrorsForGet(response, url.toString());
+
+            String responseBody = EntityUtils.toString(response.getEntity());
+
+            log("Response body: '{}'", responseBody);
+
+            if (type == String.class) {
+              return (T) responseBody;
+            }
+
+            return readValue(responseBody, type);
+          });
     } catch (IOException ex) {
-      throw new Dhis2ClientException("HTTP request failed", ex);
+      throw new Dhis2ClientException("Failed to fetch object", ex);
     }
   }
 
@@ -1124,7 +1109,7 @@ public class BaseDhis2 {
    * @param url the request URL.
    * @throws Dhis2ClientException in the case of error status codes.
    */
-  private void handleErrorsForGet(CloseableHttpResponse response, String url)
+  private void handleErrorsForGet(ClassicHttpResponse response, String url)
       throws IOException, ParseException {
     final int code = response.getCode();
     if (GET_ERROR_STATUS_CODES.contains(code)) {
