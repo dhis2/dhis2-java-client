@@ -38,7 +38,7 @@
           "displayInList": true,
           "mandatory": true,
           "allowFutureDate": false,
-          "searchable": false
+          "searchable": true
         },
         {
           "id": "li2tdiYlT0T",
@@ -51,7 +51,7 @@
           "displayInList": true,
           "mandatory": true,
           "allowFutureDate": false,
-          "searchable": false
+          "searchable": true
         },
         {
           "id": "DwbygGkw8h4",
@@ -64,18 +64,20 @@
           "displayInList": true,
           "mandatory": true,
           "allowFutureDate": false,
-          "searchable": false
+          "searchable": true
         },
         {
           "id": "kEKhbGGgniH",
           "program": {
             "id": "dIFNZrYGcOB"
           },
-          "displayInList": true,
           "trackedEntityAttribute": {
             "id": "VqEFza8wbwA"
           },
-          "mandatory": true
+          "displayInList": true,
+          "mandatory": true,
+          "allowFutureDate": false,
+          "searchable": true
         },
         {
           "id": "R3LX4Lfjz1V",
@@ -88,7 +90,7 @@
           "displayInList": true,
           "mandatory": true,
           "allowFutureDate": false,
-          "searchable": false
+          "searchable": true
         }
       ],
       "notificationTemplates": [

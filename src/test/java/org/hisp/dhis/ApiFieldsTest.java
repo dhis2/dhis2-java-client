@@ -95,7 +95,8 @@ class ApiFieldsTest {
         programTrackedEntityAttributes[id,code,name,program[id,code,name,created,lastUpdated,\
         attributeValues,shortName,description],\
         trackedEntityAttribute[id,code,name,created,lastUpdated,attributeValues,shortName,\
-        description,valueType,aggregationType,confidential,unique],sortOrder,displayInList,mandatory],\
+        description,valueType,aggregationType,confidential,unique],\
+        sortOrder,displayInList,mandatory,allowFutureDate,searchable],\
         enrollmentDateLabel,incidentDateLabel,enrollmentLabel,followUpLabel,\
         orgUnitLabel,relationshipLabel,noteLabel,trackedEntityAttributeLabel,\
         programStageLabel,eventLabel,\
@@ -119,7 +120,8 @@ class ApiFieldsTest {
         programTrackedEntityAttributes[id,code,name,\
         program[id,code,name,created,lastUpdated,attributeValues,shortName,description],\
         trackedEntityAttribute[id,code,name,created,lastUpdated,attributeValues,shortName,\
-        description,valueType,aggregationType,confidential,unique],sortOrder,displayInList,mandatory],\
+        description,valueType,aggregationType,confidential,unique],\
+        sortOrder,displayInList,mandatory,allowFutureDate,searchable],\
         enrollmentDateLabel,incidentDateLabel,enrollmentLabel,followUpLabel,\
         orgUnitLabel,relationshipLabel,noteLabel,trackedEntityAttributeLabel,\
         programStageLabel,eventLabel,\

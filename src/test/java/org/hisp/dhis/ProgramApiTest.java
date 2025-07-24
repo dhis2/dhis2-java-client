@@ -167,6 +167,8 @@ class ProgramApiTest {
     assertEquals("lZGmxYbs97q", ptea.getTrackedEntityAttribute().getId());
     assertTrue(ptea.getDisplayInList());
     assertTrue(ptea.getMandatory());
+    assertFalse(ptea.getAllowFutureDate());
+    assertTrue(ptea.getSearchable());
 
     ProgramStage ps = retrieved.getProgramStages().get(0);
     assertNotNull(ps);
