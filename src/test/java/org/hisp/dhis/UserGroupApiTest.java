@@ -27,6 +27,7 @@
  */
 package org.hisp.dhis;
 
+import static org.hisp.dhis.support.Assertions.assertNotEmpty;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -54,7 +55,7 @@ class UserGroupApiTest {
     assertNotNull(userGroup);
     assertEquals("ZrsVF7IJ93y", userGroup.getId());
     assertEquals("Family Health Partner", userGroup.getName());
-    assertFalse(userGroup.getUsers().isEmpty());
+    assertNotEmpty(userGroup.getUsers());
   }
 
   @Test
@@ -64,7 +65,7 @@ class UserGroupApiTest {
     List<UserGroup> userGroups = dhis2.getUserGroups(Query.instance());
 
     assertNotNull(userGroups);
-    assertFalse(userGroups.isEmpty());
+    assertNotEmpty(userGroups);
   }
 
   @Test

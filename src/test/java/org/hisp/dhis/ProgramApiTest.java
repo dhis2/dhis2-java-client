@@ -231,6 +231,7 @@ class ProgramApiTest {
     assertNotBlank(pr.getName());
     assertNotBlank(pr.getShortName());
     assertNotNull(pr.getSharing());
+    assertNotNull(pr.getAccess());
     assertNotNull(pr.getCreated());
     assertNotNull(pr.getLastUpdated());
     assertEquals(ProgramType.WITH_REGISTRATION, pr.getProgramType());
@@ -261,6 +262,7 @@ class ProgramApiTest {
     assertNotBlank(pr.getName());
     assertNotBlank(pr.getShortName());
     assertNotNull(pr.getSharing());
+    assertNotNull(pr.getAccess());
     assertNotNull(pr.getCreated());
     assertNotNull(pr.getLastUpdated());
     assertEquals(ProgramType.WITH_REGISTRATION, pr.getProgramType());
@@ -366,6 +368,7 @@ class ProgramApiTest {
     assertNotBlank(pr.getName());
     assertNotBlank(pr.getShortName());
     assertNotNull(pr.getSharing());
+    assertNotNull(pr.getAccess());
     assertNotEmpty(pr.getOrganisationUnits());
     assertNotNull(pr.getVersion());
     assertNotNull(pr.getDisplayIncidentDate());
@@ -393,6 +396,8 @@ class ProgramApiTest {
     assertEquals("eBAyeGv0exc", pr.getId());
     assertNotBlank(pr.getName());
     assertNotBlank(pr.getShortName());
+    assertNotNull(pr.getSharing());
+    assertNotNull(pr.getAccess());
     assertNotEmpty(pr.getOrganisationUnits());
     assertNotNull(pr.getProgramStages());
     assertNotEmpty(pr.getProgramStageSections());

@@ -36,6 +36,7 @@ import java.util.Set;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.hisp.dhis.model.acl.Access;
 import org.hisp.dhis.model.sharing.Sharing;
 
 @Getter
@@ -55,6 +56,8 @@ public class IdentifiableObject implements Serializable {
   @JsonProperty protected Set<AttributeValue> attributeValues = new HashSet<>();
 
   @JsonProperty protected Sharing sharing;
+
+  @JsonProperty protected Access access;
 
   // -------------------------------------------------------------------------
   // Logic methods

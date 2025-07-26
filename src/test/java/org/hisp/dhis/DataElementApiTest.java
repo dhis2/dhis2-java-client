@@ -31,12 +31,14 @@ import static org.hisp.dhis.support.Assertions.assertNotBlank;
 import static org.hisp.dhis.support.Assertions.assertNotEmpty;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.hisp.dhis.model.AggregationType;
 import org.hisp.dhis.model.DataDomain;
 import org.hisp.dhis.model.DataElement;
 import org.hisp.dhis.model.OptionSet;
 import org.hisp.dhis.model.ValueType;
+import org.hisp.dhis.model.acl.Access;
 import org.hisp.dhis.model.sharing.Sharing;
 import org.hisp.dhis.model.sharing.UserAccess;
 import org.hisp.dhis.model.sharing.UserGroupAccess;
@@ -57,7 +59,9 @@ class DataElementApiTest {
     DataElement dataElement = dhis2.getDataElement("a57FmdPj3Zl");
 
     assertNotNull(dataElement.getId());
-    assertNotNull(dataElement.getName());
+    assertNotBlank(dataElement.getName());
+    assertNotNull(dataElement.getSharing());
+    assertNotNull(dataElement.getAccess());
     assertNotNull(dataElement.getSharing());
     assertNotNull(dataElement.getValueType());
 
@@ -90,7 +94,7 @@ class DataElementApiTest {
   }
 
   @Test
-  void testSaveGetDataElement() {
+  void testSaveGetDataElementWithSharing() {
     Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
 
     DataElement dataElement =
@@ -134,6 +138,12 @@ class DataElementApiTest {
 
     assertEquals(AggregationType.SUM, retrieved.getAggregationType());
     assertEquals(ValueType.NUMBER, retrieved.getValueType());
+
+    Access access = retrieved.getAccess();
+
+    assertNotNull(access);
+    System.out.println(access);
+    assertTrue(access.getWrite());
 
     ObjectResponse removeResponse = dhis2.removeDataElement(dataElement.getId());
 
