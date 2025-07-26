@@ -31,12 +31,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 /**
  * Read only representation of sharing access to this object for the currently authenticated user.
  */
 @Getter
 @Setter
+@ToString
 @NoArgsConstructor
 public class Access {
   @JsonProperty private Boolean manage;

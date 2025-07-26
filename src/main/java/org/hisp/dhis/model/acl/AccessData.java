@@ -31,6 +31,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 /**
  * Read only representation of data sharing access to this object for the currently authenticated
@@ -38,6 +39,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
+@ToString
 @NoArgsConstructor
 public class AccessData {
   @JsonProperty private Boolean write;
