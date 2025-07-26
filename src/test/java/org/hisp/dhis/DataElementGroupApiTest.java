@@ -55,6 +55,7 @@ class DataElementGroupApiTest {
     assertEquals("Lassa Fever", deg.getShortName());
     assertNotNull(deg.getCreated());
     assertNotNull(deg.getLastUpdated());
+    assertNotNull(deg.getSharing());
     assertNull(deg.getDescription());
 
     // Group members assertions

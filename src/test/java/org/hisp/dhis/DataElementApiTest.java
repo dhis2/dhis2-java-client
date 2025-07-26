@@ -56,6 +56,7 @@ class DataElementApiTest {
 
     assertNotNull(dataElement.getId());
     assertNotNull(dataElement.getName());
+    assertNotNull(dataElement.getSharing());
     assertNotNull(dataElement.getValueType());
 
     OptionSet optionSet = dataElement.getOptionSet();

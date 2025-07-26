@@ -230,6 +230,7 @@ class ProgramApiTest {
     assertEquals("IpHINAT79UW", pr.getId());
     assertNotBlank(pr.getName());
     assertNotBlank(pr.getShortName());
+    assertNotNull(pr.getSharing());
     assertNotNull(pr.getCreated());
     assertNotNull(pr.getLastUpdated());
     assertEquals(ProgramType.WITH_REGISTRATION, pr.getProgramType());
@@ -259,6 +260,7 @@ class ProgramApiTest {
     assertEquals("IpHINAT79UW", pr.getId());
     assertNotBlank(pr.getName());
     assertNotBlank(pr.getShortName());
+    assertNotNull(pr.getSharing());
     assertNotNull(pr.getCreated());
     assertNotNull(pr.getLastUpdated());
     assertEquals(ProgramType.WITH_REGISTRATION, pr.getProgramType());
@@ -363,6 +365,7 @@ class ProgramApiTest {
     assertEquals("eBAyeGv0exc", pr.getId());
     assertNotBlank(pr.getName());
     assertNotBlank(pr.getShortName());
+    assertNotNull(pr.getSharing());
     assertNotEmpty(pr.getOrganisationUnits());
     assertNotNull(pr.getVersion());
     assertNotNull(pr.getDisplayIncidentDate());
@@ -454,6 +457,7 @@ class ProgramApiTest {
     assertEquals("qDkgAbB5Jlk", pr.getId());
     assertNotBlank(pr.getName());
     assertNotBlank(pr.getShortName());
+    assertNotNull(pr.getSharing());
     assertNotEmpty(pr.getOrganisationUnits());
     assertNotNull(pr.getVersion());
     assertNotNull(pr.getDisplayIncidentDate());
@@ -490,6 +494,7 @@ class ProgramApiTest {
     assertEquals("qDkgAbB5Jlk", pr.getId());
     assertNotBlank(pr.getName());
     assertNotBlank(pr.getShortName());
+    assertNotNull(pr.getSharing());
     assertNotEmpty(pr.getOrganisationUnits());
     assertNotEmpty(pr.getProgramStages());
     assertNotEmpty(pr.getProgramStageSections());

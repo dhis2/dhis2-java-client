@@ -35,102 +35,114 @@ public class ApiFields {
   /** Identifiable object fields. */
   public static final String ID_FIELDS = "id,code,name,created,lastUpdated,attributeValues";
 
+  /** Identifiable object extended fields. */
+  public static final String ID_EXT_FIELDS = String.format("%s,sharing", ID_FIELDS);
+
   /** Nameable object fields. */
   public static final String NAME_FIELDS = String.format("%s,shortName,description", ID_FIELDS);
 
+  /** Nameable object extended fields. */
+  public static final String NAME_EXT_FIELDS =
+      String.format("%s,shortName,description", ID_EXT_FIELDS);
+
+  /** Analytics table hook fields. */
   public static final String ANALYTICS_TABLE_HOOK_FIELDS =
       String.format("%s,phase,resourceTableType,analyticsTableType,sql", ID_FIELDS);
 
   /** Category option fields. */
   public static final String CATEGORY_OPTION_FIELDS =
       String.format(
-          "%1$s,shortName,startDate,endDate,formName,categories[%1$s],organisationUnits[%1$s]",
-          NAME_FIELDS);
+          "%1$s,shortName,startDate,endDate,formName,categories[%2$s],organisationUnits[%2$s]",
+          NAME_EXT_FIELDS, NAME_FIELDS);
 
   /** Category option extended fields. */
   public static final String CATEGORY_OPTION_EXT_FIELDS =
       String.format(
-          "%1$s,categoryOptionCombos[id,name],organisationUnits[id,name]", CATEGORY_OPTION_FIELDS);
+          "%1$s,categoryOptionCombos[%2$s],organisationUnits[%2$s]",
+          CATEGORY_OPTION_FIELDS, ID_FIELDS);
 
   /** Category option combo fields. */
   public static final String CATEGORY_OPTION_COMBO_FIELDS =
-      String.format("%1$s,ignoreApproval,dimensionItem,categoryOptions[%1$s]", ID_FIELDS);
+      String.format(
+          "%1$s,ignoreApproval,dimensionItem,categoryOptions[%2$s]", ID_EXT_FIELDS, ID_FIELDS);
 
   /** Category option group fields. */
   public static final String CATEGORY_OPTION_GROUP_FIELDS =
       String.format(
           "%1$s,dataDimensionType,dimensionItemType,categoryOptions[%2$s],groupSets[%2$s]",
-          NAME_FIELDS, ID_FIELDS);
+          NAME_EXT_FIELDS, ID_FIELDS);
 
   /** Category option group set fields. */
   public static final String CATEGORY_OPTION_GROUP_SET_FIELDS =
       String.format(
           "%1$s,dataDimension,dataDimensionType,categoryOptionGroups[%2$s]",
-          NAME_FIELDS, ID_FIELDS);
+          NAME_EXT_FIELDS, ID_FIELDS);
 
   /** Category combo fields. */
   public static final String CATEGORY_COMBO_FIELDS =
       String.format(
-          "%1$s,dataDimensionType,skipTotal,categories[%1$s],categoryOptionCombos[%2$s]",
-          ID_FIELDS, CATEGORY_OPTION_COMBO_FIELDS);
+          "%1$s,dataDimensionType,skipTotal,categories[%2$s],categoryOptionCombos[%3$s]",
+          ID_EXT_FIELDS, ID_FIELDS, CATEGORY_OPTION_COMBO_FIELDS);
 
   /** Category fields. */
   public static final String CATEGORY_FIELDS =
       String.format(
           "%1$s,dataDimensionType,dataDimension,categoryOptions[%2$s],categoryCombos[%2$s]",
-          NAME_FIELDS, ID_FIELDS);
+          NAME_EXT_FIELDS, ID_FIELDS);
 
   /** Option fields. */
   public static final String OPTION_FIELDS = NAME_FIELDS;
 
   /** Option set fields. */
-  public static final String OPTION_SET_FIELDS = String.format("%s,valueType,version", ID_FIELDS);
+  public static final String OPTION_SET_FIELDS =
+      String.format("%s,valueType,version", ID_EXT_FIELDS);
 
   /** Option set extended fields. */
   public static final String OPTION_SET_EXT_FIELDS =
       String.format("%1$s,options[%2$s]", OPTION_SET_FIELDS, NAME_FIELDS);
 
   /** Data element group set fields. */
-  public static final String DASHBOARD_FIELDS = String.format("%1$s,embedded[*]", NAME_FIELDS);
+  public static final String DASHBOARD_FIELDS = String.format("%1$s,embedded[*]", NAME_EXT_FIELDS);
 
   /** Data element fields. */
   public static final String DATA_ELEMENT_FIELDS =
       String.format(
-          "%1$s,aggregationType,valueType,domainType,url,legendSets[%1$s],optionSet[%2$s]",
-          NAME_FIELDS, OPTION_SET_FIELDS);
+          "%1$s,aggregationType,valueType,domainType,url,legendSets[%2$s],optionSet[%3$s]",
+          NAME_EXT_FIELDS, NAME_FIELDS, OPTION_SET_FIELDS);
 
   /** Data element extended fields. */
   public static final String DATA_ELEMENT_EXT_FIELDS =
       String.format(
           """
-          %1$s,dataElementGroups[id,code,name,groupSets[id,code,name]],\
-          dataSetElements[dataSet[id,name,periodType,workflow[id,name]]]""",
-          DATA_ELEMENT_FIELDS);
+          %1$s,dataElementGroups[id,code,name,groupSets[%2$s]],\
+          dataSetElements[dataSet[id,name,periodType,workflow[%2$s]]]""",
+          DATA_ELEMENT_FIELDS, ID_FIELDS);
 
   /** Data element group fields. */
   public static final String DATA_ELEMENT_GROUP_FIELDS = NAME_FIELDS;
 
   /** Data element group extended fields. */
   public static final String DATA_ELEMENT_GROUP_EXT_FIELDS =
-      String.format("%1$s,dataElements[%2$s]", NAME_FIELDS, DATA_ELEMENT_FIELDS);
+      String.format("%1$s,dataElements[%2$s]", NAME_EXT_FIELDS, DATA_ELEMENT_FIELDS);
 
   /** Data element group set fields. */
   public static final String DATA_ELEMENT_GROUP_SET_FIELDS =
       String.format(
-          "%1$s,compulsory,dataDimension,dimensionType,dataElementGroups[%1$s]", NAME_FIELDS);
+          "%1$s,compulsory,dataDimension,dimensionType,dataElementGroups[%2$s]",
+          NAME_EXT_FIELDS, NAME_FIELDS);
 
   /** Dimension fields. */
-  public static final String DIMENSION_FIELDS = String.format("%s,dimensionType", ID_FIELDS);
+  public static final String DIMENSION_FIELDS = String.format("%s,dimensionType", ID_EXT_FIELDS);
 
   /** Document fields. */
   public static final String DOCUMENT_FIELDS =
-      String.format("%s,url,external,attachment", ID_FIELDS);
+      String.format("%s,url,external,attachment", ID_EXT_FIELDS);
 
   /** File resource fields. */
   public static final String FILE_RESOURCE_FIELDS =
       String.format(
           "%s,contentType,contentLength,contentMd5,domain,hasMultipleStorageFiles,storageStatus",
-          ID_FIELDS);
+          ID_EXT_FIELDS);
 
   /** Attributes fields. */
   public static final String ATTRIBUTE_FIELDS =
@@ -138,10 +150,11 @@ public class ApiFields {
           """
           %1$s,valueType,objectTypes,mandatory,unique,\
           dataElementAttribute,programAttribute,programStageAttribute""",
-          NAME_FIELDS);
+          NAME_EXT_FIELDS);
 
   /** Indicator type fields. */
-  public static final String INDICATOR_TYPE_FIELDS = String.format("%s,factor,number", ID_FIELDS);
+  public static final String INDICATOR_TYPE_FIELDS =
+      String.format("%s,factor,number", ID_EXT_FIELDS);
 
   /** Indicator fields. */
   public static final String INDICATOR_FIELDS =
@@ -149,31 +162,32 @@ public class ApiFields {
           """
           %1$s,annualized,numerator,numeratorDescription,\
           denominator,denominatorDescription,url,indicatorType[%2$s]""",
-          NAME_FIELDS, INDICATOR_TYPE_FIELDS);
+          NAME_EXT_FIELDS, INDICATOR_TYPE_FIELDS);
 
   /** Indicator group fields. */
   public static final String INDICATOR_GROUP_FIELDS = NAME_FIELDS;
 
   /** Indicator group fields. */
   public static final String INDICATOR_GROUP_EXT_FIELDS =
-      String.format("%1$s,indicators[%2$s]", NAME_FIELDS, INDICATOR_FIELDS);
+      String.format("%1$s,indicators[%2$s]", NAME_EXT_FIELDS, INDICATOR_FIELDS);
 
   /** Indicator group set fields. */
   public static final String INDICATOR_GROUP_SET_FIELDS =
-      String.format("%1$s,compulsory,indicatorGroups[%1$s]", NAME_FIELDS);
+      String.format("%1$s,compulsory,indicatorGroups[%2$s]", NAME_EXT_FIELDS, NAME_FIELDS);
 
   /** Data set fields. */
   public static final String DATA_SET_FIELDS =
       String.format(
           """
-          %1$s,formName,displayFormName,categoryCombo[%1$s],
-          dataSetElements[dataSet[%1$s],dataElement[%1$s],categoryCombo[%1$s]],\
+          %1$s,formName,displayFormName,\
+          categoryCombo[%2$s],\
+          dataSetElements[dataSet[%2$s],dataElement[%2$s],categoryCombo[%2$s]],\
           dimensionItem,openFuturePeriods,expiryDays,timelyDays,url,formType,periodType,version,\
           dimensionItemType,aggregationType,favorite,\
           compulsoryFieldsCompleteOnly,skipOffline,validCompleteOnly,dataElementDecoration,\
           openPeriodsAfterCoEndDate,notifyCompletingUser,noValueRequiresComment,\
-          fieldCombinationRequired,mobile,dataEntryForm[%2$s]""",
-          NAME_FIELDS, ID_FIELDS);
+          fieldCombinationRequired,mobile,dataEntryForm[%3$s]""",
+          NAME_EXT_FIELDS, NAME_FIELDS, ID_FIELDS);
 
   /** Data set extended fields. */
   public static final String DATA_SET_EXT_FIELDS =
@@ -185,24 +199,25 @@ public class ApiFields {
   public static final String ORG_UNIT_FIELDS =
       String.format(
           """
-          %s,path,level,parent[%s],openingDate,closedDate,comment,url,
+          %1$s,path,level,parent[%2$s],openingDate,closedDate,comment,url,
           contactPerson,address,email,phoneNumber""",
-          NAME_FIELDS, NAME_FIELDS);
+          NAME_EXT_FIELDS, NAME_FIELDS);
 
   /** Org unit group fields. */
   public static final String ORG_UNIT_GROUP_FIELDS = NAME_FIELDS;
 
   /** Org unit group fields. */
   public static final String ORG_UNIT_GROUP_EXT_FIELDS =
-      String.format("%1$s,organisationUnits[%2$s]", NAME_FIELDS, ORG_UNIT_FIELDS);
+      String.format("%1$s,organisationUnits[%2$s]", NAME_EXT_FIELDS, ORG_UNIT_FIELDS);
 
   /** Org unit group set fields. */
   public static final String ORG_UNIT_GROUP_SET_FIELDS =
       String.format(
-          "%1$s,dataDimension,compulsory,organisationUnitGroups[%2$s]", NAME_FIELDS, ID_FIELDS);
+          "%1$s,dataDimension,compulsory,organisationUnitGroups[%2$s]",
+          NAME_EXT_FIELDS, NAME_FIELDS);
 
   /** Org unit level fields. */
-  public static final String ORG_UNIT_LEVEL_FIELDS = String.format("%s,level", ID_FIELDS);
+  public static final String ORG_UNIT_LEVEL_FIELDS = String.format("%s,level", ID_EXT_FIELDS);
 
   /** Map fields. */
   public static final String MAP_FIELDS = NAME_FIELDS;
@@ -213,15 +228,15 @@ public class ApiFields {
           """
           %1$s,username,surname,firstName,email,settings,programs,\
           dataSets,authorities,organisationUnits[%2$s]""",
-          ID_FIELDS, ORG_UNIT_FIELDS);
+          ID_EXT_FIELDS, ORG_UNIT_FIELDS);
 
   /** Program stage data element fields. */
   public static final String PROGRAM_STAGE_DATA_ELEMENT_FIELDS =
       String.format(
           """
-          %1$s,programStage[%1$s],dataElement[%2$s],\
+          %1$s,programStage[%2$s],dataElement[%3$s],\
           compulsory,displayInReports,skipSynchronization,skipAnalytics,sortOrder""",
-          NAME_FIELDS, DATA_ELEMENT_FIELDS);
+          NAME_EXT_FIELDS, NAME_FIELDS, DATA_ELEMENT_FIELDS);
 
   /** Tracked entity attribute fields. */
   public static final String TRACKED_ENTITY_ATTRIBUTE_FIELDS =
@@ -231,16 +246,15 @@ public class ApiFields {
   public static final String TRACKED_ENTITY_TYPE_FIELDS =
       String.format(
           """
-          %s,trackedEntityTypeAttributes[id,trackedEntityAttribute[%s],\
+          %1$s,trackedEntityTypeAttributes[id,trackedEntityAttribute[%2$s],\
           displayInList,mandatory,searchable]""",
-          NAME_FIELDS, TRACKED_ENTITY_ATTRIBUTE_FIELDS);
+          NAME_EXT_FIELDS, TRACKED_ENTITY_ATTRIBUTE_FIELDS);
 
   /** Tracked entity enrollment fields. */
   public static final String TRACKED_ENTITY_ENROLLMENT_FIELDS =
       """
-      enrollment,program,trackedEntity,status,orgUnit,createdAt,createdAtClient,\
-      updatedAt,updatedAtClient,enrolledAt,occurredAt,completedAt,\
-      followUp,deleted,completedBy,storedBy""";
+      enrollment,program,trackedEntity,status,orgUnit,createdAt,createdAtClient,updatedAt,\
+      updatedAtClient,enrolledAt,occurredAt,completedAt,followUp,deleted,completedBy,storedBy""";
 
   /** Tracked entity type fields. */
   public static final String TRACKED_ENTITY_FIELDS =
@@ -258,7 +272,7 @@ public class ApiFields {
           """
           %1$s,fromConstraint,toConstraint,description,bidirectional,fromToName,\
           toFromName,referral""",
-          ID_FIELDS);
+          ID_EXT_FIELDS);
 
   /** Program indicator fields. */
   public static final String PROGRAM_INDICATOR_FIELDS = NAME_FIELDS;
@@ -267,15 +281,15 @@ public class ApiFields {
   public static final String PROGRAM_SECTION_FIELDS =
       String.format(
           """
-          %1$s,sortOrder,program[%1$s],trackedEntityAttributes[%1$s]""",
-          NAME_FIELDS);
+          %1$s,sortOrder,program[%2$s],trackedEntityAttributes[%2$s]""",
+          NAME_EXT_FIELDS, NAME_FIELDS);
 
   /** Program stage section fields. */
   public static final String PROGRAM_STAGE_SECTION_FIELDS =
       String.format(
           """
-          %1$s,programStage[%1$s],formName,sortOrder,dataElements[%1$s],programIndicators[%1$s]""",
-          NAME_FIELDS);
+          %1$s,programStage[%2$s],formName,sortOrder,dataElements[%2$s],programIndicators[%2$s]""",
+          NAME_EXT_FIELDS, NAME_FIELDS);
 
   /** Program stage fields. */
   public static final String PROGRAM_STAGE_FIELDS =
@@ -287,7 +301,7 @@ public class ApiFields {
           repeatable,autoGenerateEvent,displayGenerateEventBox,blockEntryForm,preGenerateUID,\
           remindCompleted,generatedByEnrollmentDate,allowGenerateNextVisit,openAfterEnrollment,\
           hideDueDate,enableUserAssignment,referral""",
-          NAME_FIELDS, PROGRAM_STAGE_DATA_ELEMENT_FIELDS, PROGRAM_STAGE_SECTION_FIELDS);
+          NAME_EXT_FIELDS, PROGRAM_STAGE_DATA_ELEMENT_FIELDS, PROGRAM_STAGE_SECTION_FIELDS);
 
   public static final String PROGRAM_TRACKED_ENTITY_ATTRIBUTES_FIELDS =
       String.format(
@@ -296,15 +310,15 @@ public class ApiFields {
           sortOrder,displayInList,mandatory,allowFutureDate,searchable""",
           NAME_FIELDS, TRACKED_ENTITY_ATTRIBUTE_FIELDS);
 
-  /** Program fields. */
+  /** Program extended fields. */
   public static final String PROGRAM_EXT_FIELDS =
       String.format(
           """
-          %1$s,formName,programType,trackedEntityType[%2$s],categoryCombo[%1$s,categories[%3$s]],\
-          organisationUnits[%1$s],\
-          programSections[%4$s],\
-          programStages[%5$s],\
-          programTrackedEntityAttributes[%6$s],\
+          %1$s,formName,programType,trackedEntityType[%3$s],categoryCombo[%2$s,categories[%4$s]],\
+          organisationUnits[%2$s],\
+          programSections[%5$s],\
+          programStages[%6$s],\
+          programTrackedEntityAttributes[%7$s],\
           enrollmentDateLabel,incidentDateLabel,enrollmentLabel,followUpLabel,\
           orgUnitLabel,relationshipLabel,noteLabel,trackedEntityAttributeLabel,\
           programStageLabel,eventLabel,\
@@ -312,6 +326,7 @@ public class ApiFields {
           selectEnrollmentDatesInFuture,selectIncidentDatesInFuture,displayFrontPageList,\
           skipOffline,useFirstStageDuringRegistration,expiryDays,\
           minAttributesRequiredToSearch,maxTeiCountToReturn,accessLevel""",
+          NAME_EXT_FIELDS,
           NAME_FIELDS,
           TRACKED_ENTITY_TYPE_FIELDS,
           CATEGORY_FIELDS,
@@ -319,14 +334,14 @@ public class ApiFields {
           PROGRAM_STAGE_FIELDS,
           PROGRAM_TRACKED_ENTITY_ATTRIBUTES_FIELDS);
 
-  /** Program extended fields. */
+  /** Program fields. */
   public static final String PROGRAM_FIELDS =
       String.format(
           """
-          %1$s,formName,programType,trackedEntityType[%1$s],categoryCombo[%1$s],\
-          programSections[%1$s],\
-          programStages[%1$s],\
-          programTrackedEntityAttributes[%3$s],\
+          %1$s,formName,programType,trackedEntityType[%2$s],categoryCombo[%2$s],\
+          programSections[%2$s],\
+          programStages[%2$s],\
+          programTrackedEntityAttributes[%4$s],\
           enrollmentDateLabel,incidentDateLabel,enrollmentLabel,followUpLabel,\
           orgUnitLabel,relationshipLabel,noteLabel,trackedEntityAttributeLabel,\
           programStageLabel,eventLabel,\
@@ -334,23 +349,29 @@ public class ApiFields {
           selectEnrollmentDatesInFuture,selectIncidentDatesInFuture,displayFrontPageList,\
           skipOffline,useFirstStageDuringRegistration,expiryDays,\
           minAttributesRequiredToSearch,maxTeiCountToReturn,accessLevel""",
-          NAME_FIELDS, TRACKED_ENTITY_ATTRIBUTE_FIELDS, PROGRAM_TRACKED_ENTITY_ATTRIBUTES_FIELDS);
+          NAME_EXT_FIELDS,
+          NAME_FIELDS,
+          TRACKED_ENTITY_ATTRIBUTE_FIELDS,
+          PROGRAM_TRACKED_ENTITY_ATTRIBUTES_FIELDS);
 
   /** User fields. */
   public static final String USER_FIELDS =
       String.format(
           """
           %1$s,username,firstName,surname,email,phoneNumber,externalAuth,lastLogin,\
-          organisationUnits[%2$s],dataViewOrganisationUnits[%2$s],\
+          organisationUnits[%2$s],\
+          dataViewOrganisationUnits[%2$s],\
           teiSearchOrganisationUnits[%2$s]""",
-          ID_FIELDS, NAME_FIELDS);
+          ID_EXT_FIELDS, NAME_FIELDS);
 
   /** UserGroup fields. */
-  public static final String USER_GROUP_FIELDS = String.format("%1$s,users[%1$s]", ID_FIELDS);
+  public static final String USER_GROUP_FIELDS =
+      String.format("%1$s,users[%2$s]", ID_EXT_FIELDS, ID_FIELDS);
 
   /** UserRole fields. */
   public static final String USER_ROLE_FIELDS =
-      String.format("%1$s,description,authorities,restrictions,users[%1$s]", ID_FIELDS);
+      String.format(
+          "%1$s,description,authorities,restrictions,users[%2$s]", ID_EXT_FIELDS, ID_FIELDS);
 
   public static final String VALIDATION_SIDE_FIELDS =
       "expression,description,displayDescription,slidingWindow,missingValueStrategy";
@@ -362,7 +383,7 @@ public class ApiFields {
           %1$s,dimensionItem,instruction,importance,periodType,displayDescription,\
           displayInstruction,displayName,leftSide[%2$s],operator,rightSide[%2$s],\
           skipFormValidation,legendSets""",
-          NAME_FIELDS, VALIDATION_SIDE_FIELDS);
+          NAME_EXT_FIELDS, VALIDATION_SIDE_FIELDS);
 
   /** Data set validation fields. */
   public static final String DATA_SET_VALIDATION_FIELDS =
