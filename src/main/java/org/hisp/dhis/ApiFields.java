@@ -394,5 +394,5 @@ public class ApiFields {
           VALIDATION_RULE_FIELDS, ID_FIELDS);
 
   /** Visualization fields. */
-  public static final String VISUALIZATION_FIELDS = NAME_FIELDS;
+  public static final String VISUALIZATION_FIELDS = NAME_EXT_FIELDS;
 }
