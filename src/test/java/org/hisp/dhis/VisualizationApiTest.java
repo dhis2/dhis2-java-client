@@ -52,6 +52,7 @@ class VisualizationApiTest {
     assertEquals("UlfTKWZWV4u", visualization.getId());
     assertNotBlank(visualization.getName());
     assertNotNull(visualization.getSharing());
+    assertNotNull(visualization.getAccess());
   }
 
   @Test

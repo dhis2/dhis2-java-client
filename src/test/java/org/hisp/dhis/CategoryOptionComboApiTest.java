@@ -44,6 +44,7 @@ class CategoryOptionComboApiTest {
 
     CategoryOptionCombo coc = dhis2.getCategoryOptionCombo("KQ50BVoUrd6");
 
+    assertEquals("KQ50BVoUrd6", coc.getId());
     assertEquals("Male", coc.getName());
     assertFalse(coc.getIgnoreApproval());
     assertNotEmpty(coc.getCategoryOptions());

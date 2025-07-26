@@ -54,6 +54,7 @@ class OptionSetApiTest {
     assertEquals("VQ2lai3OfVG", optionSet.getId());
     assertNotBlank(optionSet.getName());
     assertNotNull(optionSet.getSharing());
+    assertNotNull(optionSet.getAccess());
     assertNotNull(optionSet.getValueType());
     assertNotNull(optionSet.getOptions());
     assertNotEmpty(optionSet.getOptions());

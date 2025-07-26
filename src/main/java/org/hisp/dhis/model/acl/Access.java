@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004-2024, University of Oslo
+ * Copyright (c) 2004-2025, University of Oslo
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,46 +25,31 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.hisp.dhis;
+package org.hisp.dhis.model.acl;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import java.util.List;
-import org.hisp.dhis.model.OrgUnit;
-import org.hisp.dhis.model.OrgUnitGroup;
-import org.hisp.dhis.support.TestTags;
-import org.junit.jupiter.api.Tag;
-import org.junit.jupiter.api.Test;
+/**
+ * Read only representation of sharing access to this object for the currently authenticated user.
+ */
+@Getter
+@Setter
+@NoArgsConstructor
+public class Access {
+  @JsonProperty private Boolean manage;
 
-@Tag(TestTags.INTEGRATION)
-class OrgUnitGroupApiTest {
-  @Test
-  void testGetOrgUnitGroup() {
-    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+  @JsonProperty private Boolean externalize;
 
-    OrgUnitGroup oug = dhis2.getOrgUnitGroup("RpbiCJpIYEj");
+  @JsonProperty private Boolean write;
 
-    assertEquals("RpbiCJpIYEj", oug.getId());
-    assertEquals("Country", oug.getCode());
-    assertEquals("Country", oug.getName());
-    assertEquals("Country", oug.getShortName());
-    assertNotNull(oug.getSharing());
-    assertNotNull(oug.getAccess());
-    assertNotNull(oug.getCreated());
-    assertNotNull(oug.getLastUpdated());
-    assertNull(oug.getDescription());
+  @JsonProperty private Boolean read;
 
-    // Group members assertions
+  @JsonProperty private Boolean update;
 
-    List<OrgUnit> orgUnits = oug.getOrgUnits();
+  @JsonProperty private Boolean delete;
 
-    assertNotNull(orgUnits);
-    assertEquals(1, orgUnits.size());
-
-    assertEquals("ImspTQPwCqd", orgUnits.get(0).getId());
-    assertEquals("Sierra Leone", orgUnits.get(0).getName());
-    assertEquals("OU_525", orgUnits.get(0).getCode());
-  }
+  @JsonProperty private AccessData data;
 }

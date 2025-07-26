@@ -54,9 +54,9 @@ class CategoryOptionApiTest {
     assertNotNull(categoryOption);
     assertNotBlank(categoryOption.getName());
     assertEquals("K4gwuiVvW3z", categoryOption.getId());
-    assertNotBlank(categoryOption.getName());
-    assertNotEmpty(categoryOption.getCategories());
     assertNotNull(categoryOption.getSharing());
+    assertNotNull(categoryOption.getAccess());
+    assertNotEmpty(categoryOption.getCategories());
   }
 
   @Test

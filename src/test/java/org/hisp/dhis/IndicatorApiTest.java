@@ -58,6 +58,7 @@ class IndicatorApiTest {
     assertEquals("IN_52496", indicator.getCode());
     assertEquals("ANC IPT 1 Coverage", indicator.getName());
     assertNotNull(indicator.getSharing());
+    assertNotNull(indicator.getAccess());
     assertEquals("ANC IPT 1 Coverage", indicator.getShortName());
     assertNotNull(indicator.getCreated());
     assertNotNull(indicator.getLastUpdated());

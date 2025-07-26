@@ -57,7 +57,9 @@ class DataElementApiTest {
     DataElement dataElement = dhis2.getDataElement("a57FmdPj3Zl");
 
     assertNotNull(dataElement.getId());
-    assertNotNull(dataElement.getName());
+    assertNotBlank(dataElement.getName());
+    assertNotNull(dataElement.getSharing());
+    assertNotNull(dataElement.getAccess());
     assertNotNull(dataElement.getSharing());
     assertNotNull(dataElement.getValueType());
 

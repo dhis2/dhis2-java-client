@@ -87,6 +87,7 @@ class DataElementGroupSetApiTest {
     assertEquals("Diagnosis", dataElementGroupSet.getName());
     assertEquals("Diagnosis", dataElementGroupSet.getShortName());
     assertNotNull(dataElementGroupSet.getSharing());
+    assertNotNull(dataElementGroupSet.getAccess());
     assertEquals("Diagnosis", dataElementGroupSet.getDescription());
     assertEquals(DimensionType.DATA_ELEMENT_GROUP_SET, dataElementGroupSet.getDimensionType());
     assertNotNull(dataElementGroupSet.getCreated());
