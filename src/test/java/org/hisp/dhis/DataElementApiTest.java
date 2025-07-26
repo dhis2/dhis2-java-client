@@ -142,8 +142,11 @@ class DataElementApiTest {
     Access access = retrieved.getAccess();
 
     assertNotNull(access);
-    System.out.println(access);
+    assertTrue(access.getManage());
     assertTrue(access.getWrite());
+    assertTrue(access.getRead());
+    assertTrue(access.getUpdate());
+    assertTrue(access.getDelete());
 
     ObjectResponse removeResponse = dhis2.removeDataElement(dataElement.getId());
 
