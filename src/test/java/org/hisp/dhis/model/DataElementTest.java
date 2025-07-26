@@ -25,22 +25,26 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.hisp.dhis.model.acl;
+package org.hisp.dhis.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import java.io.Serializable;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-/** Read only representation of data sharing accessfor the currently authenticated user. */
-@Getter
-@Setter
-@ToString
-@NoArgsConstructor
-public class AccessData implements Serializable {
-  @JsonProperty private Boolean write;
+import org.hisp.dhis.support.JsonClassPathFile;
+import org.hisp.dhis.support.TestTags;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
 
-  @JsonProperty private Boolean read;
+@Tag(TestTags.UNIT)
+class DataElementTest {
+  @Test
+  void testDeserializeDataElement() {
+    DataElement dataElement =
+        JsonClassPathFile.fromJson("metadata/data-element-color.json", DataElement.class);
+
+    assertNotNull(dataElement);
+    assertEquals("cZtM3Zhg3FQ", dataElement.getId());
+    assertEquals(6, dataElement.getTranslations().size());
+    assertNotNull(dataElement.getSharing());
+  }
 }

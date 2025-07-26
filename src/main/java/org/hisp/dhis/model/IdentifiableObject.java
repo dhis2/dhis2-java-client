@@ -38,6 +38,7 @@ import lombok.Setter;
 import lombok.ToString;
 import org.hisp.dhis.model.acl.Access;
 import org.hisp.dhis.model.sharing.Sharing;
+import org.hisp.dhis.model.translation.Translation;
 
 @Getter
 @Setter
@@ -53,10 +54,16 @@ public class IdentifiableObject implements Serializable {
 
   @JsonProperty protected Date lastUpdated;
 
+  /** Attribute values. */
   @JsonProperty protected Set<AttributeValue> attributeValues = new HashSet<>();
 
+  /** Read only representation of object property translations. */
+  @JsonProperty protected Set<Translation> translations = new HashSet<>();
+
+  /** Sharing access object. */
   @JsonProperty protected Sharing sharing;
 
+  /** Read only representation of sharing access for the currently authenticated user. */
   @JsonProperty protected Access access;
 
   // -------------------------------------------------------------------------

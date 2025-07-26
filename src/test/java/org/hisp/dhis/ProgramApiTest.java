@@ -126,6 +126,7 @@ class ProgramApiTest {
     assertSize(1, retrieved.getProgramStageSections());
 
     Program pr = retrieved.getPrograms().get(0);
+
     assertNotNull(pr);
     assertEquals(PR_ID, pr.getId());
     assertEquals("Address Book", pr.getName());
@@ -157,6 +158,7 @@ class ProgramApiTest {
     assertEquals(ProgramAccessLevel.OPEN, pr.getAccessLevel());
 
     ProgramTrackedEntityAttribute ptea = pr.getProgramTrackedEntityAttributes().get(0);
+
     assertNotNull(ptea);
     assertEquals("NkvU4urhVNv", ptea.getId());
     assertNotNull(ptea.getProgram());
@@ -169,6 +171,7 @@ class ProgramApiTest {
     assertTrue(ptea.getSearchable());
 
     ProgramStage ps = retrieved.getProgramStages().get(0);
+
     assertNotNull(ps);
     assertEquals("ArL19QmQUd1", ps.getId());
     assertEquals("Vital Statistics", ps.getName());
@@ -194,6 +197,7 @@ class ProgramApiTest {
     assertFalse(psde.getSkipAnalytics());
 
     ProgramSection sc = retrieved.getProgramSections().get(0);
+
     assertNotNull(sc);
     assertEquals("msLqIoBRMva", sc.getId());
     assertEquals("Information", sc.getName());
@@ -201,6 +205,7 @@ class ProgramApiTest {
     assertEquals(5, sc.getTrackedEntityAttributes().size());
 
     ProgramStageSection pss = retrieved.getProgramStageSections().get(0);
+
     assertNotNull(pss);
     assertEquals("Information", pss.getName());
     assertEquals("Information", pss.getDescription());

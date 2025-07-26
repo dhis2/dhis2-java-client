@@ -25,7 +25,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.hisp.dhis.model.acl;
+package org.hisp.dhis.model.translation;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
@@ -34,13 +34,14 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-/** Read only representation of data sharing accessfor the currently authenticated user. */
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
-public class AccessData implements Serializable {
-  @JsonProperty private Boolean write;
+public class Translation implements Serializable {
+  @JsonProperty private String locale;
 
-  @JsonProperty private Boolean read;
+  @JsonProperty private String property;
+
+  @JsonProperty private String value;
 }

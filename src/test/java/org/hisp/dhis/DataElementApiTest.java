@@ -33,6 +33,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.Set;
 import org.hisp.dhis.model.AggregationType;
 import org.hisp.dhis.model.DataDomain;
 import org.hisp.dhis.model.DataElement;
@@ -42,6 +43,7 @@ import org.hisp.dhis.model.acl.Access;
 import org.hisp.dhis.model.sharing.Sharing;
 import org.hisp.dhis.model.sharing.UserAccess;
 import org.hisp.dhis.model.sharing.UserGroupAccess;
+import org.hisp.dhis.model.translation.Translation;
 import org.hisp.dhis.response.HttpStatus;
 import org.hisp.dhis.response.Status;
 import org.hisp.dhis.response.object.ObjectResponse;
@@ -74,7 +76,7 @@ class DataElementApiTest {
   }
 
   @Test
-  void testGetDataElementWithSharing() {
+  void testGetDataElementWithSharingAndTranslations() {
     Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
 
     DataElement dataElement = dhis2.getDataElement("fbfJHSPpUQD");
@@ -84,6 +86,17 @@ class DataElementApiTest {
     assertEquals("ANC 1st visit", dataElement.getShortName());
     assertEquals(ValueType.NUMBER, dataElement.getValueType());
     assertEquals(DataDomain.AGGREGATE, dataElement.getDomainType());
+
+    Set<Translation> translations = dataElement.getTranslations();
+
+    assertNotEmpty(translations);
+
+    Translation translation = translations.iterator().next();
+
+    assertNotNull(translation);
+    assertNotBlank(translation.getLocale());
+    assertNotBlank(translation.getProperty());
+    assertNotBlank(translation.getValue());
 
     Sharing sharing = dataElement.getSharing();
 
