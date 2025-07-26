@@ -27,6 +27,7 @@
  */
 package org.hisp.dhis;
 
+import static org.hisp.dhis.support.Assertions.assertNotBlank;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -49,7 +50,8 @@ class DashboardApiTest {
 
     assertNotNull(dashboard);
     assertEquals("L1BtjXgpUpd", dashboard.getId());
-    assertNotNull(dashboard.getName());
+    assertNotBlank(dashboard.getName());
+    assertNotNull(dashboard.getSharing());
   }
 
   @Test

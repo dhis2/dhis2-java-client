@@ -1,0 +1,75 @@
+{
+  "id": "cZtM3Zhg3FQ",
+  "code": "DJC_COLOR",
+  "name": "DJC: Color",
+  "shortName": "DJC: Color",
+  "aggregationType": "SUM",
+  "valueType": "NUMBER",
+  "domainType": "AGGREGATE",
+  "zeroIsSignificant": false,
+  "translations": [
+    {
+      "locale": "en_GB",
+      "property": "NAME",
+      "value": "DJC: Color"
+    },
+    {
+      "locale": "fr",
+      "property": "NAME",
+      "value": "DJC: Couleur"
+    },
+    {
+      "locale": "pt",
+      "property": "NAME",
+      "value": "DJC: Cor"
+    },
+    {
+      "locale": "en_GB",
+      "property": "SHORT_NAME",
+      "value": "DJC: Color"
+    },
+    {
+      "locale": "fr",
+      "property": "SHORT_NAME",
+      "value": "DJC: Couleur"
+    },
+    {
+      "locale": "pt",
+      "property": "SHORT_NAME",
+      "value": "DJC: Cor"
+    }
+  ],
+  "sharing": {
+    "owner": "GOLswS44mh8",
+    "external": false,
+    "public": "rw------",
+    "users": {
+      "awtnYWiVEd5": {
+        "access": "rw------",
+        "id": "awtnYWiVEd5"
+      },
+      "cgRLEcDKUpZ": {
+        "access": "rw------",
+        "id": "cgRLEcDKUpZ"
+      }
+    },
+    "userGroups": {
+      "Rg8wusV7QYi": {
+        "access": "r-------",
+        "id": "Rg8wusV7QYi"
+      },
+      "qMjBflJMOfB": {
+        "access": "rw------",
+        "id": "qMjBflJMOfB"
+      }
+    }
+  },
+  "access": {
+    "manage": true,
+    "externalize": false,
+    "write": true,
+    "read": true,
+    "update": true,
+    "delete": true
+  }
+}

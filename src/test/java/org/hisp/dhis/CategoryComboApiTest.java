@@ -49,7 +49,9 @@ class CategoryComboApiTest {
 
     CategoryCombo categoryCombo = dhis2.getCategoryCombo("m2jTvAj5kkm");
 
+    assertEquals("m2jTvAj5kkm", categoryCombo.getId());
     assertEquals("Births", categoryCombo.getName());
+    assertNotNull(categoryCombo.getSharing());
     assertEquals(DataDimensionType.DISAGGREGATION, categoryCombo.getDataDimensionType());
     assertFalse(categoryCombo.getSkipTotal());
 

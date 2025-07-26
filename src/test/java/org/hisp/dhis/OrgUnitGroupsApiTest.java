@@ -27,7 +27,7 @@
  */
 package org.hisp.dhis;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.hisp.dhis.support.Assertions.assertNotEmpty;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.List;
@@ -45,8 +45,7 @@ class OrgUnitGroupsApiTest {
 
     List<OrgUnitGroup> orgUnitGroups = dhis2.getOrgUnitGroups(Query.instance());
 
-    assertNotNull(orgUnitGroups);
-    assertFalse(orgUnitGroups.isEmpty());
+    assertNotEmpty(orgUnitGroups);
     assertNotNull(orgUnitGroups.get(0));
     assertNotNull(orgUnitGroups.get(0).getId());
     assertNotNull(orgUnitGroups.get(0).getName());

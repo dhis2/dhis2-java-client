@@ -59,6 +59,7 @@ class DataSetApiTest {
     assertEquals("pBOMPrpg1QX", dataSet.getId());
     assertEquals("Mortality < 5 years", dataSet.getName());
     assertEquals("Mortality < 5 years", dataSet.getDisplayFormName());
+    assertNotNull(dataSet.getSharing());
     assertEquals("bjDvmb4bfuf", dataSet.getCategoryCombo().getId());
     assertNotEmpty(dataSet.getDataSetElements());
     assertEquals("pBOMPrpg1QX", dataSet.getDimensionItem());

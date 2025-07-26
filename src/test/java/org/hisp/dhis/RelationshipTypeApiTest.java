@@ -27,9 +27,9 @@
  */
 package org.hisp.dhis;
 
-import static org.hisp.dhis.ApiTestUtils.assertSuccessResponse;
 import static org.hisp.dhis.model.relationship.RelationshipEntity.PROGRAM_STAGE_INSTANCE;
 import static org.hisp.dhis.model.relationship.RelationshipEntity.TRACKED_ENTITY_INSTANCE;
+import static org.hisp.dhis.support.Assertions.assertSuccessResponse;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;

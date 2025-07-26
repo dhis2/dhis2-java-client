@@ -48,6 +48,7 @@ class OrgUnitGroupApiTest {
 
     assertEquals("RpbiCJpIYEj", oug.getId());
     assertEquals("Country", oug.getName());
+    assertNotNull(oug.getSharing());
     assertEquals("Country", oug.getShortName());
     assertEquals("Country", oug.getCode());
     assertNotNull(oug.getCreated());

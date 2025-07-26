@@ -27,6 +27,8 @@
  */
 package org.hisp.dhis;
 
+import static org.hisp.dhis.support.Assertions.assertNotBlank;
+import static org.hisp.dhis.support.Assertions.assertNotEmpty;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -50,8 +52,11 @@ class CategoryOptionApiTest {
     CategoryOption categoryOption = dhis2.getCategoryOption("K4gwuiVvW3z");
 
     assertNotNull(categoryOption);
+    assertNotBlank(categoryOption.getName());
     assertEquals("K4gwuiVvW3z", categoryOption.getId());
-    assertFalse(categoryOption.getCategories().isEmpty());
+    assertNotBlank(categoryOption.getName());
+    assertNotEmpty(categoryOption.getCategories());
+    assertNotNull(categoryOption.getSharing());
   }
 
   @Test
@@ -61,7 +66,7 @@ class CategoryOptionApiTest {
     List<CategoryOption> categoryOptions = dhis2.getCategoryOptions(Query.instance());
 
     assertNotNull(categoryOptions);
-    assertFalse(categoryOptions.isEmpty());
+    assertNotEmpty(categoryOptions);
     assertNotNull(categoryOptions.get(0).getId());
   }
 

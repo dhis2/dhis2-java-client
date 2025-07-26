@@ -36,7 +36,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.io.InputStream;
 import java.util.List;
 import org.hisp.dhis.model.DataElement;
 import org.hisp.dhis.model.OrgUnit;
@@ -60,9 +59,8 @@ import org.hisp.dhis.response.HttpStatus;
 import org.hisp.dhis.response.Status;
 import org.hisp.dhis.response.object.ObjectResponse;
 import org.hisp.dhis.response.objects.ObjectsResponse;
+import org.hisp.dhis.support.JsonClassPathFile;
 import org.hisp.dhis.support.TestTags;
-import org.hisp.dhis.util.ClassPathFile;
-import org.hisp.dhis.util.JacksonUtils;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
@@ -74,8 +72,8 @@ class ProgramApiTest {
   void testSaveUpdateRemoveProgramObjects() {
     Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
 
-    InputStream input = new ClassPathFile("metadata/program-address-book.json").getInputStream();
-    ProgramObjects objects = JacksonUtils.fromJson(input, ProgramObjects.class);
+    ProgramObjects objects =
+        JsonClassPathFile.fromJson("metadata/program-address-book.json", ProgramObjects.class);
 
     assertNotNull(objects);
     assertNotEmpty(objects.getPrograms());
@@ -110,8 +108,8 @@ class ProgramApiTest {
   void testSaveGetRemoveProgramObjects() {
     Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
 
-    InputStream input = new ClassPathFile("metadata/program-address-book.json").getInputStream();
-    ProgramObjects objects = JacksonUtils.fromJson(input, ProgramObjects.class);
+    ProgramObjects objects =
+        JsonClassPathFile.fromJson("metadata/program-address-book.json", ProgramObjects.class);
 
     ObjectsResponse saveResponse = dhis2.saveProgram(objects);
 
@@ -232,6 +230,7 @@ class ProgramApiTest {
     assertEquals("IpHINAT79UW", pr.getId());
     assertNotBlank(pr.getName());
     assertNotBlank(pr.getShortName());
+    assertNotNull(pr.getSharing());
     assertNotNull(pr.getCreated());
     assertNotNull(pr.getLastUpdated());
     assertEquals(ProgramType.WITH_REGISTRATION, pr.getProgramType());
@@ -261,6 +260,7 @@ class ProgramApiTest {
     assertEquals("IpHINAT79UW", pr.getId());
     assertNotBlank(pr.getName());
     assertNotBlank(pr.getShortName());
+    assertNotNull(pr.getSharing());
     assertNotNull(pr.getCreated());
     assertNotNull(pr.getLastUpdated());
     assertEquals(ProgramType.WITH_REGISTRATION, pr.getProgramType());
@@ -365,6 +365,7 @@ class ProgramApiTest {
     assertEquals("eBAyeGv0exc", pr.getId());
     assertNotBlank(pr.getName());
     assertNotBlank(pr.getShortName());
+    assertNotNull(pr.getSharing());
     assertNotEmpty(pr.getOrganisationUnits());
     assertNotNull(pr.getVersion());
     assertNotNull(pr.getDisplayIncidentDate());
@@ -456,6 +457,7 @@ class ProgramApiTest {
     assertEquals("qDkgAbB5Jlk", pr.getId());
     assertNotBlank(pr.getName());
     assertNotBlank(pr.getShortName());
+    assertNotNull(pr.getSharing());
     assertNotEmpty(pr.getOrganisationUnits());
     assertNotNull(pr.getVersion());
     assertNotNull(pr.getDisplayIncidentDate());
@@ -492,6 +494,7 @@ class ProgramApiTest {
     assertEquals("qDkgAbB5Jlk", pr.getId());
     assertNotBlank(pr.getName());
     assertNotBlank(pr.getShortName());
+    assertNotNull(pr.getSharing());
     assertNotEmpty(pr.getOrganisationUnits());
     assertNotEmpty(pr.getProgramStages());
     assertNotEmpty(pr.getProgramStageSections());

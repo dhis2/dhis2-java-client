@@ -27,9 +27,10 @@
  */
 package org.hisp.dhis;
 
-import static org.hisp.dhis.ApiTestUtils.assertSuccessResponse;
+import static org.hisp.dhis.support.Assertions.assertNotBlank;
+import static org.hisp.dhis.support.Assertions.assertNotEmpty;
+import static org.hisp.dhis.support.Assertions.assertSuccessResponse;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.List;
@@ -52,7 +53,9 @@ class IndicatorGroupApiTest {
 
     assertNotNull(group);
     assertEquals("pKHOV0uwPJk", group.getId());
-    assertFalse(group.getIndicators().isEmpty());
+    assertNotBlank(group.getName());
+    assertNotNull(group.getSharing());
+    assertNotEmpty(group.getIndicators());
   }
 
   @Test
@@ -62,7 +65,7 @@ class IndicatorGroupApiTest {
     List<IndicatorGroup> groups = dhis2.getIndicatorGroups(Query.instance());
 
     assertNotNull(groups);
-    assertFalse(groups.isEmpty());
+    assertNotEmpty(groups);
     assertNotNull(groups.get(0).getId());
   }
 

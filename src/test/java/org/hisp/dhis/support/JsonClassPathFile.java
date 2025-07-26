@@ -25,26 +25,27 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.hisp.dhis;
+package org.hisp.dhis.support;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import java.io.InputStream;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+import org.hisp.dhis.util.ClassPathFile;
+import org.hisp.dhis.util.JacksonUtils;
 
-import org.hisp.dhis.response.HttpStatus;
-import org.hisp.dhis.response.Status;
-import org.hisp.dhis.response.object.ObjectResponse;
-
-class ApiTestUtils {
-
-  static void assertSuccessResponse(
-      ObjectResponse objectResponse, HttpStatus httpStatus, int expectedStatusCode) {
-    assertEquals(
-        expectedStatusCode,
-        objectResponse.getHttpStatusCode().intValue(),
-        objectResponse.toString());
-    assertEquals(httpStatus, objectResponse.getHttpStatus(), objectResponse.toString());
-    assertEquals(Status.OK, objectResponse.getStatus(), objectResponse.toString());
-    assertNotNull(objectResponse.getResponse());
-    assertNotNull(objectResponse.getResponse().getUid());
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public class JsonClassPathFile {
+  /**
+   * Retrieves the file at the given path on the classpath and deserializes JSON into an object of
+   * the specified type.
+   *
+   * @param <T> the type.
+   * @param path the path.
+   * @param type the class type.
+   * @return an object.
+   */
+  public static <T> T fromJson(String path, Class<T> type) {
+    InputStream input = new ClassPathFile(path).getInputStream();
+    return JacksonUtils.fromJson(input, type);
   }
 }

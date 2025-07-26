@@ -27,7 +27,7 @@
  */
 package org.hisp.dhis;
 
-import static org.hisp.dhis.ApiTestUtils.assertSuccessResponse;
+import static org.hisp.dhis.support.Assertions.assertSuccessResponse;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -86,6 +86,7 @@ class DataElementGroupSetApiTest {
     assertNull(dataElementGroupSet.getCode());
     assertEquals("Diagnosis", dataElementGroupSet.getName());
     assertEquals("Diagnosis", dataElementGroupSet.getShortName());
+    assertNotNull(dataElementGroupSet.getSharing());
     assertEquals("Diagnosis", dataElementGroupSet.getDescription());
     assertEquals(DimensionType.DATA_ELEMENT_GROUP_SET, dataElementGroupSet.getDimensionType());
     assertNotNull(dataElementGroupSet.getCreated());

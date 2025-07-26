@@ -27,8 +27,8 @@
  */
 package org.hisp.dhis;
 
-import static org.hisp.dhis.ApiTestUtils.assertSuccessResponse;
 import static org.hisp.dhis.support.Assertions.assertNotEmpty;
+import static org.hisp.dhis.support.Assertions.assertSuccessResponse;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -57,6 +57,7 @@ class IndicatorApiTest {
     assertEquals("dwEq7wi6nXV", indicator.getId());
     assertEquals("IN_52496", indicator.getCode());
     assertEquals("ANC IPT 1 Coverage", indicator.getName());
+    assertNotNull(indicator.getSharing());
     assertEquals("ANC IPT 1 Coverage", indicator.getShortName());
     assertNotNull(indicator.getCreated());
     assertNotNull(indicator.getLastUpdated());

@@ -27,6 +27,7 @@
  */
 package org.hisp.dhis;
 
+import static org.hisp.dhis.support.Assertions.assertNotBlank;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -49,7 +50,8 @@ class VisualizationApiTest {
 
     assertNotNull(visualization);
     assertEquals("UlfTKWZWV4u", visualization.getId());
-    assertNotNull(visualization.getName());
+    assertNotBlank(visualization.getName());
+    assertNotNull(visualization.getSharing());
   }
 
   @Test
