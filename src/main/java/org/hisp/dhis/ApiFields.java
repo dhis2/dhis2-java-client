@@ -36,7 +36,8 @@ public class ApiFields {
   public static final String ID_FIELDS = "id,code,name,created,lastUpdated,attributeValues";
 
   /** Identifiable object extended fields. */
-  public static final String ID_EXT_FIELDS = String.format("%s,sharing,access", ID_FIELDS);
+  public static final String ID_EXT_FIELDS =
+      String.format("%s,translations,sharing,access", ID_FIELDS);
 
   /** Nameable object fields. */
   public static final String NAME_FIELDS = String.format("%s,shortName,description", ID_FIELDS);

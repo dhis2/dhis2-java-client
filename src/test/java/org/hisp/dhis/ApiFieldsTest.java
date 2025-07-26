@@ -39,15 +39,15 @@ class ApiFieldsTest {
   void testProgramStageFields() {
     String expected =
         """
-        id,code,name,created,lastUpdated,attributeValues,sharing,access,shortName,description,\
-        programStageDataElements[id,code,name,created,lastUpdated,attributeValues,sharing,access,shortName,description,\
+        id,code,name,created,lastUpdated,attributeValues,translations,sharing,access,shortName,description,\
+        programStageDataElements[id,code,name,created,lastUpdated,attributeValues,translations,sharing,access,shortName,description,\
         programStage[id,code,name,created,lastUpdated,attributeValues,shortName,description],\
-        dataElement[id,code,name,created,lastUpdated,attributeValues,sharing,access,shortName,description,\
+        dataElement[id,code,name,created,lastUpdated,attributeValues,translations,sharing,access,shortName,description,\
         aggregationType,valueType,domainType,url,legendSets[id,code,name,created,lastUpdated,\
         attributeValues,shortName,description],\
-        optionSet[id,code,name,created,lastUpdated,attributeValues,sharing,access,valueType,version]],\
+        optionSet[id,code,name,created,lastUpdated,attributeValues,translations,sharing,access,valueType,version]],\
         compulsory,displayInReports,skipSynchronization,skipAnalytics,sortOrder],\
-        programStageSections[id,code,name,created,lastUpdated,attributeValues,sharing,access,\
+        programStageSections[id,code,name,created,lastUpdated,attributeValues,translations,sharing,access,\
         shortName,description,programStage[id,code,name,created,lastUpdated,\
         attributeValues,shortName,description],formName,sortOrder,\
         dataElements[id,code,name,created,lastUpdated,attributeValues,shortName,description],\
@@ -64,28 +64,28 @@ class ApiFieldsTest {
   void testProgramExtFields() {
     String expected =
         """
-        id,code,name,created,lastUpdated,attributeValues,sharing,access,shortName,description,formName,programType,\
-        trackedEntityType[id,code,name,created,lastUpdated,attributeValues,sharing,access,shortName,description,\
+        id,code,name,created,lastUpdated,attributeValues,translations,sharing,access,shortName,description,formName,programType,\
+        trackedEntityType[id,code,name,created,lastUpdated,attributeValues,translations,sharing,access,shortName,description,\
         trackedEntityTypeAttributes[id,\
         trackedEntityAttribute[id,code,name,created,lastUpdated,attributeValues,shortName,description,valueType,\
         aggregationType,confidential,unique],displayInList,mandatory,searchable]],\
         categoryCombo[id,code,name,created,lastUpdated,attributeValues,shortName,description,\
-        categories[id,code,name,created,lastUpdated,attributeValues,sharing,access,shortName,description,dataDimensionType,dataDimension,\
+        categories[id,code,name,created,lastUpdated,attributeValues,translations,sharing,access,shortName,description,dataDimensionType,dataDimension,\
         categoryOptions[id,code,name,created,lastUpdated,attributeValues],\
         categoryCombos[id,code,name,created,lastUpdated,attributeValues]]],\
         organisationUnits[id,code,name,created,lastUpdated,attributeValues,shortName,description],\
-        programSections[id,code,name,created,lastUpdated,attributeValues,sharing,access,shortName,description,sortOrder,\
+        programSections[id,code,name,created,lastUpdated,attributeValues,translations,sharing,access,shortName,description,sortOrder,\
         program[id,code,name,created,lastUpdated,attributeValues,shortName,description],\
         trackedEntityAttributes[id,code,name,created,lastUpdated,attributeValues,shortName,description]],\
-        programStages[id,code,name,created,lastUpdated,attributeValues,sharing,access,shortName,description,\
-        programStageDataElements[id,code,name,created,lastUpdated,attributeValues,sharing,access,shortName,description,\
+        programStages[id,code,name,created,lastUpdated,attributeValues,translations,sharing,access,shortName,description,\
+        programStageDataElements[id,code,name,created,lastUpdated,attributeValues,translations,sharing,access,shortName,description,\
         programStage[id,code,name,created,lastUpdated,attributeValues,shortName,description],\
-        dataElement[id,code,name,created,lastUpdated,attributeValues,sharing,access,shortName,description,\
+        dataElement[id,code,name,created,lastUpdated,attributeValues,translations,sharing,access,shortName,description,\
         aggregationType,valueType,domainType,url,\
         legendSets[id,code,name,created,lastUpdated,attributeValues,shortName,description],\
-        optionSet[id,code,name,created,lastUpdated,attributeValues,sharing,access,valueType,version]],\
+        optionSet[id,code,name,created,lastUpdated,attributeValues,translations,sharing,access,valueType,version]],\
         compulsory,displayInReports,skipSynchronization,skipAnalytics,sortOrder],\
-        programStageSections[id,code,name,created,lastUpdated,attributeValues,sharing,access,\
+        programStageSections[id,code,name,created,lastUpdated,attributeValues,translations,sharing,access,\
         shortName,description,programStage[id,code,name,created,lastUpdated,attributeValues,shortName,description],\
         formName,sortOrder,dataElements[id,code,name,created,lastUpdated,attributeValues,shortName,description],\
         programIndicators[id,code,name,created,lastUpdated,attributeValues,shortName,description]],\
@@ -113,7 +113,7 @@ class ApiFieldsTest {
   void testProgramFields() {
     String expected =
         """
-        id,code,name,created,lastUpdated,attributeValues,sharing,access,shortName,description,formName,programType,\
+        id,code,name,created,lastUpdated,attributeValues,translations,sharing,access,shortName,description,formName,programType,\
         trackedEntityType[id,code,name,created,lastUpdated,attributeValues,shortName,description],\
         categoryCombo[id,code,name,created,lastUpdated,attributeValues,shortName,description],\
         programSections[id,code,name,created,lastUpdated,attributeValues,shortName,description],\
