@@ -37,6 +37,9 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
+import org.hisp.dhis.response.HttpStatus;
+import org.hisp.dhis.response.Status;
+import org.hisp.dhis.response.object.ObjectResponse;
 import org.hisp.dhis.util.CollectionUtils;
 
 public class Assertions {
@@ -192,5 +195,22 @@ public class Assertions {
   public static void assertNotBlank(String actual) {
     assertNotNull(actual);
     assertTrue(!actual.isBlank());
+  }
+
+  /**
+   * Asserts successful {@link ObjectResponse}.
+   *
+   * @param objectResponse the {@link ObjectResponse}.
+   * @param httpStatus the {@link HttpStatus}.
+   * @param statusCode the status code.
+   */
+  public static void assertSuccessResponse(
+      ObjectResponse objectResponse, HttpStatus httpStatus, int statusCode) {
+    assertEquals(
+        statusCode, objectResponse.getHttpStatusCode().intValue(), objectResponse.toString());
+    assertEquals(httpStatus, objectResponse.getHttpStatus(), objectResponse.toString());
+    assertEquals(Status.OK, objectResponse.getStatus(), objectResponse.toString());
+    assertNotNull(objectResponse.getResponse());
+    assertNotNull(objectResponse.getResponse().getUid());
   }
 }

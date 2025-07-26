@@ -28,8 +28,8 @@
 package org.hisp.dhis;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
-import static org.hisp.dhis.ApiTestUtils.assertSuccessResponse;
 import static org.hisp.dhis.support.Assertions.assertNotBlank;
+import static org.hisp.dhis.support.Assertions.assertSuccessResponse;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
