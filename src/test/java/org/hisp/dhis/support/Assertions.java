@@ -35,6 +35,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Predicate;
 import org.hisp.dhis.util.CollectionUtils;
 
@@ -146,6 +147,16 @@ public class Assertions {
    * @param actual the collection.
    */
   public static void assertNotEmpty(Collection<?> actual) {
+    assertNotNull(actual, NULL_MESSAGE);
+    assertTrue(!actual.isEmpty());
+  }
+
+  /**
+   * Asserts that the actual collection is empty.
+   *
+   * @param actual the collection.
+   */
+  public static void assertNotEmpty(Map<?, ?> actual) {
     assertNotNull(actual, NULL_MESSAGE);
     assertTrue(!actual.isEmpty());
   }
