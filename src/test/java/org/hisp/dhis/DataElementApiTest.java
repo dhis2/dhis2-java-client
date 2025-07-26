@@ -38,6 +38,8 @@ import org.hisp.dhis.model.DataElement;
 import org.hisp.dhis.model.OptionSet;
 import org.hisp.dhis.model.ValueType;
 import org.hisp.dhis.model.sharing.Sharing;
+import org.hisp.dhis.model.sharing.UserAccess;
+import org.hisp.dhis.model.sharing.UserGroupAccess;
 import org.hisp.dhis.response.HttpStatus;
 import org.hisp.dhis.response.Status;
 import org.hisp.dhis.response.object.ObjectResponse;
@@ -109,6 +111,27 @@ class DataElementApiTest {
     assertEquals("DJC_COLOR", retrieved.getCode());
     assertEquals("DJC: Color", retrieved.getName());
     assertEquals("DJC: Color", retrieved.getShortName());
+
+    Sharing sharing = retrieved.getSharing();
+
+    assertNotNull(sharing);
+    assertNotBlank(sharing.getOwner());
+    assertNotBlank(sharing.getPublicAccess());
+    assertEquals(2, sharing.getUsers().size());
+    assertEquals(2, sharing.getUserGroups().size());
+
+    UserAccess userAccess = sharing.getUsers().get("awtnYWiVEd5");
+
+    assertNotNull(userAccess);
+    assertNotBlank(userAccess.getAccess());
+    assertNotBlank(userAccess.getId());
+
+    UserGroupAccess userGroupAccess = sharing.getUserGroups().get("Rg8wusV7QYi");
+
+    assertNotNull(userGroupAccess);
+    assertNotBlank(userGroupAccess.getAccess());
+    assertNotBlank(userGroupAccess.getId());
+
     assertEquals(AggregationType.SUM, retrieved.getAggregationType());
     assertEquals(ValueType.NUMBER, retrieved.getValueType());
 
