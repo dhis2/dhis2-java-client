@@ -32,11 +32,16 @@ import static org.hisp.dhis.support.Assertions.assertNotEmpty;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import org.hisp.dhis.model.AggregationType;
 import org.hisp.dhis.model.DataDomain;
 import org.hisp.dhis.model.DataElement;
 import org.hisp.dhis.model.OptionSet;
 import org.hisp.dhis.model.ValueType;
 import org.hisp.dhis.model.sharing.Sharing;
+import org.hisp.dhis.response.HttpStatus;
+import org.hisp.dhis.response.Status;
+import org.hisp.dhis.response.object.ObjectResponse;
+import org.hisp.dhis.support.JsonClassPathFile;
 import org.hisp.dhis.support.TestTags;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -79,5 +84,37 @@ class DataElementApiTest {
     assertNotBlank(sharing.getOwner());
     assertNotNull(sharing.getPublicAccess());
     assertNotEmpty(sharing.getUserGroups());
+  }
+
+  @Test
+  void testSaveGetDataElement() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    DataElement dataElement =
+        JsonClassPathFile.fromJson("metadata/data-element-color.json", DataElement.class);
+
+    ObjectResponse saveResponse = dhis2.saveDataElement(dataElement);
+
+    assertNotNull(saveResponse);
+    assertNotNull(saveResponse.getResponse());
+    assertEquals(Status.OK, saveResponse.getStatus());
+    assertEquals(HttpStatus.CREATED, saveResponse.getHttpStatus());
+    assertEquals(dataElement.getId(), saveResponse.getResponse().getId());
+
+    DataElement retrieved = dhis2.getDataElement(dataElement.getId());
+
+    assertNotNull(retrieved);
+    assertEquals("cZtM3Zhg3FQ", retrieved.getId());
+    assertEquals("DJC_COLOR", retrieved.getCode());
+    assertEquals("DJC: Color", retrieved.getName());
+    assertEquals("DJC: Color", retrieved.getShortName());
+    assertEquals(AggregationType.SUM, retrieved.getAggregationType());
+    assertEquals(ValueType.NUMBER, retrieved.getValueType());
+
+    ObjectResponse removeResponse = dhis2.removeDataElement(dataElement.getId());
+
+    assertNotNull(removeResponse);
+    assertEquals(Status.OK, removeResponse.getStatus());
+    assertEquals(HttpStatus.OK, removeResponse.getHttpStatus());
   }
 }

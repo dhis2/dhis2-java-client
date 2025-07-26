@@ -32,11 +32,9 @@ import static org.hisp.dhis.support.Assertions.assertNotEmpty;
 import static org.hisp.dhis.support.TestObjects.set;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import java.io.InputStream;
 import java.util.List;
+import org.hisp.dhis.support.JsonClassPathFile;
 import org.hisp.dhis.support.TestTags;
-import org.hisp.dhis.util.ClassPathFile;
-import org.hisp.dhis.util.JacksonUtils;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
@@ -44,8 +42,8 @@ import org.junit.jupiter.api.Test;
 class ProgramTest {
   @Test
   void testDeserializeProgramObjects() {
-    InputStream input = new ClassPathFile("metadata/program-address-book.json").getInputStream();
-    ProgramObjects objects = JacksonUtils.fromJson(input, ProgramObjects.class);
+    ProgramObjects objects =
+        JsonClassPathFile.fromJson("metadata/program-address-book.json", ProgramObjects.class);
 
     assertNotNull(objects);
     assertNotEmpty(objects.getPrograms());
