@@ -195,6 +195,10 @@ public class BaseDhis2 {
           fieldCombinationRequired,mobile,dataEntryForm[%2$s]""",
           NAME_FIELDS, ID_FIELDS);
 
+  /** Data entry form fields. */
+  protected static final String DATA_ENTRY_FORM_FIELDS =
+          String.format("%s,htmlCode,style,format", NAME_FIELDS);
+
   /** Org unit fields. */
   protected static final String ORG_UNIT_FIELDS =
       String.format(

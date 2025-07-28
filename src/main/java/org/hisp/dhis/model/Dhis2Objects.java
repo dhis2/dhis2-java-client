@@ -66,6 +66,8 @@ public class Dhis2Objects {
 
   @JsonProperty private List<DataElement> dataElements = new ArrayList<>();
 
+  @JsonProperty private List<DataEntryForm> dataEntryForms = new ArrayList<>();
+
   @JsonProperty private List<DataElementGroup> dataElementGroups = new ArrayList<>();
 
   @JsonProperty private List<Dimension> dimensions = new ArrayList<>();
