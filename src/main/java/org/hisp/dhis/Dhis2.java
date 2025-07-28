@@ -74,6 +74,7 @@ import org.hisp.dhis.model.CategoryOptionGroupSet;
 import org.hisp.dhis.model.DataElement;
 import org.hisp.dhis.model.DataElementGroup;
 import org.hisp.dhis.model.DataElementGroupSet;
+import org.hisp.dhis.model.DataEntryForm;
 import org.hisp.dhis.model.DataSet;
 import org.hisp.dhis.model.Dhis2Objects;
 import org.hisp.dhis.model.Dimension;
@@ -1382,6 +1383,31 @@ public class Dhis2 extends BaseDhis2 {
   public ObjectResponse removeDataSet(String id) {
     return removeMetadataObject(MetadataEntity.DATA_SET, id);
   }
+
+  // -------------------------------------------------------------------------
+  // DataEntryForm
+  // -------------------------------------------------------------------------
+
+  /**
+   * Retrieves a list of {@link DataEntryForm}.
+   *
+   * @param query the {@link Query}.
+   * @return list of {@link DataEntryForm}.
+   */
+  public List<DataEntryForm> getDataEntryForms(Query query) {
+    return getMetadataObjects(MetadataEntity.DATA_ENTRY_FORM, query).getDataEntryForms();
+  }
+
+  /**
+   * Retrieves a {@link DataEntryForm}.
+   *
+   * @param id the object identifier.
+   * @return the {@link DataEntryForm}.
+   */
+  public DataEntryForm getDataEntryForm(String id) {
+    return getMetadataObject(MetadataEntity.DATA_ENTRY_FORM, id);
+  }
+
 
   // -------------------------------------------------------------------------
   // Dimension
