@@ -29,6 +29,7 @@ package org.hisp.dhis.response;
 
 import static org.hisp.dhis.util.CollectionUtils.mapToList;
 import static org.hisp.dhis.util.NumberUtils.toInt;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -74,7 +75,7 @@ public class ObjectsResponseBuilder {
    */
   public ObjectsResponse build() {
     ObjectsResponse response = new ObjectsResponse();
-    response.setHttpStatusCode(getHighestHttpStatusCode().orElse(null));
+    response.setHttpStatusCode(getHighestHttpStatusCode().orElse(0));
     response.setStatus(getHighestStatus().orElse(null));
 
     return response;
@@ -103,14 +104,16 @@ public class ObjectsResponseBuilder {
     statuses.addAll(mapToList(objectResponses, ObjectResponse::getStatus));
     return statuses.stream().sorted(Comparator.reverseOrder()).findFirst();
   }
-  
+
+  /**
+   * Returns the aggregated object statistics.
+   *
+   * @return an {@link ObjectStatistics}.
+   */
   ObjectStatistics getStatistics() {
     ObjectStatistics stats = new ObjectStatistics();
-    
-    for (ObjectsResponse response : objectsResponses) {
-      stats.setCreated(toInt(stats.getCreated() + toInt(response.getStats().getCreated())));
-    }
-    
+    objectsResponses.forEach(or -> stats.increment(or.getStats()));
+    objectResponses.forEach(or -> stats.setCreated(toInt(stats.getCreated() + 1))); // TODO
     return stats;
   }
 }
