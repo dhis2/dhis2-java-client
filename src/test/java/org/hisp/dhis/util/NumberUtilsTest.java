@@ -29,7 +29,6 @@ package org.hisp.dhis.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
-
 import org.hisp.dhis.support.TestTags;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -71,5 +70,11 @@ class NumberUtilsTest {
     assertEquals("4.1", NumberUtils.toString(4.1));
     assertEquals("10", NumberUtils.toString(10));
     assertNull(NumberUtils.toString((Double) null));
+  }
+
+  @Test
+  void testToInt() {
+    assertEquals(26, NumberUtils.toInt(26));
+    assertEquals(0, NumberUtils.toInt(null));
   }
 }

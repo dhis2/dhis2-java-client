@@ -27,6 +27,7 @@
  */
 package org.hisp.dhis.response.objects;
 
+import static org.hisp.dhis.util.NumberUtils.toInt;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -47,4 +48,17 @@ public class ObjectStatistics {
   @JsonProperty private Integer ignored;
 
   @JsonProperty private Integer total;
+  
+  /**
+   * Increments all statistics property values with the property values of the given object statistics.
+   * 
+   * @param target the target {@link ObjectStatistics}.
+   */
+  public void increment(ObjectStatistics target) {
+    setCreated(toInt(created) + toInt(target.getCreated()));
+    setUpdated(toInt(updated) + toInt(target.getUpdated()));
+    setDeleted(toInt(deleted) + toInt(target.getDeleted()));
+    setIgnored(toInt(ignored) + toInt(target.getIgnored()));
+    setTotal(toInt(total) + toInt(target.getTotal()));
+  }
 }
