@@ -1408,7 +1408,6 @@ public class Dhis2 extends BaseDhis2 {
     return getMetadataObject(MetadataEntity.DATA_ENTRY_FORM, id);
   }
 
-
   // -------------------------------------------------------------------------
   // Dimension
   // -------------------------------------------------------------------------
@@ -2291,7 +2290,7 @@ public class Dhis2 extends BaseDhis2 {
   // -------------------------------------------------------------------------
 
   /**
-   * Saves a program with {@link ProgramObjects}.
+   * Saves or updates a program with {@link ProgramObjects}.
    *
    * @param objects the {@link ProgramObjects}.
    * @return the {@link ObjectsResponse}.
