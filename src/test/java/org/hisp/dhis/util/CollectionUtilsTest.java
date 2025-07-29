@@ -38,9 +38,9 @@ import static org.hisp.dhis.util.CollectionUtils.mutableSet;
 import static org.hisp.dhis.util.CollectionUtils.set;
 import static org.hisp.dhis.util.CollectionUtils.toCommaSeparated;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -139,6 +139,8 @@ class CollectionUtilsTest {
   @Test
   void testFirst() {
     assertEquals("a", first(list("a", "b", "c")).get());
+    assertFalse(first(list("a", "b", "c")).isEmpty());
+    assertTrue(first(null).isEmpty());
     assertTrue(first(list()).isEmpty());
     assertTrue(first(list(null, "b", "c")).isEmpty());
   }

@@ -207,7 +207,7 @@ public class CollectionUtils {
    * @return an optional first item in the given collection.
    */
   public static <T> Optional<T> first(Collection<T> collection) {
-    return collection.isEmpty()
+    return collection == null || collection.isEmpty()
         ? Optional.empty()
         : Optional.ofNullable(collection.iterator().next());
   }
