@@ -27,6 +27,7 @@
  */
 package org.hisp.dhis.util;
 
+import static org.hisp.dhis.util.CollectionUtils.first;
 import static org.hisp.dhis.util.CollectionUtils.firstMatch;
 import static org.hisp.dhis.util.CollectionUtils.get;
 import static org.hisp.dhis.util.CollectionUtils.list;
@@ -38,7 +39,7 @@ import static org.hisp.dhis.util.CollectionUtils.set;
 import static org.hisp.dhis.util.CollectionUtils.toCommaSeparated;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
-
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -132,6 +133,13 @@ class CollectionUtilsTest {
     assertEquals(deA.getId(), map.get(deA.getId()).getId());
     assertEquals(deB.getId(), map.get(deB.getId()).getId());
     assertEquals(deC.getId(), map.get(deC.getId()).getId());
+  }
+  
+  @Test
+  void testFirst() {    
+    assertEquals("a", first(list("a", "b", "c")).get());
+    assertTrue(first(list()).isEmpty());
+    assertTrue(first(list(null, "b", "c")).isEmpty());
   }
 
   @Test
