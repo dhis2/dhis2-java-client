@@ -28,17 +28,16 @@
 package org.hisp.dhis.response.objects;
 
 import static org.hisp.dhis.util.CollectionUtils.notEmpty;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.List;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 import org.hisp.dhis.response.BaseHttpResponse;
 import org.hisp.dhis.response.Status;
 import org.hisp.dhis.response.objects.internal.Response;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 @Setter
 @ToString
@@ -48,11 +47,17 @@ public class ObjectsResponse extends BaseHttpResponse {
 
   @JsonProperty private String message;
 
+  /**
+   * Before excluding DHIS 2.38.
+   */
   @JsonProperty private List<TypeReport> typeReports = new ArrayList<>();
 
+  /**
+   * Before excluding DHIS 2.38.
+   */
   @JsonProperty private ObjectStatistics stats;
 
-  /** From DHIS 2.38. */
+  /** From including DHIS 2.38. */
   @JsonProperty private Response response;
 
   public ObjectsResponse(Status status, Integer httpStatusCode, ObjectStatistics stats) {

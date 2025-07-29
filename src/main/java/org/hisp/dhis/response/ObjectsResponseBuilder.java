@@ -29,7 +29,6 @@ package org.hisp.dhis.response;
 
 import static org.hisp.dhis.util.CollectionUtils.mapToList;
 import static org.hisp.dhis.util.NumberUtils.toInt;
-
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -77,7 +76,7 @@ public class ObjectsResponseBuilder {
     ObjectsResponse response = new ObjectsResponse();
     response.setHttpStatusCode(getHighestHttpStatusCode().orElse(0));
     response.setStatus(getHighestStatus().orElse(null));
-
+    response.setStats(getStatistics());
     return response;
   }
 
