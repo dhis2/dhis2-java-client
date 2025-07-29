@@ -29,6 +29,7 @@ package org.hisp.dhis.response;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.hisp.dhis.response.object.ObjectResponse;
 import org.hisp.dhis.response.objects.ObjectStatistics;
 import org.hisp.dhis.response.objects.ObjectsResponse;
@@ -76,8 +77,12 @@ class ObjectsResponseBuilderTest {
   void testGetObjectStatistics() {
     ObjectsResponseBuilder builder =
         new ObjectsResponseBuilder()
-            .add(new ObjectsResponse(Status.OK, 200, toResponse(new ObjectStatistics(3, 2, 1, 0, 6))))
-            .add(new ObjectsResponse(Status.OK, 200, toResponse(new ObjectStatistics(2, 1, 5, 2, 8))))
+            .add(
+                new ObjectsResponse(
+                    Status.OK, 200, toResponse(new ObjectStatistics(3, 2, 1, 0, 6))))
+            .add(
+                new ObjectsResponse(
+                    Status.OK, 200, toResponse(new ObjectStatistics(2, 1, 5, 2, 8))))
             .add(new ObjectResponse(Status.ERROR, 502, ""))
             .add(new ObjectResponse(Status.ERROR, 502, ""));
 
@@ -89,10 +94,10 @@ class ObjectsResponseBuilderTest {
     assertEquals(2, stats.getIgnored());
     assertEquals(14, stats.getTotal());
   }
-  
+
   /**
    * Returns a {@link Response} with the given {@link ObjectStatistics}.
-   * 
+   *
    * @param stats the {@link ObjectStatistics}.
    * @return a {@link Response}.
    */
