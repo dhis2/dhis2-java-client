@@ -55,4 +55,35 @@ public abstract class BaseHttpResponse {
   protected BaseHttpResponse(Integer httpStatusCode) {
     this.httpStatusCode = httpStatusCode;
   }
+
+  /**
+   * Returns the {@link HttpStatus} of the response.
+   *
+   * @return an {@link HttpStatus}.
+   */
+  public HttpStatus getHttpStatus() {
+    if (httpStatusCode != null) {
+      return HttpStatus.valueOf(httpStatusCode);
+    }
+
+    return null;
+  }
+
+  /**
+   * Returns the value of the HTTP header with the given name, or null if not found.
+   *
+   * @param name the HTTP header name.
+   * @return the HTTP header value.
+   */
+  public String getHeader(String name) {
+    if (headers != null) {
+      for (Header header : headers) {
+        if (name.equals(header.getName())) {
+          return header.getValue();
+        }
+      }
+    }
+
+    return null;
+  }
 }

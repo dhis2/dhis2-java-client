@@ -1,0 +1,12 @@
+{
+  "httpStatus": "Created",
+  "httpStatusCode": 201,
+  "status": "OK",
+  "response": {
+    "uid": "IpegnnJjUQN",
+    "klass": "org.hisp.dhis.dataelement.DataElement",
+    "errorReports": [
+    ],
+    "responseType": "ObjectReportWebMessageResponse"
+  }
+}

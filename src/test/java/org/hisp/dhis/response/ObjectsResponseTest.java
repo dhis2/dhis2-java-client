@@ -25,57 +25,27 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.hisp.dhis.util;
+package org.hisp.dhis.response;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import org.hisp.dhis.response.objects.ObjectsResponse;
+import org.hisp.dhis.support.JsonClassPathFile;
 import org.hisp.dhis.support.TestTags;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 @Tag(TestTags.UNIT)
-class NumberUtilsTest {
+class ObjectsResponseTest {
   @Test
-  void testRound() {
-    assertEquals(124.0, NumberUtils.round(123.988, 1));
-    assertEquals(123.4, NumberUtils.round(123.411, 1));
-    assertEquals(123.0, NumberUtils.round(123.011, 1));
-  }
+  void testDeserialize() {
+    ObjectsResponse response =
+        JsonClassPathFile.fromJson("response/objects-response.json", ObjectsResponse.class);
 
-  @Test
-  void testToInteger() {
-    assertEquals(643, NumberUtils.toInteger("643"));
-    assertEquals(4, NumberUtils.toInteger("4"));
-    assertNull(NumberUtils.toInteger(null));
-  }
-
-  @Test
-  void testToString() {
-    assertEquals("643", NumberUtils.toString(643));
-    assertEquals("4", NumberUtils.toString(4));
-    assertNull(NumberUtils.toString((Integer) null));
-  }
-
-  @Test
-  void testToDouble() {
-    assertEquals(643.2, NumberUtils.toDouble("643.2"));
-    assertEquals(4.55, NumberUtils.toDouble("4.55"));
-    assertEquals(42, NumberUtils.toDouble("42"));
-    assertNull(NumberUtils.toDouble(null));
-  }
-
-  @Test
-  void testDoubleToString() {
-    assertEquals("643.88", NumberUtils.toString(643.88));
-    assertEquals("4.1", NumberUtils.toString(4.1));
-    assertEquals("10", NumberUtils.toString(10));
-    assertNull(NumberUtils.toString((Double) null));
-  }
-
-  @Test
-  void testToInt() {
-    assertEquals(26, NumberUtils.toInt(26));
-    assertEquals(0, NumberUtils.toInt(null));
+    assertNotNull(response);
+    assertEquals(200, response.getHttpStatusCode());
+    assertEquals(HttpStatus.OK, response.getHttpStatus());
+    assertEquals(Status.OK, response.getStatus());
   }
 }

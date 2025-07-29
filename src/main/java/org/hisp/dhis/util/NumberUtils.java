@@ -77,6 +77,16 @@ public class NumberUtils {
   }
 
   /**
+   * Returns the int value of the given {@link Integer}, or 0 if null.
+   *
+   * @param integer the {@link Integer}.
+   * @return the int value.
+   */
+  public static int toInt(Integer integer) {
+    return integer != null ? integer.intValue() : 0;
+  }
+
+  /**
    * Converts the given string to an double.
    *
    * @param string the string.

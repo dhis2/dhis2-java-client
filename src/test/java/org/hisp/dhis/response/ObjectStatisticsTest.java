@@ -25,57 +25,59 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.hisp.dhis.util;
+package org.hisp.dhis.response;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
 
+import org.hisp.dhis.response.objects.ObjectStatistics;
 import org.hisp.dhis.support.TestTags;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 @Tag(TestTags.UNIT)
-class NumberUtilsTest {
+class ObjectStatisticsTest {
   @Test
-  void testRound() {
-    assertEquals(124.0, NumberUtils.round(123.988, 1));
-    assertEquals(123.4, NumberUtils.round(123.411, 1));
-    assertEquals(123.0, NumberUtils.round(123.011, 1));
+  void testIncrementExisting() {
+    ObjectStatistics source = new ObjectStatistics();
+    source.setCreated(4);
+    source.setUpdated(2);
+    source.setDeleted(1);
+    source.setIgnored(0);
+    source.setTotal(10);
+
+    ObjectStatistics target = new ObjectStatistics();
+    target.setCreated(2);
+    target.setUpdated(3);
+    target.setDeleted(1);
+    target.setIgnored(1);
+    target.setTotal(7);
+
+    source.increment(target);
+
+    assertEquals(6, source.getCreated());
+    assertEquals(5, source.getUpdated());
+    assertEquals(2, source.getDeleted());
+    assertEquals(1, source.getIgnored());
+    assertEquals(17, source.getTotal());
   }
 
   @Test
-  void testToInteger() {
-    assertEquals(643, NumberUtils.toInteger("643"));
-    assertEquals(4, NumberUtils.toInteger("4"));
-    assertNull(NumberUtils.toInteger(null));
-  }
+  void testIncrementNew() {
+    ObjectStatistics source = new ObjectStatistics();
 
-  @Test
-  void testToString() {
-    assertEquals("643", NumberUtils.toString(643));
-    assertEquals("4", NumberUtils.toString(4));
-    assertNull(NumberUtils.toString((Integer) null));
-  }
+    ObjectStatistics target = new ObjectStatistics();
+    target.setCreated(2);
+    target.setUpdated(3);
+    target.setDeleted(1);
+    target.setIgnored(1);
+    target.setTotal(7);
 
-  @Test
-  void testToDouble() {
-    assertEquals(643.2, NumberUtils.toDouble("643.2"));
-    assertEquals(4.55, NumberUtils.toDouble("4.55"));
-    assertEquals(42, NumberUtils.toDouble("42"));
-    assertNull(NumberUtils.toDouble(null));
-  }
+    source.increment(target);
 
-  @Test
-  void testDoubleToString() {
-    assertEquals("643.88", NumberUtils.toString(643.88));
-    assertEquals("4.1", NumberUtils.toString(4.1));
-    assertEquals("10", NumberUtils.toString(10));
-    assertNull(NumberUtils.toString((Double) null));
-  }
-
-  @Test
-  void testToInt() {
-    assertEquals(26, NumberUtils.toInt(26));
-    assertEquals(0, NumberUtils.toInt(null));
+    assertEquals(2, source.getCreated());
+    assertEquals(3, source.getUpdated());
+    assertEquals(1, source.getDeleted());
+    assertEquals(1, source.getIgnored());
+    assertEquals(7, source.getTotal());
   }
 }

@@ -33,7 +33,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.apache.hc.core5.http.Header;
 
 /** Response providing information about a DHIS 2 web API response. */
 @Getter
@@ -108,37 +107,6 @@ public class Response extends BaseHttpResponse {
   public Response(Status status, HttpStatus httpStatus, String message, String errorCode) {
     this(status, httpStatus, message);
     this.errorCode = errorCode;
-  }
-
-  /**
-   * Returns the {@link HttpStatus} of the response.
-   *
-   * @return an {@link HttpStatus}.
-   */
-  public HttpStatus getHttpStatus() {
-    if (httpStatusCode != null) {
-      return HttpStatus.valueOf(httpStatusCode);
-    }
-
-    return null;
-  }
-
-  /**
-   * Returns the value of the HTTP header with the given name, or null if not found.
-   *
-   * @param name the HTTP header name.
-   * @return the HTTP header value.
-   */
-  public String getHeader(String name) {
-    if (headers != null) {
-      for (Header header : headers) {
-        if (name.equals(header.getName())) {
-          return header.getValue();
-        }
-      }
-    }
-
-    return null;
   }
 
   /**
