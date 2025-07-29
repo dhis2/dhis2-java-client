@@ -37,7 +37,7 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 @Tag(TestTags.UNIT)
-class ObjectResponseText {
+class ObjectResponseTest {
   @Test
   void testDeserialize() {
     ObjectResponse response =

@@ -29,13 +29,15 @@ package org.hisp.dhis.response;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import org.hisp.dhis.response.object.ObjectResponse;
 import org.hisp.dhis.response.objects.ObjectStatistics;
 import org.hisp.dhis.response.objects.ObjectsResponse;
 import org.hisp.dhis.response.objects.internal.Response;
+import org.hisp.dhis.support.TestTags;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
+@Tag(TestTags.UNIT)
 class ObjectsResponseBuilderTest {
   @Test
   void testGetHighestHttpStatusCode() {
