@@ -47,23 +47,38 @@ public class ObjectsResponse extends BaseHttpResponse {
 
   @JsonProperty private String message;
 
-  /**
-   * Before excluding DHIS 2.38.
-   */
-  @JsonProperty private List<TypeReport> typeReports = new ArrayList<>();
-
-  /**
-   * Before excluding DHIS 2.38.
-   */
-  @JsonProperty private ObjectStatistics stats;
-
   /** From including DHIS 2.38. */
   @JsonProperty private Response response;
 
-  public ObjectsResponse(Status status, Integer httpStatusCode, ObjectStatistics stats) {
+  /** Before excluding DHIS 2.38. */
+  @JsonProperty private List<TypeReport> typeReports = new ArrayList<>();
+
+  /** Before excluding DHIS 2.38. */
+  @JsonProperty private ObjectStatistics stats;
+
+  /**
+   * Constructor.
+   * 
+   * @param status the {@link Status}.
+   * @param httpStatusCode the HTTP status code.
+   * @param stats the {@link ObjectStatistics}.
+   */
+  public ObjectsResponse(Status status, Integer httpStatusCode) {
     this.status = status;
     this.httpStatusCode = httpStatusCode;
-    this.stats = stats;
+  }
+
+  /**
+   * Constructor.
+   * 
+   * @param status the {@link Status}.
+   * @param httpStatusCode the HTTP status code.
+   * @param stats the {@link ObjectStatistics}.
+   * @param response the {@link Response}.
+   */
+  public ObjectsResponse(Status status, Integer httpStatusCode, Response response) {
+    this(status, httpStatusCode);
+    this.response = response;
   }
 
   @JsonIgnore

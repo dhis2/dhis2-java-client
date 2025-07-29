@@ -29,10 +29,10 @@ package org.hisp.dhis.response;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import org.hisp.dhis.response.object.ObjectResponse;
 import org.hisp.dhis.response.objects.ObjectStatistics;
 import org.hisp.dhis.response.objects.ObjectsResponse;
+import org.hisp.dhis.response.objects.internal.Response;
 import org.junit.jupiter.api.Test;
 
 class ObjectsResponseBuilderTest {
@@ -41,7 +41,7 @@ class ObjectsResponseBuilderTest {
     ObjectsResponseBuilder builder =
         new ObjectsResponseBuilder()
             .add(new ObjectResponse(Status.WARNING, 409, ""))
-            .add(new ObjectsResponse(Status.OK, 200, new ObjectStatistics()))
+            .add(new ObjectsResponse(Status.OK, 200))
             .add(new ObjectResponse(Status.ERROR, 502, ""));
 
     assertEquals(502, builder.getHighestHttpStatusCode().get());
@@ -59,7 +59,7 @@ class ObjectsResponseBuilderTest {
     ObjectsResponseBuilder builder =
         new ObjectsResponseBuilder()
             .add(new ObjectResponse(Status.WARNING, 409, ""))
-            .add(new ObjectsResponse(Status.OK, 200, new ObjectStatistics()))
+            .add(new ObjectsResponse(Status.OK, 200))
             .add(new ObjectResponse(Status.ERROR, 502, ""));
 
     assertEquals(Status.ERROR, builder.getHighestStatus().get());
@@ -76,8 +76,8 @@ class ObjectsResponseBuilderTest {
   void testGetObjectStatistics() {
     ObjectsResponseBuilder builder =
         new ObjectsResponseBuilder()
-            .add(new ObjectsResponse(Status.OK, 200, new ObjectStatistics(3, 2, 1, 0, 6)))
-            .add(new ObjectsResponse(Status.OK, 200, new ObjectStatistics(2, 1, 5, 2, 8)))
+            .add(new ObjectsResponse(Status.OK, 200, toResponse(new ObjectStatistics(3, 2, 1, 0, 6))))
+            .add(new ObjectsResponse(Status.OK, 200, toResponse(new ObjectStatistics(2, 1, 5, 2, 8))))
             .add(new ObjectResponse(Status.ERROR, 502, ""))
             .add(new ObjectResponse(Status.ERROR, 502, ""));
 
@@ -88,5 +88,18 @@ class ObjectsResponseBuilderTest {
     assertEquals(6, stats.getDeleted());
     assertEquals(2, stats.getIgnored());
     assertEquals(14, stats.getTotal());
+  }
+  
+  /**
+   * Returns a {@link Response} with the given {@link ObjectStatistics}.
+   * 
+   * @param stats the {@link ObjectStatistics}.
+   * @return a {@link Response}.
+   */
+  private Response toResponse(ObjectStatistics stats) {
+    Response response = new Response();
+    response.setStatus(Status.OK);
+    response.setStats(stats);
+    return response;
   }
 }

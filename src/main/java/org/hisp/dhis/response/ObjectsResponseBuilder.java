@@ -33,9 +33,11 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import org.hisp.dhis.response.object.ObjectReport;
 import org.hisp.dhis.response.object.ObjectResponse;
 import org.hisp.dhis.response.objects.ObjectStatistics;
 import org.hisp.dhis.response.objects.ObjectsResponse;
+import org.hisp.dhis.response.objects.TypeReport;
 
 public class ObjectsResponseBuilder {
   private List<ObjectsResponse> objectsResponses;
@@ -115,4 +117,26 @@ public class ObjectsResponseBuilder {
     objectResponses.forEach(or -> stats.setCreated(toInt(stats.getCreated() + 1))); // TODO
     return stats;
   }
+  
+  /**
+   * Returns a list of {@link TypeReport}.
+   * 
+   * @return a list of {@link TypeReport}.
+   */
+  List<TypeReport> getTypeReports() {
+    List<TypeReport> reports = new ArrayList<>();
+    objectsResponses.forEach(or -> reports.addAll(or.getTypeReports()));
+    objectResponses.forEach(or -> reports.add(toTypeReport(or.getResponse())));
+    return reports;
+  }
+  
+  /**
+   * Converts the given {@link ObjectReport} to a {@link TypeReport}.
+   * 
+   * @param report the {@link ObjectReport}.
+   * @return a {@link TypeReport}.
+   */
+  TypeReport toTypeReport(ObjectReport report) {
+    return new TypeReport(report.getKlass(), new ObjectStatistics(), List.of(report));
+  }  
 }
