@@ -197,16 +197,19 @@ public class CollectionUtils {
 
     return null;
   }
-  
+
   /**
-   * Returns an optional first item in the given collection. Returns an empty optional if the given collection is empty or if the first item is null.
-   * 
+   * Returns an optional first item in the given collection. Returns an empty optional if the given
+   * collection is empty or if the first item is null.
+   *
    * @param <T> type.
    * @param collection the collection.
    * @return an optional first item in the given collection.
    */
   public static <T> Optional<T> first(Collection<T> collection) {
-    return collection.isEmpty() ? Optional.empty() : Optional.ofNullable(collection.iterator().next());
+    return collection.isEmpty()
+        ? Optional.empty()
+        : Optional.ofNullable(collection.iterator().next());
   }
 
   /**
