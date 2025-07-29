@@ -40,7 +40,7 @@ class JacksonUtilsTest {
   void testToJsonString() {
     String expected =
         """
-        {"id":"YDb6ff4R3a8","code":"NEG","name":"Negative","attributeValues":[]}""";
+        {"id":"YDb6ff4R3a8","code":"NEG","name":"Negative","attributeValues":[],"translations":[]}""";
 
     Option option = new Option();
     option.setId("YDb6ff4R3a8");
@@ -60,7 +60,8 @@ class JacksonUtilsTest {
           "id" : "YDb6ff4R3a8",
           "code" : "NEG",
           "name" : "Negative",
-          "attributeValues" : [ ]
+          "attributeValues" : [ ],
+          "translations" : [ ]
         }""";
 
     Option option = new Option();
