@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004-2024, University of Oslo
+ * Copyright (c) 2004-2025, University of Oslo
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -27,63 +27,25 @@
  */
 package org.hisp.dhis.response;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.ArrayList;
-import java.util.List;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.apache.hc.core5.http.Header;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-/** Base response class. */
-@Getter
-@Setter
-@NoArgsConstructor
-public abstract class BaseHttpResponse {
-  /** HTTP status code. */
-  @JsonProperty protected Integer httpStatusCode;
+import org.hisp.dhis.response.objects.ObjectsResponse;
+import org.hisp.dhis.support.JsonClassPathFile;
+import org.hisp.dhis.support.TestTags;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
 
-  /** HTTP headers. */
-  @JsonIgnore protected List<Header> headers = new ArrayList<>();
+@Tag(TestTags.UNIT)
+class ObjectsResponseTest {
+  @Test
+  void testDeserialize() {
+    ObjectsResponse response =
+        JsonClassPathFile.fromJson("response/response-program.json", ObjectsResponse.class);
 
-  /**
-   * Constructor.
-   *
-   * @param httpStatusCode the HTTP status code.
-   */
-  protected BaseHttpResponse(Integer httpStatusCode) {
-    this.httpStatusCode = httpStatusCode;
-  }
-
-  /**
-   * Returns the {@link HttpStatus} of the response.
-   *
-   * @return an {@link HttpStatus}.
-   */
-  public HttpStatus getHttpStatus() {
-    if (httpStatusCode != null) {
-      return HttpStatus.valueOf(httpStatusCode);
-    }
-
-    return null;
-  }
-
-  /**
-   * Returns the value of the HTTP header with the given name, or null if not found.
-   *
-   * @param name the HTTP header name.
-   * @return the HTTP header value.
-   */
-  public String getHeader(String name) {
-    if (headers != null) {
-      for (Header header : headers) {
-        if (name.equals(header.getName())) {
-          return header.getValue();
-        }
-      }
-    }
-
-    return null;
+    assertNotNull(response);
+    assertEquals(200, response.getHttpStatusCode());
+    assertEquals(Status.OK, response.getStatus());
+    assertEquals(HttpStatus.OK, response.getHttpStatus());
   }
 }
