@@ -198,7 +198,7 @@ public class ApiFields {
 
   /** Data entry form fields. */
   public static final String DATA_ENTRY_FORM_FIELDS =
-          String.format("%s,htmlCode,style,format", NAME_FIELDS);
+      String.format("%s,htmlCode,style,format", NAME_FIELDS);
 
   /** Org unit fields. */
   public static final String ORG_UNIT_FIELDS =

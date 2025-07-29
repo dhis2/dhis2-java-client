@@ -1408,7 +1408,6 @@ public class Dhis2 extends BaseDhis2 {
     return getMetadataObject(MetadataEntity.DATA_ENTRY_FORM, id);
   }
 
-
   // -------------------------------------------------------------------------
   // Dimension
   // -------------------------------------------------------------------------
