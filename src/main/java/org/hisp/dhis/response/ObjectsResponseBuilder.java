@@ -31,6 +31,7 @@ import static org.hisp.dhis.util.CollectionUtils.mapToList;
 import static org.hisp.dhis.util.NumberUtils.toInt;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -58,6 +59,16 @@ public class ObjectsResponseBuilder {
    */
   public ObjectsResponseBuilder add(ObjectsResponse response) {
     this.objectsResponses.add(response);
+    return this;
+  }
+
+  /**
+   * Adds the given list of {@link ObjectsResponse}.
+   *
+   * @return this {@link ObjectsResponseBuilder}.
+   */
+  public ObjectsResponseBuilder addAll(Collection<ObjectsResponse> responses) {
+    this.objectsResponses.addAll(responses);
     return this;
   }
 
