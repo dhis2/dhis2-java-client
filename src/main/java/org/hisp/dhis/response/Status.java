@@ -27,13 +27,20 @@
  */
 package org.hisp.dhis.response;
 
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+
 /**
  * Enumeration of HTTP status.
  *
  * @author Lars Helge Overland
  */
+@Getter
+@RequiredArgsConstructor
 public enum Status {
-  OK,
-  WARNING,
-  ERROR;
+  OK(1),
+  WARNING(2),
+  ERROR(3);
+  
+  private final int value;
 }
