@@ -36,16 +36,12 @@ import java.util.ArrayList;
 import java.util.List;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hisp.dhis.response.BaseHttpResponse;
+import org.hisp.dhis.response.Response;
 import org.hisp.dhis.response.Status;
 
 @Setter
 @NoArgsConstructor
-public class ObjectsResponse extends BaseHttpResponse {
-  @JsonProperty private Status status;
-
-  @JsonProperty private String message;
-
+public class ObjectsResponse extends Response {
   /** From including DHIS 2.38. */
   @JsonProperty private ObjectsReport response;
 
@@ -89,6 +85,7 @@ public class ObjectsResponse extends BaseHttpResponse {
     return response != null;
   }
 
+  @Override
   public Status getStatus() {
     return hasResponse() ? response.getStatus() : status;
   }
@@ -103,10 +100,6 @@ public class ObjectsResponse extends BaseHttpResponse {
 
   @Override
   public String toString() {
-    return newToStringBuilder(this, super.toString())
-        .append("status", status)
-        .append("message", message)
-        .append("response", response)
-        .toString();
+    return newToStringBuilder(this, super.toString()).append("response", response).toString();
   }
 }
