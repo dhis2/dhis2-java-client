@@ -27,16 +27,21 @@
  */
 package org.hisp.dhis;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.hisp.dhis.support.Assertions.assertSuccessResponse;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
+import java.util.Set;
 import org.hisp.dhis.model.OrgUnit;
 import org.hisp.dhis.model.user.User;
+import org.hisp.dhis.model.user.UserRole;
 import org.hisp.dhis.query.Filter;
 import org.hisp.dhis.query.Query;
+import org.hisp.dhis.response.HttpStatus;
+import org.hisp.dhis.response.Status;
+import org.hisp.dhis.response.object.ObjectResponse;
 import org.hisp.dhis.support.TestTags;
+import org.hisp.dhis.util.UidUtils;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
@@ -87,5 +92,60 @@ class UserApiTest {
 
     assertNotNull(users);
     assertFalse(users.isEmpty());
+  }
+
+  @Test
+  void testCreateUpdateAndDeleteUser() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+    String uidA = UidUtils.generateUid();
+    String updatedFirstName = "Lewis Updated";
+
+    OrgUnit orgUnit = new OrgUnit();
+    orgUnit.setId("YuQRtpLP10I");
+
+    UserRole roleA = new UserRole();
+    roleA.setId("Ufph3mGRmMo");
+
+    User user = new User();
+    user.setName(uidA);
+    user.setCode(uidA);
+    user.setUsername("lewis_john");
+    user.setFirstName("Lewis");
+    user.setSurname("John");
+    user.setOrganisationUnits(List.of(orgUnit));
+    user.setUserRoles(Set.of(roleA));
+
+    // Create
+    ObjectResponse createRespA = dhis2.saveUser(user);
+
+    assertSuccessResponse(createRespA, HttpStatus.CREATED, 201);
+
+    String userUid = createRespA.getResponse().getUid();
+
+    // Get
+    user = dhis2.getUser(userUid);
+
+    assertNotNull(user);
+    assertEquals(userUid, user.getId());
+    assertTrue(user.hasOrganisationUnits());
+    assertFalse(user.getOrganisationUnits().isEmpty());
+    assertEquals(orgUnit.getId(), user.getFirstOrganisationUnit().getId());
+
+    user.setFirstName(updatedFirstName);
+
+    // Update
+    ObjectResponse updateRespA = dhis2.updateUser(user);
+    assertEquals(Status.OK, updateRespA.getStatus(), updateRespA.toString());
+
+    // Get Updated
+    user = dhis2.getUser(userUid);
+    assertNotNull(user);
+    assertEquals(userUid, user.getId());
+    assertEquals(updatedFirstName, user.getFirstName());
+
+    // Remove
+    ObjectResponse removeRespA = dhis2.removeUser(userUid);
+
+    assertSuccessResponse(removeRespA, HttpStatus.OK, 200);
   }
 }

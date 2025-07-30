@@ -364,7 +364,7 @@ public class ApiFields {
       String.format(
           """
           %1$s,username,firstName,surname,email,phoneNumber,externalAuth,lastLogin,\
-          organisationUnits[%2$s],\
+          organisationUnits[%2$s],groups[%1$s],userRoles[%1$s]\
           dataViewOrganisationUnits[%2$s],\
           teiSearchOrganisationUnits[%2$s]""",
           ID_EXT_FIELDS, NAME_FIELDS);

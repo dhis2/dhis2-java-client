@@ -2717,6 +2717,56 @@ public class Dhis2 extends BaseDhis2 {
     return getMetadataObjects(MetadataEntity.USER, query).getUsers();
   }
 
+  /**
+   * Saves a {@link User}.
+   *
+   * @param user the object to save.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse saveUser(User user) {
+    return saveMetadataObject(user);
+  }
+
+  /**
+   * Saves or updates the list of {@link User}.
+   *
+   * @param users the list of {@link User}.
+   * @return {@link ObjectsResponse} holding information about the operation.
+   */
+  public ObjectsResponse saveUsers(List<User> users) {
+    return saveMetadataObjects(new Dhis2Objects().setUsers(users));
+  }
+
+  /**
+   * Updates a {@link User}.
+   *
+   * @param user the object to update.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse updateUser(User user) {
+    return updateMetadataObject(user);
+  }
+
+  /**
+   * Indicates whether a {@link User} exists.
+   *
+   * @param id the object identifier.
+   * @return true if the object exists.
+   */
+  public boolean isUser(String id) {
+    return objectExists(MetadataEntity.USER, id);
+  }
+
+  /**
+   * Removes a {@link User}.
+   *
+   * @param id the identifier of the object to remove.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse removeUser(String id) {
+    return removeMetadataObject(MetadataEntity.USER, id);
+  }
+
   // -------------------------------------------------------------------------
   // User groups
   // -------------------------------------------------------------------------

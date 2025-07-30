@@ -33,7 +33,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -65,6 +67,10 @@ public class User extends IdentifiableObject {
   @JsonProperty private List<OrgUnit> dataViewOrganisationUnits = new ArrayList<>();
 
   @JsonProperty private List<OrgUnit> teiSearchOrganisationUnits = new ArrayList<>();
+
+  @JsonProperty private Set<UserGroup> groups = new HashSet<>();
+
+  @JsonProperty private Set<UserRole> userRoles = new HashSet<>();
 
   /**
    * Indicates whether at least one organisation unit exists.
