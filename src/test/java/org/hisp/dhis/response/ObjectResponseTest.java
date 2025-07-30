@@ -43,7 +43,6 @@ class ObjectResponseTest {
     ObjectResponse response =
         JsonClassPathFile.fromJson("response/object-response.json", ObjectResponse.class);
 
-    System.out.println(response.toString());
     assertNotNull(response);
     assertEquals(201, response.getHttpStatusCode());
     assertEquals(HttpStatus.CREATED, response.getHttpStatus());
