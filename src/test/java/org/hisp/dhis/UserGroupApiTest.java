@@ -31,6 +31,7 @@ import static org.hisp.dhis.support.Assertions.assertNotEmpty;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 import org.hisp.dhis.model.user.User;
@@ -66,6 +67,14 @@ class UserGroupApiTest {
 
     assertNotNull(userGroups);
     assertNotEmpty(userGroups);
+  }
+
+  @Test
+  void testUserGroupExists() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    assertTrue(dhis2.isUserGroup("wl5cDMuUhmF"));
+    assertFalse(dhis2.isUserGroup("jYrFvSPfCSu"));
   }
 
   @Test
