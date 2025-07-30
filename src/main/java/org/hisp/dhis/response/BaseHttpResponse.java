@@ -27,6 +27,8 @@
  */
 package org.hisp.dhis.response;
 
+import static org.hisp.dhis.util.TextUtils.newToStringBuilder;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
@@ -34,13 +36,11 @@ import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 import org.apache.hc.core5.http.Header;
 
 /** Base response class. */
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
 public abstract class BaseHttpResponse {
   /** HTTP status code. */
@@ -87,5 +87,10 @@ public abstract class BaseHttpResponse {
     }
 
     return null;
+  }
+
+  @Override
+  public String toString() {
+    return newToStringBuilder(this).append("httpStatusCode", httpStatusCode).toString();
   }
 }

@@ -27,6 +27,8 @@
  */
 package org.hisp.dhis.response.data;
 
+import static org.hisp.dhis.util.TextUtils.newToStringBuilder;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
@@ -34,7 +36,6 @@ import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.hisp.dhis.response.BaseHttpResponse;
 
 /** Asynchronous import summary response. */
@@ -79,7 +80,7 @@ public abstract class AsyncSummaryResponse extends BaseHttpResponse {
 
   @Override
   public String toString() {
-    return new ToStringBuilder(this)
+    return newToStringBuilder(this, super.toString())
         .append("status", status)
         .append("description", description)
         .append("importCount", importCount)

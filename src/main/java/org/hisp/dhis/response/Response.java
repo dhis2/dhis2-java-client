@@ -27,17 +27,17 @@
  */
 package org.hisp.dhis.response;
 
+import static org.hisp.dhis.util.TextUtils.newToStringBuilder;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 /** Response providing information about a DHIS 2 web API response. */
 @Getter
 @Setter
-@ToString(callSuper = true)
 @NoArgsConstructor
 public class Response extends BaseHttpResponse {
   /** HTTP {@link Status} enum. */
@@ -117,5 +117,15 @@ public class Response extends BaseHttpResponse {
   @JsonIgnore
   public boolean isStatusOk() {
     return Status.OK.equals(status);
+  }
+
+  @Override
+  public String toString() {
+    return newToStringBuilder(this, super.toString())
+        .append("status", status)
+        .append("code", code)
+        .append("message", message)
+        .append("errorCode", errorCode)
+        .toString();
   }
 }

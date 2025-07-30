@@ -28,6 +28,7 @@
 package org.hisp.dhis.response.objects;
 
 import static org.hisp.dhis.util.CollectionUtils.notEmpty;
+import static org.hisp.dhis.util.TextUtils.newToStringBuilder;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -35,13 +36,11 @@ import java.util.ArrayList;
 import java.util.List;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 import org.hisp.dhis.response.BaseHttpResponse;
 import org.hisp.dhis.response.Status;
 import org.hisp.dhis.response.objects.internal.Response;
 
 @Setter
-@ToString(callSuper = true)
 @NoArgsConstructor
 public class ObjectsResponse extends BaseHttpResponse {
   @JsonProperty private Status status;
@@ -103,5 +102,14 @@ public class ObjectsResponse extends BaseHttpResponse {
 
   public ObjectStatistics getStats() {
     return hasResponse() ? response.getStats() : stats;
+  }
+
+  @Override
+  public String toString() {
+    return newToStringBuilder(this, super.toString())
+        .append("status", status)
+        .append("message", message)
+        .append("response", response)
+        .toString();
   }
 }
