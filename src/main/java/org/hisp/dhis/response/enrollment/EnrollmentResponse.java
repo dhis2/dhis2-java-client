@@ -35,6 +35,6 @@ import org.hisp.dhis.response.Response;
 
 @Getter
 @Setter
-@ToString
+@ToString(callSuper = true)
 @NoArgsConstructor
 public class EnrollmentResponse extends Response {}

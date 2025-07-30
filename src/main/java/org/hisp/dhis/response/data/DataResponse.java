@@ -39,7 +39,7 @@ import org.hisp.dhis.response.Status;
 /** Response providing information about a DHIS 2 web API response, including a data object. */
 @Getter
 @Setter
-@ToString
+@ToString(callSuper = true)
 @NoArgsConstructor
 public class DataResponse extends Response {
   @JsonProperty protected Object data;

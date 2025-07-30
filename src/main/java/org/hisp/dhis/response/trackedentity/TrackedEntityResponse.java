@@ -39,7 +39,7 @@ import org.hisp.dhis.response.event.ValidationReport;
 
 @Getter
 @Setter
-@ToString
+@ToString(callSuper = true)
 @NoArgsConstructor
 public class TrackedEntityResponse extends Response {
   @JsonProperty private ValidationReport validationReport;

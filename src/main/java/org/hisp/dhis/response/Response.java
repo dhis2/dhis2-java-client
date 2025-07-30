@@ -37,7 +37,7 @@ import lombok.ToString;
 /** Response providing information about a DHIS 2 web API response. */
 @Getter
 @Setter
-@ToString
+@ToString(callSuper = true)
 @NoArgsConstructor
 public class Response extends BaseHttpResponse {
   /** HTTP {@link Status} enum. */

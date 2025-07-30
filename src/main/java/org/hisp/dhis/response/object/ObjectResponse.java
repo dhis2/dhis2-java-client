@@ -37,7 +37,7 @@ import org.hisp.dhis.response.Status;
 
 @Getter
 @Setter
-@ToString
+@ToString(callSuper = true)
 @NoArgsConstructor
 public class ObjectResponse extends Response {
   @JsonProperty protected ObjectReport response;

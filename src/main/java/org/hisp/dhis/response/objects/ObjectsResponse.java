@@ -41,7 +41,7 @@ import org.hisp.dhis.response.Status;
 import org.hisp.dhis.response.objects.internal.Response;
 
 @Setter
-@ToString
+@ToString(callSuper = true)
 @NoArgsConstructor
 public class ObjectsResponse extends BaseHttpResponse {
   @JsonProperty private Status status;

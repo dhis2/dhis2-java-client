@@ -30,9 +30,11 @@ package org.hisp.dhis.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
+@ToString(callSuper = true)
 public class NameableObject extends IdentifiableObject {
   @JsonProperty protected String shortName;
 

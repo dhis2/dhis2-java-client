@@ -38,7 +38,7 @@ import org.hisp.dhis.response.Status;
 
 @Getter
 @Setter
-@ToString
+@ToString(callSuper = true)
 @NoArgsConstructor
 public class EventResponse extends Response {
   @JsonProperty private ValidationReport validationReport;

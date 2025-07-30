@@ -28,13 +28,9 @@
 package org.hisp.dhis.response.datavalueset;
 
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.hisp.dhis.response.data.AsyncSummaryResponse;
 
+@ToString(callSuper = true)
 @NoArgsConstructor
-public class DataValueSetResponse extends AsyncSummaryResponse {
-
-  @Override
-  public String toString() {
-    return super.toString();
-  }
-}
+public class DataValueSetResponse extends AsyncSummaryResponse {}

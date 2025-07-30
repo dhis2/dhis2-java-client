@@ -254,7 +254,7 @@ public class BaseDhis2 {
       return httpClient.execute(
           request,
           response -> {
-            log.info("Response status code: {}", response.getCode());
+            log("Response status code: {}", response.getCode());
             return SC_OK == response.getCode();
           });
     } catch (IOException ex) {
