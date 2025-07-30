@@ -29,7 +29,6 @@ package org.hisp.dhis.response;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-
 import org.hisp.dhis.response.object.ObjectResponse;
 import org.hisp.dhis.support.JsonClassPathFile;
 import org.hisp.dhis.support.TestTags;
@@ -43,6 +42,7 @@ class ObjectResponseTest {
     ObjectResponse response =
         JsonClassPathFile.fromJson("response/object-response.json", ObjectResponse.class);
 
+    System.out.println(response.toString());
     assertNotNull(response);
     assertEquals(201, response.getHttpStatusCode());
     assertEquals(HttpStatus.CREATED, response.getHttpStatus());

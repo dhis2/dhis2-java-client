@@ -27,18 +27,18 @@
  */
 package org.hisp.dhis.response.event;
 
+import org.hisp.dhis.response.Response;
+import org.hisp.dhis.response.Stats;
+import org.hisp.dhis.response.Status;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.hisp.dhis.response.Response;
-import org.hisp.dhis.response.Stats;
-import org.hisp.dhis.response.Status;
 
 @Getter
 @Setter
-@ToString
+@ToString(callSuper = true)
 @NoArgsConstructor
 public class EventResponse extends Response {
   @JsonProperty private ValidationReport validationReport;

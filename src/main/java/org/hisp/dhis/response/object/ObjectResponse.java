@@ -27,17 +27,17 @@
  */
 package org.hisp.dhis.response.object;
 
+import org.hisp.dhis.response.Response;
+import org.hisp.dhis.response.Status;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.hisp.dhis.response.Response;
-import org.hisp.dhis.response.Status;
 
 @Getter
 @Setter
-@ToString
+@ToString(callSuper = true)
 @NoArgsConstructor
 public class ObjectResponse extends Response {
   @JsonProperty protected ObjectReport response;

@@ -27,14 +27,14 @@
  */
 package org.hisp.dhis.response.enrollment;
 
+import org.hisp.dhis.response.Response;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.hisp.dhis.response.Response;
 
 @Getter
 @Setter
-@ToString
+@ToString(callSuper = true)
 @NoArgsConstructor
 public class EnrollmentResponse extends Response {}

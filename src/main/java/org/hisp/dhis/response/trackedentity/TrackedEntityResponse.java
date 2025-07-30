@@ -27,19 +27,19 @@
  */
 package org.hisp.dhis.response.trackedentity;
 
+import org.hisp.dhis.response.Response;
+import org.hisp.dhis.response.Stats;
+import org.hisp.dhis.response.event.ValidationReport;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.hisp.dhis.response.Response;
-import org.hisp.dhis.response.Stats;
-import org.hisp.dhis.response.event.ValidationReport;
 
 @Getter
 @Setter
-@ToString
+@ToString(callSuper = true)
 @NoArgsConstructor
 public class TrackedEntityResponse extends Response {
   @JsonProperty private ValidationReport validationReport;
