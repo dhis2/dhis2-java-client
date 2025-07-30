@@ -27,11 +27,11 @@
  */
 package org.hisp.dhis.response.job;
 
-import org.hisp.dhis.response.Response;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.hisp.dhis.response.Response;
 
 @Getter
 @Setter

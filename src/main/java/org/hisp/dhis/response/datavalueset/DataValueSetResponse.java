@@ -27,11 +27,10 @@
  */
 package org.hisp.dhis.response.datavalueset;
 
-import org.hisp.dhis.response.data.AsyncSummaryResponse;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.hisp.dhis.response.data.AsyncSummaryResponse;
 
 @ToString(callSuper = true)
 @NoArgsConstructor
-public class DataValueSetResponse extends AsyncSummaryResponse {
-}
+public class DataValueSetResponse extends AsyncSummaryResponse {}
