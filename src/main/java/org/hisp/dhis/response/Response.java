@@ -43,9 +43,6 @@ public class Response extends BaseHttpResponse {
   /** HTTP {@link Status} enum. */
   @JsonProperty protected Status status;
 
-  /** DHIS2 code. Deprecated. */
-  @JsonProperty protected Integer code;
-
   /** Response message. */
   @JsonProperty protected String message;
 
@@ -65,7 +62,6 @@ public class Response extends BaseHttpResponse {
   public Response(Status status, Integer httpStatusCode, String message) {
     super(httpStatusCode);
     this.status = status;
-    this.code = httpStatusCode;
     this.message = message;
   }
 
@@ -79,7 +75,6 @@ public class Response extends BaseHttpResponse {
   public Response(Status status, HttpStatus httpStatus, String message) {
     super(httpStatus.value());
     this.status = status;
-    this.code = httpStatus.value();
     this.message = message;
   }
 
@@ -123,7 +118,6 @@ public class Response extends BaseHttpResponse {
   public String toString() {
     return newToStringBuilder(this, super.toString())
         .append("status", status)
-        .append("code", code)
         .append("message", message)
         .append("errorCode", errorCode)
         .toString();
