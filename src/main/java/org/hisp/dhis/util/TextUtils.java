@@ -30,6 +30,8 @@ package org.hisp.dhis.util;
 import java.util.regex.Pattern;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 import org.slf4j.helpers.MessageFormatter;
 
 public class TextUtils {
@@ -93,5 +95,26 @@ public class TextUtils {
     if (lastIndex != -1) {
       builder.replace(lastIndex, lastIndex + text.length(), replacement);
     }
+  }
+
+  /**
+   * Creates a new {@link ToStringBuilder} with the given object and a short prefix style.
+   *
+   * @param object the object to build the string representation for.
+   * @return a {@link ToStringBuilder}.
+   */
+  public static ToStringBuilder newToStringBuilder(Object object) {
+    return new ToStringBuilder(object, ToStringStyle.SHORT_PREFIX_STYLE);
+  }
+
+  /**
+   * Creates a new {@link ToStringBuilder} with the given object and a short prefix style.
+   *
+   * @param object the object to build the string representation for.
+   * @param parentToString the result of calling <code>toString</code> for the parent object.
+   * @return a {@link ToStringBuilder}.
+   */
+  public static ToStringBuilder newToStringBuilder(Object object, String parentToString) {
+    return newToStringBuilder(object).appendSuper(parentToString);
   }
 }

@@ -27,22 +27,34 @@
  */
 package org.hisp.dhis.response.object;
 
+import static org.hisp.dhis.util.TextUtils.newToStringBuilder;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 import org.hisp.dhis.response.Response;
 import org.hisp.dhis.response.Status;
 
 @Getter
 @Setter
-@ToString(callSuper = true)
 @NoArgsConstructor
 public class ObjectResponse extends Response {
   @JsonProperty protected ObjectReport response;
 
+  /**
+   * Constructor.
+   *
+   * @param status the {@link Status}.
+   * @param httpStatusCode the HTTP status code.
+   * @param message the response message.
+   */
   public ObjectResponse(Status status, Integer httpStatusCode, String message) {
     super(status, httpStatusCode, message);
+  }
+
+  @Override
+  public String toString() {
+    return newToStringBuilder(this, super.toString()).append("response", response).toString();
   }
 }

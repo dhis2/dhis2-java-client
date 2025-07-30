@@ -27,11 +27,12 @@
  */
 package org.hisp.dhis.response.data;
 
+import static org.hisp.dhis.util.TextUtils.newToStringBuilder;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 import org.hisp.dhis.response.HttpStatus;
 import org.hisp.dhis.response.Response;
 import org.hisp.dhis.response.Status;
@@ -39,7 +40,6 @@ import org.hisp.dhis.response.Status;
 /** Response providing information about a DHIS 2 web API response, including a data object. */
 @Getter
 @Setter
-@ToString(callSuper = true)
 @NoArgsConstructor
 public class DataResponse extends Response {
   @JsonProperty protected Object data;
@@ -55,5 +55,10 @@ public class DataResponse extends Response {
   public DataResponse(Status status, HttpStatus httpStatus, String message, Object data) {
     super(status, httpStatus, message);
     this.data = data;
+  }
+
+  @Override
+  public String toString() {
+    return newToStringBuilder(this, super.toString()).append("data", data).toString();
   }
 }
