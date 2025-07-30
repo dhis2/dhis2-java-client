@@ -28,7 +28,6 @@
 package org.hisp.dhis.response;
 
 import static org.hisp.dhis.util.CollectionUtils.mapToList;
-import static org.hisp.dhis.util.NumberUtils.toInt;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -133,7 +132,7 @@ public class ObjectsResponseBuilder {
   ObjectStatistics getStatistics() {
     ObjectStatistics stats = new ObjectStatistics();
     objectsResponses.forEach(or -> stats.increment(or.getStats()));
-    objectResponses.forEach(or -> stats.setCreated(toInt(stats.getCreated() + 1))); // TODO
+    objectResponses.forEach(or -> stats.incrementCreated()); // TODO
     return stats;
   }
 

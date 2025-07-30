@@ -65,4 +65,33 @@ public class ObjectStatistics {
     setIgnored(toInt(ignored) + toInt(target.getIgnored()));
     setTotal(toInt(total) + toInt(target.getTotal()));
   }
+
+  /** Increments created and total count. */
+  public void incrementCreated() {
+    setCreated(toInt(created) + 1);
+    incrementTotal();
+  }
+
+  /** Increments updated and total count with the given value. */
+  public void incrementUpdated() {
+    setUpdated(toInt(updated) + 1);
+    incrementTotal();
+  }
+
+  /** Increments deleted and total count with the given value. */
+  public void incrementDeleted() {
+    setDeleted(toInt(deleted) + 1);
+    incrementTotal();
+  }
+
+  /** Increments ignored and total count with the given value. */
+  public void incrementIgnored() {
+    setIgnored(toInt(ignored) + 1);
+    incrementTotal();
+  }
+
+  /** Increments total count with the given value. */
+  private void incrementTotal() {
+    setTotal(toInt(total) + 1);
+  }
 }
