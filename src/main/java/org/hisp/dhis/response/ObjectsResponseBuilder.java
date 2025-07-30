@@ -38,9 +38,9 @@ import java.util.Optional;
 import org.hisp.dhis.response.object.ObjectReport;
 import org.hisp.dhis.response.object.ObjectResponse;
 import org.hisp.dhis.response.objects.ObjectStatistics;
+import org.hisp.dhis.response.objects.ObjectsReport;
 import org.hisp.dhis.response.objects.ObjectsResponse;
 import org.hisp.dhis.response.objects.TypeReport;
-import org.hisp.dhis.response.objects.internal.Response;
 
 public class ObjectsResponseBuilder {
   private List<ObjectsResponse> objectsResponses;
@@ -88,7 +88,7 @@ public class ObjectsResponseBuilder {
    * @return an {@link ObjectsResponse}.
    */
   public ObjectsResponse build() {
-    Response response = new Response();
+    ObjectsReport response = new ObjectsReport();
     response.setStatus(getHighestStatus().orElse(null));
     response.setStats(getStatistics());
     response.setTypeReports(getTypeReports());

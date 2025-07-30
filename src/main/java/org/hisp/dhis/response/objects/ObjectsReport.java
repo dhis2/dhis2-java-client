@@ -25,7 +25,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.hisp.dhis.response.objects.internal;
+package org.hisp.dhis.response.objects;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
@@ -35,14 +35,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.hisp.dhis.response.Status;
-import org.hisp.dhis.response.objects.ObjectStatistics;
-import org.hisp.dhis.response.objects.TypeReport;
 
 @Setter
 @Getter
 @ToString
 @NoArgsConstructor
-public class Response {
+public class ObjectsReport {
   @JsonProperty private String responseType;
 
   @JsonProperty private Status status;

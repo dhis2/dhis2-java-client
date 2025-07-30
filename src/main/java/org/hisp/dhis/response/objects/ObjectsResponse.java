@@ -38,7 +38,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hisp.dhis.response.BaseHttpResponse;
 import org.hisp.dhis.response.Status;
-import org.hisp.dhis.response.objects.internal.Response;
 
 @Setter
 @NoArgsConstructor
@@ -48,7 +47,7 @@ public class ObjectsResponse extends BaseHttpResponse {
   @JsonProperty private String message;
 
   /** From including DHIS 2.38. */
-  @JsonProperty private Response response;
+  @JsonProperty private ObjectsReport response;
 
   /** Before excluding DHIS 2.38. */
   @JsonProperty private List<TypeReport> typeReports = new ArrayList<>();
@@ -61,7 +60,6 @@ public class ObjectsResponse extends BaseHttpResponse {
    *
    * @param status the {@link Status}.
    * @param httpStatusCode the HTTP status code.
-   * @param stats the {@link ObjectStatistics}.
    */
   public ObjectsResponse(Status status, Integer httpStatusCode) {
     this.status = status;
@@ -73,10 +71,9 @@ public class ObjectsResponse extends BaseHttpResponse {
    *
    * @param status the {@link Status}.
    * @param httpStatusCode the HTTP status code.
-   * @param stats the {@link ObjectStatistics}.
-   * @param response the {@link Response}.
+   * @param response the {@link ObjectsReport}.
    */
-  public ObjectsResponse(Status status, Integer httpStatusCode, Response response) {
+  public ObjectsResponse(Status status, Integer httpStatusCode, ObjectsReport response) {
     this(status, httpStatusCode);
     this.response = response;
   }
