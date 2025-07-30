@@ -1052,7 +1052,6 @@ public class BaseDhis2 {
    * <code>application/json</code>.
    *
    * @param url the {@link URI}.
-   * @param headers the list of {@link Header}.
    * @return an {@link HttpGet} request.
    */
   protected HttpGet getJsonHttpGetRequest(URI url) {

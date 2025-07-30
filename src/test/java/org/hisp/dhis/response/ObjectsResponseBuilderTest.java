@@ -32,8 +32,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.hisp.dhis.response.object.ObjectResponse;
 import org.hisp.dhis.response.objects.ObjectStatistics;
+import org.hisp.dhis.response.objects.ObjectsReport;
 import org.hisp.dhis.response.objects.ObjectsResponse;
-import org.hisp.dhis.response.objects.internal.Response;
 import org.hisp.dhis.support.TestTags;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -99,13 +99,13 @@ class ObjectsResponseBuilderTest {
   }
 
   /**
-   * Returns a {@link Response} with the given {@link ObjectStatistics}.
+   * Returns a {@link ObjectsReport} with the given {@link ObjectStatistics}.
    *
    * @param stats the {@link ObjectStatistics}.
-   * @return a {@link Response}.
+   * @return a {@link ObjectsReport}.
    */
-  private Response toResponse(ObjectStatistics stats) {
-    Response response = new Response();
+  private ObjectsReport toResponse(ObjectStatistics stats) {
+    ObjectsReport response = new ObjectsReport();
     response.setStatus(Status.OK);
     response.setStats(stats);
     return response;
