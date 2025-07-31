@@ -1004,9 +1004,19 @@ public class BaseDhis2 {
    * @return a {@link HttpPost} request.
    */
   protected HttpPost getPostRequest(URI url, HttpEntity entity) {
+    HttpPost request = getPostRequest(url);
+    return request;
+  }
+
+  /**
+   * Returns a HTTP post request with JSON content type for the given URL.
+   *
+   * @param url the {@link URI}.
+   * @return a {@link HttpPost} request.
+   */
+  protected HttpPost getPostRequest(URI url) {
     HttpPost request = withAuth(new HttpPost(url));
     request.setHeader(HEADER_CONTENT_TYPE_JSON);
-    request.setEntity(entity);
     return request;
   }
 

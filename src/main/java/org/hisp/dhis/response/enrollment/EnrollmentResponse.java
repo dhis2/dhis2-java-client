@@ -35,4 +35,9 @@ import org.hisp.dhis.response.Response;
 @Getter
 @Setter
 @NoArgsConstructor
-public class EnrollmentResponse extends Response {}
+public class EnrollmentResponse extends Response {
+  @Override
+  public String toString() {
+    return super.toString();
+  }
+}

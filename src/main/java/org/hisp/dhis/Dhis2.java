@@ -51,6 +51,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 import org.apache.commons.lang3.Validate;
 import org.apache.hc.client5.http.HttpResponseException;
 import org.apache.hc.client5.http.classic.methods.HttpGet;
@@ -211,7 +212,7 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   // -------------------------------------------------------------------------
-  // Generic methods
+  // Status
   // -------------------------------------------------------------------------
 
   /**
@@ -258,6 +259,38 @@ public class Dhis2 extends BaseDhis2 {
   public String getDhis2Url() {
     return config.getUrl();
   }
+
+  // -------------------------------------------------------------------------
+  // Maintenance
+  // -------------------------------------------------------------------------
+
+  /**
+   * Clears the DHIS2 application cache.
+   *
+   * @return true if operation was successful, false otherwise.
+   */
+  public boolean clearApplicationCache() {
+    URI url =
+        HttpUtils.build(
+            config
+                .getResolvedUriBuilder()
+                .appendPath("maintenance")
+                .addParameter("cacheClear", "true"));
+
+    try {
+      return httpClient.execute(
+          getPostRequest(url),
+          response -> {
+            return Set.of(200, 204).contains(response.getCode());
+          });
+    } catch (IOException ex) {
+      return false;
+    }
+  }
+
+  // -------------------------------------------------------------------------
+  // Generic methods
+  // -------------------------------------------------------------------------
 
   /**
    * Indicates whether an object exists at the given URL path using HTTP HEAD.
