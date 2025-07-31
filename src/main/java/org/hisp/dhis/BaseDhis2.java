@@ -1301,6 +1301,7 @@ public class BaseDhis2 {
    * @param type the class type for the response entity.
    * @param <T> the type.
    * @return response object holding information about the operation.
+   * @throws Dhis2ClientException if unauthorized, access denied or resource not found.
    */
   protected <T extends BaseHttpResponse> T updateObject(
       String path, Map<String, String> params, Object object, Class<T> type) {
@@ -1325,6 +1326,7 @@ public class BaseDhis2 {
    * @param type the class type for the response entity.
    * @param <T> type.
    * @return object holding information about the operation.
+   * @throws Dhis2ClientException if unauthorized, access denied or resource not found.
    */
   protected <T extends BaseHttpResponse> T removeObject(String path, Class<T> type) {
     URI url = config.getResolvedUrl(path);
@@ -1339,6 +1341,7 @@ public class BaseDhis2 {
    * @param path the URL path relative to the API end point.
    * @param type the class type of the object.
    * @return the object.
+   * @throws Dhis2ClientException if unauthorized, access denied or resource not found.
    */
   protected <T> T getObject(String path, Class<T> type) {
     return getObjectFromUrl(config.getResolvedUrl(path), type);
