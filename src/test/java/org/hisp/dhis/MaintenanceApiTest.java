@@ -25,19 +25,26 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.hisp.dhis.response.enrollment;
+package org.hisp.dhis;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.hisp.dhis.response.HttpStatus;
 import org.hisp.dhis.response.Response;
+import org.hisp.dhis.response.Status;
+import org.hisp.dhis.support.TestTags;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
 
-@Getter
-@Setter
-@NoArgsConstructor
-public class EnrollmentResponse extends Response {
-  @Override
-  public String toString() {
-    return super.toString();
+@Tag(TestTags.INTEGRATION)
+class MaintenanceApiTest {
+  @Test
+  void testClearApplicationCache() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    Response response = dhis2.clearApplicationCache();
+
+    assertEquals(Status.OK, response.getStatus());
+    assertEquals(HttpStatus.OK, response.getHttpStatus());
   }
 }

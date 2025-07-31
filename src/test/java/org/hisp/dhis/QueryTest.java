@@ -137,6 +137,27 @@ class QueryTest {
   }
 
   @Test
+  void testGetObjectQueryD() {
+    Dhis2Config config = getDhis2Config();
+
+    Dhis2 dhis2 = new Dhis2(config);
+
+    URIBuilder uriBuilder = config.getResolvedUriBuilder().appendPath("dataSets");
+
+    Query query = Query.instance().addFilter(Filter.like("name", "TB")).setMaxResults(100);
+
+    URI uri = dhis2.getObjectQuery(uriBuilder, query);
+
+    String expected =
+        """
+        https://dhis2.org/api/dataSets?\
+        filter=name%3Alike%3ATB\
+        &page=1&pageSize=100""";
+
+    assertEquals(expected, uri.toString());
+  }
+
+  @Test
   void testGetDataValueSetImportQuery() {
     Dhis2Config config = getDhis2Config();
 

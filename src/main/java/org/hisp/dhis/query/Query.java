@@ -127,6 +127,18 @@ public class Query implements BaseQuery {
   }
 
   /**
+   * Enables max results for this query. This is shorthand for <code>setPaging(1, maxResults)</code>
+   * .
+   *
+   * @param maxResults the max number of results to retrieve.
+   * @return this {@link Query}.
+   */
+  public Query setMaxResults(Integer maxResults) {
+    this.paging = new Paging(1, maxResults);
+    return this;
+  }
+
+  /**
    * Returns the paging for this query.
    *
    * @return the {@link Paging}.

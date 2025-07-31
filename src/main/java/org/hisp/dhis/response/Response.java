@@ -114,6 +114,25 @@ public class Response extends BaseHttpResponse {
     return Status.OK.equals(status);
   }
 
+  /**
+   * Creates a {@link Response} indicating a HTTP 200 OK status.
+   *
+   * @return a {@link Response} indicating a HTTP 200 OK status.
+   */
+  public static Response ok() {
+    return new Response(Status.OK, HttpStatus.OK, HttpStatus.OK.name());
+  }
+
+  /**
+   * Creates a {@link Response} indicating a HTTP 500 server error status.
+   *
+   * @param message a message indicating the reason for the error.
+   * @return a {@link Response} indicating a HTTP 500 server error status.
+   */
+  public static Response error(String message) {
+    return new Response(Status.ERROR, HttpStatus.INTERNAL_SERVER_ERROR, message);
+  }
+
   @Override
   public String toString() {
     return newToStringBuilder(this, super.toString())
