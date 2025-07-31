@@ -269,7 +269,7 @@ public class Dhis2 extends BaseDhis2 {
    *
    * @return true if operation was successful, false otherwise.
    */
-  public boolean clearApplicationCache() {
+  public Response clearApplicationCache() {
     URI url =
         HttpUtils.build(
             config
@@ -281,10 +281,11 @@ public class Dhis2 extends BaseDhis2 {
       return httpClient.execute(
           getPostRequest(url),
           response -> {
-            return Set.of(200, 204).contains(response.getCode());
+            Response error = Response.error(String.valueOf(response.getCode()));
+            return Set.of(200, 204).contains(response.getCode()) ? Response.ok() : error;
           });
     } catch (IOException ex) {
-      return false;
+      return Response.error(ex.getMessage());
     }
   }
 
