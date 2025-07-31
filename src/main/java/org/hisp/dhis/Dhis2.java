@@ -39,7 +39,6 @@ import static org.hisp.dhis.Constants.SUPER_ADMIN_AUTH;
 import static org.hisp.dhis.util.CollectionUtils.asList;
 import static org.hisp.dhis.util.CollectionUtils.list;
 import static org.hisp.dhis.util.IdentifiableObjectUtils.toIdObjects;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -545,6 +544,17 @@ public class Dhis2 extends BaseDhis2 {
             .addParameter(FIELDS_PARAM, fields),
         Query.instance(),
         type);
+  }
+  
+  /**
+   * Indicates whether a metadata object exists.
+   * 
+   * @param entity the {@link MetadataEntity}.
+   * @param id the object identifier.
+   * @return true if the metadata object exists, false otherwise.
+   */
+  public boolean isMetadataObject(MetadataEntity entity, String id) {
+    return objectExists(entity, id);
   }
 
   /**

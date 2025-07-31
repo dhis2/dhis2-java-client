@@ -30,7 +30,7 @@ package org.hisp.dhis;
 import static org.hisp.dhis.support.Assertions.assertNotEmpty;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.hisp.dhis.model.AggregationType;
 import org.hisp.dhis.model.DataDomain;
 import org.hisp.dhis.model.DataElement;
@@ -70,6 +70,10 @@ class MetadataObjectApiTest {
     DataElement retrieved = dhis2.getMetadataObject(entity, uidA);
 
     assertNotNull(retrieved);
+    
+    // Is
+    
+    assertTrue(dhis2.isMetadataObject(entity, uidA));
 
     // Query
 
