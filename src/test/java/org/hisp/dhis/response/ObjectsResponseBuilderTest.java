@@ -85,7 +85,7 @@ class ObjectsResponseBuilderTest {
                     Status.OK, 200, toResponse(new ObjectStatistics(3, 2, 1, 0, 6))))
             .add(
                 new ObjectsResponse(
-                    Status.OK, 200, toResponse(new ObjectStatistics(2, 1, 5, 2, 8))))
+                    Status.OK, 200, toResponse(new ObjectStatistics(2, 1, 5, 2, 10))))
             .add(new ObjectResponse(Status.ERROR, 502, ""))
             .add(new ObjectResponse(Status.ERROR, 502, ""));
 
@@ -95,7 +95,7 @@ class ObjectsResponseBuilderTest {
     assertEquals(3, stats.getUpdated());
     assertEquals(6, stats.getDeleted());
     assertEquals(2, stats.getIgnored());
-    assertEquals(14, stats.getTotal());
+    assertEquals(18, stats.getTotal());
   }
 
   /**
