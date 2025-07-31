@@ -484,6 +484,7 @@ public class Dhis2 extends BaseDhis2 {
    *
    * @param objects the {@link Dhis2Objects}.
    * @return {@link ObjectsResponse} holding information about the operation.
+   * @throws Dhis2ClientException if unauthorized, access denied or resource not found.
    */
   public ObjectsResponse saveMetadataObjects(Dhis2Objects objects) {
     URI url = config.getResolvedUrl(PATH_METADATA);
@@ -510,6 +511,7 @@ public class Dhis2 extends BaseDhis2 {
    *
    * @param object the object to save.
    * @return {@link ObjectResponse} holding information about the operation.
+   * @throws Dhis2ClientException if unauthorized, access denied or resource not found.
    */
   public ObjectResponse updateMetadataObject(IdentifiableObject object) {
     MetadataEntity entity = MetadataEntity.from(object);
@@ -526,6 +528,7 @@ public class Dhis2 extends BaseDhis2 {
    * @param id the object identifier.
    * @param <T> the type.
    * @return the metadata object.
+   * @throws Dhis2ClientException if unauthorized, access denied or resource not found.
    */
   @SuppressWarnings("unchecked")
   public <T extends IdentifiableObject> T getMetadataObject(MetadataEntity entity, String id) {
@@ -545,12 +548,24 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   /**
+   * Indicates whether a metadata object exists.
+   *
+   * @param entity the {@link MetadataEntity}.
+   * @param id the object identifier.
+   * @return true if the metadata object exists, false otherwise.
+   */
+  public boolean isMetadataObject(MetadataEntity entity, String id) {
+    return objectExists(entity, id);
+  }
+
+  /**
    * Returns a collection of metadata objects based on the given query wrapped in {@link
    * Dhis2Objects}.
    *
    * @param entity the {@link MetadataEntity}.
    * @param query the {@link Query}.
    * @return a {@link Dhis2Objects}.
+   * @throws Dhis2ClientException if unauthorized, access denied or resource not found.
    */
   public Dhis2Objects getMetadataObjects(MetadataEntity entity, Query query) {
     String path = entity.getPath();
@@ -568,6 +583,7 @@ public class Dhis2 extends BaseDhis2 {
    * @param entity the {@link MetadataEntity}.
    * @param id the object identifier.
    * @return {@link ObjectResponse} holding information about the operation.
+   * @throws Dhis2ClientException if unauthorized, access denied or resource not found.
    */
   protected ObjectResponse removeMetadataObject(MetadataEntity entity, String id) {
     String path = String.format("%s/%s", entity.getPath(), id);
