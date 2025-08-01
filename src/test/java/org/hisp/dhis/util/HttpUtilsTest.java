@@ -117,7 +117,7 @@ class HttpUtilsTest {
   @Test
   void testGetApiToken() {
     assertEquals(
-        "ApiToken d2p_eyJzdWIiOiIxMjM0NTY3ODkwIn0",
+        "d2p_eyJzdWIiOiIxMjM0NTY3ODkwIn0",
         HttpUtils.getApiToken("ApiToken d2p_eyJzdWIiOiIxMjM0NTY3ODkwIn0"));
   }
 
