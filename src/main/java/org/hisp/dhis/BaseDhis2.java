@@ -105,6 +105,7 @@ import org.hisp.dhis.query.enrollment.EnrollmentQuery;
 import org.hisp.dhis.query.event.EventQuery;
 import org.hisp.dhis.query.relationship.RelationshipQuery;
 import org.hisp.dhis.query.trackedentity.TrackedEntityQuery;
+import org.hisp.dhis.query.tracker.AtomicMode;
 import org.hisp.dhis.query.tracker.TrackedEntityImportParams;
 import org.hisp.dhis.query.validations.DataSetValidationQuery;
 import org.hisp.dhis.response.BaseHttpResponse;
@@ -346,6 +347,8 @@ public class BaseDhis2 {
             .getResolvedUriBuilder()
             .appendPath(PATH_METADATA)
             .addParameter("importStrategy", ImportStrategy.CREATE_AND_UPDATE.name())
+            .addParameter("atomicMode", AtomicMode.ALL.name())
+            .addParameter("skipSharing", "false")
             .addParameter("async", "false"));
   }
 
