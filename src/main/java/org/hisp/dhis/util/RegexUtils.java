@@ -60,7 +60,6 @@ public class RegexUtils {
     }
 
     Matcher matcher = pattern.matcher(value);
-
     return matcher.matches() ? matcher.group(group) : null;
   }
 }
