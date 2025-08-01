@@ -300,13 +300,17 @@ public class ApiFields {
   public static final String PROGRAM_STAGE_FIELDS =
       String.format(
           """
-          %1$s,programStageDataElements[%2$s],\
-          programStageSections[%3$s],\
+          %1$s,program[%2$s],\
+          programStageDataElements[%3$s],\
+          programStageSections[%4$s],\
           formName,executionDateLabel,dueDateLabel,programStageLabel,eventLabel,\
           repeatable,autoGenerateEvent,displayGenerateEventBox,blockEntryForm,preGenerateUID,\
           remindCompleted,generatedByEnrollmentDate,allowGenerateNextVisit,openAfterEnrollment,\
           hideDueDate,enableUserAssignment,referral""",
-          NAME_EXT_FIELDS, PROGRAM_STAGE_DATA_ELEMENT_FIELDS, PROGRAM_STAGE_SECTION_FIELDS);
+          NAME_EXT_FIELDS,
+          ID_FIELDS,
+          PROGRAM_STAGE_DATA_ELEMENT_FIELDS,
+          PROGRAM_STAGE_SECTION_FIELDS);
 
   public static final String PROGRAM_TRACKED_ENTITY_ATTRIBUTES_FIELDS =
       String.format(
