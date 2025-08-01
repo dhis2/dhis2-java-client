@@ -53,6 +53,18 @@ public class ObjectResponse extends Response {
     super(status, httpStatusCode, message);
   }
 
+  /**
+   * Constructor.
+   *
+   * @param status the {@link Status}.
+   * @param httpStatusCode the HTTP status code.
+   * @param response the {@link ObjectReport}.
+   */
+  public ObjectResponse(Status status, Integer httpStatusCode, ObjectReport response) {
+    super(status, httpStatusCode);
+    this.response = response;
+  }
+
   @Override
   public String toString() {
     return newToStringBuilder(this, super.toString()).append("response", response).toString();
