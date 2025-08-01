@@ -30,9 +30,11 @@ package org.hisp.dhis.model.sharing;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
+@ToString(callSuper = true)
 @NoArgsConstructor
 public class UserAccess extends AccessObject {
   /**

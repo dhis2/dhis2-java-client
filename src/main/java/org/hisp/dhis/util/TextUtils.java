@@ -98,6 +98,19 @@ public class TextUtils {
   }
 
   /**
+   * Returns a string based on the predicate. If the predicate is true, it returns the true string,
+   * otherwise, it returns the false string.
+   *
+   * @param predicate the boolean predicate.
+   * @param trueString the true string.
+   * @param falseString the false string.
+   * @return a string.
+   */
+  public static String getString(boolean predicate, String trueString, String falseString) {
+    return predicate ? trueString : falseString;
+  }
+
+  /**
    * Creates a new {@link ToStringBuilder} with the given object and a short prefix style.
    *
    * @param object the object to build the string representation for.
