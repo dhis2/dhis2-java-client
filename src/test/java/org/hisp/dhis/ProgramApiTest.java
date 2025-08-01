@@ -175,6 +175,7 @@ class ProgramApiTest {
     assertNotNull(ps);
     assertEquals("ArL19QmQUd1", ps.getId());
     assertEquals("Vital Statistics", ps.getName());
+    assertNotNull(ps.getProgram());
     assertSize(2, ps.getProgramStageDataElements());
     assertSize(1, ps.getProgramStageSections());
     assertEquals("Registration Date", ps.getExecutionDateLabel());
@@ -327,8 +328,8 @@ class ProgramApiTest {
     assertNotNull(ps);
     assertNotBlank(ps.getId());
     assertNotBlank(ps.getName());
+    assertNotNull(ps.getProgram());
     assertNotEmpty(ps.getProgramStageDataElements());
-
     assertNotEmpty(ps.getDataElements());
     assertNotEmpty(ps.getAnalyticsDataElements());
 
@@ -388,6 +389,7 @@ class ProgramApiTest {
     assertNotNull(ps);
     assertEquals("Zj7UnCAulEk", ps.getId());
     assertNotBlank(ps.getName());
+    assertNotNull(ps.getProgram());
     assertNotNull(ps.getProgramStageSections());
   }
 
@@ -424,6 +426,7 @@ class ProgramApiTest {
     assertNotNull(ps);
     assertEquals("Zj7UnCAulEk", ps.getId());
     assertNotBlank(ps.getName());
+    assertNotNull(ps.getProgram());
     assertNotNull(ps.getProgramStageSections());
 
     ProgramStageSection pss = ps.getProgramStageSections().get(0);
@@ -492,6 +495,7 @@ class ProgramApiTest {
     assertNotNull(ps);
     assertEquals("hYyB7FUS5eR", ps.getId());
     assertNotBlank(ps.getName());
+    assertNotNull(ps.getProgram());
   }
 
   @Test
@@ -547,6 +551,7 @@ class ProgramApiTest {
     assertNotNull(ps);
     assertEquals("hYyB7FUS5eR", ps.getId());
     assertNotBlank(ps.getName());
+    assertNotNull(ps.getProgram());
   }
 
   @Test
@@ -589,6 +594,7 @@ class ProgramApiTest {
     assertNotNull(ps);
     assertNotNull(ps.getId());
     assertNotBlank(ps.getName());
+    assertNotNull(ps.getProgram());
     assertNotEmpty(ps.getProgramStageDataElements());
 
     ProgramStageDataElement psde = ps.getProgramStageDataElements().get(0);

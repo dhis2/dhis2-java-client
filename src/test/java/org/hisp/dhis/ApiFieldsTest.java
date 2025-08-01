@@ -40,6 +40,7 @@ class ApiFieldsTest {
     String expected =
         """
         id,code,name,created,lastUpdated,attributeValues,translations,sharing,access,shortName,description,\
+        program[id,code,name,created,lastUpdated,attributeValues],\
         programStageDataElements[id,code,name,created,lastUpdated,attributeValues,translations,sharing,access,shortName,description,\
         programStage[id,code,name,created,lastUpdated,attributeValues,shortName,description],\
         dataElement[id,code,name,created,lastUpdated,attributeValues,translations,sharing,access,shortName,description,\
@@ -78,6 +79,7 @@ class ApiFieldsTest {
         program[id,code,name,created,lastUpdated,attributeValues,shortName,description],\
         trackedEntityAttributes[id,code,name,created,lastUpdated,attributeValues,shortName,description]],\
         programStages[id,code,name,created,lastUpdated,attributeValues,translations,sharing,access,shortName,description,\
+        program[id,code,name,created,lastUpdated,attributeValues],\
         programStageDataElements[id,code,name,created,lastUpdated,attributeValues,translations,sharing,access,shortName,description,\
         programStage[id,code,name,created,lastUpdated,attributeValues,shortName,description],\
         dataElement[id,code,name,created,lastUpdated,attributeValues,translations,sharing,access,shortName,description,\
