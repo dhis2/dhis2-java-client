@@ -1029,6 +1029,7 @@ public class BaseDhis2 {
    */
   protected HttpPost getPostRequest(URI url, HttpEntity entity) {
     HttpPost request = getPostRequest(url);
+    request.setEntity(entity);
     return request;
   }
 
