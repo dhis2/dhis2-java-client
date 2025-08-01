@@ -42,7 +42,6 @@ import org.hisp.dhis.response.data.ImportCount;
 import org.hisp.dhis.response.data.Status;
 import org.hisp.dhis.response.datavalueset.DataValueSetResponse;
 import org.hisp.dhis.support.TestTags;
-import org.hisp.dhis.util.JacksonUtils;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
@@ -86,7 +85,6 @@ class DataValueSetApiTest {
     Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
 
     DataValueSet dataValueSet = getDataValueSet();
-    JacksonUtils.toJsonString(dataValueSet);
     DataValueSetImportOptions importOptions = DataValueSetImportOptions.instance();
     DataValueSetResponse response = dhis2.saveDataValueSet(dataValueSet, importOptions);
 
