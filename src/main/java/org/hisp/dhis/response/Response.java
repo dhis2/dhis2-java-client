@@ -57,11 +57,21 @@ public class Response extends BaseHttpResponse {
    *
    * @param status the {@link Status} of the response.
    * @param httpStatusCode the HTTP status code of the response.
+   */
+  public Response(Status status, Integer httpStatusCode) {
+    super(httpStatusCode);
+    this.status = status;
+  }
+
+  /**
+   * Constructor.
+   *
+   * @param status the {@link Status} of the response.
+   * @param httpStatusCode the HTTP status code of the response.
    * @param message the message of the response.
    */
   public Response(Status status, Integer httpStatusCode, String message) {
-    super(httpStatusCode);
-    this.status = status;
+    this(status, httpStatusCode);
     this.message = message;
   }
 
@@ -73,8 +83,7 @@ public class Response extends BaseHttpResponse {
    * @param message the message of the response.
    */
   public Response(Status status, HttpStatus httpStatus, String message) {
-    super(httpStatus.value());
-    this.status = status;
+    this(status, httpStatus.value());
     this.message = message;
   }
 
