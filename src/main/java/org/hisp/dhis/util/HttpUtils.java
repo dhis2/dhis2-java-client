@@ -33,7 +33,6 @@ import java.net.URISyntaxException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -46,6 +45,9 @@ import org.hisp.dhis.auth.Authentication;
 /** Utilities for HTTP communication. */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class HttpUtils {
+  /** Pattern for matching a DHIS2 access token as part of a HTTP header value. */
+  public static final Pattern PATTERN_ACCESS_TOKEN = Pattern.compile("^ApiToken\\s+(.+)$");
+
   /** Pattern for matching a Bearer API token as part of a HTTP header value. */
   public static final Pattern PATTERN_BEARER_TOKEN = Pattern.compile("^Bearer\\s+(.+)$");
 
@@ -134,6 +136,16 @@ public class HttpUtils {
   }
 
   /**
+   * Returns the API token from the given HTTP header value.
+   *
+   * @param value the header value.
+   * @return an access token, or null if not found.
+   */
+  public static String getApiToken(String value) {
+    return RegexUtils.getFirstMatch(PATTERN_ACCESS_TOKEN, value);
+  }
+
+  /**
    * Returns a bearer token authentication string, on the format <code>Bearer {access-token}</code>.
    *
    * @param token the authentication token.
@@ -158,14 +170,9 @@ public class HttpUtils {
    * Returns the bearer token value from the given authorization bearer token header value.
    *
    * @param value the header value.
-   * @return a bearer token.
+   * @return a bearer token, or null if not found.
    */
   public static String getBearerToken(String value) {
-    if (value == null) {
-      return null;
-    }
-
-    Matcher matcher = PATTERN_BEARER_TOKEN.matcher(value);
-    return matcher.matches() ? matcher.group(1) : null;
+    return RegexUtils.getFirstMatch(PATTERN_BEARER_TOKEN, value);
   }
 }
