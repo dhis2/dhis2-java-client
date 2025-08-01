@@ -32,6 +32,7 @@ import java.util.regex.Pattern;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
+/** Utilitis for regular expressions. */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class RegexUtils {
   /**
