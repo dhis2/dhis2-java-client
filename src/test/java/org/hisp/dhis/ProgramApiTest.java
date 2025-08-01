@@ -176,6 +176,7 @@ class ProgramApiTest {
     assertEquals("ArL19QmQUd1", ps.getId());
     assertEquals("Vital Statistics", ps.getName());
     assertNotNull(ps.getProgram());
+    assertNotBlank(ps.getProgram().getId());
     assertSize(2, ps.getProgramStageDataElements());
     assertSize(1, ps.getProgramStageSections());
     assertEquals("Registration Date", ps.getExecutionDateLabel());
@@ -191,6 +192,7 @@ class ProgramApiTest {
 
     assertNotNull(psde);
     assertNotNull(psde.getProgramStage());
+    assertNotBlank(psde.getProgramStage().getId());
     assertNotNull(psde.getDataElement());
     assertTrue(psde.getCompulsory());
     assertTrue(psde.getDisplayInReports());
@@ -203,6 +205,8 @@ class ProgramApiTest {
     assertEquals("msLqIoBRMva", sc.getId());
     assertEquals("Information", sc.getName());
     assertEquals("Information", sc.getDescription());
+    assertNotNull(sc.getProgram());
+    assertNotBlank(sc.getProgram().getId());
     assertEquals(5, sc.getTrackedEntityAttributes().size());
 
     ProgramStageSection pss = retrieved.getProgramStageSections().get(0);
@@ -211,6 +215,7 @@ class ProgramApiTest {
     assertEquals("Information", pss.getName());
     assertEquals("Information", pss.getDescription());
     assertNotNull(pss.getProgramStage());
+    assertNotBlank(pss.getProgramStage().getId());
     assertEmpty(pss.getProgramIndicators());
     assertSize(2, pss.getDataElements());
 
@@ -255,6 +260,8 @@ class ProgramApiTest {
     assertNotNull(ps);
     assertNotBlank(ps.getId());
     assertNotBlank(ps.getName());
+    assertNotNull(ps.getProgram());
+    assertNotBlank(ps.getProgram().getId());
   }
 
   @Test
@@ -329,6 +336,7 @@ class ProgramApiTest {
     assertNotBlank(ps.getId());
     assertNotBlank(ps.getName());
     assertNotNull(ps.getProgram());
+    assertNotBlank(ps.getProgram().getId());
     assertNotEmpty(ps.getProgramStageDataElements());
     assertNotEmpty(ps.getDataElements());
     assertNotEmpty(ps.getAnalyticsDataElements());
@@ -338,7 +346,9 @@ class ProgramApiTest {
     assertNotNull(psde);
 
     assertNotNull(psde.getProgramStage());
+    assertNotBlank(psde.getProgramStage().getId());
     assertNotNull(psde.getDataElement());
+    assertNotBlank(psde.getDataElement().getId());
     assertNotNull(psde.getCompulsory());
     assertNotNull(psde.getDisplayInReports());
     assertNotNull(psde.getSkipSynchronization());
@@ -390,6 +400,7 @@ class ProgramApiTest {
     assertEquals("Zj7UnCAulEk", ps.getId());
     assertNotBlank(ps.getName());
     assertNotNull(ps.getProgram());
+    assertNotBlank(ps.getProgram().getId());
     assertNotNull(ps.getProgramStageSections());
   }
 
@@ -427,6 +438,7 @@ class ProgramApiTest {
     assertEquals("Zj7UnCAulEk", ps.getId());
     assertNotBlank(ps.getName());
     assertNotNull(ps.getProgram());
+    assertNotBlank(ps.getProgram().getId());
     assertNotNull(ps.getProgramStageSections());
 
     ProgramStageSection pss = ps.getProgramStageSections().get(0);
@@ -436,6 +448,8 @@ class ProgramApiTest {
     assertNotBlank(pss.getName());
     assertNotBlank(pss.getDescription());
     assertNotNull(pss.getSortOrder());
+    assertNotNull(pss.getProgramStage());
+    assertNotBlank(pss.getProgramStage().getId());
     assertNotEmpty(pss.getDataElements());
     assertNotNull(pss.getProgramIndicators());
 
@@ -496,6 +510,7 @@ class ProgramApiTest {
     assertEquals("hYyB7FUS5eR", ps.getId());
     assertNotBlank(ps.getName());
     assertNotNull(ps.getProgram());
+    assertNotBlank(ps.getProgram().getId());
   }
 
   @Test
@@ -552,6 +567,7 @@ class ProgramApiTest {
     assertEquals("hYyB7FUS5eR", ps.getId());
     assertNotBlank(ps.getName());
     assertNotNull(ps.getProgram());
+    assertNotBlank(ps.getProgram().getId());
   }
 
   @Test
@@ -595,6 +611,7 @@ class ProgramApiTest {
     assertNotNull(ps.getId());
     assertNotBlank(ps.getName());
     assertNotNull(ps.getProgram());
+    assertNotBlank(ps.getProgram().getId());
     assertNotEmpty(ps.getProgramStageDataElements());
 
     ProgramStageDataElement psde = ps.getProgramStageDataElements().get(0);
@@ -602,6 +619,7 @@ class ProgramApiTest {
     assertNotNull(psde);
     assertNotNull(psde.getId());
     assertNotNull(psde.getProgramStage());
+    assertNotBlank(psde.getProgramStage().getId());
     assertNotNull(psde.getDataElement());
 
     DataElement de = psde.getDataElement();
