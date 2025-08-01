@@ -601,6 +601,8 @@ class ProgramApiTest {
 
     assertNotNull(psde);
     assertNotNull(psde.getId());
+    assertNotNull(psde.getProgramStage());
+    assertNotNull(psde.getDataElement());
 
     DataElement de = psde.getDataElement();
 
