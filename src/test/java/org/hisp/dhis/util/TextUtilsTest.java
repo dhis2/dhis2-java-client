@@ -82,4 +82,10 @@ class TextUtilsTest {
 
     assertEquals(expected, builder.toString());
   }
+
+  @Test
+  void testGetString() {
+    assertEquals("exists", TextUtils.getString(true, "exists", "does not exist"));
+    assertEquals("does not exist", TextUtils.getString(false, "exists", "does not exist"));
+  }
 }
