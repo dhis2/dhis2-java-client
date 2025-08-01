@@ -80,6 +80,7 @@ import org.apache.hc.core5.http.io.entity.StringEntity;
 import org.apache.hc.core5.http.message.BasicHeader;
 import org.apache.hc.core5.http.message.BasicNameValuePair;
 import org.apache.hc.core5.net.URIBuilder;
+import org.hisp.dhis.model.ImportStrategy;
 import org.hisp.dhis.model.MetadataEntity;
 import org.hisp.dhis.model.completedatasetregistration.CompleteDataSetRegistrationImportOptions;
 import org.hisp.dhis.model.datavalueset.DataValueSet;
@@ -293,8 +294,9 @@ public class BaseDhis2 {
    *
    * @param uriBuilder the {@link URIBuilder}.
    * @param query the {@link BaseQuery}.
+   * @return the {@link URIBuilder}.
    */
-  protected void addOrder(URIBuilder uriBuilder, BaseQuery query) {
+  protected URIBuilder addOrder(URIBuilder uriBuilder, BaseQuery query) {
     List<Order> orders = query.getOrder();
 
     if (isNotEmpty(orders)) {
@@ -303,6 +305,8 @@ public class BaseDhis2 {
 
       uriBuilder.addParameter("order", orderValue);
     }
+
+    return uriBuilder;
   }
 
   /**
@@ -311,8 +315,9 @@ public class BaseDhis2 {
    *
    * @param uriBuilder the {@link URIBuilder}.
    * @param query the {@link BaseQuery}.
+   * @return the {@link URIBuilder}.
    */
-  protected void addPaging(URIBuilder uriBuilder, BaseQuery query) {
+  protected URIBuilder addPaging(URIBuilder uriBuilder, BaseQuery query) {
     Paging paging = query.getPaging();
 
     if (paging.hasPaging()) {
@@ -326,6 +331,22 @@ public class BaseDhis2 {
     } else {
       uriBuilder.addParameter("paging", "false");
     }
+
+    return uriBuilder;
+  }
+
+  /**
+   * Returns a metadata import {@link URI}.
+   *
+   * @return a {@link URI}.
+   */
+  protected URI getMetadataImportUrl() {
+    return HttpUtils.build(
+        config
+            .getResolvedUriBuilder()
+            .appendPath(PATH_METADATA)
+            .addParameter("importStrategy", ImportStrategy.CREATE_AND_UPDATE.name())
+            .addParameter("async", "false"));
   }
 
   /**
@@ -570,14 +591,17 @@ public class BaseDhis2 {
    *
    * @param uriBuilder the {@link URIBuilder}.
    * @param query the {@link BaseQuery}.
+   * @return the {@link URIBuilder}.
    */
-  protected void addTrackerFilters(URIBuilder uriBuilder, BaseQuery query) {
+  protected URIBuilder addTrackerFilters(URIBuilder uriBuilder, BaseQuery query) {
     for (Filter filter : query.getFilters()) {
       Object value = getTrackerApiQueryValue(filter);
       String filterValue =
           String.format("%s:%s:%s", filter.getProperty(), filter.getOperator().value(), value);
       uriBuilder.addParameter("filter", filterValue);
     }
+
+    return uriBuilder;
   }
 
   /**
@@ -641,9 +665,9 @@ public class BaseDhis2 {
    *
    * @param uriBuilder the URI builder.
    * @param query the {@link TrackedEntityImportParams}.
-   * @return a {@link URI}.
+   * @return the {@link URIBuilder}.
    */
-  protected URIBuilder getTrackedEntityImportParams(
+  protected URIBuilder addTrackedEntityImportParams(
       URIBuilder uriBuilder, TrackedEntityImportParams query) {
     addParameter(uriBuilder, "reportMode", query.getReportMode());
     addParameter(uriBuilder, "importMode", query.getImportMode());
@@ -1005,6 +1029,7 @@ public class BaseDhis2 {
    */
   protected HttpPost getPostRequest(URI url, HttpEntity entity) {
     HttpPost request = getPostRequest(url);
+    request.setEntity(entity);
     return request;
   }
 

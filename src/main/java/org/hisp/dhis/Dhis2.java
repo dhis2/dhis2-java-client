@@ -521,9 +521,9 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if unauthorized, access denied or resource not found.
    */
   public ObjectsResponse saveMetadataObjects(Dhis2Objects objects) {
-    URI url = config.getResolvedUrl(PATH_METADATA);
 
-    return executeJsonPostPutRequest(new HttpPost(url), objects, ObjectsResponse.class);
+    return executeJsonPostPutRequest(
+        new HttpPost(getMetadataImportUrl()), objects, ObjectsResponse.class);
   }
 
   /**
@@ -3438,7 +3438,7 @@ public class Dhis2 extends BaseDhis2 {
   public TrackedEntityResponse saveTrackedEntityObjects(
       TrackedEntityObjects trackedEntityObjects, TrackedEntityImportParams params) {
     URIBuilder uriBuilder =
-        getTrackedEntityImportParams(
+        addTrackedEntityImportParams(
             config.getResolvedUriBuilder().appendPath(PATH_TRACKER).addParameter("async", "false"),
             params);
 
