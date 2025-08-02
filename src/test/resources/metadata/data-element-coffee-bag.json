@@ -1,0 +1,10 @@
+{
+  "id": "UkMCl9GnOij",
+  "code": "DJC_COFFEE_BAG",
+  "name": "DJC: Coffee Bag",
+  "shortName": "DJC: Coffee Bag",
+  "aggregationType": "SUM",
+  "valueType": "NUMBER",
+  "domainType": "AGGREGATE",
+  "zeroIsSignificant": false
+}
