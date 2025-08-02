@@ -41,21 +41,17 @@ import lombok.experimental.Accessors;
 @Setter
 @Accessors(chain = true)
 @NoArgsConstructor
-public class ProgramObjects {
-  @JsonProperty private List<Program> programs = new ArrayList<>();
+public class OptionSetObjects {
+  @JsonProperty private List<OptionSet> optionSets = new ArrayList<>();
 
-  @JsonProperty private List<ProgramSection> programSections = new ArrayList<>();
-
-  @JsonProperty private List<ProgramStage> programStages = new ArrayList<>();
-
-  @JsonProperty private List<ProgramStageSection> programStageSections = new ArrayList<>();
+  @JsonProperty private List<Option> options = new ArrayList<>();
 
   /**
-   * Returns the first program in the list of programs, or null if no programs exist.
+   * Returns the first option in the list of options, or null if no options exist.
    *
-   * @return the first program, or null.
+   * @return the first option, or null.
    */
-  public Program getFirstProgram() {
-    return isNotEmpty(programs) ? programs.get(0) : null;
+  public OptionSet getFirstOptionSet() {
+    return isNotEmpty(optionSets) ? optionSets.get(0) : null;
   }
 }
