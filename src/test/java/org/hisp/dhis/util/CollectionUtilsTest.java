@@ -30,6 +30,7 @@ package org.hisp.dhis.util;
 import static org.hisp.dhis.util.CollectionUtils.first;
 import static org.hisp.dhis.util.CollectionUtils.firstMatch;
 import static org.hisp.dhis.util.CollectionUtils.get;
+import static org.hisp.dhis.util.CollectionUtils.index;
 import static org.hisp.dhis.util.CollectionUtils.list;
 import static org.hisp.dhis.util.CollectionUtils.mapToList;
 import static org.hisp.dhis.util.CollectionUtils.mapToMap;
@@ -46,12 +47,30 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import org.hisp.dhis.model.DataElement;
+import org.hisp.dhis.model.Product;
 import org.hisp.dhis.support.TestTags;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 @Tag(TestTags.UNIT)
 class CollectionUtilsTest {
+  @Test
+  void testIndex() {
+    Product pA = new Product("P01", "Keyboard");
+    Product pB = new Product("P02", "Mouse");
+    Product pC = new Product("P03", "Monitor");
+
+    List<Product> collection = list(pA, pB, pC);
+
+    Map<String, Product> map = index(collection, value -> value.getId());
+
+    assertEquals(3, map.keySet().size());
+    assertEquals(pA, map.get("P01"));
+    assertEquals(pB, map.get("P02"));
+    assertEquals(pC, map.get("P03"));
+    assertNull(map.get("P99"));
+  }
+
   @Test
   void testFirstMatch() {
     List<String> collection = list("a", "b", "c");

@@ -31,9 +31,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.Function;
@@ -168,6 +170,22 @@ public class CollectionUtils {
    */
   public static <T> List<T> list(Collection<T> collection, Predicate<T> predicate) {
     return collection.stream().filter(predicate).collect(Collectors.toList());
+  }
+
+  /**
+   * Returns a new mutable map with the items in the given collection as values, indexed by keys
+   * derived from those values using the given key function. *
+   *
+   * @param <T> type.
+   * @param collection the collection.
+   * @param keyFunction the key function.
+   * @return a new mutable map.
+   */
+  public static <K, V> Map<K, V> index(Collection<V> collection, Function<V, K> keyFunction) {
+    Objects.requireNonNull(keyFunction);
+    Map<K, V> map = new HashMap<>();
+    collection.forEach(value -> map.put(keyFunction.apply(value), value));
+    return map;
   }
 
   /**
