@@ -30,15 +30,22 @@ package org.hisp.dhis;
 import static org.hisp.dhis.support.Assertions.assertNotEmpty;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
+import java.util.Optional;
+import org.hisp.dhis.model.DataElement;
 import org.hisp.dhis.model.Dhis2Objects;
+import org.hisp.dhis.model.MetadataEntity;
 import org.hisp.dhis.model.Option;
 import org.hisp.dhis.model.OptionSet;
 import org.hisp.dhis.model.ValueType;
+import org.hisp.dhis.response.HttpStatus;
 import org.hisp.dhis.response.Status;
+import org.hisp.dhis.response.object.ObjectResponse;
 import org.hisp.dhis.response.objects.ObjectStatistics;
 import org.hisp.dhis.response.objects.ObjectsResponse;
+import org.hisp.dhis.support.JsonClassPathFile;
 import org.hisp.dhis.support.TestTags;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -91,5 +98,48 @@ class MetadataApiTest {
 
     assertNotEmpty(response.getTypeReports());
     assertEquals(2, response.getTypeReports().size());
+  }
+
+  @Test
+  void testSaveRemoveMetadataObject() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    DataElement dataElement =
+        JsonClassPathFile.fromJson("metadata/data-element-coffee-bag.json", DataElement.class);
+
+    ObjectResponse saveResponse = dhis2.saveMetadataObject(dataElement);
+
+    assertEquals(Status.OK, saveResponse.getStatus());
+    assertEquals(HttpStatus.CREATED, saveResponse.getHttpStatus());
+
+    ObjectResponse removeResponse =
+        dhis2.removeMetadataObject(MetadataEntity.DATA_ELEMENT, dataElement.getId());
+
+    assertEquals(Status.OK, removeResponse.getStatus());
+    assertEquals(HttpStatus.OK, removeResponse.getHttpStatus());
+  }
+
+  @Test
+  void testSaveIfNotExistsMetadataObject() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    DataElement dataElement =
+        JsonClassPathFile.fromJson("metadata/data-element-coffee-bag.json", DataElement.class);
+
+    Optional<ObjectResponse> saveResponse = dhis2.saveMetadataObjectIfNotExists(dataElement);
+
+    assertTrue(saveResponse.isPresent());
+    assertEquals(Status.OK, saveResponse.get().getStatus());
+    assertEquals(HttpStatus.CREATED, saveResponse.get().getHttpStatus());
+
+    saveResponse = dhis2.saveMetadataObjectIfNotExists(dataElement);
+
+    assertTrue(saveResponse.isEmpty());
+
+    ObjectResponse removeResponse =
+        dhis2.removeMetadataObject(MetadataEntity.DATA_ELEMENT, dataElement.getId());
+
+    assertEquals(Status.OK, removeResponse.getStatus());
+    assertEquals(HttpStatus.OK, removeResponse.getHttpStatus());
   }
 }

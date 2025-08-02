@@ -51,6 +51,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 import org.apache.commons.lang3.Validate;
 import org.apache.hc.client5.http.HttpResponseException;
@@ -538,6 +539,19 @@ public class Dhis2 extends BaseDhis2 {
     String path = entity.getPath();
 
     return saveObject(path, object, ObjectResponse.class);
+  }
+
+  /**
+   * Saves a metadata object if it does not already exist.
+   *
+   * @param object the object to save.
+   * @return an {@link Optional} containing the {@link ObjectResponse} if the object was saved,
+   *     otherwise an empty {@link Optional}.
+   */
+  public Optional<ObjectResponse> saveMetadataObjectIfNotExists(IdentifiableObject object) {
+    MetadataEntity entity = MetadataEntity.from(object);
+    boolean exists = isMetadataObject(entity, object.getId());
+    return exists ? Optional.empty() : Optional.of(saveMetadataObject(object));
   }
 
   /**
