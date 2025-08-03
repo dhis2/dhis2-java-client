@@ -31,6 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.io.IOException;
+import java.net.URI;
 import org.hisp.dhis.model.AggregationType;
 import org.hisp.dhis.model.DataDomain;
 import org.hisp.dhis.model.DataElement;
@@ -88,5 +89,21 @@ class BaseDhis2Test {
     assertEquals(AggregationType.SUM, object.getAggregationType());
     assertEquals(ValueType.NUMBER, object.getValueType());
     assertEquals(DataDomain.AGGREGATE, object.getDomainType());
+  }
+
+  @Test
+  void testGetMetadataImportUrl() throws Exception {
+    Dhis2 dhis2 = new Dhis2(new Dhis2Config("https://server.org", "admin", "distrct"));
+
+    URI expected =
+        new URI(
+            """
+        https://server.org/api/metadata\
+        ?importStrategy=CREATE_AND_UPDATE\
+        &atomicMode=ALL\
+        &skipSharing=false\
+        &async=false""");
+
+    assertEquals(expected, dhis2.getMetadataImportUrl());
   }
 }

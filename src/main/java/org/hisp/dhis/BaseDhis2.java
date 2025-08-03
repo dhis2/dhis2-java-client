@@ -85,8 +85,8 @@ import org.hisp.dhis.model.datavalueset.DataValueSet;
 import org.hisp.dhis.model.datavalueset.DataValueSetImportOptions;
 import org.hisp.dhis.model.enrollment.EnrollmentsResult;
 import org.hisp.dhis.model.event.EventsResult;
-import org.hisp.dhis.model.metadata.ImportStrategy;
 import org.hisp.dhis.model.metadata.MetadataEntity;
+import org.hisp.dhis.model.metadata.MetadataImportParams;
 import org.hisp.dhis.model.trackedentity.TrackedEntitiesResult;
 import org.hisp.dhis.model.validation.Validation;
 import org.hisp.dhis.query.BaseQuery;
@@ -105,7 +105,6 @@ import org.hisp.dhis.query.enrollment.EnrollmentQuery;
 import org.hisp.dhis.query.event.EventQuery;
 import org.hisp.dhis.query.relationship.RelationshipQuery;
 import org.hisp.dhis.query.trackedentity.TrackedEntityQuery;
-import org.hisp.dhis.query.tracker.AtomicMode;
 import org.hisp.dhis.query.tracker.TrackedEntityImportParams;
 import org.hisp.dhis.query.validations.DataSetValidationQuery;
 import org.hisp.dhis.response.BaseHttpResponse;
@@ -337,19 +336,29 @@ public class BaseDhis2 {
   }
 
   /**
-   * Returns a metadata import {@link URI}.
+   * Returns a metadata import {@link URI} with default parameters.
    *
    * @return a {@link URI}.
    */
   protected URI getMetadataImportUrl() {
-    return HttpUtils.build(
-        config
-            .getResolvedUriBuilder()
-            .appendPath(PATH_METADATA)
-            .addParameter("importStrategy", ImportStrategy.CREATE_AND_UPDATE.name())
-            .addParameter("atomicMode", AtomicMode.ALL.name())
-            .addParameter("skipSharing", "false")
-            .addParameter("async", "false"));
+    return getMetadataImportUrl(
+        config.getResolvedUriBuilder().appendPath(PATH_METADATA), new MetadataImportParams());
+  }
+
+  /**
+   * Returns a metadata import {@link URI} based on the given parameters.
+   *
+   * @param uriBuilder the URI builder.
+   * @param params the {@link MetadataImportParams} to apply.
+   * @return a {@link URI}.
+   */
+  protected URI getMetadataImportUrl(URIBuilder uriBuilder, MetadataImportParams params) {
+    addParameter(uriBuilder, "importStrategy", params.getImportStrategy());
+    addParameter(uriBuilder, "atomicMode", params.getAtomicMode());
+    addParameter(uriBuilder, "skipSharing", params.getSkipSharing());
+    addParameter(uriBuilder, "async", params.getAsync());
+
+    return HttpUtils.build(uriBuilder);
   }
 
   /**
