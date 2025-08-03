@@ -25,7 +25,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.hisp.dhis.model;
+package org.hisp.dhis.model.metadata;
 
 import static java.lang.String.format;
 import static org.hisp.dhis.ApiFields.ANALYTICS_TABLE_HOOK_FIELDS;
@@ -76,6 +76,38 @@ import static org.hisp.dhis.ApiFields.VISUALIZATION_FIELDS;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.hisp.dhis.model.AnalyticsTableHook;
+import org.hisp.dhis.model.Attribute;
+import org.hisp.dhis.model.Category;
+import org.hisp.dhis.model.CategoryCombo;
+import org.hisp.dhis.model.CategoryOption;
+import org.hisp.dhis.model.CategoryOptionCombo;
+import org.hisp.dhis.model.CategoryOptionGroup;
+import org.hisp.dhis.model.CategoryOptionGroupSet;
+import org.hisp.dhis.model.DataElement;
+import org.hisp.dhis.model.DataElementGroup;
+import org.hisp.dhis.model.DataElementGroupSet;
+import org.hisp.dhis.model.DataEntryForm;
+import org.hisp.dhis.model.DataSet;
+import org.hisp.dhis.model.Document;
+import org.hisp.dhis.model.GeoMap;
+import org.hisp.dhis.model.IdentifiableObject;
+import org.hisp.dhis.model.Indicator;
+import org.hisp.dhis.model.IndicatorGroup;
+import org.hisp.dhis.model.IndicatorGroupSet;
+import org.hisp.dhis.model.IndicatorType;
+import org.hisp.dhis.model.Option;
+import org.hisp.dhis.model.OptionSet;
+import org.hisp.dhis.model.OrgUnit;
+import org.hisp.dhis.model.OrgUnitGroup;
+import org.hisp.dhis.model.OrgUnitGroupSet;
+import org.hisp.dhis.model.OrgUnitLevel;
+import org.hisp.dhis.model.Program;
+import org.hisp.dhis.model.ProgramIndicator;
+import org.hisp.dhis.model.ProgramSection;
+import org.hisp.dhis.model.ProgramStage;
+import org.hisp.dhis.model.ProgramStageSection;
+import org.hisp.dhis.model.Visualization;
 import org.hisp.dhis.model.dashboard.Dashboard;
 import org.hisp.dhis.model.relationship.RelationshipType;
 import org.hisp.dhis.model.trackedentity.TrackedEntityAttribute;

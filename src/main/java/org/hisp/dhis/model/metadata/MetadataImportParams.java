@@ -28,7 +28,6 @@
 package org.hisp.dhis.model.metadata;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.hisp.dhis.model.ImportStrategy;
 import org.hisp.dhis.query.tracker.AtomicMode;
 
 /** Parameters for metadata import operations. */
