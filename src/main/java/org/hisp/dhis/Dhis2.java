@@ -543,6 +543,7 @@ public class Dhis2 extends BaseDhis2 {
    * Saves a metadata object using HTTP POST.
    *
    * @param object the object to save.
+   * @param params the {@link MetadataImportParams}.
    * @return {@link ObjectResponse} holding information about the operation.
    * @throws Dhis2ClientException if unauthorized, access denied or resource not found.
    */
