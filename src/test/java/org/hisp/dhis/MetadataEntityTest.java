@@ -30,8 +30,8 @@ package org.hisp.dhis;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import org.hisp.dhis.model.MetadataEntity;
 import org.hisp.dhis.model.ProgramIndicator;
+import org.hisp.dhis.model.metadata.MetadataEntity;
 import org.hisp.dhis.response.Dhis2ClientException;
 import org.hisp.dhis.support.TestObjects;
 import org.hisp.dhis.support.TestTags;

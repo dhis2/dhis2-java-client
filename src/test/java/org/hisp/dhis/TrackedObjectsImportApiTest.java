@@ -35,10 +35,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
-import org.hisp.dhis.model.ImportStrategy;
 import org.hisp.dhis.model.enrollment.Enrollment;
 import org.hisp.dhis.model.event.Event;
 import org.hisp.dhis.model.event.EventDataValue;
+import org.hisp.dhis.model.metadata.ImportStrategy;
 import org.hisp.dhis.model.relationship.Relationship;
 import org.hisp.dhis.model.relationship.RelationshipItem;
 import org.hisp.dhis.model.relationship.RelationshipsResult;

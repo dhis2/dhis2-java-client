@@ -32,7 +32,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hisp.dhis.model.IdScheme;
-import org.hisp.dhis.model.ImportStrategy;
+import org.hisp.dhis.model.metadata.ImportStrategy;
 
 @Getter
 @Setter
