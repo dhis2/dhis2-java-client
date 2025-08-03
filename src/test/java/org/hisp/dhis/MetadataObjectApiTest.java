@@ -100,6 +100,25 @@ class MetadataObjectApiTest {
     assertEquals(HttpStatus.OK, removeResponse.getHttpStatus());
   }
 
+  @Test
+  void testSaveExistingDataElementWithStrategyCreate() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    DataElement dataElement = new DataElement();
+    dataElement.setId("fbfJHSPpUQD");
+    dataElement.setName("ANC 1st visit");
+    dataElement.setShortName("ANC 1st visit");
+    dataElement.setValueType(ValueType.NUMBER);
+    dataElement.setAggregationType(AggregationType.SUM);
+    dataElement.setDomainType(DataDomain.AGGREGATE);
+
+    ObjectResponse response = dhis2.saveMetadataObject(dataElement);
+
+    assertEquals(Status.ERROR, response.getStatus());
+    assertEquals(HttpStatus.CONFLICT, response.getHttpStatus());
+    assertEquals(409, response.getHttpStatusCode());
+  }
+
   /**
    * Creates a {@link DataElement}.
    *
