@@ -121,6 +121,7 @@ import org.hisp.dhis.model.event.Events;
 import org.hisp.dhis.model.event.EventsResult;
 import org.hisp.dhis.model.metadata.ImportStrategy;
 import org.hisp.dhis.model.metadata.MetadataEntity;
+import org.hisp.dhis.model.metadata.MetadataImportParams;
 import org.hisp.dhis.model.relationship.RelationshipType;
 import org.hisp.dhis.model.relationship.RelationshipsResult;
 import org.hisp.dhis.model.trackedentity.TrackedEntitiesResult;
@@ -535,6 +536,21 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if unauthorized, access denied or resource not found.
    */
   public ObjectResponse saveMetadataObject(IdentifiableObject object) {
+    MetadataEntity entity = MetadataEntity.from(object);
+    String path = entity.getPath();
+
+    return saveObject(path, object, ObjectResponse.class);
+  }
+
+  /**
+   * Saves a metadata object using HTTP POST.
+   *
+   * @param object the object to save.
+   * @param params the {@link MetadataImportParams}.
+   * @return {@link ObjectResponse} holding information about the operation.
+   * @throws Dhis2ClientException if unauthorized, access denied or resource not found.
+   */
+  public ObjectResponse saveMetadataObject(IdentifiableObject object, MetadataImportParams params) {
     MetadataEntity entity = MetadataEntity.from(object);
     String path = entity.getPath();
 
