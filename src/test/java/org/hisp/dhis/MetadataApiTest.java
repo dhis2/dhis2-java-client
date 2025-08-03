@@ -39,7 +39,10 @@ import org.hisp.dhis.model.Dhis2Objects;
 import org.hisp.dhis.model.Option;
 import org.hisp.dhis.model.OptionSet;
 import org.hisp.dhis.model.ValueType;
+import org.hisp.dhis.model.metadata.ImportStrategy;
 import org.hisp.dhis.model.metadata.MetadataEntity;
+import org.hisp.dhis.model.metadata.MetadataImportParams;
+import org.hisp.dhis.query.tracker.AtomicMode;
 import org.hisp.dhis.response.HttpStatus;
 import org.hisp.dhis.response.Status;
 import org.hisp.dhis.response.object.ObjectResponse;
@@ -56,35 +59,11 @@ class MetadataApiTest {
   void testImportMetadata() {
     Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
 
-    Option oA = new Option();
-    oA.setId("AnxX8vfEzZE");
-    oA.setCode("ESPRESSO");
-    oA.setName("Espresso");
-
-    Option oB = new Option();
-    oB.setId("UxQR6MUFmhH");
-    oB.setCode("AMERICANO");
-    oB.setName("Americano");
-
-    Option oC = new Option();
-    oC.setId("kQYbXoTUVYL");
-    oC.setCode("CAPPUCINO");
-    oC.setName("Capuccino");
-
-    List<Option> options = List.of(oA, oB, oC);
-
-    OptionSet optionSet = new OptionSet();
-    optionSet.setId("gKdxTM8BcI7");
-    optionSet.setName("Coffee");
-    optionSet.setCode("COFFEE");
-    optionSet.setValueType(ValueType.TEXT);
-    optionSet.setOptions(options);
-
-    List<OptionSet> optionSets = List.of(optionSet);
+    OptionSet optionSet = getOptionSet();
 
     Dhis2Objects objects = new Dhis2Objects();
-    objects.setOptionSets(optionSets);
-    objects.setOptions(options);
+    objects.setOptionSets(List.of(optionSet));
+    objects.setOptions(optionSet.getOptions());
 
     ObjectsResponse response = dhis2.saveMetadataObjects(objects);
 
@@ -98,6 +77,39 @@ class MetadataApiTest {
 
     assertNotEmpty(response.getTypeReports());
     assertEquals(2, response.getTypeReports().size());
+
+    ObjectResponse removeResponse =
+        dhis2.removeMetadataObject(MetadataEntity.OPTION_SET, "gKdxTM8BcI7");
+
+    assertEquals(Status.OK, removeResponse.getStatus());
+    assertEquals(200, removeResponse.getHttpStatusCode());
+  }
+
+  @Test
+  void testImportMetadataWithParams() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    OptionSet optionSet = getOptionSet();
+
+    Dhis2Objects objects = new Dhis2Objects();
+    objects.setOptionSets(List.of(optionSet));
+    objects.setOptions(optionSet.getOptions());
+
+    MetadataImportParams params =
+        new MetadataImportParams()
+            .setImportStrategy(ImportStrategy.CREATE)
+            .setAtomicMode(AtomicMode.ALL);
+
+    ObjectsResponse response = dhis2.saveMetadataObjects(objects, params);
+
+    assertEquals(Status.OK, response.getStatus());
+    assertEquals(200, response.getHttpStatusCode());
+
+    ObjectResponse removeResponse =
+        dhis2.removeMetadataObject(MetadataEntity.OPTION_SET, "gKdxTM8BcI7");
+
+    assertEquals(Status.OK, removeResponse.getStatus());
+    assertEquals(200, removeResponse.getHttpStatusCode());
   }
 
   @Test
@@ -141,5 +153,38 @@ class MetadataApiTest {
 
     assertEquals(Status.OK, removeResponse.getStatus());
     assertEquals(HttpStatus.OK, removeResponse.getHttpStatus());
+  }
+
+  /**
+   * Returns an {@link OptionSet}.
+   *
+   * @return an {@link OptionSet}.
+   */
+  private OptionSet getOptionSet() {
+    Option oA = new Option();
+    oA.setId("AnxX8vfEzZE");
+    oA.setCode("ESPRESSO");
+    oA.setName("Espresso");
+
+    Option oB = new Option();
+    oB.setId("UxQR6MUFmhH");
+    oB.setCode("AMERICANO");
+    oB.setName("Americano");
+
+    Option oC = new Option();
+    oC.setId("kQYbXoTUVYL");
+    oC.setCode("CAPPUCINO");
+    oC.setName("Capuccino");
+
+    List<Option> options = List.of(oA, oB, oC);
+
+    OptionSet optionSet = new OptionSet();
+    optionSet.setId("gKdxTM8BcI7");
+    optionSet.setName("Coffee");
+    optionSet.setCode("COFFEE");
+    optionSet.setValueType(ValueType.TEXT);
+    optionSet.setOptions(options);
+
+    return optionSet;
   }
 }

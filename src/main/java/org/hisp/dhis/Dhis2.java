@@ -523,8 +523,21 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if unauthorized, access denied or resource not found.
    */
   public ObjectsResponse saveMetadataObjects(Dhis2Objects objects) {
+    URI url = withMetadataImportParams(config.getResolvedUriBuilder().appendPath(PATH_METADATA));
+    return executeJsonPostPutRequest(new HttpPost(url), objects, ObjectsResponse.class);
+  }
+
+  /**
+   * Saves or updates metadata objects.
+   *
+   * @param objects the {@link Dhis2Objects}.
+   * @param params the {@link MetadataImportParams}.
+   * @return {@link ObjectsResponse} holding information about the operation.
+   * @throws Dhis2ClientException if unauthorized, access denied or resource not found.
+   */
+  public ObjectsResponse saveMetadataObjects(Dhis2Objects objects, MetadataImportParams params) {
     URI url =
-        withMetadataImportQueryParams(config.getResolvedUriBuilder().appendPath(PATH_METADATA));
+        withMetadataImportParams(config.getResolvedUriBuilder().appendPath(PATH_METADATA), params);
     return executeJsonPostPutRequest(new HttpPost(url), objects, ObjectsResponse.class);
   }
 
@@ -551,7 +564,6 @@ public class Dhis2 extends BaseDhis2 {
     MetadataEntity entity = MetadataEntity.from(object);
     String path = entity.getPath();
     URI url = withMetadataImportParams(config.getResolvedUriBuilder().appendPath(path), params);
-    System.out.println(url);
 
     return executeJsonPostPutRequest(new HttpPost(url), object, ObjectResponse.class);
   }
