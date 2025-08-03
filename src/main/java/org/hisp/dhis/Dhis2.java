@@ -551,6 +551,7 @@ public class Dhis2 extends BaseDhis2 {
     MetadataEntity entity = MetadataEntity.from(object);
     String path = entity.getPath();
     URI url = withMetadataImportParams(config.getResolvedUriBuilder().appendPath(path), params);
+    System.out.println(url);
 
     return executeJsonPostPutRequest(new HttpPost(url), object, ObjectResponse.class);
   }
