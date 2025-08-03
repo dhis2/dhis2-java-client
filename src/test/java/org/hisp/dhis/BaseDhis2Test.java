@@ -93,6 +93,7 @@ class BaseDhis2Test {
 
   @Test
   void testGetMetadataImportQuery() throws Exception {
+    Dhis2Config config = new Dhis2Config("https://server.org", "admin", "distrct");
     Dhis2 dhis2 = new Dhis2(new Dhis2Config("https://server.org", "admin", "distrct"));
 
     URI expected =
@@ -104,6 +105,6 @@ class BaseDhis2Test {
         &skipSharing=false\
         &async=false""");
 
-    assertEquals(expected, dhis2.getMetadataImportQuery());
+    assertEquals(expected, dhis2.getMetadataImportQuery(config.getResolvedUriBuilder()));
   }
 }

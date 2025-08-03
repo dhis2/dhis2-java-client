@@ -523,9 +523,8 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if unauthorized, access denied or resource not found.
    */
   public ObjectsResponse saveMetadataObjects(Dhis2Objects objects) {
-
-    return executeJsonPostPutRequest(
-        new HttpPost(getMetadataImportQuery()), objects, ObjectsResponse.class);
+    URI url = getMetadataImportQuery(config.getResolvedUriBuilder().appendPath(PATH_METADATA));
+    return executeJsonPostPutRequest(new HttpPost(url), objects, ObjectsResponse.class);
   }
 
   /**

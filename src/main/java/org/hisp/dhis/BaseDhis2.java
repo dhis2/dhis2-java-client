@@ -338,11 +338,11 @@ public class BaseDhis2 {
   /**
    * Returns a metadata import {@link URI} with default parameters.
    *
+   * @param uriBuilder the URI builder.
    * @return a {@link URI}.
    */
-  protected URI getMetadataImportQuery() {
-    return withMetadataImportParams(
-        config.getResolvedUriBuilder().appendPath(PATH_METADATA), new MetadataImportParams());
+  protected URI getMetadataImportQuery(URIBuilder uriBuilder) {
+    return withMetadataImportParams(uriBuilder, new MetadataImportParams());
   }
 
   /**
