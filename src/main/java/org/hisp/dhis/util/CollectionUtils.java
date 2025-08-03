@@ -176,7 +176,8 @@ public class CollectionUtils {
    * Returns a new mutable map with the items in the given collection as values, indexed by keys
    * derived from those values using the given key function. *
    *
-   * @param <T> type.
+   * @param <K> key type.
+   * @param <V> value type.
    * @param collection the collection.
    * @param keyFunction the key function.
    * @return a new mutable map.
