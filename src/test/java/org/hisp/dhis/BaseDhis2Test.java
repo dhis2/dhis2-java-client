@@ -32,6 +32,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.io.IOException;
 import java.net.URI;
+import org.apache.hc.core5.net.URIBuilder;
 import org.hisp.dhis.model.AggregationType;
 import org.hisp.dhis.model.DataDomain;
 import org.hisp.dhis.model.DataElement;
@@ -92,8 +93,10 @@ class BaseDhis2Test {
   }
 
   @Test
-  void testGetMetadataImportUrl() throws Exception {
+  void testWithMetadataImportQueryParams() throws Exception {
+    Dhis2Config config = new Dhis2Config("https://server.org", "admin", "distrct");
     Dhis2 dhis2 = new Dhis2(new Dhis2Config("https://server.org", "admin", "distrct"));
+    URIBuilder uriBuilder = config.getResolvedUriBuilder().appendPath("metadata");
 
     URI expected =
         new URI(
@@ -104,6 +107,6 @@ class BaseDhis2Test {
         &skipSharing=false\
         &async=false""");
 
-    assertEquals(expected, dhis2.getMetadataImportUrl());
+    assertEquals(expected, dhis2.withMetadataImportQueryParams(uriBuilder));
   }
 }

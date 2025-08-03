@@ -202,7 +202,7 @@ public class BaseDhis2 {
    * @throws Dhis2ClientException if unauthorized, access denied or resource not found.
    */
   protected <T> T getObject(URIBuilder uriBuilder, Query query, Class<T> type) {
-    URI url = getObjectQuery(uriBuilder, query);
+    URI url = withObjectQueryParams(uriBuilder, query);
 
     return getObjectFromUrl(url, type);
   }
@@ -270,7 +270,7 @@ public class BaseDhis2 {
    * @param query the {@link Query} filters to apply.
    * @return a URI.
    */
-  protected URI getObjectQuery(URIBuilder uriBuilder, Query query) {
+  protected URI withObjectQueryParams(URIBuilder uriBuilder, Query query) {
     for (Filter filter : query.getFilters()) {
       Object value = getQueryValue(filter);
       String filterValue =
@@ -338,11 +338,11 @@ public class BaseDhis2 {
   /**
    * Returns a metadata import {@link URI} with default parameters.
    *
+   * @param uriBuilder the URI builder.
    * @return a {@link URI}.
    */
-  protected URI getMetadataImportUrl() {
-    return getMetadataImportUrl(
-        config.getResolvedUriBuilder().appendPath(PATH_METADATA), new MetadataImportParams());
+  protected URI withMetadataImportQueryParams(URIBuilder uriBuilder) {
+    return withMetadataImportParams(uriBuilder, new MetadataImportParams());
   }
 
   /**
@@ -352,7 +352,7 @@ public class BaseDhis2 {
    * @param params the {@link MetadataImportParams} to apply.
    * @return a {@link URI}.
    */
-  protected URI getMetadataImportUrl(URIBuilder uriBuilder, MetadataImportParams params) {
+  protected URI withMetadataImportParams(URIBuilder uriBuilder, MetadataImportParams params) {
     addParameter(uriBuilder, "importStrategy", params.getImportStrategy());
     addParameter(uriBuilder, "atomicMode", params.getAtomicMode());
     addParameter(uriBuilder, "skipSharing", params.getSkipSharing());
@@ -369,7 +369,7 @@ public class BaseDhis2 {
    * @return the object.
    */
   protected DataValueSet getDataValueSetResponse(URIBuilder uriBuilder, DataValueSetQuery query) {
-    URI url = getDataValueSetQuery(uriBuilder, query);
+    URI url = withDataValueSetQueryParams(uriBuilder, query);
     return getObjectFromUrl(url, DataValueSet.class);
   }
 
@@ -382,7 +382,7 @@ public class BaseDhis2 {
    */
   protected Validation getDataSetValidationResponse(
       URIBuilder uriBuilder, DataSetValidationQuery query) {
-    URI url = getDataSetValidationQuery(uriBuilder, query);
+    URI url = withDataSetValidationQueryParams(uriBuilder, query);
     return getObjectFromUrl(url, Validation.class);
   }
 
@@ -394,7 +394,7 @@ public class BaseDhis2 {
    * @return the object.
    */
   protected String getDataValueFileResponse(URIBuilder uriBuilder, DataValueQuery query) {
-    URI url = getDataValueQuery(uriBuilder, query);
+    URI url = withDataValueQueryParams(uriBuilder, query);
     return getObjectFromUrl(url, String.class);
   }
 
@@ -408,7 +408,7 @@ public class BaseDhis2 {
    * @return the object.
    */
   protected <T> T getAnalyticsResponse(URIBuilder uriBuilder, AnalyticsQuery query, Class<T> type) {
-    URI url = getAnalyticsQuery(uriBuilder, query);
+    URI url = withAnalyticsQueryParams(uriBuilder, query);
 
     return getObjectFromUrl(url, type);
   }
@@ -420,7 +420,7 @@ public class BaseDhis2 {
    * @param query the {@link AnalyticsQuery} filters to apply.
    * @return a {@link URI}.
    */
-  protected URI getAnalyticsQuery(URIBuilder uriBuilder, AnalyticsQuery query) {
+  protected URI withAnalyticsQueryParams(URIBuilder uriBuilder, AnalyticsQuery query) {
     for (Dimension dimension : query.getDimensions()) {
       addParameter(uriBuilder, "dimension", dimension.getDimensionValue());
     }
@@ -463,7 +463,7 @@ public class BaseDhis2 {
    * @param options the {@link DataValueSetImportOptions} to apply.
    * @return a {@link URI}.
    */
-  protected URI getDataValueSetImportQuery(
+  protected URI withDataValueSetImportParams(
       URIBuilder uriBuilder, DataValueSetImportOptions options) {
     addParameter(uriBuilder, "async", "true"); // Always use async
     addParameter(uriBuilder, "dataElementIdScheme", options.getDataElementIdScheme());
@@ -491,7 +491,7 @@ public class BaseDhis2 {
       HttpEntity entity, CompleteDataSetRegistrationImportOptions options) {
     URIBuilder builder = config.getResolvedUriBuilder().appendPath("completeDataSetRegistrations");
 
-    URI url = getCompleteDataSetRegistrationsImportQuery(builder, options);
+    URI url = withCompleteDataSetRegistrationsImportQueryParams(builder, options);
 
     HttpPost request = getPostRequest(url, entity);
 
@@ -508,7 +508,7 @@ public class BaseDhis2 {
    * @return an {@link EventsResult}.
    */
   protected EventsResult getEventsResult(URIBuilder uriBuilder, EventQuery query) {
-    URI url = getEventsQuery(uriBuilder, query);
+    URI url = withEventQueryParams(uriBuilder, query);
     return getObjectFromUrl(url, EventsResult.class);
   }
 
@@ -519,7 +519,7 @@ public class BaseDhis2 {
    * @param query the {@link EventQuery}.
    * @return an {@link URI}.
    */
-  protected URI getEventsQuery(URIBuilder uriBuilder, EventQuery query) {
+  protected URI withEventQueryParams(URIBuilder uriBuilder, EventQuery query) {
     addParameter(uriBuilder, "program", query.getProgram());
     addParameter(uriBuilder, "programStage", query.getProgramStage());
     addParameter(uriBuilder, "programStatus", query.getProgramStatus());
@@ -557,7 +557,7 @@ public class BaseDhis2 {
    */
   protected TrackedEntitiesResult getTrackedEntitiesResult(
       URIBuilder uriBuilder, TrackedEntityQuery query) {
-    URI url = getTrackedEntityQuery(uriBuilder, query);
+    URI url = withTrackedEntityQueryParams(uriBuilder, query);
     return getObjectFromUrl(url, TrackedEntitiesResult.class);
   }
 
@@ -568,7 +568,7 @@ public class BaseDhis2 {
    * @param query the {@link TrackedEntityQuery}.
    * @return a {@link URIBuilder}.
    */
-  protected URI getTrackedEntityQuery(URIBuilder uriBuilder, TrackedEntityQuery query) {
+  protected URI withTrackedEntityQueryParams(URIBuilder uriBuilder, TrackedEntityQuery query) {
     addParameterList(uriBuilder, "orgUnits", query.getOrgUnits());
     addParameter(uriBuilder, "orgUnitMode", query.getOrgUnitMode());
     addParameter(uriBuilder, "program", query.getProgram());
@@ -624,7 +624,7 @@ public class BaseDhis2 {
    * @return a {@link EnrollmentsResult}.
    */
   protected EnrollmentsResult getEnrollmentResult(URIBuilder uriBuilder, EnrollmentQuery query) {
-    URI url = getEnrollmentQuery(uriBuilder, query);
+    URI url = withEnrollmentQueryParams(uriBuilder, query);
     return getObjectFromUrl(url, EnrollmentsResult.class);
   }
 
@@ -635,7 +635,7 @@ public class BaseDhis2 {
    * @param query the {@link EnrollmentQuery}.
    * @return a {@link URI}.
    */
-  protected URI getEnrollmentQuery(URIBuilder uriBuilder, EnrollmentQuery query) {
+  protected URI withEnrollmentQueryParams(URIBuilder uriBuilder, EnrollmentQuery query) {
     addParameterList(uriBuilder, "orgUnits", query.getOrgUnits());
     addParameter(uriBuilder, "orgUnitMode", query.getOrgUnitMode());
     addParameter(uriBuilder, "program", query.getProgram());
@@ -661,7 +661,7 @@ public class BaseDhis2 {
    * @param query the {@link RelationshipQuery}.
    * @return a {@link URI}.
    */
-  protected URI getRelationshipQuery(URIBuilder uriBuilder, RelationshipQuery query) {
+  protected URI withRelationshipQueryParams(URIBuilder uriBuilder, RelationshipQuery query) {
     addParameter(uriBuilder, "trackedEntity", query.getTrackedEntity());
     addParameter(uriBuilder, "enrollment", query.getEnrollment());
     addParameter(uriBuilder, "event", query.getEvent());
@@ -679,7 +679,7 @@ public class BaseDhis2 {
    * @param query the {@link TrackedEntityImportParams}.
    * @return the {@link URIBuilder}.
    */
-  protected URIBuilder addTrackedEntityImportParams(
+  protected URIBuilder withTrackedEntityImportParams(
       URIBuilder uriBuilder, TrackedEntityImportParams query) {
     addParameter(uriBuilder, "reportMode", query.getReportMode());
     addParameter(uriBuilder, "importMode", query.getImportMode());
@@ -708,7 +708,7 @@ public class BaseDhis2 {
    * @param query the {@link DataValueSetQuery}.
    * @return a URI.
    */
-  protected URI getDataValueSetQuery(URIBuilder uriBuilder, DataValueSetQuery query) {
+  protected URI withDataValueSetQueryParams(URIBuilder uriBuilder, DataValueSetQuery query) {
     for (String dataElement : query.getDataElements()) {
       addParameter(uriBuilder, "dataElement", dataElement);
     }
@@ -770,8 +770,7 @@ public class BaseDhis2 {
    * @param query the {@link DataValueQuery}.
    * @return a URI.
    */
-  protected URI getDataValueQuery(URIBuilder uriBuilder, DataValueQuery query) {
-
+  protected URI withDataValueQueryParams(URIBuilder uriBuilder, DataValueQuery query) {
     addParameter(uriBuilder, "de", query.getDe());
     addParameter(uriBuilder, "pe", query.getPe());
     addParameter(uriBuilder, "ou", query.getOu());
@@ -794,7 +793,8 @@ public class BaseDhis2 {
    * @param query the {@link DataSetValidationQuery}.
    * @return a URI.
    */
-  protected URI getDataSetValidationQuery(URIBuilder uriBuilder, DataSetValidationQuery query) {
+  protected URI withDataSetValidationQueryParams(
+      URIBuilder uriBuilder, DataSetValidationQuery query) {
     addParameter(uriBuilder, "pe", query.getPe());
     addParameter(uriBuilder, "ou", query.getOu());
 
@@ -808,7 +808,7 @@ public class BaseDhis2 {
    * @param query the {@link CompleteDataSetRegistrationQuery}.
    * @return a URI.
    */
-  protected URI getCompleteDataSetRegistrationQuery(
+  protected URI withCompleteDataSetRegistrationQueryParams(
       URIBuilder uriBuilder, CompleteDataSetRegistrationQuery query) {
     for (String dataSet : query.getDataSets()) {
       addParameter(uriBuilder, "dataSet", dataSet);
@@ -846,7 +846,7 @@ public class BaseDhis2 {
    * @param options the {@link CompleteDataSetRegistrationImportOptions} to apply.
    * @return a URI.
    */
-  private URI getCompleteDataSetRegistrationsImportQuery(
+  private URI withCompleteDataSetRegistrationsImportQueryParams(
       URIBuilder uriBuilder, CompleteDataSetRegistrationImportOptions options) {
     addParameter(uriBuilder, "async", "true"); // Always use async
     addParameter(uriBuilder, "dataSetIdScheme", options.getDataSetIdScheme());
