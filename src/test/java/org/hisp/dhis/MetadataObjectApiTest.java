@@ -57,7 +57,7 @@ class MetadataObjectApiTest {
     String uidA = UidUtils.generateUid();
     String uidB = UidUtils.generateUid();
     MetadataEntity entity = MetadataEntity.DATA_ELEMENT;
-    DataElement object = getDataElement(uidA);
+    DataElement object = getNewDataElement(uidA);
 
     // Save
 
@@ -104,15 +104,7 @@ class MetadataObjectApiTest {
   void testSaveExistingDataElementWithStrategyCreate() {
     Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
 
-    DataElement dataElement = new DataElement();
-    dataElement.setId("fbfJHSPpUQD");
-    dataElement.setName("ANC 1st visit");
-    dataElement.setShortName("ANC 1st visit");
-    dataElement.setValueType(ValueType.NUMBER);
-    dataElement.setAggregationType(AggregationType.SUM);
-    dataElement.setDomainType(DataDomain.AGGREGATE);
-
-    ObjectResponse response = dhis2.saveMetadataObject(dataElement);
+    ObjectResponse response = dhis2.saveMetadataObject(getExistingDataElement());
 
     assertEquals(Status.ERROR, response.getStatus());
     assertEquals(HttpStatus.CONFLICT, response.getHttpStatus());
@@ -125,7 +117,7 @@ class MetadataObjectApiTest {
    * @param uid the identifier.
    * @return a {@link DataElement}.
    */
-  private DataElement getDataElement(String uid) {
+  private DataElement getNewDataElement(String uid) {
     DataElement object = new DataElement();
     object.setId(uid);
     object.setCode(uid);
@@ -135,5 +127,21 @@ class MetadataObjectApiTest {
     object.setAggregationType(AggregationType.SUM);
     object.setDomainType(DataDomain.AGGREGATE);
     return object;
+  }
+
+  /**
+   * Creates an existing {@link DataElement}.
+   *
+   * @return a {@link DataElement}.
+   */
+  private DataElement getExistingDataElement() {
+    DataElement dataElement = new DataElement();
+    dataElement.setId("fbfJHSPpUQD");
+    dataElement.setName("ANC 1st visit");
+    dataElement.setShortName("ANC 1st visit");
+    dataElement.setValueType(ValueType.NUMBER);
+    dataElement.setAggregationType(AggregationType.SUM);
+    dataElement.setDomainType(DataDomain.AGGREGATE);
+    return dataElement;
   }
 }
