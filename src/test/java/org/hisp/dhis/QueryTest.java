@@ -73,7 +73,7 @@ class QueryTest {
             .setOrder(Order.desc("code"))
             .setPaging(2, 100);
 
-    URI uri = dhis2.getObjectQuery(uriBuilder, query);
+    URI uri = dhis2.withObjectQueryParams(uriBuilder, query);
 
     String expected =
         """
@@ -100,7 +100,7 @@ class QueryTest {
             .addOrder(Order.desc("uid"))
             .setPaging(4, 50);
 
-    URI uri = dhis2.getObjectQuery(uriBuilder, query);
+    URI uri = dhis2.withObjectQueryParams(uriBuilder, query);
 
     String expected =
         """
@@ -125,7 +125,7 @@ class QueryTest {
             .addOrder(Order.asc("id"))
             .setPaging(1, 50);
 
-    URI uri = dhis2.getObjectQuery(uriBuilder, query);
+    URI uri = dhis2.withObjectQueryParams(uriBuilder, query);
 
     String expected =
         """
@@ -146,7 +146,7 @@ class QueryTest {
 
     Query query = Query.instance().addFilter(Filter.like("name", "TB")).setMaxResults(100);
 
-    URI uri = dhis2.getObjectQuery(uriBuilder, query);
+    URI uri = dhis2.withObjectQueryParams(uriBuilder, query);
 
     String expected =
         """
@@ -172,7 +172,7 @@ class QueryTest {
             .setPreheatCache(true)
             .setSkipAudit(true);
 
-    URI uri = dhis2.getDataValueSetImportQuery(uriBuilder, options);
+    URI uri = dhis2.withDataValueSetImportParams(uriBuilder, options);
 
     String expected =
         """
@@ -199,7 +199,7 @@ class QueryTest {
             .setOutputIdScheme(IdScheme.UID)
             .setColumns(List.of("dx", "pe"));
 
-    URI uri = dhis2.getAnalyticsQuery(uriBuilder, query);
+    URI uri = dhis2.withAnalyticsQueryParams(uriBuilder, query);
 
     String expected =
         """
@@ -229,7 +229,7 @@ class QueryTest {
             .setFollowUp(true)
             .setIdScheme(IdScheme.CODE);
 
-    URI uri = dhis2.getEventsQuery(uriBuilder, query);
+    URI uri = dhis2.withEventQueryParams(uriBuilder, query);
 
     String expected =
         """
@@ -262,7 +262,7 @@ class QueryTest {
         dataElement=N9vniUuCcqY&orgUnit=ImspTQPwCqd\
         &period=202211&children=true""";
 
-    URI uri = dhis2.getDataValueSetQuery(uriBuilder, query);
+    URI uri = dhis2.withDataValueSetQueryParams(uriBuilder, query);
 
     assertEquals(expected, uri.toString());
   }

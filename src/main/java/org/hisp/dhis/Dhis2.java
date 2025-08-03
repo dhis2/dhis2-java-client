@@ -525,7 +525,7 @@ public class Dhis2 extends BaseDhis2 {
   public ObjectsResponse saveMetadataObjects(Dhis2Objects objects) {
 
     return executeJsonPostPutRequest(
-        new HttpPost(getMetadataImportUrl()), objects, ObjectsResponse.class);
+        new HttpPost(getMetadataImportQuery()), objects, ObjectsResponse.class);
   }
 
   /**
@@ -3133,7 +3133,7 @@ public class Dhis2 extends BaseDhis2 {
       DataValueSet dataValueSet, DataValueSetImportOptions options) {
     URIBuilder builder = config.getResolvedUriBuilder().appendPath("dataValueSets");
 
-    URI url = getDataValueSetImportQuery(builder, options);
+    URI url = withDataValueSetImportParams(builder, options);
 
     HttpPost request =
         getPostRequest(url, new StringEntity(toJsonString(dataValueSet), StandardCharsets.UTF_8));
@@ -3153,7 +3153,7 @@ public class Dhis2 extends BaseDhis2 {
   public DataValueSetResponse saveDataValueSet(File file, DataValueSetImportOptions options) {
     URIBuilder builder = config.getResolvedUriBuilder().appendPath("dataValueSets");
 
-    URI url = getDataValueSetImportQuery(builder, options);
+    URI url = withDataValueSetImportParams(builder, options);
 
     HttpPost request = getPostRequest(url, new FileEntity(file, ContentType.APPLICATION_JSON));
 
@@ -3173,7 +3173,7 @@ public class Dhis2 extends BaseDhis2 {
       InputStream inputStream, DataValueSetImportOptions options) {
     URIBuilder builder = config.getResolvedUriBuilder().appendPath("dataValueSets");
 
-    URI url = getDataValueSetImportQuery(builder, options);
+    URI url = withDataValueSetImportParams(builder, options);
 
     HttpPost request =
         getPostRequest(url, new InputStreamEntity(inputStream, ContentType.APPLICATION_JSON));
@@ -3246,7 +3246,7 @@ public class Dhis2 extends BaseDhis2 {
    */
   public int writeAnalyticsDataValueSet(AnalyticsQuery query, File file) {
     URI url =
-        getAnalyticsQuery(
+        withAnalyticsQueryParams(
             config
                 .getResolvedUriBuilder()
                 .appendPath(PATH_ANALYTICS)
@@ -3283,7 +3283,7 @@ public class Dhis2 extends BaseDhis2 {
     URIBuilder uriBuilder =
         config.getResolvedUriBuilder().appendPath("completeDataSetRegistrations");
 
-    URI uri = getCompleteDataSetRegistrationQuery(uriBuilder, query);
+    URI uri = withCompleteDataSetRegistrationQueryParams(uriBuilder, query);
 
     return getObjectFromUrl(uri, Dhis2Objects.class).getCompleteDataSetRegistrations();
   }
@@ -3468,7 +3468,7 @@ public class Dhis2 extends BaseDhis2 {
   public TrackedEntityResponse saveTrackedEntityObjects(
       TrackedEntityObjects trackedEntityObjects, TrackedEntityImportParams params) {
     URIBuilder uriBuilder =
-        addTrackedEntityImportParams(
+        withTrackedEntityImportParams(
             config.getResolvedUriBuilder().appendPath(PATH_TRACKER).addParameter("async", "false"),
             params);
 
@@ -3568,7 +3568,7 @@ public class Dhis2 extends BaseDhis2 {
     URIBuilder uriBuilder =
         config.getResolvedUriBuilder().appendPath(PATH_TRACKER).appendPath("relationships");
 
-    URI url = getRelationshipQuery(uriBuilder, query);
+    URI url = withRelationshipQueryParams(uriBuilder, query);
 
     return getObjectFromUrl(url, RelationshipsResult.class);
   }
