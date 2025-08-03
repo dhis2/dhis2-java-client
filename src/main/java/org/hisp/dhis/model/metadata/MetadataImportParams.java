@@ -53,4 +53,22 @@ public class MetadataImportParams {
     this.skipSharing = false;
     this.async = false;
   }
+
+  /**
+   * Returns the default parameters for single metadata object import.
+   *
+   * @return the {@link MetadataImportParams}.
+   */
+  public static MetadataImportParams singleObjectParams() {
+    return new MetadataImportParams().setImportStrategy(ImportStrategy.CREATE);
+  }
+
+  /**
+   * Returns the default parameters for multiple metadata objects import.
+   *
+   * @return the {@link MetadataImportParams}.
+   */
+  public static MetadataImportParams multiObjectParams() {
+    return new MetadataImportParams();
+  }
 }
