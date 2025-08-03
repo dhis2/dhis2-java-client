@@ -341,7 +341,7 @@ public class BaseDhis2 {
    * @param uriBuilder the URI builder.
    * @return a {@link URI}.
    */
-  protected URI getMetadataImportQuery(URIBuilder uriBuilder) {
+  protected URI withMetadataImportQueryParams(URIBuilder uriBuilder) {
     return withMetadataImportParams(uriBuilder, new MetadataImportParams());
   }
 
