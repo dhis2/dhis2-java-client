@@ -167,4 +167,21 @@ class DataElementApiTest {
     assertEquals(Status.OK, removeResponse.getStatus());
     assertEquals(HttpStatus.OK, removeResponse.getHttpStatus());
   }
+
+  @Test
+  void testSaveExistingDataElement() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    DataElement dataElement = new DataElement();
+    dataElement.setId("fbfJHSPpUQD");
+    dataElement.setName("ANC 1st visit");
+    dataElement.setShortName("ANC 1st visit");
+    dataElement.setValueType(ValueType.NUMBER);
+    dataElement.setAggregationType(AggregationType.SUM);
+    dataElement.setDomainType(DataDomain.AGGREGATE);
+
+    ObjectResponse saveDataElement = dhis2.saveDataElement(dataElement);
+
+    System.out.println(saveDataElement);
+  }
 }
