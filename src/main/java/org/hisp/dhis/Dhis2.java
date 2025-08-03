@@ -536,7 +536,7 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if unauthorized, access denied or resource not found.
    */
   public ObjectResponse saveMetadataObject(IdentifiableObject object) {
-    return saveMetadataObject(object, new MetadataImportParams());
+    return saveMetadataObject(object, MetadataImportParams.singleObjectParams());
   }
 
   /**
