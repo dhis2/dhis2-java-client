@@ -46,7 +46,7 @@ public class MetadataImportParams {
 
   @JsonProperty private Boolean async;
 
-  /** Constructor. Sets default values. */
+  /** Constructor. Creates an instance with default values set. */
   public MetadataImportParams() {
     this.importStrategy = ImportStrategy.CREATE_AND_UPDATE;
     this.atomicMode = AtomicMode.ALL;
