@@ -28,8 +28,14 @@
 package org.hisp.dhis.model.metadata;
 
 public enum ImportStrategy {
+  /** Create ojects only. */
   CREATE,
+  /*
+   * Update objects only.
+   */
   UPDATE,
+  /** Create and update objects. */
   CREATE_AND_UPDATE,
+  /** Delete objects only. */
   DELETE
 }

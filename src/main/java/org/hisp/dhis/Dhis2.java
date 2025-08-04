@@ -516,19 +516,23 @@ public class Dhis2 extends BaseDhis2 {
   // -------------------------------------------------------------------------
 
   /**
-   * Saves or updates metadata objects.
+   * Saves or updates metadata objects. This method uses the DHIS2 metadata importer with import
+   * strategy {@link ImportStrategy#CREATE_AND_UPDATE}.
    *
    * @param objects the {@link Dhis2Objects}.
    * @return {@link ObjectsResponse} holding information about the operation.
    * @throws Dhis2ClientException if unauthorized, access denied or resource not found.
    */
   public ObjectsResponse saveMetadataObjects(Dhis2Objects objects) {
-    URI url = withMetadataImportParams(config.getResolvedUriBuilder().appendPath(PATH_METADATA));
-    return executeJsonPostPutRequest(new HttpPost(url), objects, ObjectsResponse.class);
+    URIBuilder uriBuilder = config.getResolvedUriBuilder().appendPath(PATH_METADATA);
+    HttpPost request = new HttpPost(withMetadataImportParams(uriBuilder));
+
+    return executeJsonPostPutRequest(request, objects, ObjectsResponse.class);
   }
 
   /**
-   * Saves or updates metadata objects.
+   * Saves or updates metadata objects. This method uses the DHIS2 metadata importer and uses the
+   * specified {@ølink MetadataImportParams}.
    *
    * @param objects the {@link Dhis2Objects}.
    * @param params the {@link MetadataImportParams}.
@@ -536,9 +540,10 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if unauthorized, access denied or resource not found.
    */
   public ObjectsResponse saveMetadataObjects(Dhis2Objects objects, MetadataImportParams params) {
-    URI url =
-        withMetadataImportParams(config.getResolvedUriBuilder().appendPath(PATH_METADATA), params);
-    return executeJsonPostPutRequest(new HttpPost(url), objects, ObjectsResponse.class);
+    URIBuilder uriBuilder = config.getResolvedUriBuilder().appendPath(PATH_METADATA);
+    HttpPost request = new HttpPost(withMetadataImportParams(uriBuilder, params));
+
+    return executeJsonPostPutRequest(request, objects, ObjectsResponse.class);
   }
 
   /**
@@ -549,7 +554,9 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if unauthorized, access denied or resource not found.
    */
   public ObjectResponse saveMetadataObject(IdentifiableObject object) {
-    return saveMetadataObject(object, MetadataImportParams.singleObjectParams());
+    MetadataEntity entity = MetadataEntity.from(object);
+    String path = entity.getPath();
+    return saveObject(path, object, ObjectResponse.class);
   }
 
   /**
