@@ -43,7 +43,8 @@ import org.hisp.dhis.response.object.ObjectResponse;
 import org.hisp.dhis.util.CollectionUtils;
 
 public class Assertions {
-  private static final String NULL_MESSAGE = "Actual collection is null";
+  private static final String NULL_COLLECTION_MSG = "Actual collection is null";
+  private static final String NULL_VALUE_MSG = "Actual value is null";
 
   /**
    * Asserts that the actual collection contains exactly the expected items.
@@ -54,7 +55,7 @@ public class Assertions {
    */
   @SafeVarargs
   public static <E> void assertContainsExactly(Collection<E> actual, E... expected) {
-    assertNotNull(actual, NULL_MESSAGE);
+    assertNotNull(actual, NULL_COLLECTION_MSG);
     assertContains(actual, expected);
 
     List<E> expected_ = CollectionUtils.list(expected);
@@ -78,7 +79,7 @@ public class Assertions {
    */
   @SafeVarargs
   public static <E> void assertContainsExactlyInOrder(List<E> actual, E... expected) {
-    assertNotNull(actual, NULL_MESSAGE);
+    assertNotNull(actual, NULL_COLLECTION_MSG);
     assertContainsExactly(actual, expected);
 
     List<E> expected_ = CollectionUtils.list(expected);
@@ -103,7 +104,7 @@ public class Assertions {
    */
   @SafeVarargs
   public static <E> void assertContains(Collection<E> actual, E... expected) {
-    assertNotNull(actual, NULL_MESSAGE);
+    assertNotNull(actual, NULL_COLLECTION_MSG);
 
     for (E item : expected) {
       String message =
@@ -123,7 +124,7 @@ public class Assertions {
    */
   @SafeVarargs
   public static <E> void assertNotContains(Collection<E> actual, E... expected) {
-    assertNotNull(actual, NULL_MESSAGE);
+    assertNotNull(actual, NULL_COLLECTION_MSG);
 
     for (E item : expected) {
       String message =
@@ -139,7 +140,7 @@ public class Assertions {
    * @param actual the collection.
    */
   public static void assertEmpty(Collection<?> actual) {
-    assertNotNull(actual, NULL_MESSAGE);
+    assertNotNull(actual, NULL_COLLECTION_MSG);
     assertEquals(
         0, actual.size(), format("Actual collection is not empty with size: %d", actual.size()));
   }
@@ -150,7 +151,7 @@ public class Assertions {
    * @param actual the collection.
    */
   public static void assertNotEmpty(Collection<?> actual) {
-    assertNotNull(actual, NULL_MESSAGE);
+    assertNotNull(actual, NULL_COLLECTION_MSG);
     assertTrue(!actual.isEmpty());
   }
 
@@ -160,7 +161,7 @@ public class Assertions {
    * @param actual the collection.
    */
   public static void assertNotEmpty(Map<?, ?> actual) {
-    assertNotNull(actual, NULL_MESSAGE);
+    assertNotNull(actual, NULL_COLLECTION_MSG);
     assertTrue(!actual.isEmpty());
   }
 
@@ -171,7 +172,7 @@ public class Assertions {
    * @param actual the collection.
    */
   public static void assertSize(int expected, Collection<?> actual) {
-    assertNotNull(actual, NULL_MESSAGE);
+    assertNotNull(actual, NULL_COLLECTION_MSG);
     assertEquals(expected, actual.size());
   }
 
@@ -183,18 +184,28 @@ public class Assertions {
    * @param predicate the {@link Predicate}.
    */
   public static <E> void assertContains(Collection<E> actual, Predicate<E> predicate) {
-    assertNotNull(actual, NULL_MESSAGE);
+    assertNotNull(actual, NULL_COLLECTION_MSG);
     assertTrue(actual.stream().anyMatch(predicate), "No item in actual matches predicate");
   }
 
   /**
-   * Asserts that the given string neither null, a length of zero nor whitespace only.
+   * Asserts that the given string is not null, a length of zero nor whitespace only.
    *
    * @param actual the string.
    */
   public static void assertNotBlank(String actual) {
-    assertNotNull(actual);
-    assertTrue(!actual.isBlank());
+    assertNotNull(actual, NULL_VALUE_MSG);
+    assertTrue(!actual.isBlank(), "Value is blank");
+  }
+
+  /**
+   * Asserts that the given integer is not null and greater than zero.
+   *
+   * @param actual the integer.
+   */
+  public static void assertGreaterThanZero(Integer actual) {
+    assertNotNull(actual, NULL_VALUE_MSG);
+    assertTrue(actual > 0, "Value is not greater than zero");
   }
 
   /**
