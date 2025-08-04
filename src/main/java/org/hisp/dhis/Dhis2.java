@@ -532,7 +532,7 @@ public class Dhis2 extends BaseDhis2 {
 
   /**
    * Saves or updates metadata objects. This method uses the DHIS2 metadata importer and uses the
-   * specified {@ølink MetadataImportParams}.
+   * specified {@link MetadataImportParams}.
    *
    * @param objects the {@link Dhis2Objects}.
    * @param params the {@link MetadataImportParams}.
