@@ -122,7 +122,7 @@ public class DateTimeUtils {
    * @return a {@link LocalDateTime}.
    */
   public static LocalDateTime toLocalDateTime(String string) {
-    string = TextUtils.removeEnd(string, "z");
+    string = TextUtils.removeEnd(string, "Z");
 
     return LocalDateTime.parse(string);
   }
