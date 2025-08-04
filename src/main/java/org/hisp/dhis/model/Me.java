@@ -27,6 +27,9 @@
  */
 package org.hisp.dhis.model;
 
+import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.HashSet;
 import java.util.Set;
@@ -49,13 +52,24 @@ public class Me extends IdentifiableObject {
 
   @JsonProperty private UserSettings settings;
 
-  @JsonProperty private Set<String> programs = new HashSet<>();
-
-  @JsonProperty private Set<String> dataSets = new HashSet<>();
-
   @JsonProperty private Set<String> authorities = new HashSet<>();
 
   @JsonProperty private Set<OrgUnit> organisationUnits = new HashSet<>();
 
   @JsonProperty private Set<OrgUnit> dataViewOrganisationUnits = new HashSet<>();
+
+  @JsonIgnore
+  public boolean hasAuthorities() {
+    return isNotEmpty(authorities);
+  }
+
+  @JsonIgnore
+  public boolean hasOrgUnits() {
+    return isNotEmpty(organisationUnits);
+  }
+
+  @JsonIgnore
+  public boolean hasDataViewOrgUnits() {
+    return isNotEmpty(dataViewOrganisationUnits);
+  }
 }
