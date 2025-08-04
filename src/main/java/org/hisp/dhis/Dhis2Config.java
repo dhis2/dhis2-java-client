@@ -31,13 +31,13 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Objects;
 import lombok.Getter;
-import org.apache.commons.lang3.Strings;
 import org.apache.hc.core5.net.URIBuilder;
 import org.hisp.dhis.auth.AccessTokenAuthentication;
 import org.hisp.dhis.auth.Authentication;
 import org.hisp.dhis.auth.BasicAuthentication;
 import org.hisp.dhis.auth.CookieAuthentication;
 import org.hisp.dhis.response.Dhis2ClientException;
+import org.hisp.dhis.util.TextUtils;
 
 /**
  * Configuration information about a DHIS 2 instance.
@@ -88,7 +88,7 @@ public class Dhis2Config {
    * @return a URL string.
    */
   String normalizeUrl(String url) {
-    return Strings.CS.removeEnd(url, "/");
+    return TextUtils.removeEnd(url, "/");
   }
 
   /**
