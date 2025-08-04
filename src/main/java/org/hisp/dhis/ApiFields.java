@@ -231,8 +231,8 @@ public class ApiFields {
   public static final String ME_FIELDS =
       String.format(
           """
-          %1$s,username,surname,firstName,email,settings,programs,\
-          dataSets,authorities,organisationUnits[%1$s],dataViewOrganisationUnits[%1$s]""",
+          %1$s,username,surname,firstName,email,settings,\
+          authorities,organisationUnits[%1$s],dataViewOrganisationUnits[%1$s]""",
           ID_EXT_FIELDS);
 
   /** Program stage data element fields. */
