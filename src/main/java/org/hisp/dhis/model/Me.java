@@ -56,4 +56,6 @@ public class Me extends IdentifiableObject {
   @JsonProperty private Set<String> authorities = new HashSet<>();
 
   @JsonProperty private Set<OrgUnit> organisationUnits = new HashSet<>();
+
+  @JsonProperty private Set<OrgUnit> dataViewOrganisationUnits = new HashSet<>();
 }
