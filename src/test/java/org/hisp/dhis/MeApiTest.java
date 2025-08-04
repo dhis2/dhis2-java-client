@@ -27,10 +27,13 @@
  */
 package org.hisp.dhis;
 
+import static org.hisp.dhis.support.Assertions.assertGreaterThanZero;
+import static org.hisp.dhis.support.Assertions.assertNotBlank;
 import static org.hisp.dhis.support.Assertions.assertNotEmpty;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.hisp.dhis.model.Me;
+import org.hisp.dhis.model.OrgUnit;
 import org.hisp.dhis.support.TestTags;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -50,5 +53,15 @@ class MeApiTest {
     assertNotNull(me.getSettings().getUiLocale());
     assertNotNull(me.getSettings().getDbLocale());
     assertNotEmpty(me.getOrganisationUnits());
+
+    OrgUnit orgUnit = me.getOrganisationUnits().iterator().next();
+
+    assertNotNull(orgUnit);
+    assertNotBlank(orgUnit.getId());
+    assertNotBlank(orgUnit.getName());
+    assertNotBlank(orgUnit.getShortName());
+    assertGreaterThanZero(orgUnit.getLevel());
+    assertNotBlank(orgUnit.getPath());
+    assertNotNull(orgUnit.getOpeningDate());
   }
 }
