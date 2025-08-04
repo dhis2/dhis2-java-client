@@ -227,12 +227,10 @@ public class ConstantClassGenerator {
    * @param targetDir the target directory.
    */
   public static void writeClass(String type, String value, String targetDir) {
-    String className = toClassName(type);
-    String fileName = String.format("%s.java", className);
-
-    String homeDir = System.getProperty("user.home");
-    String classDir = String.format("%s/%s/classes", homeDir, targetDir);
-    String filePath = String.format("%s/%s", classDir, fileName);
+    final String className = toClassName(type);
+    final String fileName = String.format("%s.java", className);
+    final String classDir = getClassDir(targetDir);
+    final String filePath = String.format("%s/%s", classDir, fileName);
 
     try {
       Files.deleteIfExists(Paths.get(filePath));
@@ -242,6 +240,17 @@ public class ConstantClassGenerator {
     } catch (IOException ex) {
       log.error("Failed to write to file: " + filePath, ex);
     }
+  }
+
+  /**
+   * Returns the directory where the class files are stored.
+   *
+   * @param targetDir the target directory.
+   * @return the class directory path.
+   */
+  public static String getClassDir(String targetDir) {
+    String homeDir = System.getProperty("user.home");
+    return String.format("%s/%s/classes", homeDir, targetDir);
   }
 
   /**
