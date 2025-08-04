@@ -68,7 +68,7 @@ public class ConstantClassGenerator {
             """
             package %s;
 
-            /** %s constants. */
+            /** %s constants. This class is auto-generated. */
             public class %s {
             """,
             packageName, typeName, className));
@@ -110,7 +110,7 @@ public class ConstantClassGenerator {
             """
             package %s;
 
-            /** %s enumeration. */
+            /** %s enumeration. This enum is auto-generated. */
             public enum %s {
             """,
             packageName, typeName, className));

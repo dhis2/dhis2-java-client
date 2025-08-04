@@ -490,11 +490,8 @@ public class BaseDhis2 {
   protected CompleteDataSetRegistrationResponse saveCompleteDataSetRegistrations(
       HttpEntity entity, CompleteDataSetRegistrationImportOptions options) {
     URIBuilder builder = config.getResolvedUriBuilder().appendPath("completeDataSetRegistrations");
-
     URI url = withCompleteDataSetRegistrationsImportQueryParams(builder, options);
-
     HttpPost request = getPostRequest(url, entity);
-
     Dhis2AsyncRequest asyncRequest = new Dhis2AsyncRequest(config, httpClient, objectMapper);
 
     return asyncRequest.post(request, CompleteDataSetRegistrationResponse.class);
