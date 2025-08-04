@@ -29,6 +29,7 @@ package org.hisp.dhis.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.hisp.dhis.support.TestTags;
@@ -81,6 +82,20 @@ class TextUtilsTest {
     String expected = "OK,CREATED,FOUND,CONFLICT,";
 
     assertEquals(expected, builder.toString());
+  }
+
+  @Test
+  void testRemoveEnd() {
+    assertEquals("/host", TextUtils.removeEnd("/host/", "/"));
+    assertEquals("/", TextUtils.removeEnd("/host/", "host/"));
+  }
+
+  @Test
+  void testRemoveEndNull() {
+    assertEquals("", TextUtils.removeEnd("", "/"));
+    assertEquals("", TextUtils.removeEnd("", ""));
+    assertNull(TextUtils.removeEnd(null, null));
+    assertNull(TextUtils.removeEnd(null, "/"));
   }
 
   @Test

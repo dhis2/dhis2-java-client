@@ -111,6 +111,25 @@ public class TextUtils {
   }
 
   /**
+   * Removes a substring if it is at the end of the input string, otherwise returns the input.
+   *
+   * @param input the input string.
+   * @param remove the string to remove.
+   * @return
+   */
+  public static String removeEnd(String input, String remove) {
+    if (StringUtils.isEmpty(input) || StringUtils.isEmpty(remove)) {
+      return input;
+    }
+
+    if (input.endsWith(remove)) {
+      return input.substring(0, input.length() - remove.length());
+    }
+
+    return input;
+  }
+
+  /**
    * Creates a new {@link ToStringBuilder} with the given object and a short prefix style.
    *
    * @param object the object to build the string representation for.
