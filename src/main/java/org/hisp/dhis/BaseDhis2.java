@@ -1442,7 +1442,7 @@ public class BaseDhis2 {
    * @param format the message format.
    * @param arguments the message arguments.
    */
-  private void log(int statusCode, String format, Object arguments) {
+  private void log(int statusCode, String format, Object... arguments) {
     if (statusCode >= 400 && statusCode < 600) {
       log.warn(format, arguments);
     } else {
