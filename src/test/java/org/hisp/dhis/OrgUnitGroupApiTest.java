@@ -50,10 +50,10 @@ class OrgUnitGroupApiTest {
     assertEquals("Country", oug.getCode());
     assertEquals("Country", oug.getName());
     assertEquals("Country", oug.getShortName());
-    assertNotNull(oug.getSharing());
-    assertNotNull(oug.getAccess());
     assertNotNull(oug.getCreated());
     assertNotNull(oug.getLastUpdated());
+    assertNotNull(oug.getSharing());
+    assertNotNull(oug.getAccess());
     assertNull(oug.getDescription());
 
     // Group members assertions

@@ -25,29 +25,29 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.hisp.dhis.model;
+package org.hisp.dhis.util.json;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import org.hisp.dhis.util.DateTimeUtils;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@JacksonXmlRootElement(localName = "product")
-public class Product {
-  @JsonProperty private String id;
-
-  @JsonProperty private String name;
-
-  @JsonProperty private Date created;
-
-  public Product(String id, String name) {
-    this.id = id;
-    this.name = name;
-    this.created = new Date();
+public class DateJsonDeserializer extends JsonDeserializer<Date> {
+  @Override
+  public Date deserialize(JsonParser jsonParser, DeserializationContext deserializationContext)
+      throws IOException {
+    String dateString = jsonParser.getText();
+    for (SimpleDateFormat dateFormat : DateTimeUtils.DATE_TIME_DESERIALIZATION_FORMATS) {
+      try {
+        return dateFormat.parse(dateString);
+      } catch (ParseException ex) {
+        // Ignore and try next format
+      }
+    }
+    throw new IOException(String.format("Unable to parse date: '%s'", dateString));
   }
 }

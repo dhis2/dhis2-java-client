@@ -132,6 +132,8 @@ class ProgramApiTest {
     assertEquals("Address Book", pr.getName());
     assertEquals("Address Book", pr.getShortName());
     assertEquals("ADDRESS_BOOK", pr.getCode());
+    assertNotNull(pr.getCreated());
+    assertNotNull(pr.getLastUpdated());
     assertEquals("Registration Date", pr.getEnrollmentDateLabel());
     assertEquals("Registration", pr.getEnrollmentLabel());
     assertFalse(pr.getDisplayIncidentDate());

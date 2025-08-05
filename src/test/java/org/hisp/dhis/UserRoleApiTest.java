@@ -54,6 +54,8 @@ class UserRoleApiTest {
     assertNotNull(userRole);
     assertEquals("Ufph3mGRmMo", userRole.getId());
     assertEquals("Superuser", userRole.getName());
+    assertNotNull(userRole.getCreated());
+    assertNotNull(userRole.getLastUpdated());
     assertFalse(userRole.getUsers().isEmpty());
   }
 

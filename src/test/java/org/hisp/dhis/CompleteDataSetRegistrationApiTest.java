@@ -27,8 +27,8 @@
  */
 package org.hisp.dhis;
 
+import static org.hisp.dhis.support.Assertions.assertNotEmpty;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -55,8 +55,7 @@ class CompleteDataSetRegistrationApiTest {
     List<CompleteDataSetRegistration> completeDataSetRegistrations =
         dhis2.getCompleteDataSetRegistrations(query);
 
-    assertNotNull(completeDataSetRegistrations);
-    assertFalse(completeDataSetRegistrations.isEmpty());
+    assertNotEmpty(completeDataSetRegistrations);
   }
 
   @Test
@@ -71,8 +70,7 @@ class CompleteDataSetRegistrationApiTest {
     List<CompleteDataSetRegistration> completeDataSetRegistrations =
         dhis2.getCompleteDataSetRegistrations(query);
 
-    assertNotNull(completeDataSetRegistrations);
-    assertFalse(completeDataSetRegistrations.isEmpty());
+    assertNotEmpty(completeDataSetRegistrations);
   }
 
   @Test
