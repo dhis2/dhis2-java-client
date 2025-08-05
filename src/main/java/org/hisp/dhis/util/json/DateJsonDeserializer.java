@@ -34,21 +34,14 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 import org.hisp.dhis.util.DateTimeUtils;
 
 public class DateJsonDeserializer extends JsonDeserializer<Date> {
-  private static final List<SimpleDateFormat> DATE_FORMATS =
-      List.of(
-          new SimpleDateFormat(DateTimeUtils.DATE_TIME_FORMAT),
-          new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss"),
-          new SimpleDateFormat(DateTimeUtils.DATE_FORMAT));
-
   @Override
   public Date deserialize(JsonParser jsonParser, DeserializationContext deserializationContext)
       throws IOException {
     String dateString = jsonParser.getText();
-    for (SimpleDateFormat dateFormat : DATE_FORMATS) {
+    for (SimpleDateFormat dateFormat : DateTimeUtils.DATE_TIME_DESERIALIZATION_FORMATS) {
       try {
         return dateFormat.parse(dateString);
       } catch (ParseException ex) {
