@@ -56,6 +56,8 @@ class AttributeApiTest {
     assertEquals("Z4X3J7jMLYV", attribute.getId());
     assertEquals("Classification", attribute.getName());
     assertEquals("CLASSIFICATION", attribute.getCode());
+    assertNotNull(attribute.getCreated());
+    assertNotNull(attribute.getLastUpdated());
   }
 
   @Test

@@ -56,6 +56,8 @@ class UserGroupApiTest {
     assertNotNull(userGroup);
     assertEquals("ZrsVF7IJ93y", userGroup.getId());
     assertEquals("Family Health Partner", userGroup.getName());
+    assertNotNull(userGroup.getCreated());
+    assertNotNull(userGroup.getLastUpdated());
     assertNotEmpty(userGroup.getUsers());
   }
 

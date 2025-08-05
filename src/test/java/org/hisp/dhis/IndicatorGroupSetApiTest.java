@@ -55,6 +55,8 @@ class IndicatorGroupSetApiTest {
     assertNotNull(groupSet);
     assertEquals("kO23KcpBwro", groupSet.getId());
     assertNotBlank(groupSet.getName());
+    assertNotNull(groupSet.getCreated());
+    assertNotNull(groupSet.getLastUpdated());
     assertNotNull(groupSet.getSharing());
     assertNotNull(groupSet.getAccess());
     assertNotEmpty(groupSet.getIndicatorGroups());
