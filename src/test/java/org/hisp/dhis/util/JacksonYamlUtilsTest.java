@@ -31,6 +31,7 @@ import static org.hisp.dhis.support.Assertions.assertNotEmpty;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import java.util.Date;
 import java.util.List;
 import org.hisp.dhis.model.Container;
 import org.hisp.dhis.model.Product;
@@ -40,17 +41,21 @@ import org.junit.jupiter.api.Test;
 
 @Tag(TestTags.UNIT)
 class JacksonYamlUtilsTest {
+  private final Date dateA = DateTimeUtils.toDateTime("2024-01-15T14:32:12.732");
+
   @Test
   void testToYamlObject() {
     String expected =
         """
         id: "YDb6ff4R3a8"
         name: "ThinkPadT14s"
+        created: "2024-01-15T14:32:12.732+00:00"
         """;
 
     Product object = new Product();
     object.setId("YDb6ff4R3a8");
     object.setName("ThinkPadT14s");
+    object.setCreated(dateA);
 
     String actual = JacksonYamlUtils.toYamlString(object);
 
@@ -64,17 +69,21 @@ class JacksonYamlUtilsTest {
         products:
         - id: "YDb6ff4R3a8"
           name: "ThinkPad T14s"
+          created: "2024-01-15T14:32:12.732+00:00"
         - id: "p84TSR7yXnc"
           name: "Dell XPS 13"
+          created: "2024-01-15T14:32:12.732+00:00"
         """;
 
     Product pA = new Product();
     pA.setId("YDb6ff4R3a8");
     pA.setName("ThinkPad T14s");
+    pA.setCreated(dateA);
 
     Product pB = new Product();
     pB.setId("p84TSR7yXnc");
     pB.setName("Dell XPS 13");
+    pB.setCreated(dateA);
 
     Container products = new Container(List.of(pA, pB));
 
@@ -90,8 +99,10 @@ class JacksonYamlUtilsTest {
         products:
         - id: "YDb6ff4R3a8"
           name: "ThinkPad T14s"
+          created: "2024-01-15T14:32:12.732+00:00"
         - id: "p84TSR7yXnc"
           name: "Dell XPS 13"
+          created: "2024-01-15T14:32:12.732+00:00"
         """;
 
     Container container = JacksonYamlUtils.fromYaml(yaml, Container.class);

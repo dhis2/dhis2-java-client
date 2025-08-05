@@ -27,6 +27,7 @@
  */
 package org.hisp.dhis.util;
 
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator.Feature;
 import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
 import java.io.IOException;
@@ -114,6 +115,7 @@ public class JacksonYamlUtils {
   private static YAMLMapper getMapper() {
     YAMLMapper mapper = new YAMLMapper();
     mapper.disable(Feature.WRITE_DOC_START_MARKER);
+    mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
     return mapper;
   }
 }
