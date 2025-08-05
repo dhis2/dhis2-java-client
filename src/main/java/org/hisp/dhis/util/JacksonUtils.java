@@ -33,13 +33,16 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UncheckedIOException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.hisp.dhis.util.json.DateJsonDeserializer;
 
 /** Utilities for JSON parsing and serialization. */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -63,6 +66,11 @@ public class JacksonUtils {
   /**
    * Returns a new instance of an {@link ObjectMapper}.
    *
+   * <p>Note that {@link Date} serialization handling is defined by {@link
+   * ObjectMapper#setDateFormat(java.text.DateFormat)}, while {@link Date} deserialization handling
+   * is defined by a {@link SimpleModule} with a custom date deserializer, where multiple formats
+   * are supported.
+   *
    * @return an {@link ObjectMapper}.
    */
   private static ObjectMapper getMapper() {
@@ -74,7 +82,19 @@ public class JacksonUtils {
     objectMapper.setSerializationInclusion(Include.NON_NULL);
     objectMapper.setDateFormat(getDateFormatInternal());
     objectMapper.setTimeZone(DateTimeUtils.TZ_UTC);
+    objectMapper.registerModule(getDateModule());
     return objectMapper;
+  }
+
+  /**
+   * Returns a {@link SimpleModule} that contains a custom date deserializer.
+   *
+   * @return a {@link SimpleModule} with a custom date deserializer.
+   */
+  private static SimpleModule getDateModule() {
+    SimpleModule module = new SimpleModule();
+    module.addDeserializer(Date.class, new DateJsonDeserializer());
+    return module;
   }
 
   /**
