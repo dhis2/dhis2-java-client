@@ -34,6 +34,7 @@ import static org.hisp.dhis.util.CollectionUtils.index;
 import static org.hisp.dhis.util.CollectionUtils.list;
 import static org.hisp.dhis.util.CollectionUtils.mapToList;
 import static org.hisp.dhis.util.CollectionUtils.mapToMap;
+import static org.hisp.dhis.util.CollectionUtils.mapToSet;
 import static org.hisp.dhis.util.CollectionUtils.mutableList;
 import static org.hisp.dhis.util.CollectionUtils.mutableSet;
 import static org.hisp.dhis.util.CollectionUtils.set;
@@ -41,6 +42,7 @@ import static org.hisp.dhis.util.CollectionUtils.toCommaSeparated;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
@@ -135,6 +137,36 @@ class CollectionUtilsTest {
     List<String> expected = List.of("jUb6fnbZPhV", "qEiCafULhoW", "wOahXFjLq4V");
 
     assertEquals(expected, mapToList(list, DataElement::getId));
+  }
+
+  @Test
+  void testMapToListNull() {
+    assertThrows(
+        NullPointerException.class,
+        () -> mapToList(List.of("a", null, "c"), str -> str.toUpperCase()));
+  }
+
+  @Test
+  void testMapToSet() {
+    DataElement deA = new DataElement();
+    deA.setId("jUb6fnbZPhV");
+    DataElement deB = new DataElement();
+    deB.setId("qEiCafULhoW");
+    DataElement deC = new DataElement();
+    deC.setId("wOahXFjLq4V");
+
+    Set<DataElement> set = Set.of(deA, deB, deC);
+
+    Set<String> expected = Set.of("jUb6fnbZPhV", "qEiCafULhoW", "wOahXFjLq4V");
+
+    assertEquals(expected, mapToSet(set, DataElement::getId));
+  }
+
+  @Test
+  void testMapToSetNull() {
+    assertThrows(
+        NullPointerException.class,
+        () -> mapToSet(Set.of("a", null, "c"), str -> str.toUpperCase()));
   }
 
   @Test

@@ -108,17 +108,31 @@ public class CollectionUtils {
   }
 
   /**
-   * Maps the given list of objects of type U to a list of objects of type T. Null objects are not
-   * allowed.
+   * Maps the given list of objects of type U to an immutable list of objects of type T. Null
+   * objects are not allowed.
    *
    * @param <T> type.
    * @param <U> type.
-   * @param objects the objects of U.
+   * @param objects the objects of type U.
    * @param mapper the mapping function.
    * @return a list of objects of type T.
    */
   public static <T, U> List<T> mapToList(List<U> objects, Function<U, T> mapper) {
     return objects.stream().map(mapper).toList();
+  }
+
+  /**
+   * Maps the given set of objects of type U to an immutable set of objects of type T. Null objects
+   * are not allowed.
+   *
+   * @param <T> type.
+   * @param <U> type.
+   * @param objects the objects of type U.
+   * @param mapper the mapping function.
+   * @return a set of objects of type T.
+   */
+  public static <T, U> Set<T> mapToSet(Set<U> objects, Function<U, T> mapper) {
+    return objects.stream().map(mapper).collect(Collectors.toUnmodifiableSet());
   }
 
   /**
