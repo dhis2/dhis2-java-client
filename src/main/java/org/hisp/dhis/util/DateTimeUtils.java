@@ -58,11 +58,8 @@ public class DateTimeUtils {
   public static final TimeZone TZ_UTC = TimeZone.getTimeZone("UTC");
 
   /** Date time formats for deserialization. */
-  public static final List<SimpleDateFormat> DATE_TIME_DESERIALIZATION_FORMATS =
-      List.of(
-          new SimpleDateFormat(DateTimeUtils.DATE_TIME_FORMAT),
-          new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss"),
-          new SimpleDateFormat(DateTimeUtils.DATE_FORMAT));
+  public static final List<String> DATE_TIME_DESERIALIZATION_FORMATS =
+      List.of(DateTimeUtils.DATE_TIME_FORMAT, "yyyy-MM-dd'T'HH:mm:ss", DateTimeUtils.DATE_FORMAT);
 
   // -----------------------------------------------------------------------------------------------
   // To date object methods

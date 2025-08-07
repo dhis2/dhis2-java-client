@@ -41,9 +41,9 @@ public class DateJsonDeserializer extends JsonDeserializer<Date> {
   public Date deserialize(JsonParser jsonParser, DeserializationContext deserializationContext)
       throws IOException {
     String dateString = jsonParser.getText();
-    for (SimpleDateFormat dateFormat : DateTimeUtils.DATE_TIME_DESERIALIZATION_FORMATS) {
+    for (String dateFormat : DateTimeUtils.DATE_TIME_DESERIALIZATION_FORMATS) {
       try {
-        return dateFormat.parse(dateString);
+        return new SimpleDateFormat(dateFormat).parse(dateString);
       } catch (ParseException ex) {
         // Ignore and try next format
       }
