@@ -28,8 +28,11 @@
 package org.hisp.dhis.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
+import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 public class ConfigUtilsTest {
@@ -46,10 +49,49 @@ public class ConfigUtilsTest {
   }
 
   @Test
+  void testGetAsSet() {
+    Set<String> expected =
+        Set.of("http://localhost", "http://localhost:3000", "https://localhost:3000");
+
+    String actual = "http://localhost,http://localhost:3000, ,, https://localhost:3000";
+
+    assertEquals(expected, ConfigUtils.getAsSet(actual));
+    assertEquals(Set.of(), ConfigUtils.getAsSet(null));
+    assertEquals(Set.of(), ConfigUtils.getAsSet(""));
+  }
+
+  @Test
   void testGetAsArray() {
     String actual = "http://localhost,http://localhost:3000, ,, https://localhost:3000";
 
     assertEquals(3, ConfigUtils.getAsArray(actual).length);
     assertEquals("http://localhost", ConfigUtils.getAsArray(actual)[0]);
+  }
+
+  @Test
+  void testIsEnabled() {
+    assertTrue(ConfigUtils.isEnabled("on"));
+    assertFalse(ConfigUtils.isEnabled("off"));
+    assertFalse(ConfigUtils.isEnabled("foo"));
+    assertFalse(ConfigUtils.isEnabled(""));
+    assertFalse(ConfigUtils.isEnabled(null));
+  }
+
+  @Test
+  void testIsNotEnabled() {
+    assertFalse(ConfigUtils.isNotEnabled("on"));
+    assertTrue(ConfigUtils.isNotEnabled("off"));
+    assertTrue(ConfigUtils.isNotEnabled("foo"));
+    assertTrue(ConfigUtils.isNotEnabled(""));
+    assertTrue(ConfigUtils.isNotEnabled(null));
+  }
+
+  @Test
+  void testIsDisabled() {
+    assertFalse(ConfigUtils.isDisabled("on"));
+    assertTrue(ConfigUtils.isDisabled("off"));
+    assertFalse(ConfigUtils.isDisabled("foo"));
+    assertFalse(ConfigUtils.isDisabled(""));
+    assertFalse(ConfigUtils.isDisabled(null));
   }
 }

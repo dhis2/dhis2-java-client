@@ -28,6 +28,7 @@
 package org.hisp.dhis.model;
 
 import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
+import static org.hisp.dhis.util.TextUtils.newToStringBuilder;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -36,12 +37,10 @@ import java.util.Set;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 import org.hisp.dhis.model.user.UserSettings;
 
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
 public class Me extends IdentifiableObject {
   @JsonProperty private String username;
@@ -73,5 +72,14 @@ public class Me extends IdentifiableObject {
   @JsonIgnore
   public boolean hasDataViewOrgUnits() {
     return isNotEmpty(dataViewOrganisationUnits);
+  }
+
+  @Override
+  public String toString() {
+    return newToStringBuilder(this)
+        .append("username", username)
+        .append("firstName", firstName)
+        .append("surname", surname)
+        .build();
   }
 }
