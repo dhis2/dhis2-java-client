@@ -27,21 +27,28 @@
  */
 package org.hisp.dhis.util;
 
+import static org.apache.commons.lang3.StringUtils.trimToEmpty;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 
 /** Utilities for configuration. */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ConfigUtils {
+  private static final char VALUE_SEPARATOR = ',';
+
+  private static final String VALUE_ENABLED = "on";
+  private static final String VALUE_DISABLED = "off";
+
   /**
-   * Splits the given value on {@code ,} and returns the values as a list. Trims each value and
-   * filters out null and empty values.
+   * Splits the given value on {@code ,} and returns the values as an immutable list. Trims each
+   * value and filters out null and empty values.
    *
    * @param value the value.
    * @return the values as a {@link List}.
@@ -49,12 +56,29 @@ public class ConfigUtils {
   public static List<String> getAsList(String value) {
     List<String> values =
         new ArrayList<String>(
-            Arrays.asList(StringUtils.split(ObjectUtils.firstNonNull(value, ""), ',')));
+            Arrays.asList(StringUtils.split(trimToEmpty(value), VALUE_SEPARATOR)));
 
     return values.stream()
         .map(String::trim)
         .filter(StringUtils::isNotEmpty)
         .collect(Collectors.toList());
+  }
+
+  /**
+   * Splits the given value on {@code,} and returns the values as an immutable set. Trims each value
+   * and filters out null and empty values.
+   *
+   * @param value the value.
+   * @return the values as a {@link Set}.
+   */
+  public static Set<String> getAsSet(String value) {
+    List<String> values =
+        new ArrayList<>(Arrays.asList(StringUtils.split(trimToEmpty(value), VALUE_SEPARATOR)));
+
+    return values.stream()
+        .map(String::trim)
+        .filter(StringUtils::isNotEmpty)
+        .collect(Collectors.toUnmodifiableSet());
   }
 
   /**
@@ -68,5 +92,36 @@ public class ConfigUtils {
     List<String> values = getAsList(value);
 
     return values.toArray(String[]::new);
+  }
+
+  /**
+   * Checks if the given property value is enabled.
+   *
+   * @param value the property value to check.
+   * @return true if the value is "on", false otherwise.
+   */
+  public static boolean isEnabled(String value) {
+    return VALUE_ENABLED.equals(value);
+  }
+
+  /**
+   * Checks if the given property value is not enabled, meaning it is either null, empty or not
+   * equal to the enabled value.
+   *
+   * @param value the property value to check.
+   * @return true if the value is not enabled, false otherwise.
+   */
+  public static boolean isNotEnabled(String value) {
+    return !isEnabled(value);
+  }
+
+  /**
+   * Checks if the given property value is disabled.
+   *
+   * @param value the property value to check.
+   * @return true if the value is "off", false otherwise.
+   */
+  public static boolean isDisabled(String value) {
+    return VALUE_DISABLED.equals(value);
   }
 }
