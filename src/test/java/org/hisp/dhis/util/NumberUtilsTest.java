@@ -28,7 +28,9 @@
 package org.hisp.dhis.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.hisp.dhis.support.TestTags;
 import org.junit.jupiter.api.Tag;
@@ -77,5 +79,21 @@ class NumberUtilsTest {
   void testToInt() {
     assertEquals(26, NumberUtils.toInt(26));
     assertEquals(0, NumberUtils.toInt(null));
+  }
+
+  @Test
+  void testIsInteger() {
+    assertTrue(NumberUtils.isInteger("4"));
+    assertTrue(NumberUtils.isInteger("79"));
+    assertTrue(NumberUtils.isInteger("154281"));
+    assertTrue(NumberUtils.isInteger("-5"));
+    assertTrue(NumberUtils.isInteger("-37"));
+
+    assertFalse(NumberUtils.isInteger("foo"));
+    assertFalse(NumberUtils.isInteger("BAR"));
+    assertFalse(NumberUtils.isInteger("5.0"));
+    assertFalse(NumberUtils.isInteger("78.21"));
+    assertFalse(NumberUtils.isInteger(""));
+    assertFalse(NumberUtils.isInteger(null));
   }
 }

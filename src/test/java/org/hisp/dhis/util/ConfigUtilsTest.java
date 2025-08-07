@@ -49,6 +49,24 @@ public class ConfigUtilsTest {
   }
 
   @Test
+  void testGetAsIntListA() {
+    List<Integer> expected = List.of(15, 22, 36);
+
+    String actual = "15,22,,null,,foo,36,BAR,,";
+
+    assertEquals(expected, ConfigUtils.getAsIntList(actual));
+    assertEquals(List.of(), ConfigUtils.getAsIntList(null));
+    assertEquals(List.of(), ConfigUtils.getAsIntList(""));
+  }
+
+  @Test
+  void testGetAsIntListB() {
+    assertEquals(List.of(3, 5, 9), ConfigUtils.getAsIntList("3,5,9"));
+    assertEquals(List.of(14, 51, 92), ConfigUtils.getAsIntList("14,51,92"));
+    assertEquals(List.of(512, 981, 431), ConfigUtils.getAsIntList("512,981,431"));
+  }
+
+  @Test
   void testGetAsSet() {
     Set<String> expected =
         Set.of("http://localhost", "http://localhost:3000", "https://localhost:3000");
