@@ -43,6 +43,7 @@ public class DateJsonDeserializer extends JsonDeserializer<Date> {
     String dateString = jsonParser.getText();
     for (String dateFormat : DateTimeUtils.DATE_TIME_DESERIALIZATION_FORMATS) {
       try {
+        // Note that SimpleDateFormat is not thread safe
         return new SimpleDateFormat(dateFormat).parse(dateString);
       } catch (ParseException ex) {
         // Ignore and try next format
