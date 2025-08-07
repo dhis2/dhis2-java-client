@@ -573,7 +573,7 @@ class ProgramApiTest {
   }
 
   @Test
-  void testGetProgramsExpandAssociations() {
+  void testGetProgramsExpandAssociationsA() {
     Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
 
     List<Program> programs =
@@ -630,6 +630,19 @@ class ProgramApiTest {
     assertNotNull(de.getId());
     assertNotNull(de.getAggregationType());
     assertNotNull(de.getValueType());
+  }
+
+  @Test
+  void testGetProgramsExpandAssociationsB() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    List<Program> programs =
+        dhis2.getPrograms(
+            Query.instance()
+                .withExpandAssociations()
+                .addFilter(Filter.in("id", List.of("M3xtLkYBlKI", "WSGAb5XwJ3Y"))));
+
+    assertSize(2, programs);
   }
 
   @Test
