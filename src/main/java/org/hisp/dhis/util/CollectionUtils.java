@@ -108,7 +108,7 @@ public class CollectionUtils {
   }
 
   /**
-   * Maps the given list of objects of type U to an immutable list of objects of type T. Null
+   * Maps the given collection of objects of type U to an immutable list of objects of type T. Null
    * objects are not allowed.
    *
    * @param <T> type.
@@ -117,13 +117,13 @@ public class CollectionUtils {
    * @param mapper the mapping function.
    * @return a list of objects of type T.
    */
-  public static <T, U> List<T> mapToList(List<U> objects, Function<U, T> mapper) {
+  public static <T, U> List<T> mapToList(Collection<U> objects, Function<U, T> mapper) {
     return objects.stream().map(mapper).toList();
   }
 
   /**
-   * Maps the given set of objects of type U to an immutable set of objects of type T. Null objects
-   * are not allowed.
+   * Maps the given collection of objects of type U to an immutable set of objects of type T. Null
+   * objects are not allowed.
    *
    * @param <T> type.
    * @param <U> type.
@@ -131,13 +131,13 @@ public class CollectionUtils {
    * @param mapper the mapping function.
    * @return a set of objects of type T.
    */
-  public static <T, U> Set<T> mapToSet(Set<U> objects, Function<U, T> mapper) {
+  public static <T, U> Set<T> mapToSet(Collection<U> objects, Function<U, T> mapper) {
     return objects.stream().map(mapper).collect(Collectors.toUnmodifiableSet());
   }
 
   /**
-   * Maps the given list of objects of type U to a map where the keys are of type T. Null objects
-   * are not allowed.
+   * Maps the given collection of objects of type U to a map where the keys are of type T. Null
+   * objects are not allowed.
    *
    * @param <T> type for keys.
    * @param <U> type for values.
@@ -145,7 +145,7 @@ public class CollectionUtils {
    * @param keyMapper the function to map each object to a key of type T.
    * @return a map with keys of type T and values of type U.
    */
-  public static <T, U> Map<T, U> mapToMap(List<U> objects, Function<U, T> keyMapper) {
+  public static <T, U> Map<T, U> mapToMap(Collection<U> objects, Function<U, T> keyMapper) {
     return objects.stream().collect(Collectors.toMap(keyMapper, Function.identity()));
   }
 

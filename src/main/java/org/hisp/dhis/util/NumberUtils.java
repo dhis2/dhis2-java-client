@@ -31,6 +31,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 
 /** Utilities for numbers. */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -67,13 +68,33 @@ public class NumberUtils {
   }
 
   /**
-   * Converts the given string to an integer.
+   * Converts the given string value to an integer.
    *
-   * @param string the string.
+   * @param value the string value.
    * @return an integer.
+   * @throws NumberFormatException if the string cannot be converted.
    */
-  public static Integer toInteger(String string) {
-    return org.apache.commons.lang3.math.NumberUtils.createInteger(string);
+  public static Integer toInteger(String value) throws NumberFormatException {
+    return org.apache.commons.lang3.math.NumberUtils.createInteger(value);
+  }
+
+  /**
+   * Indicates whether the given string value is a valid {@link Integer}.
+   *
+   * @param value the string value.
+   * @return true if the string value is a valid {@link Integer}.
+   */
+  public static boolean isInteger(String value) {
+    if (StringUtils.isBlank(value)) {
+      return false;
+    }
+
+    try {
+      Integer.parseInt(value);
+      return true;
+    } catch (NumberFormatException ex) {
+      return false;
+    }
   }
 
   /**

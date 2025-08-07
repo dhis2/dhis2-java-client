@@ -65,6 +65,20 @@ public class ConfigUtils {
   }
 
   /**
+   * Splits the given value on {@code ,} and returns the values as an immutable list of integers.
+   * Trims each value, filters out empty values and values which cannot be converted to integer.
+   *
+   * @param value the value.
+   * @return the values as a {@link List} of {@link Integer}.
+   */
+  public static List<Integer> getAsIntList(String value) {
+    return getAsList(value).stream()
+        .filter(NumberUtils::isInteger)
+        .map(NumberUtils::toInteger)
+        .toList();
+  }
+
+  /**
    * Splits the given value on {@code,} and returns the values as an immutable set. Trims each value
    * and filters out null and empty values.
    *
