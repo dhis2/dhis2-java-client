@@ -65,6 +65,11 @@ public class Me extends IdentifiableObject {
   }
 
   @JsonIgnore
+  public boolean hasAuthority(String auth) {
+    return hasAuthorities() && authorities.contains(auth);
+  }
+
+  @JsonIgnore
   public boolean hasOrgUnits() {
     return isNotEmpty(organisationUnits);
   }
