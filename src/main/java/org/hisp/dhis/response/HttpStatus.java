@@ -203,7 +203,7 @@ public enum HttpStatus {
     HttpStatus status = resolve(statusCode);
     if (status == null) {
       throw new IllegalArgumentFormatException(
-          "No matching constant for status code: {]", statusCode);
+          "No matching constant for status code: {}", statusCode);
     }
     return status;
   }
