@@ -104,4 +104,25 @@ class Dhis2Test {
 
     assertEquals(400, ex.getStatusCode());
   }
+
+  @Test
+  void testWithBasicAuthAuthFail() {
+    Dhis2ClientException ex =
+        assertThrows(Dhis2ClientException.class, () -> Dhis2.withBasicAuth("", "", ""));
+    assertEquals("URL must be provided", ex.getMessage());
+  }
+
+  @Test
+  void testWithAccessTokenAuthFail() {
+    Dhis2ClientException ex =
+        assertThrows(Dhis2ClientException.class, () -> Dhis2.withAccessTokenAuth("", ""));
+    assertEquals("URL must be provided", ex.getMessage());
+  }
+
+  @Test
+  void testWithCookieAuthAuthFail() {
+    Dhis2ClientException ex =
+        assertThrows(Dhis2ClientException.class, () -> Dhis2.withCookieAuth("", ""));
+    assertEquals("URL must be provided", ex.getMessage());
+  }
 }

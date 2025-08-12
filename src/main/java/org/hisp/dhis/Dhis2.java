@@ -160,6 +160,7 @@ import org.hisp.dhis.response.object.ObjectResponse;
 import org.hisp.dhis.response.objects.ObjectsResponse;
 import org.hisp.dhis.response.trackedentity.TrackedEntityResponse;
 import org.hisp.dhis.util.HttpUtils;
+import org.hisp.dhis.util.Verify;
 
 /**
  * DHIS2 API client for HTTP requests and responses. Request and response bodies are in JSON format.
@@ -186,6 +187,9 @@ public class Dhis2 extends BaseDhis2 {
    * @return a {@link Dhis2} instance.
    */
   public static Dhis2 withBasicAuth(String url, String username, String password) {
+    Verify.notEmpty(url, "URL must be provided");
+    Verify.notEmpty(username, "Username must be provided");
+    Verify.notEmpty(password, "Password must be provided");
     return new Dhis2(new Dhis2Config(url, new BasicAuthentication(username, password)));
   }
 
@@ -198,6 +202,8 @@ public class Dhis2 extends BaseDhis2 {
    * @return a {@link Dhis2} instance.
    */
   public static Dhis2 withAccessTokenAuth(String url, String accessToken) {
+    Verify.notEmpty(url, "URL must be provided");
+    Verify.notEmpty(accessToken, "Access token must be provided");
     return new Dhis2(new Dhis2Config(url, new AccessTokenAuthentication(accessToken)));
   }
 
@@ -210,6 +216,8 @@ public class Dhis2 extends BaseDhis2 {
    * @return a {@link Dhis2} instance.
    */
   public static Dhis2 withCookieAuth(String url, String sessionId) {
+    Verify.notEmpty(url, "URL must be provided");
+    Verify.notEmpty(sessionId, "Session identifier must be provided");
     return new Dhis2(new Dhis2Config(url, new CookieAuthentication(sessionId)));
   }
 
