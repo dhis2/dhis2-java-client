@@ -27,11 +27,14 @@
  */
 package org.hisp.dhis.util;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.hisp.dhis.response.Dhis2ClientException;
 import org.hisp.dhis.response.HttpStatus;
 
 /** Utility class for verifying conditions and throwing exceptions if the conditions are not met. */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Verify {
   /**
    * Checks if the given object is not null, and throws a {@link Dhis2ClientException} with the
