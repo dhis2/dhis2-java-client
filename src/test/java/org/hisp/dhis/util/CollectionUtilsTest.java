@@ -32,6 +32,7 @@ import static org.hisp.dhis.util.CollectionUtils.firstMatch;
 import static org.hisp.dhis.util.CollectionUtils.get;
 import static org.hisp.dhis.util.CollectionUtils.index;
 import static org.hisp.dhis.util.CollectionUtils.list;
+import static org.hisp.dhis.util.CollectionUtils.mapJoin;
 import static org.hisp.dhis.util.CollectionUtils.mapToCommaSeparated;
 import static org.hisp.dhis.util.CollectionUtils.mapToList;
 import static org.hisp.dhis.util.CollectionUtils.mapToMap;
@@ -176,6 +177,37 @@ class CollectionUtilsTest {
     String expected = "1,3";
 
     assertEquals(expected, mapToCommaSeparated(list, String::valueOf));
+  }
+
+  @Test
+  void testMapJoinObject() {
+    Product pA = new Product("P01", "Keyboard");
+    Product pB = new Product("P02", "Mouse");
+    Product pC = new Product("P03", "Monitor");
+
+    List<Product> list = list(pA, pB, pC);
+
+    String expected = "Keyboard or Mouse or Monitor";
+
+    assertEquals(expected, mapJoin(list, Product::getName, " or "));
+  }
+
+  @Test
+  void testMapJoinInteger() {
+    List<Integer> list = list(1, 2, 3);
+
+    String expected = "1 then 2 then 3";
+
+    assertEquals(expected, mapJoin(list, String::valueOf, " then "));
+  }
+
+  @Test
+  void testMapJoinNull() {
+    List<Integer> list = list(1, null, 3);
+
+    String expected = "1 then 3";
+
+    assertEquals(expected, mapJoin(list, String::valueOf, " then "));
   }
 
   @Test
