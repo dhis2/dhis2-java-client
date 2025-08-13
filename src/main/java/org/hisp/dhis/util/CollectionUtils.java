@@ -131,7 +131,25 @@ public class CollectionUtils {
    * @return a comma separated string.
    */
   public static <T> String mapToCommaSeparated(Collection<T> objects, Function<T, String> mapper) {
-    return objects.stream().filter(Objects::nonNull).map(mapper).collect(Collectors.joining(","));
+    return mapJoin(objects, mapper, ",");
+  }
+
+  /**
+   * Maps the given collection of objects of type T to a list of strings, before joining the strings
+   * using the given delimiter. Null objects are excluded.
+   *
+   * @param <T> type.
+   * @param objects the objects of type T.
+   * @param mapper the mapping function to convert each object to a string.
+   * @param delimiter the string delimiter.
+   * @return a joined string.
+   */
+  public static <T> String mapJoin(
+      Collection<T> objects, Function<T, String> mapper, CharSequence delimiter) {
+    return objects.stream()
+        .filter(Objects::nonNull)
+        .map(mapper)
+        .collect(Collectors.joining(delimiter));
   }
 
   /**
