@@ -122,6 +122,19 @@ public class CollectionUtils {
   }
 
   /**
+   * Maps the given collection of objects of type T to a comma separated string value of the joined
+   * string representation of each item. Null objects are excluded.
+   *
+   * @param <T> type.
+   * @param objects the objects of type T.
+   * @param mapper the mapping function to convert each object to a string.
+   * @return a comma separated string.
+   */
+  public static <T> String mapToCommaSeparated(Collection<T> objects, Function<T, String> mapper) {
+    return objects.stream().filter(Objects::nonNull).map(mapper).collect(Collectors.joining(","));
+  }
+
+  /**
    * Maps the given collection of objects of type U to an immutable set of objects of type T. Null
    * objects are not allowed.
    *
