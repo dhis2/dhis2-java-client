@@ -32,6 +32,7 @@ import static org.hisp.dhis.util.CollectionUtils.firstMatch;
 import static org.hisp.dhis.util.CollectionUtils.get;
 import static org.hisp.dhis.util.CollectionUtils.index;
 import static org.hisp.dhis.util.CollectionUtils.list;
+import static org.hisp.dhis.util.CollectionUtils.mapToCommaSeparated;
 import static org.hisp.dhis.util.CollectionUtils.mapToList;
 import static org.hisp.dhis.util.CollectionUtils.mapToMap;
 import static org.hisp.dhis.util.CollectionUtils.mapToSet;
@@ -62,9 +63,9 @@ class CollectionUtilsTest {
     Product pB = new Product("P02", "Mouse");
     Product pC = new Product("P03", "Monitor");
 
-    List<Product> collection = list(pA, pB, pC);
+    List<Product> list = list(pA, pB, pC);
 
-    Map<String, Product> map = index(collection, value -> value.getId());
+    Map<String, Product> map = index(list, value -> value.getId());
 
     assertEquals(3, map.keySet().size());
     assertEquals(pA, map.get("P01"));
@@ -75,11 +76,11 @@ class CollectionUtilsTest {
 
   @Test
   void testFirstMatch() {
-    List<String> collection = list("a", "b", "c");
+    List<String> list = list("a", "b", "c");
 
-    assertEquals("a", firstMatch(collection, (v) -> "a".equals(v)));
-    assertEquals("b", firstMatch(collection, (v) -> "b".equals(v)));
-    assertNull(firstMatch(collection, (v) -> "x".equals(v)));
+    assertEquals("a", firstMatch(list, (v) -> "a".equals(v)));
+    assertEquals("b", firstMatch(list, (v) -> "b".equals(v)));
+    assertNull(firstMatch(list, (v) -> "x".equals(v)));
   }
 
   @Test
@@ -144,6 +145,37 @@ class CollectionUtilsTest {
     assertThrows(
         NullPointerException.class,
         () -> mapToList(List.of("a", null, "c"), str -> str.toUpperCase()));
+  }
+
+  @Test
+  void testMapToCommaSeparatedObject() {
+    Product pA = new Product("P01", "Keyboard");
+    Product pB = new Product("P02", "Mouse");
+    Product pC = new Product("P03", "Monitor");
+
+    List<Product> list = list(pA, pB, pC);
+
+    String expected = "Keyboard,Mouse,Monitor";
+
+    assertEquals(expected, mapToCommaSeparated(list, Product::getName));
+  }
+
+  @Test
+  void testMapToCommaSeparatedInteger() {
+    List<Integer> list = list(1, 2, 3);
+
+    String expected = "1,2,3";
+
+    assertEquals(expected, mapToCommaSeparated(list, String::valueOf));
+  }
+
+  @Test
+  void testMapToCommaSeparatedNull() {
+    List<Integer> list = list(1, null, 3);
+
+    String expected = "1,3";
+
+    assertEquals(expected, mapToCommaSeparated(list, String::valueOf));
   }
 
   @Test
