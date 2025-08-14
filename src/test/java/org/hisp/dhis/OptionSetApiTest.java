@@ -141,6 +141,11 @@ class OptionSetApiTest {
     assertEquals("DJC: Color", retrieved.getName());
     assertSize(3, retrieved.getOptions());
 
+    Option option = retrieved.getOptions().get(0);
+    
+    assertNotNull(option);
+    assertNotBlank(option.getId());
+
     ObjectResponse removeResponse = dhis2.removeOptionSet("qszOn4ydMDE");
 
     assertNotNull(removeResponse);
@@ -171,6 +176,11 @@ class OptionSetApiTest {
     assertEquals("DJC_COLOR", retrieved.getCode());
     assertEquals("DJC: Color", retrieved.getName());
     assertSize(3, retrieved.getOptions());
+    
+    Option option = retrieved.getOptions().get(0);
+    
+    assertNotNull(option);
+    assertNotBlank(option.getId());
 
     ObjectResponse removeResponse = dhis2.removeOptionSet("qszOn4ydMDE");
 
@@ -202,6 +212,11 @@ class OptionSetApiTest {
     assertEquals("DJC_COLOR", retrieved.getCode());
     assertEquals("DJC: Color", retrieved.getName());
     assertSize(3, retrieved.getOptions());
+
+    Option option = retrieved.getOptions().get(0);
+    
+    assertNotNull(option);
+    assertNotBlank(option.getId());
 
     ObjectResponse removeResponse = dhis2.removeOptionSet("qszOn4ydMDE");
 

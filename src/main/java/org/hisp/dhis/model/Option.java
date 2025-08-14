@@ -41,6 +41,6 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Option extends NameableObject {
   @JsonProperty private Integer sortOrder;
-  
+
   @JsonProperty private OptionSet optionSet;
 }
