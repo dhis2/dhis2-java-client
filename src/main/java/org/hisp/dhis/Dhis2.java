@@ -91,6 +91,7 @@ import org.hisp.dhis.model.IndicatorType;
 import org.hisp.dhis.model.Me;
 import org.hisp.dhis.model.Option;
 import org.hisp.dhis.model.OptionSet;
+import org.hisp.dhis.model.OptionSetObjects;
 import org.hisp.dhis.model.OrgUnit;
 import org.hisp.dhis.model.OrgUnitGroup;
 import org.hisp.dhis.model.OrgUnitGroupSet;
@@ -2314,6 +2315,18 @@ public class Dhis2 extends BaseDhis2 {
   // -------------------------------------------------------------------------
   // Option sets
   // -------------------------------------------------------------------------
+
+  /**
+   * Saves or updates a program with {@link OptionSetObjects}.
+   *
+   * @param objects the {@link OptionSetObjects}.
+   * @return the {@link ObjectsResponse}.
+   */
+  public ObjectsResponse saveOptionSet(OptionSetObjects objects) {
+    URI url = config.getResolvedUrl(PATH_METADATA);
+
+    return executeJsonPostPutRequest(new HttpPost(url), objects, ObjectsResponse.class);
+  }
 
   /**
    * Retrieves an {@link OptionSet}.

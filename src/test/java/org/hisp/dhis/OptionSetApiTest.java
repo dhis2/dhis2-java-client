@@ -39,6 +39,7 @@ import java.util.List;
 import org.hisp.dhis.model.Dhis2Objects;
 import org.hisp.dhis.model.Option;
 import org.hisp.dhis.model.OptionSet;
+import org.hisp.dhis.model.OptionSetObjects;
 import org.hisp.dhis.query.Query;
 import org.hisp.dhis.response.Status;
 import org.hisp.dhis.response.object.ObjectResponse;
@@ -67,13 +68,21 @@ class OptionSetApiTest {
     assertNotNull(optionSet.getOptions());
     assertNotEmpty(optionSet.getOptions());
 
-    Option option = optionSet.getOptions().get(0);
+    Option optionA = optionSet.getOptions().get(0);
 
-    assertNotNull(option);
-    assertNotNull(option.getId());
-    assertNotNull(option.getCode());
-    assertNotNull(option.getName());
-    assertNotNull(option.getSortOrder());
+    assertNotNull(optionA);
+    assertNotNull(optionA.getId());
+    assertNotNull(optionA.getCode());
+    assertNotNull(optionA.getName());
+    assertNotNull(optionA.getSortOrder());
+
+    Option optionB = optionSet.getOptions().get(0);
+
+    assertNotNull(optionB);
+    assertNotNull(optionB.getId());
+    assertNotNull(optionB.getCode());
+    assertNotNull(optionB.getName());
+    assertNotNull(optionB.getSortOrder());
   }
 
   @Test
@@ -107,6 +116,37 @@ class OptionSetApiTest {
 
   @Test
   void testSaveGetOptionSet() {
+    OptionSetObjects optionSet =
+        JsonClassPathFile.fromJson("metadata/option-set-color.json", OptionSetObjects.class);
+
+    assertSize(1, optionSet.getOptionSets());
+    assertSize(3, optionSet.getOptions());
+
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    ObjectsResponse saveResponse = dhis2.saveOptionSet(optionSet);
+
+    assertNotNull(saveResponse);
+    assertEquals(Status.OK, saveResponse.getStatus());
+    assertEquals(200, saveResponse.getHttpStatusCode());
+
+    OptionSet retrieved = dhis2.getOptionSet("qszOn4ydMDE");
+
+    assertNotNull(retrieved);
+    assertEquals("qszOn4ydMDE", retrieved.getId());
+    assertEquals("DJC_COLOR", retrieved.getCode());
+    assertEquals("DJC: Color", retrieved.getName());
+    assertSize(3, retrieved.getOptions());
+
+    ObjectResponse removeResponse = dhis2.removeOptionSet("qszOn4ydMDE");
+
+    assertNotNull(removeResponse);
+    assertEquals(Status.OK, removeResponse.getStatus());
+    assertEquals(200, removeResponse.getHttpStatusCode());
+  }
+
+  @Test
+  void testSaveGetOptionSetAsMetadata() {
     Dhis2Objects optionSet =
         JsonClassPathFile.fromJson("metadata/option-set-color.json", Dhis2Objects.class);
 
