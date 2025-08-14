@@ -92,7 +92,7 @@ public class ApiFields {
           NAME_EXT_FIELDS, ID_FIELDS);
 
   /** Option fields. */
-  public static final String OPTION_FIELDS = NAME_FIELDS;
+  public static final String OPTION_FIELDS = String.format("%1$s,sortOrder", NAME_FIELDS);
 
   /** Option set fields. */
   public static final String OPTION_SET_FIELDS =
@@ -100,7 +100,7 @@ public class ApiFields {
 
   /** Option set extended fields. */
   public static final String OPTION_SET_EXT_FIELDS =
-      String.format("%1$s,options[%2$s]", OPTION_SET_FIELDS, NAME_FIELDS);
+      String.format("%1$s,options[%2$s]", OPTION_SET_FIELDS, OPTION_FIELDS);
 
   /** Data element group set fields. */
   public static final String DASHBOARD_FIELDS = String.format("%1$s,embedded[*]", NAME_EXT_FIELDS);

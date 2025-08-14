@@ -146,7 +146,7 @@ public class BaseDhis2 {
   // Log levels
 
   /** Log level system property. */
-  private static final String LOG_LEVEL_SYSTEM_PROPERTY = "log.level.dhis2";
+  public static final String LOG_LEVEL_SYSTEM_PROPERTY = "log.level.dhis2";
 
   /** Info log level. */
   private static final String LOG_LEVEL_INFO = "info";

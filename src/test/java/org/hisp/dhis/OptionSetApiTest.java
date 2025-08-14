@@ -29,15 +29,21 @@ package org.hisp.dhis;
 
 import static org.hisp.dhis.support.Assertions.assertNotBlank;
 import static org.hisp.dhis.support.Assertions.assertNotEmpty;
+import static org.hisp.dhis.support.Assertions.assertSize;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
+import org.hisp.dhis.model.Dhis2Objects;
 import org.hisp.dhis.model.Option;
 import org.hisp.dhis.model.OptionSet;
 import org.hisp.dhis.query.Query;
+import org.hisp.dhis.response.Status;
+import org.hisp.dhis.response.object.ObjectResponse;
+import org.hisp.dhis.response.objects.ObjectsResponse;
+import org.hisp.dhis.support.JsonClassPathFile;
 import org.hisp.dhis.support.TestTags;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -67,6 +73,7 @@ class OptionSetApiTest {
     assertNotNull(option.getId());
     assertNotNull(option.getCode());
     assertNotNull(option.getName());
+    assertNotNull(option.getSortOrder());
   }
 
   @Test
@@ -96,5 +103,36 @@ class OptionSetApiTest {
     assertNotNull(optionSet.getName());
     assertNotNull(optionSet.getOptions());
     assertFalse(optionSet.getOptions().isEmpty());
+  }
+
+  @Test
+  void testSaveGetOptionSet() {
+    Dhis2Objects optionSet =
+        JsonClassPathFile.fromJson("metadata/option-set-color.json", Dhis2Objects.class);
+
+    assertSize(1, optionSet.getOptionSets());
+    assertSize(3, optionSet.getOptions());
+
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    ObjectsResponse saveResponse = dhis2.saveMetadataObjects(optionSet);
+
+    assertNotNull(saveResponse);
+    assertEquals(Status.OK, saveResponse.getStatus());
+    assertEquals(200, saveResponse.getHttpStatusCode());
+
+    OptionSet retrieved = dhis2.getOptionSet("qszOn4ydMDE");
+
+    assertNotNull(retrieved);
+    assertEquals("qszOn4ydMDE", retrieved.getId());
+    assertEquals("DJC_COLOR", retrieved.getCode());
+    assertEquals("DJC: Color", retrieved.getName());
+    assertSize(3, retrieved.getOptions());
+
+    ObjectResponse removeResponse = dhis2.removeOptionSet("qszOn4ydMDE");
+
+    assertNotNull(removeResponse);
+    assertEquals(Status.OK, removeResponse.getStatus());
+    assertEquals(200, removeResponse.getHttpStatusCode());
   }
 }

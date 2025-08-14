@@ -27,11 +27,18 @@
  */
 package org.hisp.dhis.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * Note that {@code sortOrder} must be set, as missing sort order will be accepted by DHIS2 but will
+ * lead to invalid options when updating existing option sets.
+ */
 @Getter
 @Setter
 @NoArgsConstructor
-public class Option extends NameableObject {}
+public class Option extends NameableObject {
+  @JsonProperty private Integer sortOrder;
+}
