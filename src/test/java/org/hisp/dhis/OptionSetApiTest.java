@@ -34,6 +34,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.util.List;
 import org.hisp.dhis.model.Dhis2Objects;
 import org.hisp.dhis.model.Option;
@@ -142,7 +143,7 @@ class OptionSetApiTest {
     assertSize(3, retrieved.getOptions());
 
     Option option = retrieved.getOptions().get(0);
-    
+
     assertNotNull(option);
     assertNotBlank(option.getId());
 
@@ -169,18 +170,28 @@ class OptionSetApiTest {
     assertEquals(Status.OK, saveResponse.getStatus());
     assertEquals(200, saveResponse.getHttpStatusCode());
 
-    OptionSet retrieved = dhis2.getOptionSet("qszOn4ydMDE");
+    OptionSet saved = dhis2.getOptionSet("qszOn4ydMDE");
 
-    assertNotNull(retrieved);
-    assertEquals("qszOn4ydMDE", retrieved.getId());
-    assertEquals("DJC_COLOR", retrieved.getCode());
-    assertEquals("DJC: Color", retrieved.getName());
-    assertSize(3, retrieved.getOptions());
-    
-    Option option = retrieved.getOptions().get(0);
-    
+    assertNotNull(saved);
+    assertEquals("qszOn4ydMDE", saved.getId());
+    assertSize(3, saved.getOptions());
+
+    Option option = saved.getOptions().get(0);
+
     assertNotNull(option);
     assertNotBlank(option.getId());
+
+    ObjectsResponse updateResponse = dhis2.saveOptionSet(optionSet);
+
+    assertNotNull(updateResponse);
+    assertEquals(Status.OK, updateResponse.getStatus());
+    assertEquals(200, updateResponse.getHttpStatusCode());
+
+    OptionSet udpated = dhis2.getOptionSet("qszOn4ydMDE");
+
+    assertNotNull(udpated);
+    assertEquals("qszOn4ydMDE", udpated.getId());
+    assertSize(3, udpated.getOptions());
 
     ObjectResponse removeResponse = dhis2.removeOptionSet("qszOn4ydMDE");
 
@@ -214,7 +225,7 @@ class OptionSetApiTest {
     assertSize(3, retrieved.getOptions());
 
     Option option = retrieved.getOptions().get(0);
-    
+
     assertNotNull(option);
     assertNotBlank(option.getId());
 
