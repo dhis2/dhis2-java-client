@@ -34,7 +34,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import java.util.List;
 import org.hisp.dhis.model.Dhis2Objects;
 import org.hisp.dhis.model.Option;
@@ -75,6 +74,8 @@ class OptionSetApiTest {
     assertNotNull(optionA.getCode());
     assertNotNull(optionA.getName());
     assertNotNull(optionA.getSortOrder());
+    assertNotNull(optionA.getOptionSet());
+    assertNotBlank(optionA.getOptionSet().getId());
 
     Option optionB = optionSet.getOptions().get(0);
 
@@ -83,6 +84,8 @@ class OptionSetApiTest {
     assertNotNull(optionB.getCode());
     assertNotNull(optionB.getName());
     assertNotNull(optionB.getSortOrder());
+    assertNotNull(optionB.getOptionSet());
+    assertNotBlank(optionB.getOptionSet().getId());
   }
 
   @Test
@@ -116,6 +119,37 @@ class OptionSetApiTest {
 
   @Test
   void testSaveGetOptionSet() {
+    OptionSetObjects optionSet =
+        JsonClassPathFile.fromJson("metadata/option-set-color.json", OptionSetObjects.class);
+
+    assertSize(1, optionSet.getOptionSets());
+    assertSize(3, optionSet.getOptions());
+
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    ObjectsResponse saveResponse = dhis2.saveOptionSet(optionSet);
+
+    assertNotNull(saveResponse);
+    assertEquals(Status.OK, saveResponse.getStatus());
+    assertEquals(200, saveResponse.getHttpStatusCode());
+
+    OptionSet retrieved = dhis2.getOptionSet("qszOn4ydMDE");
+
+    assertNotNull(retrieved);
+    assertEquals("qszOn4ydMDE", retrieved.getId());
+    assertEquals("DJC_COLOR", retrieved.getCode());
+    assertEquals("DJC: Color", retrieved.getName());
+    assertSize(3, retrieved.getOptions());
+
+    ObjectResponse removeResponse = dhis2.removeOptionSet("qszOn4ydMDE");
+
+    assertNotNull(removeResponse);
+    assertEquals(Status.OK, removeResponse.getStatus());
+    assertEquals(200, removeResponse.getHttpStatusCode());
+  }
+
+  @Test
+  void testSaveUpdateOptionSet() {
     OptionSetObjects optionSet =
         JsonClassPathFile.fromJson("metadata/option-set-color.json", OptionSetObjects.class);
 

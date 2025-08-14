@@ -33,12 +33,14 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * Note that {@code sortOrder} must be set, as missing sort order will be accepted by DHIS2 but will
- * lead to invalid options when updating existing option sets.
+ * Note that {@code sortOrder} and {@code optionSet} must be set, otherwise updating existing option
+ * sets will lead to invalid options.
  */
 @Getter
 @Setter
 @NoArgsConstructor
 public class Option extends NameableObject {
   @JsonProperty private Integer sortOrder;
+  
+  @JsonProperty private OptionSet optionSet;
 }
