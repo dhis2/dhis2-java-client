@@ -75,6 +75,8 @@ class OptionSetApiTest {
     assertNotNull(optionA.getCode());
     assertNotNull(optionA.getName());
     assertNotNull(optionA.getSortOrder());
+    assertNotNull(optionA.getOptionSet());
+    assertNotBlank(optionA.getOptionSet().getId());
 
     Option optionB = optionSet.getOptions().get(0);
 
@@ -83,6 +85,8 @@ class OptionSetApiTest {
     assertNotNull(optionB.getCode());
     assertNotNull(optionB.getName());
     assertNotNull(optionB.getSortOrder());
+    assertNotNull(optionB.getOptionSet());
+    assertNotBlank(optionB.getOptionSet().getId());
   }
 
   @Test
@@ -138,6 +142,57 @@ class OptionSetApiTest {
     assertEquals("DJC: Color", retrieved.getName());
     assertSize(3, retrieved.getOptions());
 
+    Option option = retrieved.getOptions().get(0);
+
+    assertNotNull(option);
+    assertNotBlank(option.getId());
+
+    ObjectResponse removeResponse = dhis2.removeOptionSet("qszOn4ydMDE");
+
+    assertNotNull(removeResponse);
+    assertEquals(Status.OK, removeResponse.getStatus());
+    assertEquals(200, removeResponse.getHttpStatusCode());
+  }
+
+  @Test
+  void testSaveUpdateOptionSet() {
+    OptionSetObjects optionSet =
+        JsonClassPathFile.fromJson("metadata/option-set-color.json", OptionSetObjects.class);
+
+    assertSize(1, optionSet.getOptionSets());
+    assertSize(3, optionSet.getOptions());
+
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    ObjectsResponse saveResponse = dhis2.saveOptionSet(optionSet);
+
+    assertNotNull(saveResponse);
+    assertEquals(Status.OK, saveResponse.getStatus());
+    assertEquals(200, saveResponse.getHttpStatusCode());
+
+    OptionSet saved = dhis2.getOptionSet("qszOn4ydMDE");
+
+    assertNotNull(saved);
+    assertEquals("qszOn4ydMDE", saved.getId());
+    assertSize(3, saved.getOptions());
+
+    Option option = saved.getOptions().get(0);
+
+    assertNotNull(option);
+    assertNotBlank(option.getId());
+
+    ObjectsResponse updateResponse = dhis2.saveOptionSet(optionSet);
+
+    assertNotNull(updateResponse);
+    assertEquals(Status.OK, updateResponse.getStatus());
+    assertEquals(200, updateResponse.getHttpStatusCode());
+
+    OptionSet udpated = dhis2.getOptionSet("qszOn4ydMDE");
+
+    assertNotNull(udpated);
+    assertEquals("qszOn4ydMDE", udpated.getId());
+    assertSize(3, udpated.getOptions());
+
     ObjectResponse removeResponse = dhis2.removeOptionSet("qszOn4ydMDE");
 
     assertNotNull(removeResponse);
@@ -168,6 +223,11 @@ class OptionSetApiTest {
     assertEquals("DJC_COLOR", retrieved.getCode());
     assertEquals("DJC: Color", retrieved.getName());
     assertSize(3, retrieved.getOptions());
+
+    Option option = retrieved.getOptions().get(0);
+
+    assertNotNull(option);
+    assertNotBlank(option.getId());
 
     ObjectResponse removeResponse = dhis2.removeOptionSet("qszOn4ydMDE");
 

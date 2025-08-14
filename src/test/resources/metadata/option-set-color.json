@@ -24,19 +24,28 @@
       "id": "aszOn4ydMDE",
       "code": "DJC_RED",
       "name": "DJC: Red",
-      "sortOrder": 0
+      "sortOrder": 0,
+      "optionSet": {
+        "id": "qszOn4ydMDE"
+      }
     },
     {
       "id": "bIGx0gFo9fs",
       "code": "DJC_GREEN",
       "name": "DJC: Green",
-      "sortOrder": 1
+      "sortOrder": 1,
+      "optionSet": {
+        "id": "qszOn4ydMDE"
+      }
     },
     {
       "id": "cszOn4ydMDE",
       "code": "DJC_BLUE",
       "name": "DJC: Blue",
-      "sortOrder": 2
+      "sortOrder": 2,
+      "optionSet": {
+        "id": "qszOn4ydMDE"
+      }
     }
   ]
 }
