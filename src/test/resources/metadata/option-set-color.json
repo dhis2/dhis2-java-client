@@ -1,0 +1,42 @@
+{
+  "optionSets": [
+    {
+      "id": "qszOn4ydMDE",
+      "code": "DJC_COLOR",
+      "name": "DJC: Color",
+      "valueType": "TEXT",
+      "version": 1,
+      "options": [
+        {
+          "id": "aszOn4ydMDE"
+        },
+        {
+          "id": "bIGx0gFo9fs"
+        },
+        {
+          "id": "cszOn4ydMDE"
+        }
+      ]
+    }
+  ],
+  "options": [
+    {
+      "id": "aszOn4ydMDE",
+      "code": "DJC_RED",
+      "name": "DJC: Red",
+      "sortOrder": 0
+    },
+    {
+      "id": "bIGx0gFo9fs",
+      "code": "DJC_GREEN",
+      "name": "DJC: Green",
+      "sortOrder": 1
+    },
+    {
+      "id": "cszOn4ydMDE",
+      "code": "DJC_BLUE",
+      "name": "DJC: Blue",
+      "sortOrder": 2
+    }
+  ]
+}

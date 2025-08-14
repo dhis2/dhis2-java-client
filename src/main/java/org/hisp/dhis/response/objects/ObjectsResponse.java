@@ -34,11 +34,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hisp.dhis.response.Response;
 import org.hisp.dhis.response.Status;
 
+@Getter
 @Setter
 @NoArgsConstructor
 public class ObjectsResponse extends Response {

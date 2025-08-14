@@ -92,7 +92,7 @@ public class ApiFields {
           NAME_EXT_FIELDS, ID_FIELDS);
 
   /** Option fields. */
-  public static final String OPTION_FIELDS = NAME_FIELDS;
+  public static final String OPTION_FIELDS = String.format("%1$s,sortOrder", NAME_FIELDS);
 
   /** Option set fields. */
   public static final String OPTION_SET_FIELDS =
