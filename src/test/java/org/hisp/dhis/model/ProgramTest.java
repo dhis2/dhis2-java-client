@@ -29,6 +29,7 @@ package org.hisp.dhis.model;
 
 import static org.hisp.dhis.support.Assertions.assertContainsExactlyInOrder;
 import static org.hisp.dhis.support.Assertions.assertNotEmpty;
+import static org.hisp.dhis.support.Assertions.assertSize;
 import static org.hisp.dhis.support.TestObjects.set;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -46,7 +47,7 @@ class ProgramTest {
         JsonClassPathFile.fromJson("metadata/program-address-book.json", ProgramObjects.class);
 
     assertNotNull(objects);
-    assertNotEmpty(objects.getPrograms());
+    assertSize(1, objects.getPrograms());
     assertNotEmpty(objects.getProgramSections());
     assertNotEmpty(objects.getProgramStages());
     assertNotEmpty(objects.getProgramStageSections());
