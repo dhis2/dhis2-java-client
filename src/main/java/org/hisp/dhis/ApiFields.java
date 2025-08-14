@@ -100,7 +100,7 @@ public class ApiFields {
 
   /** Option set extended fields. */
   public static final String OPTION_SET_EXT_FIELDS =
-      String.format("%1$s,options[%2$s]", OPTION_SET_FIELDS, NAME_FIELDS);
+      String.format("%1$s,options[%2$s]", OPTION_SET_FIELDS, OPTION_FIELDS);
 
   /** Data element group set fields. */
   public static final String DASHBOARD_FIELDS = String.format("%1$s,embedded[*]", NAME_EXT_FIELDS);

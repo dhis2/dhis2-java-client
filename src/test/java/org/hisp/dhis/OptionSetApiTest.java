@@ -73,6 +73,7 @@ class OptionSetApiTest {
     assertNotNull(option.getId());
     assertNotNull(option.getCode());
     assertNotNull(option.getName());
+    assertNotNull(option.getSortOrder());
   }
 
   @Test
