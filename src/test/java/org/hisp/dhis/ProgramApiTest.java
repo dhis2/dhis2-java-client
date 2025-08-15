@@ -89,13 +89,23 @@ class ProgramApiTest {
     assertEquals(Status.OK, saveResponse.getStatus());
     assertNotNull(saveResponse.getStats());
 
-    pr.setName("Telephone Book");
+    Program saved = dhis2.getProgram("dIFNZrYGcOB");
+
+    assertEquals("dIFNZrYGcOB", saved.getId());
+    assertEquals("Address Book", saved.getName());
+
+    pr.setName("Yellow Pages");
 
     ObjectsResponse updateResponse = dhis2.saveProgram(objects);
 
     assertNotNull(updateResponse);
     assertEquals(Status.OK, updateResponse.getStatus());
     assertNotNull(updateResponse.getStats());
+
+    Program updated = dhis2.getProgram("dIFNZrYGcOB");
+
+    assertEquals("dIFNZrYGcOB", updated.getId());
+    assertEquals("Yellow Pages", updated.getName());
 
     ObjectResponse removeResponse = dhis2.removeProgram(PR_ID);
 
