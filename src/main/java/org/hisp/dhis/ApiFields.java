@@ -307,7 +307,7 @@ public class ApiFields {
           formName,executionDateLabel,dueDateLabel,programStageLabel,eventLabel,\
           repeatable,autoGenerateEvent,displayGenerateEventBox,blockEntryForm,preGenerateUID,\
           remindCompleted,generatedByEnrollmentDate,allowGenerateNextVisit,openAfterEnrollment,\
-          hideDueDate,enableUserAssignment,referral""",
+          hideDueDate,enableUserAssignment,referral,featureType""",
           NAME_EXT_FIELDS,
           ID_FIELDS,
           PROGRAM_STAGE_DATA_ELEMENT_FIELDS,
@@ -335,7 +335,7 @@ public class ApiFields {
           version,displayIncidentDate,ignoreOverdueEvents,onlyEnrollOnce,\
           selectEnrollmentDatesInFuture,selectIncidentDatesInFuture,displayFrontPageList,\
           skipOffline,useFirstStageDuringRegistration,expiryDays,\
-          minAttributesRequiredToSearch,maxTeiCountToReturn,accessLevel""",
+          minAttributesRequiredToSearch,maxTeiCountToReturn,accessLevel,featureType""",
           NAME_EXT_FIELDS,
           NAME_FIELDS,
           TRACKED_ENTITY_TYPE_FIELDS,
@@ -358,7 +358,7 @@ public class ApiFields {
           version,displayIncidentDate,ignoreOverdueEvents,onlyEnrollOnce,\
           selectEnrollmentDatesInFuture,selectIncidentDatesInFuture,displayFrontPageList,\
           skipOffline,useFirstStageDuringRegistration,expiryDays,\
-          minAttributesRequiredToSearch,maxTeiCountToReturn,accessLevel""",
+          minAttributesRequiredToSearch,maxTeiCountToReturn,accessLevel,featureType""",
           NAME_EXT_FIELDS,
           NAME_FIELDS,
           TRACKED_ENTITY_ATTRIBUTE_FIELDS,

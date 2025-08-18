@@ -37,17 +37,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
-import org.hisp.dhis.model.DataElement;
-import org.hisp.dhis.model.OrgUnit;
-import org.hisp.dhis.model.Program;
-import org.hisp.dhis.model.ProgramAccessLevel;
-import org.hisp.dhis.model.ProgramIndicator;
-import org.hisp.dhis.model.ProgramObjects;
-import org.hisp.dhis.model.ProgramSection;
-import org.hisp.dhis.model.ProgramStage;
-import org.hisp.dhis.model.ProgramStageDataElement;
-import org.hisp.dhis.model.ProgramStageSection;
-import org.hisp.dhis.model.ProgramType;
+
+import org.hisp.dhis.model.*;
 import org.hisp.dhis.model.trackedentity.ProgramTrackedEntityAttribute;
 import org.hisp.dhis.model.trackedentity.TrackedEntityAttribute;
 import org.hisp.dhis.model.trackedentity.TrackedEntityType;
@@ -146,6 +137,7 @@ class ProgramApiTest {
     assertNotNull(pr.getLastUpdated());
     assertEquals("Registration Date", pr.getEnrollmentDateLabel());
     assertEquals("Registration", pr.getEnrollmentLabel());
+    assertEquals(FeatureType.NONE, pr.getFeatureType());
     assertFalse(pr.getDisplayIncidentDate());
     assertTrue(pr.getOnlyEnrollOnce());
     assertTrue(pr.getSelectEnrollmentDatesInFuture());
@@ -193,6 +185,7 @@ class ProgramApiTest {
     assertSize(1, ps.getProgramStageSections());
     assertEquals("Registration Date", ps.getExecutionDateLabel());
     assertEquals("Vital Statistics", ps.getProgramStageLabel());
+    assertEquals(FeatureType.NONE, ps.getFeatureType());
     assertFalse(ps.getRepeatable());
     assertFalse(ps.getAutoGenerateEvent());
     assertTrue(ps.getRemindCompleted());
