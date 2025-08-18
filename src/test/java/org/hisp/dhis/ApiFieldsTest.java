@@ -56,7 +56,7 @@ class ApiFieldsTest {
         formName,executionDateLabel,dueDateLabel,programStageLabel,eventLabel,\
         repeatable,autoGenerateEvent,displayGenerateEventBox,blockEntryForm,preGenerateUID,\
         remindCompleted,generatedByEnrollmentDate,allowGenerateNextVisit,openAfterEnrollment,\
-        hideDueDate,enableUserAssignment,referral""";
+        hideDueDate,enableUserAssignment,referral,featureType""";
 
     assertEquals(expected, ApiFields.PROGRAM_STAGE_FIELDS);
   }
@@ -94,7 +94,7 @@ class ApiFieldsTest {
         formName,executionDateLabel,dueDateLabel,programStageLabel,eventLabel,\
         repeatable,autoGenerateEvent,displayGenerateEventBox,blockEntryForm,preGenerateUID,\
         remindCompleted,generatedByEnrollmentDate,allowGenerateNextVisit,openAfterEnrollment,\
-        hideDueDate,enableUserAssignment,referral],\
+        hideDueDate,enableUserAssignment,referral,featureType],\
         programTrackedEntityAttributes[id,code,name,program[id,code,name,created,lastUpdated,\
         attributeValues,shortName,description],\
         trackedEntityAttribute[id,code,name,created,lastUpdated,attributeValues,shortName,\
@@ -106,7 +106,7 @@ class ApiFieldsTest {
         version,displayIncidentDate,ignoreOverdueEvents,onlyEnrollOnce,\
         selectEnrollmentDatesInFuture,selectIncidentDatesInFuture,displayFrontPageList,\
         skipOffline,useFirstStageDuringRegistration,expiryDays,\
-        minAttributesRequiredToSearch,maxTeiCountToReturn,accessLevel""";
+        minAttributesRequiredToSearch,maxTeiCountToReturn,accessLevel,featureType""";
 
     assertEquals(expected, ApiFields.PROGRAM_EXT_FIELDS);
   }
@@ -131,7 +131,7 @@ class ApiFieldsTest {
         version,displayIncidentDate,ignoreOverdueEvents,onlyEnrollOnce,\
         selectEnrollmentDatesInFuture,selectIncidentDatesInFuture,displayFrontPageList,\
         skipOffline,useFirstStageDuringRegistration,expiryDays,\
-        minAttributesRequiredToSearch,maxTeiCountToReturn,accessLevel""";
+        minAttributesRequiredToSearch,maxTeiCountToReturn,accessLevel,featureType""";
 
     assertEquals(expected, ApiFields.PROGRAM_FIELDS);
   }
