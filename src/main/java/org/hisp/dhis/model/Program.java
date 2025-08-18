@@ -113,6 +113,8 @@ public class Program extends NameableObject {
 
   @JsonProperty private ProgramAccessLevel accessLevel;
 
+  @JsonProperty private FeatureType featureType;
+
   public Program(String id, String name) {
     this.id = id;
     this.name = name;

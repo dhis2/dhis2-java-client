@@ -82,6 +82,8 @@ public class ProgramStage extends NameableObject {
 
   @JsonProperty private Boolean referral;
 
+  @JsonProperty private FeatureType featureType;
+
   /**
    * Constructor.
    *
