@@ -27,6 +27,7 @@
  */
 package org.hisp.dhis.util;
 
+import static org.hisp.dhis.support.Assertions.assertSize;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -34,6 +35,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.Date;
+import java.util.List;
 import org.hisp.dhis.model.AggregationType;
 import org.hisp.dhis.model.DataDomain;
 import org.hisp.dhis.model.DataElement;
@@ -197,6 +199,36 @@ class JacksonUtilsTest {
     assertEquals(2025, created.getYear());
     assertEquals(Month.MARCH, created.getMonth());
     assertEquals(20, created.getDayOfMonth());
+  }
+
+  @Test
+  void testFromJsonToStringList() {
+    String content =
+        """
+        ["s46m5MS0hxu", "YtbsuPPo010", "l6byfWFUGaP"]
+        """;
+
+    List<String> list = JacksonUtils.fromJsonToList(content, String.class);
+
+    List<String> expected = List.of("s46m5MS0hxu", "YtbsuPPo010", "l6byfWFUGaP");
+
+    assertSize(3, list);
+    assertEquals(expected, list);
+  }
+
+  @Test
+  void testFromJsonToIntegerList() {
+    String content =
+        """
+        [1, 2, 3, 4, 5]
+        """;
+
+    List<Integer> list = JacksonUtils.fromJsonToList(content, Integer.class);
+
+    List<Integer> expected = List.of(1, 2, 3, 4, 5);
+
+    assertSize(5, list);
+    assertEquals(expected, list);
   }
 
   /**
