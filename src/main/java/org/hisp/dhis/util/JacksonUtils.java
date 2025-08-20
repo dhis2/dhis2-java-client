@@ -186,11 +186,10 @@ public class JacksonUtils {
    * Deserializes the given JSON string into a list of objects of the specified type.
    *
    * @param string the JSON string to deserialize.
-   * @param typeRef the class of the target type of the list items.
    * @param <T> the type of the list items to return.
    * @return an list of items of type T.
    */
-  public static <T> List<T> fromJsonToList(String string, Class<T> type) {
+  public static <T> List<T> fromJsonToList(String string) {
     try {
       return OBJECT_MAPPER.readValue(string, new TypeReference<List<T>>() {});
     } catch (IOException ex) {

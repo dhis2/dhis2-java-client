@@ -208,7 +208,7 @@ class JacksonUtilsTest {
         ["s46m5MS0hxu", "YtbsuPPo010", "l6byfWFUGaP"]
         """;
 
-    List<String> list = JacksonUtils.fromJsonToList(content, String.class);
+    List<String> list = JacksonUtils.fromJsonToList(content);
 
     List<String> expected = List.of("s46m5MS0hxu", "YtbsuPPo010", "l6byfWFUGaP");
 
@@ -223,7 +223,7 @@ class JacksonUtilsTest {
         [1, 2, 3, 4, 5]
         """;
 
-    List<Integer> list = JacksonUtils.fromJsonToList(content, Integer.class);
+    List<Integer> list = JacksonUtils.fromJsonToList(content);
 
     List<Integer> expected = List.of(1, 2, 3, 4, 5);
 
