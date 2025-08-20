@@ -103,4 +103,112 @@ class TextUtilsTest {
     assertEquals("exists", TextUtils.getString(true, "exists", "does not exist"));
     assertEquals("does not exist", TextUtils.getString(false, "exists", "does not exist"));
   }
+
+  @Test
+  void testStripCodeFencesSqlBlockWithNewlines() {
+    String input =
+        """
+        ```sql
+        select * from mytable;
+        ```""";
+    String expected = "select * from mytable;";
+    assertEquals(expected, TextUtils.stripCodeFences(input));
+  }
+
+  @Test
+  void testJsonBlock() {
+    String input =
+        """
+        ```json
+        {
+          "key": "value"
+        }
+        ```""";
+    String expected =
+        """
+        {
+          "key": "value"
+        }""";
+    assertEquals(expected, TextUtils.stripCodeFences(input));
+  }
+
+  @Test
+  void testStripCodeFencesInlineBlockWithoutNewlines() {
+    String input = "```sql select * from mytable;```";
+    String expected = "select * from mytable;";
+    assertEquals(expected, TextUtils.stripCodeFences(input));
+  }
+
+  @Test
+  void testStripCodeFencesXmlBlockWithoutLanguageTag() {
+    String input =
+        """
+        ```
+        <root>
+          <child>value</child>
+        </root>
+        ```""";
+    String expected =
+        """
+        <root>
+          <child>value</child>
+        </root>""";
+    assertEquals(expected, TextUtils.stripCodeFences(input));
+  }
+
+  @Test
+  void testStripCodeFencesEmptyBlock() {
+    String input =
+        """
+        ```
+        ```""";
+    String expected = "";
+    assertEquals(expected, TextUtils.stripCodeFences(input));
+  }
+
+  @Test
+  void testStripCodeFencesOnlyLeadingBackticks() {
+    String input =
+        """
+        ```sql
+        select * from mytable;""";
+    String expected = "select * from mytable;";
+    assertEquals(expected, TextUtils.stripCodeFences(input));
+  }
+
+  @Test
+  void testStripCodeFencesOnlyTrailingBackticks() {
+    String input =
+        """
+        select * from mytable;
+        ```""";
+    String expected = "select * from mytable;";
+    assertEquals(expected, TextUtils.stripCodeFences(input));
+  }
+
+  @Test
+  void testStripCodeFencesLeadingAndTrailingWhitespace() {
+    String input =
+        """
+
+        ```sql
+        select * from mytable;
+        ```
+
+        """;
+    String expected = "select * from mytable;";
+    assertEquals(expected, TextUtils.stripCodeFences(input));
+  }
+
+  @Test
+  void testStripCodeFencesNoBackticks() {
+    String input = "select * from mytable;";
+    String expected = "select * from mytable;";
+    assertEquals(expected, TextUtils.stripCodeFences(input));
+  }
+
+  @Test
+  void testStripCodeFencesNullInput() {
+    assertNull(TextUtils.stripCodeFences(null));
+  }
 }

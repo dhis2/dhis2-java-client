@@ -37,7 +37,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
-
 import org.hisp.dhis.model.*;
 import org.hisp.dhis.model.trackedentity.ProgramTrackedEntityAttribute;
 import org.hisp.dhis.model.trackedentity.TrackedEntityAttribute;

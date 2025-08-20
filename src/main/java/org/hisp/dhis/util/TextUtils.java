@@ -27,6 +27,8 @@
  */
 package org.hisp.dhis.util;
 
+import static org.apache.commons.lang3.StringUtils.isEmpty;
+
 import java.util.regex.Pattern;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -36,6 +38,10 @@ import org.slf4j.helpers.MessageFormatter;
 
 public class TextUtils {
   private static final Pattern PATTTERN_VARIABLE = Pattern.compile("^\\$\\{(.*?)\\}$");
+
+  private static final String PATTERN_LEAD_TICKS = "^```[a-zA-Z0-9]*\\s*\\n?";
+  private static final String PATTERN_TRAIL_TICKS = "\\n?\\s*```$";
+  private static final String EMPTY = "";
 
   /**
    * Returns a formatted message string. The argument pattern is "{}".
@@ -127,6 +133,25 @@ public class TextUtils {
     }
 
     return input;
+  }
+
+  /**
+   * Strips code block fences from a string. Handles leading ``` with optional format (sql, json)
+   * and optional newline, and trailing ``` optionally preceded by a newline.
+   *
+   * @param input the input string with code fences.
+   * @return the unwrapped content, or input string if not wrapped.
+   */
+  public static String stripCodeFences(String input) {
+    if (isEmpty(input)) {
+      return null;
+    }
+
+    String trimmed = input.trim();
+    trimmed = trimmed.replaceFirst(PATTERN_LEAD_TICKS, EMPTY);
+    trimmed = trimmed.replaceFirst(PATTERN_TRAIL_TICKS, EMPTY);
+
+    return trimmed.strip();
   }
 
   /**
