@@ -126,31 +126,31 @@ public class AnalyticsQuery {
   /**
    * Adds a data dimension and items to this query.
    *
-   * @param items the list of dimension items.
+   * @param dataItems the list of data dimension items.
    * @return this {@link AnalyticsQuery}.
    */
-  public AnalyticsQuery addDataDimension(List<String> items) {
-    return addDimension(Dimension.DIMENSION_DX, items);
+  public AnalyticsQuery addDataDimension(List<String> dataItems) {
+    return addDimension(Dimension.DIMENSION_DX, dataItems);
   }
 
   /**
    * Adds a period dimension and items to this query.
    *
-   * @param items the list of dimension items.
+   * @param periods the list of period dimension items.
    * @return this {@link AnalyticsQuery}.
    */
-  public AnalyticsQuery addPeriodDimension(List<String> items) {
-    return addDimension(Dimension.DIMENSION_PE, items);
+  public AnalyticsQuery addPeriodDimension(List<String> periods) {
+    return addDimension(Dimension.DIMENSION_PE, periods);
   }
 
   /**
    * Adds an org unit dimension and items to this query.
    *
-   * @param items the list of dimension items.
+   * @param orgUnits the list of org unit dimension items.
    * @return this {@link AnalyticsQuery}.
    */
-  public AnalyticsQuery addOrgUnitDimension(List<String> items) {
-    return addDimension(Dimension.DIMENSION_OU, items);
+  public AnalyticsQuery addOrgUnitDimension(List<String> orgUnits) {
+    return addDimension(Dimension.DIMENSION_OU, orgUnits);
   }
 
   /**
@@ -178,31 +178,31 @@ public class AnalyticsQuery {
   /**
    * Adds a data filter and items to this query.
    *
-   * @param items the filter items.
+   * @param dataItems the data filter items.
    * @return this {@link AnalyticsQuery}.
    */
-  public AnalyticsQuery addDataFilter(List<String> items) {
-    return addFilter(new Dimension(Dimension.DIMENSION_DX, items));
+  public AnalyticsQuery addDataFilter(List<String> dataItems) {
+    return addFilter(new Dimension(Dimension.DIMENSION_DX, dataItems));
   }
 
   /**
    * Adds a period filter and items to this query.
    *
-   * @param items the filter items.
+   * @param periods the period filter items.
    * @return this {@link AnalyticsQuery}.
    */
-  public AnalyticsQuery addPeriodFilter(List<String> items) {
-    return addFilter(new Dimension(Dimension.DIMENSION_PE, items));
+  public AnalyticsQuery addPeriodFilter(List<String> periods) {
+    return addFilter(new Dimension(Dimension.DIMENSION_PE, periods));
   }
 
   /**
    * Adds an org unit filter and items to this query.
    *
-   * @param items the filter items.
+   * @param orgUnits the org unit filter items.
    * @return this {@link AnalyticsQuery}.
    */
-  public AnalyticsQuery addOrgUnitFilter(List<String> items) {
-    return addFilter(new Dimension(Dimension.DIMENSION_OU, items));
+  public AnalyticsQuery addOrgUnitFilter(List<String> orgUnits) {
+    return addFilter(new Dimension(Dimension.DIMENSION_OU, orgUnits));
   }
 
   /**
