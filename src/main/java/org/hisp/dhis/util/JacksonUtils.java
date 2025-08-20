@@ -29,6 +29,7 @@ package org.hisp.dhis.util;
 
 import com.bedatadriven.jackson.datatype.jts.JtsModule;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -40,6 +41,7 @@ import java.io.OutputStream;
 import java.io.UncheckedIOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.hisp.dhis.util.json.DateJsonDeserializer;
@@ -175,6 +177,21 @@ public class JacksonUtils {
   public static <T> T fromJson(String string, Class<T> type) {
     try {
       return OBJECT_MAPPER.readValue(string, type);
+    } catch (IOException ex) {
+      throw new UncheckedIOException(ex);
+    }
+  }
+
+  /**
+   * Deserializes the given JSON string into a list of objects of the specified type.
+   *
+   * @param string the JSON string to deserialize.
+   * @param <T> the type of the list items to return.
+   * @return an list of items of type T.
+   */
+  public static <T> List<T> fromJsonToList(String string) {
+    try {
+      return OBJECT_MAPPER.readValue(string, new TypeReference<List<T>>() {});
     } catch (IOException ex) {
       throw new UncheckedIOException(ex);
     }
