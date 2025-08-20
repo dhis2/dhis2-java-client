@@ -28,20 +28,19 @@
 package org.hisp.dhis.query.analytics;
 
 import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
+
 import java.util.ArrayList;
 import java.util.List;
-import org.hisp.dhis.model.AggregationType;
-import org.hisp.dhis.model.IdScheme;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import org.hisp.dhis.model.AggregationType;
+import org.hisp.dhis.model.IdScheme;
 
 /**
- * Encapsulation of an analytics data query. Example usage:
- * 
- * <code><pre>
+ * Encapsulation of an analytics data query. Example usage: <code><pre>
  * AnalyticsQuery query = AnalyticsQuery.instance()
  *   .addDataDimension(List.of("s46m5MS0hxu", "YtbsuPPo010"))
  *   .addPeriodDimension(List.of("202501"))
