@@ -27,4 +27,56 @@
  */
 package org.hisp.dhis.model;
 
-public enum RelativePeriod {}
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+
+@Getter
+@RequiredArgsConstructor
+public enum RelativePeriod {
+  TODAY("Today"),
+  YESTERDAY("Yesterday"),
+  LAST_3_DAYS("Last 3 days"),
+  LAST_7_DAYS("Last 7 days"),
+  LAST_14_DAYS("Last 14 days"),
+  LAST_30_DAYS("Last 30 days"),
+  LAST_60_DAYS("Last 60 days"),
+  LAST_90_DAYS("Last 90 days"),
+  LAST_180_DAYS("Last 180 days"),
+  THIS_MONTH("This month"),
+  THIS_BIMONTH("This bi-month"),
+  LAST_BIMONTH("Last bi-month"),
+  THIS_QUARTER("This quarter"),
+  LAST_QUARTER("Last quarter"),
+  THIS_SIX_MONTH("This six-month"),
+  LAST_SIX_MONTH("Last six-month"),
+  WEEKS_THIS_YEAR("Weeks this year"),
+  MONTHS_THIS_YEAR("Months this year"),
+  BIMONTHS_THIS_YEAR("Bi-months this year"),
+  QUARTERS_THIS_YEAR("Quarters this year"),
+  THIS_YEAR("This year"),
+  MONTHS_LAST_YEAR("Months last year"),
+  QUARTERS_LAST_YEAR("Quarters last year"),
+  LAST_YEAR("Last year"),
+  LAST_5_YEARS("Last 5 years"),
+  LAST_10_YEARS("Last 10 years"),
+  LAST_12_MONTHS("Last 12 months"),
+  LAST_6_MONTHS("Last 6 months"),
+  LAST_3_MONTHS("Last 3 months"),
+  LAST_6_BIMONTHS("Last 6 bi-months"),
+  LAST_4_QUARTERS("Last 4 quarters"),
+  LAST_2_SIXMONTHS("Last 2 six-months"),
+  THIS_FINANCIAL_YEAR("This financial year"),
+  LAST_FINANCIAL_YEAR("Last financial year"),
+  LAST_5_FINANCIAL_YEARS("Last 5 financial years"),
+  LAST_10_FINANCIAL_YEARS("Last 10 financial years"),
+  THIS_WEEK("This week"),
+  LAST_WEEK("Last week"),
+  THIS_BIWEEK("This bi-week"),
+  LAST_BIWEEK("Last bi-week"),
+  LAST_4_WEEKS("Last 4 weeks"),
+  LAST_4_BIWEEKS("Last 4 bi-weeks"),
+  LAST_12_WEEKS("Last 12 weeks"),
+  LAST_52_WEEKS("Last 52 weeks");
+
+  private final String name;
+}
