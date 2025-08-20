@@ -114,6 +114,20 @@ class JacksonUtilsTest {
   }
 
   @Test
+  void testProductToJsonNullValueNotSerialized() {
+    Product product = new Product();
+    product.setId("BMjIqPBFZ4V");
+
+    String actual = JacksonUtils.toJsonString(product);
+
+    String expected =
+        """
+        {"id":"BMjIqPBFZ4V"}""";
+
+    assertEquals(expected, actual);
+  }
+
+  @Test
   void testDataElementFromJsonHms() throws IOException {
     String content =
         """

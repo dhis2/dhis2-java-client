@@ -31,20 +31,28 @@ import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
 
 import java.util.ArrayList;
 import java.util.List;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import org.hisp.dhis.model.AggregationType;
 import org.hisp.dhis.model.IdScheme;
 
 /**
- * Analytics data query.
+ * Encapsulation of an analytics data query. Example usage: <code><pre>
+ * AnalyticsQuery query = AnalyticsQuery.instance()
+ *   .addDataDimension(List.of("s46m5MS0hxu", "YtbsuPPo010"))
+ *   .addPeriodDimension(List.of("202501"))
+ *   .addOrgUnitFilter("O6uvpzGd5pu");
+ * </pre></code>
  *
  * @author Lars Helge Overland
  */
 @Getter
 @Setter
 @Accessors(chain = true)
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class AnalyticsQuery {
   private final List<Dimension> dimensions = new ArrayList<>();
 
@@ -83,8 +91,6 @@ public class AnalyticsQuery {
   private List<String> columns = new ArrayList<>();
 
   private List<String> rows = new ArrayList<>();
-
-  private AnalyticsQuery() {}
 
   /**
    * Creates a new instance of this query.
