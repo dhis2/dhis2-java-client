@@ -40,12 +40,14 @@ import org.hisp.dhis.model.AggregationType;
 import org.hisp.dhis.model.IdScheme;
 
 /**
- * Encapsulation of an analytics data query. Example usage: <code><pre>
+ * Encapsulation of an analytics data query. Example usage:
+ *
+ * <p><code>
  * AnalyticsQuery query = AnalyticsQuery.instance()
  *   .addDataDimension(List.of("s46m5MS0hxu", "YtbsuPPo010"))
  *   .addPeriodDimension(List.of("202501"))
  *   .addOrgUnitFilter("O6uvpzGd5pu");
- * </pre></code>
+ * </code>
  *
  * @author Lars Helge Overland
  */
@@ -203,6 +205,36 @@ public class AnalyticsQuery {
    */
   public AnalyticsQuery addOrgUnitFilter(List<String> orgUnits) {
     return addFilter(new Dimension(Dimension.DIMENSION_OU, orgUnits));
+  }
+
+  /**
+   * Skips data for the response.
+   *
+   * @return this {@link AnalyticsQuery}.
+   */
+  public AnalyticsQuery withSkipData() {
+    this.skipData = true;
+    return this;
+  }
+
+  /**
+   * Skips metadata for the response.
+   *
+   * @return this {@link AnalyticsQuery}.
+   */
+  public AnalyticsQuery withSkipMetadata() {
+    this.skipMeta = true;
+    return this;
+  }
+
+  /**
+   * Includes metadata details in the response.
+   *
+   * @return this {@link AnalyticsQuery}.
+   */
+  public AnalyticsQuery withMetadataDetails() {
+    this.includeMetadataDetails = true;
+    return this;
   }
 
   /**

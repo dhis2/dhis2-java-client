@@ -38,6 +38,8 @@ public class IdScheme {
 
   public static final IdScheme CODE = new IdScheme(ObjectProperty.CODE);
 
+  public static final IdScheme NAME = new IdScheme(ObjectProperty.NAME);
+
   private static final Pattern ATTRIBUTE_ID_SCHEME_PATTERN =
       Pattern.compile("^(ATTRIBUTE|attribute):([a-zA-Z]{1}[a-zA-Z0-9]{10})$");
 
@@ -203,6 +205,7 @@ public class IdScheme {
   enum ObjectProperty {
     UID,
     CODE,
+    NAME,
     ATTRIBUTE;
   }
 }
