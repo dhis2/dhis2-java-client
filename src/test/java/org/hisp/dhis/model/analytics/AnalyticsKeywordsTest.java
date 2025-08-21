@@ -25,24 +25,28 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.hisp.dhis.model;
+package org.hisp.dhis.model.analytics;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.util.Set;
 import org.hisp.dhis.support.TestTags;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 @Tag(TestTags.UNIT)
-class MeTest {
+class AnalyticsKeywordsTest {
   @Test
-  void testHasAuth() {
-    Me user = new Me();
-    user.setAuthorities(Set.of("F_DATA_ELEMENT_PUBLIC_ADD", "F_INDICATOR_PUBLIC_ADD"));
+  void testGetOrgUnitLevel() {
+    assertEquals("LEVEL-2", AnalyticsKeywords.getOrgUnitLevel(2));
+  }
 
-    assertTrue(user.hasAuthority("F_DATA_ELEMENT_PUBLIC_ADD"));
-    assertFalse(user.hasAuthority("F_DATASET_PUBLIC_ADD"));
+  @Test
+  void testGetOrgUnitGroup() {
+    assertEquals("OU_GROUP-PxBZsXvjnkv", AnalyticsKeywords.getOrgUnitGroup("PxBZsXvjnkv"));
+  }
+
+  @Test
+  void testGetDataElementGroup() {
+    assertEquals("DE_GROUP-FlSYEvjgD8T", AnalyticsKeywords.getDataElementGroup("FlSYEvjgD8T"));
   }
 }

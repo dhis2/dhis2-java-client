@@ -25,24 +25,47 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.hisp.dhis.model;
+package org.hisp.dhis.model.analytics;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
-import java.util.Set;
-import org.hisp.dhis.support.TestTags;
-import org.junit.jupiter.api.Tag;
-import org.junit.jupiter.api.Test;
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public final class AnalyticsKeywords {
+  public static final String USER_ORGUNIT = "USER_ORGUNIT";
+  public static final String USER_ORGUNIT_CHILDREN = "USER_ORGUNIT_CHILDREN";
+  public static final String USER_ORGUNIT_GRANDCHILDREN = "USER_ORGUNIT_GRANDCHILDREN";
+  public static final String ORG_UNIT_LEVEL_PREFIX = "LEVEL-";
+  public static final String ORG_UNIT_GROUP_PREFIX = "OU_GROUP-";
+  public static final String DATA_ELEMENT_GROUP_PREFIX = "DE_GROUP-";
 
-@Tag(TestTags.UNIT)
-class MeTest {
-  @Test
-  void testHasAuth() {
-    Me user = new Me();
-    user.setAuthorities(Set.of("F_DATA_ELEMENT_PUBLIC_ADD", "F_INDICATOR_PUBLIC_ADD"));
+  /**
+   * Returns the org unit level keyword for the given level.
+   *
+   * @param level the org unit level.
+   * @return the org unit level keyword.
+   */
+  public static final String getOrgUnitLevel(int level) {
+    return ORG_UNIT_LEVEL_PREFIX + level;
+  }
 
-    assertTrue(user.hasAuthority("F_DATA_ELEMENT_PUBLIC_ADD"));
-    assertFalse(user.hasAuthority("F_DATASET_PUBLIC_ADD"));
+  /**
+   * Returns the org unit group keyword for the given id.
+   *
+   * @param id the org unit group id.
+   * @return the org unit group keyword.
+   */
+  public static final String getOrgUnitGroup(String id) {
+    return ORG_UNIT_GROUP_PREFIX + id;
+  }
+
+  /**
+   * Returns the data element group keyword for the given id.
+   *
+   * @param id the data element group id.
+   * @return the data element group keyword.
+   */
+  public static final String getDataElementGroup(String id) {
+    return DATA_ELEMENT_GROUP_PREFIX + id;
   }
 }
