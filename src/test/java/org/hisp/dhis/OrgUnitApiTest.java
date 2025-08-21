@@ -27,6 +27,7 @@
  */
 package org.hisp.dhis;
 
+import static org.hisp.dhis.support.Assertions.assertNotEmpty;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -34,6 +35,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 import org.hisp.dhis.model.Attribute;
 import org.hisp.dhis.model.AttributeValue;
 import org.hisp.dhis.model.OrgUnit;
@@ -164,5 +166,20 @@ class OrgUnitApiTest {
                 .addFilter(Filter.like("name", "Agape CHP")));
 
     assertEquals(2, orgUnits.size());
+  }
+
+  @Test
+  void testGetOrgUnitsByLevels() {
+
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    List<OrgUnit> orgUnits =
+        dhis2.getOrgUnits(Query.instance().addFilter(Filter.in("level", List.of("1", "2"))));
+
+    assertNotEmpty(orgUnits);
+
+    OrgUnit orgUnit = orgUnits.get(0);
+
+    assertTrue(Set.of(1, 2).contains(orgUnit.getLevel()));
   }
 }
