@@ -255,4 +255,10 @@ class TextUtilsTest {
 
     assertEquals(expected, TextUtils.wrapInJsonCodeFences(input));
   }
+
+  @Test
+  void testIsNull() {
+    assertTrue(TextUtils.isNull(null));
+    assertFalse(TextUtils.isNull(""));
+  }
 }
