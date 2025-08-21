@@ -31,10 +31,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.util.Date;
+import org.hisp.dhis.support.TestTags;
 import org.hisp.dhis.util.DateTimeUtils;
 import org.hisp.dhis.util.JacksonUtils;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
+@Tag(TestTags.UNIT)
 class TrackedEntityTest {
   @Test
   void testDeserialize() {
