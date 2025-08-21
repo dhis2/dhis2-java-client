@@ -211,4 +211,48 @@ class TextUtilsTest {
   void testStripCodeFencesNullInput() {
     assertNull(TextUtils.stripCodeFences(null));
   }
+
+  @Test
+  void testWrapInCodeFences() {
+    String input =
+        """
+        public String isNull(String input) {
+          return input == null;
+        }\
+        """;
+
+    String expected =
+        """
+        ```java
+        public String isNull(String input) {
+          return input == null;
+        }
+        ```
+        """;
+
+    assertEquals(expected, TextUtils.wrapInCodeFences(input, "java"));
+  }
+
+  @Test
+  void testWrapInJsonCodeFences() {
+    String input =
+        """
+        {
+          "code": "BLUE",
+          "name": "Blue"
+        }\
+        """;
+
+    String expected =
+        """
+        ```json
+        {
+          "code": "BLUE",
+          "name": "Blue"
+        }
+        ```
+        """;
+
+    assertEquals(expected, TextUtils.wrapInJsonCodeFences(input));
+  }
 }

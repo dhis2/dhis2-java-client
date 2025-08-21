@@ -27,8 +27,7 @@
  */
 package org.hisp.dhis.util;
 
-import static org.apache.commons.lang3.StringUtils.isEmpty;
-
+import java.util.Objects;
 import java.util.regex.Pattern;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -143,7 +142,7 @@ public class TextUtils {
    * @return the unwrapped content, or input string if not wrapped.
    */
   public static String stripCodeFences(String input) {
-    if (isEmpty(input)) {
+    if (StringUtils.isEmpty(input)) {
       return null;
     }
 
@@ -152,6 +151,48 @@ public class TextUtils {
     trimmed = trimmed.replaceFirst(PATTERN_TRAIL_TICKS, EMPTY);
 
     return trimmed.strip();
+  }
+
+  /**
+   * Wraps the input string in code fences with the specified language.
+   *
+   * @param input the input string.
+   * @param language the language, e.g. "json", "java".
+   * @return the input string wrapped in code fences with the specified language.
+   */
+  public static String wrapInCodeFences(String input, String language) {
+    Objects.requireNonNull(language);
+    if (isNull(input)) {
+      return input;
+    }
+
+    return String.format(
+        """
+        ```%s
+        %s
+        ```
+        """,
+        language, input);
+  }
+
+  /**
+   * Wraps the input string in code fences with {@code json} as language.
+   *
+   * @param input the input string.
+   * @return the input string wrapped in code fences with {@code json} as language.
+   */
+  public static String wrapInJsonCodeFences(String input) {
+    return wrapInCodeFences(input, "json");
+  }
+
+  /**
+   * Indicates whether the input string is null.
+   *
+   * @param input the input string.
+   * @return true if the input is null, false otherwise.
+   */
+  public static boolean isNull(String input) {
+    return input == null;
   }
 
   /**
