@@ -32,20 +32,41 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class AnalyticsKeywords {
+  /** User org unit. */
   public static final String USER_ORGUNIT = "USER_ORGUNIT";
+
+  /** Children of user org unit. */
   public static final String USER_ORGUNIT_CHILDREN = "USER_ORGUNIT_CHILDREN";
+
+  /** Grand children of user org unit. */
   public static final String USER_ORGUNIT_GRANDCHILDREN = "USER_ORGUNIT_GRANDCHILDREN";
+
+  /** Org unit level prefix. */
   public static final String ORG_UNIT_LEVEL_PREFIX = "LEVEL-";
+
+  /** Org unit group prefix. */
   public static final String ORG_UNIT_GROUP_PREFIX = "OU_GROUP-";
+
+  /** Data element group prefix. */
   public static final String DATA_ELEMENT_GROUP_PREFIX = "DE_GROUP-";
 
   /**
    * Returns the org unit level keyword for the given level.
    *
-   * @param level the org unit level.
+   * @param level the level.
    * @return the org unit level keyword.
    */
   public static final String getOrgUnitLevel(int level) {
+    return ORG_UNIT_LEVEL_PREFIX + level;
+  }
+
+  /**
+   * Returns the org unit level keyword for the given level string.
+   *
+   * @param level the level string.
+   * @return the org unit level keyword.
+   */
+  public static final String getOrgUnitLevel(String level) {
     return ORG_UNIT_LEVEL_PREFIX + level;
   }
 
