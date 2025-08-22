@@ -27,15 +27,25 @@
  */
 package org.hisp.dhis.util;
 
+import static org.hisp.dhis.support.Assertions.assertSize;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
+import org.hisp.dhis.model.DataElement;
+import org.hisp.dhis.model.Indicator;
+import org.hisp.dhis.model.NameableObject;
+import org.hisp.dhis.support.TestObjects;
 import org.hisp.dhis.support.TestTags;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 @Tag(TestTags.UNIT)
 class ListBuilderTest {
+  private final DataElement deA = TestObjects.set(new DataElement(), 'A');
+  private final DataElement deB = TestObjects.set(new DataElement(), 'A');
+  private final Indicator inA = TestObjects.set(new Indicator(), 'A');
+  private final Indicator inB = TestObjects.set(new Indicator(), 'A');
+
   @Test
   void testAdd() {
     List<String> actual =
@@ -44,6 +54,17 @@ class ListBuilderTest {
     List<String> expected = List.of("one", "two", "three");
 
     assertEquals(expected, actual);
+  }
+
+  @Test
+  void testAddAll() {
+    List<DataElement> dataElements = List.of(deA, deB);
+    List<Indicator> indicators = List.of(inA, inB);
+
+    List<NameableObject> actual =
+        new ListBuilder<NameableObject>().addAll(dataElements).addAll(indicators).build();
+
+    assertSize(4, actual);
   }
 
   @Test
