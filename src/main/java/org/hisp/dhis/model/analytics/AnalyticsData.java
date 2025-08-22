@@ -50,4 +50,13 @@ public class AnalyticsData {
   @JsonProperty private Integer width;
 
   @JsonProperty private Integer headerWidth;
+
+  /**
+   * Indicates whether metadata exists.
+   *
+   * @return true if metadata exists, false otherwise.
+   */
+  public boolean hasMetaData() {
+    return metaData != null;
+  }
 }
