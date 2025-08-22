@@ -170,7 +170,6 @@ class OrgUnitApiTest {
 
   @Test
   void testGetOrgUnitsByLevels() {
-
     Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
 
     List<OrgUnit> orgUnits =
