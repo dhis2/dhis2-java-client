@@ -42,9 +42,10 @@ import org.junit.jupiter.api.Test;
 @Tag(TestTags.UNIT)
 class ListBuilderTest {
   private final DataElement deA = TestObjects.set(new DataElement(), 'A');
-  private final DataElement deB = TestObjects.set(new DataElement(), 'A');
+  private final DataElement deB = TestObjects.set(new DataElement(), 'B');
+  private final DataElement deC = TestObjects.set(new DataElement(), 'C');
   private final Indicator inA = TestObjects.set(new Indicator(), 'A');
-  private final Indicator inB = TestObjects.set(new Indicator(), 'A');
+  private final Indicator inB = TestObjects.set(new Indicator(), 'B');
 
   @Test
   void testAdd() {
@@ -62,9 +63,9 @@ class ListBuilderTest {
     List<Indicator> indicators = List.of(inA, inB);
 
     List<NameableObject> actual =
-        new ListBuilder<NameableObject>().addAll(dataElements).addAll(indicators).build();
+        new ListBuilder<NameableObject>().addAll(dataElements).addAll(indicators).add(deC).build();
 
-    assertSize(4, actual);
+    assertSize(5, actual);
   }
 
   @Test
