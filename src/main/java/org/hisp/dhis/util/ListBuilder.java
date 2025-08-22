@@ -56,7 +56,7 @@ public class ListBuilder<T> {
     list = new ArrayList<>(initial);
   }
 
-  public final ListBuilder<T> addAll(List<T> items) {
+  public final ListBuilder<T> addAll(List<? extends T> items) {
     this.list.addAll(items);
     return this;
   }
