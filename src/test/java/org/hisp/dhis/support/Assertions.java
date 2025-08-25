@@ -45,6 +45,8 @@ import org.hisp.dhis.util.CollectionUtils;
 public class Assertions {
   private static final String NULL_COLLECTION_MSG = "Actual collection is null";
   private static final String NULL_VALUE_MSG = "Actual value is null";
+  private static final String EMPTY_COLLECTION_MSG = "Actual collection is empty";
+  private static final String EMPTY_MAP_MSG = "Actual map is empty";
 
   /**
    * Asserts that the actual collection contains exactly the expected items.
@@ -152,7 +154,17 @@ public class Assertions {
    */
   public static void assertNotEmpty(Collection<?> actual) {
     assertNotNull(actual, NULL_COLLECTION_MSG);
-    assertTrue(!actual.isEmpty());
+    assertTrue(!actual.isEmpty(), EMPTY_COLLECTION_MSG);
+  }
+
+  /**
+   * Asserts that the first item in the actual collection is not null.
+   *
+   * @param actual the collection.
+   */
+  public static void assertFirstNotNull(Collection<?> actual) {
+    assertNotEmpty(actual);
+    assertNotNull(actual.iterator().next(), "First item in actual collection is null");
   }
 
   /**
@@ -162,7 +174,7 @@ public class Assertions {
    */
   public static void assertNotEmpty(Map<?, ?> actual) {
     assertNotNull(actual, NULL_COLLECTION_MSG);
-    assertTrue(!actual.isEmpty());
+    assertTrue(!actual.isEmpty(), EMPTY_MAP_MSG);
   }
 
   /**
@@ -173,7 +185,7 @@ public class Assertions {
    */
   public static void assertSize(int expected, Collection<?> actual) {
     assertNotNull(actual, NULL_COLLECTION_MSG);
-    assertEquals(expected, actual.size());
+    assertEquals(expected, actual.size(), "Expected size does not match actual size");
   }
 
   /**

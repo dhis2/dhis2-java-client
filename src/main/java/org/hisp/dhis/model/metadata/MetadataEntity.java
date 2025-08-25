@@ -107,7 +107,6 @@ import org.hisp.dhis.model.ProgramIndicator;
 import org.hisp.dhis.model.ProgramSection;
 import org.hisp.dhis.model.ProgramStage;
 import org.hisp.dhis.model.ProgramStageSection;
-import org.hisp.dhis.model.Visualization;
 import org.hisp.dhis.model.dashboard.Dashboard;
 import org.hisp.dhis.model.relationship.RelationshipType;
 import org.hisp.dhis.model.trackedentity.TrackedEntityAttribute;
@@ -115,6 +114,7 @@ import org.hisp.dhis.model.trackedentity.TrackedEntityType;
 import org.hisp.dhis.model.user.User;
 import org.hisp.dhis.model.user.UserGroup;
 import org.hisp.dhis.model.user.UserRole;
+import org.hisp.dhis.model.visualization.Visualization;
 import org.hisp.dhis.response.Dhis2ClientException;
 import org.hisp.dhis.response.HttpStatus;
 

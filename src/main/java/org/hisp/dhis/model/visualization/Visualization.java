@@ -25,13 +25,32 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.hisp.dhis.model;
+package org.hisp.dhis.model.visualization;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hisp.dhis.model.NameableObject;
+import org.hisp.dhis.model.OrgUnit;
+import org.hisp.dhis.model.period.Period;
 
 @Getter
 @Setter
 @NoArgsConstructor
-public class Visualization extends NameableObject {}
+public class Visualization extends NameableObject {
+  /** Type of visualization. */
+  @JsonProperty private VisualizationType type;
+
+  /** Dimensions to cross tabulate / use as columns. */
+  private List<String> columnDimensions = new ArrayList<>();
+
+  /** Dimensions to use as rows. */
+  private List<String> rowDimensions = new ArrayList<>();
+
+  private List<OrgUnit> organisationUnits = new ArrayList<>();
+
+  private List<Period> periods = new ArrayList<>();
+}

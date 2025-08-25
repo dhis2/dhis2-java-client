@@ -25,49 +25,24 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.hisp.dhis;
+package org.hisp.dhis.model.period;
 
-import static org.hisp.dhis.support.Assertions.assertFirstNotNull;
-import static org.hisp.dhis.support.Assertions.assertNotBlank;
-import static org.hisp.dhis.support.Assertions.assertNotEmpty;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import java.util.List;
-import org.hisp.dhis.model.visualization.Visualization;
-import org.hisp.dhis.query.Filter;
-import org.hisp.dhis.query.Query;
-import org.hisp.dhis.support.TestTags;
-import org.junit.jupiter.api.Tag;
-import org.junit.jupiter.api.Test;
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class PeriodType {
+  @JsonProperty private String name;
 
-@Tag(TestTags.INTEGRATION)
-class VisualizationApiTest {
-  @Test
-  void testGetVisualization() {
-    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+  @JsonProperty private Integer frequencyOrder;
 
-    Visualization visualization = dhis2.getVisualization("UlfTKWZWV4u");
+  @JsonProperty private String isoDuration;
 
-    assertNotNull(visualization);
-    assertEquals("UlfTKWZWV4u", visualization.getId());
-    assertNotBlank(visualization.getName());
-    assertNotNull(visualization.getCreated());
-    assertNotNull(visualization.getLastUpdated());
-    assertNotNull(visualization.getSharing());
-    assertNotNull(visualization.getAccess());
-    assertNotNull(visualization.getType());
-  }
-
-  @Test
-  void testGetVisualizations() {
-    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
-
-    List<Visualization> visualizations =
-        dhis2.getVisualizations(Query.instance().addFilter(Filter.like("name", "ANC")));
-
-    assertNotEmpty(visualizations);
-    assertFirstNotNull(visualizations);
-    assertNotNull(visualizations.get(0).getId());
-  }
+  @JsonProperty private String isoFormat;
 }

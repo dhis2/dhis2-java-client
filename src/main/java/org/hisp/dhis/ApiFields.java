@@ -404,5 +404,6 @@ public class ApiFields {
           VALIDATION_RULE_FIELDS, ID_FIELDS);
 
   /** Visualization fields. */
-  public static final String VISUALIZATION_FIELDS = NAME_EXT_FIELDS;
+  public static final String VISUALIZATION_FIELDS =
+      String.format("%1$s,type,periods[%1$s],organisationUnits[%1$s]", NAME_EXT_FIELDS, ID_FIELDS);
 }
