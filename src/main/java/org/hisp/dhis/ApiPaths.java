@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004-2024, University of Oslo
+ * Copyright (c) 2004-2025, University of Oslo
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,47 +25,19 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.hisp.dhis.model.visualization;
+package org.hisp.dhis;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.ArrayList;
-import java.util.List;
-import lombok.Getter;
+import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.hisp.dhis.model.NameableObject;
-import org.hisp.dhis.model.OrgUnit;
-import org.hisp.dhis.model.analytics.DataDimensionItem;
-import org.hisp.dhis.model.period.Period;
 
-@Getter
-@Setter
-@NoArgsConstructor
-public class Visualization extends NameableObject {
-  /** Type of visualization. */
-  @JsonProperty private VisualizationType type;
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public class ApiPaths {
+  /** Metadata API path. */
+  public static final String PATH_METADATA = "metadata";
 
-  /** Dimensions to cross tabulate / use as columns. */
-  @JsonProperty private List<String> columnDimensions = new ArrayList<>();
+  /** Tracker API path. */
+  public static final String PATH_TRACKER = "tracker";
 
-  /** Dimensions to use as rows. */
-  @JsonProperty private List<String> rowDimensions = new ArrayList<>();
-
-  /** Data dimension items. */
-  @JsonProperty private List<DataDimensionItem> dataDimensionItems = new ArrayList<>();
-
-  /** Fixed periods. */
-  @JsonProperty private List<Period> periods = new ArrayList<>();
-
-  /** Include user org unit. */
-  @JsonProperty private boolean userOrganisationUnit;
-
-  /** Include user org unit children. */
-  @JsonProperty private boolean userOrganisationUnitChildren;
-
-  /** Include user org unit grand children. */
-  @JsonProperty private boolean userOrganisationUnitGrandChildren;
-
-  /** Organisation units. */
-  @JsonProperty private List<OrgUnit> organisationUnits = new ArrayList<>();
+  /** Analytics API path. */
+  public static final String PATH_ANALYTICS = "analytics";
 }
