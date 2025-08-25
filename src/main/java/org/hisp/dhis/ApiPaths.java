@@ -40,4 +40,7 @@ public class ApiPaths {
 
   /** Analytics API path. */
   public static final String PATH_ANALYTICS = "analytics";
+
+  /** Dimensions API path. */
+  public static final String PATH_DIMENSIONS = "dimensions";
 }

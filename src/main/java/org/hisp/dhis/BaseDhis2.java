@@ -132,6 +132,9 @@ public class BaseDhis2 {
   /** Skip sharing parameter. */
   protected static final String SKIP_SHARING_PARAM = "skipSharing";
 
+  /** Async parameter. */
+  protected static final String ASYNC_PARAM = "async";
+
   // Log levels
 
   /** Log level system property. */
