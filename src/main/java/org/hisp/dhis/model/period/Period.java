@@ -28,15 +28,18 @@
 package org.hisp.dhis.model.period;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.io.Serializable;
 import java.util.Date;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@EqualsAndHashCode
 @NoArgsConstructor
-public class Period {
+public class Period implements Serializable {
   @JsonProperty private PeriodType periodType;
 
   @JsonProperty private Date startDate;

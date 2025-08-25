@@ -28,17 +28,20 @@
 package org.hisp.dhis.model.period;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.io.Serializable;
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor
 @AllArgsConstructor
-public class PeriodType {
-  @JsonProperty private String name;
+public class PeriodType implements Serializable {
+  @EqualsAndHashCode.Include @JsonProperty private String name;
 
   @JsonProperty private Integer frequencyOrder;
 

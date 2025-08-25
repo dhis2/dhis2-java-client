@@ -45,12 +45,14 @@ public class Visualization extends NameableObject {
   @JsonProperty private VisualizationType type;
 
   /** Dimensions to cross tabulate / use as columns. */
-  private List<String> columnDimensions = new ArrayList<>();
+  @JsonProperty private List<String> columnDimensions = new ArrayList<>();
 
   /** Dimensions to use as rows. */
-  private List<String> rowDimensions = new ArrayList<>();
+  @JsonProperty private List<String> rowDimensions = new ArrayList<>();
 
-  private List<OrgUnit> organisationUnits = new ArrayList<>();
+  /** Fixed periods. */
+  @JsonProperty private List<Period> periods = new ArrayList<>();
 
-  private List<Period> periods = new ArrayList<>();
+  /** Organisation units. */
+  @JsonProperty private List<OrgUnit> organisationUnits = new ArrayList<>();
 }

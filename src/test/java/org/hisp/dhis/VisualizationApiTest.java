@@ -44,7 +44,7 @@ import org.junit.jupiter.api.Test;
 @Tag(TestTags.INTEGRATION)
 class VisualizationApiTest {
   @Test
-  void testGetVisualization() {
+  void testGetVisualizationA() {
     Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
 
     Visualization visualization = dhis2.getVisualization("UlfTKWZWV4u");
@@ -57,6 +57,26 @@ class VisualizationApiTest {
     assertNotNull(visualization.getSharing());
     assertNotNull(visualization.getAccess());
     assertNotNull(visualization.getType());
+  }
+
+  @Test
+  void testGetVisualizationB() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    Visualization visualization = dhis2.getVisualization("hrDweynvx7G");
+
+    assertNotNull(visualization);
+    assertEquals("hrDweynvx7G", visualization.getId());
+    assertNotBlank(visualization.getName());
+    assertNotNull(visualization.getCreated());
+    assertNotNull(visualization.getLastUpdated());
+    assertNotNull(visualization.getSharing());
+    assertNotNull(visualization.getAccess());
+    assertNotNull(visualization.getType());
+
+    assertNotEmpty(visualization.getColumnDimensions());
+    assertNotEmpty(visualization.getRowDimensions());
+    assertNotEmpty(visualization.getOrganisationUnits());
   }
 
   @Test
