@@ -27,12 +27,14 @@
  */
 package org.hisp.dhis.model.visualization;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.apache.commons.lang3.BooleanUtils;
 import org.hisp.dhis.model.NameableObject;
 import org.hisp.dhis.model.OrgUnit;
 import org.hisp.dhis.model.analytics.DataDimensionItem;
@@ -58,14 +60,29 @@ public class Visualization extends NameableObject {
   @JsonProperty private List<Period> periods = new ArrayList<>();
 
   /** Include user org unit. */
-  @JsonProperty private boolean userOrganisationUnit;
+  @JsonProperty private Boolean userOrganisationUnit;
 
   /** Include user org unit children. */
-  @JsonProperty private boolean userOrganisationUnitChildren;
+  @JsonProperty private Boolean userOrganisationUnitChildren;
 
   /** Include user org unit grand children. */
-  @JsonProperty private boolean userOrganisationUnitGrandChildren;
+  @JsonProperty private Boolean userOrganisationUnitGrandChildren;
 
   /** Organisation units. */
   @JsonProperty private List<OrgUnit> organisationUnits = new ArrayList<>();
+
+  @JsonIgnore
+  public boolean isUserOrganisationUnit() {
+    return BooleanUtils.isTrue(userOrganisationUnit);
+  }
+
+  @JsonIgnore
+  public boolean isUserOrganisationUnitChildren() {
+    return BooleanUtils.isTrue(userOrganisationUnitChildren);
+  }
+
+  @JsonIgnore
+  public boolean isUserOrganisationUnitGrandChildren() {
+    return BooleanUtils.isTrue(userOrganisationUnitGrandChildren);
+  }
 }
