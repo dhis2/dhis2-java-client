@@ -53,6 +53,15 @@ public class Visualization extends NameableObject {
   /** Fixed periods. */
   @JsonProperty private List<Period> periods = new ArrayList<>();
 
+  /** Include user org unit. */
+  @JsonProperty private boolean userOrganisationUnit;
+
+  /** Include user org unit children. */
+  @JsonProperty private boolean userOrganisationUnitChildren;
+
+  /** Include user org unit grand children. */
+  @JsonProperty private boolean userOrganisationUnitGrandChildren;
+
   /** Organisation units. */
   @JsonProperty private List<OrgUnit> organisationUnits = new ArrayList<>();
 }
