@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004-2024, University of Oslo
+ * Copyright (c) 2004-2025, University of Oslo
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,24 +25,24 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.hisp.dhis.model;
+package org.hisp.dhis.model.visualization;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-public class PeriodType {
-  @JsonProperty private String name;
-
-  @JsonProperty private Integer frequencyOrder;
-
-  @JsonProperty private String isoDuration;
-
-  @JsonProperty private String isoFormat;
+public enum VisualizationType {
+  COLUMN,
+  STACKED_COLUMN,
+  BAR,
+  STACKED_BAR,
+  LINE,
+  AREA,
+  STACKED_AREA,
+  PIE,
+  RADAR,
+  GAUGE,
+  YEAR_OVER_YEAR_LINE,
+  YEAR_OVER_YEAR_COLUMN,
+  SCATTER,
+  BUBBLE,
+  SINGLE_VALUE,
+  PIVOT_TABLE,
+  OUTLIER_TABLE;
 }

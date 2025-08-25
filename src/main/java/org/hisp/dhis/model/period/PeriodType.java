@@ -25,13 +25,27 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.hisp.dhis.model;
+package org.hisp.dhis.model.period;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.io.Serializable;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor
-public class Visualization extends NameableObject {}
+@AllArgsConstructor
+public class PeriodType implements Serializable {
+  @EqualsAndHashCode.Include @JsonProperty private String name;
+
+  @JsonProperty private Integer frequencyOrder;
+
+  @JsonProperty private String isoDuration;
+
+  @JsonProperty private String isoFormat;
+}

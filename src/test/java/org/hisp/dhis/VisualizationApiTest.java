@@ -27,13 +27,14 @@
  */
 package org.hisp.dhis;
 
+import static org.hisp.dhis.support.Assertions.assertFirstNotNull;
 import static org.hisp.dhis.support.Assertions.assertNotBlank;
+import static org.hisp.dhis.support.Assertions.assertNotEmpty;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.List;
-import org.hisp.dhis.model.Visualization;
+import org.hisp.dhis.model.visualization.Visualization;
 import org.hisp.dhis.query.Filter;
 import org.hisp.dhis.query.Query;
 import org.hisp.dhis.support.TestTags;
@@ -43,7 +44,7 @@ import org.junit.jupiter.api.Test;
 @Tag(TestTags.INTEGRATION)
 class VisualizationApiTest {
   @Test
-  void testGetVisualization() {
+  void testGetVisualizationA() {
     Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
 
     Visualization visualization = dhis2.getVisualization("UlfTKWZWV4u");
@@ -55,6 +56,27 @@ class VisualizationApiTest {
     assertNotNull(visualization.getLastUpdated());
     assertNotNull(visualization.getSharing());
     assertNotNull(visualization.getAccess());
+    assertNotNull(visualization.getType());
+  }
+
+  @Test
+  void testGetVisualizationB() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    Visualization visualization = dhis2.getVisualization("hrDweynvx7G");
+
+    assertNotNull(visualization);
+    assertEquals("hrDweynvx7G", visualization.getId());
+    assertNotBlank(visualization.getName());
+    assertNotNull(visualization.getCreated());
+    assertNotNull(visualization.getLastUpdated());
+    assertNotNull(visualization.getSharing());
+    assertNotNull(visualization.getAccess());
+    assertNotNull(visualization.getType());
+
+    assertNotEmpty(visualization.getColumnDimensions());
+    assertNotEmpty(visualization.getRowDimensions());
+    assertNotEmpty(visualization.getOrganisationUnits());
   }
 
   @Test
@@ -64,7 +86,8 @@ class VisualizationApiTest {
     List<Visualization> visualizations =
         dhis2.getVisualizations(Query.instance().addFilter(Filter.like("name", "ANC")));
 
-    assertFalse(visualizations.isEmpty());
+    assertNotEmpty(visualizations);
+    assertFirstNotNull(visualizations);
     assertNotNull(visualizations.get(0).getId());
   }
 }
