@@ -25,7 +25,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.hisp.dhis;
+package org.hisp.dhis.api;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -407,7 +407,9 @@ public class ApiFields {
   public static final String VISUALIZATION_FIELDS =
       String.format(
           """
-          %1$s,type,columnDimensions,rowDimensions,periods[%2$s],userOrganisationUnit,\
+          %1$s,type,columnDimensions,rowDimensions,\
+          dataDimensionItems[dataElement[%2$s],indicator[%2$s],programIndicator[%2$s]],\
+          periods[%2$s],userOrganisationUnit,\
           userOrganisationUnitChildren,userOrganisationUnitGrandChildren,organisationUnits[%2$s]""",
           NAME_EXT_FIELDS, ID_FIELDS);
 }

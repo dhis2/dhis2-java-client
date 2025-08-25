@@ -32,6 +32,7 @@ import static org.hisp.dhis.support.Assertions.assertNotBlank;
 import static org.hisp.dhis.support.Assertions.assertNotEmpty;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 import org.hisp.dhis.model.visualization.Visualization;
@@ -57,6 +58,12 @@ class VisualizationApiTest {
     assertNotNull(visualization.getSharing());
     assertNotNull(visualization.getAccess());
     assertNotNull(visualization.getType());
+
+    assertNotEmpty(visualization.getColumnDimensions());
+    assertNotEmpty(visualization.getRowDimensions());
+
+    assertNotEmpty(visualization.getDataDimensionItems());
+    assertTrue(visualization.isUserOrganisationUnit());
   }
 
   @Test
@@ -76,6 +83,8 @@ class VisualizationApiTest {
 
     assertNotEmpty(visualization.getColumnDimensions());
     assertNotEmpty(visualization.getRowDimensions());
+
+    assertNotEmpty(visualization.getDataDimensionItems());
     assertNotEmpty(visualization.getOrganisationUnits());
   }
 

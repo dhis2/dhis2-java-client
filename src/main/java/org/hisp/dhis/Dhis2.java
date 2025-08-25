@@ -27,15 +27,22 @@
  */
 package org.hisp.dhis;
 
-import static org.hisp.dhis.ApiFields.DATA_SET_VALIDATION_FIELDS;
-import static org.hisp.dhis.ApiFields.DIMENSION_FIELDS;
-import static org.hisp.dhis.ApiFields.FILE_RESOURCE_FIELDS;
-import static org.hisp.dhis.ApiFields.ID_FIELDS;
-import static org.hisp.dhis.ApiFields.ME_FIELDS;
-import static org.hisp.dhis.ApiFields.ORG_UNIT_FIELDS;
-import static org.hisp.dhis.ApiFields.TRACKED_ENTITY_FIELDS;
-import static org.hisp.dhis.ApiFields.VALIDATION_RULE_FIELDS;
 import static org.hisp.dhis.Constants.SUPER_ADMIN_AUTH;
+import static org.hisp.dhis.api.ApiFields.DATA_SET_VALIDATION_FIELDS;
+import static org.hisp.dhis.api.ApiFields.DIMENSION_FIELDS;
+import static org.hisp.dhis.api.ApiFields.FILE_RESOURCE_FIELDS;
+import static org.hisp.dhis.api.ApiFields.ID_FIELDS;
+import static org.hisp.dhis.api.ApiFields.ME_FIELDS;
+import static org.hisp.dhis.api.ApiFields.ORG_UNIT_FIELDS;
+import static org.hisp.dhis.api.ApiFields.TRACKED_ENTITY_FIELDS;
+import static org.hisp.dhis.api.ApiFields.VALIDATION_RULE_FIELDS;
+import static org.hisp.dhis.api.ApiParams.ASYNC_PARAM;
+import static org.hisp.dhis.api.ApiParams.FIELDS_PARAM;
+import static org.hisp.dhis.api.ApiParams.SKIP_SHARING_PARAM;
+import static org.hisp.dhis.api.ApiPaths.PATH_ANALYTICS;
+import static org.hisp.dhis.api.ApiPaths.PATH_DIMENSIONS;
+import static org.hisp.dhis.api.ApiPaths.PATH_METADATA;
+import static org.hisp.dhis.api.ApiPaths.PATH_TRACKER;
 import static org.hisp.dhis.util.CollectionUtils.asList;
 import static org.hisp.dhis.util.CollectionUtils.list;
 import static org.hisp.dhis.util.IdentifiableObjectUtils.toIdObjects;
@@ -1557,7 +1564,7 @@ public class Dhis2 extends BaseDhis2 {
     return getObject(
             config
                 .getResolvedUriBuilder()
-                .appendPath("dimensions")
+                .appendPath(PATH_DIMENSIONS)
                 .addParameter(FIELDS_PARAM, String.format("%s,dimensionType", ID_FIELDS)),
             query,
             Dhis2Objects.class)
@@ -3393,7 +3400,7 @@ public class Dhis2 extends BaseDhis2 {
         config
             .getResolvedUriBuilder()
             .appendPath(PATH_TRACKER)
-            .setParameter("async", "false")
+            .setParameter(ASYNC_PARAM, "false")
             .setParameter("importStrategy", ImportStrategy.CREATE_AND_UPDATE.name()),
         events,
         EventResponse.class);
@@ -3462,7 +3469,7 @@ public class Dhis2 extends BaseDhis2 {
         config
             .getResolvedUriBuilder()
             .appendPath(PATH_TRACKER)
-            .setParameter("async", "false")
+            .setParameter(ASYNC_PARAM, "false")
             .setParameter("importStrategy", ImportStrategy.DELETE.name()),
         events,
         EventResponse.class);
@@ -3485,7 +3492,7 @@ public class Dhis2 extends BaseDhis2 {
         config
             .getResolvedUriBuilder()
             .appendPath(PATH_TRACKER)
-            .setParameter("async", "false")
+            .setParameter(ASYNC_PARAM, "false")
             .setParameter("importStrategy", "DELETE"),
         events,
         EventResponse.class);
@@ -3508,7 +3515,10 @@ public class Dhis2 extends BaseDhis2 {
       TrackedEntityObjects trackedEntityObjects, TrackedEntityImportParams params) {
     URIBuilder uriBuilder =
         withTrackedEntityImportParams(
-            config.getResolvedUriBuilder().appendPath(PATH_TRACKER).addParameter("async", "false"),
+            config
+                .getResolvedUriBuilder()
+                .appendPath(PATH_TRACKER)
+                .addParameter(ASYNC_PARAM, "false"),
             params);
 
     return saveObject(uriBuilder, trackedEntityObjects, TrackedEntityResponse.class);

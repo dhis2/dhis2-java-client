@@ -124,25 +124,6 @@ import org.hisp.dhis.util.JacksonUtils;
 public class BaseDhis2 {
   private static final String SEP_DIM = ";";
 
-  // Paths
-
-  /** Metadata API path. */
-  protected static final String PATH_METADATA = "metadata";
-
-  /** Tracker API path. */
-  protected static final String PATH_TRACKER = "tracker";
-
-  /** Analytics API path. */
-  protected static final String PATH_ANALYTICS = "analytics";
-
-  // Params
-
-  /** Fields parameter. */
-  protected static final String FIELDS_PARAM = "fields";
-
-  /** Skip sharing parameter. */
-  protected static final String SKIP_SHARING_PARAM = "skipSharing";
-
   // Log levels
 
   /** Log level system property. */
