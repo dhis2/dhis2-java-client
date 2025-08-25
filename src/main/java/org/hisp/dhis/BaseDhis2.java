@@ -124,17 +124,6 @@ import org.hisp.dhis.util.JacksonUtils;
 public class BaseDhis2 {
   private static final String SEP_DIM = ";";
 
-  // Params
-
-  /** Fields parameter. */
-  protected static final String FIELDS_PARAM = "fields";
-
-  /** Skip sharing parameter. */
-  protected static final String SKIP_SHARING_PARAM = "skipSharing";
-
-  /** Async parameter. */
-  protected static final String ASYNC_PARAM = "async";
-
   // Log levels
 
   /** Log level system property. */
