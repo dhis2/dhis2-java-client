@@ -27,22 +27,22 @@
  */
 package org.hisp.dhis;
 
-import static org.hisp.dhis.ApiFields.DATA_SET_VALIDATION_FIELDS;
-import static org.hisp.dhis.ApiFields.DIMENSION_FIELDS;
-import static org.hisp.dhis.ApiFields.FILE_RESOURCE_FIELDS;
-import static org.hisp.dhis.ApiFields.ID_FIELDS;
-import static org.hisp.dhis.ApiFields.ME_FIELDS;
-import static org.hisp.dhis.ApiFields.ORG_UNIT_FIELDS;
-import static org.hisp.dhis.ApiFields.TRACKED_ENTITY_FIELDS;
-import static org.hisp.dhis.ApiFields.VALIDATION_RULE_FIELDS;
-import static org.hisp.dhis.ApiParams.ASYNC_PARAM;
-import static org.hisp.dhis.ApiParams.FIELDS_PARAM;
-import static org.hisp.dhis.ApiParams.SKIP_SHARING_PARAM;
-import static org.hisp.dhis.ApiPaths.PATH_ANALYTICS;
-import static org.hisp.dhis.ApiPaths.PATH_DIMENSIONS;
-import static org.hisp.dhis.ApiPaths.PATH_METADATA;
-import static org.hisp.dhis.ApiPaths.PATH_TRACKER;
 import static org.hisp.dhis.Constants.SUPER_ADMIN_AUTH;
+import static org.hisp.dhis.api.ApiFields.DATA_SET_VALIDATION_FIELDS;
+import static org.hisp.dhis.api.ApiFields.DIMENSION_FIELDS;
+import static org.hisp.dhis.api.ApiFields.FILE_RESOURCE_FIELDS;
+import static org.hisp.dhis.api.ApiFields.ID_FIELDS;
+import static org.hisp.dhis.api.ApiFields.ME_FIELDS;
+import static org.hisp.dhis.api.ApiFields.ORG_UNIT_FIELDS;
+import static org.hisp.dhis.api.ApiFields.TRACKED_ENTITY_FIELDS;
+import static org.hisp.dhis.api.ApiFields.VALIDATION_RULE_FIELDS;
+import static org.hisp.dhis.api.ApiParams.ASYNC_PARAM;
+import static org.hisp.dhis.api.ApiParams.FIELDS_PARAM;
+import static org.hisp.dhis.api.ApiParams.SKIP_SHARING_PARAM;
+import static org.hisp.dhis.api.ApiPaths.PATH_ANALYTICS;
+import static org.hisp.dhis.api.ApiPaths.PATH_DIMENSIONS;
+import static org.hisp.dhis.api.ApiPaths.PATH_METADATA;
+import static org.hisp.dhis.api.ApiPaths.PATH_TRACKER;
 import static org.hisp.dhis.util.CollectionUtils.asList;
 import static org.hisp.dhis.util.CollectionUtils.list;
 import static org.hisp.dhis.util.IdentifiableObjectUtils.toIdObjects;
