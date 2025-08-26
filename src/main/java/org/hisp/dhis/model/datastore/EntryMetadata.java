@@ -29,10 +29,10 @@ package org.hisp.dhis.model.datastore;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Date;
+import org.hisp.dhis.model.user.UserMetadata;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.hisp.dhis.model.UserMetadata;
 
 @Getter
 @Setter
