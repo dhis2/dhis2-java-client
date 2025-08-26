@@ -29,6 +29,7 @@ package org.hisp.dhis.response.event;
 
 import static org.hisp.dhis.util.TextUtils.newToStringBuilder;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -47,6 +48,16 @@ public class EventResponse extends Response {
 
   public EventResponse(Status status, Integer httpStatusCode, String message) {
     super(status, httpStatusCode, message);
+  }
+
+  @JsonIgnore
+  public boolean hasValidationReport() {
+    return validationReport != null;
+  }
+
+  @JsonIgnore
+  public boolean hasErrorReports() {
+    return hasValidationReport() && validationReport.hasErrorReports();
   }
 
   @Override

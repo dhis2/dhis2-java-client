@@ -106,6 +106,7 @@ class EventsApiTest {
 
     assertNotNull(response);
     assertTrue(response.isStatusOk());
+    assertFalse(response.hasErrorReports());
     assertEquals(Status.OK, response.getStatus(), response.toString());
     assertEquals(2, response.getStats().getCreated());
     assertEquals(0, response.getStats().getUpdated());
@@ -248,6 +249,7 @@ class EventsApiTest {
 
     assertNotNull(response);
     assertFalse(response.isStatusOk());
+    assertTrue(response.hasErrorReports());
     assertEquals(Status.ERROR, response.getStatus(), response.toString());
     assertEquals(1, response.getStats().getIgnored());
     assertEquals(1, response.getValidationReport().getErrorReports().size());
