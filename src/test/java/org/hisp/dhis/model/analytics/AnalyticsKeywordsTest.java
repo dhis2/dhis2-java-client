@@ -37,16 +37,16 @@ import org.junit.jupiter.api.Test;
 class AnalyticsKeywordsTest {
   @Test
   void testGetOrgUnitLevel() {
-    assertEquals("LEVEL-2", AnalyticsKeywords.getOrgUnitLevel(2));
+    assertEquals("LEVEL-2", AnalyticsKeyword.getOrgUnitLevel(2));
   }
 
   @Test
   void testGetOrgUnitGroup() {
-    assertEquals("OU_GROUP-PxBZsXvjnkv", AnalyticsKeywords.getOrgUnitGroup("PxBZsXvjnkv"));
+    assertEquals("OU_GROUP-PxBZsXvjnkv", AnalyticsKeyword.getOrgUnitGroup("PxBZsXvjnkv"));
   }
 
   @Test
   void testGetDataElementGroup() {
-    assertEquals("DE_GROUP-FlSYEvjgD8T", AnalyticsKeywords.getDataElementGroup("FlSYEvjgD8T"));
+    assertEquals("DE_GROUP-FlSYEvjgD8T", AnalyticsKeyword.getDataElementGroup("FlSYEvjgD8T"));
   }
 }

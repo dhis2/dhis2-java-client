@@ -31,7 +31,7 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public final class AnalyticsKeywords {
+public final class AnalyticsKeyword {
   /** User org unit. */
   public static final String USER_ORGUNIT = "USER_ORGUNIT";
 
