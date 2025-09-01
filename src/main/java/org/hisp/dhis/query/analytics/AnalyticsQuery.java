@@ -28,29 +28,26 @@
 package org.hisp.dhis.query.analytics;
 
 import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
-
 import java.util.ArrayList;
 import java.util.List;
+import org.hisp.dhis.model.AggregationType;
+import org.hisp.dhis.model.IdScheme;
+import org.hisp.dhis.model.analytics.AnalyticsDimension;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import org.hisp.dhis.model.AggregationType;
-import org.hisp.dhis.model.IdScheme;
-import org.hisp.dhis.model.analytics.AnalyticsDimension;
 
 /**
  * Encapsulation of an analytics data query. Example usage:
  *
- * <p><code>
+ * <pre><code>
  * AnalyticsQuery query = AnalyticsQuery.instance()
  *   .addDataDimension(List.of("s46m5MS0hxu", "YtbsuPPo010"))
  *   .addPeriodDimension(List.of("202501"))
  *   .addOrgUnitFilter("O6uvpzGd5pu");
- * </code>
- *
- * @author Lars Helge Overland
+ * </pre></code>
  */
 @Getter
 @Setter
