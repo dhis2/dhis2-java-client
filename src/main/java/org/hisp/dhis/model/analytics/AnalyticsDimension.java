@@ -33,20 +33,20 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class AnalyticsDimension {
   /** Data dimension identifier. */
-  public static final String DATA_X= "dx";
+  public static final String DATA_X = "dx";
 
   /** Collapsed event data dimensions. */
-  public static final String DATA_COLLAPSED= "dy";
+  public static final String DATA_COLLAPSED = "dy";
 
   /** Category option combo dimension identifier. */
-  public static final String CATEGORY_OPTION_COMBO= "co";
+  public static final String CATEGORY_OPTION_COMBO = "co";
 
   /** Attribute option combo dimension identifier. */
-  public static final String ATTRIBUTE_OPTION_COMBO= "ao";
+  public static final String ATTRIBUTE_OPTION_COMBO = "ao";
 
   /** Period dimension identifier. */
-  public static final String PERIOD= "pe";
+  public static final String PERIOD = "pe";
 
   /** Org unit dimension identifier. */
-  public static final String ORG_UNIT= "ou";
+  public static final String ORG_UNIT = "ou";
 }

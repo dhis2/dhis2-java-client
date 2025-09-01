@@ -28,16 +28,17 @@
 package org.hisp.dhis.query.analytics;
 
 import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
+
 import java.util.ArrayList;
 import java.util.List;
-import org.hisp.dhis.model.AggregationType;
-import org.hisp.dhis.model.IdScheme;
-import org.hisp.dhis.model.analytics.AnalyticsDimension;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import org.hisp.dhis.model.AggregationType;
+import org.hisp.dhis.model.IdScheme;
+import org.hisp.dhis.model.analytics.AnalyticsDimension;
 
 /**
  * Encapsulation of an analytics data query. Example usage:
