@@ -36,8 +36,6 @@ import org.hisp.dhis.model.NameableObject;
 @Setter
 @NoArgsConstructor
 public class Dimension extends NameableObject {
-  private String shortName;
-
   private DimensionType dimensionType;
 
   private DataDimensionType dataDimensionType;
