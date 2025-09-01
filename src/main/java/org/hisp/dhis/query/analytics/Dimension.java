@@ -33,11 +33,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
 
-/**
- * Analytics dimension.
- *
- * @author Lars Helge Overland
- */
+/** Analytics dimension. */
 @Getter
 @Setter
 @RequiredArgsConstructor

@@ -49,7 +49,7 @@ public class Assertions {
   private static final String EMPTY_MAP_MSG = "Actual map is empty";
 
   /**
-   * Asserts that the actual collection contains exactly the expected items.
+   * Asserts that the actual collection is not null and contains exactly the expected items.
    *
    * @param <E>
    * @param actual the collection.
@@ -73,7 +73,8 @@ public class Assertions {
   }
 
   /**
-   * Asserts that the actual collection contains exactly the expected items in the same order.
+   * Asserts that the actual collection is not null and contains exactly the expected items in the
+   * same order.
    *
    * @param <E>
    * @param actual the collection.
@@ -98,7 +99,7 @@ public class Assertions {
   }
 
   /**
-   * Asserts that the actual collection contains the expected items.
+   * Asserts that the actual collection is not null and contains the expected items.
    *
    * @param <E>
    * @param actual the collection.
@@ -119,7 +120,7 @@ public class Assertions {
   }
 
   /**
-   * Asserts that the actual collection does not contain the expected items.
+   * Asserts that the actual collection is not null and does not contain the expected items.
    *
    * @param actual the collection.
    * @param expected the items.
@@ -137,7 +138,7 @@ public class Assertions {
   }
 
   /**
-   * Asserts that the actual collection is empty and not null.
+   * Asserts that the actual collection is not null and empty.
    *
    * @param actual the collection.
    */
@@ -148,7 +149,7 @@ public class Assertions {
   }
 
   /**
-   * Asserts that the actual collection is empty.
+   * Asserts that the actual collection is not null and is empty.
    *
    * @param actual the collection.
    */
@@ -168,7 +169,7 @@ public class Assertions {
   }
 
   /**
-   * Asserts that the actual collection is empty.
+   * Asserts that the actual collection is not null and not empty.
    *
    * @param actual the collection.
    */
@@ -178,7 +179,7 @@ public class Assertions {
   }
 
   /**
-   * Asserts that the actual collection is of the expected size.
+   * Asserts that the actual collection is not null and of the expected size.
    *
    * @param expected the expected size.
    * @param actual the collection.
@@ -189,7 +190,8 @@ public class Assertions {
   }
 
   /**
-   * Asserts that the given collection contains any elements which match the given predicate.
+   * Asserts that the given collection is not null and contains any elements which match the given
+   * predicate.
    *
    * @param <E>
    * @param actual the collection.

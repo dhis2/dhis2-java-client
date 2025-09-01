@@ -43,14 +43,12 @@ import org.hisp.dhis.model.analytics.AnalyticsDimension;
 /**
  * Encapsulation of an analytics data query. Example usage:
  *
- * <p><code>
+ * <pre><code>
  * AnalyticsQuery query = AnalyticsQuery.instance()
  *   .addDataDimension(List.of("s46m5MS0hxu", "YtbsuPPo010"))
  *   .addPeriodDimension(List.of("202501"))
  *   .addOrgUnitFilter("O6uvpzGd5pu");
- * </code>
- *
- * @author Lars Helge Overland
+ * </pre></code>
  */
 @Getter
 @Setter
