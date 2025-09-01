@@ -60,6 +60,7 @@ class AnalyticsDataApiTest {
             // "ANC 1st visit", "ANC 2nd visit", "ANC 3rd visit"
             .addDataDimension(List.of("fbfJHSPpUQD", "cYeuwXTCPkU", "Jtf34kNZhzP"))
             .addPeriodDimension(List.of("202501", "202502", "202503"))
+            // "Sierra Leone"
             .addOrgUnitFilter(List.of("ImspTQPwCqd"))
             .setSkipData(false)
             .setSkipMeta(false)
@@ -110,5 +111,33 @@ class AnalyticsDataApiTest {
     List<String> firstRow = data.getRows().get(0);
 
     assertSize(3, firstRow);
+  }
+
+  @Test
+  void testGetAnalyticsDataWithDimensionAndNoItems() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    AnalyticsQuery query =
+        AnalyticsQuery.instance()
+            // "ANC 1st visit", "ANC 2nd visit", "ANC 3rd visit"
+            .addDataDimension(List.of("fbfJHSPpUQD", "cYeuwXTCPkU", "Jtf34kNZhzP"))
+            .addPeriodDimension(List.of("2025"))
+            // "Facility type"
+            .addDimension("J5jldMd8OHv", List.of())
+            // "Sierra Leone"
+            .addOrgUnitFilter(List.of("ImspTQPwCqd"))
+            .setSkipMeta(true);
+
+    AnalyticsData data = dhis2.getAnalyticsData(query);
+
+    log.info(data.toString());
+
+    assertEquals(4, data.getWidth());
+    assertSize(4, data.getHeaders());
+    assertNotEmpty(data.getRows());
+
+    List<String> firstRow = data.getRows().get(0);
+
+    assertSize(4, firstRow);
   }
 }
