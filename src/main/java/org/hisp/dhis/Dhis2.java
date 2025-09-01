@@ -29,9 +29,7 @@ package org.hisp.dhis;
 
 import static org.hisp.dhis.Constants.SUPER_ADMIN_AUTH;
 import static org.hisp.dhis.api.ApiFields.DATA_SET_VALIDATION_FIELDS;
-import static org.hisp.dhis.api.ApiFields.DIMENSION_FIELDS;
 import static org.hisp.dhis.api.ApiFields.FILE_RESOURCE_FIELDS;
-import static org.hisp.dhis.api.ApiFields.ID_FIELDS;
 import static org.hisp.dhis.api.ApiFields.ME_FIELDS;
 import static org.hisp.dhis.api.ApiFields.ORG_UNIT_FIELDS;
 import static org.hisp.dhis.api.ApiFields.TRACKED_ENTITY_FIELDS;
@@ -40,7 +38,6 @@ import static org.hisp.dhis.api.ApiParams.ASYNC_PARAM;
 import static org.hisp.dhis.api.ApiParams.FIELDS_PARAM;
 import static org.hisp.dhis.api.ApiParams.SKIP_SHARING_PARAM;
 import static org.hisp.dhis.api.ApiPaths.PATH_ANALYTICS;
-import static org.hisp.dhis.api.ApiPaths.PATH_DIMENSIONS;
 import static org.hisp.dhis.api.ApiPaths.PATH_METADATA;
 import static org.hisp.dhis.api.ApiPaths.PATH_TRACKER;
 import static org.hisp.dhis.util.CollectionUtils.asList;
@@ -86,7 +83,6 @@ import org.hisp.dhis.model.DataElementGroupSet;
 import org.hisp.dhis.model.DataEntryForm;
 import org.hisp.dhis.model.DataSet;
 import org.hisp.dhis.model.Dhis2Objects;
-import org.hisp.dhis.model.Dimension;
 import org.hisp.dhis.model.Document;
 import org.hisp.dhis.model.FileResource;
 import org.hisp.dhis.model.GeoMap;
@@ -120,6 +116,7 @@ import org.hisp.dhis.model.datastore.EntryMetadata;
 import org.hisp.dhis.model.datavalueset.DataValue;
 import org.hisp.dhis.model.datavalueset.DataValueSet;
 import org.hisp.dhis.model.datavalueset.DataValueSetImportOptions;
+import org.hisp.dhis.model.dimension.Dimension;
 import org.hisp.dhis.model.enrollment.Enrollment;
 import org.hisp.dhis.model.enrollment.EnrollmentsResult;
 import org.hisp.dhis.model.event.Event;
@@ -1534,14 +1531,7 @@ public class Dhis2 extends BaseDhis2 {
    * @throws Dhis2ClientException if the object does not exist.
    */
   public Dimension getDimension(String id) {
-    return getObject(
-        config
-            .getResolvedUriBuilder()
-            .appendPath("dimensions")
-            .appendPath(id)
-            .addParameter(FIELDS_PARAM, DIMENSION_FIELDS),
-        Query.instance(),
-        Dimension.class);
+    return getMetadataObject(MetadataEntity.DIMENSION, id);
   }
 
   /**
@@ -1551,7 +1541,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return true if the object exists.
    */
   public boolean isDimension(String id) {
-    return objectExists(String.format("dimensions/%s", id));
+    return objectExists(MetadataEntity.DIMENSION, id);
   }
 
   /**
@@ -1561,14 +1551,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return list of {@link Dimension}.
    */
   public List<Dimension> getDimensions(Query query) {
-    return getObject(
-            config
-                .getResolvedUriBuilder()
-                .appendPath(PATH_DIMENSIONS)
-                .addParameter(FIELDS_PARAM, String.format("%s,dimensionType", ID_FIELDS)),
-            query,
-            Dhis2Objects.class)
-        .getDimensions();
+    return getMetadataObjects(MetadataEntity.DIMENSION, query).getDimensions();
   }
 
   // -------------------------------------------------------------------------

@@ -45,6 +45,7 @@ import static org.hisp.dhis.api.ApiFields.DATA_ELEMENT_GROUP_SET_FIELDS;
 import static org.hisp.dhis.api.ApiFields.DATA_ENTRY_FORM_FIELDS;
 import static org.hisp.dhis.api.ApiFields.DATA_SET_EXT_FIELDS;
 import static org.hisp.dhis.api.ApiFields.DATA_SET_FIELDS;
+import static org.hisp.dhis.api.ApiFields.DIMENSION_FIELDS;
 import static org.hisp.dhis.api.ApiFields.DOCUMENT_FIELDS;
 import static org.hisp.dhis.api.ApiFields.INDICATOR_FIELDS;
 import static org.hisp.dhis.api.ApiFields.INDICATOR_GROUP_EXT_FIELDS;
@@ -108,6 +109,7 @@ import org.hisp.dhis.model.ProgramSection;
 import org.hisp.dhis.model.ProgramStage;
 import org.hisp.dhis.model.ProgramStageSection;
 import org.hisp.dhis.model.dashboard.Dashboard;
+import org.hisp.dhis.model.dimension.Dimension;
 import org.hisp.dhis.model.relationship.RelationshipType;
 import org.hisp.dhis.model.trackedentity.TrackedEntityAttribute;
 import org.hisp.dhis.model.trackedentity.TrackedEntityType;
@@ -192,6 +194,11 @@ public enum MetadataEntity {
       DATA_ENTRY_FORM_FIELDS,
       DATA_ENTRY_FORM_FIELDS,
       "dataEntryForms"),
+  DIMENSION(
+      Dimension.class,
+      DIMENSION_FIELDS,
+      DIMENSION_FIELDS,
+      "dimensions"),
   DOCUMENT(
       Document.class,
       DOCUMENT_FIELDS,

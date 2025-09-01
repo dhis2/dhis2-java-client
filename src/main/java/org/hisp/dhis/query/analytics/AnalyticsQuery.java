@@ -38,6 +38,7 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 import org.hisp.dhis.model.AggregationType;
 import org.hisp.dhis.model.IdScheme;
+import org.hisp.dhis.model.analytics.AnalyticsDimension;
 
 /**
  * Encapsulation of an analytics data query. Example usage:
@@ -132,7 +133,7 @@ public class AnalyticsQuery {
    * @return this {@link AnalyticsQuery}.
    */
   public AnalyticsQuery addDataDimension(List<String> dataItems) {
-    return addDimension(Dimension.DIMENSION_DX, dataItems);
+    return addDimension(AnalyticsDimension.DATA_X, dataItems);
   }
 
   /**
@@ -142,7 +143,7 @@ public class AnalyticsQuery {
    * @return this {@link AnalyticsQuery}.
    */
   public AnalyticsQuery addPeriodDimension(List<String> periods) {
-    return addDimension(Dimension.DIMENSION_PE, periods);
+    return addDimension(AnalyticsDimension.PERIOD, periods);
   }
 
   /**
@@ -152,7 +153,7 @@ public class AnalyticsQuery {
    * @return this {@link AnalyticsQuery}.
    */
   public AnalyticsQuery addOrgUnitDimension(List<String> orgUnits) {
-    return addDimension(Dimension.DIMENSION_OU, orgUnits);
+    return addDimension(AnalyticsDimension.ORG_UNIT, orgUnits);
   }
 
   /**
@@ -184,7 +185,7 @@ public class AnalyticsQuery {
    * @return this {@link AnalyticsQuery}.
    */
   public AnalyticsQuery addDataFilter(List<String> dataItems) {
-    return addFilter(new Dimension(Dimension.DIMENSION_DX, dataItems));
+    return addFilter(new Dimension(AnalyticsDimension.DATA_X, dataItems));
   }
 
   /**
@@ -194,7 +195,7 @@ public class AnalyticsQuery {
    * @return this {@link AnalyticsQuery}.
    */
   public AnalyticsQuery addPeriodFilter(List<String> periods) {
-    return addFilter(new Dimension(Dimension.DIMENSION_PE, periods));
+    return addFilter(new Dimension(AnalyticsDimension.PERIOD, periods));
   }
 
   /**
@@ -204,7 +205,7 @@ public class AnalyticsQuery {
    * @return this {@link AnalyticsQuery}.
    */
   public AnalyticsQuery addOrgUnitFilter(List<String> orgUnits) {
-    return addFilter(new Dimension(Dimension.DIMENSION_OU, orgUnits));
+    return addFilter(new Dimension(AnalyticsDimension.ORG_UNIT, orgUnits));
   }
 
   /**

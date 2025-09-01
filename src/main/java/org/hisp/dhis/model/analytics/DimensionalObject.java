@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004-2024, University of Oslo
+ * Copyright (c) 2004-2025, University of Oslo
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,25 +25,17 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.hisp.dhis.model;
+package org.hisp.dhis.model.analytics;
 
-public enum DimensionType {
-  DATA_X,
-  PROGRAM_DATA_ELEMENT,
-  PROGRAM_ATTRIBUTE,
-  PROGRAM_INDICATOR,
-  DATA_COLLAPSED,
-  CATEGORY_OPTION_COMBO,
-  ATTRIBUTE_OPTION_COMBO,
-  PERIOD,
-  ORGANISATION_UNIT,
-  CATEGORY_OPTION_GROUP_SET,
-  DATA_ELEMENT_GROUP_SET,
-  ORGANISATION_UNIT_GROUP_SET,
-  ORGANISATION_UNIT_GROUP,
-  CATEGORY,
-  OPTION_GROUP_SET,
-  VALIDATION_RULE,
-  STATIC,
-  ORGANISATION_UNIT_LEVEL;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
+public class DimensionalObject {
+  private String dimension;
 }

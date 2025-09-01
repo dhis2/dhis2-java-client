@@ -25,24 +25,23 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.hisp.dhis.model;
+package org.hisp.dhis.model.dimension;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.List;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.hisp.dhis.model.dimension.DataDimensionType;
-
-@Getter
-@Setter
-@NoArgsConstructor
-public class CategoryCombo extends NameableObject {
-  @JsonProperty private DataDimensionType dataDimensionType;
-
-  @JsonProperty private Boolean skipTotal;
-
-  @JsonProperty private List<Category> categories;
-
-  @JsonProperty private List<CategoryOptionCombo> categoryOptionCombos;
+public enum DimensionItemType {
+  DATA_ELEMENT,
+  DATA_ELEMENT_OPERAND,
+  INDICATOR,
+  REPORTING_RATE,
+  PROGRAM_DATA_ELEMENT,
+  PROGRAM_ATTRIBUTE,
+  PROGRAM_INDICATOR,
+  PERIOD,
+  ORGANISATION_UNIT,
+  CATEGORY_OPTION,
+  OPTION_GROUP,
+  DATA_ELEMENT_GROUP,
+  ORGANISATION_UNIT_GROUP,
+  CATEGORY_OPTION_GROUP,
+  EXPRESSION_DIMENSION_ITEM,
+  SUBEXPRESSION_DIMENSION_ITEM
 }

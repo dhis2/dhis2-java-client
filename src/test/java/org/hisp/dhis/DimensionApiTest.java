@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004-2024, University of Oslo
+ * Copyright (c) 2004-2025, University of Oslo
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -27,58 +27,55 @@
  */
 package org.hisp.dhis;
 
+import static org.hisp.dhis.support.Assertions.assertNotBlank;
+import static org.hisp.dhis.support.Assertions.assertNotEmpty;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.List;
-import org.hisp.dhis.model.Category;
-import org.hisp.dhis.model.CategoryCombo;
-import org.hisp.dhis.model.CategoryOptionCombo;
 import org.hisp.dhis.model.dimension.DataDimensionType;
+import org.hisp.dhis.model.dimension.Dimension;
+import org.hisp.dhis.model.dimension.DimensionType;
 import org.hisp.dhis.query.Query;
 import org.hisp.dhis.support.TestTags;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 @Tag(TestTags.INTEGRATION)
-class CategoryComboApiTest {
+class DimensionApiTest {
   @Test
-  void testGetCategoryCombo() {
+  void getDimensionA() {
     Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
 
-    CategoryCombo categoryCombo = dhis2.getCategoryCombo("m2jTvAj5kkm");
+    Dimension dimension = dhis2.getDimension("EC40NXmsTVu");
 
-    assertEquals("m2jTvAj5kkm", categoryCombo.getId());
-    assertEquals("Births", categoryCombo.getName());
-    assertNotNull(categoryCombo.getCreated());
-    assertNotNull(categoryCombo.getLastUpdated());
-    assertNotNull(categoryCombo.getSharing());
-    assertNotNull(categoryCombo.getAccess());
-    assertEquals(DataDimensionType.DISAGGREGATION, categoryCombo.getDataDimensionType());
-    assertFalse(categoryCombo.getSkipTotal());
-
-    List<Category> categories = categoryCombo.getCategories();
-    assertFalse(categories.isEmpty());
-
-    List<CategoryOptionCombo> categoryOptionCombos = categoryCombo.getCategoryOptionCombos();
-    assertFalse(categoryOptionCombos.isEmpty());
-    assertFalse(categoryOptionCombos.get(0).getIgnoreApproval());
-    assertFalse(categoryOptionCombos.get(0).getCategoryOptions().isEmpty());
+    assertNotNull(dimension);
+    assertEquals("EC40NXmsTVu", dimension.getId());
+    assertEquals("Rural and Urban", dimension.getName());
+    assertEquals(DimensionType.CATEGORY, dimension.getDimensionType());
+    assertEquals(DataDimensionType.DISAGGREGATION, dimension.getDataDimensionType());
   }
 
   @Test
-  void testGetCategoryCombos() {
+  void getDimensionB() {
     Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
 
-    List<CategoryCombo> categoryCombos = dhis2.getCategoryCombos(Query.instance());
+    Dimension dimension = dhis2.getDimension("SooXFOUnciJ");
 
-    assertNotNull(categoryCombos);
-    assertFalse(categoryCombos.isEmpty());
+    assertNotNull(dimension);
+    assertEquals("SooXFOUnciJ", dimension.getId());
+    assertEquals("Funding Agency", dimension.getName());
+    assertNotBlank(dimension.getDescription());
+    assertEquals(DimensionType.CATEGORY_OPTION_GROUP_SET, dimension.getDimensionType());
+    assertEquals(DataDimensionType.ATTRIBUTE, dimension.getDataDimensionType());
+  }
 
-    CategoryCombo categoryCombo = categoryCombos.get(0);
-    assertNotNull(categoryCombo.getId());
-    assertFalse(categoryCombo.getCategories().isEmpty());
-    assertFalse(categoryCombo.getCategoryOptionCombos().isEmpty());
+  @Test
+  void getDimensions() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    List<Dimension> dimensions = dhis2.getDimensions(Query.instance());
+
+    assertNotEmpty(dimensions);
   }
 }
