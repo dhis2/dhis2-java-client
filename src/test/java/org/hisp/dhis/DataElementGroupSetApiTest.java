@@ -37,7 +37,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.List;
 import org.hisp.dhis.model.DataElementGroup;
 import org.hisp.dhis.model.DataElementGroupSet;
-import org.hisp.dhis.model.DimensionType;
+import org.hisp.dhis.model.dimension.DimensionType;
 import org.hisp.dhis.query.Query;
 import org.hisp.dhis.response.HttpStatus;
 import org.hisp.dhis.response.object.ObjectResponse;

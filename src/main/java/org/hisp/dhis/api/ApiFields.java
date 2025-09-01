@@ -134,7 +134,8 @@ public class ApiFields {
           NAME_EXT_FIELDS, NAME_FIELDS);
 
   /** Dimension fields. */
-  public static final String DIMENSION_FIELDS = String.format("%s,dimensionType", NAME_EXT_FIELDS);
+  public static final String DIMENSION_FIELDS =
+      String.format("%s,dimensionType,dataDimensionType", NAME_EXT_FIELDS);
 
   /** Document fields. */
   public static final String DOCUMENT_FIELDS =

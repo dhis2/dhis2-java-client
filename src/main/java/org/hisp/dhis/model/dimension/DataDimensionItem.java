@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004-2024, University of Oslo
+ * Copyright (c) 2004-2025, University of Oslo
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,17 +25,18 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.hisp.dhis.model;
+package org.hisp.dhis.model.dimension;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.io.Serializable;
+import org.hisp.dhis.model.DataElement;
+import org.hisp.dhis.model.Indicator;
+import org.hisp.dhis.model.ProgramIndicator;
 
-@Getter
-@Setter
-@NoArgsConstructor
-public class Dimension extends IdentifiableObject {
-  private String shortName;
+public class DataDimensionItem implements Serializable {
+  @JsonProperty private Indicator indicator;
 
-  private DimensionType dimensionType;
+  @JsonProperty private DataElement dataElement;
+
+  @JsonProperty private ProgramIndicator programIndicator;
 }

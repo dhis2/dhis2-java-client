@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004-2025, University of Oslo
+ * Copyright (c) 2004-2024, University of Oslo
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,18 +25,25 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.hisp.dhis.model.analytics;
+package org.hisp.dhis.model.dimension;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import java.io.Serializable;
-import org.hisp.dhis.model.DataElement;
-import org.hisp.dhis.model.Indicator;
-import org.hisp.dhis.model.ProgramIndicator;
-
-public class DataDimensionItem implements Serializable {
-  @JsonProperty private Indicator indicator;
-
-  @JsonProperty private DataElement dataElement;
-
-  @JsonProperty private ProgramIndicator programIndicator;
+public enum DimensionType {
+  DATA_X,
+  PROGRAM_DATA_ELEMENT,
+  PROGRAM_ATTRIBUTE,
+  PROGRAM_INDICATOR,
+  DATA_COLLAPSED,
+  CATEGORY_OPTION_COMBO,
+  ATTRIBUTE_OPTION_COMBO,
+  PERIOD,
+  ORGANISATION_UNIT,
+  CATEGORY_OPTION_GROUP_SET,
+  DATA_ELEMENT_GROUP_SET,
+  ORGANISATION_UNIT_GROUP_SET,
+  ORGANISATION_UNIT_GROUP,
+  CATEGORY,
+  OPTION_GROUP_SET,
+  VALIDATION_RULE,
+  STATIC,
+  ORGANISATION_UNIT_LEVEL;
 }

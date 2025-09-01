@@ -37,7 +37,7 @@ import lombok.Setter;
 import org.apache.commons.lang3.BooleanUtils;
 import org.hisp.dhis.model.NameableObject;
 import org.hisp.dhis.model.OrgUnit;
-import org.hisp.dhis.model.analytics.DataDimensionItem;
+import org.hisp.dhis.model.dimension.DataDimensionItem;
 import org.hisp.dhis.model.period.Period;
 
 @Getter

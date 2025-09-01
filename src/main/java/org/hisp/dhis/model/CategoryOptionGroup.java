@@ -33,6 +33,8 @@ import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hisp.dhis.model.dimension.DataDimensionType;
+import org.hisp.dhis.model.dimension.DimensionItemType;
 
 @Getter
 @Setter
