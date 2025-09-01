@@ -27,12 +27,15 @@
  */
 package org.hisp.dhis.analytics;
 
+import static org.hisp.dhis.support.Assertions.assertNotEmpty;
+import static org.hisp.dhis.support.Assertions.assertSize;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.util.List;
 import java.util.Map;
+import lombok.extern.slf4j.Slf4j;
 import org.hisp.dhis.Dhis2;
 import org.hisp.dhis.TestFixture;
 import org.hisp.dhis.model.ValueType;
@@ -44,17 +47,17 @@ import org.hisp.dhis.query.analytics.AnalyticsQuery;
 import org.hisp.dhis.support.TestTags;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Tag(TestTags.INTEGRATION)
 class AnalyticsDataApiTest {
   @Test
-  void testGetAnalyticsData() {
+  void testGetAnalyticsDataWithDataElements() {
     Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
 
     AnalyticsQuery query =
         AnalyticsQuery.instance()
+            // "ANC 1st visit", "ANC 2nd visit", "ANC 3rd visit"
             .addDataDimension(List.of("fbfJHSPpUQD", "cYeuwXTCPkU", "Jtf34kNZhzP"))
             .addPeriodDimension(List.of("202501", "202502", "202503"))
             .addOrgUnitFilter(List.of("ImspTQPwCqd"))
@@ -64,7 +67,7 @@ class AnalyticsDataApiTest {
 
     AnalyticsData data = dhis2.getAnalyticsData(query);
 
-    log.info(data.toString());
+    log.debug(data.toString());
 
     assertNotNull(data);
     assertEquals(3, data.getWidth());
@@ -87,8 +90,7 @@ class AnalyticsDataApiTest {
 
     Map<String, MetaDataItem> items = metaData.getItems();
 
-    assertNotNull(items);
-    assertFalse(items.keySet().isEmpty());
+    assertNotEmpty(items);
 
     MetaDataItem dxItem = items.get("dx");
 
@@ -107,7 +109,6 @@ class AnalyticsDataApiTest {
 
     List<String> firstRow = data.getRows().get(0);
 
-    assertNotNull(firstRow);
-    assertEquals(3, firstRow.size());
+    assertSize(3, firstRow);
   }
 }

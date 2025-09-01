@@ -28,14 +28,12 @@
 package org.hisp.dhis.query.analytics;
 
 import java.util.List;
-import org.apache.commons.lang3.StringUtils;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.apache.commons.lang3.StringUtils;
 
-/**
- * Analytics dimension.
- */
+/** Analytics dimension. */
 @Getter
 @Setter
 @RequiredArgsConstructor
