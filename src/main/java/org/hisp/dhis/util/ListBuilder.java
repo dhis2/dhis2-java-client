@@ -48,16 +48,14 @@ import java.util.List;
 public class ListBuilder<T> {
   private final List<T> list;
 
-  /**
-   * Default constructor.
-   */
+  /** Default constructor. */
   public ListBuilder() {
     list = new ArrayList<>();
   }
 
   /**
    * Constructor.
-   * 
+   *
    * @param initial the initial list.
    */
   public ListBuilder(List<T> initial) {
@@ -66,7 +64,7 @@ public class ListBuilder<T> {
 
   /**
    * Adds the given item.
-   * 
+   *
    * @param <T> the type.
    * @param item the item.
    * @return this {@link ListBuilder}.
@@ -78,7 +76,7 @@ public class ListBuilder<T> {
 
   /**
    * Adds the given items.
-   * 
+   *
    * @param <T> the type.
    * @param items the items.
    * @return this {@link ListBuilder}.
@@ -91,7 +89,7 @@ public class ListBuilder<T> {
 
   /**
    * Adds the given items.
-   * 
+   *
    * @param <T> the type.
    * @param items the items.
    * @return this {@link ListBuilder}.
@@ -103,7 +101,7 @@ public class ListBuilder<T> {
 
   /**
    * Builds the list.
-   * 
+   *
    * @return a list.
    */
   public final List<T> build() {
