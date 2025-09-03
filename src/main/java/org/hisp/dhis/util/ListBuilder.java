@@ -48,31 +48,65 @@ import java.util.List;
 public class ListBuilder<T> {
   private final List<T> list;
 
+  /**
+   * Default constructor.
+   */
   public ListBuilder() {
     list = new ArrayList<>();
   }
 
+  /**
+   * Constructor.
+   * 
+   * @param initial the initial list.
+   */
   public ListBuilder(List<T> initial) {
     list = new ArrayList<>(initial);
   }
 
-  public final ListBuilder<T> addAll(List<? extends T> items) {
-    this.list.addAll(items);
+  /**
+   * Adds the given item.
+   * 
+   * @param <T> the type.
+   * @param item the item.
+   * @return this {@link ListBuilder}.
+   */
+  public final ListBuilder<T> add(T item) {
+    this.list.add(item);
     return this;
   }
 
+  /**
+   * Adds the given items.
+   * 
+   * @param <T> the type.
+   * @param items the items.
+   * @return this {@link ListBuilder}.
+   */
   @SafeVarargs
   public final ListBuilder<T> add(T... items) {
     this.list.addAll(Arrays.asList(items));
     return this;
   }
 
-  public final ListBuilder<T> add(T item) {
-    this.list.add(item);
+  /**
+   * Adds the given items.
+   * 
+   * @param <T> the type.
+   * @param items the items.
+   * @return this {@link ListBuilder}.
+   */
+  public final ListBuilder<T> addAll(List<? extends T> items) {
+    this.list.addAll(items);
     return this;
   }
 
-  public List<T> build() {
+  /**
+   * Builds the list.
+   * 
+   * @return a list.
+   */
+  public final List<T> build() {
     return Collections.unmodifiableList(list);
   }
 }
