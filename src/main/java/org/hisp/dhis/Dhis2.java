@@ -43,7 +43,6 @@ import static org.hisp.dhis.api.ApiPaths.PATH_TRACKER;
 import static org.hisp.dhis.util.CollectionUtils.asList;
 import static org.hisp.dhis.util.CollectionUtils.list;
 import static org.hisp.dhis.util.IdentifiableObjectUtils.toIdObjects;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -2533,6 +2532,16 @@ public class Dhis2 extends BaseDhis2 {
    */
   public ProgramStage getProgramStage(String id) {
     return getMetadataObject(MetadataEntity.PROGRAM_STAGE, id);
+  }
+
+  /**
+   * Retrieves a list of {@link ProgramStage}.
+   *
+   * @param query the {@link Query}.
+   * @return list of {@link ProgramStage}.
+   */
+  public List<ProgramStage> getProgramStages(Query query) {
+    return getMetadataObjects(MetadataEntity.PROGRAM_STAGE, query).getProgramStages();
   }
 
   // -------------------------------------------------------------------------
