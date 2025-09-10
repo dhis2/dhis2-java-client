@@ -95,6 +95,10 @@ public class ApiFields {
   public static final String OPTION_FIELDS =
       String.format("%1$s,sortOrder,optionSet[%2$s]", NAME_FIELDS, ID_FIELDS);
 
+  /** Option extended fields. */
+  public static final String OPTION_EXT_FIELDS =
+      String.format("%1$s,sortOrder,optionSet[%2$s]", NAME_EXT_FIELDS, ID_FIELDS);
+
   /** Option set fields. */
   public static final String OPTION_SET_FIELDS =
       String.format("%s,valueType,version", ID_EXT_FIELDS);
@@ -248,6 +252,10 @@ public class ApiFields {
   /** Tracked entity attribute fields. */
   public static final String TRACKED_ENTITY_ATTRIBUTE_FIELDS =
       String.format("%s,valueType,aggregationType,confidential,unique", NAME_FIELDS);
+
+  /** Tracked entity attribute extended fields. */
+  public static final String TRACKED_ENTITY_ATTRIBUTE_EXT_FIELDS =
+      String.format("%s,valueType,aggregationType,confidential,unique", NAME_EXT_FIELDS);
 
   /** Tracked entity type fields. */
   public static final String TRACKED_ENTITY_TYPE_FIELDS =
