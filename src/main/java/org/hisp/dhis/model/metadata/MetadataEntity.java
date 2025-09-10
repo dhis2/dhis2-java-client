@@ -53,6 +53,7 @@ import static org.hisp.dhis.api.ApiFields.INDICATOR_GROUP_FIELDS;
 import static org.hisp.dhis.api.ApiFields.INDICATOR_GROUP_SET_FIELDS;
 import static org.hisp.dhis.api.ApiFields.INDICATOR_TYPE_FIELDS;
 import static org.hisp.dhis.api.ApiFields.MAP_FIELDS;
+import static org.hisp.dhis.api.ApiFields.OPTION_EXT_FIELDS;
 import static org.hisp.dhis.api.ApiFields.OPTION_FIELDS;
 import static org.hisp.dhis.api.ApiFields.OPTION_SET_EXT_FIELDS;
 import static org.hisp.dhis.api.ApiFields.OPTION_SET_FIELDS;
@@ -68,6 +69,7 @@ import static org.hisp.dhis.api.ApiFields.PROGRAM_SECTION_FIELDS;
 import static org.hisp.dhis.api.ApiFields.PROGRAM_STAGE_FIELDS;
 import static org.hisp.dhis.api.ApiFields.PROGRAM_STAGE_SECTION_FIELDS;
 import static org.hisp.dhis.api.ApiFields.RELATIONSHIP_TYPE_FIELDS;
+import static org.hisp.dhis.api.ApiFields.TRACKED_ENTITY_ATTRIBUTE_EXT_FIELDS;
 import static org.hisp.dhis.api.ApiFields.TRACKED_ENTITY_ATTRIBUTE_FIELDS;
 import static org.hisp.dhis.api.ApiFields.TRACKED_ENTITY_TYPE_FIELDS;
 import static org.hisp.dhis.api.ApiFields.USER_FIELDS;
@@ -256,7 +258,7 @@ public enum MetadataEntity {
   OPTION(
       Option.class,
       OPTION_FIELDS,
-      OPTION_FIELDS,
+      OPTION_EXT_FIELDS,
       "options"),
   PROGRAM(
       Program.class,
@@ -296,7 +298,7 @@ public enum MetadataEntity {
   TRACKED_ENTITY_ATTRIBUTE(
       TrackedEntityAttribute.class,
       TRACKED_ENTITY_ATTRIBUTE_FIELDS,
-      TRACKED_ENTITY_ATTRIBUTE_FIELDS,
+      TRACKED_ENTITY_ATTRIBUTE_EXT_FIELDS,
       "trackedEntityAttributes"),
   USER(
       User.class,
