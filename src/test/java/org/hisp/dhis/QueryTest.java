@@ -29,6 +29,7 @@ package org.hisp.dhis;
 
 import static org.hisp.dhis.util.CollectionUtils.list;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.net.URI;
 import java.util.List;
@@ -56,6 +57,14 @@ class QueryTest {
     Dhis2 dhis2 = new Dhis2(config);
 
     assertEquals("https://dhis2.org", dhis2.getDhis2Url());
+  }
+
+  @Test
+  void testWithDefaultPaging() {
+    Query query = Query.instance().withDefaultPaging();
+
+    assertNotNull(query.getPaging());
+    assertEquals(1, query.getPaging().getPage());
   }
 
   @Test

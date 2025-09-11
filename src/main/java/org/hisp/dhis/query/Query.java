@@ -127,6 +127,16 @@ public class Query implements BaseQuery {
   }
 
   /**
+   * Enables default paging for this query.
+   *
+   * @return this {@link Query}.
+   */
+  public Query withDefaultPaging() {
+    this.paging = Paging.getDefaultPaging();
+    return this;
+  }
+
+  /**
    * Enables max results for this query. This is shorthand for <code>setPaging(1, maxResults)</code>
    * .
    *
