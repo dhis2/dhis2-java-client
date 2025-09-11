@@ -107,4 +107,8 @@ public class Paging {
   public static int getDefaultPageSize() {
     return DEFAULT_PAGE_SIZE;
   }
+
+  public static Paging getDefaultPaging() {
+    return new Paging(DEFAULT_PAGE, DEFAULT_PAGE_SIZE);
+  }
 }
