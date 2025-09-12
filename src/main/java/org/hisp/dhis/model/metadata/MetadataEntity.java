@@ -37,6 +37,7 @@ import static org.hisp.dhis.api.ApiFields.CATEGORY_OPTION_EXT_FIELDS;
 import static org.hisp.dhis.api.ApiFields.CATEGORY_OPTION_FIELDS;
 import static org.hisp.dhis.api.ApiFields.CATEGORY_OPTION_GROUP_FIELDS;
 import static org.hisp.dhis.api.ApiFields.CATEGORY_OPTION_GROUP_SET_FIELDS;
+import static org.hisp.dhis.api.ApiFields.CONSTANT_FIELDS;
 import static org.hisp.dhis.api.ApiFields.DASHBOARD_FIELDS;
 import static org.hisp.dhis.api.ApiFields.DATA_ELEMENT_EXT_FIELDS;
 import static org.hisp.dhis.api.ApiFields.DATA_ELEMENT_GROUP_EXT_FIELDS;
@@ -76,9 +77,6 @@ import static org.hisp.dhis.api.ApiFields.USER_FIELDS;
 import static org.hisp.dhis.api.ApiFields.USER_GROUP_FIELDS;
 import static org.hisp.dhis.api.ApiFields.USER_ROLE_FIELDS;
 import static org.hisp.dhis.api.ApiFields.VISUALIZATION_FIELDS;
-
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import org.hisp.dhis.model.AnalyticsTableHook;
 import org.hisp.dhis.model.Attribute;
 import org.hisp.dhis.model.Category;
@@ -87,6 +85,7 @@ import org.hisp.dhis.model.CategoryOption;
 import org.hisp.dhis.model.CategoryOptionCombo;
 import org.hisp.dhis.model.CategoryOptionGroup;
 import org.hisp.dhis.model.CategoryOptionGroupSet;
+import org.hisp.dhis.model.Constant;
 import org.hisp.dhis.model.DataElement;
 import org.hisp.dhis.model.DataElementGroup;
 import org.hisp.dhis.model.DataElementGroupSet;
@@ -121,6 +120,8 @@ import org.hisp.dhis.model.user.UserRole;
 import org.hisp.dhis.model.visualization.Visualization;
 import org.hisp.dhis.response.Dhis2ClientException;
 import org.hisp.dhis.response.HttpStatus;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 /** Enumeration of DHIS2 metadata entities. */
 @Getter
@@ -166,6 +167,11 @@ public enum MetadataEntity {
       CATEGORY_OPTION_GROUP_SET_FIELDS,
       CATEGORY_OPTION_GROUP_SET_FIELDS,
       "categoryOptionGroupSets"),
+  CONSTANT(
+      Constant.class,
+      CONSTANT_FIELDS,
+      CONSTANT_FIELDS,
+      "constants"),
   DASHBOARD(
       Dashboard.class,
       DASHBOARD_FIELDS,
