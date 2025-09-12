@@ -77,6 +77,9 @@ import static org.hisp.dhis.api.ApiFields.USER_FIELDS;
 import static org.hisp.dhis.api.ApiFields.USER_GROUP_FIELDS;
 import static org.hisp.dhis.api.ApiFields.USER_ROLE_FIELDS;
 import static org.hisp.dhis.api.ApiFields.VISUALIZATION_FIELDS;
+
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import org.hisp.dhis.model.AnalyticsTableHook;
 import org.hisp.dhis.model.Attribute;
 import org.hisp.dhis.model.Category;
@@ -120,8 +123,6 @@ import org.hisp.dhis.model.user.UserRole;
 import org.hisp.dhis.model.visualization.Visualization;
 import org.hisp.dhis.response.Dhis2ClientException;
 import org.hisp.dhis.response.HttpStatus;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
 /** Enumeration of DHIS2 metadata entities. */
 @Getter
