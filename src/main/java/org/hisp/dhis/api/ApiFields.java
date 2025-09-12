@@ -92,9 +92,8 @@ public class ApiFields {
           NAME_EXT_FIELDS, ID_FIELDS);
 
   /** Constant fields. */
-  public static final String CONSTANT_FIELDS =
-      String.format("%1$s,value",NAME_EXT_FIELDS);
-  
+  public static final String CONSTANT_FIELDS = String.format("%1$s,value", NAME_EXT_FIELDS);
+
   /** Option fields. */
   public static final String OPTION_FIELDS =
       String.format("%1$s,sortOrder,optionSet[%2$s]", NAME_FIELDS, ID_FIELDS);
