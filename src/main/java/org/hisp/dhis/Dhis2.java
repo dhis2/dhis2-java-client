@@ -43,7 +43,6 @@ import static org.hisp.dhis.api.ApiPaths.PATH_TRACKER;
 import static org.hisp.dhis.util.CollectionUtils.asList;
 import static org.hisp.dhis.util.CollectionUtils.list;
 import static org.hisp.dhis.util.IdentifiableObjectUtils.toIdObjects;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -77,6 +76,7 @@ import org.hisp.dhis.model.CategoryOption;
 import org.hisp.dhis.model.CategoryOptionCombo;
 import org.hisp.dhis.model.CategoryOptionGroup;
 import org.hisp.dhis.model.CategoryOptionGroupSet;
+import org.hisp.dhis.model.Constant;
 import org.hisp.dhis.model.DataElement;
 import org.hisp.dhis.model.DataElementGroup;
 import org.hisp.dhis.model.DataElementGroupSet;
@@ -1177,6 +1177,51 @@ public class Dhis2 extends BaseDhis2 {
    */
   public ObjectResponse removeCategoryOptionGroupSet(String id) {
     return removeMetadataObject(MetadataEntity.CATEGORY_OPTION_GROUP_SET, id);
+  }
+
+  // -------------------------------------------------------------------------
+  // Constants
+  // -------------------------------------------------------------------------
+
+  /**
+   * Retrieves a {@link Constant}.
+   *
+   * @param id the object identifier.
+   * @return the {@link Constant}.
+   * @throws Dhis2ClientException if the object does not exist.
+   */
+  public Constant getConstant(String id) {
+    return getMetadataObject(MetadataEntity.CONSTANT, id);
+  }
+
+  /**
+   * Indicates whether a {@link Constant} exists.
+   *
+   * @param id the object identifier.
+   * @return true if the object exists.
+   */
+  public boolean isConstant(String id) {
+    return objectExists(MetadataEntity.CONSTANT, id);
+  }
+
+  /**
+   * Retrieves a list of {@link Constant}.
+   *
+   * @param query the {@link Query}.
+   * @return list of {@link Constant}.
+   */
+  public List<Constant> getConstants(Query query) {
+    return getMetadataObjects(MetadataEntity.CONSTANT, query).getConstants();
+  }
+
+  /**
+   * Removes a {@link Constant}.
+   *
+   * @param id the identifier of the object to remove.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse removeConstant(String id) {
+    return removeMetadataObject(MetadataEntity.CONSTANT, id);
   }
 
   // -------------------------------------------------------------------------
