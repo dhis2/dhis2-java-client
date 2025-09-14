@@ -234,13 +234,16 @@ class CollectionUtilsTest {
   }
 
   @Test
-  void testMapToMap() {
+  void testMapToMapKeyMapper() {
     DataElement deA = new DataElement();
     deA.setId("jUb6fnbZPhV");
+    deA.setName("Red");
     DataElement deB = new DataElement();
     deB.setId("qEiCafULhoW");
+    deB.setName("Green");
     DataElement deC = new DataElement();
     deC.setId("wOahXFjLq4V");
+    deC.setName("Blue");
 
     List<DataElement> list = List.of(deA, deB, deC);
 
@@ -250,6 +253,28 @@ class CollectionUtilsTest {
     assertEquals(deA.getId(), map.get(deA.getId()).getId());
     assertEquals(deB.getId(), map.get(deB.getId()).getId());
     assertEquals(deC.getId(), map.get(deC.getId()).getId());
+  }
+
+  @Test
+  void testMapToMapKeyAndValueMapper() {
+    DataElement deA = new DataElement();
+    deA.setId("jUb6fnbZPhV");
+    deA.setName("Red");
+    DataElement deB = new DataElement();
+    deB.setId("qEiCafULhoW");
+    deB.setName("Green");
+    DataElement deC = new DataElement();
+    deC.setId("wOahXFjLq4V");
+    deC.setName("Blue");
+
+    List<DataElement> list = List.of(deA, deB, deC);
+
+    Map<String, String> map = mapToMap(list, DataElement::getId, DataElement::getName);
+
+    assertEquals(3, map.keySet().size());
+    assertEquals("Red", map.get(deA.getId()));
+    assertEquals("Green", map.get(deB.getId()));
+    assertEquals("Blue", map.get(deC.getId()));
   }
 
   @Test

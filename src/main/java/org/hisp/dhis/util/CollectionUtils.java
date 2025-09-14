@@ -171,13 +171,30 @@ public class CollectionUtils {
    * objects are not allowed.
    *
    * @param <T> type for keys.
-   * @param <U> type for values.
+   * @param <U> type for input and values.
    * @param objects the objects of U.
    * @param keyMapper the function to map each object to a key of type T.
    * @return a map with keys of type T and values of type U.
    */
   public static <T, U> Map<T, U> mapToMap(Collection<U> objects, Function<U, T> keyMapper) {
     return objects.stream().collect(Collectors.toMap(keyMapper, Function.identity()));
+  }
+
+  /**
+   * Maps the given collection of objects of type U to a map where the keys are of type T. Null
+   * objects are not allowed.
+   *
+   * @param <T> type for keys.
+   * @param <U> type for values.
+   * @param <V> type for input.
+   * @param objects the objects of U.
+   * @param keyMapper the function to map each object to a key of type T.
+   * @param valueMapper the function to map each object to a value of type U.
+   * @return a map with keys of type T and values of type U.
+   */
+  public static <T, U, V> Map<T, U> mapToMap(
+      Collection<V> objects, Function<V, T> keyMapper, Function<V, U> valueMapper) {
+    return objects.stream().collect(Collectors.toMap(keyMapper, valueMapper));
   }
 
   /**
