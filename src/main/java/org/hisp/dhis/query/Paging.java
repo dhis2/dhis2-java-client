@@ -77,7 +77,7 @@ public class Paging {
   }
 
   public boolean hasPage() {
-    return page != null && page >= 0;
+    return page != null && page > 0;
   }
 
   public int getPageOrDefault() {
