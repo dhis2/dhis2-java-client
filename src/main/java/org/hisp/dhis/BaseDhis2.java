@@ -292,7 +292,7 @@ public class BaseDhis2 {
 
   /**
    * Adds paging related parameters to the given {@link URIBuilder} based on the given {@link
-   * BaseQuery}.
+   * BaseQuery}. If paging is not set, paging will be disabled for the query.
    *
    * @param uriBuilder the {@link URIBuilder}.
    * @param query the {@link BaseQuery}.
