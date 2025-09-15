@@ -892,7 +892,7 @@ public class BaseDhis2 {
   @SuppressWarnings("unchecked")
   protected Object getQueryValue(Filter filter) {
     if (Operator.IN == filter.getOperator()) {
-      List<String> values = (List<String>) filter.getValue();
+      Iterable<String> values = (Iterable<String>) filter.getValue();
       String value = StringUtils.join(values, ',');
       return String.format("[%s]", value);
     } else {
