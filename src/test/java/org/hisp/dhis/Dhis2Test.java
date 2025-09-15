@@ -29,8 +29,10 @@ package org.hisp.dhis;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
+import java.util.Set;
 import org.apache.hc.core5.net.URIBuilder;
 import org.hisp.dhis.query.Filter;
 import org.hisp.dhis.query.Query;
@@ -50,13 +52,25 @@ class Dhis2Test {
   }
 
   @Test
-  void testGetQueryValue() {
+  void testGetQueryValueFromList() {
     Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
 
     assertEquals("Frank", dhis2.getQueryValue(Filter.eq("w75KJ2mc4zz", "Frank")));
     assertEquals(
         "[Frank,Maria,Elizabeth]",
         dhis2.getQueryValue(Filter.in("w75KJ2mc4zz", List.of("Frank", "Maria", "Elizabeth"))));
+  }
+
+  @Test
+  void testGetQueryValueFromSet() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+    String value =
+        (String)
+            dhis2.getQueryValue(Filter.in("w75KJ2mc4zz", Set.of("Frank", "Maria", "Elizabeth")));
+
+    assertTrue(value.contains("Frank"));
+    assertTrue(value.contains("Maria"));
+    assertTrue(value.contains("Elizabeth"));
   }
 
   @Test
