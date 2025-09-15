@@ -32,6 +32,15 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ApiFields {
+  /** Identifier field. */
+  public static final String ID_FIELD = "id";
+
+  /** Code field. */
+  public static final String CODE_FIELD = "code";
+
+  /** Name field. */
+  public static final String NAME_FIELD = "name";
+
   /** Identifiable object fields. */
   public static final String ID_FIELDS = "id,code,name,created,lastUpdated,attributeValues";
 
