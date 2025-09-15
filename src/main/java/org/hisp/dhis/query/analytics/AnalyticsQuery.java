@@ -48,7 +48,7 @@ import org.hisp.dhis.model.analytics.AnalyticsDimension;
  *   .addDataDimension(List.of("s46m5MS0hxu", "YtbsuPPo010"))
  *   .addPeriodDimension(List.of("202501"))
  *   .addOrgUnitFilter("O6uvpzGd5pu");
- * </pre></code>
+ * </code></pre>
  */
 @Getter
 @Setter

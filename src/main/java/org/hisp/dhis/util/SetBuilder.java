@@ -65,7 +65,6 @@ public class SetBuilder<T> {
   /**
    * Adds the given item.
    *
-   * @param <T> the type.
    * @param item the item.
    * @return this {@link ListBuilder}.
    */
@@ -77,7 +76,6 @@ public class SetBuilder<T> {
   /**
    * Adds the given items.
    *
-   * @param <T> the type.
    * @param items the items.
    * @return this {@link ListBuilder}.
    */
@@ -90,8 +88,7 @@ public class SetBuilder<T> {
   /**
    * Adds the given items.
    *
-   * @param <T> the type.
-   * @param item the items.
+   * @param items the items.
    * @return this {@link ListBuilder}.
    */
   public final SetBuilder<T> addAll(Set<? extends T> items) {
