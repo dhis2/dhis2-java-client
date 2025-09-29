@@ -122,6 +122,21 @@ public class CollectionUtils {
   }
 
   /**
+   * Casts a list of objects of type U to a list of objects of type T.
+   * 
+   * @param <T> type.
+   * @param <U> type.
+   * @param objects the objects to cast.
+   * @param type the class type to cast to.
+   * @return the list of objects cast to the given type.
+   */
+  public static <T, U extends T> List<T> castList(List<U> objects, Class<T> type) {
+    return objects.stream()
+        .map(type::cast)
+        .collect(Collectors.toList());
+  }
+    
+  /**
    * Maps the given collection of objects of type T to a comma separated string value of the joined
    * string representation of each item. Null objects are excluded.
    *

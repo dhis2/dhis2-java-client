@@ -27,9 +27,12 @@
  */
 package org.hisp.dhis;
 
+import static org.hisp.dhis.support.Assertions.assertSize;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-
+import java.util.List;
+import org.hisp.dhis.model.Dhis2Objects;
+import org.hisp.dhis.model.IdentifiableObject;
 import org.hisp.dhis.model.ProgramIndicator;
 import org.hisp.dhis.model.metadata.MetadataEntity;
 import org.hisp.dhis.response.Dhis2ClientException;
@@ -52,5 +55,18 @@ class MetadataEntityTest {
   @Test
   void testFromNull() {
     assertThrows(Dhis2ClientException.class, () -> MetadataEntity.from(null));
+  }
+  
+  @Test
+  void testGetObjectsFunction() {
+    ProgramIndicator piA = new ProgramIndicator();
+    TestObjects.set(piA, 'A');
+    
+    Dhis2Objects objects = new Dhis2Objects()
+        .setProgramIndicators(List.of(piA));
+    
+    List<? extends IdentifiableObject> programIndicators = MetadataEntity.PROGRAM_INDICATOR.getObjectsFunc().apply(objects);
+    
+    assertSize(1, programIndicators);    
   }
 }
