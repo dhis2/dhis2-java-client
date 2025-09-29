@@ -49,7 +49,7 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 @Tag(TestTags.INTEGRATION)
-public class ProgramRuleVariableApiTest {
+class ProgramRuleVariableApiTest {
   @Test
   void testGetProgramRuleVariable() {
     Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
