@@ -56,17 +56,17 @@ class MetadataEntityTest {
   void testFromNull() {
     assertThrows(Dhis2ClientException.class, () -> MetadataEntity.from(null));
   }
-  
+
   @Test
   void testGetObjectsFunction() {
     ProgramIndicator piA = new ProgramIndicator();
     TestObjects.set(piA, 'A');
-    
-    Dhis2Objects objects = new Dhis2Objects()
-        .setProgramIndicators(List.of(piA));
-    
-    List<? extends IdentifiableObject> programIndicators = MetadataEntity.PROGRAM_INDICATOR.getObjectsFunc().apply(objects);
-    
-    assertSize(1, programIndicators);    
+
+    Dhis2Objects objects = new Dhis2Objects().setProgramIndicators(List.of(piA));
+
+    List<? extends IdentifiableObject> programIndicators =
+        MetadataEntity.PROGRAM_INDICATOR.getObjectsFunc().apply(objects);
+
+    assertSize(1, programIndicators);
   }
 }

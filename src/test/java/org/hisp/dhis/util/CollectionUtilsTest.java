@@ -27,6 +27,7 @@
  */
 package org.hisp.dhis.util;
 
+import static org.hisp.dhis.support.Assertions.assertContainsExactly;
 import static org.hisp.dhis.util.CollectionUtils.first;
 import static org.hisp.dhis.util.CollectionUtils.firstMatch;
 import static org.hisp.dhis.util.CollectionUtils.get;
@@ -41,16 +42,17 @@ import static org.hisp.dhis.util.CollectionUtils.mutableList;
 import static org.hisp.dhis.util.CollectionUtils.mutableSet;
 import static org.hisp.dhis.util.CollectionUtils.set;
 import static org.hisp.dhis.util.CollectionUtils.toCommaSeparated;
+import static org.hisp.dhis.util.CollectionUtils.toTypedList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import org.hisp.dhis.model.DataElement;
+import org.hisp.dhis.model.IdentifiableObject;
 import org.hisp.dhis.model.Product;
 import org.hisp.dhis.support.TestTags;
 import org.junit.jupiter.api.Tag;
@@ -146,6 +148,20 @@ class CollectionUtilsTest {
     assertThrows(
         NullPointerException.class,
         () -> mapToList(List.of("a", null, "c"), str -> str.toUpperCase()));
+  }
+  
+  @Test
+  void testToTypedList() {
+    DataElement deA = new DataElement();
+    deA.setId("jUb6fnbZPhV");
+    DataElement deB = new DataElement();
+    deB.setId("qEiCafULhoW");
+    
+    List<IdentifiableObject> objects = List.of(deA, deB);
+    
+    List<DataElement> dataElements = toTypedList(objects, DataElement.class);
+    
+    assertContainsExactly(dataElements, deA, deB);
   }
 
   @Test
