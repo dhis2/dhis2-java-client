@@ -25,48 +25,24 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.hisp.dhis.model;
+package org.hisp.dhis.model.programrule;
 
-import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.ArrayList;
-import java.util.List;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.experimental.Accessors;
-import org.hisp.dhis.model.programrule.ProgramRule;
-import org.hisp.dhis.model.programrule.ProgramRuleAction;
-import org.hisp.dhis.model.programrule.ProgramRuleVariable;
-
-@Getter
-@Setter
-@Accessors(chain = true)
-@NoArgsConstructor
-public class ProgramObjects {
-  @JsonProperty private List<Program> programs = new ArrayList<>();
-
-  @JsonProperty private List<ProgramSection> programSections = new ArrayList<>();
-
-  @JsonProperty private List<ProgramStage> programStages = new ArrayList<>();
-
-  @JsonProperty private List<ProgramStageSection> programStageSections = new ArrayList<>();
-
-  @JsonProperty private List<ProgramRule> programRules = new ArrayList<>();
-
-  @JsonProperty private List<ProgramRuleAction> programRuleActions = new ArrayList<>();
-
-  @JsonProperty private List<ProgramRuleVariable> programRuleVariables = new ArrayList<>();
-
-  /**
-   * Returns the first program in the list of programs, or null if no programs exist.
-   *
-   * @return the first program, or null.
-   */
-  @JsonIgnore
-  public Program getFirstProgram() {
-    return isNotEmpty(programs) ? programs.get(0) : null;
-  }
+public enum ProgramRuleActionType {
+  DISPLAYTEXT,
+  DISPLAYKEYVALUEPAIR,
+  HIDEFIELD,
+  HIDESECTION,
+  HIDEPROGRAMSTAGE,
+  ASSIGN,
+  SHOWWARNING,
+  WARNINGONCOMPLETE,
+  SHOWERROR,
+  ERRORONCOMPLETE,
+  CREATEEVENT,
+  SETMANDATORYFIELD,
+  SENDMESSAGE,
+  SCHEDULEMESSAGE,
+  HIDEOPTION,
+  SHOWOPTIONGROUP,
+  HIDEOPTIONGROUP
 }

@@ -25,48 +25,31 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.hisp.dhis.model;
+package org.hisp.dhis.model.programrule;
 
-import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.experimental.Accessors;
-import org.hisp.dhis.model.programrule.ProgramRule;
-import org.hisp.dhis.model.programrule.ProgramRuleAction;
-import org.hisp.dhis.model.programrule.ProgramRuleVariable;
+import org.hisp.dhis.model.IdentifiableObject;
+import org.hisp.dhis.model.Program;
+import org.hisp.dhis.model.ProgramStage;
 
 @Getter
 @Setter
-@Accessors(chain = true)
 @NoArgsConstructor
-public class ProgramObjects {
-  @JsonProperty private List<Program> programs = new ArrayList<>();
+public class ProgramRule extends IdentifiableObject {
+  @JsonProperty private String description;
 
-  @JsonProperty private List<ProgramSection> programSections = new ArrayList<>();
+  @JsonProperty private Program program;
 
-  @JsonProperty private List<ProgramStage> programStages = new ArrayList<>();
+  @JsonProperty private ProgramStage programStage;
 
-  @JsonProperty private List<ProgramStageSection> programStageSections = new ArrayList<>();
+  @JsonProperty private Set<ProgramRuleAction> programRuleActions = new HashSet<>();
 
-  @JsonProperty private List<ProgramRule> programRules = new ArrayList<>();
+  @JsonProperty private String condition;
 
-  @JsonProperty private List<ProgramRuleAction> programRuleActions = new ArrayList<>();
-
-  @JsonProperty private List<ProgramRuleVariable> programRuleVariables = new ArrayList<>();
-
-  /**
-   * Returns the first program in the list of programs, or null if no programs exist.
-   *
-   * @return the first program, or null.
-   */
-  @JsonIgnore
-  public Program getFirstProgram() {
-    return isNotEmpty(programs) ? programs.get(0) : null;
-  }
+  @JsonProperty private Integer priority;
 }

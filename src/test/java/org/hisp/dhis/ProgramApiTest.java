@@ -37,7 +37,19 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
-import org.hisp.dhis.model.*;
+import org.hisp.dhis.model.DataElement;
+import org.hisp.dhis.model.FeatureType;
+import org.hisp.dhis.model.OrgUnit;
+import org.hisp.dhis.model.Program;
+import org.hisp.dhis.model.ProgramAccessLevel;
+import org.hisp.dhis.model.ProgramIndicator;
+import org.hisp.dhis.model.ProgramObjects;
+import org.hisp.dhis.model.ProgramSection;
+import org.hisp.dhis.model.ProgramStage;
+import org.hisp.dhis.model.ProgramStageDataElement;
+import org.hisp.dhis.model.ProgramStageSection;
+import org.hisp.dhis.model.ProgramType;
+import org.hisp.dhis.model.programrule.ProgramRuleVariable;
 import org.hisp.dhis.model.trackedentity.ProgramTrackedEntityAttribute;
 import org.hisp.dhis.model.trackedentity.TrackedEntityAttribute;
 import org.hisp.dhis.model.trackedentity.TrackedEntityType;
@@ -481,6 +493,9 @@ class ProgramApiTest {
     assertNotEmpty(objects.getPrograms());
     assertNotEmpty(objects.getProgramSections());
     assertNotEmpty(objects.getProgramStages());
+    assertNotEmpty(objects.getProgramRuleVariables());
+    assertNotEmpty(objects.getProgramRules());
+    assertNotEmpty(objects.getProgramRuleActions());
 
     Program pr = objects.getPrograms().get(0);
 
@@ -515,6 +530,12 @@ class ProgramApiTest {
     assertNotBlank(ps.getName());
     assertNotNull(ps.getProgram());
     assertNotBlank(ps.getProgram().getId());
+
+    ProgramRuleVariable prv = objects.getProgramRuleVariables().get(0);
+    assertEquals("NmcoxKGSk6z", prv.getId());
+    assertNotBlank(prv.getName());
+    assertNotNull(prv.getProgram());
+    assertNotBlank(prv.getProgram().getId());
   }
 
   @Test

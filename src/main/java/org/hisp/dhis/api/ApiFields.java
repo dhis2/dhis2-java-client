@@ -341,6 +341,28 @@ public class ApiFields {
           sortOrder,displayInList,mandatory,allowFutureDate,searchable""",
           NAME_FIELDS, TRACKED_ENTITY_ATTRIBUTE_FIELDS);
 
+  public static final String PROGRAM_RULE_VARIABLE_FIELDS =
+      String.format(
+          """
+          %1$s,program[%2$s],programRuleVariableSourceType,valueType,programStage[%2$s],\
+          trackedEntityAttribute[%2$s],useCodeForOptionSet,dataElement[%2$s]""",
+          ID_EXT_FIELDS, ID_FIELDS);
+
+  public static final String PROGRAM_RULE_ACTION_FIELDS =
+      String.format(
+          """
+          %1$s,programRule[%2$s],programRuleActionType,dataElement[%2$s],trackedEntityAttribute[%2$s],\
+          programIndicator[%2$s],programStageSection[%2$s],programStage[%2$s],option[%2$s],\
+          location,content,data""",
+          ID_EXT_FIELDS, ID_FIELDS);
+
+  public static final String PROGRAM_RULE_FIELDS =
+      String.format(
+          """
+          %1$s,description,program[%2$s],programStage[%2$s],programRuleActions[%3$s],\
+          condition,priority""",
+          ID_EXT_FIELDS, ID_FIELDS, PROGRAM_RULE_ACTION_FIELDS);
+
   /** Program extended fields. */
   public static final String PROGRAM_EXT_FIELDS =
       String.format(
@@ -356,14 +378,16 @@ public class ApiFields {
           version,displayIncidentDate,ignoreOverdueEvents,onlyEnrollOnce,\
           selectEnrollmentDatesInFuture,selectIncidentDatesInFuture,displayFrontPageList,\
           skipOffline,useFirstStageDuringRegistration,expiryDays,\
-          minAttributesRequiredToSearch,maxTeiCountToReturn,accessLevel,featureType""",
+          minAttributesRequiredToSearch,maxTeiCountToReturn,accessLevel,featureType,\
+          programRuleVariables[%8$s]""",
           NAME_EXT_FIELDS,
           NAME_FIELDS,
           TRACKED_ENTITY_TYPE_FIELDS,
           CATEGORY_FIELDS,
           PROGRAM_SECTION_FIELDS,
           PROGRAM_STAGE_FIELDS,
-          PROGRAM_TRACKED_ENTITY_ATTRIBUTES_FIELDS);
+          PROGRAM_TRACKED_ENTITY_ATTRIBUTES_FIELDS,
+          PROGRAM_RULE_VARIABLE_FIELDS);
 
   /** Program fields. */
   public static final String PROGRAM_FIELDS =
@@ -379,11 +403,13 @@ public class ApiFields {
           version,displayIncidentDate,ignoreOverdueEvents,onlyEnrollOnce,\
           selectEnrollmentDatesInFuture,selectIncidentDatesInFuture,displayFrontPageList,\
           skipOffline,useFirstStageDuringRegistration,expiryDays,\
-          minAttributesRequiredToSearch,maxTeiCountToReturn,accessLevel,featureType""",
+          minAttributesRequiredToSearch,maxTeiCountToReturn,accessLevel,featureType,\
+          programRuleVariables[%5$s]""",
           NAME_EXT_FIELDS,
           NAME_FIELDS,
           TRACKED_ENTITY_ATTRIBUTE_FIELDS,
-          PROGRAM_TRACKED_ENTITY_ATTRIBUTES_FIELDS);
+          PROGRAM_TRACKED_ENTITY_ATTRIBUTES_FIELDS,
+          ID_FIELDS);
 
   /** User fields. */
   public static final String USER_FIELDS =
