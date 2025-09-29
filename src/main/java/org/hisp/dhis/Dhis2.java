@@ -43,7 +43,6 @@ import static org.hisp.dhis.api.ApiPaths.PATH_TRACKER;
 import static org.hisp.dhis.util.CollectionUtils.asList;
 import static org.hisp.dhis.util.CollectionUtils.list;
 import static org.hisp.dhis.util.IdentifiableObjectUtils.toIdObjects;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -703,7 +702,7 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   /**
-   * Returns a list of metadata objects based on the given query.
+   * Returns a list of metadata objects and pager based on the given query.
    *
    * @param <T> the type.
    * @param entity the {@link MetadataEntity}.

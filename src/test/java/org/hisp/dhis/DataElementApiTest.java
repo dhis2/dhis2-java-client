@@ -32,7 +32,6 @@ import static org.hisp.dhis.support.Assertions.assertNotEmpty;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import java.util.Set;
 import org.hisp.dhis.model.AggregationType;
 import org.hisp.dhis.model.DataDomain;
@@ -180,6 +179,7 @@ class DataElementApiTest {
 
     assertNotNull(metadata);
     assertNotNull(metadata.getPager());
+    assertEquals(1, metadata.getPager().getPage());
     assertNotEmpty(metadata.getObjects());
   }
 }

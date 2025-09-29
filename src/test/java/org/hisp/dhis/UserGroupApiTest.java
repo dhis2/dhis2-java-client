@@ -32,7 +32,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import java.util.List;
 import org.hisp.dhis.model.metadata.Metadata;
 import org.hisp.dhis.model.user.User;
@@ -80,6 +79,7 @@ class UserGroupApiTest {
 
     assertNotNull(metadata);
     assertNotNull(metadata.getPager());
+    assertEquals(1, metadata.getPager().getPage());
     assertNotEmpty(metadata.getObjects());
   }
 

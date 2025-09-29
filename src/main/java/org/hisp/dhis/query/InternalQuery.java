@@ -47,7 +47,7 @@ public class InternalQuery {
   }
 
   /**
-   * Enabled default paging.
+   * Enables default paging.
    *
    * @return this {@link InternalQuery}.
    */
