@@ -91,6 +91,7 @@ import org.hisp.dhis.model.trackedentity.TrackedEntitiesResult;
 import org.hisp.dhis.model.validation.Validation;
 import org.hisp.dhis.query.BaseQuery;
 import org.hisp.dhis.query.Filter;
+import org.hisp.dhis.query.InternalQuery;
 import org.hisp.dhis.query.Operator;
 import org.hisp.dhis.query.Order;
 import org.hisp.dhis.query.Paging;
@@ -177,13 +178,31 @@ public class BaseDhis2 {
    *
    * @param <T> the type.
    * @param uriBuilder the URI builder.
-   * @param query the {@link Query} filters to apply.
+   * @param query the {@link Query} parameters to apply.
    * @param type the class type of the object.
    * @return the object.
    * @throws Dhis2ClientException if unauthorized, access denied or resource not found.
    */
   protected <T> T getObject(URIBuilder uriBuilder, Query query, Class<T> type) {
-    URI url = withObjectQueryParams(uriBuilder, query);
+    URI url = withObjectQueryParams(uriBuilder, query, InternalQuery.instance());
+
+    return getObjectFromUrl(url, type);
+  }
+
+  /**
+   * Retrieves an object using HTTP GET.
+   *
+   * @param <T> the type.
+   * @param uriBuilder the URI builder.
+   * @param query the {@link Query} parameters to apply.
+   * @param internalQuery the {@link InternalQuery} parameters to apply.
+   * @param type the class type of the object.
+   * @return the object.
+   * @throws Dhis2ClientException if unauthorized, access denied or resource not found.
+   */
+  protected <T> T getObject(
+      URIBuilder uriBuilder, Query query, InternalQuery internalQuery, Class<T> type) {
+    URI url = withObjectQueryParams(uriBuilder, query, internalQuery);
 
     return getObjectFromUrl(url, type);
   }
@@ -248,10 +267,12 @@ public class BaseDhis2 {
    * Returns a {@link URI} based on the given query.
    *
    * @param uriBuilder the URI builder.
-   * @param query the {@link Query} filters to apply.
+   * @param query the {@link Query} parameters to apply.
+   * @param internalQuery the {@link InternalQuery} parameters to apply.
    * @return a URI.
    */
-  protected URI withObjectQueryParams(URIBuilder uriBuilder, Query query) {
+  protected URI withObjectQueryParams(
+      URIBuilder uriBuilder, Query query, InternalQuery internalQuery) {
     for (Filter filter : query.getFilters()) {
       Object value = getQueryValue(filter);
       String filterValue =
@@ -299,6 +320,21 @@ public class BaseDhis2 {
    * @return the {@link URIBuilder}.
    */
   protected URIBuilder addPaging(URIBuilder uriBuilder, BaseQuery query) {
+    return addPaging(uriBuilder, query, InternalQuery.instance());
+  }
+
+  /**
+   * Adds paging related parameters to the given {@link URIBuilder} based on the given {@link
+   * BaseQuery}. If paging is not set, and if default paging is false, paging will be disabled for
+   * the query. Otherwise, DHIS2 default paging will apply.
+   *
+   * @param uriBuilder the {@link URIBuilder}.
+   * @param query the {@link BaseQuery}.
+   * @param internalQuery the {@link InternalQuery}.
+   * @return the {@link URIBuilder}.
+   */
+  protected URIBuilder addPaging(
+      URIBuilder uriBuilder, BaseQuery query, InternalQuery internalQuery) {
     Paging paging = query.getPaging();
 
     if (paging.hasPaging()) {
@@ -309,9 +345,11 @@ public class BaseDhis2 {
       if (paging.hasPageSize()) {
         uriBuilder.addParameter("pageSize", String.valueOf(paging.getPageSize()));
       }
-    } else {
+    } else if (!internalQuery.isDefaultPaging()) {
       uriBuilder.addParameter("paging", "false");
     }
+
+    // If no paging is defined, and default paging is not enabled, DHIS2 API default paging applies
 
     return uriBuilder;
   }

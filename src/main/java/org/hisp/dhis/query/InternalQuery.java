@@ -27,10 +27,32 @@
  */
 package org.hisp.dhis.query;
 
-import lombok.RequiredArgsConstructor;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-@RequiredArgsConstructor
+@Getter
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class InternalQuery {
   /** Indicates whether default paging should be enabled if no paging is specified. */
   private boolean defaultPaging = false;
+
+  /**
+   * Produces an internal query instance.
+   *
+   * @return an {@link InternalQuery} instance.
+   */
+  public static InternalQuery instance() {
+    return new InternalQuery();
+  }
+
+  /**
+   * Enabled default paging.
+   *
+   * @return this {@link InternalQuery}.
+   */
+  public InternalQuery withDefaultPaging() {
+    this.defaultPaging = true;
+    return this;
+  }
 }
