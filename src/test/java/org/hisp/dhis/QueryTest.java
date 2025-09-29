@@ -75,14 +75,12 @@ class QueryTest {
     Dhis2 dhis2 = new Dhis2(config);
 
     URIBuilder uriBuilder = config.getResolvedUriBuilder().appendPath("dataElements");
-
     Query query =
         Query.instance()
             .addFilter(Filter.like("name", "Immunization"))
             .addFilter(Filter.eq("valueType", "NUMBER"))
             .setOrder(Order.desc("code"))
             .setPaging(2, 100);
-
     URI uri = dhis2.withObjectQueryParams(uriBuilder, query, InternalQuery.instance());
 
     String expected =
@@ -102,14 +100,12 @@ class QueryTest {
     Dhis2 dhis2 = new Dhis2(config);
 
     URIBuilder uriBuilder = config.getResolvedUriBuilder().appendPath("indicators");
-
     Query query =
         Query.instance()
             .addFilter(Filter.like("name", "ANC"))
             .addOrder(Order.asc("name"))
             .addOrder(Order.desc("uid"))
             .setPaging(4, 50);
-
     URI uri = dhis2.withObjectQueryParams(uriBuilder, query, InternalQuery.instance());
 
     String expected =
@@ -128,13 +124,11 @@ class QueryTest {
     Dhis2 dhis2 = new Dhis2(config);
 
     URIBuilder uriBuilder = config.getResolvedUriBuilder().appendPath("dataSets");
-
     Query query =
         Query.instance()
             .addFilter(Filter.like("name", "ANC"))
             .addOrder(Order.asc("id"))
             .setPaging(1, 50);
-
     URI uri = dhis2.withObjectQueryParams(uriBuilder, query, InternalQuery.instance());
 
     String expected =
@@ -153,9 +147,7 @@ class QueryTest {
     Dhis2 dhis2 = new Dhis2(config);
 
     URIBuilder uriBuilder = config.getResolvedUriBuilder().appendPath("dataSets");
-
     Query query = Query.instance().addFilter(Filter.like("name", "TB")).setMaxResults(100);
-
     URI uri = dhis2.withObjectQueryParams(uriBuilder, query, InternalQuery.instance());
 
     String expected =
@@ -174,18 +166,14 @@ class QueryTest {
     Dhis2 dhis2 = new Dhis2(config);
 
     URIBuilder uriBuilder = config.getResolvedUriBuilder().appendPath("dataSets");
-
     Query query = Query.instance().addFilter(Filter.like("name", "TB"));
-
     InternalQuery internalQuery = InternalQuery.instance().withDefaultPaging();
-
     URI uri = dhis2.withObjectQueryParams(uriBuilder, query, internalQuery);
 
     String expected =
         """
         https://dhis2.org/api/dataSets?\
-        filter=name%3Alike%3ATB\
-        &paging=false""";
+        filter=name%3Alike%3ATB""";
 
     assertEquals(expected, uri.toString());
   }
@@ -197,11 +185,8 @@ class QueryTest {
     Dhis2 dhis2 = new Dhis2(config);
 
     URIBuilder uriBuilder = config.getResolvedUriBuilder().appendPath("dataSets");
-
     Query query = Query.instance().addFilter(Filter.like("name", "TB")).setPaging(2, 100);
-
     InternalQuery internalQuery = InternalQuery.instance().withDefaultPaging();
-
     URI uri = dhis2.withObjectQueryParams(uriBuilder, query, internalQuery);
 
     String expected =
