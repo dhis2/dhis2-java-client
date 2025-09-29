@@ -43,7 +43,6 @@ import static org.hisp.dhis.api.ApiPaths.PATH_TRACKER;
 import static org.hisp.dhis.util.CollectionUtils.asList;
 import static org.hisp.dhis.util.CollectionUtils.list;
 import static org.hisp.dhis.util.IdentifiableObjectUtils.toIdObjects;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -125,6 +124,7 @@ import org.hisp.dhis.model.event.Event;
 import org.hisp.dhis.model.event.Events;
 import org.hisp.dhis.model.event.EventsResult;
 import org.hisp.dhis.model.metadata.ImportStrategy;
+import org.hisp.dhis.model.metadata.Metadata;
 import org.hisp.dhis.model.metadata.MetadataEntity;
 import org.hisp.dhis.model.metadata.MetadataImportParams;
 import org.hisp.dhis.model.period.PeriodType;
@@ -146,6 +146,7 @@ import org.hisp.dhis.model.validation.Validation;
 import org.hisp.dhis.model.validation.ValidationRule;
 import org.hisp.dhis.model.visualization.Visualization;
 import org.hisp.dhis.query.Filter;
+import org.hisp.dhis.query.InternalQuery;
 import org.hisp.dhis.query.Query;
 import org.hisp.dhis.query.analytics.AnalyticsQuery;
 import org.hisp.dhis.query.completedatasetregistration.CompleteDataSetRegistrationQuery;
@@ -686,13 +687,10 @@ public class Dhis2 extends BaseDhis2 {
    * @return a list of metadata objects.
    * @throws Dhis2ClientException if unauthorized, access denied or resource not found.
    */
-  @SuppressWarnings("unchecked")
   public <T extends IdentifiableObject> List<T> getMetadataList(
       MetadataEntity entity, Query query) {
-    // Unchecked cast is safe as all metadata entities extend identifiable object
     String path = entity.getPath();
     String fields = query.isExpandAssociations() ? entity.getExtFields() : entity.getFields();
-    Class<T> type = (Class<T>) entity.getType();
 
     Dhis2Objects objects =
         getObject(
@@ -700,6 +698,48 @@ public class Dhis2 extends BaseDhis2 {
             query,
             Dhis2Objects.class);
 
+    return toTypedList(entity, objects);
+  }
+
+  /**
+   * Returns a list of metadata objects based on the given query.
+   *
+   * @param <T> the type.
+   * @param entity the {@link MetadataEntity}.
+   * @param query the {@link Query}.
+   * @return a list of metadata objects.
+   * @throws Dhis2ClientException if unauthorized, access denied or resource not found.
+   */
+  public <T extends IdentifiableObject> Metadata<T> getMetadata(
+      MetadataEntity entity, Query query) {
+    String path = entity.getPath();
+    String fields = query.isExpandAssociations() ? entity.getExtFields() : entity.getFields();
+    InternalQuery internalQuery = InternalQuery.instance().withDefaultPaging();
+
+    Dhis2Objects objects =
+        getObject(
+            config.getResolvedUriBuilder().appendPath(path).addParameter(FIELDS_PARAM, fields),
+            query,
+            internalQuery,
+            Dhis2Objects.class);
+
+    List<T> list = toTypedList(entity, objects);
+    
+    return new Metadata<T>(objects.getPager(), list);
+  }
+
+  /**
+   * Converts a {@link MetadataEntity} and {@link Dhis2Objects} to a typed list.
+   *
+   * @param <T> the type.
+   * @param entity the {@link MetadataEntity}.
+   * @param objects the {@link Dhis2Objects}.
+   * @return a typed list.
+   */
+  @SuppressWarnings("unchecked")
+  protected <T extends IdentifiableObject> List<T> toTypedList(MetadataEntity entity, Dhis2Objects objects) {
+    // Unchecked cast is safe as all metadata entities extend identifiable object
+    Class<T> type = (Class<T>) entity.getType();
     return CollectionUtils.toTypedList(entity.getObjectsFunc().apply(objects), type);
   }
 
@@ -856,7 +896,7 @@ public class Dhis2 extends BaseDhis2 {
   public List<Attribute> getAttributes(Query query) {
     return getMetadataList(MetadataEntity.ATTRIBUTE, query);
   }
-
+  
   /**
    * Removes a {@link Attribute}.
    *
