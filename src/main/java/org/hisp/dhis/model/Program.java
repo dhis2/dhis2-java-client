@@ -32,11 +32,14 @@ import static org.hisp.dhis.util.CollectionUtils.notEmpty;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hisp.dhis.model.programrule.ProgramRuleVariable;
 import org.hisp.dhis.model.trackedentity.ProgramTrackedEntityAttribute;
 import org.hisp.dhis.model.trackedentity.TrackedEntityAttribute;
 import org.hisp.dhis.model.trackedentity.TrackedEntityType;
@@ -66,6 +69,8 @@ public class Program extends NameableObject {
   @JsonProperty private List<ProgramSection> programSections = new ArrayList<>();
 
   @JsonProperty private List<ProgramStage> programStages = new ArrayList<>();
+
+  @JsonProperty private Set<ProgramRuleVariable> programRuleVariables = new HashSet<>();
 
   @JsonProperty private String enrollmentDateLabel;
 

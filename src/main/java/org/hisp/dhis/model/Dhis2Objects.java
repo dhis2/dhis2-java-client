@@ -38,6 +38,9 @@ import org.hisp.dhis.model.completedatasetregistration.CompleteDataSetRegistrati
 import org.hisp.dhis.model.dashboard.Dashboard;
 import org.hisp.dhis.model.dimension.Dimension;
 import org.hisp.dhis.model.period.PeriodType;
+import org.hisp.dhis.model.programrule.ProgramRule;
+import org.hisp.dhis.model.programrule.ProgramRuleAction;
+import org.hisp.dhis.model.programrule.ProgramRuleVariable;
 import org.hisp.dhis.model.relationship.RelationshipType;
 import org.hisp.dhis.model.trackedentity.TrackedEntityAttribute;
 import org.hisp.dhis.model.trackedentity.TrackedEntityType;
@@ -122,6 +125,12 @@ public class Dhis2Objects {
   @JsonProperty private List<ProgramStageSection> programStageSections = new ArrayList<>();
 
   @JsonProperty private List<ProgramIndicator> programIndicators = new ArrayList<>();
+
+  @JsonProperty private List<ProgramRule> programRules = new ArrayList<>();
+
+  @JsonProperty private List<ProgramRuleAction> programRuleActions = new ArrayList<>();
+
+  @JsonProperty private List<ProgramRuleVariable> programRuleVariables = new ArrayList<>();
 
   @JsonProperty private List<RelationshipType> relationshipTypes = new ArrayList<>();
 

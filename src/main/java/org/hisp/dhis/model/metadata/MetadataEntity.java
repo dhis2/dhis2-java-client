@@ -66,6 +66,9 @@ import static org.hisp.dhis.api.ApiFields.ORG_UNIT_LEVEL_FIELDS;
 import static org.hisp.dhis.api.ApiFields.PROGRAM_EXT_FIELDS;
 import static org.hisp.dhis.api.ApiFields.PROGRAM_FIELDS;
 import static org.hisp.dhis.api.ApiFields.PROGRAM_INDICATOR_FIELDS;
+import static org.hisp.dhis.api.ApiFields.PROGRAM_RULE_ACTION_FIELDS;
+import static org.hisp.dhis.api.ApiFields.PROGRAM_RULE_FIELDS;
+import static org.hisp.dhis.api.ApiFields.PROGRAM_RULE_VARIABLE_FIELDS;
 import static org.hisp.dhis.api.ApiFields.PROGRAM_SECTION_FIELDS;
 import static org.hisp.dhis.api.ApiFields.PROGRAM_STAGE_FIELDS;
 import static org.hisp.dhis.api.ApiFields.PROGRAM_STAGE_SECTION_FIELDS;
@@ -117,6 +120,9 @@ import org.hisp.dhis.model.ProgramStage;
 import org.hisp.dhis.model.ProgramStageSection;
 import org.hisp.dhis.model.dashboard.Dashboard;
 import org.hisp.dhis.model.dimension.Dimension;
+import org.hisp.dhis.model.programrule.ProgramRule;
+import org.hisp.dhis.model.programrule.ProgramRuleAction;
+import org.hisp.dhis.model.programrule.ProgramRuleVariable;
 import org.hisp.dhis.model.relationship.RelationshipType;
 import org.hisp.dhis.model.trackedentity.TrackedEntityAttribute;
 import org.hisp.dhis.model.trackedentity.TrackedEntityType;
@@ -328,6 +334,24 @@ public enum MetadataEntity {
       PROGRAM_INDICATOR_FIELDS,
       "programIndicators",
       (objects) -> objects.getProgramIndicators()),
+  PROGRAM_RULE(
+      ProgramRule.class,
+      PROGRAM_RULE_FIELDS,
+      PROGRAM_RULE_FIELDS,
+      "programRules",
+      (objects) -> objects.getProgramRules()),
+  PROGRAM_RULE_ACTION(
+      ProgramRuleAction.class,
+      PROGRAM_RULE_ACTION_FIELDS,
+      PROGRAM_RULE_ACTION_FIELDS,
+      "programRuleActions",
+      (objects) -> objects.getProgramRuleActions()),
+  PROGRAM_RULE_VARIABLE(
+      ProgramRuleVariable.class,
+      PROGRAM_RULE_VARIABLE_FIELDS,
+      PROGRAM_RULE_VARIABLE_FIELDS,
+      "programRuleVariables",
+      (objects) -> objects.getProgramRuleVariables()),
   RELATIONSHIP_TYPE(
       RelationshipType.class,
       RELATIONSHIP_TYPE_FIELDS,
@@ -471,6 +495,12 @@ public enum MetadataEntity {
       return USER_ROLE;
     } else if (object instanceof Visualization) {
       return VISUALIZATION;
+    } else if (object instanceof ProgramRule) {
+      return PROGRAM_RULE;
+    } else if (object instanceof ProgramRuleAction) {
+      return PROGRAM_RULE_ACTION;
+    } else if (object instanceof ProgramRuleVariable) {
+      return PROGRAM_RULE_VARIABLE;
     } else {
       String msg = format("Unsupported metadata type: %s", object.getClass().getSimpleName());
       throw new Dhis2ClientException(msg, HttpStatus.BAD_REQUEST);

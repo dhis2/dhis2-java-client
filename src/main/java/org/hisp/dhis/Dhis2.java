@@ -52,6 +52,7 @@ import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -127,6 +128,9 @@ import org.hisp.dhis.model.metadata.ImportStrategy;
 import org.hisp.dhis.model.metadata.MetadataEntity;
 import org.hisp.dhis.model.metadata.MetadataImportParams;
 import org.hisp.dhis.model.period.PeriodType;
+import org.hisp.dhis.model.programrule.ProgramRule;
+import org.hisp.dhis.model.programrule.ProgramRuleAction;
+import org.hisp.dhis.model.programrule.ProgramRuleVariable;
 import org.hisp.dhis.model.relationship.RelationshipType;
 import org.hisp.dhis.model.relationship.RelationshipsResult;
 import org.hisp.dhis.model.trackedentity.TrackedEntitiesResult;
@@ -141,6 +145,7 @@ import org.hisp.dhis.model.validation.Period;
 import org.hisp.dhis.model.validation.Validation;
 import org.hisp.dhis.model.validation.ValidationRule;
 import org.hisp.dhis.model.visualization.Visualization;
+import org.hisp.dhis.query.Filter;
 import org.hisp.dhis.query.Query;
 import org.hisp.dhis.query.analytics.AnalyticsQuery;
 import org.hisp.dhis.query.completedatasetregistration.CompleteDataSetRegistrationQuery;
@@ -2524,6 +2529,26 @@ public class Dhis2 extends BaseDhis2 {
     objects.getProgramStages().addAll(program.getProgramStages());
     program.setProgramStages(toIdObjects(program.getProgramStages(), ProgramStage.class));
 
+    // Program rule variables
+    objects.getProgramRuleVariables().addAll(program.getProgramRuleVariables());
+    program.setProgramRuleVariables(
+        new HashSet<>(toIdObjects(program.getProgramRuleVariables(), ProgramRuleVariable.class)));
+
+    List<ProgramRule> rules =
+        getProgramRules(
+            Query.instance()
+                .setPaging(null, null)
+                .addFilter(Filter.eq("program.id", program.getId())));
+    for (ProgramRule rule : rules) {
+      // Program rule actions
+      objects.getProgramRuleActions().addAll(rule.getProgramRuleActions());
+      rule.getProgramRuleActions()
+          .addAll(toIdObjects(rule.getProgramRuleActions(), ProgramRuleAction.class));
+    }
+
+    // Program rules
+    objects.getProgramRules().addAll(rules);
+
     // Programs
     objects.getPrograms().add(program);
 
@@ -2669,6 +2694,141 @@ public class Dhis2 extends BaseDhis2 {
    */
   public ObjectResponse removeProgramIndicator(String id) {
     return removeMetadataObject(MetadataEntity.PROGRAM_INDICATOR, id);
+  }
+
+  // -------------------------------------------------------------------------
+  // Program rule
+  // -------------------------------------------------------------------------
+
+  /**
+   * Retrieves a {@link ProgramRule}.
+   *
+   * @param id the object identifier.
+   * @return the {@link ProgramRule}.
+   * @throws Dhis2ClientException if the object does not exist.
+   */
+  public ProgramRule getProgramRule(String id) {
+    return getMetadataObject(MetadataEntity.PROGRAM_RULE, id);
+  }
+
+  /**
+   * Indicates whether a {@link ProgramRule} exists.
+   *
+   * @param id the object identifier.
+   * @return true if the object exists.
+   */
+  public boolean isProgramRule(String id) {
+    return objectExists(MetadataEntity.PROGRAM_RULE, id);
+  }
+
+  /**
+   * Retrieves a list of {@link ProgramRule}.
+   *
+   * @param query the {@link Query}.
+   * @return list of {@link ProgramRule}.
+   */
+  public List<ProgramRule> getProgramRules(Query query) {
+    return getMetadataList(MetadataEntity.PROGRAM_RULE, query);
+  }
+
+  /**
+   * Removes a {@link ProgramRule}.
+   *
+   * @param id the identifier of the object to remove.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse removeProgramRule(String id) {
+    return removeMetadataObject(MetadataEntity.PROGRAM_RULE, id);
+  }
+
+  // -------------------------------------------------------------------------
+  // Program rule action
+  // -------------------------------------------------------------------------
+
+  /**
+   * Retrieves a {@link ProgramRuleAction}.
+   *
+   * @param id the object identifier.
+   * @return the {@link ProgramRuleAction}.
+   * @throws Dhis2ClientException if the object does not exist.
+   */
+  public ProgramRuleAction getProgramRuleAction(String id) {
+    return getMetadataObject(MetadataEntity.PROGRAM_RULE_ACTION, id);
+  }
+
+  /**
+   * Indicates whether a {@link ProgramRuleAction} exists.
+   *
+   * @param id the object identifier.
+   * @return true if the object exists.
+   */
+  public boolean isProgramRuleAction(String id) {
+    return objectExists(MetadataEntity.PROGRAM_RULE_ACTION, id);
+  }
+
+  /**
+   * Retrieves a list of {@link ProgramRuleAction}.
+   *
+   * @param query the {@link Query}.
+   * @return list of {@link ProgramRuleAction}.
+   */
+  public List<ProgramRuleAction> getProgramRuleActions(Query query) {
+    return getMetadataList(MetadataEntity.PROGRAM_RULE_ACTION, query);
+  }
+
+  /**
+   * Removes a {@link ProgramRuleAction}.
+   *
+   * @param id the identifier of the object to remove.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse removeProgramRuleAction(String id) {
+    return removeMetadataObject(MetadataEntity.PROGRAM_RULE_ACTION, id);
+  }
+
+  // -------------------------------------------------------------------------
+  // Program rule variable
+  // -------------------------------------------------------------------------
+
+  /**
+   * Retrieves a {@link ProgramRuleVariable}.
+   *
+   * @param id the object identifier.
+   * @return the {@link ProgramRuleVariable}.
+   * @throws Dhis2ClientException if the object does not exist.
+   */
+  public ProgramRuleVariable getProgramRuleVariable(String id) {
+    return getMetadataObject(MetadataEntity.PROGRAM_RULE_VARIABLE, id);
+  }
+
+  /**
+   * Indicates whether a {@link ProgramRuleVariable} exists.
+   *
+   * @param id the object identifier.
+   * @return true if the object exists.
+   */
+  public boolean isProgramRuleVariable(String id) {
+    return objectExists(MetadataEntity.PROGRAM_RULE_VARIABLE, id);
+  }
+
+  /**
+   * Retrieves a list of {@link ProgramRuleVariable}.
+   *
+   * @param query the {@link Query}.
+   * @return list of {@link ProgramRuleVariable}.
+   */
+  public List<ProgramRuleVariable> getProgramRuleVariables(Query query) {
+    return getMetadataList(MetadataEntity.PROGRAM_RULE_VARIABLE, query);
+  }
+
+  /**
+   * Removes a {@link ProgramRuleVariable}.
+   *
+   * @param id the identifier of the object to remove.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse removeProgramRuleVariable(String id) {
+    return removeMetadataObject(MetadataEntity.PROGRAM_RULE_VARIABLE, id);
   }
 
   // -------------------------------------------------------------------------
