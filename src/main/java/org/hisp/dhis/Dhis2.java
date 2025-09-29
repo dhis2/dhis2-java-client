@@ -43,7 +43,6 @@ import static org.hisp.dhis.api.ApiPaths.PATH_TRACKER;
 import static org.hisp.dhis.util.CollectionUtils.asList;
 import static org.hisp.dhis.util.CollectionUtils.list;
 import static org.hisp.dhis.util.IdentifiableObjectUtils.toIdObjects;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -724,13 +723,12 @@ public class Dhis2 extends BaseDhis2 {
             internalQuery,
             Dhis2Objects.class);
 
-    List<T> list = toTypedList(entity, objects);
-
-    return new Metadata<T>(objects.getPager(), list);
+    return new Metadata<T>(objects.getPager(), toTypedList(entity, objects));
   }
 
   /**
-   * Converts a {@link MetadataEntity} and {@link Dhis2Objects} to a typed list.
+   * Converts a {@link MetadataEntity} and {@link Dhis2Objects} to a typed list. The unchecked cast
+   * is safe as all metadata entities extend identifiable object.
    *
    * @param <T> the type.
    * @param entity the {@link MetadataEntity}.
@@ -740,7 +738,6 @@ public class Dhis2 extends BaseDhis2 {
   @SuppressWarnings("unchecked")
   protected <T extends IdentifiableObject> List<T> toTypedList(
       MetadataEntity entity, Dhis2Objects objects) {
-    // Unchecked cast is safe as all metadata entities extend identifiable object
     Class<T> type = (Class<T>) entity.getType();
     return CollectionUtils.toTypedList(entity.getObjectsFunc().apply(objects), type);
   }
