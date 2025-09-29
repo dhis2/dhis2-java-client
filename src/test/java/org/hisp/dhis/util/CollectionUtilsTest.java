@@ -48,6 +48,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -149,18 +150,18 @@ class CollectionUtilsTest {
         NullPointerException.class,
         () -> mapToList(List.of("a", null, "c"), str -> str.toUpperCase()));
   }
-  
+
   @Test
   void testToTypedList() {
     DataElement deA = new DataElement();
     deA.setId("jUb6fnbZPhV");
     DataElement deB = new DataElement();
     deB.setId("qEiCafULhoW");
-    
+
     List<IdentifiableObject> objects = List.of(deA, deB);
-    
+
     List<DataElement> dataElements = toTypedList(objects, DataElement.class);
-    
+
     assertContainsExactly(dataElements, deA, deB);
   }
 

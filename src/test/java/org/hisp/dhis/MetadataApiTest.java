@@ -36,12 +36,14 @@ import java.util.List;
 import java.util.Optional;
 import org.hisp.dhis.model.DataElement;
 import org.hisp.dhis.model.Dhis2Objects;
+import org.hisp.dhis.model.IdentifiableObject;
 import org.hisp.dhis.model.Option;
 import org.hisp.dhis.model.OptionSet;
 import org.hisp.dhis.model.ValueType;
 import org.hisp.dhis.model.metadata.ImportStrategy;
 import org.hisp.dhis.model.metadata.MetadataEntity;
 import org.hisp.dhis.model.metadata.MetadataImportParams;
+import org.hisp.dhis.query.Query;
 import org.hisp.dhis.query.tracker.AtomicMode;
 import org.hisp.dhis.response.HttpStatus;
 import org.hisp.dhis.response.Status;
@@ -153,6 +155,16 @@ class MetadataApiTest {
 
     assertEquals(Status.OK, removeResponse.getStatus());
     assertEquals(HttpStatus.OK, removeResponse.getHttpStatus());
+  }
+
+  @Test
+  void testGetMetadataList() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    List<IdentifiableObject> list =
+        dhis2.getMetadataList(MetadataEntity.DATA_ELEMENT, Query.instance().withDefaultPaging());
+
+    assertNotEmpty(list);
   }
 
   /**

@@ -165,6 +165,7 @@ import org.hisp.dhis.response.job.JobNotification;
 import org.hisp.dhis.response.object.ObjectResponse;
 import org.hisp.dhis.response.objects.ObjectsResponse;
 import org.hisp.dhis.response.trackedentity.TrackedEntityResponse;
+import org.hisp.dhis.util.CollectionUtils;
 import org.hisp.dhis.util.HttpUtils;
 import org.hisp.dhis.util.Verify;
 
@@ -674,6 +675,34 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   /**
+   * Returns a list of metadata objects based on the given query.
+   *
+   * @param <T> the type.
+   * @param entity the {@link MetadataEntity}.
+   * @param query the {@link Query}.
+   * @return a list of metadata objects.
+   * @throws Dhis2ClientException if unauthorized, access denied or resource not found.
+   */
+  @SuppressWarnings("unchecked")
+  public <T extends IdentifiableObject> List<T> getMetadataList(
+      MetadataEntity entity, Query query) {
+    // Unchecked cast is safe as all metadata entities extend identifiable object
+    String path = entity.getPath();
+    String fields = query.isExpandAssociations() ? entity.getExtFields() : entity.getFields();
+    Class<T> type = (Class<T>) entity.getType();
+
+    Dhis2Objects objects =
+        getObject(
+            config.getResolvedUriBuilder().appendPath(path).addParameter(FIELDS_PARAM, fields),
+            query,
+            Dhis2Objects.class);
+
+    List<? extends IdentifiableObject> list = entity.getObjectsFunc().apply(objects);
+
+    return CollectionUtils.toTypedList(list, type);
+  }
+
+  /**
    * Removes an object using HTTP DELETE.
    *
    * @param entity the {@link MetadataEntity}.
@@ -759,7 +788,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return list of {@link AnalyticsTableHook}.
    */
   public List<AnalyticsTableHook> getAnalyticsTableHooks(Query query) {
-    return getMetadataObjects(MetadataEntity.ANALYTICS_TABLE_HOOK, query).getAnalyticsTableHooks();
+    return getMetadataList(MetadataEntity.ANALYTICS_TABLE_HOOK, query);
   }
 
   // -------------------------------------------------------------------------
@@ -824,7 +853,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return a list of {@link Attribute}.
    */
   public List<Attribute> getAttributes(Query query) {
-    return getMetadataObjects(MetadataEntity.ATTRIBUTE, query).getAttributes();
+    return getMetadataList(MetadataEntity.ATTRIBUTE, query);
   }
 
   /**
@@ -899,7 +928,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return list of {@link CategoryOption}.
    */
   public List<CategoryOption> getCategoryOptions(Query query) {
-    return getMetadataObjects(MetadataEntity.CATEGORY_OPTION, query).getCategoryOptions();
+    return getMetadataList(MetadataEntity.CATEGORY_OPTION, query);
   }
 
   /**
@@ -974,7 +1003,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return list of {@link Category}.
    */
   public List<Category> getCategories(Query query) {
-    return getMetadataObjects(MetadataEntity.CATEGORY, query).getCategories();
+    return getMetadataList(MetadataEntity.CATEGORY, query);
   }
 
   /**
@@ -1039,7 +1068,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return list of {@link CategoryCombo}.
    */
   public List<CategoryCombo> getCategoryCombos(Query query) {
-    return getMetadataObjects(MetadataEntity.CATEGORY_COMBO, query).getCategoryCombos();
+    return getMetadataList(MetadataEntity.CATEGORY_COMBO, query);
   }
 
   /**
@@ -1084,8 +1113,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return list of {@link CategoryOptionCombo}.
    */
   public List<CategoryOptionCombo> getCategoryOptionCombos(Query query) {
-    return getMetadataObjects(MetadataEntity.CATEGORY_OPTION_COMBO, query)
-        .getCategoryOptionCombos();
+    return getMetadataList(MetadataEntity.CATEGORY_OPTION_COMBO, query);
   }
 
   // -------------------------------------------------------------------------
@@ -1120,8 +1148,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return list of {@link CategoryOptionGroup}.
    */
   public List<CategoryOptionGroup> getCategoryOptionGroups(Query query) {
-    return getMetadataObjects(MetadataEntity.CATEGORY_OPTION_GROUP, query)
-        .getCategoryOptionGroups();
+    return getMetadataList(MetadataEntity.CATEGORY_OPTION_GROUP, query);
   }
 
   /**
@@ -1166,8 +1193,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return list of {@link CategoryOptionGroupSet}.
    */
   public List<CategoryOptionGroupSet> getCategoryOptionGroupSets(Query query) {
-    return getMetadataObjects(MetadataEntity.CATEGORY_OPTION_GROUP_SET, query)
-        .getCategoryOptionGroupSets();
+    return getMetadataList(MetadataEntity.CATEGORY_OPTION_GROUP_SET, query);
   }
 
   /**
@@ -1212,7 +1238,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return list of {@link Constant}.
    */
   public List<Constant> getConstants(Query query) {
-    return getMetadataObjects(MetadataEntity.CONSTANT, query).getConstants();
+    return getMetadataList(MetadataEntity.CONSTANT, query);
   }
 
   /**
@@ -1257,7 +1283,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return list of {@link Dashboard}.
    */
   public List<Dashboard> getDashboards(Query query) {
-    return getMetadataObjects(MetadataEntity.DASHBOARD, query).getDashboards();
+    return getMetadataList(MetadataEntity.DASHBOARD, query);
   }
 
   /**
@@ -1332,7 +1358,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return list of {@link DataElement}.
    */
   public List<DataElement> getDataElements(Query query) {
-    return getMetadataObjects(MetadataEntity.DATA_ELEMENT, query).getDataElements();
+    return getMetadataList(MetadataEntity.DATA_ELEMENT, query);
   }
 
   /**
@@ -1407,7 +1433,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return list of {@link DataElementGroup}.
    */
   public List<DataElementGroup> getDataElementGroups(Query query) {
-    return getMetadataObjects(MetadataEntity.DATA_ELEMENT_GROUP, query).getDataElementGroups();
+    return getMetadataList(MetadataEntity.DATA_ELEMENT_GROUP, query);
   }
 
   /**
@@ -1482,8 +1508,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return list of {@link DataElementGroupSet}.
    */
   public List<DataElementGroupSet> getDataElementGroupSets(Query query) {
-    return getMetadataObjects(MetadataEntity.DATA_ELEMENT_GROUP_SET, query)
-        .getDataElementGroupSets();
+    return getMetadataList(MetadataEntity.DATA_ELEMENT_GROUP_SET, query);
   }
 
   /**
@@ -1528,7 +1553,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return list of {@link DataSet}.
    */
   public List<DataSet> getDataSets(Query query) {
-    return getMetadataObjects(MetadataEntity.DATA_SET, query).getDataSets();
+    return getMetadataList(MetadataEntity.DATA_SET, query);
   }
 
   /**
@@ -1552,7 +1577,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return list of {@link DataEntryForm}.
    */
   public List<DataEntryForm> getDataEntryForms(Query query) {
-    return getMetadataObjects(MetadataEntity.DATA_ENTRY_FORM, query).getDataEntryForms();
+    return getMetadataList(MetadataEntity.DATA_ENTRY_FORM, query);
   }
 
   /**
@@ -1597,7 +1622,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return list of {@link Dimension}.
    */
   public List<Dimension> getDimensions(Query query) {
-    return getMetadataObjects(MetadataEntity.DIMENSION, query).getDimensions();
+    return getMetadataList(MetadataEntity.DIMENSION, query);
   }
 
   // -------------------------------------------------------------------------
@@ -1642,7 +1667,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return list of {@link Document}.
    */
   public List<Document> getDocuments(Query query) {
-    return getMetadataObjects(MetadataEntity.DOCUMENT, query).getDocuments();
+    return getMetadataList(MetadataEntity.DOCUMENT, query);
   }
 
   /**
@@ -1746,7 +1771,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return list of {@link Indicator}.
    */
   public List<Indicator> getIndicators(Query query) {
-    return getMetadataObjects(MetadataEntity.INDICATOR, query).getIndicators();
+    return getMetadataList(MetadataEntity.INDICATOR, query);
   }
 
   /**
@@ -1821,7 +1846,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return list of {@link IndicatorGroup}.
    */
   public List<IndicatorGroup> getIndicatorGroups(Query query) {
-    return getMetadataObjects(MetadataEntity.INDICATOR_GROUP, query).getIndicatorGroups();
+    return getMetadataList(MetadataEntity.INDICATOR_GROUP, query);
   }
 
   /**
@@ -1896,7 +1921,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return list of {@link IndicatorGroupSet}.
    */
   public List<IndicatorGroupSet> getIndicatorGroupSets(Query query) {
-    return getMetadataObjects(MetadataEntity.INDICATOR_GROUP_SET, query).getIndicatorGroupSets();
+    return getMetadataList(MetadataEntity.INDICATOR_GROUP_SET, query);
   }
 
   /**
@@ -1971,7 +1996,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return list of {@link IndicatorType}.
    */
   public List<IndicatorType> getIndicatorTypes(Query query) {
-    return getMetadataObjects(MetadataEntity.INDICATOR_TYPE, query).getIndicatorTypes();
+    return getMetadataList(MetadataEntity.INDICATOR_TYPE, query);
   }
 
   /**
@@ -2069,7 +2094,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return list of {@link OrgUnit}.
    */
   public List<OrgUnit> getOrgUnits(Query query) {
-    return getMetadataObjects(MetadataEntity.ORG_UNIT, query).getOrganisationUnits();
+    return getMetadataList(MetadataEntity.ORG_UNIT, query);
   }
 
   /**
@@ -2172,7 +2197,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return list of {@link OrgUnitGroup}.
    */
   public List<OrgUnitGroup> getOrgUnitGroups(Query query) {
-    return getMetadataObjects(MetadataEntity.ORG_UNIT_GROUP, query).getOrganisationUnitGroups();
+    return getMetadataList(MetadataEntity.ORG_UNIT_GROUP, query);
   }
 
   /**
@@ -2258,8 +2283,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return list of {@link OrgUnitGroupSet}.
    */
   public List<OrgUnitGroupSet> getOrgUnitGroupSets(Query query) {
-    return getMetadataObjects(MetadataEntity.ORG_UNIT_GROUP_SET, query)
-        .getOrganisationUnitGroupSets();
+    return getMetadataList(MetadataEntity.ORG_UNIT_GROUP_SET, query);
   }
 
   /**
@@ -2294,7 +2318,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return list of {@link OrgUnitLevel}.
    */
   public List<OrgUnitLevel> getOrgUnitLevels(Query query) {
-    return getMetadataObjects(MetadataEntity.ORG_UNIT_LEVEL, query).getOrganisationUnitLevels();
+    return getMetadataList(MetadataEntity.ORG_UNIT_LEVEL, query);
   }
 
   /**
@@ -2345,7 +2369,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return list of {@link GeoMap}.
    */
   public List<GeoMap> getMaps(Query query) {
-    return getMetadataObjects(MetadataEntity.MAP, query).getMaps();
+    return getMetadataList(MetadataEntity.MAP, query);
   }
 
   // -------------------------------------------------------------------------
@@ -2392,7 +2416,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return list of {@link OptionSet}.
    */
   public List<OptionSet> getOptionSets(Query query) {
-    return getMetadataObjects(MetadataEntity.OPTION_SET, query).getOptionSets();
+    return getMetadataList(MetadataEntity.OPTION_SET, query);
   }
 
   /**
@@ -2437,7 +2461,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return list of {@link Option}.
    */
   public List<Option> getOptions(Query query) {
-    return getMetadataObjects(MetadataEntity.OPTION, query).getOptions();
+    return getMetadataList(MetadataEntity.OPTION, query);
   }
 
   // -------------------------------------------------------------------------
@@ -2527,7 +2551,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return list of {@link Program}.
    */
   public List<Program> getPrograms(Query query) {
-    return getMetadataObjects(MetadataEntity.PROGRAM, query).getPrograms();
+    return getMetadataList(MetadataEntity.PROGRAM, query);
   }
 
   /**
@@ -2588,7 +2612,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return list of {@link ProgramStage}.
    */
   public List<ProgramStage> getProgramStages(Query query) {
-    return getMetadataObjects(MetadataEntity.PROGRAM_STAGE, query).getProgramStages();
+    return getMetadataList(MetadataEntity.PROGRAM_STAGE, query);
   }
 
   // -------------------------------------------------------------------------
@@ -2638,7 +2662,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return list of {@link ProgramIndicator}.
    */
   public List<ProgramIndicator> getProgramIndicators(Query query) {
-    return getMetadataObjects(MetadataEntity.PROGRAM_INDICATOR, query).getProgramIndicators();
+    return getMetadataList(MetadataEntity.PROGRAM_INDICATOR, query);
   }
 
   /**
@@ -2713,7 +2737,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return a list of {@link RelationshipType}.
    */
   public List<RelationshipType> getRelationshipTypes(Query query) {
-    return getMetadataObjects(MetadataEntity.RELATIONSHIP_TYPE, query).getRelationshipTypes();
+    return getMetadataList(MetadataEntity.RELATIONSHIP_TYPE, query);
   }
 
   /**
@@ -2778,7 +2802,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return list of {@link TrackedEntityType}.
    */
   public List<TrackedEntityType> getTrackedEntityTypes(Query query) {
-    return getMetadataObjects(MetadataEntity.TRACKED_ENTITY_TYPE, query).getTrackedEntityTypes();
+    return getMetadataList(MetadataEntity.TRACKED_ENTITY_TYPE, query);
   }
 
   /**
@@ -2853,8 +2877,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return list of {@link TrackedEntityAttribute}.
    */
   public List<TrackedEntityAttribute> getTrackedEntityAttributes(Query query) {
-    return getMetadataObjects(MetadataEntity.TRACKED_ENTITY_ATTRIBUTE, query)
-        .getTrackedEntityAttributes();
+    return getMetadataList(MetadataEntity.TRACKED_ENTITY_ATTRIBUTE, query);
   }
 
   // -------------------------------------------------------------------------
@@ -2879,7 +2902,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return list of {@link User}.
    */
   public List<User> getUsers(Query query) {
-    return getMetadataObjects(MetadataEntity.USER, query).getUsers();
+    return getMetadataList(MetadataEntity.USER, query);
   }
 
   /**
@@ -2994,7 +3017,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return list of {@link UserGroup}.
    */
   public List<UserGroup> getUserGroups(Query query) {
-    return getMetadataObjects(MetadataEntity.USER_GROUP, query).getUserGroups();
+    return getMetadataList(MetadataEntity.USER_GROUP, query);
   }
 
   /**
@@ -3069,7 +3092,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return list of {@link UserRole}.
    */
   public List<UserRole> getUserRoles(Query query) {
-    return getMetadataObjects(MetadataEntity.USER_ROLE, query).getUserRoles();
+    return getMetadataList(MetadataEntity.USER_ROLE, query);
   }
 
   /**
@@ -3114,7 +3137,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return list of {@link Visualization}.
    */
   public List<Visualization> getVisualizations(Query query) {
-    return getMetadataObjects(MetadataEntity.VISUALIZATION, query).getVisualizations();
+    return getMetadataList(MetadataEntity.VISUALIZATION, query);
   }
 
   /**
