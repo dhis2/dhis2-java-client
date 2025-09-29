@@ -359,8 +359,8 @@ public class ApiFields {
   public static final String PROGRAM_RULE_FIELDS =
       String.format(
           """
-                  %1$s,description,program[%2$s],programStage[%2$s],programRuleActions[%3$s],\
-                  condition,priority""",
+          %1$s,description,program[%2$s],programStage[%2$s],programRuleActions[%3$s],\
+          condition,priority""",
           ID_EXT_FIELDS, ID_FIELDS, PROGRAM_RULE_ACTION_FIELDS);
 
   /** Program extended fields. */
