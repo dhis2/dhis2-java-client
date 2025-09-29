@@ -43,6 +43,7 @@ import static org.hisp.dhis.api.ApiPaths.PATH_TRACKER;
 import static org.hisp.dhis.util.CollectionUtils.asList;
 import static org.hisp.dhis.util.CollectionUtils.list;
 import static org.hisp.dhis.util.IdentifiableObjectUtils.toIdObjects;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -823,14 +824,14 @@ public class Dhis2 extends BaseDhis2 {
 
   /**
    * Retrieves a {@link Metadata} of type {@link AnalyticsTableHook}.
-   * 
+   *
    * @param query the {@link Query}.
    * @return a {@link AnalyticsTableHook}.
    */
   public Metadata<Attribute> getAnalyticsTableHooksPaged(Query query) {
     return getMetadata(MetadataEntity.ATTRIBUTE, query);
   }
-  
+
   /**
    * Removes a {@link AnalyticsTableHook}.
    *
@@ -908,14 +909,14 @@ public class Dhis2 extends BaseDhis2 {
 
   /**
    * Retrieves a {@link Metadata} of type {@link Attribute}.
-   * 
+   *
    * @param query the {@link Query}.
    * @return a {@link Metadata}.
    */
   public Metadata<Attribute> getAttributesPaged(Query query) {
     return getMetadata(MetadataEntity.ATTRIBUTE, query);
   }
-  
+
   /**
    * Removes a {@link Attribute}.
    *
@@ -1420,7 +1421,7 @@ public class Dhis2 extends BaseDhis2 {
   public List<DataElement> getDataElements(Query query) {
     return getMetadataList(MetadataEntity.DATA_ELEMENT, query);
   }
-  
+
   /**
    * Retrieves a {@link Metadata} of type {@link DataElement}.
    *
@@ -1430,7 +1431,7 @@ public class Dhis2 extends BaseDhis2 {
   public Metadata<DataElement> getDataElementsPaged(Query query) {
     return getMetadata(MetadataEntity.DATA_ELEMENT, query);
   }
-  
+
   /**
    * Removes a {@link DataElement}.
    *
@@ -1749,7 +1750,7 @@ public class Dhis2 extends BaseDhis2 {
   public List<Document> getDocuments(Query query) {
     return getMetadataList(MetadataEntity.DOCUMENT, query);
   }
-  
+
   /**
    * Retrieves a {@link Metadata} of type {@link Document}.
    *
@@ -1759,7 +1760,7 @@ public class Dhis2 extends BaseDhis2 {
   public Metadata<Document> getDocumentsPaged(Query query) {
     return getMetadata(MetadataEntity.DOCUMENT, query);
   }
-  
+
   /**
    * Writes the data for the {@link Document} to the given {@link OutputStream}.
    *
@@ -1863,7 +1864,7 @@ public class Dhis2 extends BaseDhis2 {
   public List<Indicator> getIndicators(Query query) {
     return getMetadataList(MetadataEntity.INDICATOR, query);
   }
-  
+
   /**
    * Retrieves a {@link Metadata} of type {@link Indicator}.
    *
@@ -1873,7 +1874,7 @@ public class Dhis2 extends BaseDhis2 {
   public Metadata<Indicator> getIndicatorsPaged(Query query) {
     return getMetadata(MetadataEntity.INDICATOR, query);
   }
-  
+
   /**
    * Removes an {@link Indicator}.
    *
@@ -1958,7 +1959,7 @@ public class Dhis2 extends BaseDhis2 {
   public Metadata<IndicatorGroup> getIndicatorGroupsPaged(Query query) {
     return getMetadata(MetadataEntity.INDICATOR_GROUP, query);
   }
-  
+
   /**
    * Removes an {@link IndicatorGroup}.
    *
@@ -2043,7 +2044,7 @@ public class Dhis2 extends BaseDhis2 {
   public Metadata<IndicatorGroupSet> getIndicatorGroupSetsPaged(Query query) {
     return getMetadata(MetadataEntity.INDICATOR_GROUP_SET, query);
   }
-  
+
   /**
    * Removes an {@link IndicatorGroupSet}.
    *
@@ -2236,7 +2237,7 @@ public class Dhis2 extends BaseDhis2 {
   public Metadata<OrgUnit> getOrgUnitsPaged(Query query) {
     return getMetadata(MetadataEntity.ORG_UNIT, query);
   }
-  
+
   /**
    * Removes a {@link OrgUnit}.
    *
@@ -2349,7 +2350,7 @@ public class Dhis2 extends BaseDhis2 {
   public Metadata<OrgUnitGroup> getOrgUnitGroupsPaged(Query query) {
     return getMetadata(MetadataEntity.ORG_UNIT_GROUP, query);
   }
-  
+
   /**
    * Adds the program to the org unit.
    *
@@ -2445,7 +2446,7 @@ public class Dhis2 extends BaseDhis2 {
   public Metadata<OrgUnitGroupSet> getOrgUnitGroupSetsPaged(Query query) {
     return getMetadata(MetadataEntity.ORG_UNIT_GROUP_SET, query);
   }
-  
+
   /**
    * Removes a {@link OrgUnitGroupSet}.
    *
@@ -2490,7 +2491,7 @@ public class Dhis2 extends BaseDhis2 {
   public Metadata<OrgUnitLevel> getOrgUnitLevelsPaged(Query query) {
     return getMetadata(MetadataEntity.ORG_UNIT_LEVEL, query);
   }
-  
+
   /**
    * Retrieves a list of "filled" {@link OrgUnitLevel}, meaning any gaps in the persisted levels
    * will be inserted by generated levels.
@@ -2608,7 +2609,7 @@ public class Dhis2 extends BaseDhis2 {
   public Metadata<OptionSet> getOptionSetsPaged(Query query) {
     return getMetadata(MetadataEntity.OPTION_SET, query);
   }
-  
+
   /**
    * Removes an {@link OptionSet}.
    *
@@ -2663,7 +2664,7 @@ public class Dhis2 extends BaseDhis2 {
   public Metadata<Option> getOptionsPaged(Query query) {
     return getMetadata(MetadataEntity.OPTION, query);
   }
-  
+
   // -------------------------------------------------------------------------
   // Program
   // -------------------------------------------------------------------------
@@ -2783,7 +2784,7 @@ public class Dhis2 extends BaseDhis2 {
   public Metadata<Program> getProgramsPaged(Query query) {
     return getMetadata(MetadataEntity.PROGRAM, query);
   }
-  
+
   /**
    * Adds the program to the org unit.
    *
@@ -2854,7 +2855,7 @@ public class Dhis2 extends BaseDhis2 {
   public Metadata<ProgramStage> getProgramStagesPaged(Query query) {
     return getMetadata(MetadataEntity.PROGRAM_STAGE, query);
   }
-  
+
   // -------------------------------------------------------------------------
   // Program stage section
   // -------------------------------------------------------------------------
@@ -2914,7 +2915,7 @@ public class Dhis2 extends BaseDhis2 {
   public Metadata<ProgramIndicator> getProgramIndicatorsPaged(Query query) {
     return getMetadata(MetadataEntity.PROGRAM_INDICATOR, query);
   }
-  
+
   /**
    * Removes a {@link ProgramIndicator}.
    *
@@ -2969,7 +2970,7 @@ public class Dhis2 extends BaseDhis2 {
   public Metadata<ProgramRule> getProgramRulesPaged(Query query) {
     return getMetadata(MetadataEntity.PROGRAM_RULE, query);
   }
-  
+
   /**
    * Removes a {@link ProgramRule}.
    *
@@ -3024,7 +3025,7 @@ public class Dhis2 extends BaseDhis2 {
   public Metadata<ProgramRuleAction> getProgramRuleActionsPaged(Query query) {
     return getMetadata(MetadataEntity.PROGRAM_RULE_ACTION, query);
   }
-  
+
   /**
    * Removes a {@link ProgramRuleAction}.
    *
@@ -3079,7 +3080,7 @@ public class Dhis2 extends BaseDhis2 {
   public Metadata<ProgramRuleVariable> getProgramRuleVariablesPaged(Query query) {
     return getMetadata(MetadataEntity.PROGRAM_RULE_VARIABLE, query);
   }
-  
+
   /**
    * Removes a {@link ProgramRuleVariable}.
    *
@@ -3164,7 +3165,7 @@ public class Dhis2 extends BaseDhis2 {
   public Metadata<RelationshipType> getRelationshipTypesPaged(Query query) {
     return getMetadata(MetadataEntity.RELATIONSHIP_TYPE, query);
   }
-  
+
   /**
    * Removes a {@link RelationshipType}.
    *
@@ -3239,7 +3240,7 @@ public class Dhis2 extends BaseDhis2 {
   public Metadata<TrackedEntityType> getTrackedEntityTypesPaged(Query query) {
     return getMetadata(MetadataEntity.TRACKED_ENTITY_TYPE, query);
   }
-  
+
   /**
    * Removes an {@link TrackedEntityType}.
    *
@@ -3399,7 +3400,7 @@ public class Dhis2 extends BaseDhis2 {
   public Metadata<User> getUsersPaged(Query query) {
     return getMetadata(MetadataEntity.USER, query);
   }
-  
+
   /**
    * Removes a {@link User}.
    *
@@ -3484,7 +3485,7 @@ public class Dhis2 extends BaseDhis2 {
   public Metadata<UserGroup> getUserGroupsPaged(Query query) {
     return getMetadata(MetadataEntity.USER_GROUP, query);
   }
-  
+
   /**
    * Removes a {@link UserGroup}.
    *
@@ -3569,7 +3570,7 @@ public class Dhis2 extends BaseDhis2 {
   public Metadata<UserRole> getUserRolesPaged(Query query) {
     return getMetadata(MetadataEntity.USER_ROLE, query);
   }
-  
+
   /**
    * Removes a {@link UserRole}.
    *
@@ -3624,7 +3625,7 @@ public class Dhis2 extends BaseDhis2 {
   public Metadata<Visualization> getVisualizationsPaged(Query query) {
     return getMetadata(MetadataEntity.VISUALIZATION, query);
   }
-  
+
   /**
    * Removes a {@link Visualization}.
    *
