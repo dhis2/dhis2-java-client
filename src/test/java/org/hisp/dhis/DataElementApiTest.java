@@ -40,10 +40,12 @@ import org.hisp.dhis.model.DataElement;
 import org.hisp.dhis.model.OptionSet;
 import org.hisp.dhis.model.ValueType;
 import org.hisp.dhis.model.acl.Access;
+import org.hisp.dhis.model.metadata.Metadata;
 import org.hisp.dhis.model.sharing.Sharing;
 import org.hisp.dhis.model.sharing.UserAccess;
 import org.hisp.dhis.model.sharing.UserGroupAccess;
 import org.hisp.dhis.model.translation.Translation;
+import org.hisp.dhis.query.Query;
 import org.hisp.dhis.response.HttpStatus;
 import org.hisp.dhis.response.Status;
 import org.hisp.dhis.response.object.ObjectResponse;
@@ -168,5 +170,16 @@ class DataElementApiTest {
     assertNotNull(removeResponse);
     assertEquals(Status.OK, removeResponse.getStatus());
     assertEquals(HttpStatus.OK, removeResponse.getHttpStatus());
+  }
+
+  @Test
+  void testGetDataElementsPaged() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    Metadata<DataElement> metadata = dhis2.getDataElementsPaged(Query.instance());
+
+    assertNotNull(metadata);
+    assertNotNull(metadata.getPager());
+    assertNotEmpty(metadata.getObjects());
   }
 }

@@ -37,6 +37,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.List;
 import org.hisp.dhis.model.Indicator;
 import org.hisp.dhis.model.IndicatorType;
+import org.hisp.dhis.model.metadata.Metadata;
 import org.hisp.dhis.query.Filter;
 import org.hisp.dhis.query.Query;
 import org.hisp.dhis.response.HttpStatus;
@@ -87,6 +88,17 @@ class IndicatorApiTest {
 
     assertNotEmpty(indicators);
     assertEquals(3, indicators.size());
+  }
+
+  @Test
+  void testGetIndicatorsPaged() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    Metadata<Indicator> metadata = dhis2.getIndicatorsPaged(Query.instance());
+
+    assertNotNull(metadata);
+    assertNotNull(metadata.getPager());
+    assertNotEmpty(metadata.getObjects());
   }
 
   @Test

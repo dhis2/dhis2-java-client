@@ -34,6 +34,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
+import org.hisp.dhis.model.metadata.Metadata;
 import org.hisp.dhis.model.user.User;
 import org.hisp.dhis.model.user.UserGroup;
 import org.hisp.dhis.query.Query;
@@ -69,6 +70,17 @@ class UserGroupApiTest {
 
     assertNotNull(userGroups);
     assertNotEmpty(userGroups);
+  }
+
+  @Test
+  void testGetUserGroupsPaged() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    Metadata<UserGroup> metadata = dhis2.getUserGroupsPaged(Query.instance());
+
+    assertNotNull(metadata);
+    assertNotNull(metadata.getPager());
+    assertNotEmpty(metadata.getObjects());
   }
 
   @Test

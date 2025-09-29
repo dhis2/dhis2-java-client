@@ -35,6 +35,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.List;
 import org.hisp.dhis.model.IndicatorGroup;
+import org.hisp.dhis.model.metadata.Metadata;
 import org.hisp.dhis.query.Query;
 import org.hisp.dhis.response.HttpStatus;
 import org.hisp.dhis.response.object.ObjectResponse;
@@ -120,5 +121,16 @@ class IndicatorGroupApiTest {
     ObjectResponse removeRespA = dhis2.removeIndicatorGroup(indicatorGroupUid);
 
     assertSuccessResponse(removeRespA, HttpStatus.OK, 200);
+  }
+
+  @Test
+  void testGetIndicatorGroupsPaged() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    Metadata<IndicatorGroup> metadata = dhis2.getIndicatorGroupsPaged(Query.instance());
+
+    assertNotNull(metadata);
+    assertNotNull(metadata.getPager());
+    assertNotEmpty(metadata.getObjects());
   }
 }

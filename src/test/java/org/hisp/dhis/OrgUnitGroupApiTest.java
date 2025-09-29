@@ -27,6 +27,7 @@
  */
 package org.hisp.dhis;
 
+import static org.hisp.dhis.support.Assertions.assertNotEmpty;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -34,6 +35,8 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import java.util.List;
 import org.hisp.dhis.model.OrgUnit;
 import org.hisp.dhis.model.OrgUnitGroup;
+import org.hisp.dhis.model.metadata.Metadata;
+import org.hisp.dhis.query.Query;
 import org.hisp.dhis.support.TestTags;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -66,5 +69,16 @@ class OrgUnitGroupApiTest {
     assertEquals("ImspTQPwCqd", orgUnits.get(0).getId());
     assertEquals("Sierra Leone", orgUnits.get(0).getName());
     assertEquals("OU_525", orgUnits.get(0).getCode());
+  }
+
+  @Test
+  void testGetOrgUnitGroupsPaged() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    Metadata<OrgUnitGroup> metadata = dhis2.getOrgUnitGroupsPaged(Query.instance());
+
+    assertNotNull(metadata);
+    assertNotNull(metadata.getPager());
+    assertNotEmpty(metadata.getObjects());
   }
 }
