@@ -43,7 +43,6 @@ import static org.hisp.dhis.api.ApiPaths.PATH_TRACKER;
 import static org.hisp.dhis.util.CollectionUtils.asList;
 import static org.hisp.dhis.util.CollectionUtils.list;
 import static org.hisp.dhis.util.IdentifiableObjectUtils.toIdObjects;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -124,7 +123,6 @@ import org.hisp.dhis.model.event.Event;
 import org.hisp.dhis.model.event.Events;
 import org.hisp.dhis.model.event.EventsResult;
 import org.hisp.dhis.model.metadata.ImportStrategy;
-import org.hisp.dhis.model.metadata.Metadata;
 import org.hisp.dhis.model.metadata.MetadataEntity;
 import org.hisp.dhis.model.metadata.MetadataImportParams;
 import org.hisp.dhis.model.period.PeriodType;
@@ -851,10 +849,6 @@ public class Dhis2 extends BaseDhis2 {
    */
   public List<Attribute> getAttributes(Query query) {
     return getMetadataList(MetadataEntity.ATTRIBUTE, query);
-  }
-
-  public Metadata<Attribute> getAttributesPaged(Query query) {
-    return null; // TODO
   }
 
   /**
