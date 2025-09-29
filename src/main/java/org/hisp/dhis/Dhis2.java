@@ -2542,7 +2542,7 @@ public class Dhis2 extends BaseDhis2 {
                 .setPaging(null, null)
                 .addFilter(Filter.eq("program.id", program.getId())));
     for (ProgramRule rule : rules) {
-      // Program rules actions
+      // Program rule actions
       objects.getProgramRuleActions().addAll(rule.getProgramRuleActions());
       rule.getProgramRuleActions()
           .addAll(toIdObjects(rule.getProgramRuleActions(), ProgramRuleAction.class));
