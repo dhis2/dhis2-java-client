@@ -2730,7 +2730,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return list of {@link ProgramRule}.
    */
   public List<ProgramRule> getProgramRules(Query query) {
-    return getMetadataObjects(MetadataEntity.PROGRAM_RULE, query).getProgramRules();
+    return getMetadataList(MetadataEntity.PROGRAM_RULE, query);
   }
 
   /**
@@ -2775,7 +2775,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return list of {@link ProgramRuleAction}.
    */
   public List<ProgramRuleAction> getProgramRuleActions(Query query) {
-    return getMetadataObjects(MetadataEntity.PROGRAM_RULE_ACTION, query).getProgramRuleActions();
+    return getMetadataList(MetadataEntity.PROGRAM_RULE_ACTION, query);
   }
 
   /**
@@ -2820,8 +2820,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return list of {@link ProgramRuleVariable}.
    */
   public List<ProgramRuleVariable> getProgramRuleVariables(Query query) {
-    return getMetadataObjects(MetadataEntity.PROGRAM_RULE_VARIABLE, query)
-        .getProgramRuleVariables();
+    return getMetadataList(MetadataEntity.PROGRAM_RULE_VARIABLE, query);
   }
 
   /**
