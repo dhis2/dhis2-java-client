@@ -107,7 +107,13 @@ class ApiFieldsTest {
         version,displayIncidentDate,ignoreOverdueEvents,onlyEnrollOnce,\
         selectEnrollmentDatesInFuture,selectIncidentDatesInFuture,displayFrontPageList,\
         skipOffline,useFirstStageDuringRegistration,expiryDays,\
-        minAttributesRequiredToSearch,maxTeiCountToReturn,accessLevel,featureType""";
+        minAttributesRequiredToSearch,maxTeiCountToReturn,accessLevel,featureType,\
+        programRuleVariables[id,code,name,created,lastUpdated,attributeValues,translations,\
+        sharing,access,program[id,code,name,created,lastUpdated,attributeValues],\
+        programRuleVariableSourceType,valueType,programStage[id,code,name,created,\
+        lastUpdated,attributeValues],trackedEntityAttribute[id,code,name,created,\
+        lastUpdated,attributeValues],useCodeForOptionSet,\
+        dataElement[id,code,name,created,lastUpdated,attributeValues]]""";
 
     assertEquals(expected, ApiFields.PROGRAM_EXT_FIELDS);
   }
@@ -132,7 +138,8 @@ class ApiFieldsTest {
         version,displayIncidentDate,ignoreOverdueEvents,onlyEnrollOnce,\
         selectEnrollmentDatesInFuture,selectIncidentDatesInFuture,displayFrontPageList,\
         skipOffline,useFirstStageDuringRegistration,expiryDays,\
-        minAttributesRequiredToSearch,maxTeiCountToReturn,accessLevel,featureType""";
+        minAttributesRequiredToSearch,maxTeiCountToReturn,accessLevel,featureType,\
+        programRuleVariables[id,code,name,created,lastUpdated,attributeValues]""";
 
     assertEquals(expected, ApiFields.PROGRAM_FIELDS);
   }
