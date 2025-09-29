@@ -78,6 +78,8 @@ import static org.hisp.dhis.api.ApiFields.USER_GROUP_FIELDS;
 import static org.hisp.dhis.api.ApiFields.USER_ROLE_FIELDS;
 import static org.hisp.dhis.api.ApiFields.VISUALIZATION_FIELDS;
 
+import java.util.List;
+import java.util.function.Function;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.hisp.dhis.model.AnalyticsTableHook;
@@ -94,6 +96,7 @@ import org.hisp.dhis.model.DataElementGroup;
 import org.hisp.dhis.model.DataElementGroupSet;
 import org.hisp.dhis.model.DataEntryForm;
 import org.hisp.dhis.model.DataSet;
+import org.hisp.dhis.model.Dhis2Objects;
 import org.hisp.dhis.model.Document;
 import org.hisp.dhis.model.GeoMap;
 import org.hisp.dhis.model.IdentifiableObject;
@@ -133,200 +136,240 @@ public enum MetadataEntity {
       AnalyticsTableHook.class,
       ANALYTICS_TABLE_HOOK_FIELDS,
       ANALYTICS_TABLE_HOOK_FIELDS,
-      "analyticsTableHooks"),
+      "analyticsTableHooks",
+      (objects) -> objects.getAnalyticsTableHooks()),
   ATTRIBUTE(
       Attribute.class,
       ATTRIBUTE_FIELDS,
       ATTRIBUTE_FIELDS,
-      "attributes"),
+      "attributes",
+      (objects) -> objects.getAttributes()),
   CATEGORY_OPTION(
       CategoryOption.class,
       CATEGORY_OPTION_FIELDS,
       CATEGORY_OPTION_EXT_FIELDS,
-      "categoryOptions"),
+      "categoryOptions",
+      (objects) -> objects.getCategoryOptions()),
   CATEGORY(Category.class,
       CATEGORY_FIELDS,
       CATEGORY_FIELDS,
-      "categories"),
+      "categories",
+      (objects) -> objects.getCategories()),
   CATEGORY_COMBO(
       CategoryCombo.class,
       CATEGORY_COMBO_FIELDS,
       CATEGORY_COMBO_FIELDS,
-      "categoryCombos"),
+      "categoryCombos",
+      (objects) -> objects.getCategoryCombos()),
   CATEGORY_OPTION_COMBO(
       CategoryOptionCombo.class,
       CATEGORY_OPTION_COMBO_FIELDS,
       CATEGORY_OPTION_COMBO_FIELDS,
-      "categoryOptionCombos"),
+      "categoryOptionCombos",
+      (objects) -> objects.getCategoryOptionCombos()),
   CATEGORY_OPTION_GROUP(
       CategoryOptionGroup.class,
       CATEGORY_OPTION_GROUP_FIELDS,
       CATEGORY_OPTION_GROUP_FIELDS,
-      "categoryOptionGroups"),
+      "categoryOptionGroups",
+      (objects) -> objects.getCategoryOptionGroups()),
   CATEGORY_OPTION_GROUP_SET(
       CategoryOptionGroupSet.class,
       CATEGORY_OPTION_GROUP_SET_FIELDS,
       CATEGORY_OPTION_GROUP_SET_FIELDS,
-      "categoryOptionGroupSets"),
+      "categoryOptionGroupSets",
+      (objects) -> objects.getCategoryOptionGroupSets()),
   CONSTANT(
       Constant.class,
       CONSTANT_FIELDS,
       CONSTANT_FIELDS,
-      "constants"),
+      "constants",
+      (objects) -> objects.getConstants()),
   DASHBOARD(
       Dashboard.class,
       DASHBOARD_FIELDS,
       DASHBOARD_FIELDS,
-      "dashboards"),
+      "dashboards",
+      (objects) -> objects.getDashboards()),
   DATA_ELEMENT(
       DataElement.class,
       DATA_ELEMENT_EXT_FIELDS,
       DATA_ELEMENT_EXT_FIELDS,
-      "dataElements"),
+      "dataElements",
+      (objects) -> objects.getDataElements()),
   DATA_ELEMENT_GROUP(
       DataElementGroup.class,
       DATA_ELEMENT_GROUP_FIELDS,
       DATA_ELEMENT_GROUP_EXT_FIELDS,
-      "dataElementGroups"),
+      "dataElementGroups",
+      (objects) -> objects.getDataElementGroups()),
   DATA_ELEMENT_GROUP_SET(
       DataElementGroupSet.class,
       DATA_ELEMENT_GROUP_SET_FIELDS,
       DATA_ELEMENT_GROUP_SET_FIELDS,
-      "dataElementGroupSets"),
+      "dataElementGroupSets",
+      (objects) -> objects.getDataElementGroupSets()),
   DATA_SET(
       DataSet.class,
       DATA_SET_FIELDS,
       DATA_SET_EXT_FIELDS,
-      "dataSets"),
+      "dataSets",
+      (objects) -> objects.getDataSets()),
   DATA_ENTRY_FORM(
       DataEntryForm.class,
       DATA_ENTRY_FORM_FIELDS,
       DATA_ENTRY_FORM_FIELDS,
-      "dataEntryForms"),
+      "dataEntryForms",
+      (objects) -> objects.getDataEntryForms()),
   DIMENSION(
       Dimension.class,
       DIMENSION_FIELDS,
       DIMENSION_FIELDS,
-      "dimensions"),
+      "dimensions",
+      (objects) -> objects.getDimensions()),
   DOCUMENT(
       Document.class,
       DOCUMENT_FIELDS,
       DOCUMENT_FIELDS,
-      "documents"),
+      "documents",
+      (objects) -> objects.getDocuments()),
   INDICATOR(
       Indicator.class,
       INDICATOR_FIELDS,
       INDICATOR_FIELDS,
-      "indicators"),
+      "indicators",
+      (objects) -> objects.getIndicators()),
   INDICATOR_GROUP(
       IndicatorGroup.class,
       INDICATOR_GROUP_FIELDS,
       INDICATOR_GROUP_EXT_FIELDS,
-      "indicatorGroups"),
+      "indicatorGroups",
+      (objects) -> objects.getIndicatorGroups()),
   INDICATOR_GROUP_SET(
       IndicatorGroupSet.class,
       INDICATOR_GROUP_SET_FIELDS,
       INDICATOR_GROUP_SET_FIELDS,
-      "indicatorGroupSets"),
+      "indicatorGroupSets",
+      (objects) -> objects.getIndicatorGroupSets()),
   INDICATOR_TYPE(
       IndicatorType.class,
       INDICATOR_TYPE_FIELDS,
       INDICATOR_TYPE_FIELDS,
-      "indicatorTypes"),
+      "indicatorTypes",
+      (objects) -> objects.getIndicatorTypes()),
   ORG_UNIT(OrgUnit.class,
       ORG_UNIT_FIELDS,
       ORG_UNIT_FIELDS,
-      "organisationUnits"),
+      "organisationUnits",
+      (objects) -> objects.getOrganisationUnits()),
   ORG_UNIT_GROUP(
       OrgUnitGroup.class,
       ORG_UNIT_GROUP_FIELDS,
       ORG_UNIT_GROUP_EXT_FIELDS,
-      "organisationUnitGroups"),
+      "organisationUnitGroups",
+      (objects) -> objects.getOrganisationUnitGroups()),
   ORG_UNIT_GROUP_SET(
       OrgUnitGroupSet.class,
       ORG_UNIT_GROUP_SET_FIELDS,
       ORG_UNIT_GROUP_SET_FIELDS,
-      "organisationUnitGroupSets"),
+      "organisationUnitGroupSets",
+      (objects) -> objects.getOrganisationUnitGroupSets()),
   ORG_UNIT_LEVEL(
       OrgUnitLevel.class,
       ORG_UNIT_LEVEL_FIELDS,
       ORG_UNIT_LEVEL_FIELDS,
-      "organisationUnitLevels"),
+      "organisationUnitLevels",
+      (objects) -> objects.getOrganisationUnitLevels()),
   MAP(
       GeoMap.class,
       MAP_FIELDS,
       MAP_FIELDS,
-      "maps"),
+      "maps",
+      (objects) -> objects.getMaps()),
   OPTION_SET(
       OptionSet.class,
       OPTION_SET_FIELDS,
       OPTION_SET_EXT_FIELDS,
-      "optionSets"),
+      "optionSets",
+      (objects) -> objects.getOptionSets()),
   OPTION(
       Option.class,
       OPTION_FIELDS,
       OPTION_EXT_FIELDS,
-      "options"),
+      "options",
+      (objects) -> objects.getOptions()),
   PROGRAM(
       Program.class,
       PROGRAM_FIELDS,
       PROGRAM_EXT_FIELDS,
-      "programs"),
+      "programs",
+      (objects) -> objects.getPrograms()),
   PROGRAM_SECTION(
       ProgramSection.class,
       PROGRAM_SECTION_FIELDS,
       PROGRAM_SECTION_FIELDS,
-      "programSections"),
+      "programSections",
+      (objects) -> objects.getProgramSections()),
   PROGRAM_STAGE(
       ProgramStage.class,
       PROGRAM_STAGE_FIELDS,
       PROGRAM_STAGE_FIELDS,
-      "programStages"),
+      "programStages",
+      (objects) -> objects.getProgramStages()),
   PROGRAM_STAGE_SECTION(
       ProgramStageSection.class,
       PROGRAM_STAGE_SECTION_FIELDS,
       PROGRAM_STAGE_SECTION_FIELDS,
-      "programStageSections"),
+      "programStageSections",
+      (objects) -> objects.getProgramSections()),
   PROGRAM_INDICATOR(
       ProgramIndicator.class,
       PROGRAM_INDICATOR_FIELDS,
       PROGRAM_INDICATOR_FIELDS,
-      "programIndicators"),
+      "programIndicators",
+      (objects) -> objects.getProgramIndicators()),
   RELATIONSHIP_TYPE(
       RelationshipType.class,
       RELATIONSHIP_TYPE_FIELDS,
       RELATIONSHIP_TYPE_FIELDS,
-      "relationshipTypes"),
+      "relationshipTypes",
+      (objects) -> objects.getRelationshipTypes()),
   TRACKED_ENTITY_TYPE(
       TrackedEntityType.class,
       TRACKED_ENTITY_TYPE_FIELDS,
       TRACKED_ENTITY_TYPE_FIELDS,
-      "trackedEntityTypes"),
+      "trackedEntityTypes",
+      (objects) -> objects.getTrackedEntityTypes()),
   TRACKED_ENTITY_ATTRIBUTE(
       TrackedEntityAttribute.class,
       TRACKED_ENTITY_ATTRIBUTE_FIELDS,
       TRACKED_ENTITY_ATTRIBUTE_EXT_FIELDS,
-      "trackedEntityAttributes"),
+      "trackedEntityAttributes",
+      (objects) -> objects.getTrackedEntityAttributes()),
   USER(
       User.class,
       USER_FIELDS,
       USER_FIELDS,
-      "users"),
+      "users",
+      (objects) -> objects.getUsers()),
   USER_GROUP(
       UserGroup.class,
       USER_GROUP_FIELDS,
       USER_GROUP_FIELDS,
-      "userGroups"),
+      "userGroups",
+      (objects) -> objects.getUserGroups()),
   USER_ROLE(
       UserRole.class,
       USER_ROLE_FIELDS,
       USER_ROLE_FIELDS,
-      "userRoles"),
+      "userRoles",
+      (objects) -> objects.getUserRoles()),
   VISUALIZATION(
       Visualization.class,
       VISUALIZATION_FIELDS,
       VISUALIZATION_FIELDS,
-      "visualizations");
+      "visualizations",
+      (objects) -> objects.getVisualizations());
   // spotless:on
 
   /** Class type. */
@@ -340,6 +383,9 @@ public enum MetadataEntity {
 
   /** API path. */
   private final String path;
+
+  /** Function for retrieving a list of objects from an {@link Dhis2Objects}. */
+  private final Function<Dhis2Objects, List<? extends IdentifiableObject>> objectsFunc;
 
   /**
    * Converts the given object to the corresponding {@link MetadataEntity}.
