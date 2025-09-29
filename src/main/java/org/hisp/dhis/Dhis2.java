@@ -43,7 +43,6 @@ import static org.hisp.dhis.api.ApiPaths.PATH_TRACKER;
 import static org.hisp.dhis.util.CollectionUtils.asList;
 import static org.hisp.dhis.util.CollectionUtils.list;
 import static org.hisp.dhis.util.IdentifiableObjectUtils.toIdObjects;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -124,6 +123,7 @@ import org.hisp.dhis.model.event.Event;
 import org.hisp.dhis.model.event.Events;
 import org.hisp.dhis.model.event.EventsResult;
 import org.hisp.dhis.model.metadata.ImportStrategy;
+import org.hisp.dhis.model.metadata.Metadata;
 import org.hisp.dhis.model.metadata.MetadataEntity;
 import org.hisp.dhis.model.metadata.MetadataImportParams;
 import org.hisp.dhis.model.period.PeriodType;
@@ -666,11 +666,9 @@ public class Dhis2 extends BaseDhis2 {
   public Dhis2Objects getMetadataObjects(MetadataEntity entity, Query query) {
     String path = entity.getPath();
     String fields = query.isExpandAssociations() ? entity.getExtFields() : entity.getFields();
-
-    return getObject(
-        config.getResolvedUriBuilder().appendPath(path).addParameter(FIELDS_PARAM, fields),
-        query,
-        Dhis2Objects.class);
+    URIBuilder uri =
+        config.getResolvedUriBuilder().appendPath(path).addParameter(FIELDS_PARAM, fields);
+    return getObject(uri, query, Dhis2Objects.class);
   }
 
   /**
@@ -825,6 +823,10 @@ public class Dhis2 extends BaseDhis2 {
    */
   public List<Attribute> getAttributes(Query query) {
     return getMetadataObjects(MetadataEntity.ATTRIBUTE, query).getAttributes();
+  }
+
+  public Metadata<Attribute> getAttributesPaged(Query query) {
+    return null; // TODO
   }
 
   /**
