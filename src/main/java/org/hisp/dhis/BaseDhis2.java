@@ -37,8 +37,6 @@ import static org.apache.hc.core5.http.HttpStatus.SC_UNAUTHORIZED;
 import static org.hisp.dhis.util.CollectionUtils.asList;
 import static org.hisp.dhis.util.CollectionUtils.toCommaSeparated;
 import static org.hisp.dhis.util.HttpUtils.getUriAsString;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -54,7 +52,6 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -117,6 +114,8 @@ import org.hisp.dhis.response.completedatasetregistration.CompleteDataSetRegistr
 import org.hisp.dhis.util.DateTimeUtils;
 import org.hisp.dhis.util.HttpUtils;
 import org.hisp.dhis.util.JacksonUtils;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author Lars Helge Overland
@@ -203,8 +202,6 @@ public class BaseDhis2 {
   protected <T> T getObject(
       URIBuilder uriBuilder, Query query, InternalQuery internalQuery, Class<T> type) {
     URI url = withObjectQueryParams(uriBuilder, query, internalQuery);
-    System.out.println("URL: " + url.toString());
-
     return getObjectFromUrl(url, type);
   }
 
@@ -221,7 +218,6 @@ public class BaseDhis2 {
   protected <T> T getObject(String path, String id, Class<T> type) {
     try {
       URI url = config.getResolvedUriBuilder().appendPath(path).appendPath(id).build();
-
       return getObjectFromUrl(url, type);
     } catch (URISyntaxException ex) {
       throw new RuntimeException(ex);
