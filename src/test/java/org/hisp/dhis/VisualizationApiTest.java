@@ -35,6 +35,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
+import org.hisp.dhis.model.metadata.Metadata;
 import org.hisp.dhis.model.visualization.Visualization;
 import org.hisp.dhis.query.Filter;
 import org.hisp.dhis.query.Query;
@@ -98,5 +99,17 @@ class VisualizationApiTest {
     assertNotEmpty(visualizations);
     assertFirstNotNull(visualizations);
     assertNotNull(visualizations.get(0).getId());
+  }
+
+  @Test
+  void testGetVisualizationsPaged() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    Metadata<Visualization> metadata = dhis2.getVisualizationsPaged(Query.instance());
+
+    assertNotNull(metadata);
+    assertNotNull(metadata.getPager());
+    assertEquals(1, metadata.getPager().getPage());
+    assertNotEmpty(metadata.getObjects());
   }
 }

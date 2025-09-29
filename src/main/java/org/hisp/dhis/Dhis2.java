@@ -125,6 +125,7 @@ import org.hisp.dhis.model.event.Event;
 import org.hisp.dhis.model.event.Events;
 import org.hisp.dhis.model.event.EventsResult;
 import org.hisp.dhis.model.metadata.ImportStrategy;
+import org.hisp.dhis.model.metadata.Metadata;
 import org.hisp.dhis.model.metadata.MetadataEntity;
 import org.hisp.dhis.model.metadata.MetadataImportParams;
 import org.hisp.dhis.model.period.PeriodType;
@@ -146,6 +147,7 @@ import org.hisp.dhis.model.validation.Validation;
 import org.hisp.dhis.model.validation.ValidationRule;
 import org.hisp.dhis.model.visualization.Visualization;
 import org.hisp.dhis.query.Filter;
+import org.hisp.dhis.query.InternalQuery;
 import org.hisp.dhis.query.Query;
 import org.hisp.dhis.query.analytics.AnalyticsQuery;
 import org.hisp.dhis.query.completedatasetregistration.CompleteDataSetRegistrationQuery;
@@ -672,11 +674,9 @@ public class Dhis2 extends BaseDhis2 {
   public Dhis2Objects getMetadataObjects(MetadataEntity entity, Query query) {
     String path = entity.getPath();
     String fields = query.isExpandAssociations() ? entity.getExtFields() : entity.getFields();
-
-    return getObject(
-        config.getResolvedUriBuilder().appendPath(path).addParameter(FIELDS_PARAM, fields),
-        query,
-        Dhis2Objects.class);
+    URIBuilder uri =
+        config.getResolvedUriBuilder().appendPath(path).addParameter(FIELDS_PARAM, fields);
+    return getObject(uri, query, Dhis2Objects.class);
   }
 
   /**
@@ -700,6 +700,31 @@ public class Dhis2 extends BaseDhis2 {
             Dhis2Objects.class);
 
     return toTypedList(entity, objects);
+  }
+
+  /**
+   * Returns a list of metadata objects and pager based on the given query.
+   *
+   * @param <T> the type.
+   * @param entity the {@link MetadataEntity}.
+   * @param query the {@link Query}.
+   * @return a list of metadata objects.
+   * @throws Dhis2ClientException if unauthorized, access denied or resource not found.
+   */
+  public <T extends IdentifiableObject> Metadata<T> getMetadata(
+      MetadataEntity entity, Query query) {
+    String path = entity.getPath();
+    String fields = query.isExpandAssociations() ? entity.getExtFields() : entity.getFields();
+    InternalQuery internalQuery = InternalQuery.instance().withDefaultPaging();
+
+    Dhis2Objects objects =
+        getObject(
+            config.getResolvedUriBuilder().appendPath(path).addParameter(FIELDS_PARAM, fields),
+            query,
+            internalQuery,
+            Dhis2Objects.class);
+
+    return new Metadata<T>(objects.getPager(), toTypedList(entity, objects));
   }
 
   /**
@@ -767,16 +792,6 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   /**
-   * Removes a {@link AnalyticsTableHook}.
-   *
-   * @param id the identifier of the object to remove.
-   * @return {@link ObjectResponse} holding information about the operation.
-   */
-  public ObjectResponse removeAnalyticsTableHook(String id) {
-    return removeMetadataObject(MetadataEntity.ANALYTICS_TABLE_HOOK, id);
-  }
-
-  /**
    * Retrieves an {@link AnalyticsTableHook}.
    *
    * @param id the identifier of the table hook.
@@ -805,6 +820,26 @@ public class Dhis2 extends BaseDhis2 {
    */
   public List<AnalyticsTableHook> getAnalyticsTableHooks(Query query) {
     return getMetadataList(MetadataEntity.ANALYTICS_TABLE_HOOK, query);
+  }
+
+  /**
+   * Retrieves a {@link Metadata} of type {@link AnalyticsTableHook}.
+   *
+   * @param query the {@link Query}.
+   * @return a {@link AnalyticsTableHook}.
+   */
+  public Metadata<Attribute> getAnalyticsTableHooksPaged(Query query) {
+    return getMetadata(MetadataEntity.ATTRIBUTE, query);
+  }
+
+  /**
+   * Removes a {@link AnalyticsTableHook}.
+   *
+   * @param id the identifier of the object to remove.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse removeAnalyticsTableHook(String id) {
+    return removeMetadataObject(MetadataEntity.ANALYTICS_TABLE_HOOK, id);
   }
 
   // -------------------------------------------------------------------------
@@ -870,6 +905,16 @@ public class Dhis2 extends BaseDhis2 {
    */
   public List<Attribute> getAttributes(Query query) {
     return getMetadataList(MetadataEntity.ATTRIBUTE, query);
+  }
+
+  /**
+   * Retrieves a {@link Metadata} of type {@link Attribute}.
+   *
+   * @param query the {@link Query}.
+   * @return a {@link Metadata}.
+   */
+  public Metadata<Attribute> getAttributesPaged(Query query) {
+    return getMetadata(MetadataEntity.ATTRIBUTE, query);
   }
 
   /**
@@ -1378,6 +1423,16 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   /**
+   * Retrieves a {@link Metadata} of type {@link DataElement}.
+   *
+   * @param query the {@link Query}.
+   * @return a {@link Metadata}.
+   */
+  public Metadata<DataElement> getDataElementsPaged(Query query) {
+    return getMetadata(MetadataEntity.DATA_ELEMENT, query);
+  }
+
+  /**
    * Removes a {@link DataElement}.
    *
    * @param id the identifier of the object to remove.
@@ -1573,6 +1628,16 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   /**
+   * Retrieves a {@link Metadata} of type {@link DataSet}.
+   *
+   * @param query the {@link Query}.
+   * @return a {@link Metadata}.
+   */
+  public Metadata<DataSet> getDataSetsPaged(Query query) {
+    return getMetadata(MetadataEntity.DATA_SET, query);
+  }
+
+  /**
    * Removes a {@link DataSet}.
    *
    * @param id the identifier of the object to remove.
@@ -1687,6 +1752,16 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   /**
+   * Retrieves a {@link Metadata} of type {@link Document}.
+   *
+   * @param query the {@link Query}.
+   * @return a {@link Metadata}.
+   */
+  public Metadata<Document> getDocumentsPaged(Query query) {
+    return getMetadata(MetadataEntity.DOCUMENT, query);
+  }
+
+  /**
    * Writes the data for the {@link Document} to the given {@link OutputStream}.
    *
    * @param id the document identifier.
@@ -1791,6 +1866,16 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   /**
+   * Retrieves a {@link Metadata} of type {@link Indicator}.
+   *
+   * @param query the {@link Query}.
+   * @return a {@link Metadata}.
+   */
+  public Metadata<Indicator> getIndicatorsPaged(Query query) {
+    return getMetadata(MetadataEntity.INDICATOR, query);
+  }
+
+  /**
    * Removes an {@link Indicator}.
    *
    * @param id the identifier of the object to remove.
@@ -1863,6 +1948,16 @@ public class Dhis2 extends BaseDhis2 {
    */
   public List<IndicatorGroup> getIndicatorGroups(Query query) {
     return getMetadataList(MetadataEntity.INDICATOR_GROUP, query);
+  }
+
+  /**
+   * Retrieves a {@link Metadata} of type {@link IndicatorGroup}.
+   *
+   * @param query the {@link Query}.
+   * @return a {@link Metadata}.
+   */
+  public Metadata<IndicatorGroup> getIndicatorGroupsPaged(Query query) {
+    return getMetadata(MetadataEntity.INDICATOR_GROUP, query);
   }
 
   /**
@@ -1941,6 +2036,16 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   /**
+   * Retrieves a {@link Metadata} of type {@link IndicatorGroupSet}.
+   *
+   * @param query the {@link Query}.
+   * @return a {@link Metadata}.
+   */
+  public Metadata<IndicatorGroupSet> getIndicatorGroupSetsPaged(Query query) {
+    return getMetadata(MetadataEntity.INDICATOR_GROUP_SET, query);
+  }
+
+  /**
    * Removes an {@link IndicatorGroupSet}.
    *
    * @param id the identifier of the object to remove.
@@ -2013,6 +2118,16 @@ public class Dhis2 extends BaseDhis2 {
    */
   public List<IndicatorType> getIndicatorTypes(Query query) {
     return getMetadataList(MetadataEntity.INDICATOR_TYPE, query);
+  }
+
+  /**
+   * Retrieves a {@link Metadata} of type {@link IndicatorType}.
+   *
+   * @param query the {@link Query}.
+   * @return a {@link Metadata}.
+   */
+  public Metadata<IndicatorType> getIndicatorTypesPaged(Query query) {
+    return getMetadata(MetadataEntity.INDICATOR_TYPE, query);
   }
 
   /**
@@ -2111,6 +2226,16 @@ public class Dhis2 extends BaseDhis2 {
    */
   public List<OrgUnit> getOrgUnits(Query query) {
     return getMetadataList(MetadataEntity.ORG_UNIT, query);
+  }
+
+  /**
+   * Retrieves a {@link Metadata} of type {@link OrgUnit}.
+   *
+   * @param query the {@link Query}.
+   * @return a {@link Metadata}.
+   */
+  public Metadata<OrgUnit> getOrgUnitsPaged(Query query) {
+    return getMetadata(MetadataEntity.ORG_UNIT, query);
   }
 
   /**
@@ -2217,6 +2342,16 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   /**
+   * Retrieves a {@link Metadata} of type {@link OrgUnitGroup}.
+   *
+   * @param query the {@link Query}.
+   * @return a {@link Metadata}.
+   */
+  public Metadata<OrgUnitGroup> getOrgUnitGroupsPaged(Query query) {
+    return getMetadata(MetadataEntity.ORG_UNIT_GROUP, query);
+  }
+
+  /**
    * Adds the program to the org unit.
    *
    * @param orgUnitGroup the org unit group identifier.
@@ -2303,6 +2438,16 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   /**
+   * Retrieves a {@link Metadata} of type {@link OrgUnitGroupSet}.
+   *
+   * @param query the {@link Query}.
+   * @return a {@link Metadata}.
+   */
+  public Metadata<OrgUnitGroupSet> getOrgUnitGroupSetsPaged(Query query) {
+    return getMetadata(MetadataEntity.ORG_UNIT_GROUP_SET, query);
+  }
+
+  /**
    * Removes a {@link OrgUnitGroupSet}.
    *
    * @param id the identifier of the object to remove.
@@ -2338,6 +2483,16 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   /**
+   * Retrieves a {@link Metadata} of type {@link OrgUnitLevel}.
+   *
+   * @param query the {@link Query}.
+   * @return a {@link Metadata}.
+   */
+  public Metadata<OrgUnitLevel> getOrgUnitLevelsPaged(Query query) {
+    return getMetadata(MetadataEntity.ORG_UNIT_LEVEL, query);
+  }
+
+  /**
    * Retrieves a list of "filled" {@link OrgUnitLevel}, meaning any gaps in the persisted levels
    * will be inserted by generated levels.
    *
@@ -2358,16 +2513,6 @@ public class Dhis2 extends BaseDhis2 {
   // -------------------------------------------------------------------------
 
   /**
-   * Removes a {@link GeoMap}.
-   *
-   * @param id the identifier of the object to remove.
-   * @return {@link ObjectResponse} holding information about the operation.
-   */
-  public ObjectResponse removeMap(String id) {
-    return removeMetadataObject(MetadataEntity.MAP, id);
-  }
-
-  /**
    * Retrieves a {@link GeoMap}.
    *
    * @param id the object identifier.
@@ -2386,6 +2531,26 @@ public class Dhis2 extends BaseDhis2 {
    */
   public List<GeoMap> getMaps(Query query) {
     return getMetadataList(MetadataEntity.MAP, query);
+  }
+
+  /**
+   * Retrieves a {@link Metadata} of type {@link GeoMap}.
+   *
+   * @param query the {@link Query}.
+   * @return a {@link Metadata}.
+   */
+  public Metadata<GeoMap> getMapsPaged(Query query) {
+    return getMetadata(MetadataEntity.MAP, query);
+  }
+
+  /**
+   * Removes a {@link GeoMap}.
+   *
+   * @param id the identifier of the object to remove.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse removeMap(String id) {
+    return removeMetadataObject(MetadataEntity.MAP, id);
   }
 
   // -------------------------------------------------------------------------
@@ -2436,6 +2601,16 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   /**
+   * Retrieves a {@link Metadata} of type {@link OptionSet}.
+   *
+   * @param query the {@link Query}.
+   * @return a {@link Metadata}.
+   */
+  public Metadata<OptionSet> getOptionSetsPaged(Query query) {
+    return getMetadata(MetadataEntity.OPTION_SET, query);
+  }
+
+  /**
    * Removes an {@link OptionSet}.
    *
    * @param id the identifier of the object to remove.
@@ -2478,6 +2653,16 @@ public class Dhis2 extends BaseDhis2 {
    */
   public List<Option> getOptions(Query query) {
     return getMetadataList(MetadataEntity.OPTION, query);
+  }
+
+  /**
+   * Retrieves a {@link Metadata} of type {@link Option}.
+   *
+   * @param query the {@link Query}.
+   * @return a {@link Metadata}.
+   */
+  public Metadata<Option> getOptionsPaged(Query query) {
+    return getMetadata(MetadataEntity.OPTION, query);
   }
 
   // -------------------------------------------------------------------------
@@ -2591,6 +2776,16 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   /**
+   * Retrieves a {@link Metadata} of type {@link Program}.
+   *
+   * @param query the {@link Query}.
+   * @return a {@link Metadata}.
+   */
+  public Metadata<Program> getProgramsPaged(Query query) {
+    return getMetadata(MetadataEntity.PROGRAM, query);
+  }
+
+  /**
    * Adds the program to the org unit.
    *
    * @param program the program identifier.
@@ -2651,6 +2846,16 @@ public class Dhis2 extends BaseDhis2 {
     return getMetadataList(MetadataEntity.PROGRAM_STAGE, query);
   }
 
+  /**
+   * Retrieves a {@link Metadata} of type {@link ProgramStage}.
+   *
+   * @param query the {@link Query}.
+   * @return a {@link Metadata}.
+   */
+  public Metadata<ProgramStage> getProgramStagesPaged(Query query) {
+    return getMetadata(MetadataEntity.PROGRAM_STAGE, query);
+  }
+
   // -------------------------------------------------------------------------
   // Program stage section
   // -------------------------------------------------------------------------
@@ -2702,6 +2907,16 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   /**
+   * Retrieves a {@link Metadata} of type {@link ProgramIndicator}.
+   *
+   * @param query the {@link Query}.
+   * @return a {@link Metadata}.
+   */
+  public Metadata<ProgramIndicator> getProgramIndicatorsPaged(Query query) {
+    return getMetadata(MetadataEntity.PROGRAM_INDICATOR, query);
+  }
+
+  /**
    * Removes a {@link ProgramIndicator}.
    *
    * @param id the identifier of the object to remove.
@@ -2744,6 +2959,16 @@ public class Dhis2 extends BaseDhis2 {
    */
   public List<ProgramRule> getProgramRules(Query query) {
     return getMetadataList(MetadataEntity.PROGRAM_RULE, query);
+  }
+
+  /**
+   * Retrieves a {@link Metadata} of type {@link ProgramRule}.
+   *
+   * @param query the {@link Query}.
+   * @return a {@link Metadata}.
+   */
+  public Metadata<ProgramRule> getProgramRulesPaged(Query query) {
+    return getMetadata(MetadataEntity.PROGRAM_RULE, query);
   }
 
   /**
@@ -2792,6 +3017,16 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   /**
+   * Retrieves a {@link Metadata} of type {@link ProgramRuleAction}.
+   *
+   * @param query the {@link Query}.
+   * @return a {@link Metadata}.
+   */
+  public Metadata<ProgramRuleAction> getProgramRuleActionsPaged(Query query) {
+    return getMetadata(MetadataEntity.PROGRAM_RULE_ACTION, query);
+  }
+
+  /**
    * Removes a {@link ProgramRuleAction}.
    *
    * @param id the identifier of the object to remove.
@@ -2834,6 +3069,16 @@ public class Dhis2 extends BaseDhis2 {
    */
   public List<ProgramRuleVariable> getProgramRuleVariables(Query query) {
     return getMetadataList(MetadataEntity.PROGRAM_RULE_VARIABLE, query);
+  }
+
+  /**
+   * Retrieves a {@link Metadata} of type {@link ProgramRuleVariable}.
+   *
+   * @param query the {@link Query}.
+   * @return a {@link Metadata}.
+   */
+  public Metadata<ProgramRuleVariable> getProgramRuleVariablesPaged(Query query) {
+    return getMetadata(MetadataEntity.PROGRAM_RULE_VARIABLE, query);
   }
 
   /**
@@ -2912,6 +3157,16 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   /**
+   * Retrieves a {@link Metadata} of type {@link RelationshipType}.
+   *
+   * @param query the {@link Query}.
+   * @return a {@link Metadata}.
+   */
+  public Metadata<RelationshipType> getRelationshipTypesPaged(Query query) {
+    return getMetadata(MetadataEntity.RELATIONSHIP_TYPE, query);
+  }
+
+  /**
    * Removes a {@link RelationshipType}.
    *
    * @param id the identifier of the object to remove.
@@ -2977,6 +3232,16 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   /**
+   * Retrieves a {@link Metadata} of type {@link TrackedEntityType}.
+   *
+   * @param query the {@link Query}.
+   * @return a {@link Metadata}.
+   */
+  public Metadata<TrackedEntityType> getTrackedEntityTypesPaged(Query query) {
+    return getMetadata(MetadataEntity.TRACKED_ENTITY_TYPE, query);
+  }
+
+  /**
    * Removes an {@link TrackedEntityType}.
    *
    * @param id the identifier of the object to remove.
@@ -3021,16 +3286,6 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   /**
-   * Removes a {@link TrackedEntityAttribute}.
-   *
-   * @param id the identifier of the tracked entity attribute to remove.
-   * @return {@link ObjectResponse} holding information about the operation.
-   */
-  public ObjectResponse removeTrackedEntityAttribute(String id) {
-    return removeMetadataObject(MetadataEntity.TRACKED_ENTITY_ATTRIBUTE, id);
-  }
-
-  /**
    * Retrieves an {@link TrackedEntityAttribute}.
    *
    * @param id the identifier of the tracked entity attribute.
@@ -3051,30 +3306,29 @@ public class Dhis2 extends BaseDhis2 {
     return getMetadataList(MetadataEntity.TRACKED_ENTITY_ATTRIBUTE, query);
   }
 
+  /**
+   * Retrieves a {@link Metadata} of type {@link TrackedEntityAttribute}.
+   *
+   * @param query the {@link Query}.
+   * @return a {@link Metadata}.
+   */
+  public Metadata<TrackedEntityAttribute> getTrackedEntityAttributesPaged(Query query) {
+    return getMetadata(MetadataEntity.TRACKED_ENTITY_ATTRIBUTE, query);
+  }
+
+  /**
+   * Removes a {@link TrackedEntityAttribute}.
+   *
+   * @param id the identifier of the tracked entity attribute to remove.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse removeTrackedEntityAttribute(String id) {
+    return removeMetadataObject(MetadataEntity.TRACKED_ENTITY_ATTRIBUTE, id);
+  }
+
   // -------------------------------------------------------------------------
   // User
   // -------------------------------------------------------------------------
-
-  /**
-   * Retrieves a {@link User}.
-   *
-   * @param id the object identifier.
-   * @return the {@link User}.
-   * @throws Dhis2ClientException if the object does not exist.
-   */
-  public User getUser(String id) {
-    return getMetadataObject(MetadataEntity.USER, id);
-  }
-
-  /**
-   * Retrieves a list of {@link User}.
-   *
-   * @param query the {@link Query}.
-   * @return list of {@link User}.
-   */
-  public List<User> getUsers(Query query) {
-    return getMetadataList(MetadataEntity.USER, query);
-  }
 
   /**
    * Saves a {@link User}.
@@ -3107,6 +3361,17 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   /**
+   * Retrieves a {@link User}.
+   *
+   * @param id the object identifier.
+   * @return the {@link User}.
+   * @throws Dhis2ClientException if the object does not exist.
+   */
+  public User getUser(String id) {
+    return getMetadataObject(MetadataEntity.USER, id);
+  }
+
+  /**
    * Indicates whether a {@link User} exists.
    *
    * @param id the object identifier.
@@ -3114,6 +3379,26 @@ public class Dhis2 extends BaseDhis2 {
    */
   public boolean isUser(String id) {
     return objectExists(MetadataEntity.USER, id);
+  }
+
+  /**
+   * Retrieves a list of {@link User}.
+   *
+   * @param query the {@link Query}.
+   * @return list of {@link User}.
+   */
+  public List<User> getUsers(Query query) {
+    return getMetadataList(MetadataEntity.USER, query);
+  }
+
+  /**
+   * Retrieves a {@link Metadata} of type {@link User}.
+   *
+   * @param query the {@link Query}.
+   * @return a {@link Metadata}.
+   */
+  public Metadata<User> getUsersPaged(Query query) {
+    return getMetadata(MetadataEntity.USER, query);
   }
 
   /**
@@ -3192,6 +3477,16 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   /**
+   * Retrieves a {@link Metadata} of type {@link UserGroup}.
+   *
+   * @param query the {@link Query}.
+   * @return a {@link Metadata}.
+   */
+  public Metadata<UserGroup> getUserGroupsPaged(Query query) {
+    return getMetadata(MetadataEntity.USER_GROUP, query);
+  }
+
+  /**
    * Removes a {@link UserGroup}.
    *
    * @param id the identifier of the object to remove.
@@ -3267,6 +3562,16 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   /**
+   * Retrieves a {@link Metadata} of type {@link UserRole}.
+   *
+   * @param query the {@link Query}.
+   * @return a {@link Metadata}.
+   */
+  public Metadata<UserRole> getUserRolesPaged(Query query) {
+    return getMetadata(MetadataEntity.USER_ROLE, query);
+  }
+
+  /**
    * Removes a {@link UserRole}.
    *
    * @param id the identifier of the object to remove.
@@ -3309,6 +3614,16 @@ public class Dhis2 extends BaseDhis2 {
    */
   public List<Visualization> getVisualizations(Query query) {
     return getMetadataList(MetadataEntity.VISUALIZATION, query);
+  }
+
+  /**
+   * Retrieves a {@link Metadata} of type {@link Visualization}.
+   *
+   * @param query the {@link Query}.
+   * @return a {@link Metadata}.
+   */
+  public Metadata<Visualization> getVisualizationsPaged(Query query) {
+    return getMetadata(MetadataEntity.VISUALIZATION, query);
   }
 
   /**

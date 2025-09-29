@@ -27,6 +27,7 @@
  */
 package org.hisp.dhis;
 
+import static org.hisp.dhis.support.Assertions.assertNotEmpty;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -34,6 +35,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import java.util.List;
 import org.hisp.dhis.model.AggregationType;
 import org.hisp.dhis.model.ValueType;
+import org.hisp.dhis.model.metadata.Metadata;
 import org.hisp.dhis.model.trackedentity.TrackedEntityAttribute;
 import org.hisp.dhis.query.Query;
 import org.hisp.dhis.response.HttpStatus;
@@ -135,5 +137,18 @@ class TrackedEntityAttributeApiTest {
     assertEquals(Status.OK, removeResp.getStatus(), removeResp.toString());
     assertNotNull(removeResp.getResponse());
     assertNotNull(removeResp.getResponse().getUid());
+  }
+
+  @Test
+  void testGetTrackedEntityAttributesPaged() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    Metadata<TrackedEntityAttribute> metadata =
+        dhis2.getTrackedEntityAttributesPaged(Query.instance());
+
+    assertNotNull(metadata);
+    assertNotNull(metadata.getPager());
+    assertEquals(1, metadata.getPager().getPage());
+    assertNotEmpty(metadata.getObjects());
   }
 }

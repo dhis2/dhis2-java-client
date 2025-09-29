@@ -35,6 +35,7 @@ import java.util.List;
 import java.util.Set;
 import org.apache.hc.core5.net.URIBuilder;
 import org.hisp.dhis.query.Filter;
+import org.hisp.dhis.query.InternalQuery;
 import org.hisp.dhis.query.Query;
 import org.hisp.dhis.response.Dhis2ClientException;
 import org.hisp.dhis.support.TestTags;
@@ -81,9 +82,22 @@ class Dhis2Test {
 
     URIBuilder builder = new URIBuilder("https://myserver.org/api");
 
-    dhis2.addPaging(builder, query);
+    dhis2.addPaging(builder, query, InternalQuery.instance());
 
     assertEquals("https://myserver.org/api?page=2&pageSize=50", builder.toString());
+  }
+
+  @Test
+  void testAddPagingWithDefaultPaging() throws Exception {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    Query query = Query.instance();
+
+    URIBuilder builder = new URIBuilder("https://myserver.org/api");
+
+    dhis2.addPaging(builder, query, InternalQuery.instance().withDefaultPaging());
+
+    assertEquals("https://myserver.org/api", builder.toString());
   }
 
   @Test
