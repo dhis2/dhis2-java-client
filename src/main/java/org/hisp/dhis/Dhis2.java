@@ -697,9 +697,7 @@ public class Dhis2 extends BaseDhis2 {
             query,
             Dhis2Objects.class);
 
-    List<? extends IdentifiableObject> list = entity.getObjectsFunc().apply(objects);
-
-    return CollectionUtils.toTypedList(list, type);
+    return CollectionUtils.toTypedList(entity.getObjectsFunc().apply(objects), type);
   }
 
   /**
