@@ -48,6 +48,7 @@ import static org.hisp.dhis.api.ApiFields.DATA_SET_EXT_FIELDS;
 import static org.hisp.dhis.api.ApiFields.DATA_SET_FIELDS;
 import static org.hisp.dhis.api.ApiFields.DIMENSION_FIELDS;
 import static org.hisp.dhis.api.ApiFields.DOCUMENT_FIELDS;
+import static org.hisp.dhis.api.ApiFields.EVENT_FILTER_FIELDS;
 import static org.hisp.dhis.api.ApiFields.INDICATOR_FIELDS;
 import static org.hisp.dhis.api.ApiFields.INDICATOR_GROUP_EXT_FIELDS;
 import static org.hisp.dhis.api.ApiFields.INDICATOR_GROUP_FIELDS;
@@ -120,6 +121,7 @@ import org.hisp.dhis.model.ProgramStage;
 import org.hisp.dhis.model.ProgramStageSection;
 import org.hisp.dhis.model.dashboard.Dashboard;
 import org.hisp.dhis.model.dimension.Dimension;
+import org.hisp.dhis.model.programfilter.EventFilter;
 import org.hisp.dhis.model.programrule.ProgramRule;
 import org.hisp.dhis.model.programrule.ProgramRuleAction;
 import org.hisp.dhis.model.programrule.ProgramRuleVariable;
@@ -143,257 +145,263 @@ public enum MetadataEntity {
       ANALYTICS_TABLE_HOOK_FIELDS,
       ANALYTICS_TABLE_HOOK_FIELDS,
       "analyticsTableHooks",
-      (objects) -> objects.getAnalyticsTableHooks()),
+      Dhis2Objects::getAnalyticsTableHooks),
   ATTRIBUTE(
       Attribute.class,
       ATTRIBUTE_FIELDS,
       ATTRIBUTE_FIELDS,
       "attributes",
-      (objects) -> objects.getAttributes()),
+      Dhis2Objects::getAttributes),
   CATEGORY_OPTION(
       CategoryOption.class,
       CATEGORY_OPTION_FIELDS,
       CATEGORY_OPTION_EXT_FIELDS,
       "categoryOptions",
-      (objects) -> objects.getCategoryOptions()),
+      Dhis2Objects::getCategoryOptions),
   CATEGORY(Category.class,
       CATEGORY_FIELDS,
       CATEGORY_FIELDS,
       "categories",
-      (objects) -> objects.getCategories()),
+      Dhis2Objects::getCategories),
   CATEGORY_COMBO(
       CategoryCombo.class,
       CATEGORY_COMBO_FIELDS,
       CATEGORY_COMBO_FIELDS,
       "categoryCombos",
-      (objects) -> objects.getCategoryCombos()),
+      Dhis2Objects::getCategoryCombos),
   CATEGORY_OPTION_COMBO(
       CategoryOptionCombo.class,
       CATEGORY_OPTION_COMBO_FIELDS,
       CATEGORY_OPTION_COMBO_FIELDS,
       "categoryOptionCombos",
-      (objects) -> objects.getCategoryOptionCombos()),
+      Dhis2Objects::getCategoryOptionCombos),
   CATEGORY_OPTION_GROUP(
       CategoryOptionGroup.class,
       CATEGORY_OPTION_GROUP_FIELDS,
       CATEGORY_OPTION_GROUP_FIELDS,
       "categoryOptionGroups",
-      (objects) -> objects.getCategoryOptionGroups()),
+      Dhis2Objects::getCategoryOptionGroups),
   CATEGORY_OPTION_GROUP_SET(
       CategoryOptionGroupSet.class,
       CATEGORY_OPTION_GROUP_SET_FIELDS,
       CATEGORY_OPTION_GROUP_SET_FIELDS,
       "categoryOptionGroupSets",
-      (objects) -> objects.getCategoryOptionGroupSets()),
+      Dhis2Objects::getCategoryOptionGroupSets),
   CONSTANT(
       Constant.class,
       CONSTANT_FIELDS,
       CONSTANT_FIELDS,
       "constants",
-      (objects) -> objects.getConstants()),
+      Dhis2Objects::getConstants),
   DASHBOARD(
       Dashboard.class,
       DASHBOARD_FIELDS,
       DASHBOARD_FIELDS,
       "dashboards",
-      (objects) -> objects.getDashboards()),
+      Dhis2Objects::getDashboards),
   DATA_ELEMENT(
       DataElement.class,
       DATA_ELEMENT_EXT_FIELDS,
       DATA_ELEMENT_EXT_FIELDS,
       "dataElements",
-      (objects) -> objects.getDataElements()),
+      Dhis2Objects::getDataElements),
   DATA_ELEMENT_GROUP(
       DataElementGroup.class,
       DATA_ELEMENT_GROUP_FIELDS,
       DATA_ELEMENT_GROUP_EXT_FIELDS,
       "dataElementGroups",
-      (objects) -> objects.getDataElementGroups()),
+      Dhis2Objects::getDataElementGroups),
   DATA_ELEMENT_GROUP_SET(
       DataElementGroupSet.class,
       DATA_ELEMENT_GROUP_SET_FIELDS,
       DATA_ELEMENT_GROUP_SET_FIELDS,
       "dataElementGroupSets",
-      (objects) -> objects.getDataElementGroupSets()),
+      Dhis2Objects::getDataElementGroupSets),
   DATA_SET(
       DataSet.class,
       DATA_SET_FIELDS,
       DATA_SET_EXT_FIELDS,
       "dataSets",
-      (objects) -> objects.getDataSets()),
+      Dhis2Objects::getDataSets),
   DATA_ENTRY_FORM(
       DataEntryForm.class,
       DATA_ENTRY_FORM_FIELDS,
       DATA_ENTRY_FORM_FIELDS,
       "dataEntryForms",
-      (objects) -> objects.getDataEntryForms()),
+      Dhis2Objects::getDataEntryForms),
   DIMENSION(
       Dimension.class,
       DIMENSION_FIELDS,
       DIMENSION_FIELDS,
       "dimensions",
-      (objects) -> objects.getDimensions()),
+      Dhis2Objects::getDimensions),
   DOCUMENT(
       Document.class,
       DOCUMENT_FIELDS,
       DOCUMENT_FIELDS,
       "documents",
-      (objects) -> objects.getDocuments()),
+      Dhis2Objects::getDocuments),
+  EVENT_FILTER(
+      EventFilter.class,
+      EVENT_FILTER_FIELDS,
+      EVENT_FILTER_FIELDS,
+      "eventFilters",
+      Dhis2Objects::getEventFilters),
   INDICATOR(
       Indicator.class,
       INDICATOR_FIELDS,
       INDICATOR_FIELDS,
       "indicators",
-      (objects) -> objects.getIndicators()),
+      Dhis2Objects::getIndicators),
   INDICATOR_GROUP(
       IndicatorGroup.class,
       INDICATOR_GROUP_FIELDS,
       INDICATOR_GROUP_EXT_FIELDS,
       "indicatorGroups",
-      (objects) -> objects.getIndicatorGroups()),
+      Dhis2Objects::getIndicatorGroups),
   INDICATOR_GROUP_SET(
       IndicatorGroupSet.class,
       INDICATOR_GROUP_SET_FIELDS,
       INDICATOR_GROUP_SET_FIELDS,
       "indicatorGroupSets",
-      (objects) -> objects.getIndicatorGroupSets()),
+      Dhis2Objects::getIndicatorGroupSets),
   INDICATOR_TYPE(
       IndicatorType.class,
       INDICATOR_TYPE_FIELDS,
       INDICATOR_TYPE_FIELDS,
       "indicatorTypes",
-      (objects) -> objects.getIndicatorTypes()),
+      Dhis2Objects::getIndicatorTypes),
   ORG_UNIT(OrgUnit.class,
       ORG_UNIT_FIELDS,
       ORG_UNIT_FIELDS,
       "organisationUnits",
-      (objects) -> objects.getOrganisationUnits()),
+      Dhis2Objects::getOrganisationUnits),
   ORG_UNIT_GROUP(
       OrgUnitGroup.class,
       ORG_UNIT_GROUP_FIELDS,
       ORG_UNIT_GROUP_EXT_FIELDS,
       "organisationUnitGroups",
-      (objects) -> objects.getOrganisationUnitGroups()),
+      Dhis2Objects::getOrganisationUnitGroups),
   ORG_UNIT_GROUP_SET(
       OrgUnitGroupSet.class,
       ORG_UNIT_GROUP_SET_FIELDS,
       ORG_UNIT_GROUP_SET_FIELDS,
       "organisationUnitGroupSets",
-      (objects) -> objects.getOrganisationUnitGroupSets()),
+      Dhis2Objects::getOrganisationUnitGroupSets),
   ORG_UNIT_LEVEL(
       OrgUnitLevel.class,
       ORG_UNIT_LEVEL_FIELDS,
       ORG_UNIT_LEVEL_FIELDS,
       "organisationUnitLevels",
-      (objects) -> objects.getOrganisationUnitLevels()),
+      Dhis2Objects::getOrganisationUnitLevels),
   MAP(
       GeoMap.class,
       MAP_FIELDS,
       MAP_FIELDS,
       "maps",
-      (objects) -> objects.getMaps()),
+      Dhis2Objects::getMaps),
   OPTION_SET(
       OptionSet.class,
       OPTION_SET_FIELDS,
       OPTION_SET_EXT_FIELDS,
       "optionSets",
-      (objects) -> objects.getOptionSets()),
+      Dhis2Objects::getOptionSets),
   OPTION(
       Option.class,
       OPTION_FIELDS,
       OPTION_EXT_FIELDS,
       "options",
-      (objects) -> objects.getOptions()),
+      Dhis2Objects::getOptions),
   PROGRAM(
       Program.class,
       PROGRAM_FIELDS,
       PROGRAM_EXT_FIELDS,
       "programs",
-      (objects) -> objects.getPrograms()),
+      Dhis2Objects::getPrograms),
   PROGRAM_SECTION(
       ProgramSection.class,
       PROGRAM_SECTION_FIELDS,
       PROGRAM_SECTION_FIELDS,
       "programSections",
-      (objects) -> objects.getProgramSections()),
+      Dhis2Objects::getProgramSections),
   PROGRAM_STAGE(
       ProgramStage.class,
       PROGRAM_STAGE_FIELDS,
       PROGRAM_STAGE_FIELDS,
       "programStages",
-      (objects) -> objects.getProgramStages()),
+      Dhis2Objects::getProgramStages),
   PROGRAM_STAGE_SECTION(
       ProgramStageSection.class,
       PROGRAM_STAGE_SECTION_FIELDS,
       PROGRAM_STAGE_SECTION_FIELDS,
       "programStageSections",
-      (objects) -> objects.getProgramSections()),
+      Dhis2Objects::getProgramSections),
   PROGRAM_INDICATOR(
       ProgramIndicator.class,
       PROGRAM_INDICATOR_FIELDS,
       PROGRAM_INDICATOR_FIELDS,
       "programIndicators",
-      (objects) -> objects.getProgramIndicators()),
+      Dhis2Objects::getProgramIndicators),
   PROGRAM_RULE(
       ProgramRule.class,
       PROGRAM_RULE_FIELDS,
       PROGRAM_RULE_FIELDS,
       "programRules",
-      (objects) -> objects.getProgramRules()),
+      Dhis2Objects::getProgramRules),
   PROGRAM_RULE_ACTION(
       ProgramRuleAction.class,
       PROGRAM_RULE_ACTION_FIELDS,
       PROGRAM_RULE_ACTION_FIELDS,
       "programRuleActions",
-      (objects) -> objects.getProgramRuleActions()),
+      Dhis2Objects::getProgramRuleActions),
   PROGRAM_RULE_VARIABLE(
       ProgramRuleVariable.class,
       PROGRAM_RULE_VARIABLE_FIELDS,
       PROGRAM_RULE_VARIABLE_FIELDS,
       "programRuleVariables",
-      (objects) -> objects.getProgramRuleVariables()),
+      Dhis2Objects::getProgramRuleVariables),
   RELATIONSHIP_TYPE(
       RelationshipType.class,
       RELATIONSHIP_TYPE_FIELDS,
       RELATIONSHIP_TYPE_FIELDS,
       "relationshipTypes",
-      (objects) -> objects.getRelationshipTypes()),
+      Dhis2Objects::getRelationshipTypes),
   TRACKED_ENTITY_TYPE(
       TrackedEntityType.class,
       TRACKED_ENTITY_TYPE_FIELDS,
       TRACKED_ENTITY_TYPE_FIELDS,
       "trackedEntityTypes",
-      (objects) -> objects.getTrackedEntityTypes()),
+      Dhis2Objects::getTrackedEntityTypes),
   TRACKED_ENTITY_ATTRIBUTE(
       TrackedEntityAttribute.class,
       TRACKED_ENTITY_ATTRIBUTE_FIELDS,
       TRACKED_ENTITY_ATTRIBUTE_EXT_FIELDS,
       "trackedEntityAttributes",
-      (objects) -> objects.getTrackedEntityAttributes()),
+      Dhis2Objects::getTrackedEntityAttributes),
   USER(
       User.class,
       USER_FIELDS,
       USER_FIELDS,
       "users",
-      (objects) -> objects.getUsers()),
+      Dhis2Objects::getUsers),
   USER_GROUP(
       UserGroup.class,
       USER_GROUP_FIELDS,
       USER_GROUP_FIELDS,
       "userGroups",
-      (objects) -> objects.getUserGroups()),
+      Dhis2Objects::getUserGroups),
   USER_ROLE(
       UserRole.class,
       USER_ROLE_FIELDS,
       USER_ROLE_FIELDS,
       "userRoles",
-      (objects) -> objects.getUserRoles()),
+      Dhis2Objects::getUserRoles),
   VISUALIZATION(
       Visualization.class,
       VISUALIZATION_FIELDS,
       VISUALIZATION_FIELDS,
       "visualizations",
-      (objects) -> objects.getVisualizations());
+      Dhis2Objects::getVisualizations);
   // spotless:on
 
   /** Class type. */
@@ -449,6 +457,8 @@ public enum MetadataEntity {
       return DATA_SET;
     } else if (object instanceof Document) {
       return DOCUMENT;
+    } else if (object instanceof EventFilter) {
+      return EVENT_FILTER;
     } else if (object instanceof Indicator) {
       return INDICATOR;
     } else if (object instanceof IndicatorGroup) {
