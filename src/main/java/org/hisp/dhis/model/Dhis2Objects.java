@@ -38,6 +38,7 @@ import org.hisp.dhis.model.completedatasetregistration.CompleteDataSetRegistrati
 import org.hisp.dhis.model.dashboard.Dashboard;
 import org.hisp.dhis.model.dimension.Dimension;
 import org.hisp.dhis.model.period.PeriodType;
+import org.hisp.dhis.model.programfilter.EventFilter;
 import org.hisp.dhis.model.programrule.ProgramRule;
 import org.hisp.dhis.model.programrule.ProgramRuleAction;
 import org.hisp.dhis.model.programrule.ProgramRuleVariable;
@@ -91,6 +92,8 @@ public class Dhis2Objects {
   @JsonProperty private List<Dimension> dimensions = new ArrayList<>();
 
   @JsonProperty private List<Document> documents = new ArrayList<>();
+
+  @JsonProperty private List<EventFilter> eventFilters = new ArrayList<>();
 
   @JsonProperty private List<FileResource> fileResources = new ArrayList<>();
 

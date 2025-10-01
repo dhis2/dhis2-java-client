@@ -157,6 +157,29 @@ public class ApiFields {
   public static final String DOCUMENT_FIELDS =
       String.format("%s,url,external,attachment", ID_EXT_FIELDS);
 
+  /** Date filtered period fields */
+  private static final String DATE_FILTERED_PERIOD_FIELDS =
+      "startBuffer,endBuffer,startDate,endDate,period,type";
+
+  /** Event date filter fields */
+  private static final String EVENT_DATE_FILTER_FIELDS =
+      String.format(
+          "dataItem,le,ge,gt,lt,eq,in,like,isNull,dateFilter[%s]", DATE_FILTERED_PERIOD_FIELDS);
+
+  /** Event query filter fields */
+  private static final String EVENT_QUERY_FIELDS =
+      String.format(
+          """
+          followUp,organisationUnit,ouMode,order,displayColumnOrder,dataFilters[%1$s],events,\
+          status,eventDate[%2$s],dueDate[%2$s],lastUpdatedDate[%2$s],completedDate[%2$s]""",
+          EVENT_DATE_FILTER_FIELDS, DATE_FILTERED_PERIOD_FIELDS);
+
+  /** Program event filter fields */
+  public static final String EVENT_FILTER_FIELDS =
+      String.format(
+          "%1$s,program,programStage,description,eventQueryCriteria[%2$s]",
+          ID_EXT_FIELDS, EVENT_QUERY_FIELDS);
+
   /** File resource fields. */
   public static final String FILE_RESOURCE_FIELDS =
       String.format(
