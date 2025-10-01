@@ -129,6 +129,7 @@ import org.hisp.dhis.model.metadata.Metadata;
 import org.hisp.dhis.model.metadata.MetadataEntity;
 import org.hisp.dhis.model.metadata.MetadataImportParams;
 import org.hisp.dhis.model.period.PeriodType;
+import org.hisp.dhis.model.programfilter.EventFilter;
 import org.hisp.dhis.model.programrule.ProgramRule;
 import org.hisp.dhis.model.programrule.ProgramRuleAction;
 import org.hisp.dhis.model.programrule.ProgramRuleVariable;
@@ -3089,6 +3090,61 @@ public class Dhis2 extends BaseDhis2 {
    */
   public ObjectResponse removeProgramRuleVariable(String id) {
     return removeMetadataObject(MetadataEntity.PROGRAM_RULE_VARIABLE, id);
+  }
+
+  // -------------------------------------------------------------------------
+  // Program event filters
+  // -------------------------------------------------------------------------
+
+  /**
+   * Retrieves a {@link EventFilter}.
+   *
+   * @param id the object identifier.
+   * @return the {@link EventFilter}.
+   * @throws Dhis2ClientException if the object does not exist.
+   */
+  public EventFilter getEventFilter(String id) {
+    return getMetadataObject(MetadataEntity.EVENT_FILTER, id);
+  }
+
+  /**
+   * Indicates whether a {@link EventFilter} exists.
+   *
+   * @param id the object identifier.
+   * @return true if the object exists.
+   */
+  public boolean isEventFilter(String id) {
+    return objectExists(MetadataEntity.EVENT_FILTER, id);
+  }
+
+  /**
+   * Retrieves a list of {@link EventFilter}.
+   *
+   * @param query the {@link Query}.
+   * @return list of {@link EventFilter}.
+   */
+  public List<EventFilter> getEventFilters(Query query) {
+    return getMetadataList(MetadataEntity.EVENT_FILTER, query);
+  }
+
+  /**
+   * Retrieves a {@link Metadata} of type {@link EventFilter}.
+   *
+   * @param query the {@link Query}.
+   * @return a {@link Metadata}.
+   */
+  public Metadata<EventFilter> getEventFiltersPaged(Query query) {
+    return getMetadata(MetadataEntity.EVENT_FILTER, query);
+  }
+
+  /**
+   * Removes a {@link EventFilter}.
+   *
+   * @param id the identifier of the object to remove.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse removeEventFilter(String id) {
+    return removeMetadataObject(MetadataEntity.EVENT_FILTER, id);
   }
 
   // -------------------------------------------------------------------------
