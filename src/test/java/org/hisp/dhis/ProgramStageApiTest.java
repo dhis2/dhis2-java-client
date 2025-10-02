@@ -29,8 +29,7 @@ package org.hisp.dhis;
 
 import static org.hisp.dhis.support.Assertions.assertNotBlank;
 import static org.hisp.dhis.support.Assertions.assertNotEmpty;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
 import org.hisp.dhis.model.ProgramStage;
@@ -76,5 +75,17 @@ class ProgramStageApiTest {
     List<ProgramStage> programStages = dhis2.getProgramStages(Query.instance());
 
     assertNotEmpty(programStages);
+  }
+
+  @Test
+  void testIsProgramStage() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+    assertTrue(dhis2.isProgramStage("A03MvHHogjR"));
+  }
+
+  @Test
+  void testIsNotProgramStage() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+    assertFalse(dhis2.isProgramStage("NOT_FOUND_ID"));
   }
 }
