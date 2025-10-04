@@ -2857,6 +2857,16 @@ public class Dhis2 extends BaseDhis2 {
     return getMetadata(MetadataEntity.PROGRAM_STAGE, query);
   }
 
+  /**
+   * Indicates whether a {@link ProgramStage} exists.
+   *
+   * @param id the object identifier.
+   * @return true if the object exists.
+   */
+  public boolean isProgramStage(String id) {
+    return objectExists(MetadataEntity.PROGRAM_STAGE, id);
+  }
+
   // -------------------------------------------------------------------------
   // Program stage section
   // -------------------------------------------------------------------------
