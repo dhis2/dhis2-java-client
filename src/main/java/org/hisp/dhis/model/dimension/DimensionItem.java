@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004-2024, University of Oslo
+ * Copyright (c) 2004-2025, University of Oslo
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -28,8 +28,6 @@
 package org.hisp.dhis.model.dimension;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.ArrayList;
-import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -38,10 +36,6 @@ import org.hisp.dhis.model.NameableObject;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Dimension extends NameableObject {
-  @JsonProperty private DimensionType dimensionType;
-
-  @JsonProperty private DataDimensionType dataDimensionType;
-
-  @JsonProperty private List<DimensionItem> items = new ArrayList<>();
+public class DimensionItem extends NameableObject {
+  @JsonProperty private DimensionItemType dimensionItemType;
 }
