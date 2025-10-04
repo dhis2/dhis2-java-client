@@ -35,6 +35,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import java.util.List;
 import org.hisp.dhis.model.dimension.DataDimensionType;
 import org.hisp.dhis.model.dimension.Dimension;
+import org.hisp.dhis.model.dimension.DimensionItem;
 import org.hisp.dhis.model.dimension.DimensionType;
 import org.hisp.dhis.query.Query;
 import org.hisp.dhis.support.TestTags;
@@ -54,6 +55,14 @@ class DimensionApiTest {
     assertEquals("Rural and Urban", dimension.getName());
     assertEquals(DimensionType.CATEGORY, dimension.getDimensionType());
     assertEquals(DataDimensionType.DISAGGREGATION, dimension.getDataDimensionType());
+    assertNotEmpty(dimension.getItems());
+
+    DimensionItem item = dimension.getItems().get(0);
+
+    assertNotNull(item);
+    assertNotBlank(item.getId());
+    assertNotBlank(item.getName());
+    assertNotNull(item.getDimensionItemType());
   }
 
   @Test
@@ -68,6 +77,14 @@ class DimensionApiTest {
     assertNotBlank(dimension.getDescription());
     assertEquals(DimensionType.CATEGORY_OPTION_GROUP_SET, dimension.getDimensionType());
     assertEquals(DataDimensionType.ATTRIBUTE, dimension.getDataDimensionType());
+    assertNotEmpty(dimension.getItems());
+
+    DimensionItem item = dimension.getItems().get(0);
+
+    assertNotNull(item);
+    assertNotBlank(item.getId());
+    assertNotBlank(item.getName());
+    assertNotNull(item.getDimensionItemType());
   }
 
   @Test
