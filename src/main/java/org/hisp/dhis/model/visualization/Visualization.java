@@ -27,23 +27,23 @@
  */
 package org.hisp.dhis.model.visualization;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.commons.lang3.BooleanUtils;
+import org.hisp.dhis.model.OrgUnit;
+import org.hisp.dhis.model.analytics.AnalyticalObject;
+import org.hisp.dhis.model.dimension.DataDimensionItem;
+import org.hisp.dhis.model.period.Period;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.apache.commons.lang3.BooleanUtils;
-import org.hisp.dhis.model.NameableObject;
-import org.hisp.dhis.model.OrgUnit;
-import org.hisp.dhis.model.dimension.DataDimensionItem;
-import org.hisp.dhis.model.period.Period;
 
 @Getter
 @Setter
 @NoArgsConstructor
-public class Visualization extends NameableObject {
+public class Visualization extends AnalyticalObject {
   /** Type of visualization. */
   @JsonProperty private VisualizationType type;
 
