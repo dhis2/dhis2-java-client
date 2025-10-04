@@ -39,5 +39,4 @@ public class AnalyticalObject extends NameableObject {
   protected transient List<Dimension> rows = new ArrayList<>();
 
   protected transient List<Dimension> filters = new ArrayList<>();
-
 }
