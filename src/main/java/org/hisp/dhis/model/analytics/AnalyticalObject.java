@@ -27,16 +27,16 @@
  */
 package org.hisp.dhis.model.analytics;
 
-import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
 import org.hisp.dhis.model.NameableObject;
+import org.hisp.dhis.model.dimension.Dimension;
 
 public class AnalyticalObject extends NameableObject {
 
-  protected transient List<Dimension> columns = new ArrayList<>();
+  protected List<Dimension> columns = new ArrayList<>();
 
-  protected transient List<Dimension> rows = new ArrayList<>();
+  protected List<Dimension> rows = new ArrayList<>();
 
-  protected transient List<Dimension> filters = new ArrayList<>();
+  protected List<Dimension> filters = new ArrayList<>();
 }
