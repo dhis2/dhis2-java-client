@@ -27,15 +27,16 @@
  */
 package org.hisp.dhis.model.analytics;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import java.util.ArrayList;
+import java.util.List;
+import org.hisp.dhis.model.NameableObject;
+import org.hisp.dhis.model.dimension.Dimension;
 
-@Getter
-@Setter
-@ToString
-@NoArgsConstructor
-public class DimensionalObject {
-  private String dimension;
+public class AnalyticalObject extends NameableObject {
+
+  protected List<Dimension> columns = new ArrayList<>();
+
+  protected List<Dimension> rows = new ArrayList<>();
+
+  protected List<Dimension> filters = new ArrayList<>();
 }

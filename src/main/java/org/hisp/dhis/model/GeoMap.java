@@ -30,8 +30,9 @@ package org.hisp.dhis.model;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hisp.dhis.model.analytics.AnalyticalObject;
 
 @Getter
 @Setter
 @NoArgsConstructor
-public class GeoMap extends NameableObject {}
+public class GeoMap extends AnalyticalObject {}

@@ -35,15 +35,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.apache.commons.lang3.BooleanUtils;
-import org.hisp.dhis.model.NameableObject;
 import org.hisp.dhis.model.OrgUnit;
+import org.hisp.dhis.model.analytics.AnalyticalObject;
 import org.hisp.dhis.model.dimension.DataDimensionItem;
 import org.hisp.dhis.model.period.Period;
 
 @Getter
 @Setter
 @NoArgsConstructor
-public class Visualization extends NameableObject {
+public class Visualization extends AnalyticalObject {
   /** Type of visualization. */
   @JsonProperty private VisualizationType type;
 
@@ -70,6 +70,18 @@ public class Visualization extends NameableObject {
 
   /** Organisation units. */
   @JsonProperty private List<OrgUnit> organisationUnits = new ArrayList<>();
+
+  /**
+   * Constructor.
+   *
+   * @param id the identifier.
+   * @param name the name.
+   */
+  public Visualization(String id, String name, VisualizationType type) {
+    this.id = id;
+    this.name = name;
+    this.type = type;
+  }
 
   @JsonIgnore
   public boolean isUserOrganisationUnit() {
