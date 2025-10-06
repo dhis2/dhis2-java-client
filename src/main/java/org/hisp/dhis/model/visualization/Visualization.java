@@ -71,6 +71,18 @@ public class Visualization extends AnalyticalObject {
   /** Organisation units. */
   @JsonProperty private List<OrgUnit> organisationUnits = new ArrayList<>();
 
+  /**
+   * Constructor.
+   *
+   * @param id the identifier.
+   * @param name the name.
+   */
+  public Visualization(String id, String name, VisualizationType type) {
+    this.id = id;
+    this.name = name;
+    this.type = type;
+  }
+
   @JsonIgnore
   public boolean isUserOrganisationUnit() {
     return BooleanUtils.isTrue(userOrganisationUnit);

@@ -89,15 +89,18 @@ List<String> authorities = dhis2.getUserAuthorization();
 
 This section explains operations for DHIS2 metadata objects.
 
+Paging is disabled by default for query methods which return a list of objects. Paging is enabled by
+default for query methods which return a metadata wrapper object.
+
 ### Query objects
 
-To retrieve all org unit groups:
+To retrieve all org unit groups with paging disabled:
 
 ```java
-List<OrgUnitGroup> orgUnitGroups = dhis2.getOrgUnitGroups();
+List<OrgUnitGroup> orgUnitGroups = dhis2.getOrgUnitGroups(Query.instance());
 ```
 
-To retrieve org units with a filter on the level in a paged way:
+To retrieve a page of org units with a filter on the level property:
 
 ```java
 List<OrgUnit> orgUnits = dhis2.getOrgUnits(Query.instance()
@@ -113,7 +116,16 @@ List<OrgUnit> orgUnits = dhis2.getOrgUnits(Query.instance()
     .setOrder(Order.desc("name")));
 ```
 
-When retrieving lists of objects, associations to other objects will not be populated in the response by default. You can expand associations in object lists through the query object like this, e.g. for programs:
+To retrieve org units in a paged way with a pager object in the response:
+
+```java
+Metadata<OrgUnit> metadata = dhis2.getOrgUnitsPaged(Query.instance());
+
+Pager pager = metadata.getPager();
+List<OrgUnit> orgUnits = metadata.getObjects();
+```
+
+When retrieving lists of objects, most associations to other objects will not be populated in the response by default. You can expand associations in object lists through the query object like this, e.g. for programs:
 
 ```java
 List<Program> programs = dhis2.getPrograms(Query.instance()
