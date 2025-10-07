@@ -169,6 +169,7 @@ import org.hisp.dhis.response.completedatasetregistration.CompleteDataSetRegistr
 import org.hisp.dhis.response.datavalueset.DataValueSetResponse;
 import org.hisp.dhis.response.event.EventResponse;
 import org.hisp.dhis.response.job.JobCategory;
+import org.hisp.dhis.response.job.JobInfoResponse;
 import org.hisp.dhis.response.job.JobNotification;
 import org.hisp.dhis.response.object.ObjectResponse;
 import org.hisp.dhis.response.objects.ObjectsResponse;
@@ -312,6 +313,16 @@ public class Dhis2 extends BaseDhis2 {
     } catch (IOException ex) {
       return Response.error(ex.getMessage());
     }
+  }
+
+  /**
+   * Starts a update resource table job.
+   *
+   * @return
+   */
+  public JobInfoResponse updateResourceTables() {
+    URI url = HttpUtils.build(config.getResolvedUriBuilder().appendPath("resourceTables"));
+    return executeRequest(getPostRequest(url), JobInfoResponse.class);
   }
 
   // -------------------------------------------------------------------------

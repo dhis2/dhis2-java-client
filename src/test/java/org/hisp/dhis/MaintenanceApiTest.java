@@ -28,11 +28,14 @@
 package org.hisp.dhis;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.hisp.dhis.response.HttpStatus;
 import org.hisp.dhis.response.Response;
 import org.hisp.dhis.response.Status;
+import org.hisp.dhis.response.job.JobInfoResponse;
 import org.hisp.dhis.support.TestTags;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
@@ -46,5 +49,18 @@ class MaintenanceApiTest {
 
     assertEquals(Status.OK, response.getStatus());
     assertEquals(HttpStatus.OK, response.getHttpStatus());
+  }
+
+  @Test
+  @Disabled("Avoid starting compute intensive jobs")
+  void testUpdateResourceTables() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    JobInfoResponse response = dhis2.updateResourceTables();
+
+    assertNotNull(response);
+    assertEquals(Status.OK, response.getStatus());
+    assertEquals(HttpStatus.OK, response.getHttpStatus());
+    assertEquals(200, response.getHttpStatusCode());
   }
 }
