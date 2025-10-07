@@ -531,6 +531,26 @@ To remove a data store namespace including all entries:
 Response response = dhis2.removeDataStoreNamespace("dashboards");
 ```
 
+## Maintenance
+
+This section explains maintenance operations.
+
+### Clear application cache
+
+To clear application cache:
+
+```java
+Response response = dhis2.clearApplicationCache();
+```
+
+## Update resource tables
+
+To start a resource tables update job:
+
+```java
+JobInfoResponse response = dhis2.updateResourceTables();
+```
+
 ## System
 
 This section explains system operations.

@@ -976,7 +976,8 @@ public class BaseDhis2 {
    * @return a response message.
    * @throws Dhis2ClientException if unauthorized, access denied or resource not found.
    */
-  private <T extends BaseHttpResponse> T executeRequest(HttpUriRequestBase request, Class<T> type) {
+  protected <T extends BaseHttpResponse> T executeRequest(
+      HttpUriRequestBase request, Class<T> type) {
     withAuth(request);
 
     try {
