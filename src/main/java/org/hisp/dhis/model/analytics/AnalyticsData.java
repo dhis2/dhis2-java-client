@@ -27,6 +27,7 @@
  */
 package org.hisp.dhis.model.analytics;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import lombok.Getter;
@@ -58,6 +59,7 @@ public class AnalyticsData {
    *
    * @return true if metadata exists, false otherwise.
    */
+  @JsonIgnore
   public boolean hasMetaData() {
     return metaData != null;
   }
@@ -67,6 +69,7 @@ public class AnalyticsData {
    *
    * @return true if data rows are truncated, false otherwise.
    */
+  @JsonIgnore
   public boolean isTruncated() {
     return truncated != null && truncated;
   }
