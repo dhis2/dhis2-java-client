@@ -46,13 +46,37 @@ public class AnalyticsData {
 
   @JsonProperty private List<List<String>> rows;
 
-  @JsonProperty private Integer height;
-
-  @JsonProperty private Integer width;
-
-  @JsonProperty private Integer headerWidth;
-
   @JsonProperty private Boolean truncated;
+
+  /**
+   * Gets the number ofd ata rows.
+   *
+   * @return the number of data rows.
+   */
+  @JsonProperty
+  public int getHeight() {
+    return rows != null ? rows.size() : 0;
+  }
+
+  /**
+   * Gets the number of columns in the data rows.
+   *
+   * @return the number of columns in the data rows.
+   */
+  @JsonProperty
+  public int getWidth() {
+    return rows != null && !rows.isEmpty() ? rows.get(0).size() : 0;
+  }
+
+  /**
+   * Gets the number of headers.
+   *
+   * @return the number of headers.
+   */
+  @JsonProperty
+  public int getHeaderWidth() {
+    return headers != null ? headers.size() : 0;
+  }
 
   /**
    * Indicates whether metadata exists.
@@ -72,5 +96,17 @@ public class AnalyticsData {
   @JsonIgnore
   public boolean isTruncated() {
     return truncated != null && truncated;
+  }
+
+  /**
+   * Truncates the data rows to the specified maximum number of rows.
+   *
+   * @param maxRows the maximum number of rows to retain.
+   */
+  public void truncate(int maxRows) {
+    if (rows != null && rows.size() > maxRows) {
+      rows = rows.subList(0, maxRows);
+      truncated = true;
+    }
   }
 }
