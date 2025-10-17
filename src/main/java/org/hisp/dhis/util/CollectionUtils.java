@@ -235,6 +235,21 @@ public class CollectionUtils {
   }
 
   /**
+   * Indicates if any item in the given collection is a prefix of the given input string.
+   *
+   * @param collection the collection.
+   * @param input the input string.
+   * @return true if any item is a prefix, false otherwise.
+   */
+  public static boolean anyStartsWith(Collection<String> collection, String input) {
+    if (input == null) {
+      return false;
+    }
+
+    return collection.stream().anyMatch(item -> input.startsWith(item));
+  }
+
+  /**
    * Returns a new mutable list of the items in the given collection which match the given
    * predicate.
    *

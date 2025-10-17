@@ -28,6 +28,7 @@
 package org.hisp.dhis.util;
 
 import static org.hisp.dhis.support.Assertions.assertContainsExactly;
+import static org.hisp.dhis.util.CollectionUtils.anyStartsWith;
 import static org.hisp.dhis.util.CollectionUtils.first;
 import static org.hisp.dhis.util.CollectionUtils.firstMatch;
 import static org.hisp.dhis.util.CollectionUtils.get;
@@ -85,6 +86,22 @@ class CollectionUtilsTest {
     assertEquals("a", firstMatch(list, (v) -> "a".equals(v)));
     assertEquals("b", firstMatch(list, (v) -> "b".equals(v)));
     assertNull(firstMatch(list, (v) -> "x".equals(v)));
+  }
+
+  @Test
+  void testAnyStartsWith() {
+    List<String> list =
+        list("/ImspTQPwCqd/jUb8gELQApl", "/ImspTQPwCqd/qhqAxPSTUXp", "/ImspTQPwCqd/Vth0fbpFcsO");
+
+    assertTrue(anyStartsWith(list, "/ImspTQPwCqd/jUb8gELQApl"));
+    assertTrue(anyStartsWith(list, "/ImspTQPwCqd/jUb8gELQApl/U6Kr7Gtpidn"));
+    assertTrue(anyStartsWith(list, "/ImspTQPwCqd/qhqAxPSTUXp/RndxKqQGzUl/aSfF9kuNINJ"));
+    assertTrue(anyStartsWith(list, "/ImspTQPwCqd/Vth0fbpFcsO/U6Kr7Gtpidn/rx9ubw0UCqj"));
+
+    assertFalse(anyStartsWith(list, "/MpcMjLmbATv"));
+    assertFalse(anyStartsWith(list, "/ImspTQPwCqd/at6UHUQatSo/qtr8GGlm4gg"));
+    assertFalse(anyStartsWith(list, "/ImspTQPwCqd/PMa2VCrupOd/FlBemv1NfEC/rxc497GUdDt"));
+    assertFalse(anyStartsWith(list, null));
   }
 
   @Test
