@@ -73,4 +73,7 @@ public class AnalyticsData {
   public boolean isTruncated() {
     return truncated != null && truncated;
   }
+  
+  public void truncate() {    
+  }
 }
