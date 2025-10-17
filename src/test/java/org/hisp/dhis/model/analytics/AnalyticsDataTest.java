@@ -27,48 +27,45 @@
  */
 package org.hisp.dhis.model.analytics;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.List;
 import org.hisp.dhis.model.ValueType;
+import org.junit.jupiter.api.Test;
 
-@Getter
-@Setter
-@ToString
-@NoArgsConstructor
-public class AnalyticsHeader {
-  @JsonProperty private String name;
+class AnalyticsDataTest {
+  @Test
+  void testTruncateDataRows() {
+    AnalyticsData data = new AnalyticsData();
 
-  @JsonProperty private String column;
+    assertEquals(0, data.getWidth());
+    assertEquals(0, data.getHeaderWidth());
+    assertEquals(0, data.getHeight());
 
-  @JsonProperty private ValueType valueType;
+    data.setHeaders(
+        List.of(
+            new AnalyticsHeader("C1", "C1", ValueType.TEXT),
+            new AnalyticsHeader("C2", "C2", ValueType.TEXT),
+            new AnalyticsHeader("C3", "C3", ValueType.TEXT)));
+    data.setRows(
+        List.of(
+            List.of("1A", "1B", "1C"),
+            List.of("2A", "2B", "2C"),
+            List.of("3A", "3B", "3C"),
+            List.of("4A", "4B", "4C")));
 
-  @JsonProperty private Boolean hidden;
+    assertEquals(3, data.getWidth());
+    assertEquals(3, data.getHeaderWidth());
+    assertEquals(4, data.getHeight());
+    assertFalse(data.isTruncated());
 
-  @JsonProperty private Boolean meta;
+    data.truncate(2);
 
-  /**
-   * Constructor with required fields.
-   *
-   * @param name the name.
-   * @param column the column.
-   * @param valueType the value type.
-   */
-  public AnalyticsHeader(String name, String column, ValueType valueType) {
-    this.name = name;
-    this.column = column;
-    this.valueType = valueType;
-  }
-
-  /**
-   * Alias for column.
-   *
-   * @return the label.
-   */
-  @JsonProperty
-  public String getLabel() {
-    return column;
+    assertEquals(3, data.getWidth());
+    assertEquals(3, data.getHeaderWidth());
+    assertEquals(2, data.getHeight());
+    assertTrue(data.isTruncated());
   }
 }
