@@ -3665,7 +3665,7 @@ public class Dhis2 extends BaseDhis2 {
   /**
    * Saves a {@link Visualization}.
    *
-   * @param userRole the object to save.
+   * @param visualization the object to save.
    * @return {@link ObjectResponse} holding information about the operation.
    */
   public ObjectResponse saveVisualization(Visualization visualization) {
