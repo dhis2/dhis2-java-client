@@ -51,6 +51,8 @@ public class AnalyticsData {
 
   @JsonProperty private Integer headerWidth;
 
+  @JsonProperty private Boolean truncated;
+
   /**
    * Indicates whether metadata exists.
    *
@@ -58,5 +60,14 @@ public class AnalyticsData {
    */
   public boolean hasMetaData() {
     return metaData != null;
+  }
+
+  /**
+   * Indicates whether the data rows are truncated.
+   *
+   * @return true if data rows are truncated, false otherwise.
+   */
+  public boolean isTruncated() {
+    return truncated != null && truncated;
   }
 }
