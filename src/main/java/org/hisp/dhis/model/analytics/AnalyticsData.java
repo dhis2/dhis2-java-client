@@ -40,13 +40,17 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 public class AnalyticsData {
+  /** Analytics column headers. */
   @JsonProperty private List<AnalyticsHeader> headers;
 
+  /** Response metadata. */
   @JsonProperty private AnalyticsMetaData metaData;
 
+  /** Analytics data rows. */
   @JsonProperty private List<List<String>> rows;
 
-  @JsonProperty private Boolean truncated;
+  /** Whether the data rows were truncatd to max limit. */
+  @JsonProperty private boolean truncated;
 
   /**
    * Gets the number ofd ata rows.
@@ -86,16 +90,6 @@ public class AnalyticsData {
   @JsonIgnore
   public boolean hasMetaData() {
     return metaData != null;
-  }
-
-  /**
-   * Indicates whether the data rows are truncated.
-   *
-   * @return true if data rows are truncated, false otherwise.
-   */
-  @JsonIgnore
-  public boolean isTruncated() {
-    return truncated != null && truncated;
   }
 
   /**
