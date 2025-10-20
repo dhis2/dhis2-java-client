@@ -29,6 +29,8 @@ package org.hisp.dhis.util;
 
 import static org.hisp.dhis.support.Assertions.assertContainsExactly;
 import static org.hisp.dhis.util.CollectionUtils.anyStartsWith;
+import static org.hisp.dhis.util.CollectionUtils.filterToList;
+import static org.hisp.dhis.util.CollectionUtils.filterToSet;
 import static org.hisp.dhis.util.CollectionUtils.first;
 import static org.hisp.dhis.util.CollectionUtils.firstMatch;
 import static org.hisp.dhis.util.CollectionUtils.get;
@@ -86,6 +88,42 @@ class CollectionUtilsTest {
     assertEquals("a", firstMatch(list, (v) -> "a".equals(v)));
     assertEquals("b", firstMatch(list, (v) -> "b".equals(v)));
     assertNull(firstMatch(list, (v) -> "x".equals(v)));
+  }
+
+  @Test
+  void testFilterToList() {
+    Product pA = new Product("P01", "Keyboard");
+    Product pB = new Product("P02", "Mouse");
+    Product pC = new Product("P03", "Monitor");
+
+    List<Product> list = List.of(pA, pB, pC);
+
+    assertContainsExactly(filterToList(list, p -> "P01".equals(p.getId())), pA);
+    assertContainsExactly(
+        filterToList(list, p -> Set.of("P01", "P03").contains(p.getId())), pA, pC);
+    assertContainsExactly(
+        filterToList(list, p -> Set.of("P02", "P03").contains(p.getId())), pB, pC);
+    assertContainsExactly(
+        filterToList(list, p -> mutableSet("P02", null, "P03").contains(p.getId())), pB, pC);
+    assertContainsExactly(
+        filterToList(list, p -> mutableSet(null, "P01", "P02").contains(p.getId())), pA, pB);
+  }
+
+  @Test
+  void testFilterToSet() {
+    Product pA = new Product("P01", "Keyboard");
+    Product pB = new Product("P02", "Mouse");
+    Product pC = new Product("P03", "Monitor");
+
+    List<Product> list = List.of(pA, pB, pC);
+
+    assertContainsExactly(filterToSet(list, p -> "P01".equals(p.getId())), pA);
+    assertContainsExactly(filterToSet(list, p -> Set.of("P01", "P03").contains(p.getId())), pA, pC);
+    assertContainsExactly(filterToSet(list, p -> Set.of("P02", "P03").contains(p.getId())), pB, pC);
+    assertContainsExactly(
+        filterToSet(list, p -> mutableSet("P02", null, "P03").contains(p.getId())), pB, pC);
+    assertContainsExactly(
+        filterToSet(list, p -> mutableSet(null, "P01", "P02").contains(p.getId())), pA, pB);
   }
 
   @Test

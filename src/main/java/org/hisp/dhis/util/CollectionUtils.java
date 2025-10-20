@@ -115,7 +115,7 @@ public class CollectionUtils {
    * @param <U> type.
    * @param objects the objects of type U.
    * @param mapper the mapping function.
-   * @return a list of objects of type T.
+   * @return an immutable list of objects of type T.
    */
   public static <T, U> List<T> mapToList(Collection<U> objects, Function<U, T> mapper) {
     return objects.stream().map(mapper).toList();
@@ -128,7 +128,7 @@ public class CollectionUtils {
    * @param <U> type.
    * @param objects the objects to cast.
    * @param type the class type to cast to.
-   * @return the list of objects cast to the given type.
+   * @return a mutable list of objects cast to the given type.
    */
   public static <U, T extends U> List<T> toTypedList(List<? extends U> objects, Class<T> type) {
     return objects.stream().map(type::cast).collect(Collectors.toList());
@@ -232,6 +232,32 @@ public class CollectionUtils {
    */
   public static <T> T firstMatch(Collection<T> collection, Predicate<T> predicate) {
     return collection.stream().filter(predicate).findFirst().orElse(null);
+  }
+
+  /**
+   * Returns a new list of the items in the given collection which are not null and match the given
+   * predicate.
+   *
+   * @param <T> type.
+   * @param collection the collection.
+   * @param predicate the predicate.
+   * @return an immutable list of objects of type T.
+   */
+  public static <T> List<T> filterToList(Collection<T> collection, Predicate<T> predicate) {
+    return collection.stream().filter(Objects::nonNull).filter(predicate).toList();
+  }
+
+  /**
+   * Returns a new set of the items in the given collection which are not null and match the given
+   * predicate.
+   *
+   * @param <T> type.
+   * @param collection the collection.
+   * @param predicate the predicate.
+   * @return an immutable set of objects of type T.
+   */
+  public static <T> Set<T> filterToSet(Collection<T> collection, Predicate<T> predicate) {
+    return collection.stream().filter(predicate).collect(Collectors.toUnmodifiableSet());
   }
 
   /**
