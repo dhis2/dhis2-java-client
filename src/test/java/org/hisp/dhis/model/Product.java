@@ -32,14 +32,16 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @JacksonXmlRootElement(localName = "product")
 public class Product {
-  @JsonProperty private String id;
+  @EqualsAndHashCode.Include @JsonProperty private String id;
 
   @JsonProperty private String name;
 
