@@ -34,6 +34,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.hisp.dhis.model.acl.Access;
@@ -43,6 +44,7 @@ import org.hisp.dhis.model.translation.Translation;
 @Getter
 @Setter
 @ToString
+@NoArgsConstructor
 public class IdentifiableObject implements Serializable {
   @JsonProperty protected String id;
 
@@ -65,6 +67,19 @@ public class IdentifiableObject implements Serializable {
 
   /** Read only representation of sharing access for the currently authenticated user. */
   @JsonProperty protected Access access;
+
+  /**
+   * Constructor.
+   *
+   * @param id the identifier.
+   * @param code the code.
+   * @param name the name.
+   */
+  public IdentifiableObject(String id, String code, String name) {
+    this.id = id;
+    this.code = code;
+    this.name = name;
+  }
 
   // -------------------------------------------------------------------------
   // Logic methods

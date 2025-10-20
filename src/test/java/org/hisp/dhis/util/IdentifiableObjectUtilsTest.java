@@ -64,6 +64,17 @@ class IdentifiableObjectUtilsTest {
   }
 
   @Test
+  void testToNames() {
+    DataElement deA = set(new DataElement(), 'A');
+    DataElement deB = set(new DataElement(), 'B');
+    DataElement deC = set(new DataElement(), 'C');
+
+    List<String> objects = IdentifiableObjectUtils.toNames(List.of(deA, deB, deC));
+
+    assertContainsExactlyInOrder(objects, deA.getName(), deB.getName(), deC.getName());
+  }
+
+  @Test
   void testNewInstance() {
     DataElement instance = IdentifiableObjectUtils.newInstance(DataElement.class);
 
