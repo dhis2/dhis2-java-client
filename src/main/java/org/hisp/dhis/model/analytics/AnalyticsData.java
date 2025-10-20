@@ -27,18 +27,21 @@
  */
 package org.hisp.dhis.model.analytics;
 
+import static org.apache.commons.collections4.CollectionUtils.isEmpty;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
 @Getter
 @Setter
 @ToString
-@NoArgsConstructor
 public class AnalyticsData {
   /** Analytics column headers. */
   @JsonProperty private List<AnalyticsHeader> headers;
@@ -51,6 +54,12 @@ public class AnalyticsData {
 
   /** Whether the data rows were truncatd to max limit. */
   @JsonProperty private boolean truncated;
+
+  public AnalyticsData() {
+    this.headers = new ArrayList<>();
+    this.rows = new ArrayList<List<String>>();
+    this.truncated = false;
+  }
 
   /**
    * Gets the number ofd ata rows.
@@ -93,6 +102,29 @@ public class AnalyticsData {
   }
 
   /**
+   * Adds a data row.
+   *
+   * @param row the data row.
+   */
+  public void addRow(List<String> row) {
+    this.rows.add(row);
+  }
+
+  /**
+   * Gets the data row at the specified index.
+   *
+   * @param index the row index, starting with 0.
+   * @return the data row at the specified index, or null if out of bounds.
+   */
+  public List<String> getRow(int index) {
+    if (rows == null || index < 0 || index >= rows.size()) {
+      return null;
+    }
+
+    return rows.get(index);
+  }
+
+  /**
    * Truncates the data rows to the specified maximum number of rows.
    *
    * @param maxRows the maximum number of rows to retain.
@@ -102,5 +134,29 @@ public class AnalyticsData {
       rows = rows.subList(0, maxRows);
       truncated = true;
     }
+  }
+
+  /** Orders the data rows in natural order based on their values. */
+  public void sortRows() {
+    if (isEmpty(rows)) {
+      return;
+    }
+
+    rows.sort(
+        (rowA, rowB) -> {
+          int maxLength = Math.max(rowA.size(), rowB.size());
+
+          for (int i = 0; i < maxLength; i++) {
+            String val1 = i < rowA.size() ? rowA.get(i) : null;
+            String val2 = i < rowB.size() ? rowB.get(i) : null;
+
+            int comparison = Objects.compare(val1, val2, Comparator.naturalOrder());
+
+            if (comparison != 0) {
+              return comparison;
+            }
+          }
+          return 0;
+        });
   }
 }

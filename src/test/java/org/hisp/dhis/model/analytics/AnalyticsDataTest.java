@@ -33,32 +33,40 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 import org.hisp.dhis.model.ValueType;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class AnalyticsDataTest {
-  @Test
-  void testTruncateDataRows() {
-    AnalyticsData data = new AnalyticsData();
+  private AnalyticsData data;
 
-    assertEquals(0, data.getWidth());
-    assertEquals(0, data.getHeaderWidth());
-    assertEquals(0, data.getHeight());
+  @BeforeEach
+  public void beforeEach() {
+    data = new AnalyticsData();
 
     data.setHeaders(
         List.of(
             new AnalyticsHeader("C1", "C1", ValueType.TEXT),
             new AnalyticsHeader("C2", "C2", ValueType.TEXT),
             new AnalyticsHeader("C3", "C3", ValueType.TEXT)));
-    data.setRows(
-        List.of(
-            List.of("1A", "1B", "1C"),
-            List.of("2A", "2B", "2C"),
-            List.of("3A", "3B", "3C"),
-            List.of("4A", "4B", "4C")));
+    data.addRow(List.of("1A", "1B", "1C"));
+    data.addRow(List.of("3A", "3B", "3C"));
+    data.addRow(List.of("2A", "2B", "2C"));
+    data.addRow(List.of("5A", "5B", "5C"));
+    data.addRow(List.of("4A", "4B", "4C"));
+  }
 
+  @Test
+  void testGetWidthHeight() {
     assertEquals(3, data.getWidth());
     assertEquals(3, data.getHeaderWidth());
-    assertEquals(4, data.getHeight());
+    assertEquals(5, data.getHeight());
+  }
+
+  @Test
+  void testTruncateDataRows() {
+    assertEquals(3, data.getWidth());
+    assertEquals(3, data.getHeaderWidth());
+    assertEquals(5, data.getHeight());
     assertFalse(data.isTruncated());
 
     data.truncate(2);
@@ -67,5 +75,46 @@ class AnalyticsDataTest {
     assertEquals(3, data.getHeaderWidth());
     assertEquals(2, data.getHeight());
     assertTrue(data.isTruncated());
+  }
+
+  @Test
+  void testGetRow() {
+    List<String> row1 = data.getRow(0);
+    List<String> row3 = data.getRow(2);
+    List<String> row5 = data.getRow(4);
+
+    assertEquals("1A", row1.get(0));
+    assertEquals("1C", row1.get(2));
+    assertEquals("2A", row3.get(0));
+    assertEquals("2C", row3.get(2));
+    assertEquals("4A", row5.get(0));
+    assertEquals("4C", row5.get(2));
+  }
+
+  @Test
+  void testSortData() {
+    List<String> row1 = data.getRow(0);
+    List<String> row3 = data.getRow(2);
+    List<String> row5 = data.getRow(4);
+
+    assertEquals("1A", row1.get(0));
+    assertEquals("1C", row1.get(2));
+    assertEquals("2A", row3.get(0));
+    assertEquals("2C", row3.get(2));
+    assertEquals("4A", row5.get(0));
+    assertEquals("4C", row5.get(2));
+
+    data.sortRows();
+
+    row1 = data.getRow(0);
+    row3 = data.getRow(2);
+    row5 = data.getRow(4);
+
+    assertEquals("1A", row1.get(0));
+    assertEquals("1C", row1.get(2));
+    assertEquals("3A", row3.get(0));
+    assertEquals("3C", row3.get(2));
+    assertEquals("5A", row5.get(0));
+    assertEquals("5C", row5.get(2));
   }
 }
