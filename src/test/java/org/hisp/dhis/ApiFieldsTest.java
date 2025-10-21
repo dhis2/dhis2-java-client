@@ -66,7 +66,7 @@ class ApiFieldsTest {
   void testProgramExtFields() {
     String expected =
         """
-        id,code,name,created,lastUpdated,attributeValues,translations,sharing,access,shortName,description,formName,programType,\
+        id,code,name,created,lastUpdated,attributeValues,translations,sharing,access,shortName,description,\
         trackedEntityType[id,code,name,created,lastUpdated,attributeValues,translations,sharing,access,shortName,description,\
         trackedEntityTypeAttributes[id,\
         trackedEntityAttribute[id,code,name,created,lastUpdated,attributeValues,shortName,description,valueType,\
@@ -101,28 +101,29 @@ class ApiFieldsTest {
         trackedEntityAttribute[id,code,name,created,lastUpdated,attributeValues,shortName,\
         description,valueType,aggregationType,confidential,unique],\
         sortOrder,displayInList,mandatory,allowFutureDate,searchable],\
+        programRuleVariables[id,code,name,created,lastUpdated,attributeValues,translations,\
+        sharing,access,program[id,code,name,created,lastUpdated,attributeValues],\
+        programRuleVariableSourceType,valueType,programStage[id,code,name,created,\
+        lastUpdated,attributeValues],trackedEntityAttribute[id,code,name,created,\
+        lastUpdated,attributeValues],useCodeForOptionSet,\
+        dataElement[id,code,name,created,lastUpdated,attributeValues]],\
+        formName,programType,\
         enrollmentDateLabel,incidentDateLabel,enrollmentLabel,followUpLabel,\
         orgUnitLabel,relationshipLabel,noteLabel,trackedEntityAttributeLabel,\
         programStageLabel,eventLabel,\
         version,displayIncidentDate,ignoreOverdueEvents,onlyEnrollOnce,\
         selectEnrollmentDatesInFuture,selectIncidentDatesInFuture,displayFrontPageList,\
         skipOffline,useFirstStageDuringRegistration,expiryDays,\
-        minAttributesRequiredToSearch,maxTeiCountToReturn,accessLevel,featureType,\
-        programRuleVariables[id,code,name,created,lastUpdated,attributeValues,translations,\
-        sharing,access,program[id,code,name,created,lastUpdated,attributeValues],\
-        programRuleVariableSourceType,valueType,programStage[id,code,name,created,\
-        lastUpdated,attributeValues],trackedEntityAttribute[id,code,name,created,\
-        lastUpdated,attributeValues],useCodeForOptionSet,\
-        dataElement[id,code,name,created,lastUpdated,attributeValues]]""";
+        minAttributesRequiredToSearch,maxTeiCountToReturn,accessLevel,featureType""";
 
     assertEquals(expected, ApiFields.PROGRAM_EXT_FIELDS);
   }
 
   @Test
-  void testProgramFields() {
+  void testProgramMinFields() {
     String expected =
         """
-        id,code,name,created,lastUpdated,attributeValues,translations,sharing,access,shortName,description,formName,programType,\
+        id,code,name,created,lastUpdated,attributeValues,translations,sharing,access,shortName,description,\
         trackedEntityType[id,code,name,created,lastUpdated,attributeValues,shortName,description],\
         categoryCombo[id,code,name,created,lastUpdated,attributeValues,shortName,description],\
         programSections[id,code,name,created,lastUpdated,attributeValues,shortName,description],\
@@ -132,15 +133,15 @@ class ApiFieldsTest {
         trackedEntityAttribute[id,code,name,created,lastUpdated,attributeValues,shortName,\
         description,valueType,aggregationType,confidential,unique],\
         sortOrder,displayInList,mandatory,allowFutureDate,searchable],\
+        formName,programType,\
         enrollmentDateLabel,incidentDateLabel,enrollmentLabel,followUpLabel,\
         orgUnitLabel,relationshipLabel,noteLabel,trackedEntityAttributeLabel,\
         programStageLabel,eventLabel,\
         version,displayIncidentDate,ignoreOverdueEvents,onlyEnrollOnce,\
         selectEnrollmentDatesInFuture,selectIncidentDatesInFuture,displayFrontPageList,\
         skipOffline,useFirstStageDuringRegistration,expiryDays,\
-        minAttributesRequiredToSearch,maxTeiCountToReturn,accessLevel,featureType,\
-        programRuleVariables[id,code,name,created,lastUpdated,attributeValues]""";
+        minAttributesRequiredToSearch,maxTeiCountToReturn,accessLevel,featureType""";
 
-    assertEquals(expected, ApiFields.PROGRAM_FIELDS);
+    assertEquals(expected, ApiFields.PROGRAM_MIN_FIELDS);
   }
 }

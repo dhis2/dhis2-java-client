@@ -67,6 +67,7 @@ import org.apache.hc.core5.http.io.entity.FileEntity;
 import org.apache.hc.core5.http.io.entity.InputStreamEntity;
 import org.apache.hc.core5.http.io.entity.StringEntity;
 import org.apache.hc.core5.net.URIBuilder;
+import org.hisp.dhis.api.ApiFields;
 import org.hisp.dhis.auth.AccessTokenAuthentication;
 import org.hisp.dhis.auth.BasicAuthentication;
 import org.hisp.dhis.auth.CookieAuthentication;
@@ -640,17 +641,31 @@ public class Dhis2 extends BaseDhis2 {
   /**
    * Retrieves a metadata object using HTTP GET.
    *
+   * @param <T> the type.
    * @param entity the {@link MetadataEntity}.
    * @param id the object identifier.
+   * @return the metadata object.
+   * @throws Dhis2ClientException if unauthorized, access denied or resource not found.
+   */
+  public <T extends IdentifiableObject> T getMetadataObject(MetadataEntity entity, String id) {
+    return getMetadataObject(entity, id, entity.getExtFields());
+  }
+
+  /**
+   * Retrieves a metadata object using HTTP GET.
+   *
    * @param <T> the type.
+   * @param entity the {@link MetadataEntity}.
+   * @param id the object identifier.
+   * @param fields the API fields.
    * @return the metadata object.
    * @throws Dhis2ClientException if unauthorized, access denied or resource not found.
    */
   @SuppressWarnings("unchecked")
-  public <T extends IdentifiableObject> T getMetadataObject(MetadataEntity entity, String id) {
+  protected <T extends IdentifiableObject> T getMetadataObject(
+      MetadataEntity entity, String id, String fields) {
     // Unchecked cast is safe as all metadata entities extend identifiable object
     String path = entity.getPath();
-    String fields = entity.getExtFields();
     Class<T> type = (Class<T>) entity.getType();
 
     return getObject(
@@ -2694,7 +2709,7 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   /**
-   * Retrieves a {@link Program}.
+   * Retrieves a {@link Program} using extended fields.
    *
    * @param id the object identifier.
    * @return the {@link Program}.
@@ -2702,6 +2717,17 @@ public class Dhis2 extends BaseDhis2 {
    */
   public Program getProgram(String id) {
     return getMetadataObject(MetadataEntity.PROGRAM, id);
+  }
+
+  /**
+   * Retrieves a {@link Program} using standard fields.
+   *
+   * @param id the object identifier.
+   * @return the {@link Program}.
+   * @throws Dhis2ClientException if the object does not exist.
+   */
+  public Program getProgramStd(String id) {
+    return getMetadataObject(MetadataEntity.PROGRAM, id, ApiFields.PROGRAM_STD_FIELDS);
   }
 
   /**

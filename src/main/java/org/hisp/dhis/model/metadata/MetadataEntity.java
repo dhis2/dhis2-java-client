@@ -65,8 +65,8 @@ import static org.hisp.dhis.api.ApiFields.ORG_UNIT_GROUP_FIELDS;
 import static org.hisp.dhis.api.ApiFields.ORG_UNIT_GROUP_SET_FIELDS;
 import static org.hisp.dhis.api.ApiFields.ORG_UNIT_LEVEL_FIELDS;
 import static org.hisp.dhis.api.ApiFields.PROGRAM_EXT_FIELDS;
-import static org.hisp.dhis.api.ApiFields.PROGRAM_FIELDS;
 import static org.hisp.dhis.api.ApiFields.PROGRAM_INDICATOR_FIELDS;
+import static org.hisp.dhis.api.ApiFields.PROGRAM_MIN_FIELDS;
 import static org.hisp.dhis.api.ApiFields.PROGRAM_RULE_ACTION_FIELDS;
 import static org.hisp.dhis.api.ApiFields.PROGRAM_RULE_FIELDS;
 import static org.hisp.dhis.api.ApiFields.PROGRAM_RULE_VARIABLE_FIELDS;
@@ -314,7 +314,7 @@ public enum MetadataEntity {
       Dhis2Objects::getOptions),
   PROGRAM(
       Program.class,
-      PROGRAM_FIELDS,
+      PROGRAM_MIN_FIELDS,
       PROGRAM_EXT_FIELDS,
       "programs",
       Dhis2Objects::getPrograms),
