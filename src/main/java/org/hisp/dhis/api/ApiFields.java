@@ -427,9 +427,9 @@ public class ApiFields {
           """
           %1$s,trackedEntityType[%3$s],categoryCombo[%2$s,categories[%4$s]],\
           programSections[%5$s],\
-          programStages[%5$s],\
-          programTrackedEntityAttributes[%6$s],\
-          %7$s""",
+          programStages[%6$s],\
+          programTrackedEntityAttributes[%7$s],\
+          %8$s""",
           NAME_EXT_FIELDS,
           NAME_FIELDS,
           TRACKED_ENTITY_TYPE_FIELDS,

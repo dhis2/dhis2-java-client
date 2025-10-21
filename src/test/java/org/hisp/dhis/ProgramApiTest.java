@@ -278,7 +278,7 @@ class ProgramApiTest {
   }
 
   @Test
-  void testGetProgramChildProgramme() {
+  void testGetProgramExtChildProgramme() {
     Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
 
     Program pr = dhis2.getProgram("IpHINAT79UW");
@@ -292,11 +292,15 @@ class ProgramApiTest {
     assertNotNull(pr.getCreated());
     assertNotNull(pr.getLastUpdated());
     assertEquals(ProgramType.WITH_REGISTRATION, pr.getProgramType());
+    assertEquals(ProgramAccessLevel.OPEN, pr.getAccessLevel());
+    assertEquals(FeatureType.POINT, pr.getFeatureType());
+    assertNotNull(pr.getCategoryCombo());
     assertNotEmpty(pr.getOrganisationUnits());
     assertNotEmpty(pr.getTrackedEntityTypeAttributes());
     assertNotEmpty(pr.getNonConfidentialTrackedEntityAttributes());
     assertNotEmpty(pr.getTrackedEntityAttributes());
     assertNotEmpty(pr.getNonConfidentialTrackedEntityAttributes());
+    assertNotEmpty(pr.getProgramRuleVariables());
     assertNotNull(pr.getVersion());
     assertNotNull(pr.getDisplayIncidentDate());
     assertNotNull(pr.getOnlyEnrollOnce());
@@ -328,6 +332,112 @@ class ProgramApiTest {
 
     assertNotEmpty(pr.getProgramTrackedEntityAttributes());
     assertNotEmpty(pr.getProgramStages());
+
+    ProgramTrackedEntityAttribute ptea = pr.getProgramTrackedEntityAttributes().get(0);
+
+    assertNotNull(ptea);
+    assertNotBlank(ptea.getId());
+    assertNotNull(ptea.getProgram());
+    assertNotNull(ptea.getSortOrder());
+    assertNotNull(ptea.getDisplayInList());
+    assertNotNull(ptea.getMandatory());
+
+    TrackedEntityAttribute tea = ptea.getTrackedEntityAttribute();
+
+    assertNotNull(tea);
+    assertNotBlank(tea.getId());
+
+    ProgramStage ps = pr.getProgramStages().get(0);
+
+    assertNotNull(ps);
+    assertNotBlank(ps.getId());
+    assertNotBlank(ps.getName());
+    assertNotNull(ps.getProgram());
+    assertNotBlank(ps.getProgram().getId());
+    assertNotEmpty(ps.getProgramStageDataElements());
+    assertNotEmpty(ps.getDataElements());
+    assertNotEmpty(ps.getAnalyticsDataElements());
+
+    ProgramStageDataElement psde = ps.getProgramStageDataElements().get(0);
+
+    assertNotNull(psde);
+
+    assertNotNull(psde.getProgramStage());
+    assertNotBlank(psde.getProgramStage().getId());
+    assertNotNull(psde.getDataElement());
+    assertNotBlank(psde.getDataElement().getId());
+    assertNotNull(psde.getCompulsory());
+    assertNotNull(psde.getDisplayInReports());
+    assertNotNull(psde.getSkipSynchronization());
+    assertNotNull(psde.getSkipAnalytics());
+    assertNotNull(psde.getSortOrder());
+
+    DataElement de = psde.getDataElement();
+
+    assertNotNull(de);
+    assertNotBlank(de.getId());
+    assertNotBlank(de.getShortName());
+    assertNotBlank(de.getName());
+
+    assertNotEmpty(pr.getTrackedEntityAttributes());
+    assertNotEmpty(pr.getNonConfidentialTrackedEntityAttributes());
+    assertNotEmpty(pr.getDataElements());
+    assertNotEmpty(pr.getAnalyticsDataElements());
+
+    ProgramRuleVariable prv = pr.getProgramRuleVariables().iterator().next();
+
+    assertNotBlank(prv.getId());
+
+    assertNotNull(prv);
+  }
+
+  @Test
+  void testGetProgramStdChildProgramme() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    Program pr = dhis2.getProgramStd("IpHINAT79UW");
+
+    assertNotNull(pr);
+    assertEquals("IpHINAT79UW", pr.getId());
+    assertNotBlank(pr.getName());
+    assertNotBlank(pr.getShortName());
+    assertNotNull(pr.getSharing());
+    assertNotNull(pr.getAccess());
+    assertNotNull(pr.getCreated());
+    assertNotNull(pr.getLastUpdated());
+    assertEquals(ProgramType.WITH_REGISTRATION, pr.getProgramType());
+    assertEquals(ProgramAccessLevel.OPEN, pr.getAccessLevel());
+    assertEquals(FeatureType.POINT, pr.getFeatureType());
+    assertNotNull(pr.getCategoryCombo());
+    assertEmpty(pr.getOrganisationUnits());
+    assertNotEmpty(pr.getTrackedEntityTypeAttributes());
+    assertNotEmpty(pr.getNonConfidentialTrackedEntityAttributes());
+    assertNotEmpty(pr.getTrackedEntityAttributes());
+    assertNotEmpty(pr.getNonConfidentialTrackedEntityAttributes());
+    assertNotNull(pr.getVersion());
+    assertNotNull(pr.getDisplayIncidentDate());
+    assertNotNull(pr.getOnlyEnrollOnce());
+    assertNotNull(pr.getDisplayFrontPageList());
+    assertNotNull(pr.getMinAttributesRequiredToSearch());
+    assertNotNull(pr.getMaxTeiCountToReturn());
+    assertNotNull(pr.getAccessLevel());
+    assertEmpty(pr.getProgramRuleVariables());
+
+    TrackedEntityType tet = pr.getTrackedEntityType();
+
+    assertNotNull(tet);
+    assertEquals("nEenWmSyUEp", tet.getId());
+    assertNotBlank(tet.getName());
+    assertNotEmpty(tet.getTrackedEntityTypeAttributes());
+
+    TrackedEntityTypeAttribute teta = tet.getTrackedEntityTypeAttributes().get(0);
+
+    assertNotNull(teta);
+    assertEquals("Jdd8hMStmvF", teta.getId());
+    assertNotNull(teta.getTrackedEntityAttribute());
+    assertEquals("lZGmxYbs97q", teta.getTrackedEntityAttribute().getId());
+    assertEquals("MMD_PER_ID", teta.getTrackedEntityAttribute().getCode());
+    assertNotBlank(teta.getTrackedEntityAttribute().getName());
 
     ProgramTrackedEntityAttribute ptea = pr.getProgramTrackedEntityAttributes().get(0);
 
