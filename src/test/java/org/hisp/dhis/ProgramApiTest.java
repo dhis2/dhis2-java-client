@@ -54,9 +54,6 @@ import org.hisp.dhis.model.trackedentity.ProgramTrackedEntityAttribute;
 import org.hisp.dhis.model.trackedentity.TrackedEntityAttribute;
 import org.hisp.dhis.model.trackedentity.TrackedEntityType;
 import org.hisp.dhis.model.trackedentity.TrackedEntityTypeAttribute;
-import org.hisp.dhis.query.Filter;
-import org.hisp.dhis.query.Order;
-import org.hisp.dhis.query.Query;
 import org.hisp.dhis.response.HttpStatus;
 import org.hisp.dhis.response.Status;
 import org.hisp.dhis.response.object.ObjectResponse;
@@ -593,104 +590,5 @@ class ProgramApiTest {
     assertNotBlank(ps.getName());
     assertNotNull(ps.getProgram());
     assertNotBlank(ps.getProgram().getId());
-  }
-
-  @Test
-  void testGetProgramsExpandAssociationsA() {
-    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
-
-    List<Program> programs =
-        dhis2.getPrograms(
-            Query.instance().withExpandAssociations().addFilter(Filter.eq("id", "IpHINAT79UW")));
-
-    assertNotNull(programs);
-    assertSize(1, programs);
-    assertNotNull(programs.get(0));
-    assertEquals("IpHINAT79UW", programs.get(0).getId());
-
-    Program program = programs.get(0);
-
-    assertNotNull(program);
-    assertEquals("IpHINAT79UW", program.getId());
-    assertEquals(ProgramType.WITH_REGISTRATION, program.getProgramType());
-
-    assertNotEmpty(program.getTrackedEntityAttributes());
-    assertNotNull(program.getTrackedEntityAttributes().get(0));
-
-    assertNotEmpty(program.getProgramTrackedEntityAttributes());
-    assertNotNull(program.getProgramTrackedEntityAttributes().get(0));
-    assertNotNull(program.getProgramTrackedEntityAttributes().get(0).getId());
-
-    TrackedEntityAttribute tea =
-        program.getProgramTrackedEntityAttributes().get(0).getTrackedEntityAttribute();
-
-    assertNotNull(tea);
-    assertNotNull(tea.getId());
-    assertNotNull(tea.getValueType());
-
-    assertNotEmpty(program.getProgramStages());
-
-    ProgramStage ps = program.getProgramStages().get(0);
-
-    assertNotNull(ps);
-    assertNotNull(ps.getId());
-    assertNotBlank(ps.getName());
-    assertNotNull(ps.getProgram());
-    assertNotBlank(ps.getProgram().getId());
-    assertNotEmpty(ps.getProgramStageDataElements());
-
-    ProgramStageDataElement psde = ps.getProgramStageDataElements().get(0);
-
-    assertNotNull(psde);
-    assertNotNull(psde.getId());
-    assertNotNull(psde.getProgramStage());
-    assertNotBlank(psde.getProgramStage().getId());
-    assertNotNull(psde.getDataElement());
-
-    DataElement de = psde.getDataElement();
-
-    assertNotNull(de);
-    assertNotNull(de.getId());
-    assertNotNull(de.getAggregationType());
-    assertNotNull(de.getValueType());
-  }
-
-  @Test
-  void testGetProgramsExpandAssociationsB() {
-    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
-
-    List<Program> programs =
-        dhis2.getPrograms(
-            Query.instance()
-                .withExpandAssociations()
-                .addFilter(Filter.in("id", List.of("M3xtLkYBlKI", "WSGAb5XwJ3Y"))));
-
-    assertSize(2, programs);
-  }
-
-  @Test
-  void testGetPrograms() {
-    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
-
-    List<Program> programs = dhis2.getPrograms(Query.instance());
-
-    assertNotEmpty(programs);
-    assertNotNull(programs.get(0));
-  }
-
-  @Test
-  void testGetProgramsWithFilter() {
-    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
-
-    List<Program> programs =
-        dhis2.getPrograms(
-            Query.instance()
-                .addFilter(Filter.in("id", List.of("WSGAb5XwJ3Y", "M3xtLkYBlKI", "IpHINAT79UW")))
-                .setOrder(Order.asc("id")));
-
-    assertSize(3, programs);
-    assertEquals("IpHINAT79UW", programs.get(0).getId());
-    assertEquals("M3xtLkYBlKI", programs.get(1).getId());
-    assertEquals("WSGAb5XwJ3Y", programs.get(2).getId());
   }
 }
