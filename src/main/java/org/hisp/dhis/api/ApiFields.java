@@ -388,23 +388,29 @@ public class ApiFields {
           condition,priority""",
           ID_EXT_FIELDS, ID_FIELDS, PROGRAM_RULE_ACTION_FIELDS);
 
+  /** Program simple fields. */
+  private static final String PROGRAM_SIMPLE_FIELDS =
+      """
+      formName,programType,\
+      enrollmentDateLabel,incidentDateLabel,enrollmentLabel,followUpLabel,\
+      orgUnitLabel,relationshipLabel,noteLabel,trackedEntityAttributeLabel,\
+      programStageLabel,eventLabel,\
+      version,displayIncidentDate,ignoreOverdueEvents,onlyEnrollOnce,\
+      selectEnrollmentDatesInFuture,selectIncidentDatesInFuture,displayFrontPageList,\
+      skipOffline,useFirstStageDuringRegistration,expiryDays,\
+      minAttributesRequiredToSearch,maxTeiCountToReturn,accessLevel,featureType""";
+
   /** Program extended fields. */
   public static final String PROGRAM_EXT_FIELDS =
       String.format(
           """
-          %1$s,formName,programType,trackedEntityType[%3$s],categoryCombo[%2$s,categories[%4$s]],\
+          %1$s,trackedEntityType[%3$s],categoryCombo[%2$s,categories[%4$s]],\
           organisationUnits[%2$s],\
           programSections[%5$s],\
           programStages[%6$s],\
           programTrackedEntityAttributes[%7$s],\
-          enrollmentDateLabel,incidentDateLabel,enrollmentLabel,followUpLabel,\
-          orgUnitLabel,relationshipLabel,noteLabel,trackedEntityAttributeLabel,\
-          programStageLabel,eventLabel,\
-          version,displayIncidentDate,ignoreOverdueEvents,onlyEnrollOnce,\
-          selectEnrollmentDatesInFuture,selectIncidentDatesInFuture,displayFrontPageList,\
-          skipOffline,useFirstStageDuringRegistration,expiryDays,\
-          minAttributesRequiredToSearch,maxTeiCountToReturn,accessLevel,featureType,\
-          programRuleVariables[%8$s]""",
+          programRuleVariables[%8$s],\
+          %9$s""",
           NAME_EXT_FIELDS,
           NAME_FIELDS,
           TRACKED_ENTITY_TYPE_FIELDS,
@@ -412,29 +418,40 @@ public class ApiFields {
           PROGRAM_SECTION_FIELDS,
           PROGRAM_STAGE_FIELDS,
           PROGRAM_TRACKED_ENTITY_ATTRIBUTES_FIELDS,
-          PROGRAM_RULE_VARIABLE_FIELDS);
+          PROGRAM_RULE_VARIABLE_FIELDS,
+          PROGRAM_SIMPLE_FIELDS);
 
-  /** Program fields. */
-  public static final String PROGRAM_FIELDS =
+  /** Program standard fields. */
+  public static final String PROGRAM_STD_FIELDS =
       String.format(
           """
-          %1$s,formName,programType,trackedEntityType[%2$s],categoryCombo[%2$s],\
-          programSections[%2$s],\
-          programStages[%2$s],\
-          programTrackedEntityAttributes[%4$s],\
-          enrollmentDateLabel,incidentDateLabel,enrollmentLabel,followUpLabel,\
-          orgUnitLabel,relationshipLabel,noteLabel,trackedEntityAttributeLabel,\
-          programStageLabel,eventLabel,\
-          version,displayIncidentDate,ignoreOverdueEvents,onlyEnrollOnce,\
-          selectEnrollmentDatesInFuture,selectIncidentDatesInFuture,displayFrontPageList,\
-          skipOffline,useFirstStageDuringRegistration,expiryDays,\
-          minAttributesRequiredToSearch,maxTeiCountToReturn,accessLevel,featureType,\
-          programRuleVariables[%5$s]""",
+          %1$s,trackedEntityType[%3$s],categoryCombo[%2$s,categories[%4$s]],\
+          programSections[%5$s],\
+          programStages[%6$s],\
+          programTrackedEntityAttributes[%7$s],\
+          %8$s""",
           NAME_EXT_FIELDS,
           NAME_FIELDS,
-          TRACKED_ENTITY_ATTRIBUTE_FIELDS,
+          TRACKED_ENTITY_TYPE_FIELDS,
+          CATEGORY_FIELDS,
+          PROGRAM_SECTION_FIELDS,
+          PROGRAM_STAGE_FIELDS,
           PROGRAM_TRACKED_ENTITY_ATTRIBUTES_FIELDS,
-          ID_FIELDS);
+          PROGRAM_SIMPLE_FIELDS);
+
+  /** Program fields. */
+  public static final String PROGRAM_MIN_FIELDS =
+      String.format(
+          """
+          %1$s,trackedEntityType[%2$s],categoryCombo[%2$s],\
+          programSections[%2$s],\
+          programStages[%2$s],\
+          programTrackedEntityAttributes[%3$s],\
+          %4$s""",
+          NAME_EXT_FIELDS,
+          NAME_FIELDS,
+          PROGRAM_TRACKED_ENTITY_ATTRIBUTES_FIELDS,
+          PROGRAM_SIMPLE_FIELDS);
 
   /** User fields. */
   public static final String USER_FIELDS =
