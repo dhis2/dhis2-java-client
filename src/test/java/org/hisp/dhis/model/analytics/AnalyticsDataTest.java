@@ -49,51 +49,60 @@ class AnalyticsDataTest {
             new AnalyticsHeader("pe", "Period", ValueType.TEXT, true),
             new AnalyticsHeader("ou", "OrgUnit", ValueType.TEXT, true),
             new AnalyticsHeader("value", "Value", ValueType.NUMBER, false)));
-    data.addRow(List.of("1A", "1B", "1C", "2"));
-    data.addRow(List.of("3A", "3B", "3C", "4"));
-    data.addRow(List.of("2A", "2B", "2C", "7"));
-    data.addRow(List.of("5A", "5B", "5C", "3"));
-    data.addRow(List.of("4A", "4B", "4C", "8"));
+    data.setMetaData(new AnalyticsMetaData());
+    data.addRow(List.of("A1", "B1", "C1", "2"));
+    data.addRow(List.of("A2", "B2", "C2", "4"));
+    data.addRow(List.of("A4", "B4", "C2", "3"));
+    data.addRow(List.of("A3", "B3", "C1", "7"));
+    data.addRow(List.of("A5", "B1", "C1", "8"));
+    data.addRow(List.of("A7", "B3", "C1", "1"));
+    data.addRow(List.of("A6", "B2", "C2", "6"));
+    data.addRow(List.of("A8", "B4", "C2", "9"));
   }
 
   @Test
   void testGetWidthHeight() {
     assertEquals(4, data.getWidth());
     assertEquals(4, data.getHeaderWidth());
-    assertEquals(5, data.getHeight());
+    assertEquals(8, data.getHeight());
   }
 
   @Test
   void testTruncateDataRows() {
     assertEquals(4, data.getWidth());
     assertEquals(4, data.getHeaderWidth());
-    assertEquals(5, data.getHeight());
+    assertEquals(8, data.getHeight());
     assertFalse(data.isTruncated());
 
-    data.truncate(2);
+    data.truncate(4);
 
     assertEquals(4, data.getWidth());
     assertEquals(4, data.getHeaderWidth());
-    assertEquals(2, data.getHeight());
+    assertEquals(4, data.getHeight());
     assertTrue(data.isTruncated());
   }
 
   @Test
   void testGetRow() {
     List<String> row1 = data.getRow(0);
+    List<String> row2 = data.getRow(1);
     List<String> row3 = data.getRow(2);
     List<String> row5 = data.getRow(4);
 
-    assertEquals("1A", row1.get(0));
-    assertEquals("1C", row1.get(2));
-    assertEquals("2A", row3.get(0));
-    assertEquals("2C", row3.get(2));
-    assertEquals("4A", row5.get(0));
-    assertEquals("4C", row5.get(2));
+    assertEquals("A1", row1.get(0));
+    assertEquals("C1", row1.get(2));
+    assertEquals("A2", row2.get(0));
+    assertEquals("C2", row2.get(2));
+    assertEquals("A4", row3.get(0));
+    assertEquals("C2", row3.get(2));
+    assertEquals("A5", row5.get(0));
+    assertEquals("C1", row5.get(2));
   }
 
   @Test
-  void testDataWithNames() {}
+  void testDataWithNames() {
+    
+  }
 
   @Test
   void testSortData() {
@@ -101,24 +110,24 @@ class AnalyticsDataTest {
     List<String> row3 = data.getRow(2);
     List<String> row5 = data.getRow(4);
 
-    assertEquals("1A", row1.get(0));
-    assertEquals("1C", row1.get(2));
-    assertEquals("2A", row3.get(0));
-    assertEquals("2C", row3.get(2));
-    assertEquals("4A", row5.get(0));
-    assertEquals("4C", row5.get(2));
-
+    assertEquals("A1", row1.get(0));
+    assertEquals("C1", row1.get(2));
+    assertEquals("A4", row3.get(0));
+    assertEquals("C2", row3.get(2));
+    assertEquals("A5", row5.get(0));
+    assertEquals("C1", row5.get(2));
+    
     data.sortRows();
 
     row1 = data.getRow(0);
     row3 = data.getRow(2);
     row5 = data.getRow(4);
 
-    assertEquals("1A", row1.get(0));
-    assertEquals("1C", row1.get(2));
-    assertEquals("3A", row3.get(0));
-    assertEquals("3C", row3.get(2));
-    assertEquals("5A", row5.get(0));
-    assertEquals("5C", row5.get(2));
+    assertEquals("A1", row1.get(0));
+    assertEquals("C1", row1.get(2));
+    assertEquals("A3", row3.get(0));
+    assertEquals("C1", row3.get(2));
+    assertEquals("A5", row5.get(0));
+    assertEquals("C1", row5.get(2));
   }
 }
