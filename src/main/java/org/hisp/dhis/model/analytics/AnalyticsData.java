@@ -204,7 +204,7 @@ public class AnalyticsData {
       return;
     }
 
-    // TODO sort period dimension by ISO name instead of display name
+    // TODO sort period dimension by ISO name using metadata items details
 
     rows.sort(
         (rowA, rowB) -> {
