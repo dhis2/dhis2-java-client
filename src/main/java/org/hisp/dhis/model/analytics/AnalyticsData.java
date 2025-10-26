@@ -55,10 +55,22 @@ public class AnalyticsData {
   /** Whether the data rows were truncatd to max limit. */
   @JsonProperty private boolean truncated;
 
+  /** Default constructor. */
   public AnalyticsData() {
     this.headers = new ArrayList<>();
     this.rows = new ArrayList<List<String>>();
     this.truncated = false;
+  }
+
+  /**
+   * Constructor.
+   *
+   * @param headers the {@link AnalyticsHeader}.
+   * @param rows the rows.
+   */
+  public AnalyticsData(List<AnalyticsHeader> headers, List<List<String>> rows) {
+    this.headers = headers;
+    this.rows = rows;
   }
 
   /**
