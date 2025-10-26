@@ -27,7 +27,9 @@
  */
 package org.hisp.dhis.model.analytics;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -38,6 +40,7 @@ import org.hisp.dhis.model.ValueType;
 @Setter
 @ToString
 @NoArgsConstructor
+@AllArgsConstructor
 public class AnalyticsHeader {
   @JsonProperty private String name;
 
@@ -50,16 +53,19 @@ public class AnalyticsHeader {
   @JsonProperty private Boolean meta;
 
   /**
-   * Constructor with required fields.
+   * Constructor.
    *
    * @param name the name.
    * @param column the column.
    * @param valueType the value type.
+   * @param meta whether the column represents metadata.
    */
-  public AnalyticsHeader(String name, String column, ValueType valueType) {
+  public AnalyticsHeader(String name, String column, ValueType valueType, boolean meta) {
     this.name = name;
     this.column = column;
     this.valueType = valueType;
+    this.hidden = false;
+    this.meta = meta;
   }
 
   /**
@@ -70,5 +76,15 @@ public class AnalyticsHeader {
   @JsonProperty
   public String getLabel() {
     return column;
+  }
+
+  @JsonIgnore
+  public boolean isHidden() {
+    return hidden != null && hidden;
+  }
+
+  @JsonIgnore
+  public boolean isMeta() {
+    return meta != null && meta;
   }
 }

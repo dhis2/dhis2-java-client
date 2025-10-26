@@ -30,6 +30,7 @@ package org.hisp.dhis.model.analytics;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Map;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -39,8 +40,20 @@ import lombok.ToString;
 @Setter
 @ToString
 @NoArgsConstructor
+@AllArgsConstructor
 public class AnalyticsMetaData {
   @JsonProperty private Map<String, MetaDataItem> items;
 
   @JsonProperty private Map<String, List<String>> dimensions;
+
+  /**
+   * Get item name by item identifier.
+   *
+   * @param id the item identifier.
+   * @return the item name, or null if no item exists with the given identifier.
+   */
+  public String getItemName(String id) {
+    MetaDataItem item = items.get(id);
+    return item != null ? item.getName() : null;
+  }
 }

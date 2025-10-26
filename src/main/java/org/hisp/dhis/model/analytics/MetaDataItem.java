@@ -59,4 +59,13 @@ public class MetaDataItem {
   @JsonProperty private String legendSet;
 
   @JsonProperty private String aggregationType;
+
+  /**
+   * Constructor.
+   *
+   * @param name the name.
+   */
+  public MetaDataItem(String name) {
+    this.name = name;
+  }
 }
