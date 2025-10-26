@@ -152,30 +152,29 @@ public class AnalyticsData {
     if (headers == null || metaData != null || metaData.getItems() == null || rows == null) {
       throw new IllegalStateException("Headers, metadata and rows must be present");
     }
-    
+
     List<List<String>> _rows = new ArrayList<>();
-    
+
     for (List<String> row : rows) {
       List<String> _row = new ArrayList<>();
-      
+
       for (int i = 0; i < row.size(); i++) {
         String value = row.get(i);
         boolean meta = headers.get(i).isMeta();
-        
-        if (meta) {          
+
+        if (meta) {
           row.add(metaData.getItemName(value));
-        }
-        else {
+        } else {
           row.add(value);
         }
       }
-      
+
       _rows.add(_row);
     }
-    
+
     return _rows;
   }
-  
+
   /** Orders the data rows in natural order based on their values. */
   public void sortRows() {
     if (isEmpty(rows)) {

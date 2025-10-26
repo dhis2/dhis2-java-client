@@ -93,9 +93,7 @@ class AnalyticsDataTest {
   }
 
   @Test
-  void testDataWithNames() {
-    
-  }
+  void testDataWithNames() {}
 
   @Test
   void testSortData() {
