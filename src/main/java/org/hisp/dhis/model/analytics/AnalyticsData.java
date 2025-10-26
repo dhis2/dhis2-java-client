@@ -35,6 +35,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -74,20 +75,6 @@ public class AnalyticsData {
   }
 
   /**
-   * Gets a copy of the headers.
-   *
-   * @return a copy of the headers as an immutable list.
-   */
-  public List<AnalyticsHeader> getCopyOfHeaders() {
-    return headers.stream()
-        .map(
-            h ->
-                new AnalyticsHeader(
-                    h.getName(), h.getColumn(), h.getValueType(), h.getHidden(), h.getMeta()))
-        .toList();
-  }
-
-  /**
    * Gets the number ofd ata rows.
    *
    * @return the number of data rows.
@@ -117,6 +104,23 @@ public class AnalyticsData {
     return headers != null ? headers.size() : 0;
   }
 
+  // Non-serializable logic methods
+
+  /**
+   * Gets a copy of the headers.
+   *
+   * @return a copy of the headers.
+   */
+  @JsonIgnore
+  public List<AnalyticsHeader> getCopyOfHeaders() {
+    return headers.stream()
+        .map(
+            h ->
+                new AnalyticsHeader(
+                    h.getName(), h.getColumn(), h.getValueType(), h.getHidden(), h.getMeta()))
+        .collect(Collectors.toList());
+  }
+
   /**
    * Indicates whether metadata exists.
    *
@@ -132,6 +136,7 @@ public class AnalyticsData {
    *
    * @param row the data row.
    */
+  @JsonIgnore
   public void addRow(List<String> row) {
     this.rows.add(row);
   }
@@ -142,6 +147,7 @@ public class AnalyticsData {
    * @param index the row index, starting with 0.
    * @return the data row at the specified index, or null if out of bounds.
    */
+  @JsonIgnore
   public List<String> getRow(int index) {
     if (rows == null || index < 0 || index >= rows.size()) {
       return null;
@@ -155,6 +161,7 @@ public class AnalyticsData {
    *
    * @param maxRows the maximum number of rows to retain.
    */
+  @JsonIgnore
   public void truncate(int maxRows) {
     if (rows != null && rows.size() > maxRows) {
       rows = rows.subList(0, maxRows);
@@ -162,6 +169,7 @@ public class AnalyticsData {
     }
   }
 
+  @JsonIgnore
   public List<List<String>> getRowsWithNames() {
     if (headers == null || metaData == null || metaData.getItems() == null || rows == null) {
       throw new IllegalStateException("Headers, metadata and rows must be present");
@@ -190,6 +198,7 @@ public class AnalyticsData {
   }
 
   /** Orders the data rows in natural order based on their values. */
+  @JsonIgnore
   public void sortRows() {
     if (isEmpty(rows)) {
       return;
