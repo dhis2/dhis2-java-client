@@ -227,6 +227,16 @@ public class AnalyticsQuery {
   }
 
   /**
+   * Includes numerator and denominator values in the response.
+   *
+   * @return this {@link AnalyticsQuery}.
+   */
+  public AnalyticsQuery withNumDen() {
+    this.includeNumDen = true;
+    return this;
+  }
+
+  /**
    * Includes metadata details in the response.
    *
    * @return this {@link AnalyticsQuery}.
