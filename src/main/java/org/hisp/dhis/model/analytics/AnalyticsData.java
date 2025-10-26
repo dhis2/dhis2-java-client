@@ -204,6 +204,8 @@ public class AnalyticsData {
       return;
     }
 
+    // TODO sort period dimension by ISO name instead of display name
+
     rows.sort(
         (rowA, rowB) -> {
           int maxLength = Math.max(rowA.size(), rowB.size());
