@@ -27,6 +27,7 @@
  */
 package org.hisp.dhis.model.analytics;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -70,5 +71,15 @@ public class AnalyticsHeader {
   @JsonProperty
   public String getLabel() {
     return column;
+  }
+
+  @JsonIgnore
+  public boolean isHidden() {
+    return hidden != null && hidden;
+  }
+
+  @JsonIgnore
+  public boolean isMeta() {
+    return meta != null && meta;
   }
 }
