@@ -42,16 +42,28 @@ class AnalyticsDataTest {
 
   @BeforeEach
   public void beforeEach() {
+    List<AnalyticsHeader> headers = List.of(
+        new AnalyticsHeader("dx", "Data", ValueType.TEXT, true),
+        new AnalyticsHeader("pe", "Period", ValueType.TEXT, true),
+        new AnalyticsHeader("ou", "OrgUnit", ValueType.TEXT, true),
+        new AnalyticsHeader("value", "Value", ValueType.NUMBER, false));
+    
     AnalyticsMetaData metadata = new AnalyticsMetaData();
     metadata.setItems(new MapBuilder<String, MetaDataItem>()
-        .put("A1", new MetaDataItem("Indicator1"))
-        .put("A2", new MetaDataItem("Indicator2"))
-        .put("A3", new MetaDataItem("Indicator3"))
-        .put("A4", new MetaDataItem("Indicator4"))
-        .put("A5", new MetaDataItem("Indicator5"))
-        .put("A6", new MetaDataItem("Indicator6"))
-        .put("A7", new MetaDataItem("Indicator7"))
-        .put("A8", new MetaDataItem("Indicator8"))
+        .put("A1", new MetaDataItem("Indicator 1"))
+        .put("A2", new MetaDataItem("Indicator 2"))
+        .put("A3", new MetaDataItem("Indicator 3"))
+        .put("A4", new MetaDataItem("Indicator 4"))
+        .put("A5", new MetaDataItem("Indicator 5"))
+        .put("A6", new MetaDataItem("Indicator 6"))
+        .put("A7", new MetaDataItem("Indicator 7"))
+        .put("A8", new MetaDataItem("Indicator 8"))
+        .put("B1", new MetaDataItem("Month 1"))
+        .put("B2", new MetaDataItem("Month 2"))
+        .put("B3", new MetaDataItem("Month 3"))
+        .put("B4", new MetaDataItem("Month 4"))
+        .put("C1", new MetaDataItem("Facility 1"))
+        .put("C2", new MetaDataItem("Facility 2"))
         .build());
     metadata.setDimensions(new MapBuilder<String, List<String>>()
         .put("dx", List.of("A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8"))
@@ -61,13 +73,9 @@ class AnalyticsDataTest {
 
     data = new AnalyticsData();
 
-    data.setHeaders(
-        List.of(
-            new AnalyticsHeader("dx", "Data", ValueType.TEXT, true),
-            new AnalyticsHeader("pe", "Period", ValueType.TEXT, true),
-            new AnalyticsHeader("ou", "OrgUnit", ValueType.TEXT, true),
-            new AnalyticsHeader("value", "Value", ValueType.NUMBER, false)));
+    data.setHeaders(headers);    
     data.setMetaData(metadata);
+    
     data.addRow(List.of("A1", "B1", "C1", "2"));
     data.addRow(List.of("A2", "B2", "C2", "4"));
     data.addRow(List.of("A4", "B4", "C2", "3"));
@@ -119,6 +127,21 @@ class AnalyticsDataTest {
 
   @Test
   void testDataWithNames() {
+    List<List<String>> rows = data.getRowsWithNames();
+
+    List<String> row1 = rows.get(0);
+    List<String> row2 = rows.get(1);
+    List<String> row3 = rows.get(2);
+    List<String> row5 = rows.get(4);
+    
+    assertEquals("Indicator 1", row1.get(0));
+    assertEquals("Facility 1", row1.get(2));
+    assertEquals("Indicator 2", row2.get(0));
+    assertEquals("Facility 2", row2.get(2));
+    assertEquals("Indicator 4", row3.get(0));
+    assertEquals("Facility 2", row3.get(2));
+    assertEquals("Indicator 5", row5.get(0));
+    assertEquals("Facility 1", row5.get(2));
     
   }
 

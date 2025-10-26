@@ -149,7 +149,7 @@ public class AnalyticsData {
   }
 
   public List<List<String>> getRowsWithNames() {
-    if (headers == null || metaData != null || metaData.getItems() == null || rows == null) {
+    if (headers == null || metaData == null || metaData.getItems() == null || rows == null) {
       throw new IllegalStateException("Headers, metadata and rows must be present");
     }
 
@@ -163,9 +163,9 @@ public class AnalyticsData {
         boolean meta = headers.get(i).isMeta();
 
         if (meta) {
-          row.add(metaData.getItemName(value));
+          _row.add(metaData.getItemName(value));
         } else {
-          row.add(value);
+          _row.add(value);
         }
       }
 
