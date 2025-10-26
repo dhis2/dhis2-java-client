@@ -33,6 +33,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 import org.hisp.dhis.model.ValueType;
+import org.hisp.dhis.util.MapBuilder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -41,6 +42,23 @@ class AnalyticsDataTest {
 
   @BeforeEach
   public void beforeEach() {
+    AnalyticsMetaData metadata = new AnalyticsMetaData();
+    metadata.setItems(new MapBuilder<String, MetaDataItem>()
+        .put("A1", new MetaDataItem("Indicator1"))
+        .put("A2", new MetaDataItem("Indicator2"))
+        .put("A3", new MetaDataItem("Indicator3"))
+        .put("A4", new MetaDataItem("Indicator4"))
+        .put("A5", new MetaDataItem("Indicator5"))
+        .put("A6", new MetaDataItem("Indicator6"))
+        .put("A7", new MetaDataItem("Indicator7"))
+        .put("A8", new MetaDataItem("Indicator8"))
+        .build());
+    metadata.setDimensions(new MapBuilder<String, List<String>>()
+        .put("dx", List.of("A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8"))
+        .put("pe", List.of("B1", "B2", "B3", "B4"))
+        .put("ou", List.of("C1", "C2"))
+        .build());
+
     data = new AnalyticsData();
 
     data.setHeaders(
@@ -49,7 +67,7 @@ class AnalyticsDataTest {
             new AnalyticsHeader("pe", "Period", ValueType.TEXT, true),
             new AnalyticsHeader("ou", "OrgUnit", ValueType.TEXT, true),
             new AnalyticsHeader("value", "Value", ValueType.NUMBER, false)));
-    data.setMetaData(new AnalyticsMetaData());
+    data.setMetaData(metadata);
     data.addRow(List.of("A1", "B1", "C1", "2"));
     data.addRow(List.of("A2", "B2", "C2", "4"));
     data.addRow(List.of("A4", "B4", "C2", "3"));
