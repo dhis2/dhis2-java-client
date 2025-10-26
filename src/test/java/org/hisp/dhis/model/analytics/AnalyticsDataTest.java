@@ -45,34 +45,35 @@ class AnalyticsDataTest {
 
     data.setHeaders(
         List.of(
-            new AnalyticsHeader("C1", "C1", ValueType.TEXT),
-            new AnalyticsHeader("C2", "C2", ValueType.TEXT),
-            new AnalyticsHeader("C3", "C3", ValueType.TEXT)));
-    data.addRow(List.of("1A", "1B", "1C"));
-    data.addRow(List.of("3A", "3B", "3C"));
-    data.addRow(List.of("2A", "2B", "2C"));
-    data.addRow(List.of("5A", "5B", "5C"));
-    data.addRow(List.of("4A", "4B", "4C"));
+            new AnalyticsHeader("dx", "Data", ValueType.TEXT, true),
+            new AnalyticsHeader("pe", "Period", ValueType.TEXT, true),
+            new AnalyticsHeader("ou", "OrgUnit", ValueType.TEXT, true),
+            new AnalyticsHeader("value", "Value", ValueType.NUMBER, false)));
+    data.addRow(List.of("1A", "1B", "1C", "2"));
+    data.addRow(List.of("3A", "3B", "3C", "4"));
+    data.addRow(List.of("2A", "2B", "2C", "7"));
+    data.addRow(List.of("5A", "5B", "5C", "3"));
+    data.addRow(List.of("4A", "4B", "4C", "8"));
   }
 
   @Test
   void testGetWidthHeight() {
-    assertEquals(3, data.getWidth());
-    assertEquals(3, data.getHeaderWidth());
+    assertEquals(4, data.getWidth());
+    assertEquals(4, data.getHeaderWidth());
     assertEquals(5, data.getHeight());
   }
 
   @Test
   void testTruncateDataRows() {
-    assertEquals(3, data.getWidth());
-    assertEquals(3, data.getHeaderWidth());
+    assertEquals(4, data.getWidth());
+    assertEquals(4, data.getHeaderWidth());
     assertEquals(5, data.getHeight());
     assertFalse(data.isTruncated());
 
     data.truncate(2);
 
-    assertEquals(3, data.getWidth());
-    assertEquals(3, data.getHeaderWidth());
+    assertEquals(4, data.getWidth());
+    assertEquals(4, data.getHeaderWidth());
     assertEquals(2, data.getHeight());
     assertTrue(data.isTruncated());
   }
@@ -89,6 +90,11 @@ class AnalyticsDataTest {
     assertEquals("2C", row3.get(2));
     assertEquals("4A", row5.get(0));
     assertEquals("4C", row5.get(2));
+  }
+
+  @Test
+  void testDataWithNames() {
+    
   }
 
   @Test
