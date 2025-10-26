@@ -74,6 +74,20 @@ public class AnalyticsData {
   }
 
   /**
+   * Gets a copy of the headers.
+   *
+   * @return a copy of the headers as an immutable list.
+   */
+  public List<AnalyticsHeader> getCopyOfHeaders() {
+    return headers.stream()
+        .map(
+            h ->
+                new AnalyticsHeader(
+                    h.getName(), h.getColumn(), h.getValueType(), h.getHidden(), h.getMeta()))
+        .toList();
+  }
+
+  /**
    * Gets the number ofd ata rows.
    *
    * @return the number of data rows.
