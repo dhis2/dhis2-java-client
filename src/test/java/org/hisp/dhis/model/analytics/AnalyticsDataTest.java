@@ -161,6 +161,7 @@ class AnalyticsDataTest {
     List<String> row1 = data.getRow(0);
     List<String> row3 = data.getRow(2);
     List<String> row5 = data.getRow(4);
+    List<String> row7 = data.getRow(6);
 
     assertEquals("A1", row1.get(0));
     assertEquals("C1", row1.get(2));
@@ -168,12 +169,15 @@ class AnalyticsDataTest {
     assertEquals("C2", row3.get(2));
     assertEquals("A5", row5.get(0));
     assertEquals("C1", row5.get(2));
+    assertEquals("A6", row7.get(0));
+    assertEquals("C2", row7.get(2));
 
     data.sortRows();
 
     row1 = data.getRow(0);
     row3 = data.getRow(2);
     row5 = data.getRow(4);
+    row7 = data.getRow(6);
 
     assertEquals("A1", row1.get(0));
     assertEquals("C1", row1.get(2));
@@ -181,5 +185,7 @@ class AnalyticsDataTest {
     assertEquals("C1", row3.get(2));
     assertEquals("A5", row5.get(0));
     assertEquals("C1", row5.get(2));
+    assertEquals("A7", row7.get(0));
+    assertEquals("C1", row7.get(2));
   }
 }
