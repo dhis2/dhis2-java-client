@@ -28,18 +28,22 @@
 package org.hisp.dhis.model.analytics;
 
 import static org.apache.commons.collections4.CollectionUtils.isEmpty;
+import static org.apache.commons.lang3.StringUtils.isNotBlank;
+import static org.hisp.dhis.util.ObjectUtils.isNotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.apache.commons.lang3.StringUtils;
 
 @Getter
 @Setter
@@ -236,13 +240,38 @@ public class AnalyticsData {
   /** Orders the data rows in natural order based on their metadata values. */
   @JsonIgnore
   public void sortRows() {
+    sortRows(StringUtils.EMPTY);
+  }
+
+  /**
+   * Orders the data rows in natural order based on their metadata values. For a period column,
+   * identified by a column name {@link AnalyticsDimension#PERIOD}, period names are mapped to
+   * identifiers before compared as part of the sorting. The mapping requires that an {@link
+   * AnalyticsMetaData} object is present.
+   */
+  @JsonIgnore
+  public void sortRowsWithPeriodNameAsId() {
+    sortRows(AnalyticsDimension.PERIOD);
+  }
+
+  /**
+   * Orders the data rows in natural order based on their metadata values.
+   *
+   * @param dimension the dimension identifier matching a column name.
+   */
+  @JsonIgnore
+  private void sortRows(String dimension) {
     if (isEmpty(rows)) {
       return;
     }
 
     Set<Integer> metaIndexes = getHeaderMetaIndexes();
 
-    // TODO sort period dimension by ISO name using metadata items details
+    Map<String, String> dimItemNameIdMap =
+        isNotBlank(dimension) && isNotNull(metaData)
+            ? metaData.getDimensionItemNameIdMap(dimension)
+            : Map.of();
+    int dimIndex = headerIndex(dimension);
 
     rows.sort(
         (rowA, rowB) -> {
@@ -253,6 +282,12 @@ public class AnalyticsData {
             if (metaIndexes.contains(i)) {
               String val1 = rowA.get(i);
               String val2 = rowB.get(i);
+
+              // Retrieve and sort by dimension item ID in place of name
+              if (!dimItemNameIdMap.isEmpty() && i == dimIndex) {
+                val1 = dimItemNameIdMap.get(val1);
+                val2 = dimItemNameIdMap.get(val2);
+              }
 
               int comparison = Objects.compare(val1, val2, Comparator.naturalOrder());
 

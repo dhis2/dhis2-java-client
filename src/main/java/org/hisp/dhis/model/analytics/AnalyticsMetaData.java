@@ -31,6 +31,7 @@ import static org.apache.commons.collections4.CollectionUtils.isEmpty;
 import static org.apache.commons.collections4.MapUtils.isEmpty;
 import static org.hisp.dhis.util.ObjectUtils.isNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.HashMap;
 import java.util.List;
@@ -52,33 +53,34 @@ public class AnalyticsMetaData {
   @JsonProperty private Map<String, List<String>> dimensions;
 
   /**
-   * Get a complete map of period names to period ISO identifiers. If a period dimension with items
-   * or metadata items not present, an empty map is returned. If the name of any period metadata
+   * Returns a map of dimension item names to identifiers. If a dimension with items or metadata
+   * items are not present, an empty map is returned. If the name of any metadata dimension item
    * item is not present, an empty map is returned.
    *
-   * @return a map of period ISO strings to period names.
+   * @return a map of dimension item names to identifiers.
    */
-  public Map<String, String> getPeriodNameIsoIdMap() {
+  @JsonIgnore
+  public Map<String, String> getDimensionItemNameIdMap(String dimension) {
     if (isEmpty(items) || isEmpty(dimensions)) {
       return Map.of();
     }
 
-    List<String> peDimItems = dimensions.get(AnalyticsDimension.PERIOD);
+    List<String> dimItems = dimensions.get(dimension);
 
-    if (isEmpty(peDimItems)) {
+    if (isEmpty(dimItems)) {
       return Map.of();
     }
 
     Map<String, String> output = new HashMap<>();
 
-    for (String pe : peDimItems) {
-      MetaDataItem peItem = items.get(pe);
+    for (String item : dimItems) {
+      MetaDataItem metadataItem = items.get(item);
 
-      if (isNull(peItem) || isNull(peItem.getName())) {
+      if (isNull(metadataItem) || isNull(metadataItem.getName())) {
         return Map.of();
       }
 
-      output.put(peItem.getName(), pe);
+      output.put(metadataItem.getName(), item);
     }
 
     return output;
@@ -90,6 +92,7 @@ public class AnalyticsMetaData {
    * @param id the item identifier.
    * @return the item name, or null if no item exists with the given identifier.
    */
+  @JsonIgnore
   public String getItemName(String id) {
     MetaDataItem item = items.get(id);
     return item != null ? item.getName() : null;

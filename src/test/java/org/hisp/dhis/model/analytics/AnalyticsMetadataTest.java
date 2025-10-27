@@ -33,10 +33,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 import java.util.Map;
+import org.hisp.dhis.support.TestTags;
 import org.hisp.dhis.util.MapBuilder;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
+@Tag(TestTags.UNIT)
 class AnalyticsMetadataTest {
   private AnalyticsMetaData metadata;
 
@@ -77,8 +80,8 @@ class AnalyticsMetadataTest {
   }
 
   @Test
-  void testGetPeriodNameIsoIdMap() {
-    Map<String, String> map = metadata.getPeriodNameIsoIdMap();
+  void testGetDimensionItemNameIdMap() {
+    Map<String, String> map = metadata.getDimensionItemNameIdMap(AnalyticsDimension.PERIOD);
 
     assertEquals(4, map.keySet().size());
     assertEquals("B1", map.get("Month 1"));
@@ -87,11 +90,11 @@ class AnalyticsMetadataTest {
   }
 
   @Test
-  void testGetPeriodNameToIsoIdMapEmpty() {
+  void testGetDimensionItemNameIdMapEmpty() {
     AnalyticsMetaData metadataA = new AnalyticsMetaData();
     metadataA.setItems(Map.of());
     metadataA.setDimensions(Map.of());
 
-    assertTrue(metadataA.getPeriodNameIsoIdMap().isEmpty());
+    assertTrue(metadataA.getDimensionItemNameIdMap(AnalyticsDimension.PERIOD).isEmpty());
   }
 }
