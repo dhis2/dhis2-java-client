@@ -278,7 +278,7 @@ public class AnalyticsData {
               String val1 = rowA.get(i);
               String val2 = rowB.get(i);
 
-              // Retrieve and sort by period ISO ID instead of name
+              // Retrieve and sort by dimension item ID in place of name
               if (!dimItemNameIdMap.isEmpty() && i == dimIndex) {
                 val1 = dimItemNameIdMap.get(val1);
                 val2 = dimItemNameIdMap.get(val2);
