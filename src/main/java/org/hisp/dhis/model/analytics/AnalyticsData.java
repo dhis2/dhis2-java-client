@@ -28,15 +28,12 @@
 package org.hisp.dhis.model.analytics;
 
 import static org.apache.commons.collections4.CollectionUtils.isEmpty;
-import static org.hisp.dhis.model.analytics.AnalyticsDimension.PERIOD;
-import static org.hisp.dhis.util.ObjectUtils.isNotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -236,32 +233,32 @@ public class AnalyticsData {
     return _rows;
   }
 
-  /** Orders the data rows in natural order based on their values. */
+  /** Orders the data rows in natural order based on their metadata values. */
   @JsonIgnore
   public void sortRows() {
     if (isEmpty(rows)) {
       return;
     }
 
-    Map<String, String> peMap = isNotNull(metaData) ? metaData.getPeriodNameIsoIdMap() : Map.of();
-    Set<Integer> metaInx = getHeaderMetaIndexes();
-    boolean hasPeMap = headerExists(PERIOD) && !peMap.isEmpty();
+    Set<Integer> metaIndexes = getHeaderMetaIndexes();
 
     // TODO sort period dimension by ISO name using metadata items details
-    // TODO only sort metadata columns
 
     rows.sort(
         (rowA, rowB) -> {
           int maxLength = Math.min(rowA.size(), rowB.size());
 
           for (int i = 0; i < maxLength; i++) {
-            String val1 = rowA.get(i);
-            String val2 = rowB.get(i);
+            // Only sort metadata column values
+            if (metaIndexes.contains(i)) {
+              String val1 = rowA.get(i);
+              String val2 = rowB.get(i);
 
-            int comparison = Objects.compare(val1, val2, Comparator.naturalOrder());
+              int comparison = Objects.compare(val1, val2, Comparator.naturalOrder());
 
-            if (comparison != 0) {
-              return comparison;
+              if (comparison != 0) {
+                return comparison;
+              }
             }
           }
 
