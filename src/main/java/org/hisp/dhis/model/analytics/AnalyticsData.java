@@ -139,7 +139,7 @@ public class AnalyticsData {
     return headers.stream()
         .filter(AnalyticsHeader::isMeta)
         .map(headers::indexOf)
-        .collect(Collectors.toSet());
+        .collect(Collectors.toUnmodifiableSet());
   }
 
   /**
