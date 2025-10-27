@@ -56,13 +56,13 @@ public class AnalyticsHeader {
 
   /**
    * Constructor.
-   * 
+   *
    * @param name the name.
    */
   public AnalyticsHeader(String name) {
     this.name = name;
   }
-  
+
   /**
    * Constructor.
    *

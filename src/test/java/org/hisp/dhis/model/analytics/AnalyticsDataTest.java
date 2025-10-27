@@ -96,7 +96,14 @@ class AnalyticsDataTest {
     assertTrue(data.headerExists(ORG_UNIT));
     assertFalse(data.headerExists("product"));
   }
-  
+
+  @Test
+  void testHeaderIndex() {
+    assertEquals(0, data.headerIndex(DATA_X));
+    assertEquals(2, data.headerIndex(ORG_UNIT));
+    assertEquals(-1, data.headerIndex("product"));
+  }
+
   @Test
   void testGetCopyOfHeaders() {
     List<AnalyticsHeader> copy = data.getCopyOfHeaders();
