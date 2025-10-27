@@ -112,6 +112,7 @@ public class AnalyticsData {
    * @param name the header name.
    * @return true if a header with the given name exists, false otherwise.
    */
+  @JsonIgnore
   public boolean headerExists(String name) {
     return headerIndex(name) != -1;
   }
@@ -122,6 +123,7 @@ public class AnalyticsData {
    * @param name the header name.
    * @return the index of the header with the given name, or -1 if not found.
    */
+  @JsonIgnore
   public int headerIndex(String name) {
     return headers.indexOf(new AnalyticsHeader(name));
   }
