@@ -243,7 +243,11 @@ public class AnalyticsData {
     }
 
     Set<Integer> metaIndexes = getHeaderMetaIndexes();
-    Map<String, String> peMap = isNotNull(metaData) ? metaData.getPeriodNameIsoIdMap() : Map.of();
+
+    Map<String, String> peMap =
+        isNotNull(metaData)
+            ? metaData.getDimensionItemNameIdMap(AnalyticsDimension.PERIOD)
+            : Map.of();
     int peIndex = headerIndex(AnalyticsDimension.PERIOD);
 
     rows.sort(
