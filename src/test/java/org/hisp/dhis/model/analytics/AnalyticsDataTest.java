@@ -27,6 +27,7 @@
  */
 package org.hisp.dhis.model.analytics;
 
+import static org.hisp.dhis.model.analytics.AnalyticsDimension.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -44,9 +45,9 @@ class AnalyticsDataTest {
   public void beforeEach() {
     List<AnalyticsHeader> headers =
         List.of(
-            new AnalyticsHeader("dx", "Data", ValueType.TEXT, true),
-            new AnalyticsHeader("pe", "Period", ValueType.TEXT, true),
-            new AnalyticsHeader("ou", "OrgUnit", ValueType.TEXT, true),
+            new AnalyticsHeader(DATA_X, "Data", ValueType.TEXT, true),
+            new AnalyticsHeader(PERIOD, "Period", ValueType.TEXT, true),
+            new AnalyticsHeader(ORG_UNIT, "OrgUnit", ValueType.TEXT, true),
             new AnalyticsHeader("value", "Value", ValueType.NUMBER, false));
 
     AnalyticsMetaData metadata = new AnalyticsMetaData();
@@ -87,6 +88,20 @@ class AnalyticsDataTest {
     data.addRow(List.of("A7", "B3", "C1", "1"));
     data.addRow(List.of("A6", "B2", "C2", "6"));
     data.addRow(List.of("A8", "B4", "C2", "9"));
+  }
+
+  @Test
+  void testHeaderExists() {
+    assertTrue(data.headerExists(DATA_X));
+    assertTrue(data.headerExists(ORG_UNIT));
+    assertFalse(data.headerExists("product"));
+  }
+
+  @Test
+  void testHeaderIndex() {
+    assertEquals(0, data.headerIndex(DATA_X));
+    assertEquals(2, data.headerIndex(ORG_UNIT));
+    assertEquals(-1, data.headerIndex("product"));
   }
 
   @Test

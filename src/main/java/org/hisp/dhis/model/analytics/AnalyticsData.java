@@ -107,6 +107,28 @@ public class AnalyticsData {
   // Non-serializable logic methods
 
   /**
+   * Indicates whether a header with the given name exists.
+   *
+   * @param name the header name.
+   * @return true if a header with the given name exists, false otherwise.
+   */
+  @JsonIgnore
+  public boolean headerExists(String name) {
+    return headerIndex(name) != -1;
+  }
+
+  /**
+   * Gets the index of the header with the given name.
+   *
+   * @param name the header name.
+   * @return the index of the header with the given name, or -1 if not found.
+   */
+  @JsonIgnore
+  public int headerIndex(String name) {
+    return headers.indexOf(new AnalyticsHeader(name));
+  }
+
+  /**
    * Gets a copy of the headers.
    *
    * @return a copy of the headers.
