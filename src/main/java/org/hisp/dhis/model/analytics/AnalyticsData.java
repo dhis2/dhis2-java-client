@@ -132,7 +132,7 @@ public class AnalyticsData {
   /**
    * Returns a set of indexes (positions) of metadata headers which represent metadata.
    *
-   * @return a set of indexes of metadata headers which represent metadata.
+   * @return an immutable set of indexes of metadata headers which represent metadata.
    */
   @JsonIgnore
   public Set<Integer> getHeaderMetaIndexes() {
