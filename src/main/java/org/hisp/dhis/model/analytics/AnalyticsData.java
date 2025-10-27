@@ -27,10 +27,8 @@
  */
 package org.hisp.dhis.model.analytics;
 
-import static org.hisp.dhis.model.analytics.AnalyticsDimension.PERIOD;
-import static org.hisp.dhis.util.ObjectUtils.isNotNull;
-
 import static org.apache.commons.collections4.CollectionUtils.isEmpty;
+import static org.hisp.dhis.util.ObjectUtils.isNotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -245,8 +243,8 @@ public class AnalyticsData {
     }
 
     Set<Integer> metaIndexes = getHeaderMetaIndexes();
-    Map<String, String> peMap = isNotNull(metaData) ? metaData.getPeriodNameIsoIdMap() : Map.of();    
-        
+    Map<String, String> peMap = isNotNull(metaData) ? metaData.getPeriodNameIsoIdMap() : Map.of();
+
     // TODO sort period dimension by ISO name using metadata items details
 
     rows.sort(
