@@ -262,11 +262,11 @@ public class AnalyticsData {
 
     Set<Integer> metaIndexes = getHeaderMetaIndexes();
 
-    Map<String, String> peMap =
+    Map<String, String> dimItemNameIdMap =
         isNotBlank(dimension) && isNotNull(metaData)
-            ? metaData.getDimensionItemNameIdMap(AnalyticsDimension.PERIOD)
+            ? metaData.getDimensionItemNameIdMap(dimension)
             : Map.of();
-    int peIndex = headerIndex(AnalyticsDimension.PERIOD);
+    int dimIndex = headerIndex(dimension);
 
     rows.sort(
         (rowA, rowB) -> {
@@ -279,9 +279,9 @@ public class AnalyticsData {
               String val2 = rowB.get(i);
 
               // Retrieve and sort by period ISO ID instead of name
-              if (!peMap.isEmpty() && i == peIndex) {
-                val1 = peMap.get(val1);
-                val2 = peMap.get(val2);
+              if (!dimItemNameIdMap.isEmpty() && i == dimIndex) {
+                val1 = dimItemNameIdMap.get(val1);
+                val2 = dimItemNameIdMap.get(val2);
               }
 
               int comparison = Objects.compare(val1, val2, Comparator.naturalOrder());
