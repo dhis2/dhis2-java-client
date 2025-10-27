@@ -48,5 +48,5 @@ public class AnalyticsDimension {
   public static final String PERIOD = "pe";
 
   /** Org unit dimension identifier. */
-  public static final String ORG_UNIT = "ou";
+  public static final String ORG_UNIT = "ou";  
 }

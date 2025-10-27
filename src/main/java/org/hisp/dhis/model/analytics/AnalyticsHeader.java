@@ -30,6 +30,7 @@ package org.hisp.dhis.model.analytics;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -41,8 +42,9 @@ import org.hisp.dhis.model.ValueType;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class AnalyticsHeader {
-  @JsonProperty private String name;
+  @EqualsAndHashCode.Include @JsonProperty private String name;
 
   @JsonProperty private String column;
 
@@ -52,6 +54,15 @@ public class AnalyticsHeader {
 
   @JsonProperty private Boolean meta;
 
+  /**
+   * Constructor.
+   * 
+   * @param name the name.
+   */
+  public AnalyticsHeader(String name) {
+    this.name = name;
+  }
+  
   /**
    * Constructor.
    *

@@ -103,9 +103,19 @@ public class AnalyticsData {
   public int getHeaderWidth() {
     return headers != null ? headers.size() : 0;
   }
-
+  
   // Non-serializable logic methods
 
+  /**
+   * Indicates whether a header with the given name exists.
+   *
+   * @param name the header name.
+   * @return true if a header with the given name exists, false otherwise.
+   */
+  public boolean headerExists(String name) {
+    return headers.indexOf(new AnalyticsHeader(name)) != -1;
+  }
+  
   /**
    * Gets a copy of the headers.
    *
@@ -203,7 +213,7 @@ public class AnalyticsData {
     if (isEmpty(rows)) {
       return;
     }
-
+    
     // TODO sort period dimension by ISO name using metadata items details
 
     rows.sort(
