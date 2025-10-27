@@ -35,6 +35,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 import lombok.Getter;
 import lombok.Setter;
@@ -129,6 +130,19 @@ public class AnalyticsData {
   }
 
   /**
+   * Returns a set of indexes (positions) of metadata headers which represent metadata.
+   *
+   * @return an immutable set of indexes of metadata headers which represent metadata.
+   */
+  @JsonIgnore
+  public Set<Integer> getHeaderMetaIndexes() {
+    return headers.stream()
+        .filter(AnalyticsHeader::isMeta)
+        .map(headers::indexOf)
+        .collect(Collectors.toUnmodifiableSet());
+  }
+
+  /**
    * Gets a copy of the headers.
    *
    * @return a copy of the headers.
@@ -219,29 +233,35 @@ public class AnalyticsData {
     return _rows;
   }
 
-  /** Orders the data rows in natural order based on their values. */
+  /** Orders the data rows in natural order based on their metadata values. */
   @JsonIgnore
   public void sortRows() {
     if (isEmpty(rows)) {
       return;
     }
 
+    Set<Integer> metaIndexes = getHeaderMetaIndexes();
+
     // TODO sort period dimension by ISO name using metadata items details
 
     rows.sort(
         (rowA, rowB) -> {
-          int maxLength = Math.max(rowA.size(), rowB.size());
+          int maxLength = Math.min(rowA.size(), rowB.size());
 
           for (int i = 0; i < maxLength; i++) {
-            String val1 = i < rowA.size() ? rowA.get(i) : null;
-            String val2 = i < rowB.size() ? rowB.get(i) : null;
+            // Only sort metadata column values
+            if (metaIndexes.contains(i)) {
+              String val1 = rowA.get(i);
+              String val2 = rowB.get(i);
 
-            int comparison = Objects.compare(val1, val2, Comparator.naturalOrder());
+              int comparison = Objects.compare(val1, val2, Comparator.naturalOrder());
 
-            if (comparison != 0) {
-              return comparison;
+              if (comparison != 0) {
+                return comparison;
+              }
             }
           }
+
           return 0;
         });
   }

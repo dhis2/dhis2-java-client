@@ -27,12 +27,16 @@
  */
 package org.hisp.dhis.model.analytics;
 
-import static org.hisp.dhis.model.analytics.AnalyticsDimension.*;
+import static org.hisp.dhis.model.analytics.AnalyticsDimension.DATA_X;
+import static org.hisp.dhis.model.analytics.AnalyticsDimension.ORG_UNIT;
+import static org.hisp.dhis.model.analytics.AnalyticsDimension.PERIOD;
+import static org.hisp.dhis.support.Assertions.assertContainsExactly;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
+import java.util.Set;
 import org.hisp.dhis.model.ValueType;
 import org.hisp.dhis.util.MapBuilder;
 import org.junit.jupiter.api.BeforeEach;
@@ -102,6 +106,12 @@ class AnalyticsDataTest {
     assertEquals(0, data.headerIndex(DATA_X));
     assertEquals(2, data.headerIndex(ORG_UNIT));
     assertEquals(-1, data.headerIndex("product"));
+  }
+
+  @Test
+  void testGetHeaderMetaIndexes() {
+    Set<Integer> indexes = data.getHeaderMetaIndexes();
+    assertContainsExactly(indexes, 0, 1, 2);
   }
 
   @Test
