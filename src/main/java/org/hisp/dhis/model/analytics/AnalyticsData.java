@@ -244,6 +244,7 @@ public class AnalyticsData {
 
     Set<Integer> metaIndexes = getHeaderMetaIndexes();
     Map<String, String> peMap = isNotNull(metaData) ? metaData.getPeriodNameIsoIdMap() : Map.of();
+    int peIndex = headerIndex(AnalyticsDimension.PERIOD);
 
     // TODO sort period dimension by ISO name using metadata items details
 
@@ -256,6 +257,12 @@ public class AnalyticsData {
             if (metaIndexes.contains(i)) {
               String val1 = rowA.get(i);
               String val2 = rowB.get(i);
+
+              // Retrieve and sort by period ISO ID instead of name
+              if (i == peIndex && !peMap.isEmpty()) {
+                val1 = peMap.get(val1);
+                val2 = peMap.get(val2);
+              }
 
               int comparison = Objects.compare(val1, val2, Comparator.naturalOrder());
 
