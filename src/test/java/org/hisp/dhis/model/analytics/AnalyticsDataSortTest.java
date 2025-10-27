@@ -92,7 +92,7 @@ class AnalyticsDataSortTest {
   }
 
   @Test
-  void testSortDataA() {
+  void testSortRows() {
     AnalyticsData data = getDataA();
 
     List<String> row1 = data.getRow(0);
@@ -177,10 +177,10 @@ class AnalyticsDataSortTest {
   }
 
   @Test
-  void testSortDataB() {
+  void testSortRowsWithPeriodNameAsId() {
     AnalyticsData data = getDataB();
 
-    data.sortRows();
+    data.sortRowsWithPeriodNameAsId();
 
     List<String> row1 = data.getRow(0);
     List<String> row2 = data.getRow(1);

@@ -28,6 +28,7 @@
 package org.hisp.dhis.model.analytics;
 
 import static org.apache.commons.collections4.CollectionUtils.isEmpty;
+import static org.apache.commons.lang3.StringUtils.isNotBlank;
 import static org.hisp.dhis.util.ObjectUtils.isNotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -42,6 +43,7 @@ import java.util.stream.Collectors;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.apache.commons.lang3.StringUtils;
 
 @Getter
 @Setter
@@ -238,6 +240,15 @@ public class AnalyticsData {
   /** Orders the data rows in natural order based on their metadata values. */
   @JsonIgnore
   public void sortRows() {
+    sortRows(StringUtils.EMPTY);
+  }
+
+  public void sortRowsWithPeriodNameAsId() {
+    sortRows(AnalyticsDimension.PERIOD);
+  }
+
+  @JsonIgnore
+  private void sortRows(String dimension) {
     if (isEmpty(rows)) {
       return;
     }
@@ -245,7 +256,7 @@ public class AnalyticsData {
     Set<Integer> metaIndexes = getHeaderMetaIndexes();
 
     Map<String, String> peMap =
-        isNotNull(metaData)
+        isNotBlank(dimension) && isNotNull(metaData)
             ? metaData.getDimensionItemNameIdMap(AnalyticsDimension.PERIOD)
             : Map.of();
     int peIndex = headerIndex(AnalyticsDimension.PERIOD);
@@ -261,7 +272,7 @@ public class AnalyticsData {
               String val2 = rowB.get(i);
 
               // Retrieve and sort by period ISO ID instead of name
-              if (i == peIndex && !peMap.isEmpty()) {
+              if (!peMap.isEmpty() && i == peIndex) {
                 val1 = peMap.get(val1);
                 val2 = peMap.get(val2);
               }
