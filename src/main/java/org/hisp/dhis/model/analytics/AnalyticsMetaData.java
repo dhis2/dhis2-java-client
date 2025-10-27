@@ -27,7 +27,12 @@
  */
 package org.hisp.dhis.model.analytics;
 
+import static org.apache.commons.collections4.CollectionUtils.isEmpty;
+import static org.apache.commons.collections4.MapUtils.isEmpty;
+import static org.hisp.dhis.util.ObjectUtils.isNull;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import lombok.AllArgsConstructor;
@@ -45,6 +50,39 @@ public class AnalyticsMetaData {
   @JsonProperty private Map<String, MetaDataItem> items;
 
   @JsonProperty private Map<String, List<String>> dimensions;
+
+  /**
+   * Get a complete map of period names to period ISO identifiers. If a period dimension with items
+   * or metadata items not present, an empty map is returned. If the name of any period metadata
+   * item is not present, an empty map is returned.
+   *
+   * @return a map of period ISO strings to period names.
+   */
+  public Map<String, String> getPeriodNameToIsoIdMap() {
+    if (isEmpty(items) || isEmpty(dimensions)) {
+      return Map.of();
+    }
+
+    List<String> peDimItems = dimensions.get(AnalyticsDimension.PERIOD);
+
+    if (isEmpty(peDimItems)) {
+      return Map.of();
+    }
+
+    Map<String, String> output = new HashMap<>();
+
+    for (String pe : peDimItems) {
+      MetaDataItem peItem = items.get(pe);
+
+      if (isNull(peItem) || isNull(peItem.getName())) {
+        return Map.of();
+      }
+
+      output.put(peItem.getName(), pe);
+    }
+
+    return output;
+  }
 
   /**
    * Get item name by item identifier.
