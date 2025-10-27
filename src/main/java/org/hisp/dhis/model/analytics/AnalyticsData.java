@@ -28,12 +28,15 @@
 package org.hisp.dhis.model.analytics;
 
 import static org.apache.commons.collections4.CollectionUtils.isEmpty;
+import static org.hisp.dhis.model.analytics.AnalyticsDimension.PERIOD;
+import static org.hisp.dhis.util.ObjectUtils.isNotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 import lombok.Getter;
@@ -226,7 +229,11 @@ public class AnalyticsData {
       return;
     }
 
+    Map<String, String> peMap = isNotNull(metaData) ? metaData.getPeriodNameIsoIdMap() : Map.of();
+    boolean hasPeMap = headerExists(PERIOD) && !peMap.isEmpty();
+
     // TODO sort period dimension by ISO name using metadata items details
+    // TODO only sort metadata columns
 
     rows.sort(
         (rowA, rowB) -> {

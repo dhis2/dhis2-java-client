@@ -58,7 +58,7 @@ public class AnalyticsMetaData {
    *
    * @return a map of period ISO strings to period names.
    */
-  public Map<String, String> getPeriodNameToIsoIdMap() {
+  public Map<String, String> getPeriodNameIsoIdMap() {
     if (isEmpty(items) || isEmpty(dimensions)) {
       return Map.of();
     }

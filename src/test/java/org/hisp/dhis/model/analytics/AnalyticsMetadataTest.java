@@ -77,8 +77,8 @@ class AnalyticsMetadataTest {
   }
 
   @Test
-  void testGetPeriodNameToIsoIdMap() {
-    Map<String, String> map = metadata.getPeriodNameToIsoIdMap();
+  void testGetPeriodNameIsoIdMap() {
+    Map<String, String> map = metadata.getPeriodNameIsoIdMap();
 
     assertEquals(4, map.keySet().size());
     assertEquals("B1", map.get("Month 1"));
@@ -92,6 +92,6 @@ class AnalyticsMetadataTest {
     metadataA.setItems(Map.of());
     metadataA.setDimensions(Map.of());
 
-    assertTrue(metadataA.getPeriodNameToIsoIdMap().isEmpty());
+    assertTrue(metadataA.getPeriodNameIsoIdMap().isEmpty());
   }
 }
