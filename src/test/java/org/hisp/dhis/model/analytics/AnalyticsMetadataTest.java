@@ -29,6 +29,7 @@ package org.hisp.dhis.model.analytics;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 import java.util.Map;
@@ -83,5 +84,14 @@ class AnalyticsMetadataTest {
     assertEquals("B1", map.get("Month 1"));
     assertEquals("B2", map.get("Month 2"));
     assertEquals("B4", map.get("Month 4"));
+  }
+
+  @Test
+  void testGetPeriodNameToIsoIdMapEmpty() {
+    AnalyticsMetaData metadata = new AnalyticsMetaData();
+    metadata.setItems(Map.of());
+    metadata.setDimensions(Map.of());
+
+    assertTrue(metadata.getPeriodNameToIsoIdMap().isEmpty());
   }
 }
