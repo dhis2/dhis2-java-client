@@ -27,9 +27,9 @@
  */
 package org.hisp.dhis.model.analytics;
 
-import static org.hisp.dhis.util.ObjectUtils.isNull;
 import static org.apache.commons.collections4.CollectionUtils.isEmpty;
 import static org.apache.commons.collections4.MapUtils.isEmpty;
+import static org.hisp.dhis.util.ObjectUtils.isNull;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.HashMap;
@@ -62,29 +62,28 @@ public class AnalyticsMetaData {
     if (isEmpty(items) || isEmpty(dimensions)) {
       return Map.of();
     }
-    
+
     List<String> peDimItems = dimensions.get(AnalyticsDimension.PERIOD);
-    
+
     if (isEmpty(peDimItems)) {
       return Map.of();
     }
-    
+
     Map<String, String> output = new HashMap<>();
-    
+
     for (String pe : peDimItems) {
       MetaDataItem peItem = items.get(pe);
-      
+
       if (isNull(peItem) || isNull(peItem.getName())) {
         return Map.of();
       }
-            
+
       output.put(peItem.getName(), pe);
     }
-    
+
     return output;
-    
   }
-  
+
   /**
    * Get item name by item identifier.
    *
