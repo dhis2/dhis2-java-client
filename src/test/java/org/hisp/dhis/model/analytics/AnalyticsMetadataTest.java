@@ -41,7 +41,7 @@ class AnalyticsMetadataTest {
   private AnalyticsMetaData metadata;
 
   @BeforeEach
-  public void beforeEach() {
+  void beforeEach() {
     metadata = new AnalyticsMetaData();
     metadata.setItems(
         new MapBuilder<String, MetaDataItem>()
@@ -88,10 +88,10 @@ class AnalyticsMetadataTest {
 
   @Test
   void testGetPeriodNameToIsoIdMapEmpty() {
-    AnalyticsMetaData metadata = new AnalyticsMetaData();
-    metadata.setItems(Map.of());
-    metadata.setDimensions(Map.of());
+    AnalyticsMetaData metadataA = new AnalyticsMetaData();
+    metadataA.setItems(Map.of());
+    metadataA.setDimensions(Map.of());
 
-    assertTrue(metadata.getPeriodNameToIsoIdMap().isEmpty());
+    assertTrue(metadataA.getPeriodNameToIsoIdMap().isEmpty());
   }
 }
