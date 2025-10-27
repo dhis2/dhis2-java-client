@@ -40,16 +40,12 @@ import java.util.Set;
 import org.hisp.dhis.model.ValueType;
 import org.hisp.dhis.support.TestTags;
 import org.hisp.dhis.util.MapBuilder;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 @Tag(TestTags.UNIT)
 class AnalyticsDataTest {
-  private AnalyticsData data;
-
-  @BeforeEach
-  public void beforeEach() {
+  private AnalyticsData getDataA() {
     List<AnalyticsHeader> headers =
         List.of(
             new AnalyticsHeader(DATA_X, "Data", ValueType.TEXT, true),
@@ -82,7 +78,7 @@ class AnalyticsDataTest {
             .put("ou", List.of("C1", "C2"))
             .build());
 
-    data = new AnalyticsData();
+    AnalyticsData data = new AnalyticsData();
 
     data.setHeaders(headers);
     data.setMetaData(metadata);
@@ -95,10 +91,14 @@ class AnalyticsDataTest {
     data.addRow(List.of("A6", "B2", "C2", "6"));
     data.addRow(List.of("A7", "B3", "C1", "1"));
     data.addRow(List.of("A8", "B4", "C2", "9"));
+
+    return data;
   }
 
   @Test
   void testHeaderExists() {
+    AnalyticsData data = getDataA();
+
     assertTrue(data.headerExists(DATA_X));
     assertTrue(data.headerExists(ORG_UNIT));
     assertFalse(data.headerExists("product"));
@@ -106,6 +106,8 @@ class AnalyticsDataTest {
 
   @Test
   void testHeaderIndex() {
+    AnalyticsData data = getDataA();
+
     assertEquals(0, data.headerIndex(DATA_X));
     assertEquals(2, data.headerIndex(ORG_UNIT));
     assertEquals(-1, data.headerIndex("product"));
@@ -113,12 +115,16 @@ class AnalyticsDataTest {
 
   @Test
   void testGetHeaderMetaIndexes() {
+    AnalyticsData data = getDataA();
+
     Set<Integer> indexes = data.getHeaderMetaIndexes();
     assertContainsExactly(indexes, 0, 1, 2);
   }
 
   @Test
   void testGetCopyOfHeaders() {
+    AnalyticsData data = getDataA();
+
     List<AnalyticsHeader> copy = data.getCopyOfHeaders();
 
     assertEquals(4, copy.size());
@@ -128,6 +134,8 @@ class AnalyticsDataTest {
 
   @Test
   void testGetWidthHeight() {
+    AnalyticsData data = getDataA();
+
     assertEquals(4, data.getWidth());
     assertEquals(4, data.getHeaderWidth());
     assertEquals(8, data.getHeight());
@@ -135,6 +143,8 @@ class AnalyticsDataTest {
 
   @Test
   void testTruncateDataRows() {
+    AnalyticsData data = getDataA();
+
     assertEquals(4, data.getWidth());
     assertEquals(4, data.getHeaderWidth());
     assertEquals(8, data.getHeight());
@@ -150,6 +160,8 @@ class AnalyticsDataTest {
 
   @Test
   void testGetRow() {
+    AnalyticsData data = getDataA();
+
     List<String> row1 = data.getRow(0);
     List<String> row2 = data.getRow(1);
     List<String> row3 = data.getRow(2);
@@ -167,6 +179,8 @@ class AnalyticsDataTest {
 
   @Test
   void testDataWithNames() {
+    AnalyticsData data = getDataA();
+
     List<List<String>> rows = data.getRowsWithNames();
 
     List<String> row1 = rows.get(0);
