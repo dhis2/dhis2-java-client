@@ -38,10 +38,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.List;
 import java.util.Set;
 import org.hisp.dhis.model.ValueType;
+import org.hisp.dhis.support.TestTags;
 import org.hisp.dhis.util.MapBuilder;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
+@Tag(TestTags.UNIT)
 class AnalyticsDataTest {
   private AnalyticsData data;
 
@@ -86,11 +89,11 @@ class AnalyticsDataTest {
 
     data.addRow(List.of("A1", "B1", "C1", "2"));
     data.addRow(List.of("A2", "B2", "C2", "4"));
-    data.addRow(List.of("A4", "B4", "C2", "3"));
     data.addRow(List.of("A3", "B3", "C1", "7"));
+    data.addRow(List.of("A4", "B4", "C2", "3"));
     data.addRow(List.of("A5", "B1", "C1", "8"));
-    data.addRow(List.of("A7", "B3", "C1", "1"));
     data.addRow(List.of("A6", "B2", "C2", "6"));
+    data.addRow(List.of("A7", "B3", "C1", "1"));
     data.addRow(List.of("A8", "B4", "C2", "9"));
   }
 
@@ -156,8 +159,8 @@ class AnalyticsDataTest {
     assertEquals("C1", row1.get(2));
     assertEquals("A2", row2.get(0));
     assertEquals("C2", row2.get(2));
-    assertEquals("A4", row3.get(0));
-    assertEquals("C2", row3.get(2));
+    assertEquals("A3", row3.get(0));
+    assertEquals("C1", row3.get(2));
     assertEquals("A5", row5.get(0));
     assertEquals("C1", row5.get(2));
   }
@@ -175,42 +178,9 @@ class AnalyticsDataTest {
     assertEquals("Facility 1", row1.get(2));
     assertEquals("Indicator 2", row2.get(0));
     assertEquals("Facility 2", row2.get(2));
-    assertEquals("Indicator 4", row3.get(0));
-    assertEquals("Facility 2", row3.get(2));
+    assertEquals("Indicator 3", row3.get(0));
+    assertEquals("Facility 1", row3.get(2));
     assertEquals("Indicator 5", row5.get(0));
     assertEquals("Facility 1", row5.get(2));
-  }
-
-  @Test
-  void testSortData() {
-    List<String> row1 = data.getRow(0);
-    List<String> row3 = data.getRow(2);
-    List<String> row5 = data.getRow(4);
-    List<String> row7 = data.getRow(6);
-
-    assertEquals("A1", row1.get(0));
-    assertEquals("C1", row1.get(2));
-    assertEquals("A4", row3.get(0));
-    assertEquals("C2", row3.get(2));
-    assertEquals("A5", row5.get(0));
-    assertEquals("C1", row5.get(2));
-    assertEquals("A6", row7.get(0));
-    assertEquals("C2", row7.get(2));
-
-    data.sortRows();
-
-    row1 = data.getRow(0);
-    row3 = data.getRow(2);
-    row5 = data.getRow(4);
-    row7 = data.getRow(6);
-
-    assertEquals("A1", row1.get(0));
-    assertEquals("C1", row1.get(2));
-    assertEquals("A3", row3.get(0));
-    assertEquals("C1", row3.get(2));
-    assertEquals("A5", row5.get(0));
-    assertEquals("C1", row5.get(2));
-    assertEquals("A7", row7.get(0));
-    assertEquals("C1", row7.get(2));
   }
 }

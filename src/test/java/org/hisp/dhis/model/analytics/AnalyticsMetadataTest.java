@@ -33,10 +33,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 import java.util.Map;
+import org.hisp.dhis.support.TestTags;
 import org.hisp.dhis.util.MapBuilder;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
+@Tag(TestTags.UNIT)
 class AnalyticsMetadataTest {
   private AnalyticsMetaData metadata;
 

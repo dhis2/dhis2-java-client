@@ -246,8 +246,6 @@ public class AnalyticsData {
     Map<String, String> peMap = isNotNull(metaData) ? metaData.getPeriodNameIsoIdMap() : Map.of();
     int peIndex = headerIndex(AnalyticsDimension.PERIOD);
 
-    // TODO sort period dimension by ISO name using metadata items details
-
     rows.sort(
         (rowA, rowB) -> {
           int maxLength = Math.min(rowA.size(), rowB.size());
