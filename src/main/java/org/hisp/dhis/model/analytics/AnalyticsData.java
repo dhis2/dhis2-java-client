@@ -254,6 +254,11 @@ public class AnalyticsData {
     sortRows(AnalyticsDimension.PERIOD);
   }
 
+  /**
+   * Orders the data rows in natural order based on their metadata values.
+   *
+   * @param dimension the dimension identifier matching a column name.
+   */
   @JsonIgnore
   private void sortRows(String dimension) {
     if (isEmpty(rows)) {
