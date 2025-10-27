@@ -30,7 +30,7 @@ package org.hisp.dhis.model.analytics;
 import static org.apache.commons.collections4.CollectionUtils.isEmpty;
 import static org.apache.commons.collections4.MapUtils.isEmpty;
 import static org.hisp.dhis.util.ObjectUtils.isNull;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.HashMap;
 import java.util.List;
@@ -58,6 +58,7 @@ public class AnalyticsMetaData {
    *
    * @return a map of period ISO strings to period names.
    */
+  @JsonIgnore
   public Map<String, String> getPeriodNameIsoIdMap() {
     if (isEmpty(items) || isEmpty(dimensions)) {
       return Map.of();
@@ -90,6 +91,7 @@ public class AnalyticsMetaData {
    * @param id the item identifier.
    * @return the item name, or null if no item exists with the given identifier.
    */
+  @JsonIgnore
   public String getItemName(String id) {
     MetaDataItem item = items.get(id);
     return item != null ? item.getName() : null;
