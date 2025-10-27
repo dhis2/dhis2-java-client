@@ -243,6 +243,13 @@ public class AnalyticsData {
     sortRows(StringUtils.EMPTY);
   }
 
+  /**
+   * Orders the data rows in natural order based on their metadata values. For a period column,
+   * identified by a column name {@link AnalyticsDimension#PERIOD}, period names are mapped to
+   * identifiers before compared as part of the sorting. The mapping requires that an {@link
+   * AnalyticsMetaData} object is present.
+   */
+  @JsonIgnore
   public void sortRowsWithPeriodNameAsId() {
     sortRows(AnalyticsDimension.PERIOD);
   }
