@@ -38,6 +38,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 import lombok.Getter;
 import lombok.Setter;
@@ -129,6 +130,19 @@ public class AnalyticsData {
   @JsonIgnore
   public int headerIndex(String name) {
     return headers.indexOf(new AnalyticsHeader(name));
+  }
+
+  /**
+   * Returns a set of indexes (positions) of metadata headers which represent metadata.
+   *
+   * @return a set of indexes of metadata headers which represent metadata.
+   */
+  @JsonIgnore
+  public Set<Integer> getHeaderMetaIndexes() {
+    return headers.stream()
+        .filter(AnalyticsHeader::isMeta)
+        .map(headers::indexOf)
+        .collect(Collectors.toSet());
   }
 
   /**
@@ -230,6 +244,7 @@ public class AnalyticsData {
     }
 
     Map<String, String> peMap = isNotNull(metaData) ? metaData.getPeriodNameIsoIdMap() : Map.of();
+    Set<Integer> metaInx = getHeaderMetaIndexes();
     boolean hasPeMap = headerExists(PERIOD) && !peMap.isEmpty();
 
     // TODO sort period dimension by ISO name using metadata items details
@@ -237,11 +252,11 @@ public class AnalyticsData {
 
     rows.sort(
         (rowA, rowB) -> {
-          int maxLength = Math.max(rowA.size(), rowB.size());
+          int maxLength = Math.min(rowA.size(), rowB.size());
 
           for (int i = 0; i < maxLength; i++) {
-            String val1 = i < rowA.size() ? rowA.get(i) : null;
-            String val2 = i < rowB.size() ? rowB.get(i) : null;
+            String val1 = rowA.get(i);
+            String val2 = rowB.get(i);
 
             int comparison = Objects.compare(val1, val2, Comparator.naturalOrder());
 
@@ -249,6 +264,7 @@ public class AnalyticsData {
               return comparison;
             }
           }
+
           return 0;
         });
   }
