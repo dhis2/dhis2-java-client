@@ -237,6 +237,27 @@ public class AnalyticsData {
     return _rows;
   }
 
+  /**
+   * Returns a row index as a map. The map key is a string of meta row values concatenated by hypen.
+   * The map value is the row value at the given value index.
+   *
+   * @param valueIndex the value index.
+   * @return a row index as a map.
+   */
+  public Map<String, String> getIndex(int valueIndex) {
+    Set<Integer> metaIndexes = getHeaderMetaIndexes();
+
+    return rows.stream()
+        .collect(
+            Collectors.toMap(
+                row -> {
+                  List<String> keys = new ArrayList<>();
+                  metaIndexes.forEach(i -> keys.add(row.get(valueIndex)));
+                  return String.join("-", keys);
+                },
+                row -> row.get(valueIndex)));
+  }
+
   /** Orders the data rows in natural order based on their metadata values. */
   @JsonIgnore
   public void sortRows() {
