@@ -35,6 +35,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class OrgUnitLevel extends IdentifiableObject {
+public class OrgUnitLevel extends NameableObject {
   @JsonProperty private int level;
 }
