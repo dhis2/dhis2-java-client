@@ -38,4 +38,17 @@ import org.hisp.dhis.model.NameableObject;
 @NoArgsConstructor
 public class DimensionItem extends NameableObject {
   @JsonProperty private DimensionItemType dimensionItemType;
+
+  /**
+   * Constructor.
+   *
+   * @param id the identifier.
+   * @param name the name.
+   * @param dimensionItemType the {@link DimensionItemType}.
+   */
+  public DimensionItem(String id, String name, DimensionItemType dimensionItemType) {
+    this.id = id;
+    this.name = name;
+    this.dimensionItemType = dimensionItemType;
+  }
 }

@@ -29,14 +29,27 @@ package org.hisp.dhis.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
 @Getter
 @Setter
 @ToString(callSuper = true)
+@NoArgsConstructor
 public class NameableObject extends IdentifiableObject {
   @JsonProperty protected String shortName;
 
   @JsonProperty protected String description;
+
+  /**
+   * Constructor.
+   *
+   * @param id the identifier.
+   * @param code the code.
+   * @param name the name.
+   */
+  public NameableObject(String id, String code, String name) {
+    super(id, code, name);
+  }
 }
