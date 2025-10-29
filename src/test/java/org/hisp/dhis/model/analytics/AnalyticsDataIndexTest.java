@@ -94,6 +94,8 @@ class AnalyticsDataIndexTest {
   void testHeaderExists() {
     AnalyticsData data = getDataA();
 
-    AnalyticsDataIndex dataIndex = data.getIndex(3);
+    AnalyticsDataIndex index = data.getIndex(3);
+    
+    
   }
 }
