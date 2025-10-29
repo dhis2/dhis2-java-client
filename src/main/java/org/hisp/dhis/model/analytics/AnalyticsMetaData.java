@@ -28,6 +28,7 @@
 package org.hisp.dhis.model.analytics;
 
 import static org.apache.commons.collections4.CollectionUtils.isEmpty;
+import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
 import static org.apache.commons.collections4.MapUtils.isEmpty;
 import static org.hisp.dhis.util.ObjectUtils.isNull;
 
@@ -37,6 +38,7 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -88,7 +90,7 @@ public class AnalyticsMetaData implements Serializable {
   }
 
   /**
-   * Get item name by item identifier.
+   * Returns the name for the item with the given identifier.
    *
    * @param id the item identifier.
    * @return the item name, or null if no item exists with the given identifier.
@@ -97,5 +99,36 @@ public class AnalyticsMetaData implements Serializable {
   public String getItemName(String id) {
     MetaDataItem item = items.get(id);
     return item != null ? item.getName() : null;
+  }
+
+  /**
+   * Returns the {@link MetaDataItem} with the given identifier.
+   *
+   * @param id the item identifier.
+   * @return the {@link MetaDataItem}, or null if not item exists with the given identifier.
+   */
+  public MetaDataItem getMetadataItem(String id) {
+    MetaDataItem item = items.get(id);
+    if (item != null) {
+      item.setUid(id);
+    }
+    return item;
+  }
+
+  /**
+   * Returns a list of {@link MetaDataItem} for the given dimension. Returns an empty list of the
+   * dimension does not exist.
+   *
+   * @param dimension the dimension identifier.
+   * @return a list of {@link MetaDataItem}.
+   */
+  public List<MetaDataItem> getMetadataItems(String dimension) {
+    List<String> items = dimensions.get(dimension);
+
+    if (isNotEmpty(items)) {
+      return items.stream().map(this::getMetadataItem).filter(Objects::nonNull).toList();
+    }
+
+    return List.of();
   }
 }

@@ -27,6 +27,9 @@
  */
 package org.hisp.dhis.model.analytics;
 
+import static org.hisp.dhis.model.analytics.AnalyticsDimension.DATA_X;
+import static org.hisp.dhis.model.analytics.AnalyticsDimension.ORG_UNIT;
+import static org.hisp.dhis.model.analytics.AnalyticsDimension.PERIOD;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -65,9 +68,9 @@ class AnalyticsMetadataTest {
             .build());
     metadata.setDimensions(
         new MapBuilder<String, List<String>>()
-            .put("dx", List.of("A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8"))
-            .put("pe", List.of("B1", "B2", "B3", "B4"))
-            .put("ou", List.of("C1", "C2"))
+            .put(DATA_X, List.of("A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8"))
+            .put(PERIOD, List.of("B1", "B2", "B3", "B4"))
+            .put(ORG_UNIT, List.of("C1", "C2"))
             .build());
   }
 
@@ -77,6 +80,43 @@ class AnalyticsMetadataTest {
     assertEquals("Month 3", metadata.getItemName("B3"));
     assertEquals("Facility 1", metadata.getItemName("C1"));
     assertNull(metadata.getItemName("X1"));
+  }
+
+  @Test
+  void testGetMetadataItem() {
+    assertEquals("A1", metadata.getMetadataItem("A1").getUid());
+    assertEquals("Indicator 1", metadata.getMetadataItem("A1").getName());
+
+    assertEquals("B1", metadata.getMetadataItem("B1").getUid());
+    assertEquals("Month 1", metadata.getMetadataItem("B1").getName());
+
+    assertNull(metadata.getMetadataItem("X1"));
+  }
+
+  @Test
+  void testGetMetadataItems() {
+    List<MetaDataItem> dataItems = metadata.getMetadataItems(DATA_X);
+
+    assertEquals(8, dataItems.size());
+    assertEquals("A1", dataItems.get(0).getUid());
+    assertEquals("Indicator 1", dataItems.get(0).getName());
+
+    List<MetaDataItem> periodItems = metadata.getMetadataItems(PERIOD);
+
+    assertEquals(4, periodItems.size());
+    assertEquals("B1", periodItems.get(0).getUid());
+    assertEquals("Month 1", periodItems.get(0).getName());
+
+    List<MetaDataItem> orgUnitItems = metadata.getMetadataItems(ORG_UNIT);
+
+    assertEquals(2, orgUnitItems.size());
+    assertEquals("C1", orgUnitItems.get(0).getUid());
+    assertEquals("Facility 1", orgUnitItems.get(0).getName());
+  }
+
+  @Test
+  void testGetMetadataItemsEmpty() {
+    assertTrue(metadata.getMetadataItems("foo").isEmpty());
   }
 
   @Test
