@@ -81,6 +81,7 @@ public class JacksonUtils {
     objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
     objectMapper.disable(DeserializationFeature.FAIL_ON_IGNORED_PROPERTIES);
     objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+    objectMapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
     objectMapper.setSerializationInclusion(Include.NON_NULL);
     objectMapper.setDateFormat(getDateFormatInternal());
     objectMapper.setTimeZone(DateTimeUtils.TZ_UTC);
