@@ -52,8 +52,7 @@ public class AnalyticsDataIndex extends HashMap<String, String> {
       throw new IllegalArgumentException(msg);
     }
 
-    String key = toKey(keys);
-    return super.get(key);
+    return super.get(toKey(keys));
   }
 
   /**
