@@ -25,59 +25,26 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.hisp.dhis.model.analytics;
+package org.hisp.dhis.util;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import java.io.Serializable;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import static org.hisp.dhis.support.Assertions.assertContainsExactlyInOrder;
 
-@Getter
-@Setter
-@ToString
-@NoArgsConstructor
-public class MetaDataItem implements Serializable {
-  @JsonProperty private String uid;
+import java.util.List;
+import org.hisp.dhis.model.analytics.MetaDataItem;
+import org.hisp.dhis.support.TestTags;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
 
-  @JsonProperty private String name;
+@Tag(TestTags.UNIT)
+class MetadataItemUtilsTest {
+  @Test
+  void testToNames() {
+    MetaDataItem mdA = new MetaDataItem("IDA", "Name A");
+    MetaDataItem mdB = new MetaDataItem("IDB", "Name B");
+    MetaDataItem mdC = new MetaDataItem("IDC", "Name C");
 
-  @JsonProperty private String dimensionType;
+    List<String> names = MetadataItemUtils.toNames(List.of(mdA, mdB, mdC));
 
-  @JsonProperty private String code;
-
-  @JsonProperty private String dimensionItemType;
-
-  @JsonProperty private String valueType;
-
-  @JsonProperty private String totalAggregationType;
-
-  @JsonProperty private String startDate;
-
-  @JsonProperty private String endDate;
-
-  @JsonProperty private String legendSet;
-
-  @JsonProperty private String aggregationType;
-
-  /**
-   * Constructor.
-   *
-   * @param name the name.
-   */
-  public MetaDataItem(String name) {
-    this.name = name;
-  }
-
-  /**
-   * Constructor.
-   *
-   * @param uid the identifier.
-   * @param name the name.
-   */
-  public MetaDataItem(String uid, String name) {
-    this.uid = uid;
-    this.name = name;
+    assertContainsExactlyInOrder(names, mdA.getName(), mdB.getName(), mdC.getName());
   }
 }
