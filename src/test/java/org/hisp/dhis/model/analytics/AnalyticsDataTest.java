@@ -114,10 +114,18 @@ class AnalyticsDataTest {
   }
 
   @Test
-  void testGetHeaderMetaIndexes() {
+  void testGetHeaderMetaIndexSet() {
     AnalyticsData data = getDataA();
 
-    Set<Integer> indexes = data.getHeaderMetaIndexes();
+    Set<Integer> indexes = data.getHeaderMetaIndexSet();
+    assertContainsExactly(indexes, 0, 1, 2);
+  }
+
+  @Test
+  void testGetHeaderMetaIndexList() {
+    AnalyticsData data = getDataA();
+
+    List<Integer> indexes = data.getHeaderMetaIndexList();
     assertContainsExactly(indexes, 0, 1, 2);
   }
 

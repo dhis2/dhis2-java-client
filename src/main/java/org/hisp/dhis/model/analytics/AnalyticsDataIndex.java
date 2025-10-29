@@ -32,23 +32,24 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 public class AnalyticsDataIndex extends HashMap<String, String> {
-  private static final String SEP = "==";
+  private static final String SEP = "::";
 
-  private final int keyCount;
+  private final List<Integer> keyIndexes;
 
-  public AnalyticsDataIndex(Map<? extends String, ? extends String> data, int keyCount) {
+  public AnalyticsDataIndex(
+      Map<? extends String, ? extends String> data, List<Integer> keyIndexes) {
     super(data);
-    this.keyCount = keyCount;
+    this.keyIndexes = keyIndexes;
   }
 
   public String getValue(String... keys) {
-    if (keys.length != keyCount) {
+    if (keys.length != keyIndexes.size()) {
       String msg =
           String.format(
-              "Provided key count: %d must be equal to index key count: %d", keys.length, keyCount);
+              "Provided key count: %d must be equal to index key count: %d",
+              keys.length, keyIndexes.size());
       throw new IllegalArgumentException(msg);
     }
 
@@ -70,10 +71,10 @@ public class AnalyticsDataIndex extends HashMap<String, String> {
    * Returns a row index key for the given row based on the given key indexes.
    *
    * @param row the data row.
-   * @param valueIndex the index of the value item.
+   * @param keyIndexes the list of indexes for keys.
    * @return a key.
    */
-  public static String toKey(List<String> row, Set<Integer> keyIndexes) {
+  public static String toKey(List<String> row, List<Integer> keyIndexes) {
     List<String> keys = new ArrayList<>();
     keyIndexes.forEach(i -> keys.add(row.get(i)));
     return String.join(SEP, keys);

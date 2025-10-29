@@ -140,11 +140,21 @@ public class AnalyticsData {
    * @return an immutable set of indexes of metadata headers which represent metadata.
    */
   @JsonIgnore
-  public Set<Integer> getHeaderMetaIndexes() {
+  public Set<Integer> getHeaderMetaIndexSet() {
     return headers.stream()
         .filter(AnalyticsHeader::isMeta)
         .map(headers::indexOf)
         .collect(Collectors.toUnmodifiableSet());
+  }
+
+  /**
+   * Returns a set of indexes (positions) of metadata headers which represent metadata.
+   *
+   * @return an immutable set of indexes of metadata headers which represent metadata.
+   */
+  @JsonIgnore
+  public List<Integer> getHeaderMetaIndexList() {
+    return headers.stream().filter(AnalyticsHeader::isMeta).map(headers::indexOf).toList();
   }
 
   /**
@@ -246,11 +256,11 @@ public class AnalyticsData {
    * @return a row index as a map.
    */
   public AnalyticsDataIndex getIndex(int valueIndex) {
-    Set<Integer> keyIndexes = getHeaderMetaIndexes();
+    List<Integer> keyIndexes = getHeaderMetaIndexList();
     Map<String, String> map =
         rows.stream()
             .collect(Collectors.toMap(row -> toKey(row, keyIndexes), row -> row.get(valueIndex)));
-    return new AnalyticsDataIndex(map, keyIndexes.size());
+    return new AnalyticsDataIndex(map, keyIndexes);
   }
 
   /** Orders the data rows in natural order based on their metadata values. */
@@ -281,7 +291,7 @@ public class AnalyticsData {
       return;
     }
 
-    Set<Integer> metaIndexes = getHeaderMetaIndexes();
+    Set<Integer> metaIndexes = getHeaderMetaIndexSet();
 
     Map<String, String> dimItemNameIdMap =
         isNotBlank(dimension) && isNotNull(metaData)

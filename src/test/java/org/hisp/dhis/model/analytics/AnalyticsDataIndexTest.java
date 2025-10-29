@@ -31,6 +31,8 @@ import static org.hisp.dhis.model.analytics.AnalyticsDimension.DATA_X;
 import static org.hisp.dhis.model.analytics.AnalyticsDimension.ORG_UNIT;
 import static org.hisp.dhis.model.analytics.AnalyticsDimension.PERIOD;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.List;
 import org.hisp.dhis.model.ValueType;
@@ -92,11 +94,40 @@ class AnalyticsDataIndexTest {
   }
 
   @Test
-  void testHeaderExists() {
+  void testToKey() {
+    String keyA = AnalyticsDataIndex.toKey(List.of("A1", "B1", "C1", "2"), List.of(0, 1, 2));
+    String keyB = AnalyticsDataIndex.toKey(List.of("A4", "B2", "2"), List.of(0, 1));
+
+    assertEquals("A1::B1::C1", keyA);
+    assertEquals("A4::B2", keyB);
+  }
+
+  @Test
+  void testGetValue() {
     AnalyticsData data = getDataA();
 
     AnalyticsDataIndex index = data.getIndex(3);
 
     assertEquals(8, index.keySet().size());
+
+    assertEquals("2", index.getValue("A1", "B1", "C1"));
+    assertEquals("4", index.getValue("A2", "B2", "C2"));
+    assertEquals("7", index.getValue("A3", "B3", "C1"));
+    assertEquals("3", index.getValue("A4", "B4", "C2"));
+    assertEquals("8", index.getValue("A5", "B1", "C1"));
+    assertEquals("6", index.getValue("A6", "B2", "C2"));
+    assertEquals("1", index.getValue("A7", "B3", "C1"));
+    assertEquals("9", index.getValue("A8", "B4", "C2"));
+  }
+
+  @Test
+  void testGetValueException() {
+    AnalyticsData data = getDataA();
+
+    AnalyticsDataIndex index = data.getIndex(3);
+
+    assertNull(index.getValue("A1", "B9", "C9"));
+
+    assertThrows(IllegalArgumentException.class, () -> index.getValue("A1", "B1"));
   }
 }
