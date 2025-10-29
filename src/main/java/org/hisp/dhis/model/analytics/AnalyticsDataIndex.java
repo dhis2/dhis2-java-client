@@ -38,8 +38,7 @@ public class AnalyticsDataIndex extends HashMap<String, String> {
 
   private final List<Integer> keyIndexes;
 
-  public AnalyticsDataIndex(
-      Map<? extends String, ? extends String> data, List<Integer> keyIndexes) {
+  public AnalyticsDataIndex(Map<String, String> data, List<Integer> keyIndexes) {
     super(data);
     this.keyIndexes = keyIndexes;
   }

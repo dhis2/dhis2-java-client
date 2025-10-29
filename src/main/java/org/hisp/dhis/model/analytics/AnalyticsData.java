@@ -34,6 +34,7 @@ import static org.hisp.dhis.util.ObjectUtils.isNotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -49,7 +50,7 @@ import org.apache.commons.lang3.StringUtils;
 @Getter
 @Setter
 @ToString
-public class AnalyticsData {
+public class AnalyticsData implements Serializable {
   /** Analytics column headers. */
   @JsonProperty private List<AnalyticsHeader> headers;
 
