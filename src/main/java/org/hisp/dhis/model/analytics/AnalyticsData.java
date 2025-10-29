@@ -244,18 +244,21 @@ public class AnalyticsData {
    * @param valueIndex the value index.
    * @return a row index as a map.
    */
-  public Map<String, String> getIndex(int valueIndex) {
+  public AnalyticsDataIndex getIndex(int valueIndex) {
     Set<Integer> metaIndexes = getHeaderMetaIndexes();
 
-    return rows.stream()
-        .collect(
-            Collectors.toMap(
-                row -> {
-                  List<String> keys = new ArrayList<>();
-                  metaIndexes.forEach(i -> keys.add(row.get(valueIndex)));
-                  return String.join("-", keys);
-                },
-                row -> row.get(valueIndex)));
+    Map<String, String> map =
+        rows.stream()
+            .collect(
+                Collectors.toMap(
+                    row -> {
+                      List<String> keys = new ArrayList<>();
+                      metaIndexes.forEach(i -> keys.add(row.get(valueIndex)));
+                      return String.join("-", keys);
+                    },
+                    row -> row.get(valueIndex)));
+
+    return new AnalyticsDataIndex(map, metaIndexes.size());
   }
 
   /** Orders the data rows in natural order based on their metadata values. */
