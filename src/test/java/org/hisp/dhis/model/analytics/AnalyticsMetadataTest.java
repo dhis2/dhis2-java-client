@@ -115,6 +115,11 @@ class AnalyticsMetadataTest {
   }
 
   @Test
+  void testGetMetadataItemsEmpty() {
+    assertTrue(metadata.getMetadataItems("foo").isEmpty());
+  }
+
+  @Test
   void testGetDimensionItemNameIdMap() {
     Map<String, String> map = metadata.getDimensionItemNameIdMap(AnalyticsDimension.PERIOD);
 
