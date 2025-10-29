@@ -29,6 +29,7 @@ package org.hisp.dhis.model.analytics;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.io.Serializable;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -43,7 +44,7 @@ import org.hisp.dhis.model.ValueType;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class AnalyticsHeader {
+public class AnalyticsHeader implements Serializable {
   @EqualsAndHashCode.Include @JsonProperty private String name;
 
   @JsonProperty private String column;
