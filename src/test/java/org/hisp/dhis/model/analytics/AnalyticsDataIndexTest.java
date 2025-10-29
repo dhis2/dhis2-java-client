@@ -30,13 +30,11 @@ package org.hisp.dhis.model.analytics;
 import static org.hisp.dhis.model.analytics.AnalyticsDimension.DATA_X;
 import static org.hisp.dhis.model.analytics.AnalyticsDimension.ORG_UNIT;
 import static org.hisp.dhis.model.analytics.AnalyticsDimension.PERIOD;
-import static org.hisp.dhis.support.Assertions.assertContainsExactly;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.List;
-import java.util.Set;
 import org.hisp.dhis.model.ValueType;
 import org.hisp.dhis.support.TestTags;
 import org.hisp.dhis.util.MapBuilder;
@@ -44,7 +42,7 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 @Tag(TestTags.UNIT)
-class AnalyticsDataTest {
+class AnalyticsDataIndexTest {
   private AnalyticsData getDataA() {
     List<AnalyticsHeader> headers =
         List.of(
@@ -96,113 +94,40 @@ class AnalyticsDataTest {
   }
 
   @Test
-  void testHeaderExists() {
-    AnalyticsData data = getDataA();
+  void testToKey() {
+    String keyA = AnalyticsDataIndex.toKey(List.of("A1", "B1", "C1", "2"), List.of(0, 1, 2));
+    String keyB = AnalyticsDataIndex.toKey(List.of("A4", "B2", "2"), List.of(0, 1));
 
-    assertTrue(data.headerExists(DATA_X));
-    assertTrue(data.headerExists(ORG_UNIT));
-    assertFalse(data.headerExists("product"));
+    assertEquals("A1::B1::C1", keyA);
+    assertEquals("A4::B2", keyB);
   }
 
   @Test
-  void testHeaderIndex() {
+  void testGetValue() {
     AnalyticsData data = getDataA();
 
-    assertEquals(0, data.headerIndex(DATA_X));
-    assertEquals(2, data.headerIndex(ORG_UNIT));
-    assertEquals(-1, data.headerIndex("product"));
+    AnalyticsDataIndex index = data.getIndex(3);
+
+    assertEquals(8, index.keySet().size());
+
+    assertEquals("2", index.getValue("A1", "B1", "C1"));
+    assertEquals("4", index.getValue("A2", "B2", "C2"));
+    assertEquals("7", index.getValue("A3", "B3", "C1"));
+    assertEquals("3", index.getValue("A4", "B4", "C2"));
+    assertEquals("8", index.getValue("A5", "B1", "C1"));
+    assertEquals("6", index.getValue("A6", "B2", "C2"));
+    assertEquals("1", index.getValue("A7", "B3", "C1"));
+    assertEquals("9", index.getValue("A8", "B4", "C2"));
   }
 
   @Test
-  void testGetHeaderMetaIndexSet() {
+  void testGetValueException() {
     AnalyticsData data = getDataA();
 
-    Set<Integer> indexes = data.getHeaderMetaIndexSet();
-    assertContainsExactly(indexes, 0, 1, 2);
-  }
+    AnalyticsDataIndex index = data.getIndex(3);
 
-  @Test
-  void testGetHeaderMetaIndexList() {
-    AnalyticsData data = getDataA();
+    assertNull(index.getValue("A1", "B9", "C9"));
 
-    List<Integer> indexes = data.getHeaderMetaIndexList();
-    assertContainsExactly(indexes, 0, 1, 2);
-  }
-
-  @Test
-  void testGetCopyOfHeaders() {
-    AnalyticsData data = getDataA();
-
-    List<AnalyticsHeader> copy = data.getCopyOfHeaders();
-
-    assertEquals(4, copy.size());
-    assertEquals("dx", copy.get(0).getName());
-    assertEquals("ou", copy.get(2).getName());
-  }
-
-  @Test
-  void testGetWidthHeight() {
-    AnalyticsData data = getDataA();
-
-    assertEquals(4, data.getWidth());
-    assertEquals(4, data.getHeaderWidth());
-    assertEquals(8, data.getHeight());
-  }
-
-  @Test
-  void testTruncateDataRows() {
-    AnalyticsData data = getDataA();
-
-    assertEquals(4, data.getWidth());
-    assertEquals(4, data.getHeaderWidth());
-    assertEquals(8, data.getHeight());
-    assertFalse(data.isTruncated());
-
-    data.truncate(4);
-
-    assertEquals(4, data.getWidth());
-    assertEquals(4, data.getHeaderWidth());
-    assertEquals(4, data.getHeight());
-    assertTrue(data.isTruncated());
-  }
-
-  @Test
-  void testGetRow() {
-    AnalyticsData data = getDataA();
-
-    List<String> row1 = data.getRow(0);
-    List<String> row2 = data.getRow(1);
-    List<String> row3 = data.getRow(2);
-    List<String> row5 = data.getRow(4);
-
-    assertEquals("A1", row1.get(0));
-    assertEquals("C1", row1.get(2));
-    assertEquals("A2", row2.get(0));
-    assertEquals("C2", row2.get(2));
-    assertEquals("A3", row3.get(0));
-    assertEquals("C1", row3.get(2));
-    assertEquals("A5", row5.get(0));
-    assertEquals("C1", row5.get(2));
-  }
-
-  @Test
-  void testDataWithNames() {
-    AnalyticsData data = getDataA();
-
-    List<List<String>> rows = data.getRowsWithNames();
-
-    List<String> row1 = rows.get(0);
-    List<String> row2 = rows.get(1);
-    List<String> row3 = rows.get(2);
-    List<String> row5 = rows.get(4);
-
-    assertEquals("Indicator 1", row1.get(0));
-    assertEquals("Facility 1", row1.get(2));
-    assertEquals("Indicator 2", row2.get(0));
-    assertEquals("Facility 2", row2.get(2));
-    assertEquals("Indicator 3", row3.get(0));
-    assertEquals("Facility 1", row3.get(2));
-    assertEquals("Indicator 5", row5.get(0));
-    assertEquals("Facility 1", row5.get(2));
+    assertThrows(IllegalArgumentException.class, () -> index.getValue("A1", "B1"));
   }
 }

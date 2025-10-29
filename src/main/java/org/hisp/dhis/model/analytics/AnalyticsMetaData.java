@@ -33,6 +33,7 @@ import static org.hisp.dhis.util.ObjectUtils.isNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -47,7 +48,7 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class AnalyticsMetaData {
+public class AnalyticsMetaData implements Serializable {
   @JsonProperty private Map<String, MetaDataItem> items;
 
   @JsonProperty private Map<String, List<String>> dimensions;

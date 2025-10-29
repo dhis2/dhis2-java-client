@@ -29,10 +29,12 @@ package org.hisp.dhis.model.analytics;
 
 import static org.apache.commons.collections4.CollectionUtils.isEmpty;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
+import static org.hisp.dhis.model.analytics.AnalyticsDataIndex.toKey;
 import static org.hisp.dhis.util.ObjectUtils.isNotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -42,13 +44,11 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 import org.apache.commons.lang3.StringUtils;
 
 @Getter
 @Setter
-@ToString
-public class AnalyticsData {
+public class AnalyticsData implements Serializable {
   /** Analytics column headers. */
   @JsonProperty private List<AnalyticsHeader> headers;
 
@@ -139,11 +139,21 @@ public class AnalyticsData {
    * @return an immutable set of indexes of metadata headers which represent metadata.
    */
   @JsonIgnore
-  public Set<Integer> getHeaderMetaIndexes() {
+  public Set<Integer> getHeaderMetaIndexSet() {
     return headers.stream()
         .filter(AnalyticsHeader::isMeta)
         .map(headers::indexOf)
         .collect(Collectors.toUnmodifiableSet());
+  }
+
+  /**
+   * Returns a set of indexes (positions) of metadata headers which represent metadata.
+   *
+   * @return an immutable set of indexes of metadata headers which represent metadata.
+   */
+  @JsonIgnore
+  public List<Integer> getHeaderMetaIndexList() {
+    return headers.stream().filter(AnalyticsHeader::isMeta).map(headers::indexOf).toList();
   }
 
   /**
@@ -237,6 +247,21 @@ public class AnalyticsData {
     return _rows;
   }
 
+  /**
+   * Returns a row index as a map. The map key is a string of meta row values concatenated by hypen.
+   * The map value is the row value at the given value index.
+   *
+   * @param valueIndex the value index.
+   * @return a row index as a map.
+   */
+  public AnalyticsDataIndex getIndex(int valueIndex) {
+    List<Integer> keyIndexes = getHeaderMetaIndexList();
+    Map<String, String> map =
+        rows.stream()
+            .collect(Collectors.toMap(row -> toKey(row, keyIndexes), row -> row.get(valueIndex)));
+    return new AnalyticsDataIndex(map, keyIndexes);
+  }
+
   /** Orders the data rows in natural order based on their metadata values. */
   @JsonIgnore
   public void sortRows() {
@@ -265,7 +290,7 @@ public class AnalyticsData {
       return;
     }
 
-    Set<Integer> metaIndexes = getHeaderMetaIndexes();
+    Set<Integer> metaIndexes = getHeaderMetaIndexSet();
 
     Map<String, String> dimItemNameIdMap =
         isNotBlank(dimension) && isNotNull(metaData)

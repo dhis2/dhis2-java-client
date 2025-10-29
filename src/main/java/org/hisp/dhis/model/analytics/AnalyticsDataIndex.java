@@ -27,76 +27,54 @@
  */
 package org.hisp.dhis.model.analytics;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import java.io.Serializable;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
-import org.hisp.dhis.model.ValueType;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-@Getter
-@Setter
-@ToString
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class AnalyticsHeader implements Serializable {
-  @EqualsAndHashCode.Include @JsonProperty private String name;
+public class AnalyticsDataIndex extends HashMap<String, String> {
+  private static final String SEP = "::";
 
-  @JsonProperty private String column;
+  private final List<Integer> keyIndexes;
 
-  @JsonProperty private ValueType valueType;
+  public AnalyticsDataIndex(Map<String, String> data, List<Integer> keyIndexes) {
+    super(data);
+    this.keyIndexes = keyIndexes;
+  }
 
-  @JsonProperty private Boolean hidden;
+  public String getValue(String... keys) {
+    if (keys.length != keyIndexes.size()) {
+      String msg =
+          String.format(
+              "Provided key count: %d must be equal to index key count: %d",
+              keys.length, keyIndexes.size());
+      throw new IllegalArgumentException(msg);
+    }
 
-  @JsonProperty private Boolean meta;
-
-  /**
-   * Constructor.
-   *
-   * @param name the name.
-   */
-  public AnalyticsHeader(String name) {
-    this.name = name;
+    return super.get(toKey(keys));
   }
 
   /**
-   * Constructor.
+   * Returns an index map key, where each given key is separated by {@link #SEP}.
    *
-   * @param name the name.
-   * @param column the column.
-   * @param valueType the value type.
-   * @param meta whether the column represents metadata.
+   * @param keys the array of key items.
+   * @return a key.
    */
-  public AnalyticsHeader(String name, String column, ValueType valueType, boolean meta) {
-    this.name = name;
-    this.column = column;
-    this.valueType = valueType;
-    this.hidden = false;
-    this.meta = meta;
+  private String toKey(String... keys) {
+    return String.join(SEP, Arrays.asList(keys));
   }
 
   /**
-   * Alias for column.
+   * Returns a row index key for the given row based on the given key indexes.
    *
-   * @return the label.
+   * @param row the data row.
+   * @param keyIndexes the list of indexes for keys.
+   * @return a key.
    */
-  @JsonProperty
-  public String getLabel() {
-    return column;
-  }
-
-  @JsonIgnore
-  public boolean isHidden() {
-    return hidden != null && hidden;
-  }
-
-  @JsonIgnore
-  public boolean isMeta() {
-    return meta != null && meta;
+  public static String toKey(List<String> row, List<Integer> keyIndexes) {
+    List<String> keys = new ArrayList<>();
+    keyIndexes.forEach(i -> keys.add(row.get(i)));
+    return String.join(SEP, keys);
   }
 }
