@@ -27,9 +27,12 @@
  */
 package org.hisp.dhis.model.analytics;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class AnalyticsDataIndex extends HashMap<String, String> {
   private static final String SEP = "==";
@@ -56,10 +59,23 @@ public class AnalyticsDataIndex extends HashMap<String, String> {
   /**
    * Returns an index map key, where each given key is separated by {@link #SEP}.
    *
-   * @param keys
-   * @return
+   * @param keys the array of key items.
+   * @return a key.
    */
   private String toKey(String... keys) {
     return String.join(SEP, Arrays.asList(keys));
+  }
+
+  /**
+   * Returns a row index key for the given row based on the given key indexes.
+   *
+   * @param row the data row.
+   * @param valueIndex the index of the value item.
+   * @return a key.
+   */
+  public static String toKey(List<String> row, Set<Integer> keyIndexes) {
+    List<String> keys = new ArrayList<>();
+    keyIndexes.forEach(i -> keys.add(row.get(i)));
+    return String.join(SEP, keys);
   }
 }

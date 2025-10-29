@@ -29,6 +29,7 @@ package org.hisp.dhis.model.analytics;
 
 import static org.apache.commons.collections4.CollectionUtils.isEmpty;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
+import static org.hisp.dhis.model.analytics.AnalyticsDataIndex.toKey;
 import static org.hisp.dhis.util.ObjectUtils.isNotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -245,20 +246,11 @@ public class AnalyticsData {
    * @return a row index as a map.
    */
   public AnalyticsDataIndex getIndex(int valueIndex) {
-    Set<Integer> metaIndexes = getHeaderMetaIndexes();
-
+    Set<Integer> keyIndexes = getHeaderMetaIndexes();
     Map<String, String> map =
         rows.stream()
-            .collect(
-                Collectors.toMap(
-                    row -> {
-                      List<String> keys = new ArrayList<>();
-                      metaIndexes.forEach(i -> keys.add(row.get(valueIndex)));
-                      return String.join("-", keys);
-                    },
-                    row -> row.get(valueIndex)));
-
-    return new AnalyticsDataIndex(map, metaIndexes.size());
+            .collect(Collectors.toMap(row -> toKey(row, keyIndexes), row -> row.get(valueIndex)));
+    return new AnalyticsDataIndex(map, keyIndexes.size());
   }
 
   /** Orders the data rows in natural order based on their metadata values. */
