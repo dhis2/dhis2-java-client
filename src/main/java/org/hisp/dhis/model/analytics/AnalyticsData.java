@@ -219,34 +219,6 @@ public class AnalyticsData implements Serializable {
     }
   }
 
-  @JsonIgnore
-  public List<List<String>> getRowsWithNames() {
-    if (headers == null || metaData == null || metaData.getItems() == null || rows == null) {
-      throw new IllegalStateException("Headers, metadata and rows must be present");
-    }
-
-    List<List<String>> _rows = new ArrayList<>();
-
-    for (List<String> row : rows) {
-      List<String> _row = new ArrayList<>();
-
-      for (int i = 0; i < row.size(); i++) {
-        String value = row.get(i);
-        boolean meta = headers.get(i).isMeta();
-
-        if (meta) {
-          _row.add(metaData.getItemName(value));
-        } else {
-          _row.add(value);
-        }
-      }
-
-      _rows.add(_row);
-    }
-
-    return _rows;
-  }
-
   /**
    * Returns a row index as a map. The map key is a string of meta row values concatenated by hypen.
    * The map value is the row value at the given value index.

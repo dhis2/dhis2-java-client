@@ -184,25 +184,4 @@ class AnalyticsDataTest {
     assertEquals("A5", row5.get(0));
     assertEquals("C1", row5.get(2));
   }
-
-  @Test
-  void testDataWithNames() {
-    AnalyticsData data = getDataA();
-
-    List<List<String>> rows = data.getRowsWithNames();
-
-    List<String> row1 = rows.get(0);
-    List<String> row2 = rows.get(1);
-    List<String> row3 = rows.get(2);
-    List<String> row5 = rows.get(4);
-
-    assertEquals("Indicator 1", row1.get(0));
-    assertEquals("Facility 1", row1.get(2));
-    assertEquals("Indicator 2", row2.get(0));
-    assertEquals("Facility 2", row2.get(2));
-    assertEquals("Indicator 3", row3.get(0));
-    assertEquals("Facility 1", row3.get(2));
-    assertEquals("Indicator 5", row5.get(0));
-    assertEquals("Facility 1", row5.get(2));
-  }
 }
