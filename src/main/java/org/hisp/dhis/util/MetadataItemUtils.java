@@ -25,59 +25,22 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.hisp.dhis.model.analytics;
+package org.hisp.dhis.util;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import java.io.Serializable;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import java.util.Collection;
+import java.util.List;
+import java.util.Objects;
+import org.hisp.dhis.model.analytics.MetaDataItem;
 
-@Getter
-@Setter
-@ToString
-@NoArgsConstructor
-public class MetaDataItem implements Serializable {
-  @JsonProperty private String uid;
-
-  @JsonProperty private String name;
-
-  @JsonProperty private String dimensionType;
-
-  @JsonProperty private String code;
-
-  @JsonProperty private String dimensionItemType;
-
-  @JsonProperty private String valueType;
-
-  @JsonProperty private String totalAggregationType;
-
-  @JsonProperty private String startDate;
-
-  @JsonProperty private String endDate;
-
-  @JsonProperty private String legendSet;
-
-  @JsonProperty private String aggregationType;
-
+public class MetadataItemUtils {
   /**
-   * Constructor.
+   * Converts the given collection of metaedata items a new list of names.
    *
-   * @param name the name.
+   * @param <T> the type.
+   * @param objects the collection of {@link MetaDataItem}.
+   * @return a list of object codes.
    */
-  public MetaDataItem(String name) {
-    this.name = name;
-  }
-
-  /**
-   * Constructor.
-   *
-   * @param uid the identifier.
-   * @param name the name.
-   */
-  public MetaDataItem(String uid, String name) {
-    this.uid = uid;
-    this.name = name;
+  public static <T extends MetaDataItem> List<String> toNames(Collection<T> objects) {
+    return objects.stream().filter(Objects::nonNull).map(MetaDataItem::getName).toList();
   }
 }

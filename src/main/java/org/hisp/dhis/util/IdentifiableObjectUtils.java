@@ -62,7 +62,7 @@ public class IdentifiableObjectUtils {
   }
 
   /**
-   * Converts the given collection of identifiable objects to a new list of object codes.
+   * Converts the given collection of identifiable objects to a new list of object names.
    *
    * @param <T> the type.
    * @param objects the collection of {@link IdentifiableObject}.
