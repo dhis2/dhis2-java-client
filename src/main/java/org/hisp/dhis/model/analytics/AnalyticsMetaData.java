@@ -127,8 +127,8 @@ public class AnalyticsMetaData implements Serializable {
    * @return the count of dimension items.
    */
   public int getDimensionItemCount(String dimension) {
-    List<String> items = getDimensionItems(dimension);
-    return items != null ? items.size() : -1;
+    List<String> dimItems = getDimensionItems(dimension);
+    return dimItems != null ? dimItems.size() : -1;
   }
 
   /**
