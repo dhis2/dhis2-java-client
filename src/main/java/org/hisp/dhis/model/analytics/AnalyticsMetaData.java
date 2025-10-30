@@ -139,10 +139,10 @@ public class AnalyticsMetaData implements Serializable {
    * @return a list of {@link MetaDataItem}.
    */
   public List<MetaDataItem> getMetadataItems(String dimension) {
-    List<String> items = getDimensionItems(dimension);
+    List<String> dimItems = getDimensionItems(dimension);
 
-    if (isNotEmpty(items)) {
-      return items.stream().map(this::getMetadataItem).filter(Objects::nonNull).toList();
+    if (isNotEmpty(dimItems)) {
+      return dimItems.stream().map(this::getMetadataItem).filter(Objects::nonNull).toList();
     }
 
     return List.of();
