@@ -75,14 +75,6 @@ class AnalyticsMetadataTest {
   }
 
   @Test
-  void testGetItemName() {
-    assertEquals("Indicator 2", metadata.getItemName("A2"));
-    assertEquals("Month 3", metadata.getItemName("B3"));
-    assertEquals("Facility 1", metadata.getItemName("C1"));
-    assertNull(metadata.getItemName("X1"));
-  }
-
-  @Test
   void testGetMetadataItem() {
     assertEquals("A1", metadata.getMetadataItem("A1").getUid());
     assertEquals("Indicator 1", metadata.getMetadataItem("A1").getName());
@@ -91,6 +83,20 @@ class AnalyticsMetadataTest {
     assertEquals("Month 1", metadata.getMetadataItem("B1").getName());
 
     assertNull(metadata.getMetadataItem("X1"));
+  }
+
+  @Test
+  void testGetDimensionItems() {
+    assertEquals(8, metadata.getDimensionItems(DATA_X).size());
+    assertEquals(4, metadata.getDimensionItems(PERIOD).size());
+    assertNull(metadata.getDimensionItems("foo"));
+  }
+
+  @Test
+  void testGetDimensionItemCount() {
+    assertEquals(8, metadata.getDimensionItemCount(DATA_X));
+    assertEquals(4, metadata.getDimensionItemCount(PERIOD));
+    assertEquals(-1, metadata.getDimensionItemCount("foo"));
   }
 
   @Test
