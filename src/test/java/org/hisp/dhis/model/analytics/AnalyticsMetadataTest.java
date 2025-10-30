@@ -92,6 +92,7 @@ class AnalyticsMetadataTest {
     assertNull(metadata.getDimensionItems("foo"));
   }
 
+  @Test
   void testGetDimensionItemCount() {
     assertEquals(8, metadata.getDimensionItemCount(DATA_X));
     assertEquals(4, metadata.getDimensionItemCount(PERIOD));
