@@ -46,6 +46,16 @@ public class NameableObject extends IdentifiableObject {
    * Constructor.
    *
    * @param id the identifier.
+   * @param name the name.
+   */
+  public NameableObject(String id, String name) {
+    super(id, null, name);
+  }
+
+  /**
+   * Constructor.
+   *
+   * @param id the identifier.
    * @param code the code.
    * @param name the name.
    */
