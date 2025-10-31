@@ -83,6 +83,14 @@ class AnalyticsMetadataTest {
     assertEquals("Month 1", metadata.getMetadataItem("B1").getName());
 
     assertNull(metadata.getMetadataItem("X1"));
+    assertNull(metadata.getMetadataItem("Y1"));
+  }
+
+  @Test
+  void testGetMetadataItemName() {
+    assertEquals("Indicator 1", metadata.getMetadataItemName("A1"));
+    assertEquals("Month 1", metadata.getMetadataItemName("B1"));
+    assertNull(metadata.getMetadataItemName("X1"));
   }
 
   @Test

@@ -51,7 +51,11 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AnalyticsMetaData implements Serializable {
-  /** Map between dimension item identifiers and metadata item objects. */
+  /**
+   * Map between dimension item identifiers and metadata item objects. The {@code name} property is
+   * always set. Other properties are only set if the API request parameter {@code
+   * includeMetadataDetails} was enabled.
+   */
   @JsonProperty private Map<String, MetaDataItem> items;
 
   /**
@@ -107,6 +111,17 @@ public class AnalyticsMetaData implements Serializable {
       item.setUid(id);
     }
     return item;
+  }
+
+  /**
+   * Returns the name of the metadata item with the given identifier.
+   *
+   * @param id the item identifier.
+   * @return the name of the metadata item, or null if no item exists with the given identifier.
+   */
+  public String getMetadataItemName(String id) {
+    MetaDataItem item = items.get(id);
+    return item != null ? item.getName() : null;
   }
 
   /**
