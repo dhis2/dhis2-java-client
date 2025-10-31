@@ -61,13 +61,13 @@ public final class AnalyticsKeyword {
   }
 
   /**
-   * Returns the org unit level keyword for the given level string.
+   * Returns the org unit level keyword for the given identifier string.
    *
-   * @param level the level string.
+   * @param id the org unit level identifier.
    * @return the org unit level keyword.
    */
-  public static final String getOrgUnitLevel(String level) {
-    return ORG_UNIT_LEVEL_PREFIX + level;
+  public static final String getOrgUnitLevel(String id) {
+    return ORG_UNIT_LEVEL_PREFIX + id;
   }
 
   /**
