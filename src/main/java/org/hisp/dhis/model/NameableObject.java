@@ -51,6 +51,7 @@ public class NameableObject extends IdentifiableObject {
   public NameableObject(String id, String name) {
     super(id, null, name);
   }
+
   /**
    * Constructor.
    *
