@@ -108,6 +108,21 @@ class AnalyticsMetadataTest {
   }
 
   @Test
+  void testGetDataItemCount() {
+    assertEquals(8, metadata.getDataItemCount());
+  }
+
+  @Test
+  void testGetPeriodItemCount() {
+    assertEquals(4, metadata.getPeriodItemCount());
+  }
+
+  @Test
+  void testGetOrgUnitItemCount() {
+    assertEquals(2, metadata.getOrgUnitItemCount());
+  }
+
+  @Test
   void testGetMetadataItems() {
     List<MetaDataItem> dataItems = metadata.getMetadataItems(DATA_X);
 
