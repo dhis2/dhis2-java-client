@@ -146,6 +146,21 @@ public class AnalyticsMetaData implements Serializable {
     return dimItems != null ? dimItems.size() : -1;
   }
 
+  /** Returns the count of data dimension items. */
+  public int getDataItemCount() {
+    return getDimensionItemCount(AnalyticsDimension.DATA_X);
+  }
+
+  /** Returns the count of period dimension items. */
+  public int getPeriodItemCount() {
+    return getDimensionItemCount(AnalyticsDimension.PERIOD);
+  }
+
+  /** Returns the count of org unit dimension items. */
+  public int getOrgUnitItemCount() {
+    return getDimensionItemCount(AnalyticsDimension.ORG_UNIT);
+  }
+
   /**
    * Returns a list of {@link MetaDataItem} for the given dimension. Returns an empty list of the
    * dimension does not exist.
