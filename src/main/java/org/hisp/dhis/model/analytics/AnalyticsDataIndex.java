@@ -33,16 +33,31 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Mapping of analytics dimension items to values (metrics).
+ */
 public class AnalyticsDataIndex extends HashMap<String, String> {
   private static final String SEP = "::";
 
   private final List<Integer> keyIndexes;
 
+  /**
+   * Constructor.
+   * 
+   * @param data the mapping of analytics dimension items to values (metrics).
+   * @param keyIndexes the indexes of dimension items in data keys.
+   */
   public AnalyticsDataIndex(Map<String, String> data, List<Integer> keyIndexes) {
     super(data);
     this.keyIndexes = keyIndexes;
   }
 
+  /**
+   * Returns a value for the given dimension item keys.
+   * 
+   * @param keys the dimension item keys.
+   * @return a value.
+   */
   public String getValue(String... keys) {
     if (keys.length != keyIndexes.size()) {
       String msg =
