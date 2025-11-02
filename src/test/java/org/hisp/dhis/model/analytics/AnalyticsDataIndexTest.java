@@ -121,6 +121,19 @@ class AnalyticsDataIndexTest {
   }
 
   @Test
+  void testGetDoubleValue() {
+    AnalyticsData data = getDataA();
+
+    AnalyticsDataIndex index = data.getIndex(3);
+
+    assertEquals(8, index.keySet().size());
+
+    assertEquals(2d, index.getDoubleValue("A1", "B1", "C1"));
+    assertEquals(4d, index.getDoubleValue("A2", "B2", "C2"));
+    assertEquals(7d, index.getDoubleValue("A3", "B3", "C1"));
+  }
+
+  @Test
   void testGetValueException() {
     AnalyticsData data = getDataA();
 

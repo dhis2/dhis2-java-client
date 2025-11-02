@@ -32,6 +32,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.apache.commons.lang3.math.NumberUtils;
 
 /** Mapping of analytics dimension items to values (metrics). */
 public class AnalyticsDataIndex extends HashMap<String, String> {
@@ -66,6 +67,18 @@ public class AnalyticsDataIndex extends HashMap<String, String> {
     }
 
     return super.get(toKey(keys));
+  }
+
+  /**
+   * Returns a value as a {@link Double} for the given dimension item keys. Returns null if no value
+   * exists or value is not numeric.
+   *
+   * @param keys the dimension item keys.
+   * @return a value as {@link Double}.
+   */
+  public Double getDoubleValue(String... keys) {
+    String value = getValue(keys);
+    return NumberUtils.isCreatable(value) ? Double.parseDouble(value) : null;
   }
 
   /**
