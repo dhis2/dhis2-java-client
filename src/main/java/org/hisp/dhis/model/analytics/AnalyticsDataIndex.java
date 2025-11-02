@@ -33,9 +33,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Mapping of analytics dimension items to values (metrics).
- */
+/** Mapping of analytics dimension items to values (metrics). */
 public class AnalyticsDataIndex extends HashMap<String, String> {
   private static final String SEP = "::";
 
@@ -43,7 +41,7 @@ public class AnalyticsDataIndex extends HashMap<String, String> {
 
   /**
    * Constructor.
-   * 
+   *
    * @param data the mapping of analytics dimension items to values (metrics).
    * @param keyIndexes the indexes of dimension items in data keys.
    */
@@ -54,7 +52,7 @@ public class AnalyticsDataIndex extends HashMap<String, String> {
 
   /**
    * Returns a value for the given dimension item keys.
-   * 
+   *
    * @param keys the dimension item keys.
    * @return a value.
    */
