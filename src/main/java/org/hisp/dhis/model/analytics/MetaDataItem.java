@@ -95,7 +95,7 @@ public class MetaDataItem implements Serializable {
     this.name = name;
     this.dimensionItemType = dimensionItemType;
   }
-  
+
   /**
    * Indicates whether the dimension item is of the given {@link DimensionItemType}.
    *
