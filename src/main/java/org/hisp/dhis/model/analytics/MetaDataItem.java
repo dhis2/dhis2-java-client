@@ -95,4 +95,14 @@ public class MetaDataItem implements Serializable {
     this.name = name;
     this.dimensionItemType = dimensionItemType;
   }
+
+  /**
+   * Indicates whether the dimension item is of the given {@link DimensionItemType}.
+   *
+   * @param dimensionItemType the {@link DimensionItemType}.
+   * @return true if the dimension item is of the given type.
+   */
+  public boolean isDimensionItemType(DimensionItemType dimensionItemType) {
+    return this.dimensionItemType == dimensionItemType;
+  }
 }

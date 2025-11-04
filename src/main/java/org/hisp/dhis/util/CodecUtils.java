@@ -27,6 +27,9 @@
  */
 package org.hisp.dhis.util;
 
+import java.net.URI;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -41,5 +44,15 @@ public class CodecUtils {
    */
   public static String md5Hash(String input) {
     return DigestUtils.md5Hex(input);
+  }
+
+  /**
+   * Decodes a URI.
+   *
+   * @param uri the URI to decode.
+   * @return the decoded string.
+   */
+  public static String decode(URI uri) {
+    return URLDecoder.decode(uri.toString(), StandardCharsets.UTF_8);
   }
 }
