@@ -51,4 +51,13 @@ public class DimensionItem extends NameableObject {
     this.name = name;
     this.dimensionItemType = dimensionItemType;
   }
+
+  /**
+   * Returns the {@link DimensionItemType}. Method to override by subclasses.
+   *
+   * @return the {@link DimensionItemType}.
+   */
+  public DimensionItemType getDimensionItemType() {
+    return dimensionItemType;
+  }
 }

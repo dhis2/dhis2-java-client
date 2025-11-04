@@ -35,11 +35,13 @@ import java.util.Date;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hisp.dhis.model.dimension.DimensionItem;
+import org.hisp.dhis.model.dimension.DimensionItemType;
 
 @Getter
 @Setter
 @NoArgsConstructor
-public class OrgUnit extends NameableObject {
+public class OrgUnit extends DimensionItem {
   @JsonProperty private String path;
 
   @JsonProperty private Integer level;
@@ -84,5 +86,10 @@ public class OrgUnit extends NameableObject {
   public OrgUnit(String id, String name, String shortName, OrgUnit parent, Date openingDate) {
     this(id, name, shortName, parent);
     this.openingDate = openingDate;
+  }
+
+  @Override
+  public DimensionItemType getDimensionItemType() {
+    return DimensionItemType.ORGANISATION_UNIT;
   }
 }

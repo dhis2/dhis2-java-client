@@ -34,12 +34,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hisp.dhis.model.dimension.DataDimensionType;
+import org.hisp.dhis.model.dimension.DimensionItem;
 import org.hisp.dhis.model.dimension.DimensionItemType;
 
 @Getter
 @Setter
 @NoArgsConstructor
-public class CategoryOptionGroup extends NameableObject {
+public class CategoryOptionGroup extends DimensionItem {
   @JsonProperty private DataDimensionType dataDimensionType;
 
   @JsonProperty private DimensionItemType dimensionItemType;
@@ -47,4 +48,9 @@ public class CategoryOptionGroup extends NameableObject {
   @JsonProperty private List<CategoryOption> categoryOptions = new ArrayList<>();
 
   @JsonProperty private List<CategoryOptionGroupSet> groupSets = new ArrayList<>();
+
+  @Override
+  public DimensionItemType getDimensionItemType() {
+    return DimensionItemType.CATEGORY_OPTION_GROUP;
+  }
 }

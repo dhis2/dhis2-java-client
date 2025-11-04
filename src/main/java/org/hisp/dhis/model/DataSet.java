@@ -33,12 +33,13 @@ import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hisp.dhis.model.dimension.DimensionItem;
 import org.hisp.dhis.model.dimension.DimensionItemType;
 
 @Getter
 @Setter
 @NoArgsConstructor
-public class DataSet extends NameableObject {
+public class DataSet extends DimensionItem {
   @JsonProperty private String formName;
 
   @JsonProperty private String displayFormName;
@@ -98,4 +99,9 @@ public class DataSet extends NameableObject {
   @JsonProperty private Boolean fieldCombinationRequired;
 
   @JsonProperty private Boolean mobile;
+
+  @Override
+  public DimensionItemType getDimensionItemType() {
+    return DimensionItemType.REPORTING_RATE;
+  }
 }

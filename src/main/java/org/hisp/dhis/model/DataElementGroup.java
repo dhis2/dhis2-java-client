@@ -33,12 +33,19 @@ import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hisp.dhis.model.dimension.DimensionItem;
+import org.hisp.dhis.model.dimension.DimensionItemType;
 
 @Getter
 @Setter
 @NoArgsConstructor
-public class DataElementGroup extends NameableObject {
+public class DataElementGroup extends DimensionItem {
   @JsonProperty private List<DataElement> dataElements = new ArrayList<>();
 
   @JsonProperty private List<DataElementGroupSet> groupSets = new ArrayList<>();
+
+  @Override
+  public DimensionItemType getDimensionItemType() {
+    return DimensionItemType.DATA_ELEMENT_GROUP;
+  }
 }
