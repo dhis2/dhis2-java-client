@@ -144,8 +144,8 @@ public class AnalyticsMetaData implements Serializable {
    * @return the count of dimension items, or -1 if the dimension does not exist.
    */
   public int getDimensionItemCount(String dimension) {
-    List<String> items = dimensions.get(dimension);
-    return items != null ? items.size() : -1;
+    List<String> dimItems = dimensions.get(dimension);
+    return dimItems != null ? dimItems.size() : -1;
   }
 
   /** Returns the count of data dimension items. */
