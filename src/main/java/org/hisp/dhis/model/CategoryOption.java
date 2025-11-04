@@ -37,11 +37,13 @@ import java.util.Set;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hisp.dhis.model.dimension.DimensionItem;
+import org.hisp.dhis.model.dimension.DimensionItemType;
 
 @Getter
 @Setter
 @NoArgsConstructor
-public class CategoryOption extends NameableObject {
+public class CategoryOption extends DimensionItem {
   @JsonProperty
   @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_FORMAT)
   private Date startDate;
@@ -57,4 +59,9 @@ public class CategoryOption extends NameableObject {
   @JsonProperty private Set<CategoryOptionCombo> categoryOptionCombos = new HashSet<>();
 
   @JsonProperty private Set<OrgUnit> organisationUnits = new HashSet<>();
+
+  @Override
+  public DimensionItemType getDimensionItemType() {
+    return DimensionItemType.CATEGORY_OPTION;
+  }
 }

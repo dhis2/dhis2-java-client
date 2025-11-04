@@ -30,8 +30,15 @@ package org.hisp.dhis.model;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hisp.dhis.model.dimension.DimensionItem;
+import org.hisp.dhis.model.dimension.DimensionItemType;
 
 @Getter
 @Setter
 @NoArgsConstructor
-public class ProgramIndicator extends NameableObject {}
+public class ProgramIndicator extends DimensionItem {
+  @Override
+  public DimensionItemType getDimensionItemType() {
+    return DimensionItemType.PROGRAM_INDICATOR;
+  }
+}

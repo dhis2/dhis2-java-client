@@ -40,6 +40,7 @@ import org.hisp.dhis.model.DataElement;
 import org.hisp.dhis.model.OptionSet;
 import org.hisp.dhis.model.ValueType;
 import org.hisp.dhis.model.acl.Access;
+import org.hisp.dhis.model.dimension.DimensionItemType;
 import org.hisp.dhis.model.metadata.Metadata;
 import org.hisp.dhis.model.sharing.Sharing;
 import org.hisp.dhis.model.sharing.UserAccess;
@@ -70,6 +71,7 @@ class DataElementApiTest {
     assertNotNull(dataElement.getAccess());
     assertNotNull(dataElement.getSharing());
     assertNotNull(dataElement.getValueType());
+    assertEquals(DimensionItemType.DATA_ELEMENT, dataElement.getDimensionItemType());
 
     OptionSet optionSet = dataElement.getOptionSet();
 

@@ -36,6 +36,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 import org.hisp.dhis.model.CategoryOption;
+import org.hisp.dhis.model.dimension.DimensionItemType;
 import org.hisp.dhis.query.Query;
 import org.hisp.dhis.response.Status;
 import org.hisp.dhis.response.object.ObjectResponse;
@@ -59,6 +60,7 @@ class CategoryOptionApiTest {
     assertNotNull(categoryOption.getSharing());
     assertNotNull(categoryOption.getAccess());
     assertNotEmpty(categoryOption.getCategories());
+    assertEquals(DimensionItemType.CATEGORY_OPTION, categoryOption.getDimensionItemType());
   }
 
   @Test

@@ -31,11 +31,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hisp.dhis.model.dimension.DimensionItem;
+import org.hisp.dhis.model.dimension.DimensionItemType;
 
 @Getter
 @Setter
 @NoArgsConstructor
-public class Indicator extends NameableObject {
+public class Indicator extends DimensionItem {
   @JsonProperty private IndicatorType indicatorType;
 
   @JsonProperty private boolean annualized;
@@ -49,4 +51,9 @@ public class Indicator extends NameableObject {
   @JsonProperty private String denominatorDescription;
 
   @JsonProperty private String url;
+
+  @Override
+  public DimensionItemType getDimensionItemType() {
+    return DimensionItemType.INDICATOR;
+  }
 }

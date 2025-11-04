@@ -37,6 +37,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.List;
 import org.hisp.dhis.model.Indicator;
 import org.hisp.dhis.model.IndicatorType;
+import org.hisp.dhis.model.dimension.DimensionItemType;
 import org.hisp.dhis.model.metadata.Metadata;
 import org.hisp.dhis.query.Filter;
 import org.hisp.dhis.query.Query;
@@ -65,6 +66,7 @@ class IndicatorApiTest {
     assertNotNull(indicator.getLastUpdated());
     assertFalse(indicator.isAnnualized());
     assertNotNull(indicator.getUrl());
+    assertEquals(DimensionItemType.INDICATOR, indicator.getDimensionItemType());
 
     IndicatorType indicatorType = indicator.getIndicatorType();
     assertNotNull(indicatorType.getId());

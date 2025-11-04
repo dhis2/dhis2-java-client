@@ -34,11 +34,13 @@ import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hisp.dhis.model.dimension.DimensionItem;
+import org.hisp.dhis.model.dimension.DimensionItemType;
 
 @Getter
 @Setter
 @NoArgsConstructor
-public class DataElement extends NameableObject {
+public class DataElement extends DimensionItem {
   @JsonProperty private AggregationType aggregationType;
 
   @JsonProperty private ValueType valueType;
@@ -58,5 +60,10 @@ public class DataElement extends NameableObject {
   @JsonIgnore
   public boolean hasOptionSet() {
     return optionSet != null;
+  }
+
+  @Override
+  public DimensionItemType getDimensionItemType() {
+    return DimensionItemType.DATA_ELEMENT;
   }
 }

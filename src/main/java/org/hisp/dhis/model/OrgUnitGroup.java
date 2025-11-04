@@ -33,11 +33,13 @@ import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hisp.dhis.model.dimension.DimensionItem;
+import org.hisp.dhis.model.dimension.DimensionItemType;
 
 @Getter
 @Setter
 @NoArgsConstructor
-public class OrgUnitGroup extends NameableObject {
+public class OrgUnitGroup extends DimensionItem {
   @JsonProperty("organisationUnits")
   private List<OrgUnit> orgUnits = new ArrayList<>();
 
@@ -49,5 +51,10 @@ public class OrgUnitGroup extends NameableObject {
   public OrgUnitGroup(String id, String name, String shortName) {
     this(id, name);
     this.shortName = shortName;
+  }
+
+  @Override
+  public DimensionItemType getDimensionItemType() {
+    return DimensionItemType.ORGANISATION_UNIT_GROUP;
   }
 }

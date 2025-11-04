@@ -118,6 +118,8 @@ class AnalyticsDataIndexTest {
     assertEquals("6", index.getValue("A6", "B2", "C2"));
     assertEquals("1", index.getValue("A7", "B3", "C1"));
     assertEquals("9", index.getValue("A8", "B4", "C2"));
+
+    assertNull(index.getValue("X1", "Y1", "Z1"));
   }
 
   @Test
@@ -131,6 +133,8 @@ class AnalyticsDataIndexTest {
     assertEquals(2d, index.getDoubleValue("A1", "B1", "C1"));
     assertEquals(4d, index.getDoubleValue("A2", "B2", "C2"));
     assertEquals(7d, index.getDoubleValue("A3", "B3", "C1"));
+
+    assertNull(index.getDoubleValue("X1", "Y1", "Z1"));
   }
 
   @Test

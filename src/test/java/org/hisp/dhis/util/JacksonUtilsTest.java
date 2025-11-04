@@ -103,6 +103,7 @@ class JacksonUtilsTest {
         "attributeValues":[],\
         "translations":[],\
         "shortName":"ANC",\
+        "dimensionItemType":"DATA_ELEMENT",\
         "aggregationType":"SUM",\
         "valueType":"NUMBER",\
         "domainType":"AGGREGATE",\
