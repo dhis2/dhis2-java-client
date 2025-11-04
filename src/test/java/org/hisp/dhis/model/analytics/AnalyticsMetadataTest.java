@@ -30,6 +30,7 @@ package org.hisp.dhis.model.analytics;
 import static org.hisp.dhis.model.analytics.AnalyticsDimension.DATA_X;
 import static org.hisp.dhis.model.analytics.AnalyticsDimension.ORG_UNIT;
 import static org.hisp.dhis.model.analytics.AnalyticsDimension.PERIOD;
+import static org.hisp.dhis.support.Assertions.assertSize;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -182,11 +183,21 @@ class AnalyticsMetadataTest {
 
   @Test
   void testGetDataItems() {
-    assertEquals(8, metadata.getDataItems().size());
+    assertSize(8, metadata.getDataItems());
   }
 
   @Test
   void testGetIndicatorItems() {
-    assertEquals(8, metadata.getIndicatorItems().size());
+    assertSize(8, metadata.getIndicatorItems());
+  }
+
+  @Test
+  void testGetPeriodItems() {
+    assertSize(4, metadata.getPeriodItems());
+  }
+
+  @Test
+  void testGetOrgUnitItems() {
+    assertSize(2, metadata.getOrgUnitItems());
   }
 }
