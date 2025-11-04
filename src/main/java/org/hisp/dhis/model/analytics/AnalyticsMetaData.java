@@ -30,6 +30,7 @@ package org.hisp.dhis.model.analytics;
 import static org.apache.commons.collections4.CollectionUtils.isEmpty;
 import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
 import static org.apache.commons.collections4.MapUtils.isEmpty;
+import static org.hisp.dhis.util.CollectionUtils.filterToList;
 import static org.hisp.dhis.util.ObjectUtils.isNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -126,25 +127,25 @@ public class AnalyticsMetaData implements Serializable {
   }
 
   /**
-   * Returns a list of dimension item identifiers for the given dimension. Returns null if the
-   * dimension does not exist.
+   * Returns a list of dimension item identifiers for the given dimension. Returns an empty list if
+   * the dimension does not exist.
    *
    * @param dimension the dimension identifier.
    * @return a list of dimension item identifiers.
    */
   public List<String> getDimensionItems(String dimension) {
-    return dimensions.get(dimension);
+    return dimensions.getOrDefault(dimension, List.of());
   }
 
   /**
    * Returns the count of dimension items. Returns -1 if the dimension does not exist.
    *
    * @param dimension the dimension identifier.
-   * @return the count of dimension items.
+   * @return the count of dimension items, or -1 if the dimension does not exist.
    */
   public int getDimensionItemCount(String dimension) {
-    List<String> dimItems = getDimensionItems(dimension);
-    return dimItems != null ? dimItems.size() : -1;
+    List<String> items = dimensions.get(dimension);
+    return items != null ? items.size() : -1;
   }
 
   /** Returns the count of data dimension items. */
@@ -177,6 +178,34 @@ public class AnalyticsMetaData implements Serializable {
     }
 
     return List.of();
+  }
+
+  /**
+   * Returns a list of data element items.
+   *
+   * @return a list of data element items as {@link MetadataItem}.
+   */
+  public List<MetaDataItem> getDataElementItems() {
+    return filterToList(
+        getDataItems(), it -> it.isDimensionItemType(DimensionItemType.DATA_ELEMENT));
+  }
+
+  /**
+   * Returns a list of data element items.
+   *
+   * @return a list of data element items as {@link MetadataItem}.
+   */
+  public List<MetaDataItem> getIndicatorItems() {
+    return filterToList(getDataItems(), it -> it.isDimensionItemType(DimensionItemType.INDICATOR));
+  }
+
+  /**
+   * Returns a list of data items
+   *
+   * @return a list of data items as {@link MetadataItem}.
+   */
+  public List<MetaDataItem> getDataItems() {
+    return getMetadataItems(AnalyticsDimension.DATA_X);
   }
 
   /**
