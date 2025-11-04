@@ -53,6 +53,19 @@ public class DimensionItem extends NameableObject {
   }
 
   /**
+   * Constructor.
+   *
+   * @param id the identifier.
+   * @param code the code.
+   * @param name the name.
+   * @param dimensionItemType the {@link DimensionItemType}.
+   */
+  public DimensionItem(String id, String code, String name, DimensionItemType dimensionItemType) {
+    this(id, name, dimensionItemType);
+    this.code = code;
+  }
+
+  /**
    * Returns the {@link DimensionItemType}. Method to override by subclasses.
    *
    * @return the {@link DimensionItemType}.
