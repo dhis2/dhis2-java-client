@@ -44,6 +44,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.hisp.dhis.model.dimension.DimensionItemType;
 
 @Getter
 @Setter
@@ -176,5 +177,25 @@ public class AnalyticsMetaData implements Serializable {
     }
 
     return List.of();
+  }
+
+  /**
+   * Indicates whether the data dimension has both indicator and data element items.
+   *
+   * @return true if the data dimension has both indicator and data element items.
+   */
+  public boolean hasIndicatorsAndDataElementItems() {
+    return hasDataItem(DimensionItemType.INDICATOR) && hasDataItem(DimensionItemType.DATA_ELEMENT);
+  }
+
+  /**
+   * Indicates whether any dimension items of the given type exists for the data dimension.
+   *
+   * @param type the {@link DimensionItemType}.
+   * @return true if any dimension items of the given type exists for the data dimension.
+   */
+  public boolean hasDataItem(DimensionItemType type) {
+    List<MetaDataItem> items = getMetadataItems(AnalyticsDimension.DATA_X);
+    return items.stream().anyMatch(item -> item.getDimensionItemType() == type);
   }
 }
