@@ -32,12 +32,15 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.io.IOException;
 import java.net.URI;
+import java.util.List;
 import org.apache.hc.core5.net.URIBuilder;
 import org.hisp.dhis.model.AggregationType;
 import org.hisp.dhis.model.DataDomain;
 import org.hisp.dhis.model.DataElement;
 import org.hisp.dhis.model.ValueType;
+import org.hisp.dhis.query.analytics.AnalyticsQuery;
 import org.hisp.dhis.support.TestTags;
+import org.hisp.dhis.util.CodecUtils;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
@@ -108,5 +111,42 @@ class BaseDhis2Test {
         &async=false""");
 
     assertEquals(expected, dhis2.withMetadataImportParams(uriBuilder));
+  }
+
+  @Test
+  void testWithAnalyticsQueryParams() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    URIBuilder uriBuilder =
+        TestFixture.DEFAULT_CONFIG.getResolvedUriBuilder().appendPath("analytics");
+
+    AnalyticsQuery query =
+        AnalyticsQuery.instance()
+            // "ANC 1st visit", "ANC 2nd visit", "ANC 3rd visit"
+            .addDataDimension(List.of("fbfJHSPpUQD", "cYeuwXTCPkU", "Jtf34kNZhzP"))
+            .addPeriodDimension(List.of("202501", "202502", "202503"))
+            // "Sierra Leone"
+            .addOrgUnitFilter(List.of("ImspTQPwCqd"))
+            .setSkipData(false)
+            .setSkipMeta(false)
+            .setIncludeMetadataDetails(true)
+            .setIncludeNumDen(true);
+
+    URI url = dhis2.withAnalyticsQueryParams(uriBuilder, query);
+
+    String decodedUrl = CodecUtils.decode(url);
+
+    String expected =
+        """
+        https://play.im.dhis2.org/stable-2-41-6/api/analytics\
+        ?dimension=dx:fbfJHSPpUQD;cYeuwXTCPkU;Jtf34kNZhzP\
+        &dimension=pe:202501;202502;202503\
+        &filter=ou:ImspTQPwCqd\
+        &skipMeta=false\
+        &skipData=false\
+        &includeNumDen=true\
+        &includeMetadataDetails=true""";
+
+    assertEquals(expected, decodedUrl);
   }
 }
