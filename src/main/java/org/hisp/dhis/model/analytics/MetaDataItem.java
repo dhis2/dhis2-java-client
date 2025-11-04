@@ -33,6 +33,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.hisp.dhis.model.ValueType;
+import org.hisp.dhis.model.dimension.DimensionItemType;
 
 @Getter
 @Setter
@@ -47,9 +49,9 @@ public class MetaDataItem implements Serializable {
 
   @JsonProperty private String code;
 
-  @JsonProperty private String dimensionItemType;
+  @JsonProperty private DimensionItemType dimensionItemType;
 
-  @JsonProperty private String valueType;
+  @JsonProperty private ValueType valueType;
 
   @JsonProperty private String totalAggregationType;
 
