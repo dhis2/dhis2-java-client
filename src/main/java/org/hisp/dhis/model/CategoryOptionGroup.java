@@ -43,8 +43,6 @@ import org.hisp.dhis.model.dimension.DimensionItemType;
 public class CategoryOptionGroup extends DimensionItem {
   @JsonProperty private DataDimensionType dataDimensionType;
 
-  @JsonProperty private DimensionItemType dimensionItemType;
-
   @JsonProperty private List<CategoryOption> categoryOptions = new ArrayList<>();
 
   @JsonProperty private List<CategoryOptionGroupSet> groupSets = new ArrayList<>();

@@ -37,6 +37,7 @@ import java.util.stream.Collectors;
 import org.hisp.dhis.model.DataElement;
 import org.hisp.dhis.model.DataElementGroup;
 import org.hisp.dhis.model.IdentifiableObject;
+import org.hisp.dhis.model.dimension.DimensionItemType;
 import org.hisp.dhis.support.TestTags;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -58,6 +59,7 @@ class DataElementGroupApiTest {
     assertNotNull(deg.getSharing());
     assertNotNull(deg.getAccess());
     assertNull(deg.getDescription());
+    assertEquals(DimensionItemType.DATA_ELEMENT_GROUP, deg.getDimensionItemType());
 
     // Group members assertions
 

@@ -36,6 +36,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import java.util.List;
 import org.hisp.dhis.model.OrgUnit;
 import org.hisp.dhis.model.OrgUnitGroup;
+import org.hisp.dhis.model.dimension.DimensionItemType;
 import org.hisp.dhis.model.metadata.Metadata;
 import org.hisp.dhis.query.Query;
 import org.hisp.dhis.support.TestTags;
@@ -59,6 +60,7 @@ class OrgUnitGroupApiTest {
     assertNotNull(oug.getSharing());
     assertNotNull(oug.getAccess());
     assertNull(oug.getDescription());
+    assertEquals(DimensionItemType.ORGANISATION_UNIT_GROUP, oug.getDimensionItemType());
 
     // Group members assertions
 

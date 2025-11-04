@@ -40,6 +40,7 @@ import org.hisp.dhis.model.Attribute;
 import org.hisp.dhis.model.AttributeValue;
 import org.hisp.dhis.model.OrgUnit;
 import org.hisp.dhis.model.OrgUnitGroup;
+import org.hisp.dhis.model.dimension.DimensionItemType;
 import org.hisp.dhis.query.Filter;
 import org.hisp.dhis.query.Query;
 import org.hisp.dhis.query.RootJunction;
@@ -70,6 +71,7 @@ class OrgUnitApiTest {
     assertNotNull(ou.getParent());
     assertEquals("O6uvpzGd5pu", ou.getParent().getId());
     assertNotNull(ou.getOpeningDate());
+    assertEquals(DimensionItemType.ORGANISATION_UNIT, ou.getDimensionItemType());
   }
 
   @Test

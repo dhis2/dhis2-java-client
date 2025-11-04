@@ -66,6 +66,7 @@ class DataSetApiTest {
     assertEquals("bjDvmb4bfuf", dataSet.getCategoryCombo().getId());
     assertNotEmpty(dataSet.getDataSetElements());
     assertEquals("pBOMPrpg1QX", dataSet.getDimensionItem());
+    assertEquals(DimensionItemType.REPORTING_RATE, dataSet.getDimensionItemType());
     assertNotNull(dataSet.getOpenFuturePeriods());
     assertNotNull(dataSet.getExpiryDays());
     assertEquals(FormType.DEFAULT, dataSet.getFormType());
