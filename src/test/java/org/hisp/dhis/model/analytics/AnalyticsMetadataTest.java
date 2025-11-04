@@ -99,7 +99,7 @@ class AnalyticsMetadataTest {
   void testGetDimensionItems() {
     assertEquals(8, metadata.getDimensionItems(DATA_X).size());
     assertEquals(4, metadata.getDimensionItems(PERIOD).size());
-    assertNull(metadata.getDimensionItems("foo"));
+    assertEquals(0, metadata.getDimensionItems("foo").size());
   }
 
   @Test
@@ -178,5 +178,15 @@ class AnalyticsMetadataTest {
   @Test
   void testHasIndicatorOrDataElement() {
     assertFalse(metadata.hasIndicatorsAndDataElementItems());
+  }
+
+  @Test
+  void testGetDataItems() {
+    assertEquals(8, metadata.getDataItems().size());
+  }
+
+  @Test
+  void testGetIndicatorItems() {
+    assertEquals(8, metadata.getIndicatorItems().size());
   }
 }
