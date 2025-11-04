@@ -200,12 +200,30 @@ public class AnalyticsMetaData implements Serializable {
   }
 
   /**
-   * Returns a list of data items
+   * Returns a list of data items.
    *
    * @return a list of data items as {@link MetadataItem}.
    */
   public List<MetaDataItem> getDataItems() {
     return getMetadataItems(AnalyticsDimension.DATA_X);
+  }
+
+  /**
+   * Returns a list of period items.
+   *
+   * @return a list of period items as {@link MetadataItem}.
+   */
+  public List<MetaDataItem> getPeriodItems() {
+    return getMetadataItems(AnalyticsDimension.PERIOD);
+  }
+
+  /**
+   * Returns a list of org unit items.
+   *
+   * @return a list of org unit items as {@link MetadataItem}.
+   */
+  public List<MetaDataItem> getOrgUnitItems() {
+    return getMetadataItems(AnalyticsDimension.ORG_UNIT);
   }
 
   /**
