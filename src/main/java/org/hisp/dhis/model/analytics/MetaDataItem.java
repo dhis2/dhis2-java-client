@@ -82,4 +82,17 @@ public class MetaDataItem implements Serializable {
     this.uid = uid;
     this.name = name;
   }
+
+  /**
+   * Constructor.
+   *
+   * @param uid the identifier.
+   * @param name the name.
+   * @param dimensionItemType the {@link DimensionItemType}.
+   */
+  public MetaDataItem(String uid, String name, DimensionItemType dimensionItemType) {
+    this.uid = uid;
+    this.name = name;
+    this.dimensionItemType = dimensionItemType;
+  }
 }

@@ -31,11 +31,13 @@ import static org.hisp.dhis.model.analytics.AnalyticsDimension.DATA_X;
 import static org.hisp.dhis.model.analytics.AnalyticsDimension.ORG_UNIT;
 import static org.hisp.dhis.model.analytics.AnalyticsDimension.PERIOD;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 import java.util.Map;
+import org.hisp.dhis.model.dimension.DimensionItemType;
 import org.hisp.dhis.support.TestTags;
 import org.hisp.dhis.util.MapBuilder;
 import org.junit.jupiter.api.BeforeEach;
@@ -51,20 +53,20 @@ class AnalyticsMetadataTest {
     metadata = new AnalyticsMetaData();
     metadata.setItems(
         new MapBuilder<String, MetaDataItem>()
-            .put("A1", new MetaDataItem("Indicator 1"))
-            .put("A2", new MetaDataItem("Indicator 2"))
-            .put("A3", new MetaDataItem("Indicator 3"))
-            .put("A4", new MetaDataItem("Indicator 4"))
-            .put("A5", new MetaDataItem("Indicator 5"))
-            .put("A6", new MetaDataItem("Indicator 6"))
-            .put("A7", new MetaDataItem("Indicator 7"))
-            .put("A8", new MetaDataItem("Indicator 8"))
-            .put("B1", new MetaDataItem("Month 1"))
-            .put("B2", new MetaDataItem("Month 2"))
-            .put("B3", new MetaDataItem("Month 3"))
-            .put("B4", new MetaDataItem("Month 4"))
-            .put("C1", new MetaDataItem("Facility 1"))
-            .put("C2", new MetaDataItem("Facility 2"))
+            .put("A1", new MetaDataItem("A1", "Indicator 1", DimensionItemType.INDICATOR))
+            .put("A2", new MetaDataItem("A2", "Indicator 2", DimensionItemType.INDICATOR))
+            .put("A3", new MetaDataItem("A3", "Indicator 3", DimensionItemType.INDICATOR))
+            .put("A4", new MetaDataItem("A4", "Indicator 4", DimensionItemType.INDICATOR))
+            .put("A5", new MetaDataItem("A5", "Indicator 5", DimensionItemType.INDICATOR))
+            .put("A6", new MetaDataItem("A6", "Indicator 6", DimensionItemType.INDICATOR))
+            .put("A7", new MetaDataItem("A7", "Indicator 7", DimensionItemType.INDICATOR))
+            .put("A8", new MetaDataItem("A8", "Indicator 8", DimensionItemType.INDICATOR))
+            .put("B1", new MetaDataItem("B1", "Month 1", DimensionItemType.PERIOD))
+            .put("B2", new MetaDataItem("B1", "Month 2", DimensionItemType.PERIOD))
+            .put("B3", new MetaDataItem("B1", "Month 3", DimensionItemType.PERIOD))
+            .put("B4", new MetaDataItem("B1", "Month 4", DimensionItemType.PERIOD))
+            .put("C1", new MetaDataItem("C1", "Facility 1", DimensionItemType.ORGANISATION_UNIT))
+            .put("C2", new MetaDataItem("C1", "Facility 2", DimensionItemType.ORGANISATION_UNIT))
             .build());
     metadata.setDimensions(
         new MapBuilder<String, List<String>>()
@@ -165,5 +167,16 @@ class AnalyticsMetadataTest {
     metadataA.setDimensions(Map.of());
 
     assertTrue(metadataA.getDimensionItemNameIdMap(AnalyticsDimension.PERIOD).isEmpty());
+  }
+
+  @Test
+  void testHasDataItem() {
+    assertTrue(metadata.hasDataItem(DimensionItemType.INDICATOR));
+    assertFalse(metadata.hasDataItem(DimensionItemType.CATEGORY_OPTION_GROUP));
+  }
+
+  @Test
+  void testHasIndicatorOrDataElement() {
+    assertFalse(metadata.hasIndicatorsAndDataElementItems());
   }
 }
