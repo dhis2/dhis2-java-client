@@ -183,7 +183,7 @@ public class AnalyticsMetaData implements Serializable {
   /**
    * Returns a list of data element items.
    *
-   * @return a list of data element items as {@link MetadataItem}.
+   * @return a list of data element items as {@link MetaDataItem}.
    */
   public List<MetaDataItem> getDataElementItems() {
     return filterToList(
@@ -193,7 +193,7 @@ public class AnalyticsMetaData implements Serializable {
   /**
    * Returns a list of data element items.
    *
-   * @return a list of data element items as {@link MetadataItem}.
+   * @return a list of data element items as {@link MetaDataItem}.
    */
   public List<MetaDataItem> getIndicatorItems() {
     return filterToList(getDataItems(), it -> it.isDimensionItemType(DimensionItemType.INDICATOR));
@@ -202,7 +202,7 @@ public class AnalyticsMetaData implements Serializable {
   /**
    * Returns a list of data items.
    *
-   * @return a list of data items as {@link MetadataItem}.
+   * @return a list of data items as {@link MetaDataItem}.
    */
   public List<MetaDataItem> getDataItems() {
     return getMetadataItems(AnalyticsDimension.DATA_X);
@@ -211,7 +211,7 @@ public class AnalyticsMetaData implements Serializable {
   /**
    * Returns a list of period items.
    *
-   * @return a list of period items as {@link MetadataItem}.
+   * @return a list of period items as {@link MetaDataItem}.
    */
   public List<MetaDataItem> getPeriodItems() {
     return getMetadataItems(AnalyticsDimension.PERIOD);
@@ -220,7 +220,7 @@ public class AnalyticsMetaData implements Serializable {
   /**
    * Returns a list of org unit items.
    *
-   * @return a list of org unit items as {@link MetadataItem}.
+   * @return a list of org unit items as {@link MetaDataItem}.
    */
   public List<MetaDataItem> getOrgUnitItems() {
     return getMetadataItems(AnalyticsDimension.ORG_UNIT);
