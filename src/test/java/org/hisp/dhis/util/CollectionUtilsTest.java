@@ -28,6 +28,7 @@
 package org.hisp.dhis.util;
 
 import static org.hisp.dhis.support.Assertions.assertContainsExactly;
+import static org.hisp.dhis.support.Assertions.assertEmpty;
 import static org.hisp.dhis.util.CollectionUtils.anyStartsWith;
 import static org.hisp.dhis.util.CollectionUtils.filterToList;
 import static org.hisp.dhis.util.CollectionUtils.filterToSet;
@@ -44,6 +45,7 @@ import static org.hisp.dhis.util.CollectionUtils.mapToSet;
 import static org.hisp.dhis.util.CollectionUtils.mutableList;
 import static org.hisp.dhis.util.CollectionUtils.mutableSet;
 import static org.hisp.dhis.util.CollectionUtils.set;
+import static org.hisp.dhis.util.CollectionUtils.sublist;
 import static org.hisp.dhis.util.CollectionUtils.toCommaSeparated;
 import static org.hisp.dhis.util.CollectionUtils.toTypedList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -168,6 +170,21 @@ class CollectionUtilsTest {
     List<String> list = mutableList("a", null, "b");
 
     assertEquals(3, list.size());
+  }
+
+  @Test
+  void testSublist() {
+    List<String> list = list("a", "b", "c");
+
+    assertContainsExactly(sublist(list, 1), "a");
+    assertContainsExactly(sublist(list, 2), "a", "b");
+    assertContainsExactly(sublist(list, 3), "a", "b", "c");
+    assertContainsExactly(sublist(list, 4), "a", "b", "c");
+    assertContainsExactly(sublist(list, 9), "a", "b", "c");
+
+    assertEmpty(sublist(list, 0));
+    assertEmpty(sublist(list, -1));
+    assertEmpty(sublist(null, 2));
   }
 
   @Test

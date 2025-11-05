@@ -108,6 +108,27 @@ public class CollectionUtils {
   }
 
   /**
+   * Returns a sublist of the given list of the given length, starting from the beginning at index
+   * 0. Does not throw any exceptions. Returns an empty list of the given items is null, or of the
+   * given length is less than or equal to zero.
+   *
+   * @param <T> type.
+   * @param items the items.
+   * @return a sublist.
+   */
+  public static <T> List<T> sublist(List<T> items, int length) {
+    if (items == null || items.isEmpty() || length <= 0) {
+      return Collections.emptyList();
+    }
+
+    if (items.size() <= length) {
+      return new ArrayList<>(items);
+    }
+
+    return new ArrayList<>(items.subList(0, length));
+  }
+
+  /**
    * Maps the given collection of objects of type U to an immutable list of objects of type T. Null
    * objects are not allowed.
    *
