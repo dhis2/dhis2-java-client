@@ -67,6 +67,8 @@ public class AnalyticsMetaData implements Serializable {
    */
   @JsonProperty private Map<String, List<String>> dimensions;
 
+  // Dimension items
+
   /**
    * Returns a map of dimension item names to identifiers. If a dimension with items or metadata
    * items are not present, an empty map is returned. If the name of any metadata dimension item
@@ -102,11 +104,92 @@ public class AnalyticsMetaData implements Serializable {
   }
 
   /**
+   * Returns a list of dimension item identifiers for the given dimension. Returns an empty list if
+   * the dimension does not exist.
+   *
+   * @param dimension the dimension identifier.
+   * @return a list of dimension item identifiers.
+   */
+  @JsonIgnore
+  public List<String> getDimensionItems(String dimension) {
+    return dimensions.getOrDefault(dimension, List.of());
+  }
+
+  /**
+   * Indicates whether the data dimension has both indicator and data element items.
+   *
+   * @return true if the data dimension has both indicator and data element items.
+   */
+  @JsonIgnore
+  public boolean hasIndicatorsAndDataElementItems() {
+    return hasDataItem(DimensionItemType.INDICATOR) && hasDataItem(DimensionItemType.DATA_ELEMENT);
+  }
+
+  /**
+   * Indicates whether any dimension items of the given type exists for the data dimension.
+   *
+   * @param type the {@link DimensionItemType}.
+   * @return true if any dimension items of the given type exists for the data dimension.
+   */
+  @JsonIgnore
+  public boolean hasDataItem(DimensionItemType type) {
+    List<MetaDataItem> items = getMetadataItems(AnalyticsDimension.DATA_X);
+    return items.stream().anyMatch(item -> item.getDimensionItemType() == type);
+  }
+
+  // Dimension item counts
+
+  /**
+   * Returns the count of dimension items. Returns -1 if the dimension does not exist.
+   *
+   * @param dimension the dimension identifier.
+   * @return the count of dimension items, or -1 if the dimension does not exist.
+   */
+  @JsonIgnore
+  public int getDimensionItemCount(String dimension) {
+    List<String> dimItems = dimensions.get(dimension);
+    return dimItems != null ? dimItems.size() : -1;
+  }
+
+  /** Returns the count of data dimension items. */
+  @JsonIgnore
+  public int getDataItemCount() {
+    return getDimensionItemCount(AnalyticsDimension.DATA_X);
+  }
+
+  /** Returns the count of data element items. */
+  @JsonIgnore
+  public int getDataElementItemCount() {
+    return getDataElementItems().size();
+  }
+
+  /** Returns the count of indicator items. */
+  @JsonIgnore
+  public int getIndicatorItemCount() {
+    return getIndicatorItems().size();
+  }
+
+  /** Returns the count of period dimension items. */
+  @JsonIgnore
+  public int getPeriodItemCount() {
+    return getDimensionItemCount(AnalyticsDimension.PERIOD);
+  }
+
+  /** Returns the count of org unit dimension items. */
+  @JsonIgnore
+  public int getOrgUnitItemCount() {
+    return getDimensionItemCount(AnalyticsDimension.ORG_UNIT);
+  }
+
+  // Meta data items
+
+  /**
    * Returns the {@link MetaDataItem} with the given identifier.
    *
    * @param id the item identifier.
    * @return the {@link MetaDataItem}, or null if not item exists with the given identifier.
    */
+  @JsonIgnore
   public MetaDataItem getMetadataItem(String id) {
     MetaDataItem item = items.get(id);
     if (item != null) {
@@ -121,46 +204,10 @@ public class AnalyticsMetaData implements Serializable {
    * @param id the item identifier.
    * @return the name of the metadata item, or null if no item exists with the given identifier.
    */
+  @JsonIgnore
   public String getMetadataItemName(String id) {
     MetaDataItem item = items.get(id);
     return item != null ? item.getName() : null;
-  }
-
-  /**
-   * Returns a list of dimension item identifiers for the given dimension. Returns an empty list if
-   * the dimension does not exist.
-   *
-   * @param dimension the dimension identifier.
-   * @return a list of dimension item identifiers.
-   */
-  public List<String> getDimensionItems(String dimension) {
-    return dimensions.getOrDefault(dimension, List.of());
-  }
-
-  /**
-   * Returns the count of dimension items. Returns -1 if the dimension does not exist.
-   *
-   * @param dimension the dimension identifier.
-   * @return the count of dimension items, or -1 if the dimension does not exist.
-   */
-  public int getDimensionItemCount(String dimension) {
-    List<String> dimItems = dimensions.get(dimension);
-    return dimItems != null ? dimItems.size() : -1;
-  }
-
-  /** Returns the count of data dimension items. */
-  public int getDataItemCount() {
-    return getDimensionItemCount(AnalyticsDimension.DATA_X);
-  }
-  
-  /** Returns the count of period dimension items. */
-  public int getPeriodItemCount() {
-    return getDimensionItemCount(AnalyticsDimension.PERIOD);
-  }
-
-  /** Returns the count of org unit dimension items. */
-  public int getOrgUnitItemCount() {
-    return getDimensionItemCount(AnalyticsDimension.ORG_UNIT);
   }
 
   /**
@@ -170,6 +217,7 @@ public class AnalyticsMetaData implements Serializable {
    * @param dimension the dimension identifier.
    * @return a list of {@link MetaDataItem}.
    */
+  @JsonIgnore
   public List<MetaDataItem> getMetadataItems(String dimension) {
     List<String> dimItems = getDimensionItems(dimension);
 
@@ -185,6 +233,7 @@ public class AnalyticsMetaData implements Serializable {
    *
    * @return a list of data element items as {@link MetaDataItem}.
    */
+  @JsonIgnore
   public List<MetaDataItem> getDataElementItems() {
     return filterToList(
         getDataItems(), it -> it.isDimensionItemType(DimensionItemType.DATA_ELEMENT));
@@ -195,6 +244,7 @@ public class AnalyticsMetaData implements Serializable {
    *
    * @return a list of indicator items as {@link MetaDataItem}.
    */
+  @JsonIgnore
   public List<MetaDataItem> getIndicatorItems() {
     return filterToList(getDataItems(), it -> it.isDimensionItemType(DimensionItemType.INDICATOR));
   }
@@ -204,6 +254,7 @@ public class AnalyticsMetaData implements Serializable {
    *
    * @return a list of data items as {@link MetaDataItem}.
    */
+  @JsonIgnore
   public List<MetaDataItem> getDataItems() {
     return getMetadataItems(AnalyticsDimension.DATA_X);
   }
@@ -213,6 +264,7 @@ public class AnalyticsMetaData implements Serializable {
    *
    * @return a list of period items as {@link MetaDataItem}.
    */
+  @JsonIgnore
   public List<MetaDataItem> getPeriodItems() {
     return getMetadataItems(AnalyticsDimension.PERIOD);
   }
@@ -222,27 +274,8 @@ public class AnalyticsMetaData implements Serializable {
    *
    * @return a list of org unit items as {@link MetaDataItem}.
    */
+  @JsonIgnore
   public List<MetaDataItem> getOrgUnitItems() {
     return getMetadataItems(AnalyticsDimension.ORG_UNIT);
-  }
-
-  /**
-   * Indicates whether the data dimension has both indicator and data element items.
-   *
-   * @return true if the data dimension has both indicator and data element items.
-   */
-  public boolean hasIndicatorsAndDataElementItems() {
-    return hasDataItem(DimensionItemType.INDICATOR) && hasDataItem(DimensionItemType.DATA_ELEMENT);
-  }
-
-  /**
-   * Indicates whether any dimension items of the given type exists for the data dimension.
-   *
-   * @param type the {@link DimensionItemType}.
-   * @return true if any dimension items of the given type exists for the data dimension.
-   */
-  public boolean hasDataItem(DimensionItemType type) {
-    List<MetaDataItem> items = getMetadataItems(AnalyticsDimension.DATA_X);
-    return items.stream().anyMatch(item -> item.getDimensionItemType() == type);
   }
 }
