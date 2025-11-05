@@ -116,6 +116,11 @@ class AnalyticsMetadataTest {
   }
 
   @Test
+  void testGetIndicatorItemCount() {
+    assertEquals(8, metadata.getIndicatorItemCount());
+  }
+
+  @Test
   void testGetPeriodItemCount() {
     assertEquals(4, metadata.getPeriodItemCount());
   }
