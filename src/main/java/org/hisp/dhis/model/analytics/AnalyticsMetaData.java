@@ -152,7 +152,7 @@ public class AnalyticsMetaData implements Serializable {
   public int getDataItemCount() {
     return getDimensionItemCount(AnalyticsDimension.DATA_X);
   }
-
+  
   /** Returns the count of period dimension items. */
   public int getPeriodItemCount() {
     return getDimensionItemCount(AnalyticsDimension.PERIOD);
@@ -191,9 +191,9 @@ public class AnalyticsMetaData implements Serializable {
   }
 
   /**
-   * Returns a list of data element items.
+   * Returns a list of indicator items.
    *
-   * @return a list of data element items as {@link MetaDataItem}.
+   * @return a list of indicator items as {@link MetaDataItem}.
    */
   public List<MetaDataItem> getIndicatorItems() {
     return filterToList(getDataItems(), it -> it.isDimensionItemType(DimensionItemType.INDICATOR));
