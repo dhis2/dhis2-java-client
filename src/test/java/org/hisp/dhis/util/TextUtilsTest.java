@@ -257,6 +257,20 @@ class TextUtilsTest {
   }
 
   @Test
+  void testTruncate() {
+    String inputA = "ANC 1st, ANC 2nd and ANC 3rd visit coverage for last 12 months";
+    String inputB = "Bonthe, Kailahun, Kambia and Moyamba for last 4 quarters";
+    String inputC = "Last 12 months";
+
+    assertEquals("ANC 1st, ANC 2nd and ANC 3rd visit cov..", TextUtils.truncate(inputA, 40, ".."));
+    assertEquals("Bonthe, Kailahun, Kambia and..", TextUtils.truncate(inputB, 30, ".."));
+    assertEquals("Last 12 months", TextUtils.truncate(inputC, 40, ".."));
+
+    assertNull(TextUtils.truncate(null, 0, ".."));
+    assertEquals("Last 12 months", TextUtils.truncate(inputC, -10, ".."));
+  }
+
+  @Test
   void testIsNull() {
     assertTrue(TextUtils.isNull(null));
     assertFalse(TextUtils.isNull(""));
