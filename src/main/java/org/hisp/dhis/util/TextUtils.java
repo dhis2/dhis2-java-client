@@ -176,6 +176,27 @@ public class TextUtils {
   }
 
   /**
+   * Truncates the input string to the specified maximum length, appending the specified ellipsis.
+   *
+   * @param input the input string.
+   * @param maxLength the max length.
+   * @param ellipsis the ellipsis string to be appended if input length is greater than max length.
+   * @return the possibly truncated input string.
+   */
+  public static String truncate(String input, int maxLength, String ellipsis) {
+    if (StringUtils.isEmpty(input) || maxLength <= 0 || ellipsis == null) {
+      return input;
+    }
+
+    if (input.length() > maxLength) {
+      int length = maxLength - ellipsis.length();
+      input = input.substring(0, length) + ellipsis;
+    }
+
+    return input;
+  }
+
+  /**
    * Wraps the input string in code fences with {@code json} as language.
    *
    * @param input the input string.
