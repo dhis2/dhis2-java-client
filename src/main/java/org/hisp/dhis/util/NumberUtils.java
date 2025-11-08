@@ -29,6 +29,9 @@ package org.hisp.dhis.util;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.Locale;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
@@ -119,22 +122,35 @@ public class NumberUtils {
 
   /**
    * Formats the double value so that if the value has no decimals, or has a single zero decimal as
-   * in {@code .0}, the formatted string excludes the decimal. Otherwise uses two decimals for the
-   * formatted string.
+   * in {@code .0}, the formatted string excludes any decimal. Otherwise uses one decimal place for
+   * the formatted string. Uses {@code ,} (comma) as the thousands separator.
    *
    * @param value the double value to format.
    * @return the value formatted as a string.
    */
   public static String formatDouble(Double value) {
     if (value == null) {
-      return "";
+      return StringUtils.EMPTY;
     }
+
+    // Define custom symbols to force comma as grouping separator and period as decimal separator
+    DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.US);
+    symbols.setGroupingSeparator(',');
+
+    // Define format pattern, '#' is "digit, zero as absent", '0' is "digit, zero as 0"
+    String pattern = "#,##0.#";
+
+    // Create the DecimalFormat formatter
+    DecimalFormat formatter = new DecimalFormat(pattern, symbols);
+
+    // Set max number of fraction digits, max 1 ensures only one decimal place
+    formatter.setMaximumFractionDigits(1);
+
+    // Check if the value is a whole number (or .0), and force max 0 fraction digits
     if (value % 1 == 0) {
-      return String.format("%.0f", value);
-    } else if (value * 10 % 1 == 0) {
-      return String.format("%.1f", value);
-    } else {
-      return String.format("%.2f", value);
+      formatter.setMaximumFractionDigits(0);
     }
+
+    return formatter.format(value);
   }
 }

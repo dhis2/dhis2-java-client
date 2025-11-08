@@ -27,6 +27,7 @@
  */
 package org.hisp.dhis.model.analytics;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
 import lombok.Getter;
@@ -104,7 +105,18 @@ public class MetaDataItem implements Serializable {
    * @param dimensionItemType the {@link DimensionItemType}.
    * @return true if the dimension item is of the given type.
    */
+  @JsonIgnore
   public boolean isDimensionItemType(DimensionItemType dimensionItemType) {
     return this.dimensionItemType == dimensionItemType;
+  }
+
+  /**
+   * Indicates whether an {@link AnalyticsIndicatorType} exists.
+   *
+   * @return true if an {@link AnalyticsIndicatorType} exists.
+   */
+  @JsonIgnore
+  public boolean hasIndicatorType() {
+    return indicatorType != null;
   }
 }

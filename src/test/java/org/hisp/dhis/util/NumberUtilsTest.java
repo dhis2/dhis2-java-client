@@ -99,12 +99,14 @@ class NumberUtilsTest {
 
   @Test
   void testFormatDouble() {
-    assertEquals("3851", NumberUtils.formatDouble(3851D));
-    assertEquals("1472", NumberUtils.formatDouble(1472.0));
-    assertEquals("3851.2", NumberUtils.formatDouble(3851.2));
-    assertEquals("1472.5", NumberUtils.formatDouble(1472.50));
-    assertEquals("5249.39", NumberUtils.formatDouble(5249.387));
-    assertEquals("54.25", NumberUtils.formatDouble(54.2485));
+    assertEquals("351", NumberUtils.formatDouble(351D));
+    assertEquals("172", NumberUtils.formatDouble(172.0));
+    assertEquals("431.5", NumberUtils.formatDouble(431.5));
+    assertEquals("3,851.2", NumberUtils.formatDouble(3851.2));
+    assertEquals("1,472.5", NumberUtils.formatDouble(1472.50));
+    assertEquals("5,249.4", NumberUtils.formatDouble(5249.387));
+    assertEquals("1,874,642.6", NumberUtils.formatDouble(1874642.591));
+    assertEquals("54.3", NumberUtils.formatDouble(54.2685));
     assertEquals("", NumberUtils.formatDouble(null));
   }
 }
