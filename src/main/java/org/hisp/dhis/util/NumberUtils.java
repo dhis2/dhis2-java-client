@@ -116,4 +116,25 @@ public class NumberUtils {
   public static Double toDouble(String string) {
     return org.apache.commons.lang3.math.NumberUtils.createDouble(string);
   }
+
+  /**
+   * Formats the double value so that if the value has no decimals, or has a single zero decimal as
+   * in {@code .0}, the formatted string excludes the decimal. Otherwise uses two decimals for the
+   * formatted string.
+   *
+   * @param value the double value to format.
+   * @return the value formatted as a string.
+   */
+  public static String formatDouble(Double value) {
+    if (value == null) {
+      return "";
+    }
+    if (value % 1 == 0) {
+      return String.format("%.0f", value);
+    } else if (value * 10 % 1 == 0) {
+      return String.format("%.1f", value);
+    } else {
+      return String.format("%.2f", value);
+    }
+  }
 }
