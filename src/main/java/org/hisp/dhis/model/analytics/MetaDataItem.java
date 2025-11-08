@@ -109,10 +109,10 @@ public class MetaDataItem implements Serializable {
   public boolean isDimensionItemType(DimensionItemType dimensionItemType) {
     return this.dimensionItemType == dimensionItemType;
   }
-  
+
   /**
    * Indicates whether an {@link AnalyticsIndicatorType} exists.
-   * 
+   *
    * @return true if an {@link AnalyticsIndicatorType} exists.
    */
   @JsonIgnore
