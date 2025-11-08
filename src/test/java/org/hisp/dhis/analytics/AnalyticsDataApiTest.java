@@ -27,9 +27,12 @@
  */
 package org.hisp.dhis.analytics;
 
+import static org.hisp.dhis.support.Assertions.assertContainsExactly;
+import static org.hisp.dhis.support.Assertions.assertNotBlank;
 import static org.hisp.dhis.support.Assertions.assertNotEmpty;
 import static org.hisp.dhis.support.Assertions.assertSize;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -40,9 +43,12 @@ import org.hisp.dhis.Dhis2;
 import org.hisp.dhis.TestFixture;
 import org.hisp.dhis.model.ValueType;
 import org.hisp.dhis.model.analytics.AnalyticsData;
+import org.hisp.dhis.model.analytics.AnalyticsDimension;
 import org.hisp.dhis.model.analytics.AnalyticsHeader;
+import org.hisp.dhis.model.analytics.AnalyticsIndicatorType;
 import org.hisp.dhis.model.analytics.AnalyticsMetaData;
 import org.hisp.dhis.model.analytics.MetaDataItem;
+import org.hisp.dhis.model.dimension.DimensionItemType;
 import org.hisp.dhis.query.analytics.AnalyticsQuery;
 import org.hisp.dhis.support.TestTags;
 import org.junit.jupiter.api.Tag;
@@ -130,7 +136,7 @@ class AnalyticsDataApiTest {
 
     AnalyticsData data = dhis2.getAnalyticsData(query);
 
-    log.info(data.toString());
+    log.debug(data.toString());
 
     assertEquals(4, data.getWidth());
     assertSize(4, data.getHeaders());
@@ -139,5 +145,57 @@ class AnalyticsDataApiTest {
     List<String> firstRow = data.getRows().get(0);
 
     assertSize(4, firstRow);
+  }
+
+  @Test
+  void testGetAnalyticsDataIndicatorAndMetadataDetails() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    AnalyticsQuery query =
+        AnalyticsQuery.instance()
+            // "ANC 1 Coverage"
+            .addDataDimension(List.of("Uvn6LCg7dVU"))
+            .addPeriodDimension(List.of("THIS_YEAR"))
+            // "Sierra Leone"
+            .addOrgUnitFilter(List.of("ImspTQPwCqd"))
+            .setSkipData(true)
+            .setSkipMeta(false)
+            .setIncludeMetadataDetails(true);
+
+    AnalyticsData data = dhis2.getAnalyticsData(query);
+
+    AnalyticsMetaData metadata = data.getMetaData();
+
+    log.info(metadata.toString());
+
+    Map<String, List<String>> dimensions = metadata.getDimensions();
+
+    assertContainsExactly(dimensions.get(AnalyticsDimension.DATA_X), "Uvn6LCg7dVU");
+    assertContainsExactly(dimensions.get(AnalyticsDimension.ORG_UNIT), "ImspTQPwCqd");
+
+    Map<String, MetaDataItem> items = metadata.getItems();
+
+    MetaDataItem indicator = items.get("Uvn6LCg7dVU");
+
+    assertNotNull(indicator);
+    assertEquals("Uvn6LCg7dVU", indicator.getUid());
+    assertNotBlank(indicator.getName());
+    assertNotNull(indicator.getIndicatorType());
+    assertEquals(DimensionItemType.INDICATOR, indicator.getDimensionItemType());
+    assertEquals(ValueType.NUMBER, indicator.getValueType());
+
+    AnalyticsIndicatorType indicatorType = indicator.getIndicatorType();
+
+    assertNotNull(indicatorType);
+
+    assertNotBlank(indicatorType.getName());
+    assertEquals(100, indicatorType.getFactor());
+    assertFalse(indicatorType.getNumber());
+
+    MetaDataItem orgUnit = items.get("ImspTQPwCqd");
+
+    assertNotNull(orgUnit);
+    assertEquals("ImspTQPwCqd", orgUnit.getUid());
+    assertNotBlank(orgUnit.getName());
   }
 }

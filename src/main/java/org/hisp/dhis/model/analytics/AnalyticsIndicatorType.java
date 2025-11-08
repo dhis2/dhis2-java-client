@@ -28,83 +28,19 @@
 package org.hisp.dhis.model.analytics;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.io.Serializable;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.hisp.dhis.model.ValueType;
-import org.hisp.dhis.model.dimension.DimensionItemType;
 
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
-public class MetaDataItem implements Serializable {
-  @JsonProperty private String uid;
-
+public class AnalyticsIndicatorType {
   @JsonProperty private String name;
 
-  @JsonProperty private String dimensionType;
+  @JsonProperty private Integer factor;
 
-  @JsonProperty private String code;
-
-  @JsonProperty private DimensionItemType dimensionItemType;
-
-  @JsonProperty private ValueType valueType;
-
-  @JsonProperty private String totalAggregationType;
-
-  @JsonProperty private String startDate;
-
-  @JsonProperty private String endDate;
-
-  @JsonProperty private String legendSet;
-
-  @JsonProperty private String aggregationType;
-
-  @JsonProperty private AnalyticsIndicatorType indicatorType;
-
-  /**
-   * Constructor.
-   *
-   * @param name the name.
-   */
-  public MetaDataItem(String name) {
-    this.name = name;
-  }
-
-  /**
-   * Constructor.
-   *
-   * @param uid the identifier.
-   * @param name the name.
-   */
-  public MetaDataItem(String uid, String name) {
-    this.uid = uid;
-    this.name = name;
-  }
-
-  /**
-   * Constructor.
-   *
-   * @param uid the identifier.
-   * @param name the name.
-   * @param dimensionItemType the {@link DimensionItemType}.
-   */
-  public MetaDataItem(String uid, String name, DimensionItemType dimensionItemType) {
-    this.uid = uid;
-    this.name = name;
-    this.dimensionItemType = dimensionItemType;
-  }
-
-  /**
-   * Indicates whether the dimension item is of the given {@link DimensionItemType}.
-   *
-   * @param dimensionItemType the {@link DimensionItemType}.
-   * @return true if the dimension item is of the given type.
-   */
-  public boolean isDimensionItemType(DimensionItemType dimensionItemType) {
-    return this.dimensionItemType == dimensionItemType;
-  }
+  @JsonProperty private Boolean number;
 }
