@@ -99,9 +99,15 @@ class TextUtilsTest {
   }
 
   @Test
-  void testGetString() {
+  void testGetStringTrueFalse() {
     assertEquals("exists", TextUtils.getString(true, "exists", "does not exist"));
     assertEquals("does not exist", TextUtils.getString(false, "exists", "does not exist"));
+  }
+
+  @Test
+  void testGetStringTrue() {
+    assertEquals("exists", TextUtils.getString(true, "exists"));
+    assertNull(TextUtils.getString(false, "exists"));
   }
 
   @Test
