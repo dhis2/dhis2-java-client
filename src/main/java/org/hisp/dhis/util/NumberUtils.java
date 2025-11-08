@@ -119,7 +119,7 @@ public class NumberUtils {
 
   /**
    * Formats the double value so that if the value has no decimals, or has a single zero decimal as
-   * in {@code .0}, the formatted string excludes the decimal. Otherwise uses two decimals for the
+   * in {@code .0}, the formatted string excludes any decimal. Otherwise uses one decimal place for the
    * formatted string.
    *
    * @param value the double value to format.
@@ -129,12 +129,14 @@ public class NumberUtils {
     if (value == null) {
       return "";
     }
+    
     if (value % 1 == 0) {
+      // Whole number
       return String.format("%.0f", value);
-    } else if (value * 10 % 1 == 0) {
+    }
+    else {
+      // Formats with one decimal place
       return String.format("%.1f", value);
-    } else {
-      return String.format("%.2f", value);
     }
   }
 }

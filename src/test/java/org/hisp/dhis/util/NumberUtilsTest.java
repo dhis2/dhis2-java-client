@@ -103,8 +103,8 @@ class NumberUtilsTest {
     assertEquals("1472", NumberUtils.formatDouble(1472.0));
     assertEquals("3851.2", NumberUtils.formatDouble(3851.2));
     assertEquals("1472.5", NumberUtils.formatDouble(1472.50));
-    assertEquals("5249.39", NumberUtils.formatDouble(5249.387));
-    assertEquals("54.25", NumberUtils.formatDouble(54.2485));
+    assertEquals("5249.4", NumberUtils.formatDouble(5249.387));
+    assertEquals("54.3", NumberUtils.formatDouble(54.2685));
     assertEquals("", NumberUtils.formatDouble(null));
   }
 }
