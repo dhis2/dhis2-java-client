@@ -103,8 +103,8 @@ public class TextUtils {
   }
 
   /**
-   * Returns a string based on the predicate. If the predicate is true, it returns the true string,
-   * otherwise, it returns the false string.
+   * Returns a string based on the predicate. If the predicate is true, the true string is returned,
+   * otherwise, the false string is returned.
    *
    * @param predicate the boolean predicate.
    * @param trueString the true string.
@@ -113,6 +113,18 @@ public class TextUtils {
    */
   public static String getString(boolean predicate, String trueString, String falseString) {
     return predicate ? trueString : falseString;
+  }
+
+  /**
+   * Returns a string based on the predicate. If the predicate is true, the true string is returned,
+   * otherwise, {@code null} is returned.
+   *
+   * @param predicate the boolean predicate.
+   * @param trueString the true string.
+   * @return a string.
+   */
+  public static String getString(boolean predicate, String trueString) {
+    return predicate ? trueString : null;
   }
 
   /**
