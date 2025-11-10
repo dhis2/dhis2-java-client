@@ -33,11 +33,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
 
-/** Analytics dimension. */
+/** Analytics query dimension. */
 @Getter
 @Setter
 @RequiredArgsConstructor
-public class Dimension {
+public class QueryDimension {
   private final String dimension;
 
   private final List<String> items;

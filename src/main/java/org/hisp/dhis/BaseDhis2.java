@@ -98,7 +98,7 @@ import org.hisp.dhis.query.Paging;
 import org.hisp.dhis.query.Query;
 import org.hisp.dhis.query.RootJunction;
 import org.hisp.dhis.query.analytics.AnalyticsQuery;
-import org.hisp.dhis.query.analytics.Dimension;
+import org.hisp.dhis.query.analytics.QueryDimension;
 import org.hisp.dhis.query.completedatasetregistration.CompleteDataSetRegistrationQuery;
 import org.hisp.dhis.query.datavalue.DataValueQuery;
 import org.hisp.dhis.query.datavalue.DataValueSetQuery;
@@ -426,11 +426,11 @@ public class BaseDhis2 {
    * @return a {@link URI}.
    */
   protected URI withAnalyticsQueryParams(URIBuilder uriBuilder, AnalyticsQuery query) {
-    for (Dimension dimension : query.getDimensions()) {
+    for (QueryDimension dimension : query.getDimensions()) {
       addParameter(uriBuilder, "dimension", dimension.getDimensionValue());
     }
 
-    for (Dimension filter : query.getFilters()) {
+    for (QueryDimension filter : query.getFilters()) {
       addParameter(uriBuilder, "filter", filter.getDimensionValue());
     }
 
