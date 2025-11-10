@@ -207,7 +207,8 @@ public class AnalyticsData implements Serializable {
   }
 
   /**
-   * Truncates the data rows to the specified maximum number of rows.
+   * Truncates the data rows to the specified maximum number of rows. The data rows are left
+   * unchanged if the max rows is equal or greater than the number of data rows.
    *
    * @param maxRows the maximum number of rows to retain.
    */
