@@ -27,6 +27,8 @@
  */
 package org.hisp.dhis.model.analytics;
 
+import static org.apache.commons.lang3.StringUtils.isNotEmpty;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
@@ -108,6 +110,16 @@ public class MetaDataItem implements Serializable {
   @JsonIgnore
   public boolean isDimensionItemType(DimensionItemType dimensionItemType) {
     return this.dimensionItemType == dimensionItemType;
+  }
+
+  /**
+   * Indicates whether a name exists.
+   *
+   * @return true if a name exists.
+   */
+  @JsonIgnore
+  public boolean hasName() {
+    return isNotEmpty(name);
   }
 
   /**
