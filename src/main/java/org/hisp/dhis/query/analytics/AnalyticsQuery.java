@@ -55,9 +55,9 @@ import org.hisp.dhis.model.analytics.AnalyticsDimension;
 @Accessors(chain = true)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class AnalyticsQuery {
-  private final List<Dimension> dimensions = new ArrayList<>();
+  private final List<QueryDimension> dimensions = new ArrayList<>();
 
-  private final List<Dimension> filters = new ArrayList<>();
+  private final List<QueryDimension> filters = new ArrayList<>();
 
   private AggregationType aggregationType;
 
@@ -105,10 +105,10 @@ public class AnalyticsQuery {
   /**
    * Adds a dimension to this query.
    *
-   * @param dimension the {@link Dimension}.
+   * @param dimension the {@link QueryDimension}.
    * @return this {@link AnalyticsQuery}.
    */
-  public AnalyticsQuery addDimension(Dimension dimension) {
+  public AnalyticsQuery addDimension(QueryDimension dimension) {
     this.dimensions.add(dimension);
     return this;
   }
@@ -121,7 +121,7 @@ public class AnalyticsQuery {
    * @return this {@link AnalyticsQuery}.
    */
   public AnalyticsQuery addDimension(String dimension, List<String> items) {
-    return addDimension(new Dimension(dimension, items));
+    return addDimension(new QueryDimension(dimension, items));
   }
 
   /**
@@ -157,10 +157,10 @@ public class AnalyticsQuery {
   /**
    * Adds a filter to this query.
    *
-   * @param filter the {@link Dimension}.
+   * @param filter the {@link QueryDimension}.
    * @return this {@link AnalyticsQuery}.
    */
-  public AnalyticsQuery addFilter(Dimension filter) {
+  public AnalyticsQuery addFilter(QueryDimension filter) {
     this.filters.add(filter);
     return this;
   }
@@ -173,7 +173,7 @@ public class AnalyticsQuery {
    * @return this {@link AnalyticsQuery}.
    */
   public AnalyticsQuery addFilter(String filter, List<String> items) {
-    return addFilter(new Dimension(filter, items));
+    return addFilter(new QueryDimension(filter, items));
   }
 
   /**
@@ -183,7 +183,7 @@ public class AnalyticsQuery {
    * @return this {@link AnalyticsQuery}.
    */
   public AnalyticsQuery addDataFilter(List<String> dataItems) {
-    return addFilter(new Dimension(AnalyticsDimension.DATA_X, dataItems));
+    return addFilter(new QueryDimension(AnalyticsDimension.DATA_X, dataItems));
   }
 
   /**
@@ -193,7 +193,7 @@ public class AnalyticsQuery {
    * @return this {@link AnalyticsQuery}.
    */
   public AnalyticsQuery addPeriodFilter(List<String> periods) {
-    return addFilter(new Dimension(AnalyticsDimension.PERIOD, periods));
+    return addFilter(new QueryDimension(AnalyticsDimension.PERIOD, periods));
   }
 
   /**
@@ -203,7 +203,7 @@ public class AnalyticsQuery {
    * @return this {@link AnalyticsQuery}.
    */
   public AnalyticsQuery addOrgUnitFilter(List<String> orgUnits) {
-    return addFilter(new Dimension(AnalyticsDimension.ORG_UNIT, orgUnits));
+    return addFilter(new QueryDimension(AnalyticsDimension.ORG_UNIT, orgUnits));
   }
 
   /**

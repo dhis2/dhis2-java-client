@@ -25,62 +25,26 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.hisp.dhis.model.dimension;
+package org.hisp.dhis.query.analytics;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.hisp.dhis.model.NameableObject;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@Getter
-@Setter
-@NoArgsConstructor
-public class DimensionItem extends NameableObject {
-  @JsonProperty private DimensionItemType dimensionItemType;
+import java.util.List;
+import org.hisp.dhis.model.analytics.AnalyticsDimension;
+import org.hisp.dhis.support.TestTags;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
 
-  /**
-   * Constructor.
-   *
-   * @param id the identifier.
-   * @param name the name.
-   * @param dimensionItemType the {@link DimensionItemType}.
-   */
-  public DimensionItem(String id, String name, DimensionItemType dimensionItemType) {
-    this.id = id;
-    this.name = name;
-    this.dimensionItemType = dimensionItemType;
-  }
+@Tag(TestTags.UNIT)
+class QueryDimensionTest {
+  @Test
+  void testGetDimensionValue() {
+    QueryDimension dimension =
+        new QueryDimension(
+            AnalyticsDimension.DATA_X, List.of("fbfJHSPpUQD", "cYeuwXTCPkU", "Jtf34kNZhzP"));
 
-  /**
-   * Constructor.
-   *
-   * @param id the identifier.
-   * @param code the code.
-   * @param name the name.
-   * @param dimensionItemType the {@link DimensionItemType}.
-   */
-  public DimensionItem(String id, String code, String name, DimensionItemType dimensionItemType) {
-    this(id, name, dimensionItemType);
-    this.code = code;
-  }
+    String expected = "dx:fbfJHSPpUQD;cYeuwXTCPkU;Jtf34kNZhzP";
 
-  /**
-   * Returns the {@link DimensionItemType}. Method to override by subclasses.
-   *
-   * @return the {@link DimensionItemType}.
-   */
-  public DimensionItemType getDimensionItemType() {
-    return dimensionItemType;
-  }
-
-  /**
-   * Checks if the dimension item is of the given type.
-   *
-   * @param type the {@link DimensionItemType}.
-   * @return true if the dimension item is of the given type.
-   */
-  public boolean isDimensionItemType(DimensionItemType type) {
-    return this.dimensionItemType == type;
+    assertEquals(expected, dimension.getDimensionValue());
   }
 }
