@@ -44,4 +44,17 @@ public class Dimension extends NameableObject {
   @JsonProperty private DataDimensionType dataDimensionType;
 
   @JsonProperty private List<DimensionItem> items = new ArrayList<>();
+
+  /**
+   * Constructor.
+   *
+   * @param id the identifier.
+   * @param dimensionType the {@link DimensionType}.
+   * @param items the list of {@link DimensionItem}.
+   */
+  public Dimension(String id, DimensionType dimensionType, List<DimensionItem> items) {
+    super(id, id, id);
+    this.dimensionType = dimensionType;
+    this.items = items;
+  }
 }
