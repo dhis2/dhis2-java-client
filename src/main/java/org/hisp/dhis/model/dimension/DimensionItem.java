@@ -77,10 +77,13 @@ public class DimensionItem extends NameableObject {
   /**
    * Checks if the dimension item is of the given type.
    *
+   * <p>Note that the method uses the get method for dimension item type, as the method may be
+   * overridden by subclasses.
+   *
    * @param type the {@link DimensionItemType}.
    * @return true if the dimension item is of the given type.
    */
   public boolean isDimensionItemType(DimensionItemType type) {
-    return this.dimensionItemType == type;
+    return this.getDimensionItemType() == type;
   }
 }
