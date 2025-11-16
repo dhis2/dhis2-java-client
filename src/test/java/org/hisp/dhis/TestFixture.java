@@ -40,14 +40,18 @@ public final class TestFixture {
 
   public static final String V41_URL = "https://play.im.dhis2.org/stable-2-41-6";
 
+  public static final String V42_URL = "https://play.im.dhis2.org/stable-2-42-3";
+
   public static final String LOCAL_URL = "http://localhost/dhis";
 
   public static final String DEFAULT_URL = V41_URL;
 
-  public static final Dhis2Config DEFAULT_CONFIG =
-      new Dhis2Config(DEFAULT_URL, "system", "System123");
-
   public static final Dhis2Config DEV_CONFIG = new Dhis2Config(DEV_URL, "system", "System123");
 
+  public static final Dhis2Config V42_CONFIG = new Dhis2Config(V42_URL, "system", "System123");
+
   public static final Dhis2Config LOCAL_CONFIG = new Dhis2Config(LOCAL_URL, "system", "System123");
+
+  public static final Dhis2Config DEFAULT_CONFIG =
+      new Dhis2Config(DEFAULT_URL, "system", "System123");
 }

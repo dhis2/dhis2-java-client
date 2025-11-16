@@ -27,6 +27,7 @@
  */
 package org.hisp.dhis;
 
+import static org.hisp.dhis.support.Assertions.assertNotEmpty;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -62,7 +63,7 @@ class CategoryComboApiTest {
     assertFalse(categories.isEmpty());
 
     List<CategoryOptionCombo> categoryOptionCombos = categoryCombo.getCategoryOptionCombos();
-    assertFalse(categoryOptionCombos.isEmpty());
+    assertNotEmpty(categoryOptionCombos);
     assertFalse(categoryOptionCombos.get(0).getIgnoreApproval());
     assertFalse(categoryOptionCombos.get(0).getCategoryOptions().isEmpty());
   }
@@ -78,7 +79,23 @@ class CategoryComboApiTest {
 
     CategoryCombo categoryCombo = categoryCombos.get(0);
     assertNotNull(categoryCombo.getId());
-    assertFalse(categoryCombo.getCategories().isEmpty());
-    assertFalse(categoryCombo.getCategoryOptionCombos().isEmpty());
+    assertNotEmpty(categoryCombo.getCategories());
+    assertNotEmpty(categoryCombo.getCategoryOptionCombos());
+  }
+
+  @Test
+  void testGetCategoryCombosExpandAssociations() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.V42_CONFIG);
+
+    List<CategoryCombo> categoryCombos =
+        dhis2.getCategoryCombos(Query.instance().withExpandAssociations());
+
+    assertNotNull(categoryCombos);
+    assertFalse(categoryCombos.isEmpty());
+
+    CategoryCombo categoryCombo = categoryCombos.get(0);
+    assertNotNull(categoryCombo.getId());
+    assertNotEmpty(categoryCombo.getCategories());
+    assertNotEmpty(categoryCombo.getCategoryOptionCombos());
   }
 }
