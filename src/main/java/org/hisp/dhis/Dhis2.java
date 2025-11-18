@@ -68,6 +68,7 @@ import org.apache.hc.core5.http.io.entity.InputStreamEntity;
 import org.apache.hc.core5.http.io.entity.StringEntity;
 import org.apache.hc.core5.net.URIBuilder;
 import org.hisp.dhis.api.ApiFields;
+import org.hisp.dhis.api.LogLevel;
 import org.hisp.dhis.auth.AccessTokenAuthentication;
 import org.hisp.dhis.auth.BasicAuthentication;
 import org.hisp.dhis.auth.CookieAuthentication;
@@ -236,6 +237,32 @@ public class Dhis2 extends BaseDhis2 {
     Verify.notEmpty(url, "URL must be provided");
     Verify.notEmpty(sessionId, "Session identifier must be provided");
     return new Dhis2(new Dhis2Config(url, new CookieAuthentication(sessionId)));
+  }
+
+  // -------------------------------------------------------------------------
+  // Log level
+  // -------------------------------------------------------------------------
+
+  /**
+   * Sets the log level for subsequent requests.
+   *
+   * @param logLevel the {@link LogLevel}.
+   * @return the {@link Dhis2} instance.
+   */
+  public Dhis2 setLogLevel(LogLevel logLevel) {
+    this.logLevel = Optional.of(logLevel);
+    return this;
+  }
+
+  /**
+   * Resets the log level for subsequent requests.
+   *
+   * @param logLevel the {@link LogLevel}.
+   * @return the {@link Dhis2} instance.
+   */
+  public Dhis2 setDefaultLogLevel() {
+    this.logLevel = Optional.empty();
+    return this;
   }
 
   // -------------------------------------------------------------------------
