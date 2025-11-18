@@ -28,9 +28,12 @@
 package org.hisp.dhis.security.context;
 
 import java.util.Objects;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 /** Thread-local holder for {@link Dhis2Context}. */
-public class Dhis2ContextHolder {
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public final class Dhis2ContextHolder {
   private static final ThreadLocal<Dhis2Context> CONTEXT_HOLDER = new ThreadLocal<>();
 
   /**

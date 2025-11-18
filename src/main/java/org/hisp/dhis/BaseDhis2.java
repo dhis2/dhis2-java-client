@@ -1470,11 +1470,11 @@ public class BaseDhis2 {
    * @param arguments the message arguments.
    */
   private void log(String format, Object... arguments) {
-    String logLevel = getLogLevel();
+    String level = getLogLevel();
 
-    if (LOG_LEVEL_INFO.equalsIgnoreCase(logLevel)) {
+    if (LOG_LEVEL_INFO.equalsIgnoreCase(level)) {
       log.info(format, arguments);
-    } else if (LOG_LEVEL_WARN.equalsIgnoreCase(logLevel)) {
+    } else if (LOG_LEVEL_WARN.equalsIgnoreCase(level)) {
       log.warn(format, arguments);
     } else {
       log.debug(format, arguments);
