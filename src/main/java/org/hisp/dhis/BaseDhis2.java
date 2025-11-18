@@ -80,6 +80,7 @@ import org.apache.hc.core5.http.io.entity.StringEntity;
 import org.apache.hc.core5.http.message.BasicHeader;
 import org.apache.hc.core5.http.message.BasicNameValuePair;
 import org.apache.hc.core5.net.URIBuilder;
+import org.hisp.dhis.api.LogLevel;
 import org.hisp.dhis.model.completedatasetregistration.CompleteDataSetRegistrationImportOptions;
 import org.hisp.dhis.model.datavalueset.DataValueSet;
 import org.hisp.dhis.model.datavalueset.DataValueSetImportOptions;
@@ -137,7 +138,7 @@ public class BaseDhis2 {
   private static final String LOG_LEVEL_WARN = "warn";
 
   /** Override current log level for debugging here. */
-  private static final Optional<String> LOG_LEVEL = Optional.empty();
+  protected Optional<LogLevel> logLevel = Optional.empty();
 
   // Status codes
 
@@ -1469,11 +1470,11 @@ public class BaseDhis2 {
    * @param arguments the message arguments.
    */
   private void log(String format, Object... arguments) {
-    String logLevel = getLogLevel();
+    String level = getLogLevel();
 
-    if (LOG_LEVEL_INFO.equalsIgnoreCase(logLevel)) {
+    if (LOG_LEVEL_INFO.equalsIgnoreCase(level)) {
       log.info(format, arguments);
-    } else if (LOG_LEVEL_WARN.equalsIgnoreCase(logLevel)) {
+    } else if (LOG_LEVEL_WARN.equalsIgnoreCase(level)) {
       log.warn(format, arguments);
     } else {
       log.debug(format, arguments);
@@ -1487,8 +1488,8 @@ public class BaseDhis2 {
    * @return the log level.
    */
   private String getLogLevel() {
-    if (LOG_LEVEL.isPresent()) {
-      return LOG_LEVEL.get();
+    if (logLevel.isPresent()) {
+      return logLevel.get().getValue();
     }
 
     return System.getProperty(LOG_LEVEL_SYSTEM_PROPERTY);
