@@ -27,50 +27,28 @@
  */
 package org.hisp.dhis.security.context;
 
-import static org.apache.commons.lang3.StringUtils.isNotBlank;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
-import java.util.Objects;
-import lombok.Getter;
+import org.junit.jupiter.api.Test;
 
-/** Represents the security context for a DHIS2 session. */
-@Getter
-public class Dhis2Context {
-  /** The DHIS2 session identifier. */
-  private final String sessionId;
+class Dhis2ContextHolderTest {
+  @Test
+  void testSetContext() {
+    String sessionId = "64E50FE921A40ECDC45ECA695B68CD1F";
+    String username = "system";
 
-  /** The username of the currently authenticated user. */
-  private final String username;
+    Dhis2Context context = new Dhis2Context(sessionId, username);
 
-  /**
-   * Constructor.
-   *
-   * @param sessionId the session identifier.
-   */
-  public Dhis2Context(String sessionId) {
-    this.sessionId = sessionId;
-    this.username = null;
-    Objects.requireNonNull(sessionId);
-  }
+    Dhis2ContextHolder.setContext(context);
 
-  /**
-   * Constructor.
-   *
-   * @param sessionId the session identifier.
-   * @param username the username of the currently authenticated user.
-   */
-  public Dhis2Context(String sessionId, String username) {
-    this.sessionId = sessionId;
-    this.username = username;
-    Objects.requireNonNull(sessionId);
-  }
+    assertNotNull(Dhis2ContextHolder.getContext());
+    assertEquals(sessionId, Dhis2ContextHolder.getContext().getSessionId());
+    assertEquals(username, Dhis2ContextHolder.getContext().getUsername());
 
-  /** Indicates whether a session identifier is present. */
-  public boolean hasSessionId() {
-    return isNotBlank(sessionId);
-  }
+    Dhis2ContextHolder.clearContext();
 
-  /** Indicates whether a username is present. */
-  public boolean hasUsername() {
-    return isNotBlank(username);
+    assertNull(Dhis2ContextHolder.getContext());
   }
 }
