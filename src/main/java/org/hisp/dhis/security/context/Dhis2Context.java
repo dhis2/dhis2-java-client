@@ -45,6 +45,17 @@ public class Dhis2Context {
    * Constructor.
    *
    * @param sessionId the session identifier.
+   */
+  public Dhis2Context(String sessionId) {
+    this.sessionId = sessionId;
+    this.username = null;
+    Objects.requireNonNull(sessionId);
+  }
+
+  /**
+   * Constructor.
+   *
+   * @param sessionId the session identifier.
    * @param username the username of the currently authenticated user.
    */
   public Dhis2Context(String sessionId, String username) {
