@@ -257,7 +257,6 @@ public class Dhis2 extends BaseDhis2 {
   /**
    * Resets the log level for subsequent requests.
    *
-   * @param logLevel the {@link LogLevel}.
    * @return the {@link Dhis2} instance.
    */
   public Dhis2 setDefaultLogLevel() {
