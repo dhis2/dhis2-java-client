@@ -51,4 +51,14 @@ public class Dhis2Context {
     this.user = user;
     Objects.requireNonNull(sessionId);
   }
+
+  /** Indicates whether a valid session identifier is present. */
+  public boolean hasSessionId() {
+    return sessionId != null && sessionId.trim().length() > 16;
+  }
+
+  /** Indicates whether an authenticated user is present. */
+  public boolean hasUser() {
+    return user != null;
+  }
 }
