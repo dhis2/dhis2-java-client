@@ -58,6 +58,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.Validate;
 import org.apache.hc.client5.http.HttpResponseException;
 import org.apache.hc.client5.http.classic.methods.HttpGet;
@@ -3833,6 +3834,101 @@ public class Dhis2 extends BaseDhis2 {
             query,
             Dhis2Objects.class)
         .getFileResources();
+  }
+
+  /**
+   * Downloads file content from the given URL.
+   *
+   * @param url the URL to download from.
+   * @param errorMessage the error message to use if download fails.
+   * @return the file content as a byte array.
+   * @throws Dhis2ClientException if the download fails.
+   */
+  public byte[] downloadFile(URI url, String errorMessage) {
+    HttpGet request = withAuth(new HttpGet(url));
+
+    try {
+      return httpClient.execute(
+          request,
+          response -> {
+            try (InputStream in = response.getEntity().getContent()) {
+              return IOUtils.toByteArray(in);
+            }
+          });
+    } catch (IOException ex) {
+      throw new Dhis2ClientException(errorMessage, ex);
+    }
+  }
+
+  /**
+   * Retrieves the file content for a {@link FileResource}.
+   *
+   * @param id the object identifier.
+   * @return the file content as a byte array.
+   * @throws Dhis2ClientException if the file resource does not exist or download fails.
+   */
+  public byte[] getFileResourceData(String id) {
+    URI uri =
+        HttpUtils.build(
+            config
+                .getResolvedUriBuilder()
+                .appendPath("fileResources")
+                .appendPath(id)
+                .appendPath("data"));
+
+    return downloadFile(uri, "Failed to download file resource data");
+  }
+
+  /**
+   * Retrieves the file data for an aggregate data value with FILE_RESOURCE or IMAGE value type.
+   *
+   * <p>It allows for downloading of files attached to aggregate data values (DATA_VALUE domain).
+   * The standard {@link #getFileResourceData(String)} does not work for data value files as they
+   * have different access control rules.
+   *
+   * @param dataElement the data element UID.
+   * @param period the period in ISO format. (e.g., 202511, 2025Q3)
+   * @param orgUnit the organisation unit UID.
+   * @return the file content as a byte array.
+   * @throws Dhis2ClientException if the file resource does not exist or download fails.
+   */
+  public byte[] getDataValueFile(String dataElement, String period, String orgUnit) {
+    URI uri =
+        HttpUtils.build(
+            config
+                .getResolvedUriBuilder()
+                .appendPath("dataValues")
+                .appendPath("files")
+                .addParameter("de", dataElement)
+                .addParameter("pe", period)
+                .addParameter("ou", orgUnit));
+
+    return downloadFile(uri, "Failed to download data value file");
+  }
+
+  /**
+   * Retrieves the file data for event/tracker data value with FILE_RESOURCE or IMAGE value type.
+   *
+   * <p>It allows for downloading of files attached to aggregate data values (DATA_VALUE domain).
+   * The standard {@link #getFileResourceData(String)} does not work for event files as they have
+   * different access control rules.
+   *
+   * @param eventUid the event UID.
+   * @param dataElementUid the data element UID.
+   * @return the file content as a byte array.
+   * @throws Dhis2ClientException if the file resource does not exist or download fails.
+   */
+  public byte[] getEventFile(String eventUid, String dataElementUid) {
+    URI uri =
+        HttpUtils.build(
+            config
+                .getResolvedUriBuilder()
+                .appendPath("events")
+                .appendPath("files")
+                .addParameter("eventUid", eventUid)
+                .addParameter("dataElementUid", dataElementUid));
+
+    return downloadFile(uri, "Failed to download event file");
   }
 
   // -------------------------------------------------------------------------

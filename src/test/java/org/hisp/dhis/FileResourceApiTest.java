@@ -30,6 +30,7 @@ package org.hisp.dhis;
 import static org.hisp.dhis.support.Assertions.assertNotBlank;
 import static org.hisp.dhis.support.Assertions.assertNotEmpty;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 import org.hisp.dhis.model.FileResource;
@@ -55,5 +56,49 @@ class FileResourceApiTest {
     assertNotBlank(file.getContentType());
     assertNotNull(file.getContentLength());
     assertNotBlank(file.getContentMd5());
+  }
+
+  @Test
+  void testGetFileResourceData() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    List<FileResource> resources = dhis2.getFileResources(Query.instance());
+
+    assertNotEmpty(resources);
+
+    FileResource file = resources.get(0);
+    byte[] data = dhis2.getFileResourceData(file.getId());
+
+    assertNotNull(data);
+    assertTrue(data.length > 0);
+  }
+
+  /** Tests downloading a file from an aggregate data value. */
+  @Test
+  void testGetDataValueFile() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    String dataElement = "xk0krAO2KfJ";
+    String period = "2025Q3";
+    String orgUnit = "DiszpKrYNg8";
+
+    byte[] data = dhis2.getDataValueFile(dataElement, period, orgUnit);
+
+    assertNotNull(data);
+    assertTrue(data.length > 0);
+  }
+
+  /** Tests downloading a file from an event data value. */
+  @Test
+  void testGetEventFile() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    String eventUid = "xk0krAO2KfJ";
+    String dataElementUid = "DiszpKrYNg8";
+
+    byte[] data = dhis2.getEventFile(eventUid, dataElementUid);
+
+    assertNotNull(data);
+    assertTrue(data.length > 0);
   }
 }
