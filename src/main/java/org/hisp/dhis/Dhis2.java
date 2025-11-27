@@ -3931,6 +3931,58 @@ public class Dhis2 extends BaseDhis2 {
     return downloadFile(uri, "Failed to download event file");
   }
 
+  /**
+   * Retrieves the file data for event/tracker data value with FILE_RESOURCE or IMAGE value type.
+   *
+   * <p>It uses the new Tracker API endpoint (DHIS2 2.40+). The endpoint path is: {@code
+   * /api/tracker/events/{eventUid}/dataValues/{dataElementUid}/file}.
+   *
+   * @param eventUid the event UID.
+   * @param dataElementUid the data element UID.
+   * @return the file content as a byte array.
+   * @throws Dhis2ClientException if the file resource does not exist or download fails.
+   */
+  public byte[] getTrackerEventFile(String eventUid, String dataElementUid) {
+    URI uri =
+        HttpUtils.build(
+            config
+                .getResolvedUriBuilder()
+                .appendPath("tracker")
+                .appendPath("events")
+                .appendPath(eventUid)
+                .appendPath("dataValues")
+                .appendPath(dataElementUid)
+                .appendPath("file"));
+
+    return downloadFile(uri, "Failed to download tracker event file");
+  }
+
+  /**
+   * Retrieves the file data for tracked entity attribute with FILE_RESOURCE or IMAGE value type.
+   *
+   * <p>It uses the new Tracker API endpoint (DHIS2 2.40+). The endpoint path is: {@code
+   * /api/tracker/trackedEntities/{trackedEntityUid}/attributes/{attributeUid}/file}.
+   *
+   * @param trackedEntityUid the tracked entity UID.
+   * @param attributeUid the tracked entity attribute UID.
+   * @return the file content as a byte array.
+   * @throws Dhis2ClientException if the file resource does not exist or download fails.
+   */
+  public byte[] getTrackedEntityAttributeFile(String trackedEntityUid, String attributeUid) {
+    URI uri =
+        HttpUtils.build(
+            config
+                .getResolvedUriBuilder()
+                .appendPath("tracker")
+                .appendPath("trackedEntities")
+                .appendPath(trackedEntityUid)
+                .appendPath("attributes")
+                .appendPath(attributeUid)
+                .appendPath("file"));
+
+    return downloadFile(uri, "Failed to download tracked entity attribute file");
+  }
+
   // -------------------------------------------------------------------------
   // System settings
   // -------------------------------------------------------------------------
