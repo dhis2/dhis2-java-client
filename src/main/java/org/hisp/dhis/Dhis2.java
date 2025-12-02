@@ -3880,7 +3880,7 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   /**
-   * Retrieves the file data for an aggregate data value with FILE_RESOURCE or IMAGE value type.
+   * Retrieves the file data for an aggregate data value.
    *
    * <p>It allows for downloading of files attached to aggregate data values (DATA_VALUE domain).
    * The standard {@link #getFileResourceData(String)} does not work for data value files as they
@@ -3907,7 +3907,7 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   /**
-   * Retrieves the file data for event/tracker data value with FILE_RESOURCE or IMAGE value type.
+   * Retrieves the file data for event/tracker data value.
    *
    * <p>It allows for downloading of files attached to aggregate data values (DATA_VALUE domain).
    * The standard {@link #getFileResourceData(String)} does not work for event files as they have
@@ -3932,7 +3932,7 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   /**
-   * Retrieves the file data for event/tracker data value with FILE_RESOURCE or IMAGE value type.
+   * Retrieves the file data for event/tracker data value.
    *
    * <p>It uses the new Tracker API endpoint (DHIS2 2.40+). The endpoint path is: {@code
    * /api/tracker/events/{eventUid}/dataValues/{dataElementUid}/file}.
@@ -3958,7 +3958,7 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   /**
-   * Retrieves the file data for tracked entity attribute with FILE_RESOURCE or IMAGE value type.
+   * Retrieves the file data for tracked entity attribute.
    *
    * <p>It uses the new Tracker API endpoint (DHIS2 2.40+). The endpoint path is: {@code
    * /api/tracker/trackedEntities/{trackedEntityUid}/attributes/{attributeUid}/file}.
