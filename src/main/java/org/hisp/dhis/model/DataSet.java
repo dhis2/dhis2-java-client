@@ -40,8 +40,6 @@ import org.hisp.dhis.model.dimension.DimensionItemType;
 @Setter
 @NoArgsConstructor
 public class DataSet extends DimensionItem {
-  @JsonProperty private String formName;
-
   @JsonProperty private String displayFormName;
 
   @JsonProperty private CategoryCombo categoryCombo;
