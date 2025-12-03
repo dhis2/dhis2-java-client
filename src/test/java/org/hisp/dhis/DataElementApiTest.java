@@ -34,7 +34,12 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Set;
-import org.hisp.dhis.model.*;
+import org.hisp.dhis.model.AggregationType;
+import org.hisp.dhis.model.CategoryCombo;
+import org.hisp.dhis.model.DataDomain;
+import org.hisp.dhis.model.DataElement;
+import org.hisp.dhis.model.OptionSet;
+import org.hisp.dhis.model.ValueType;
 import org.hisp.dhis.model.acl.Access;
 import org.hisp.dhis.model.dimension.DimensionItemType;
 import org.hisp.dhis.model.metadata.Metadata;
