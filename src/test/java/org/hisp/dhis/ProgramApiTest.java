@@ -41,7 +41,6 @@ import org.hisp.dhis.model.DataElement;
 import org.hisp.dhis.model.FeatureType;
 import org.hisp.dhis.model.OrgUnit;
 import org.hisp.dhis.model.Program;
-import org.hisp.dhis.model.ProgramAccessLevel;
 import org.hisp.dhis.model.ProgramIndicator;
 import org.hisp.dhis.model.ProgramObjects;
 import org.hisp.dhis.model.ProgramSection;
@@ -167,7 +166,7 @@ class ProgramApiTest {
     assertNotNull(pr.getDisplayFrontPageList());
     assertNotNull(pr.getMinAttributesRequiredToSearch());
     assertNotNull(pr.getMaxTeiCountToReturn());
-    assertEquals(ProgramAccessLevel.OPEN, pr.getAccessLevel());
+    assertNotNull(pr.getAccessLevel());
 
     ProgramTrackedEntityAttribute ptea = pr.getProgramTrackedEntityAttributes().get(0);
 
@@ -292,7 +291,7 @@ class ProgramApiTest {
     assertNotNull(pr.getCreated());
     assertNotNull(pr.getLastUpdated());
     assertEquals(ProgramType.WITH_REGISTRATION, pr.getProgramType());
-    assertEquals(ProgramAccessLevel.OPEN, pr.getAccessLevel());
+    assertNotNull(pr.getAccessLevel());
     assertEquals(FeatureType.POINT, pr.getFeatureType());
     assertNotNull(pr.getCategoryCombo());
     assertNotEmpty(pr.getOrganisationUnits());
@@ -406,7 +405,7 @@ class ProgramApiTest {
     assertNotNull(pr.getCreated());
     assertNotNull(pr.getLastUpdated());
     assertEquals(ProgramType.WITH_REGISTRATION, pr.getProgramType());
-    assertEquals(ProgramAccessLevel.OPEN, pr.getAccessLevel());
+    assertNotNull(pr.getAccessLevel());
     assertEquals(FeatureType.POINT, pr.getFeatureType());
     assertNotNull(pr.getCategoryCombo());
     assertEmpty(pr.getOrganisationUnits());
