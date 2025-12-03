@@ -49,6 +49,8 @@ public class DataElement extends DimensionItem {
 
   @JsonProperty private String url;
 
+  @JsonProperty private CategoryCombo categoryCombo;
+
   @JsonProperty private List<LegendSet> legendSets = new ArrayList<>();
 
   @JsonProperty private OptionSet optionSet;
@@ -60,6 +62,11 @@ public class DataElement extends DimensionItem {
   @JsonIgnore
   public boolean hasOptionSet() {
     return optionSet != null;
+  }
+
+  @JsonIgnore
+  public boolean hasCategoryCombo() {
+    return categoryCombo != null;
   }
 
   @Override
