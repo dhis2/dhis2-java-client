@@ -125,7 +125,7 @@ public class ApiFields {
   /** Data element fields. */
   public static final String DATA_ELEMENT_FIELDS =
       String.format(
-          "%1$s,aggregationType,valueType,domainType,url,legendSets[%2$s],optionSet[%3$s]",
+          "%1$s,aggregationType,valueType,domainType,url,categoryCombo[%2$s],legendSets[%2$s],optionSet[%3$s]",
           NAME_EXT_FIELDS, NAME_FIELDS, OPTION_SET_FIELDS);
 
   /** Data element extended fields. */
