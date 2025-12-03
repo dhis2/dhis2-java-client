@@ -35,6 +35,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Set;
 import org.hisp.dhis.model.AggregationType;
+import org.hisp.dhis.model.CategoryCombo;
 import org.hisp.dhis.model.DataDomain;
 import org.hisp.dhis.model.DataElement;
 import org.hisp.dhis.model.OptionSet;
@@ -110,6 +111,14 @@ class DataElementApiTest {
     assertNotBlank(sharing.getOwner());
     assertNotNull(sharing.getPublicAccess());
     assertNotEmpty(sharing.getUserGroups());
+
+    assertTrue(dataElement.hasCategoryCombo());
+
+    CategoryCombo categoryCombo = dataElement.getCategoryCombo();
+
+    assertNotNull(categoryCombo);
+    assertNotBlank(categoryCombo.getId());
+    assertNotBlank(categoryCombo.getName());
   }
 
   @Test
