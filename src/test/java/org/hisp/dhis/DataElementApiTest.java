@@ -143,6 +143,7 @@ class DataElementApiTest {
     assertEquals("DJC_COLOR", retrieved.getCode());
     assertEquals("DJC: Color", retrieved.getName());
     assertEquals("DJC: Color", retrieved.getShortName());
+    assertEquals("DJC: Color", retrieved.getFormName());
 
     Sharing sharing = retrieved.getSharing();
 

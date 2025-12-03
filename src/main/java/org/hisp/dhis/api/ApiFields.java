@@ -53,7 +53,7 @@ public class ApiFields {
 
   /** Nameable object extended fields. */
   public static final String NAME_EXT_FIELDS =
-      String.format("%s,shortName,description", ID_EXT_FIELDS);
+      String.format("%s,shortName,description,formName", ID_EXT_FIELDS);
 
   /** Analytics table hook fields. */
   public static final String ANALYTICS_TABLE_HOOK_FIELDS =
@@ -62,7 +62,7 @@ public class ApiFields {
   /** Category option fields. */
   public static final String CATEGORY_OPTION_FIELDS =
       String.format(
-          "%1$s,shortName,startDate,endDate,formName,categories[%2$s],organisationUnits[%2$s]",
+          "%1$s,shortName,startDate,endDate,categories[%2$s],organisationUnits[%2$s]",
           NAME_EXT_FIELDS, NAME_FIELDS);
 
   /** Category option extended fields. */
@@ -223,7 +223,7 @@ public class ApiFields {
   public static final String DATA_SET_FIELDS =
       String.format(
           """
-          %1$s,formName,displayFormName,\
+          %1$s,displayFormName,\
           categoryCombo[%2$s],\
           dataSetElements[dataSet[%2$s],dataElement[%2$s],categoryCombo[%2$s]],\
           dimensionItem,openFuturePeriods,expiryDays,timelyDays,url,formType,periodType,version,\
@@ -340,7 +340,7 @@ public class ApiFields {
   public static final String PROGRAM_STAGE_SECTION_FIELDS =
       String.format(
           """
-          %1$s,programStage[%2$s],formName,sortOrder,dataElements[%2$s],programIndicators[%2$s]""",
+          %1$s,programStage[%2$s],sortOrder,dataElements[%2$s],programIndicators[%2$s]""",
           NAME_EXT_FIELDS, NAME_FIELDS);
 
   /** Program stage fields. */
@@ -350,7 +350,7 @@ public class ApiFields {
           %1$s,program[%2$s],\
           programStageDataElements[%3$s],\
           programStageSections[%4$s],\
-          formName,executionDateLabel,dueDateLabel,programStageLabel,eventLabel,\
+          executionDateLabel,dueDateLabel,programStageLabel,eventLabel,\
           repeatable,autoGenerateEvent,displayGenerateEventBox,blockEntryForm,preGenerateUID,\
           remindCompleted,generatedByEnrollmentDate,allowGenerateNextVisit,openAfterEnrollment,\
           hideDueDate,enableUserAssignment,referral,featureType""",
@@ -391,7 +391,7 @@ public class ApiFields {
   /** Program simple fields. */
   private static final String PROGRAM_SIMPLE_FIELDS =
       """
-      formName,programType,\
+      programType,\
       enrollmentDateLabel,incidentDateLabel,enrollmentLabel,followUpLabel,\
       orgUnitLabel,relationshipLabel,noteLabel,trackedEntityAttributeLabel,\
       programStageLabel,eventLabel,\
