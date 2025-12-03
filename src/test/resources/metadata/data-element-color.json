@@ -3,6 +3,7 @@
   "code": "DJC_COLOR",
   "name": "DJC: Color",
   "shortName": "DJC: Color",
+  "formName": "DJC: Color",
   "aggregationType": "SUM",
   "valueType": "NUMBER",
   "domainType": "AGGREGATE",

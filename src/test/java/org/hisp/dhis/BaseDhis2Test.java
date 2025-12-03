@@ -138,7 +138,7 @@ class BaseDhis2Test {
 
     String expected =
         """
-        https://play.im.dhis2.org/stable-2-41-6/api/analytics\
+        https://play.im.dhis2.org/stable-2-41-6-1/api/analytics\
         ?dimension=dx:fbfJHSPpUQD;cYeuwXTCPkU;Jtf34kNZhzP\
         &dimension=pe:202501;202502;202503\
         &filter=ou:ImspTQPwCqd\
