@@ -45,7 +45,8 @@ class ApiFieldsTest {
         programStageDataElements[id,code,name,created,lastUpdated,attributeValues,translations,sharing,access,shortName,description,formName,\
         programStage[id,code,name,created,lastUpdated,attributeValues,shortName,description],\
         dataElement[id,code,name,created,lastUpdated,attributeValues,translations,sharing,access,shortName,description,formName,\
-        aggregationType,valueType,domainType,url,legendSets[id,code,name,created,lastUpdated,\
+        aggregationType,valueType,domainType,url,categoryCombo[id,code,name,created,lastUpdated,attributeValues,shortName,description],\
+        legendSets[id,code,name,created,lastUpdated,\
         attributeValues,shortName,description],\
         optionSet[id,code,name,created,lastUpdated,attributeValues,translations,sharing,access,valueType,version]],\
         compulsory,displayInReports,skipSynchronization,skipAnalytics,sortOrder],\
@@ -84,7 +85,7 @@ class ApiFieldsTest {
         programStageDataElements[id,code,name,created,lastUpdated,attributeValues,translations,sharing,access,shortName,description,formName,\
         programStage[id,code,name,created,lastUpdated,attributeValues,shortName,description],\
         dataElement[id,code,name,created,lastUpdated,attributeValues,translations,sharing,access,shortName,description,formName,\
-        aggregationType,valueType,domainType,url,\
+        aggregationType,valueType,domainType,url,categoryCombo[id,code,name,created,lastUpdated,attributeValues,shortName,description],\
         legendSets[id,code,name,created,lastUpdated,attributeValues,shortName,description],\
         optionSet[id,code,name,created,lastUpdated,attributeValues,translations,sharing,access,valueType,version]],\
         compulsory,displayInReports,skipSynchronization,skipAnalytics,sortOrder],\
