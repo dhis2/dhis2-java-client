@@ -87,6 +87,7 @@ class TrackedEntityAttributeApiTest {
     tea.setDescription(uidA);
     tea.setCode(uidA);
     tea.setShortName(uidA);
+    tea.setFormName(uidA);
     tea.setValueType(ValueType.TEXT);
     tea.setAggregationType(AggregationType.COUNT);
 
@@ -104,16 +105,18 @@ class TrackedEntityAttributeApiTest {
 
     // Get
 
-    tea = dhis2.getTrackedEntityAttribute(teaId);
+    TrackedEntityAttribute retrieved = dhis2.getTrackedEntityAttribute(teaId);
 
     assertNotNull(tea);
-    assertEquals(teaId, tea.getId());
+    assertEquals(teaId, retrieved.getId());
+    assertEquals(tea.getFormName(), retrieved.getFormName());
+    assertEquals(tea.getShortName(), retrieved.getDescription());
 
-    tea.setName(uidB);
+    retrieved.setName(uidB);
 
     // Update
 
-    ObjectResponse updateResp = dhis2.updateTrackedEntityAttribute(tea);
+    ObjectResponse updateResp = dhis2.updateTrackedEntityAttribute(retrieved);
 
     assertEquals(200, updateResp.getHttpStatusCode().intValue(), updateResp.toString());
     assertEquals(HttpStatus.OK, updateResp.getHttpStatus(), updateResp.toString());
@@ -124,9 +127,9 @@ class TrackedEntityAttributeApiTest {
 
     tea = dhis2.getTrackedEntityAttribute(teaId);
     assertNotNull(tea);
-    assertEquals(teaId, tea.getId());
-    assertEquals(uidB, tea.getName());
-    assertNotNull(tea.getDescription());
+    assertEquals(teaId, retrieved.getId());
+    assertEquals(uidB, retrieved.getName());
+    assertNotNull(retrieved.getDescription());
 
     // Remove
 

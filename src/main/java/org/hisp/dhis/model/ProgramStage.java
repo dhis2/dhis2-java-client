@@ -48,8 +48,6 @@ public class ProgramStage extends NameableObject {
 
   @JsonProperty private List<ProgramStageSection> programStageSections = new ArrayList<>();
 
-  @JsonProperty private String formName;
-
   @JsonProperty private String executionDateLabel;
 
   @JsonProperty private String dueDateLabel;

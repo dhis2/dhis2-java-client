@@ -42,6 +42,8 @@ public class NameableObject extends IdentifiableObject {
 
   @JsonProperty protected String description;
 
+  @JsonProperty protected String formName;
+
   /**
    * Constructor.
    *

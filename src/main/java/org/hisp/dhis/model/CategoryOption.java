@@ -52,8 +52,6 @@ public class CategoryOption extends DimensionItem {
   @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_FORMAT)
   private Date endDate;
 
-  @JsonProperty private String formName;
-
   @JsonProperty private Set<Category> categories = new HashSet<>();
 
   @JsonProperty private Set<CategoryOptionCombo> categoryOptionCombos = new HashSet<>();

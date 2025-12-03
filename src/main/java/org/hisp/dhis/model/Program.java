@@ -49,8 +49,6 @@ import org.hisp.dhis.model.trackedentity.TrackedEntityTypeAttribute;
 @Setter
 @NoArgsConstructor
 public class Program extends NameableObject {
-  @JsonProperty private String formName;
-
   @JsonProperty private ProgramType programType;
 
   /**
