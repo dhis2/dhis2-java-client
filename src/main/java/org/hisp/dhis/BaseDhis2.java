@@ -1183,7 +1183,12 @@ public class BaseDhis2 {
    * @throws IOException if reading failed.
    */
   protected <T> T readValue(String content, Class<T> type) throws IOException {
-    return objectMapper.readValue(content, type);
+    try {
+      return objectMapper.readValue(content, type);
+    } catch (IOException ex) {
+      log.error("JSON deserialization error for content: {}", content);
+      throw ex;
+    }
   }
 
   /**
