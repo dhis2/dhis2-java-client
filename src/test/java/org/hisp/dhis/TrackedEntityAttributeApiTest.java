@@ -121,7 +121,7 @@ class TrackedEntityAttributeApiTest {
 
     // Get updated
 
-    productName = dhis2.getTrackedEntityAttribute(teaId);
+    retrieved = dhis2.getTrackedEntityAttribute(teaId);
     assertNotNull(productName);
     assertEquals(teaId, retrieved.getId());
     assertEquals(uidB, retrieved.getName());
