@@ -1,0 +1,35 @@
+{
+  "id": "Y2UamzuFBVD",
+  "code": "PRODUCT_NAME",
+  "name": "Product Name",
+  "shortName": "Product Name",
+  "description": "Product Name Description",
+  "formName": "Product Name",
+  "aggregationType": "COUNT",
+  "valueType": "TEXT",
+  "unique": true,
+  "sharing": {
+    "external": false,
+    "users": {},
+    "userGroups": {},
+    "public": "r-------"
+  },
+  "orgunitScope": true,
+  "translations": [
+    {
+      "locale": "fr",
+      "property": "NAME",
+      "value": "Nom du produit"
+    },
+    {
+      "locale": "fr",
+      "property": "FORM_NAME",
+      "value": "Nom du produit"
+    },
+    {
+      "locale": "fr",
+      "property": "SHORT_NAME",
+      "value": "Nom du produit"
+    }
+  ]
+}

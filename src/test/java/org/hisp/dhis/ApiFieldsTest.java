@@ -49,7 +49,7 @@ class ApiFieldsTest {
         legendSets[id,code,name,created,lastUpdated,\
         attributeValues,shortName,description],\
         optionSet[id,code,name,created,lastUpdated,attributeValues,translations,sharing,access,valueType,version]],\
-        compulsory,displayInReports,skipSynchronization,skipAnalytics,sortOrder],\
+        compulsory,displayInReports,skipSynchronization,skipAnalytics,allowFutureDate,sortOrder],\
         programStageSections[id,code,name,created,lastUpdated,attributeValues,translations,sharing,access,\
         shortName,description,formName,programStage[id,code,name,created,lastUpdated,\
         attributeValues,shortName,description],sortOrder,\
@@ -71,7 +71,7 @@ class ApiFieldsTest {
         trackedEntityType[id,code,name,created,lastUpdated,attributeValues,translations,sharing,access,shortName,description,formName,\
         trackedEntityTypeAttributes[id,\
         trackedEntityAttribute[id,code,name,created,lastUpdated,attributeValues,shortName,description,valueType,\
-        aggregationType,confidential,unique],displayInList,mandatory,searchable]],\
+        aggregationType,confidential,unique,orgunitScope],displayInList,mandatory,searchable]],\
         categoryCombo[id,code,name,created,lastUpdated,attributeValues,shortName,description,\
         categories[id,code,name,created,lastUpdated,attributeValues,translations,sharing,access,shortName,description,formName,dataDimensionType,dataDimension,\
         categoryOptions[id,code,name,created,lastUpdated,attributeValues],\
@@ -88,7 +88,7 @@ class ApiFieldsTest {
         aggregationType,valueType,domainType,url,categoryCombo[id,code,name,created,lastUpdated,attributeValues,shortName,description],\
         legendSets[id,code,name,created,lastUpdated,attributeValues,shortName,description],\
         optionSet[id,code,name,created,lastUpdated,attributeValues,translations,sharing,access,valueType,version]],\
-        compulsory,displayInReports,skipSynchronization,skipAnalytics,sortOrder],\
+        compulsory,displayInReports,skipSynchronization,skipAnalytics,allowFutureDate,sortOrder],\
         programStageSections[id,code,name,created,lastUpdated,attributeValues,translations,sharing,access,\
         shortName,description,formName,programStage[id,code,name,created,lastUpdated,attributeValues,shortName,description],\
         sortOrder,dataElements[id,code,name,created,lastUpdated,attributeValues,shortName,description],\
@@ -100,7 +100,7 @@ class ApiFieldsTest {
         programTrackedEntityAttributes[id,code,name,program[id,code,name,created,lastUpdated,\
         attributeValues,shortName,description],\
         trackedEntityAttribute[id,code,name,created,lastUpdated,attributeValues,shortName,\
-        description,valueType,aggregationType,confidential,unique],\
+        description,valueType,aggregationType,confidential,unique,orgunitScope],\
         sortOrder,displayInList,mandatory,allowFutureDate,searchable],\
         programRuleVariables[id,code,name,created,lastUpdated,attributeValues,translations,\
         sharing,access,program[id,code,name,created,lastUpdated,attributeValues],\
@@ -108,7 +108,7 @@ class ApiFieldsTest {
         lastUpdated,attributeValues],trackedEntityAttribute[id,code,name,created,\
         lastUpdated,attributeValues],useCodeForOptionSet,\
         dataElement[id,code,name,created,lastUpdated,attributeValues]],\
-        programType,\
+        style[color,icon],programType,\
         enrollmentDateLabel,incidentDateLabel,enrollmentLabel,followUpLabel,\
         orgUnitLabel,relationshipLabel,noteLabel,trackedEntityAttributeLabel,\
         programStageLabel,eventLabel,\
@@ -132,7 +132,7 @@ class ApiFieldsTest {
         programTrackedEntityAttributes[id,code,name,\
         program[id,code,name,created,lastUpdated,attributeValues,shortName,description],\
         trackedEntityAttribute[id,code,name,created,lastUpdated,attributeValues,shortName,\
-        description,valueType,aggregationType,confidential,unique],\
+        description,valueType,aggregationType,confidential,unique,orgunitScope],\
         sortOrder,displayInList,mandatory,allowFutureDate,searchable],\
         programType,\
         enrollmentDateLabel,incidentDateLabel,enrollmentLabel,followUpLabel,\

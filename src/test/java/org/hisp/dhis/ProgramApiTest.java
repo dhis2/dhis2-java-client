@@ -37,8 +37,10 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
+import java.util.function.Predicate;
 import org.hisp.dhis.model.DataElement;
 import org.hisp.dhis.model.FeatureType;
+import org.hisp.dhis.model.ObjectStyle;
 import org.hisp.dhis.model.OrgUnit;
 import org.hisp.dhis.model.Program;
 import org.hisp.dhis.model.ProgramIndicator;
@@ -91,6 +93,18 @@ class ProgramApiTest {
 
     assertEquals("dIFNZrYGcOB", saved.getId());
     assertEquals("Address Book", saved.getName());
+
+    assertNotNull(saved.getStyle());
+    ObjectStyle objectStyle = saved.getStyle();
+    assertEquals("#64b5f6", objectStyle.getColor());
+    assertEquals("Address_Book", objectStyle.getIcon());
+
+    assertNotNull(saved.getProgramStages());
+    assertTrue(
+        saved.getProgramStages().stream()
+            .flatMap(ps -> ps.getProgramStageDataElements().stream())
+            .map(ProgramStageDataElement::getAllowFutureDate)
+            .allMatch(Predicate.isEqual(true)));
 
     pr.setName("Yellow Pages");
 

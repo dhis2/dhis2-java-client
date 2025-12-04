@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004-2024, University of Oslo
+ * Copyright (c) 2004-2025, University of Oslo
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -28,6 +28,7 @@
 package org.hisp.dhis.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.io.Serializable;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -35,20 +36,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class ProgramStageDataElement extends NameableObject {
-  @JsonProperty private ProgramStage programStage;
+public class ObjectStyle implements Serializable {
+  @JsonProperty private String color;
 
-  @JsonProperty private DataElement dataElement;
-
-  @JsonProperty private Boolean compulsory;
-
-  @JsonProperty private Boolean displayInReports;
-
-  @JsonProperty private Boolean skipSynchronization;
-
-  @JsonProperty private Boolean skipAnalytics;
-
-  @JsonProperty private Boolean allowFutureDate = false;
-
-  @JsonProperty private Integer sortOrder;
+  @JsonProperty private String icon;
 }

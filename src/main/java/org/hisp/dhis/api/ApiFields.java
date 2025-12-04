@@ -278,21 +278,26 @@ public class ApiFields {
           authorities,organisationUnits[%2$s],dataViewOrganisationUnits[%2$s]""",
           ID_EXT_FIELDS, ORG_UNIT_FIELDS);
 
+  /** Object style fields. */
+  public static final String OBJECT_STYLE_FIELDS = "color,icon";
+
   /** Program stage data element fields. */
   public static final String PROGRAM_STAGE_DATA_ELEMENT_FIELDS =
       String.format(
           """
           %1$s,programStage[%2$s],dataElement[%3$s],\
-          compulsory,displayInReports,skipSynchronization,skipAnalytics,sortOrder""",
+          compulsory,displayInReports,skipSynchronization,skipAnalytics,\
+          allowFutureDate,sortOrder""",
           NAME_EXT_FIELDS, NAME_FIELDS, DATA_ELEMENT_FIELDS);
 
   /** Tracked entity attribute fields. */
   public static final String TRACKED_ENTITY_ATTRIBUTE_FIELDS =
-      String.format("%s,valueType,aggregationType,confidential,unique", NAME_FIELDS);
+      String.format("%s,valueType,aggregationType,confidential,unique,orgunitScope", NAME_FIELDS);
 
   /** Tracked entity attribute extended fields. */
   public static final String TRACKED_ENTITY_ATTRIBUTE_EXT_FIELDS =
-      String.format("%s,valueType,aggregationType,confidential,unique", NAME_EXT_FIELDS);
+      String.format(
+          "%s,valueType,aggregationType,confidential,unique,orgunitScope", NAME_EXT_FIELDS);
 
   /** Tracked entity type fields. */
   public static final String TRACKED_ENTITY_TYPE_FIELDS =
@@ -410,6 +415,7 @@ public class ApiFields {
           programStages[%6$s],\
           programTrackedEntityAttributes[%7$s],\
           programRuleVariables[%8$s],\
+          style[%10$s],\
           %9$s""",
           NAME_EXT_FIELDS,
           NAME_FIELDS,
@@ -419,7 +425,8 @@ public class ApiFields {
           PROGRAM_STAGE_FIELDS,
           PROGRAM_TRACKED_ENTITY_ATTRIBUTES_FIELDS,
           PROGRAM_RULE_VARIABLE_FIELDS,
-          PROGRAM_SIMPLE_FIELDS);
+          PROGRAM_SIMPLE_FIELDS,
+          OBJECT_STYLE_FIELDS);
 
   /** Program standard fields. */
   public static final String PROGRAM_STD_FIELDS =
