@@ -33,14 +33,13 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.List;
-import org.hisp.dhis.model.AggregationType;
-import org.hisp.dhis.model.ValueType;
 import org.hisp.dhis.model.metadata.Metadata;
 import org.hisp.dhis.model.trackedentity.TrackedEntityAttribute;
 import org.hisp.dhis.query.Query;
 import org.hisp.dhis.response.HttpStatus;
 import org.hisp.dhis.response.Status;
 import org.hisp.dhis.response.object.ObjectResponse;
+import org.hisp.dhis.support.JsonClassPathFile;
 import org.hisp.dhis.support.TestTags;
 import org.hisp.dhis.util.UidUtils;
 import org.junit.jupiter.api.Tag;
@@ -48,6 +47,8 @@ import org.junit.jupiter.api.Test;
 
 @Tag(TestTags.INTEGRATION)
 class TrackedEntityAttributeApiTest {
+  private static final String TEA_PRODUCT_NAME_FILE =
+      "metadata/tracked-entity-attribute-product-name.json";
 
   @Test
   void testGetTrackedEntityAttribute() {
@@ -79,21 +80,14 @@ class TrackedEntityAttributeApiTest {
   void testCreateUpdateDeleteTrackedEntityAttributes() {
     Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
 
-    String uidA = UidUtils.generateUid();
     String uidB = UidUtils.generateUid();
 
-    TrackedEntityAttribute tea = new TrackedEntityAttribute();
-    tea.setName(uidA);
-    tea.setDescription(uidA);
-    tea.setCode(uidA);
-    tea.setShortName(uidA);
-    tea.setFormName(uidA);
-    tea.setValueType(ValueType.TEXT);
-    tea.setAggregationType(AggregationType.COUNT);
+    TrackedEntityAttribute productName =
+        JsonClassPathFile.fromJson(TEA_PRODUCT_NAME_FILE, TrackedEntityAttribute.class);
 
     // Create
 
-    ObjectResponse createResp = dhis2.saveTrackedEntityAttribute(tea);
+    ObjectResponse createResp = dhis2.saveTrackedEntityAttribute(productName);
 
     assertEquals(201, createResp.getHttpStatusCode().intValue(), createResp.toString());
     assertEquals(HttpStatus.CREATED, createResp.getHttpStatus(), createResp.toString());
@@ -107,10 +101,12 @@ class TrackedEntityAttributeApiTest {
 
     TrackedEntityAttribute retrieved = dhis2.getTrackedEntityAttribute(teaId);
 
-    assertNotNull(tea);
+    assertNotNull(productName);
     assertEquals(teaId, retrieved.getId());
-    assertEquals(tea.getFormName(), retrieved.getFormName());
-    assertEquals(tea.getShortName(), retrieved.getDescription());
+    assertEquals(productName.getFormName(), retrieved.getFormName());
+    assertEquals(productName.getShortName(), retrieved.getShortName());
+    assertEquals(productName.getDescription(), retrieved.getDescription());
+    assertEquals(productName.getOrgunitScope(), retrieved.getOrgunitScope());
 
     retrieved.setName(uidB);
 
@@ -125,8 +121,8 @@ class TrackedEntityAttributeApiTest {
 
     // Get updated
 
-    tea = dhis2.getTrackedEntityAttribute(teaId);
-    assertNotNull(tea);
+    productName = dhis2.getTrackedEntityAttribute(teaId);
+    assertNotNull(productName);
     assertEquals(teaId, retrieved.getId());
     assertEquals(uidB, retrieved.getName());
     assertNotNull(retrieved.getDescription());

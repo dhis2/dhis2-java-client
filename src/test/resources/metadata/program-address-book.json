@@ -27,6 +27,10 @@
       "trackedEntityType": {
         "id": "nEenWmSyUEp"
       },
+      "style": {
+        "color": "#64b5f6",
+        "icon": "Address_Book"
+      },
       "programTrackedEntityAttributes": [
         {
           "id": "NkvU4urhVNv",
@@ -163,7 +167,8 @@
           "compulsory": true,
           "displayInReports": true,
           "skipSynchronization": false,
-          "skipAnalytics": false          
+          "allowFutureDate": true,
+          "skipAnalytics": false
         },
         {
           "id": "Fnz6H9q2rKk",
@@ -176,6 +181,7 @@
           "compulsory": true,
           "displayInReports": true,
           "skipSynchronization": false,
+          "allowFutureDate": true,
           "skipAnalytics": false   
         }
       ],

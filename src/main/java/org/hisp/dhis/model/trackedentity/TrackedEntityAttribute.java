@@ -51,6 +51,8 @@ public class TrackedEntityAttribute extends NameableObject {
 
   @JsonProperty private Boolean unique = false;
 
+  @JsonProperty private Boolean orgunitScope = false;
+
   @JsonIgnore
   public boolean isConfidentialNullSafe() {
     return confidential != null && confidential;
