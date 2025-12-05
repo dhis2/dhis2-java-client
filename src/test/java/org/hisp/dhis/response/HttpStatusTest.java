@@ -54,4 +54,21 @@ class HttpStatusTest {
     assertNotNull(exception);
     assertEquals("No matching constant for status code: 999", exception.getMessage());
   }
+
+  @Test
+  void testFromName() {
+    assertEquals(HttpStatus.OK, HttpStatus.fromName(HttpStatus.OK.name()));
+    assertEquals(HttpStatus.CONFLICT, HttpStatus.fromName(HttpStatus.CONFLICT.name()));
+    assertEquals(HttpStatus.UNKNOWN_STATUS, HttpStatus.fromName(HttpStatus.UNKNOWN_STATUS.name()));
+    assertEquals(HttpStatus.NO_STATUS, HttpStatus.fromName(HttpStatus.NO_STATUS.name()));
+  }
+
+  @Test
+  void testFromNameNotFound() {
+    IllegalArgumentFormatException exception =
+        assertThrows(IllegalArgumentFormatException.class, () -> HttpStatus.fromName("INVALID"));
+
+    assertNotNull(exception);
+    assertEquals("No matching name for status code: INVALID", exception.getMessage());
+  }
 }

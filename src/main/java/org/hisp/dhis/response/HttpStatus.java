@@ -27,6 +27,7 @@
  */
 package org.hisp.dhis.response;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import org.hisp.dhis.model.exception.IllegalArgumentFormatException;
 
 /** Enumeration of HTTP status codes. */
@@ -206,6 +207,22 @@ public enum HttpStatus {
           "No matching constant for status code: {}", statusCode);
     }
     return status;
+  }
+
+  /**
+   * Return the enum constant of this type with the specified name.
+   *
+   * @param name the enum name of the enum to be returned
+   * @return the enum constant with the specified name
+   * @throws IllegalArgumentException if this enum has no constant for the specified name
+   */
+  @JsonCreator
+  public static HttpStatus fromName(String name) {
+    try {
+      return Enum.valueOf(HttpStatus.class, name);
+    } catch (IllegalArgumentException ex) {
+      throw new IllegalArgumentFormatException("No matching name for status code: {}", name);
+    }
   }
 
   /**
