@@ -28,6 +28,7 @@
 package org.hisp.dhis.model.analytics;
 
 import static org.apache.commons.collections4.CollectionUtils.isEmpty;
+import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 import static org.hisp.dhis.model.analytics.AnalyticsDataIndex.toKey;
 import static org.hisp.dhis.util.ObjectUtils.isNotNull;
@@ -179,6 +180,16 @@ public class AnalyticsData implements Serializable {
   @JsonIgnore
   public boolean hasMetaData() {
     return metaData != null;
+  }
+
+  /**
+   * Indicates whether any data rows exist.
+   *
+   * @return true if any data rows exist, fasle otherwise.
+   */
+  @JsonIgnore
+  public boolean hasData() {
+    return isNotEmpty(rows);
   }
 
   /**

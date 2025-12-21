@@ -100,6 +100,16 @@ public class DateTimeUtils {
   }
 
   /**
+   * Returns a {@link java.util.Date} from a {@link java.time.Instant}.
+   *
+   * @param instant the {@link java.time.Instant}.
+   * @return the {@link java.util.Date}.
+   */
+  public static Date toDate(Instant instant) {
+    return Date.from(instant);
+  }
+
+  /**
    * Returns a {@link java.util.Date} based on the given string. The string must be on the format
    * <code>yyyy-MM-dd'T'HH:mm:ss.SSS</code>.
    *
