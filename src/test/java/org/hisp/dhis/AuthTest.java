@@ -48,10 +48,17 @@ class AuthTest {
     assertNotNull(dhis2);
   }
 
+  @Test
   void testWithAccessTokenAuth() {
     Dhis2 dhis2 =
         Dhis2.withAccessTokenAuth(
             "https://play.dhis2.org/demo", "d2pat_2bBQecgNcxrS4EPhBJuRlQkwiLr2ATnC2557514242");
+    assertNotNull(dhis2);
+  }
+
+  @Test
+  void testWithoutAuth() {
+    Dhis2 dhis2 = Dhis2.withoutAuth("https://play.dhis2.org/demo");
     assertNotNull(dhis2);
   }
 }
