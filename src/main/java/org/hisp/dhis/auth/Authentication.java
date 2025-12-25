@@ -28,6 +28,7 @@
 package org.hisp.dhis.auth;
 
 import java.io.Serializable;
+import org.apache.commons.lang3.StringUtils;
 
 /** Authentication interface. */
 public interface Authentication extends Serializable {
@@ -44,4 +45,13 @@ public interface Authentication extends Serializable {
    * @return the value of the HTTP header to use for authentication.
    */
   String getHttpHeaderAuthValue();
+
+  /**
+   * Indicates whether authentication details are present.
+   *
+   * @return true if authentication details are present, false otherwise.
+   */
+  default boolean hasAuth() {
+    return StringUtils.isNotEmpty(getHttpHeaderAuthName());
+  }
 }

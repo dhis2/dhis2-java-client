@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004-2024, University of Oslo
+ * Copyright (c) 2004-2025, University of Oslo
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,40 +25,23 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.hisp.dhis;
+package org.hisp.dhis.auth;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 
-import org.hisp.dhis.support.TestTags;
-import org.junit.jupiter.api.Tag;
-import org.junit.jupiter.api.Test;
-
-@Tag(TestTags.UNIT)
-class AuthTest {
-  @Test
-  void testWithBasicAuth() {
-    Dhis2 dhis2 = Dhis2.withBasicAuth("https://play.dhis2.org/demo", "admin", "district");
-    assertNotNull(dhis2);
+/** Class representing no authentication. */
+@Getter
+@RequiredArgsConstructor
+public class NoAuthentication implements Authentication {
+  @Override
+  public String getHttpHeaderAuthName() {
+    return StringUtils.EMPTY;
   }
 
-  @Test
-  void testWithCookieAuth() {
-    Dhis2 dhis2 =
-        Dhis2.withCookieAuth("https://play.dhis2.org/demo", "5EC557E60D7E5CE8D78EEC1389592D3E");
-    assertNotNull(dhis2);
-  }
-
-  @Test
-  void testWithAccessTokenAuth() {
-    Dhis2 dhis2 =
-        Dhis2.withAccessTokenAuth(
-            "https://play.dhis2.org/demo", "d2pat_2bBQecgNcxrS4EPhBJuRlQkwiLr2ATnC2557514242");
-    assertNotNull(dhis2);
-  }
-
-  @Test
-  void testWithoutAuth() {
-    Dhis2 dhis2 = Dhis2.withoutAuth("https://play.dhis2.org/demo");
-    assertNotNull(dhis2);
+  @Override
+  public String getHttpHeaderAuthValue() {
+    return StringUtils.EMPTY;
   }
 }
