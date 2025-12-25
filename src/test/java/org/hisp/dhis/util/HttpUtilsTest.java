@@ -28,6 +28,7 @@
 package org.hisp.dhis.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.net.URI;
 import java.util.ArrayList;
@@ -39,6 +40,7 @@ import org.hisp.dhis.Dhis2Config;
 import org.hisp.dhis.auth.AccessTokenAuthentication;
 import org.hisp.dhis.auth.BasicAuthentication;
 import org.hisp.dhis.auth.CookieAuthentication;
+import org.hisp.dhis.auth.NoAuthentication;
 import org.hisp.dhis.support.TestTags;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -100,6 +102,16 @@ class HttpUtilsTest {
         post, new Dhis2Config(DEV_URL, new CookieAuthentication("KJH8KJ24fRD3FK491")));
 
     assertEquals("JSESSIONID=KJH8KJ24fRD3FK491", post.getHeader(HttpHeaders.COOKIE).getValue());
+  }
+
+  @Test
+  void testWithoutAuth() throws Exception {
+    HttpPost post = new HttpPost(DEV_URL);
+
+    HttpUtils.withAuth(post, new Dhis2Config(DEV_URL, new NoAuthentication()));
+
+    assertNull(post.getHeader(HttpHeaders.AUTHORIZATION));
+    assertNull(post.getHeader(HttpHeaders.COOKIE));
   }
 
   @Test

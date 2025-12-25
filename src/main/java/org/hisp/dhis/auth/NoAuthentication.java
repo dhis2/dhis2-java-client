@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004-2024, University of Oslo
+ * Copyright (c) 2004-2025, University of Oslo
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -27,31 +27,21 @@
  */
 package org.hisp.dhis.auth;
 
-import java.io.Serializable;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 
-/** Authentication interface. */
-public interface Authentication extends Serializable {
-  /**
-   * Returns the name of the HTTP header to use for authentication.
-   *
-   * @return the name of the HTTP header to use for authentication.
-   */
-  String getHttpHeaderAuthName();
+/** Class representing no authentication. */
+@Getter
+@RequiredArgsConstructor
+public class NoAuthentication implements Authentication {
+  @Override
+  public String getHttpHeaderAuthName() {
+    return StringUtils.EMPTY;
+  }
 
-  /**
-   * Returns the value of the HTTP header to use for authentication.
-   *
-   * @return the value of the HTTP header to use for authentication.
-   */
-  String getHttpHeaderAuthValue();
-
-  /**
-   * Indicates whether authentication details are present.
-   *
-   * @return true if authentication details are present, false otherwise.
-   */
-  default boolean hasAuth() {
-    return StringUtils.isNotEmpty(getHttpHeaderAuthName());
+  @Override
+  public String getHttpHeaderAuthValue() {
+    return StringUtils.EMPTY;
   }
 }

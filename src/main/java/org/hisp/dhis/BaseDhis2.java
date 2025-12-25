@@ -167,6 +167,11 @@ public class BaseDhis2 {
 
   protected final CloseableHttpClient httpClient;
 
+  /**
+   * Constructor.
+   *
+   * @param config the {@link Dhis2Config}.
+   */
   public BaseDhis2(Dhis2Config config) {
     Objects.requireNonNull(config, "Config must be specified");
     this.config = config;

@@ -65,7 +65,11 @@ public class HttpUtils {
    */
   public static <T extends HttpUriRequestBase> T withAuth(T request, Dhis2Config config) {
     Authentication auth = config.getAuthentication();
-    request.setHeader(auth.getHttpHeaderAuthName(), auth.getHttpHeaderAuthValue());
+
+    if (auth.hasAuth()) {
+      request.setHeader(auth.getHttpHeaderAuthName(), auth.getHttpHeaderAuthValue());
+    }
+
     return request;
   }
 
