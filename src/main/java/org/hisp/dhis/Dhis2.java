@@ -73,6 +73,7 @@ import org.hisp.dhis.api.LogLevel;
 import org.hisp.dhis.auth.AccessTokenAuthentication;
 import org.hisp.dhis.auth.BasicAuthentication;
 import org.hisp.dhis.auth.CookieAuthentication;
+import org.hisp.dhis.auth.NoAuthentication;
 import org.hisp.dhis.model.AnalyticsTableHook;
 import org.hisp.dhis.model.Attribute;
 import org.hisp.dhis.model.Category;
@@ -238,6 +239,17 @@ public class Dhis2 extends BaseDhis2 {
     Verify.notEmpty(url, "URL must be provided");
     Verify.notEmpty(sessionId, "Session identifier must be provided");
     return new Dhis2(new Dhis2Config(url, new CookieAuthentication(sessionId)));
+  }
+
+  /**
+   * Creates a {@link Dhis2} instance with no authentication.
+   *
+   * @param url the URL to the DHIS2 instance, do not include the {@code /api} part or a trailing
+   *     {@code /}.
+   * @return a {@link Dhis2} instance.
+   */
+  public static Dhis2 withoutAuth(String url) {
+    return new Dhis2(new Dhis2Config(url, new NoAuthentication()));
   }
 
   // -------------------------------------------------------------------------
