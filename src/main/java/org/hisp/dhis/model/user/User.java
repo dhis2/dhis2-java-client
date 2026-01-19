@@ -62,6 +62,8 @@ public class User extends IdentifiableObject {
 
   @JsonProperty private Boolean disabled;
 
+  @JsonProperty private String interests;
+
   @JsonProperty private List<OrgUnit> organisationUnits = new ArrayList<>();
 
   @JsonProperty private List<OrgUnit> dataViewOrganisationUnits = new ArrayList<>();
