@@ -145,4 +145,19 @@ class ApiFieldsTest {
 
     assertEquals(expected, ApiFields.PROGRAM_MIN_FIELDS);
   }
+
+  @Test
+  void testUserFields() {
+    String expected =
+        """
+        id,code,name,created,lastUpdated,attributeValues,translations,sharing,access,\
+        username,firstName,surname,email,phoneNumber,externalAuth,lastLogin,disabled,interests,\
+        organisationUnits[id,code,name,created,lastUpdated,attributeValues,shortName,description],\
+        groups[id,code,name,created,lastUpdated,attributeValues,translations,sharing,access],\
+        userRoles[id,code,name,created,lastUpdated,attributeValues,translations,sharing,access],\
+        dataViewOrganisationUnits[id,code,name,created,lastUpdated,attributeValues,shortName,description],\
+        teiSearchOrganisationUnits[id,code,name,created,lastUpdated,attributeValues,shortName,description]""";
+
+    assertEquals(expected, ApiFields.USER_FIELDS);
+  }
 }
