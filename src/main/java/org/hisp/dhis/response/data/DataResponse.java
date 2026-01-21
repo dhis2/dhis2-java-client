@@ -30,6 +30,7 @@ package org.hisp.dhis.response.data;
 import static org.hisp.dhis.util.TextUtils.newToStringBuilder;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Map;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -60,5 +61,15 @@ public class DataResponse extends Response {
   @Override
   public String toString() {
     return newToStringBuilder(this, super.toString()).append("data", data).toString();
+  }
+
+  /**
+   * Creates a map with a single entry where the key is "id" and the value is the provided value.
+   *
+   * @param value the value.
+   * @return a map containing the "id" entry.
+   */
+  public static Map<String, String> getIdMap(String value) {
+    return Map.of("id", value);
   }
 }
