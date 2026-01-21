@@ -66,10 +66,10 @@ public class DataResponse extends Response {
   /**
    * Creates a map with a single entry where the key is "id" and the value is the provided value.
    *
-   * @param value the value.
+   * @param id the identifier value.
    * @return a map containing the "id" entry.
    */
-  public static Map<String, String> getIdMap(String value) {
-    return Map.of("id", value);
+  public static Map<String, String> getIdMap(String id) {
+    return Map.of("id", id);
   }
 }
