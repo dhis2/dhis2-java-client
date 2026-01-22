@@ -55,5 +55,7 @@ public class Pager {
   public Pager(Integer page, Integer pageSize) {
     this.page = page;
     this.pageSize = pageSize;
+    this.pageCount = -1L;
+    this.total = -1L;
   }
 }

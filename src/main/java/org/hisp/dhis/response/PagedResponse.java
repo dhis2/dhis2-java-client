@@ -25,16 +25,21 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.hisp.dhis.model;
+package org.hisp.dhis.response;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.hisp.dhis.model.Pager;
 
+/** Response containing a paged list of objects. */
 @Getter
 @RequiredArgsConstructor
-public class Result<T extends Object> {
-  private final Pager pager;
+public class PagedResponse<T extends Object> {
+  /** Paging information. */
+  @JsonProperty private Pager pager;
 
-  private final List<T> results;
+  /** List of objects. */
+  @JsonProperty private List<T> objects;
 }
