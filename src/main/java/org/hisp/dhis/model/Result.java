@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004-2025, University of Oslo
+ * Copyright (c) 2004-2026, University of Oslo
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -27,33 +27,14 @@
  */
 package org.hisp.dhis.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
+import java.util.List;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 @Getter
-@NoArgsConstructor
-@AllArgsConstructor
-public class Pager {
-  @JsonProperty private Integer page;
+@RequiredArgsConstructor
+public class Result<T extends Object> {
+  private final Pager pager;
 
-  @JsonProperty private Integer pageSize;
-
-  @JsonProperty private Long pageCount;
-
-  @JsonProperty private Long total;
-
-  @JsonProperty private String nextPage;
-
-  /**
-   * Constructor.
-   *
-   * @param page the page number.
-   * @param pageSize the page size.
-   */
-  public Pager(Integer page, Integer pageSize) {
-    this.page = page;
-    this.pageSize = pageSize;
-  }
+  private final List<T> objects;
 }
