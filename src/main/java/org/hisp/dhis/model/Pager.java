@@ -45,4 +45,17 @@ public class Pager {
   @JsonProperty private Long total;
 
   @JsonProperty private String nextPage;
+
+  /**
+   * Constructor.
+   *
+   * @param page the page number.
+   * @param pageSize the page size.
+   */
+  public Pager(Integer page, Integer pageSize) {
+    this.page = page;
+    this.pageSize = pageSize;
+    this.pageCount = -1L;
+    this.total = -1L;
+  }
 }

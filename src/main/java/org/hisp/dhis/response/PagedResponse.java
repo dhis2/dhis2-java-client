@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004-2025, University of Oslo
+ * Copyright (c) 2004-2026, University of Oslo
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,51 +25,21 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.hisp.dhis.response.data;
-
-import static org.hisp.dhis.util.TextUtils.newToStringBuilder;
+package org.hisp.dhis.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.Map;
+import java.util.List;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.hisp.dhis.response.HttpStatus;
-import org.hisp.dhis.response.Response;
-import org.hisp.dhis.response.Status;
+import lombok.RequiredArgsConstructor;
+import org.hisp.dhis.model.Pager;
 
-/** Response providing information about a DHIS 2 web API response, including a data object. */
+/** Response containing a paged list of objects. */
 @Getter
-@Setter
-@NoArgsConstructor
-public class DataResponse extends Response {
-  @JsonProperty protected Object data;
+@RequiredArgsConstructor
+public class PagedResponse<T extends Object> {
+  /** Paging information. */
+  @JsonProperty private final Pager pager;
 
-  /**
-   * Constructor.
-   *
-   * @param status the {@link Status} of the response.
-   * @param httpStatus the {@link HttpStatus} of the response.
-   * @param message the message of the response.
-   * @param data the data object.
-   */
-  public DataResponse(Status status, HttpStatus httpStatus, String message, Object data) {
-    super(status, httpStatus, message);
-    this.data = data;
-  }
-
-  @Override
-  public String toString() {
-    return newToStringBuilder(this, super.toString()).append("data", data).toString();
-  }
-
-  /**
-   * Creates a map with a single entry where the key is "id" and the value is the provided value.
-   *
-   * @param id the identifier value.
-   * @return a map containing the "id" entry.
-   */
-  public static Map<String, String> getIdMap(String id) {
-    return Map.of("id", id);
-  }
+  /** List of objects. */
+  @JsonProperty private final List<T> objects;
 }
