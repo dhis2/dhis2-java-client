@@ -38,8 +38,8 @@ import org.hisp.dhis.model.Pager;
 @RequiredArgsConstructor
 public class PagedResponse<T extends Object> {
   /** Paging information. */
-  @JsonProperty private Pager pager;
+  @JsonProperty private final Pager pager;
 
   /** List of objects. */
-  @JsonProperty private List<T> objects;
+  @JsonProperty private final List<T> objects;
 }
