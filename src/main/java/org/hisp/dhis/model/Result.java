@@ -36,5 +36,5 @@ import lombok.RequiredArgsConstructor;
 public class Result<T extends Object> {
   private final Pager pager;
 
-  private final List<T> objects;
+  private final List<T> results;
 }
