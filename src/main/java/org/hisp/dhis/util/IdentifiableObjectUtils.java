@@ -32,6 +32,7 @@ import static java.lang.String.format;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.hisp.dhis.model.IdentifiableObject;
@@ -84,6 +85,20 @@ public class IdentifiableObjectUtils {
   public static <T extends IdentifiableObject> List<T> toIdObjects(
       Collection<T> objects, Class<T> type) {
     return objects.stream().filter(Objects::nonNull).map(o -> getInstance(o, type)).toList();
+  }
+
+  /**
+   * Generates a fingerprint for the given collection of identifiable objects.
+   *
+   * @param <T> the type.
+   * @param objects the collection of {@link IdentifiableObject}.
+   * @return a fingerprint string.
+   */
+  public static <T extends IdentifiableObject> String getFingerprint(Collection<T> objects) {
+    return objects.stream()
+        .map(IdentifiableObject::getId)
+        .sorted()
+        .collect(Collectors.joining("-"));
   }
 
   /**
