@@ -137,8 +137,9 @@ class BaseDhis2Test {
     String decodedUrl = CodecUtils.decode(url);
 
     String expected =
-        """
-        https://play.im.dhis2.org/stable-2-41-6-1/api/analytics\
+        TestFixture.DEFAULT_URL
+            + """
+        /api/analytics\
         ?dimension=dx:fbfJHSPpUQD;cYeuwXTCPkU;Jtf34kNZhzP\
         &dimension=pe:202501;202502;202503\
         &filter=ou:ImspTQPwCqd\
