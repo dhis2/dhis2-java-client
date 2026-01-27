@@ -137,16 +137,17 @@ class BaseDhis2Test {
     String decodedUrl = CodecUtils.decode(url);
 
     String expected =
-        TestFixture.DEFAULT_URL
-            + """
-        /api/analytics\
+        String.format(
+            """
+        %s/api/analytics\
         ?dimension=dx:fbfJHSPpUQD;cYeuwXTCPkU;Jtf34kNZhzP\
         &dimension=pe:202501;202502;202503\
         &filter=ou:ImspTQPwCqd\
         &skipMeta=false\
         &skipData=false\
         &includeNumDen=true\
-        &includeMetadataDetails=true""";
+        &includeMetadataDetails=true""",
+            TestFixture.DEFAULT_URL);
 
     assertEquals(expected, decodedUrl);
   }
