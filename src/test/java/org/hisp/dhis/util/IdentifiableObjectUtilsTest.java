@@ -28,8 +28,10 @@
 package org.hisp.dhis.util;
 
 import static org.hisp.dhis.support.Assertions.assertContainsExactlyInOrder;
+import static org.hisp.dhis.support.TestObjects.*;
 import static org.hisp.dhis.support.TestObjects.set;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -108,5 +110,46 @@ class IdentifiableObjectUtilsTest {
     idC.setId(deC.getId());
 
     assertContainsExactlyInOrder(objects, idA, idB, idC);
+  }
+
+  @Test
+  void testGetFingerprintMatch() {
+    DataElement deA = set(new DataElement(), 'A');
+    deA.setId(ID_A);
+    DataElement deB = set(new DataElement(), 'B');
+    deB.setId(ID_B);
+    DataElement deC = set(new DataElement(), 'C');
+    deC.setId(ID_C);
+    DataElement deD = set(new DataElement(), 'D');
+    deD.setId(ID_D);
+
+    String expected = ID_A + "-" + ID_B + "-" + ID_C;
+    String actualA = IdentifiableObjectUtils.getFingerprint(List.of(deB, deC, deA));
+    String actualB = IdentifiableObjectUtils.getFingerprint(List.of(deA, deB, deC));
+    String actualC = IdentifiableObjectUtils.getFingerprint(List.of(deC, deB, deA));
+
+    assertEquals(expected, actualA);
+    assertEquals(expected, actualB);
+    assertEquals(expected, actualC);
+  }
+
+  @Test
+  void testGetFingerprintMismatch() {
+    DataElement deA = set(new DataElement(), 'A');
+    deA.setId(ID_A);
+    DataElement deB = set(new DataElement(), 'B');
+    deB.setId(ID_B);
+    DataElement deC = set(new DataElement(), 'C');
+    deC.setId(ID_C);
+    DataElement deD = set(new DataElement(), 'D');
+    deD.setId(ID_D);
+
+    String actualA = IdentifiableObjectUtils.getFingerprint(List.of(deB, deA));
+    String actualB = IdentifiableObjectUtils.getFingerprint(List.of(deA, deB, deC));
+    String actualC = IdentifiableObjectUtils.getFingerprint(List.of(deB, deC));
+
+    assertNotEquals(actualA, actualB);
+    assertNotEquals(actualA, actualC);
+    assertNotEquals(actualB, actualC);
   }
 }
