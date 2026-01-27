@@ -120,7 +120,7 @@ class IdentifiableObjectUtilsTest {
     deB.setId(ID_B);
     DataElement deC = set(new DataElement(), 'C');
     deC.setId(ID_C);
-    DataElement deD = set(new DataElement(), 'C');
+    DataElement deD = set(new DataElement(), 'D');
     deD.setId(ID_D);
 
     String expected = ID_A + "-" + ID_B + "-" + ID_C;
