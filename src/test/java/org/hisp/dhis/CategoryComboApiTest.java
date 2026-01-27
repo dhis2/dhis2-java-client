@@ -27,6 +27,7 @@
  */
 package org.hisp.dhis;
 
+import static org.hisp.dhis.support.Assertions.assertNotBlank;
 import static org.hisp.dhis.support.Assertions.assertNotEmpty;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -35,6 +36,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import java.util.List;
 import org.hisp.dhis.model.Category;
 import org.hisp.dhis.model.CategoryCombo;
+import org.hisp.dhis.model.CategoryOption;
 import org.hisp.dhis.model.CategoryOptionCombo;
 import org.hisp.dhis.model.dimension.DataDimensionType;
 import org.hisp.dhis.query.Query;
@@ -60,12 +62,18 @@ class CategoryComboApiTest {
     assertFalse(categoryCombo.getSkipTotal());
 
     List<Category> categories = categoryCombo.getCategories();
-    assertFalse(categories.isEmpty());
+    assertNotEmpty(categories);
 
     List<CategoryOptionCombo> categoryOptionCombos = categoryCombo.getCategoryOptionCombos();
     assertNotEmpty(categoryOptionCombos);
-    assertFalse(categoryOptionCombos.get(0).getIgnoreApproval());
-    assertFalse(categoryOptionCombos.get(0).getCategoryOptions().isEmpty());
+
+    CategoryOptionCombo categoryOptionCombo = categoryOptionCombos.get(0);
+    assertFalse(categoryOptionCombo.getIgnoreApproval());
+    assertNotEmpty(categoryOptionCombo.getCategoryOptions());
+
+    CategoryOption categoryOption = categoryOptionCombo.getCategoryOptions().iterator().next();
+    assertNotNull(categoryOption);
+    assertNotBlank(categoryOption.getId());
   }
 
   @Test
@@ -75,7 +83,7 @@ class CategoryComboApiTest {
     List<CategoryCombo> categoryCombos = dhis2.getCategoryCombos(Query.instance());
 
     assertNotNull(categoryCombos);
-    assertFalse(categoryCombos.isEmpty());
+    assertNotEmpty(categoryCombos);
 
     CategoryCombo categoryCombo = categoryCombos.get(0);
     assertNotNull(categoryCombo.getId());
@@ -91,7 +99,7 @@ class CategoryComboApiTest {
         dhis2.getCategoryCombos(Query.instance().withExpandAssociations());
 
     assertNotNull(categoryCombos);
-    assertFalse(categoryCombos.isEmpty());
+    assertNotEmpty(categoryCombos);
 
     CategoryCombo categoryCombo = categoryCombos.get(0);
     assertNotNull(categoryCombo.getId());
