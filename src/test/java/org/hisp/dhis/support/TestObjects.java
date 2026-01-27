@@ -36,6 +36,14 @@ import org.hisp.dhis.util.UidUtils;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class TestObjects {
+  // Identifiers
+
+  public static final String ID_A = "AghLTXtnopm";
+  public static final String ID_B = "BLBOLoM3ZfV";
+  public static final String ID_C = "CfVJ3xx9e60";
+  public static final String ID_D = "D45cQxNLV7e";
+  public static final String ID_E = "EjtjkvcwP6W";
+
   /**
    * Sets nameable properties on the given object.
    *
