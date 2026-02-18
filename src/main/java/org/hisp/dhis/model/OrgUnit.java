@@ -92,4 +92,13 @@ public class OrgUnit extends DimensionItem {
   public DimensionItemType getDimensionItemType() {
     return DimensionItemType.ORGANISATION_UNIT;
   }
+
+  /**
+   * Indicates whether this org unit has a parent.
+   *
+   * @return true if this org unit has a parent, false otherwise.
+   */
+  public boolean hasParent() {
+    return parent != null;
+  }
 }

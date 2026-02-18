@@ -104,11 +104,11 @@ class BaseDhis2Test {
     URI expected =
         new URI(
             """
-        https://server.org/api/metadata\
-        ?importStrategy=CREATE_AND_UPDATE\
-        &atomicMode=ALL\
-        &skipSharing=false\
-        &async=false""");
+            https://server.org/api/metadata\
+            ?importStrategy=CREATE_AND_UPDATE\
+            &atomicMode=ALL\
+            &skipSharing=false\
+            &async=false""");
 
     assertEquals(expected, dhis2.withMetadataImportParams(uriBuilder));
   }
