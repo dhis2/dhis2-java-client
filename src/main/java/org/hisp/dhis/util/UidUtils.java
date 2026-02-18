@@ -98,7 +98,7 @@ public class UidUtils {
   public static String requireUid(String input) {
     if (!isValidUid(input)) {
       String message = String.format("Input must be a valid UID: '%s'", input);
-      throw new IllegalArgumentFormatException(message);
+      throw new IllegalArgumentException(message);
     }
     return input;
   }
