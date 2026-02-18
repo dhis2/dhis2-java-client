@@ -78,13 +78,29 @@ public class UidUtils {
   }
 
   /**
-   * Tests whether the given code is a valid UID.
+   * Tests whether the given input is a valid UID.
    *
-   * @param code the code to validate.
+   * @param input the input to validate.
    * @return true if the code is valid.
    */
-  public static boolean isValidUid(String code) {
-    return code != null && UID_PATTERN.matcher(code).matches();
+  public static boolean isValidUid(String input) {
+    return input != null && UID_PATTERN.matcher(input).matches();
+  }
+
+  /**
+   * Tests whether the given input is a valid UID. Throws an {@link IllegalArgumentException} if
+   * not.
+   *
+   * @param input the input to validate.
+   * @return the input UID if valid.
+   * @throws IllegalArgumentException if input is not a valid UID.
+   */
+  public static String requireUid(String input) {
+    if (!isValidUid(input)) {
+      String message = String.format("Input must be a valid UID: '%s'", input);
+      throw new IllegalArgumentFormatException(message);
+    }
+    return input;
   }
 
   /**

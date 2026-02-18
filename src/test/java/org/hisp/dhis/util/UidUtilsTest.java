@@ -31,6 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.stream.IntStream;
@@ -62,6 +63,15 @@ class UidUtilsTest {
     assertFalse(UidUtils.isValidUid("1T1hdSWjfDC"));
     assertFalse(UidUtils.isValidUid("QX4LpiTZmUHg"));
     assertFalse(UidUtils.isValidUid("1T1hdS_WjfD"));
+  }
+
+  @Test
+  void testRequireUid() {
+    assertEquals("mq4jAnN6fg3", UidUtils.requireUid("mq4jAnN6fg3"));
+    assertEquals("iz9HDQXFDrQ", UidUtils.requireUid("iz9HDQXFDrQ"));
+
+    assertThrows(IllegalArgumentException.class, () -> UidUtils.requireUid("1T1hdSWjfDC"));
+    assertThrows(IllegalArgumentException.class, () -> UidUtils.requireUid("QX4LpiTZmUHg"));
   }
 
   @Test
