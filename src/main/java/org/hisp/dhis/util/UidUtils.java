@@ -31,26 +31,29 @@ import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
 import java.util.regex.Pattern;
 import java.util.stream.IntStream;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Validate;
 import org.hisp.dhis.model.exception.IllegalArgumentFormatException;
 
 /** Utilities for DHIS2 UID generation. */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class UidUtils {
-  private static final String ALPHABET = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  private static final String LETTERS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
   private static final String DIGITS = "0123456789";
-  private static final String ALLOWED_CHARS = ALPHABET + DIGITS;
+  private static final String ALPHANUMERIC = LETTERS + DIGITS;
 
-  private static final int CHAR_LENGTH = ALLOWED_CHARS.length();
   private static final int UID_LENGTH = 11;
 
   private static final Pattern UID_PATTERN = Pattern.compile("^[a-zA-Z]{1}[a-zA-Z0-9]{10}$");
+
+  /** Random generator which is thread-safe and provides high-quality entropy. */
+  private static final SecureRandom RANDOM = new SecureRandom();
 
   /**
    * Generates a DHIS2 UID according to the following rules.
@@ -104,24 +107,27 @@ public class UidUtils {
   }
 
   /**
-   * Generates a pseudo random string with alphanumeric characters.
+   * Generates a random string with alphanumeric characters.
    *
    * @param length the number of characters in the code.
    * @return the code.
    */
   public static String generateCode(int length) {
-    ThreadLocalRandom rand = ThreadLocalRandom.current();
+    Validate.inclusiveBetween(1, 10_000, length);
 
-    char[] randomChars = new char[length];
+    StringBuilder sb = new StringBuilder(length);
 
-    // First char must be a letter
-    randomChars[0] = ALPHABET.charAt(rand.nextInt(ALPHABET.length()));
+    // First character must be a letter
+    int firstCharIndex = RANDOM.nextInt(LETTERS.length());
+    sb.append(LETTERS.charAt(firstCharIndex));
 
-    for (int i = 1; i < length; ++i) {
-      randomChars[i] = ALLOWED_CHARS.charAt(rand.nextInt(CHAR_LENGTH));
+    // Remaining 10 characters are alphanumeric
+    for (int i = 1; i < length; i++) {
+      int index = RANDOM.nextInt(ALPHANUMERIC.length());
+      sb.append(ALPHANUMERIC.charAt(index));
     }
 
-    return new String(randomChars);
+    return sb.toString();
   }
 
   /**
@@ -154,13 +160,13 @@ public class UidUtils {
       BigInteger bigInteger = new BigInteger(1, hashBytes);
 
       // Convert BigInteger to Base62
-      String base62 = fromBigInteger(bigInteger, ALPHABET, UID_LENGTH);
+      String base62 = fromBigInteger(bigInteger, LETTERS, UID_LENGTH);
 
       // Ensure the UID starts with a letter
       if (Character.isDigit(base62.charAt(0))) {
         // If first character is a digit, shift Base62 string by one character by moving first char
         // to the end and append 'A'
-        base62 = base62.substring(1) + ALPHABET.charAt(0);
+        base62 = base62.substring(1) + LETTERS.charAt(0);
       }
       return base62;
 
