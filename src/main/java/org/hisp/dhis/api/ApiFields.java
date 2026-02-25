@@ -332,7 +332,10 @@ public class ApiFields {
           ID_EXT_FIELDS);
 
   /** Program indicator fields. */
-  public static final String PROGRAM_INDICATOR_FIELDS = NAME_FIELDS;
+  public static final String PROGRAM_INDICATOR_FIELDS =
+      String.format(
+          "%1$s,program[%1$s],expression,filter,decimals,aggregationType,analyticsType",
+          NAME_FIELDS);
 
   /** Program section fields. */
   public static final String PROGRAM_SECTION_FIELDS =

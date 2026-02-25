@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004-2024, University of Oslo
+ * Copyright (c) 2004-2026, University of Oslo
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -27,31 +27,7 @@
  */
 package org.hisp.dhis.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.hisp.dhis.model.dimension.DimensionItem;
-import org.hisp.dhis.model.dimension.DimensionItemType;
-
-@Getter
-@Setter
-@NoArgsConstructor
-public class ProgramIndicator extends DimensionItem {
-  @JsonProperty private Program program;
-
-  @JsonProperty private String expression;
-
-  @JsonProperty private String filter;
-
-  @JsonProperty private Integer decimals;
-
-  @JsonProperty private AggregationType aggregationType;
-
-  @JsonProperty private AnalyticsType analyticsType;
-
-  @Override
-  public DimensionItemType getDimensionItemType() {
-    return DimensionItemType.PROGRAM_INDICATOR;
-  }
+public enum AnalyticsType {
+  EVENT,
+  ENROLLMENT;
 }

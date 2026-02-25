@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004-2024, University of Oslo
+ * Copyright (c) 2004-2026, University of Oslo
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,33 +25,34 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.hisp.dhis.model;
+package org.hisp.dhis;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.hisp.dhis.model.dimension.DimensionItem;
-import org.hisp.dhis.model.dimension.DimensionItemType;
+import static org.hisp.dhis.support.Assertions.assertNotBlank;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-@Getter
-@Setter
-@NoArgsConstructor
-public class ProgramIndicator extends DimensionItem {
-  @JsonProperty private Program program;
+import org.hisp.dhis.model.ProgramIndicator;
+import org.hisp.dhis.support.TestTags;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
 
-  @JsonProperty private String expression;
+@Tag(TestTags.INTEGRATION)
+class ProgramIndicatorApiTest {
+  @Test
+  void testGetProgramIndicator() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
 
-  @JsonProperty private String filter;
+    ProgramIndicator programIndicator = dhis2.getProgramIndicator("GSae40Fyppf");
 
-  @JsonProperty private Integer decimals;
-
-  @JsonProperty private AggregationType aggregationType;
-
-  @JsonProperty private AnalyticsType analyticsType;
-
-  @Override
-  public DimensionItemType getDimensionItemType() {
-    return DimensionItemType.PROGRAM_INDICATOR;
+    assertNotNull(programIndicator);
+    assertNotNull("GSae40Fyppf", programIndicator.getId());
+    assertNotBlank(programIndicator.getName());
+    assertNotBlank(programIndicator.getShortName());
+    assertNotNull(programIndicator.getProgram());
+    assertEquals("uy2gU8kT1jF", programIndicator.getProgram().getId());
+    assertNotBlank(programIndicator.getExpression());
+    assertNotBlank(programIndicator.getFilter());
+    assertNotNull(programIndicator.getAggregationType());
+    assertNotNull(programIndicator.getAnalyticsType());
   }
 }
