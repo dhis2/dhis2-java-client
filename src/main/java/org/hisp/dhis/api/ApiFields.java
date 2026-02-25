@@ -334,8 +334,7 @@ public class ApiFields {
   /** Program indicator fields. */
   public static final String PROGRAM_INDICATOR_FIELDS =
       String.format(
-          """
-          %1$s,program[%1$s],expression,filter,decimals,aggregationType,analyticsType""",
+          "%1$s,program[%1$s],expression,filter,decimals,aggregationType,analyticsType",
           NAME_FIELDS);
 
   /** Program section fields. */
