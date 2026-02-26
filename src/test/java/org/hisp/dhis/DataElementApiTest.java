@@ -33,6 +33,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.List;
 import java.util.Set;
 import org.hisp.dhis.model.AggregationType;
 import org.hisp.dhis.model.CategoryCombo;
@@ -47,6 +48,7 @@ import org.hisp.dhis.model.sharing.Sharing;
 import org.hisp.dhis.model.sharing.UserAccess;
 import org.hisp.dhis.model.sharing.UserGroupAccess;
 import org.hisp.dhis.model.translation.Translation;
+import org.hisp.dhis.query.Filter;
 import org.hisp.dhis.query.Query;
 import org.hisp.dhis.response.HttpStatus;
 import org.hisp.dhis.response.Status;
@@ -80,6 +82,21 @@ class DataElementApiTest {
     assertNotNull(optionSet.getId());
     assertNotNull(optionSet.getName());
     assertNotNull(optionSet.getValueType());
+  }
+
+  @Test
+  void testGetDataElementsWithGroupFilter() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    List<DataElement> dataElements =
+        dhis2.getDataElements(
+            Query.instance().addFilter(Filter.eq("dataElementGroups.id", "qfxEYY9xAl6")));
+
+    assertNotEmpty(dataElements);
+
+    DataElement dataElement = dataElements.get(0);
+
+    assertNotNull(dataElement);
   }
 
   @Test
