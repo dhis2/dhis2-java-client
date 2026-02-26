@@ -28,10 +28,14 @@
 package org.hisp.dhis;
 
 import static org.hisp.dhis.support.Assertions.assertNotBlank;
+import static org.hisp.dhis.support.Assertions.assertNotEmpty;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import java.util.List;
 import org.hisp.dhis.model.ProgramIndicator;
+import org.hisp.dhis.query.Filter;
+import org.hisp.dhis.query.Query;
 import org.hisp.dhis.support.TestTags;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -51,8 +55,25 @@ class ProgramIndicatorApiTest {
     assertNotNull(programIndicator.getProgram());
     assertEquals("uy2gU8kT1jF", programIndicator.getProgram().getId());
     assertNotBlank(programIndicator.getExpression());
-    assertNotBlank(programIndicator.getFilter());
     assertNotNull(programIndicator.getAggregationType());
     assertNotNull(programIndicator.getAnalyticsType());
+  }
+
+  @Test
+  void testGetProgramIndicatorsWithGroupsFilter() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    Query query =
+        Query.instance()
+            .addFilter(
+                Filter.in("programIndicatorGroups.id", List.of("xxkcH5TCVRF", "E2ZBxdQLNDm")));
+
+    List<ProgramIndicator> indicators = dhis2.getProgramIndicators(query);
+
+    assertNotEmpty(indicators);
+
+    ProgramIndicator indicator = indicators.get(0);
+
+    assertNotNull(indicator);
   }
 }
