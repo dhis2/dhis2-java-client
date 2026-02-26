@@ -100,6 +100,23 @@ class DataElementApiTest {
   }
 
   @Test
+  void testGetDataElementsWithGroupsFilter() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    List<DataElement> dataElements =
+        dhis2.getDataElements(
+            Query.instance()
+                .addFilter(
+                    Filter.in("dataElementGroups.id", List.of("qfxEYY9xAl6", "h9cuJOkOwY2"))));
+
+    assertNotEmpty(dataElements);
+
+    DataElement dataElement = dataElements.get(0);
+
+    assertNotNull(dataElement);
+  }
+
+  @Test
   void testGetDataElementWithSharingAndTranslations() {
     Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
 
