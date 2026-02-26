@@ -79,6 +79,23 @@ class IndicatorApiTest {
   }
 
   @Test
+  void testGetIndicatorsWithGroupsFilter() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    Query query =
+        Query.instance()
+            .addFilter(Filter.in("indicatorGroups.id", List.of("oehv9EO3vP7", "srxUNt2w5jn")));
+
+    List<Indicator> indicators = dhis2.getIndicators(query);
+
+    assertNotEmpty(indicators);
+
+    Indicator indicator = indicators.get(0);
+
+    assertNotNull(indicator);
+  }
+
+  @Test
   void testGetIndicatorsWithInFilter() {
     Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
 
