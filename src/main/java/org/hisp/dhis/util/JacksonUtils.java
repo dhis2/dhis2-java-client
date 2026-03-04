@@ -42,6 +42,7 @@ import java.io.UncheckedIOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.hisp.dhis.util.json.DateJsonDeserializer;
@@ -193,6 +194,21 @@ public class JacksonUtils {
   public static <T> List<T> fromJsonToList(String string) {
     try {
       return OBJECT_MAPPER.readValue(string, new TypeReference<List<T>>() {});
+    } catch (IOException ex) {
+      throw new UncheckedIOException(ex);
+    }
+  }
+
+  /**
+   * Deserializes the given JSON string into a set of objects of the specified type.
+   *
+   * @param string the JSON string to deserialize.
+   * @param <T> the type of the set items to return.
+   * @return an set of items of type T.
+   */
+  public static <T> Set<T> fromJsonToSet(String string) {
+    try {
+      return OBJECT_MAPPER.readValue(string, new TypeReference<Set<T>>() {});
     } catch (IOException ex) {
       throw new UncheckedIOException(ex);
     }
