@@ -36,6 +36,7 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 import org.hisp.dhis.model.AggregationType;
 import org.hisp.dhis.model.DataDomain;
 import org.hisp.dhis.model.DataElement;
@@ -241,6 +242,36 @@ class JacksonUtilsTest {
     List<Integer> list = JacksonUtils.fromJsonToList(content);
 
     List<Integer> expected = List.of(1, 2, 3, 4, 5);
+
+    assertSize(5, list);
+    assertEquals(expected, list);
+  }
+
+  @Test
+  void testFromJsonToStringSet() {
+    String content =
+        """
+        ["s46m5MS0hxu", "YtbsuPPo010", "l6byfWFUGaP"]
+        """;
+
+    Set<String> list = JacksonUtils.fromJsonToSet(content);
+
+    Set<String> expected = Set.of("s46m5MS0hxu", "YtbsuPPo010", "l6byfWFUGaP");
+
+    assertSize(3, list);
+    assertEquals(expected, list);
+  }
+
+  @Test
+  void testFromJsonToIntegerSet() {
+    String content =
+        """
+        [1, 2, 3, 4, 5]
+        """;
+
+    Set<Integer> list = JacksonUtils.fromJsonToSet(content);
+
+    Set<Integer> expected = Set.of(1, 2, 3, 4, 5);
 
     assertSize(5, list);
     assertEquals(expected, list);
