@@ -41,6 +41,7 @@ import java.util.Set;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -117,8 +118,8 @@ public class CollectionUtils {
    * @return a sublist.
    */
   public static <T> List<T> sublist(List<T> items, int length) {
-    if (items == null || items.isEmpty() || length <= 0) {
-      return Collections.emptyList();
+    if (empty(items) || length <= 0) {
+      return List.of();
     }
 
     if (items.size() <= length) {
@@ -282,6 +283,25 @@ public class CollectionUtils {
   }
 
   /**
+   * Returns a new list of the items in the given list which are not at the given indexes.
+   *
+   * @param <T> type.
+   * @param list the list.
+   * @param indexes the indexes to exclude.
+   * @return a new list of the items in the given list which are not at the given indexes.
+   */
+  public static <T> List<T> excludeIndexes(List<T> list, Set<Integer> indexes) {
+    if (empty(list) || empty(indexes)) {
+      return List.of();
+    }
+
+    return IntStream.range(0, list.size())
+        .filter(i -> !indexes.contains(i))
+        .mapToObj(list::get)
+        .collect(Collectors.toList());
+  }
+
+  /**
    * Indicates if any item in the given collection is a prefix of the given input string.
    *
    * @param collection the collection.
@@ -289,7 +309,7 @@ public class CollectionUtils {
    * @return true if any item is a prefix, false otherwise.
    */
   public static boolean anyStartsWith(Collection<String> collection, String input) {
-    if (input == null) {
+    if (empty(collection) || input == null) {
       return false;
     }
 
@@ -324,6 +344,17 @@ public class CollectionUtils {
     Map<K, V> map = new HashMap<>();
     collection.forEach(value -> map.put(keyFunction.apply(value), value));
     return map;
+  }
+
+  /**
+   * Indicates if the given collection is null or empty.
+   *
+   * @param <T> type.
+   * @param collection the collection.
+   * @return true if the given collection is null or empty.
+   */
+  public static <T> boolean empty(Collection<T> collection) {
+    return collection == null || collection.isEmpty();
   }
 
   /**
@@ -363,9 +394,7 @@ public class CollectionUtils {
    * @return an optional first item in the given collection.
    */
   public static <T> Optional<T> first(Collection<T> collection) {
-    return collection == null || collection.isEmpty()
-        ? Optional.empty()
-        : Optional.ofNullable(collection.iterator().next());
+    return empty(collection) ? Optional.empty() : Optional.ofNullable(collection.iterator().next());
   }
 
   /**
@@ -377,9 +406,10 @@ public class CollectionUtils {
    * @return a comma separated string.
    */
   public static <T> String toCommaSeparated(Collection<T> collection) {
-    if (collection == null || collection.isEmpty()) {
+    if (empty(collection)) {
       return null;
     }
+
     return collection.stream().map(Object::toString).collect(Collectors.joining(","));
   }
 }
