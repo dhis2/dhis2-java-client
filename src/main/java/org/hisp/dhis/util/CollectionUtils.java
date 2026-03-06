@@ -298,7 +298,7 @@ public class CollectionUtils {
     return IntStream.range(0, list.size())
         .filter(i -> !indexes.contains(i))
         .mapToObj(list::get)
-        .collect(Collectors.toList());
+        .toList();
   }
 
   /**
