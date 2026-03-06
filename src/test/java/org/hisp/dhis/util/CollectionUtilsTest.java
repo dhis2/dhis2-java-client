@@ -30,6 +30,8 @@ package org.hisp.dhis.util;
 import static org.hisp.dhis.support.Assertions.assertContainsExactly;
 import static org.hisp.dhis.support.Assertions.assertEmpty;
 import static org.hisp.dhis.util.CollectionUtils.anyStartsWith;
+import static org.hisp.dhis.util.CollectionUtils.empty;
+import static org.hisp.dhis.util.CollectionUtils.excludeIndexes;
 import static org.hisp.dhis.util.CollectionUtils.filterToList;
 import static org.hisp.dhis.util.CollectionUtils.filterToSet;
 import static org.hisp.dhis.util.CollectionUtils.first;
@@ -44,6 +46,7 @@ import static org.hisp.dhis.util.CollectionUtils.mapToMap;
 import static org.hisp.dhis.util.CollectionUtils.mapToSet;
 import static org.hisp.dhis.util.CollectionUtils.mutableList;
 import static org.hisp.dhis.util.CollectionUtils.mutableSet;
+import static org.hisp.dhis.util.CollectionUtils.notEmpty;
 import static org.hisp.dhis.util.CollectionUtils.set;
 import static org.hisp.dhis.util.CollectionUtils.sublist;
 import static org.hisp.dhis.util.CollectionUtils.toCommaSeparated;
@@ -129,6 +132,23 @@ class CollectionUtilsTest {
   }
 
   @Test
+  void testExcludeIndexes() {
+    Product pA = new Product("P01", "Keyboard");
+    Product pB = new Product("P02", "Mouse");
+    Product pC = new Product("P03", "Monitor");
+    Product pD = new Product("P04", "Printer");
+    Product pE = new Product("P05", "Scanner");
+
+    List<Product> list = List.of(pA, pB, pC, pD, pE);
+
+    assertContainsExactly(excludeIndexes(list, Set.of(1, 3, 4)), pA, pC);
+    assertContainsExactly(excludeIndexes(list, Set.of(2, 4)), pA, pB, pD);
+    assertEmpty(excludeIndexes(list, Set.of(0, 1, 2, 3, 4)));
+    assertEmpty(excludeIndexes(null, Set.of(0, 2)));
+    assertEmpty(excludeIndexes(list, null));
+  }
+
+  @Test
   void testAnyStartsWith() {
     List<String> list =
         list("/ImspTQPwCqd/jUb8gELQApl", "/ImspTQPwCqd/qhqAxPSTUXp", "/ImspTQPwCqd/Vth0fbpFcsO");
@@ -142,6 +162,7 @@ class CollectionUtilsTest {
     assertFalse(anyStartsWith(list, "/ImspTQPwCqd/at6UHUQatSo/qtr8GGlm4gg"));
     assertFalse(anyStartsWith(list, "/ImspTQPwCqd/PMa2VCrupOd/FlBemv1NfEC/rxc497GUdDt"));
     assertFalse(anyStartsWith(list, null));
+    assertFalse(anyStartsWith(null, "/MpcMjLmbATv"));
   }
 
   @Test
@@ -386,5 +407,19 @@ class CollectionUtilsTest {
     assertEquals(
         "jUb6fnbZPhV,qEiCafULhoW,wOahXFjLq4V",
         toCommaSeparated(List.of("jUb6fnbZPhV", "qEiCafULhoW", "wOahXFjLq4V")));
+  }
+
+  @Test
+  void testEmpty() {
+    assertTrue(empty(List.of()));
+    assertTrue(empty(null));
+    assertFalse(empty(List.of("a")));
+  }
+
+  @Test
+  void testNotEmpty() {
+    assertFalse(notEmpty(List.of()));
+    assertFalse(notEmpty(null));
+    assertTrue(notEmpty(List.of("a")));
   }
 }

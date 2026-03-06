@@ -59,7 +59,7 @@ public class AnalyticsData implements Serializable {
   /** Analytics data rows. */
   @JsonProperty private List<List<String>> rows;
 
-  /** Whether the data rows were truncatd to max limit. */
+  /** Whether the data rows were truncated to max limit. */
   @JsonProperty private boolean truncated;
 
   /** Default constructor. */
