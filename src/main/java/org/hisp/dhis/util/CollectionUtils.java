@@ -291,8 +291,8 @@ public class CollectionUtils {
    * @return a new list of the items in the given list which are not at the given indexes.
    */
   public static <T> List<T> excludeIndexes(List<T> list, Set<Integer> indexes) {
-    if (empty(list) || empty(indexes)) {
-      return List.of();
+    if (empty(indexes)) {
+      return list;
     }
 
     return IntStream.range(0, list.size())
