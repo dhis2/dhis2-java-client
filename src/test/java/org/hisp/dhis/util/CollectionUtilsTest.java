@@ -144,8 +144,10 @@ class CollectionUtilsTest {
     assertContainsExactly(excludeIndexes(list, Set.of(1, 3, 4)), pA, pC);
     assertContainsExactly(excludeIndexes(list, Set.of(2, 4)), pA, pB, pD);
     assertEmpty(excludeIndexes(list, Set.of(0, 1, 2, 3, 4)));
-    assertEmpty(excludeIndexes(null, Set.of(0, 2)));
-    assertEmpty(excludeIndexes(list, null));
+    assertEquals(list, excludeIndexes(list, Set.of()));
+    assertEquals(list, excludeIndexes(list, null));
+    assertEmpty(excludeIndexes(List.of(), Set.of(0, 2)));
+    assertEmpty(excludeIndexes(List.of(), Set.of()));
   }
 
   @Test
