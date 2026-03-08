@@ -28,6 +28,7 @@
 package org.hisp.dhis.model.relationship;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.io.Serializable;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -40,7 +41,7 @@ import org.hisp.dhis.model.trackedentity.TrackedEntity;
 @Setter
 @ToString
 @NoArgsConstructor
-public class RelationshipItem {
+public class RelationshipItem implements Serializable {
   @JsonProperty private TrackedEntity trackedEntity;
 
   @JsonProperty private Event event;

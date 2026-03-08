@@ -27,11 +27,12 @@
  */
 package org.hisp.dhis.model.analytics;
 
+import java.io.Serializable;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public final class AnalyticsKeyword {
+public final class AnalyticsKeyword implements Serializable {
   /** User org unit. */
   public static final String USER_ORGUNIT = "USER_ORGUNIT";
 

@@ -30,6 +30,7 @@ package org.hisp.dhis.model;
 import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
@@ -41,7 +42,7 @@ import lombok.experimental.Accessors;
 @Setter
 @Accessors(chain = true)
 @NoArgsConstructor
-public class OptionSetObjects {
+public class OptionSetObjects implements Serializable {
   @JsonProperty private List<OptionSet> optionSets = new ArrayList<>();
 
   @JsonProperty private List<Option> options = new ArrayList<>();

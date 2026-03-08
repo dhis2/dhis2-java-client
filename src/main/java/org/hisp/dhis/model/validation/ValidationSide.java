@@ -28,15 +28,22 @@
 package org.hisp.dhis.model.validation;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.io.Serializable;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class ValidationSide {
+@NoArgsConstructor
+public class ValidationSide implements Serializable {
   @JsonProperty private String expression;
+
   @JsonProperty private String description;
+
   @JsonProperty private String displayDescription;
+
   @JsonProperty private Boolean slidingWindow;
+
   @JsonProperty private String missingValueStrategy;
 }

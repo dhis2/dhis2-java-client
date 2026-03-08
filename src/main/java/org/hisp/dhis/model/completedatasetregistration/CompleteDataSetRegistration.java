@@ -31,6 +31,7 @@ import static org.hisp.dhis.util.DateTimeUtils.DATE_FORMAT;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.io.Serializable;
 import java.util.Date;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -39,7 +40,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class CompleteDataSetRegistration {
+public class CompleteDataSetRegistration implements Serializable {
   @JsonProperty private String dataSet;
 
   @JsonProperty private String period;

@@ -29,6 +29,7 @@ package org.hisp.dhis.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.io.Serializable;
 import java.util.Objects;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -39,7 +40,7 @@ import org.apache.commons.lang3.math.NumberUtils;
 @Getter
 @Setter
 @NoArgsConstructor
-public class AttributeValue {
+public class AttributeValue implements Serializable {
   @JsonProperty private Attribute attribute;
 
   @JsonProperty private String value;

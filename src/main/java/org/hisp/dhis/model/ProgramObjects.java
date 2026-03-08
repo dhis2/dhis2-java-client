@@ -31,6 +31,7 @@ import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
@@ -45,7 +46,7 @@ import org.hisp.dhis.model.programrule.ProgramRuleVariable;
 @Setter
 @Accessors(chain = true)
 @NoArgsConstructor
-public class ProgramObjects {
+public class ProgramObjects implements Serializable {
   @JsonProperty private List<Program> programs = new ArrayList<>();
 
   @JsonProperty private List<ProgramSection> programSections = new ArrayList<>();

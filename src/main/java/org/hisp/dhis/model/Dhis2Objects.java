@@ -28,6 +28,7 @@
 package org.hisp.dhis.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
@@ -55,7 +56,7 @@ import org.hisp.dhis.model.visualization.Visualization;
 @Setter
 @Accessors(chain = true)
 @NoArgsConstructor
-public class Dhis2Objects {
+public class Dhis2Objects implements Serializable {
   @JsonProperty private List<AnalyticsTableHook> analyticsTableHooks = new ArrayList<>();
 
   @JsonProperty private List<Attribute> attributes = new ArrayList<>();

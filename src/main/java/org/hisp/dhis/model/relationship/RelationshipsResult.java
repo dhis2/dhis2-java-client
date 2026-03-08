@@ -28,6 +28,7 @@
 package org.hisp.dhis.model.relationship;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
@@ -37,7 +38,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class RelationshipsResult {
+public class RelationshipsResult implements Serializable {
   @JsonProperty private List<Relationship> relationships = new ArrayList<>();
 
   public RelationshipsResult(List<Relationship> relationships) {

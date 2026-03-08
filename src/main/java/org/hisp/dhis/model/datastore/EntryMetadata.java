@@ -28,6 +28,7 @@
 package org.hisp.dhis.model.datastore;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.io.Serializable;
 import java.util.Date;
 import lombok.Getter;
 import lombok.Setter;
@@ -37,7 +38,7 @@ import org.hisp.dhis.model.user.UserMetadata;
 @Getter
 @Setter
 @ToString
-public class EntryMetadata {
+public class EntryMetadata implements Serializable {
   @JsonProperty private String id;
 
   @JsonProperty private String namespace;

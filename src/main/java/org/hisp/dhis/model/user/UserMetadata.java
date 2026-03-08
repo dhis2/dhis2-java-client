@@ -28,6 +28,7 @@
 package org.hisp.dhis.model.user;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.io.Serializable;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -35,7 +36,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class UserMetadata {
+public class UserMetadata implements Serializable {
   @JsonProperty private String id;
 
   @JsonProperty private String name;

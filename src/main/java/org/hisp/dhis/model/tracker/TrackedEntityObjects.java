@@ -28,6 +28,7 @@
 package org.hisp.dhis.model.tracker;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
@@ -45,7 +46,7 @@ import org.hisp.dhis.model.trackedentity.TrackedEntity;
 @Accessors(chain = true)
 @ToString
 @NoArgsConstructor
-public class TrackedEntityObjects {
+public class TrackedEntityObjects implements Serializable {
   @JsonProperty private List<TrackedEntity> trackedEntities = new ArrayList<>();
 
   @JsonProperty private List<Enrollment> enrollments = new ArrayList<>();

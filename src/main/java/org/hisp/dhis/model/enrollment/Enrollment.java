@@ -29,6 +29,7 @@ package org.hisp.dhis.model.enrollment;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import lombok.Getter;
@@ -42,7 +43,7 @@ import org.locationtech.jts.geom.Geometry;
 @Setter
 @ToString
 @NoArgsConstructor
-public class Enrollment {
+public class Enrollment implements Serializable {
   @JsonProperty private String enrollment;
 
   @JsonProperty private String program;

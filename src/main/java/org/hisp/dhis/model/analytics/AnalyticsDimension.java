@@ -27,11 +27,12 @@
  */
 package org.hisp.dhis.model.analytics;
 
+import java.io.Serializable;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class AnalyticsDimension {
+public class AnalyticsDimension implements Serializable {
   /** Data dimension identifier. */
   public static final String DATA_X = "dx";
 

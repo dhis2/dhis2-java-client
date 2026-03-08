@@ -27,6 +27,7 @@
  */
 package org.hisp.dhis.model.completedatasetregistration;
 
+import java.io.Serializable;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -37,7 +38,7 @@ import org.hisp.dhis.model.metadata.ImportStrategy;
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class CompleteDataSetRegistrationImportOptions {
+public class CompleteDataSetRegistrationImportOptions implements Serializable {
   /** Identifier property used for data sets in the response. Overrides idScheme. */
   private IdScheme dataSetIdScheme;
 
