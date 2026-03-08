@@ -38,7 +38,6 @@ import org.hisp.dhis.model.NameableObject;
 @Setter
 @NoArgsConstructor
 public class Dashboard extends NameableObject {
-
   /**
    * Optional, only set if this dashboard is embedded and loaded from an external provider.
    *

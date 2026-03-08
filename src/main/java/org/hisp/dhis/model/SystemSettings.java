@@ -28,6 +28,7 @@
 package org.hisp.dhis.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.io.Serializable;
 import java.util.Date;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -36,7 +37,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class SystemSettings {
+public class SystemSettings implements Serializable {
   @JsonProperty(value = "keyCalendar")
   private String calendar;
 

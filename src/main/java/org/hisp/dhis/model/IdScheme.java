@@ -27,13 +27,14 @@
  */
 package org.hisp.dhis.model;
 
+import java.io.Serializable;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.apache.commons.lang3.Validate;
 import org.hisp.dhis.model.exception.IllegalArgumentFormatException;
 
-public class IdScheme {
+public class IdScheme implements Serializable {
   public static final IdScheme UID = new IdScheme(ObjectProperty.UID);
 
   public static final IdScheme CODE = new IdScheme(ObjectProperty.CODE);

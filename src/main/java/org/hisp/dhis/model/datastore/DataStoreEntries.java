@@ -28,6 +28,7 @@
 package org.hisp.dhis.model.datastore;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -38,6 +39,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class DataStoreEntries {
+public class DataStoreEntries implements Serializable {
   @JsonProperty private List<Map<String, Object>> entries = new ArrayList<>();
 }

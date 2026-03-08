@@ -32,6 +32,7 @@ import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -48,7 +49,7 @@ import org.locationtech.jts.geom.Geometry;
 @Setter
 @ToString
 @NoArgsConstructor
-public class TrackedEntity {
+public class TrackedEntity implements Serializable {
   @JsonProperty private String trackedEntity;
 
   @JsonProperty private String trackedEntityType;

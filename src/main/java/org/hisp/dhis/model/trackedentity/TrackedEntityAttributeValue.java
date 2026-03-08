@@ -28,6 +28,7 @@
 package org.hisp.dhis.model.trackedentity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.io.Serializable;
 import java.util.Date;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -39,7 +40,7 @@ import org.hisp.dhis.model.ValueType;
 @Setter
 @ToString
 @NoArgsConstructor
-public class TrackedEntityAttributeValue {
+public class TrackedEntityAttributeValue implements Serializable {
   @JsonProperty private String attribute;
 
   @JsonProperty private String displayName;

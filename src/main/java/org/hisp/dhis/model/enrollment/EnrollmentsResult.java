@@ -28,6 +28,7 @@
 package org.hisp.dhis.model.enrollment;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
@@ -37,7 +38,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class EnrollmentsResult {
+public class EnrollmentsResult implements Serializable {
   @JsonProperty private List<Enrollment> enrollments = new ArrayList<>();
 
   public EnrollmentsResult(List<Enrollment> enrollments) {

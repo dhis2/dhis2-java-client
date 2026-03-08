@@ -28,6 +28,7 @@
 package org.hisp.dhis.model.validation;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -39,7 +40,7 @@ import org.hisp.dhis.model.IdentifiableObject;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Validation {
+public class Validation implements Serializable {
   @JsonProperty private List<ValidationRuleViolation> validationRuleViolations = new ArrayList<>();
   @JsonProperty private List<IdentifiableObject> commentRequiredViolations = new ArrayList<>();
 
