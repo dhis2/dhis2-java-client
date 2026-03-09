@@ -98,7 +98,7 @@ class NumberUtilsTest {
   }
 
   @Test
-  void test() {
+  void testIsZero() {
     assertTrue(NumberUtils.isZero(0d));
     assertTrue(NumberUtils.isZero(0.0));
     assertTrue(NumberUtils.isZero(0.00));
