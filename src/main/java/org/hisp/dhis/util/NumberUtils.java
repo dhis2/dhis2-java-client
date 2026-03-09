@@ -121,6 +121,16 @@ public class NumberUtils {
   }
 
   /**
+   * Indicates whether the given value equals zero.
+   *
+   * @param value the {@link Double}.
+   * @return true if the given value equals zero, false otherwise.
+   */
+  public static boolean isZero(Double value) {
+    return value != null && Double.compare(value, 0.0) == 0;
+  }
+
+  /**
    * Formats the double value so that if the value has no decimals, or has a single zero decimal as
    * in {@code .0}, the formatted string excludes any decimal. Otherwise uses one decimal place for
    * the formatted string. Uses {@code ,} (comma) as the thousands separator.

@@ -98,6 +98,20 @@ class NumberUtilsTest {
   }
 
   @Test
+  void test() {
+    assertTrue(NumberUtils.isZero(0d));
+    assertTrue(NumberUtils.isZero(0.0));
+    assertTrue(NumberUtils.isZero(0.00));
+    assertTrue(NumberUtils.isZero(Double.valueOf(0)));
+    assertTrue(NumberUtils.isZero(Double.valueOf(0.0)));
+    assertTrue(NumberUtils.isZero(Double.valueOf(0.00)));
+
+    assertFalse(NumberUtils.isZero(0.1));
+    assertFalse(NumberUtils.isZero(0.01));
+    assertFalse(NumberUtils.isZero(1d));
+  }
+
+  @Test
   void testFormatDouble() {
     assertEquals("351", NumberUtils.formatDouble(351D));
     assertEquals("172", NumberUtils.formatDouble(172.0));
