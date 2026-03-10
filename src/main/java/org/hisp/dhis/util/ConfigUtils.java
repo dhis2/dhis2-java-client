@@ -138,4 +138,15 @@ public class ConfigUtils {
   public static boolean isDisabled(String value) {
     return VALUE_DISABLED.equals(value);
   }
+
+  /**
+   * Checks if the given property value is not disabled, meaning it is either null, empty or not
+   * equal to the disabled value.
+   *
+   * @param value the property value to check.
+   * @return true if the value is not disabled, false otherwise.
+   */
+  public static boolean isNotDisabled(String value) {
+    return !isDisabled(value);
+  }
 }
