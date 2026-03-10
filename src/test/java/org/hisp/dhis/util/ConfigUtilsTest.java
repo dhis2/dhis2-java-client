@@ -112,4 +112,13 @@ public class ConfigUtilsTest {
     assertFalse(ConfigUtils.isDisabled(""));
     assertFalse(ConfigUtils.isDisabled(null));
   }
+
+  @Test
+  void testIsNotDisabled() {
+    assertTrue(ConfigUtils.isNotDisabled("on"));
+    assertFalse(ConfigUtils.isNotDisabled("off"));
+    assertTrue(ConfigUtils.isNotDisabled("foo"));
+    assertTrue(ConfigUtils.isNotDisabled(""));
+    assertTrue(ConfigUtils.isNotDisabled(null));
+  }
 }
