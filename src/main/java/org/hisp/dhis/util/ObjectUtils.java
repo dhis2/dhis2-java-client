@@ -38,8 +38,28 @@ public class ObjectUtils {
    * @param object the object.
    * @return true if the given object is not null, false otherwise.
    */
-  public static boolean isNotNull(Object object) {
+  public static boolean isPresent(Object object) {
     return object != null;
+  }
+
+  /**
+   * Indicates whether the given object is not null.
+   *
+   * @param object the object.
+   * @return true if the given object is not null, false otherwise.
+   */
+  public static boolean isNotNull(Object object) {
+    return isPresent(object);
+  }
+
+  /**
+   * Indicates whether the given object is null.
+   *
+   * @param object the object.
+   * @return true if the given object is null, false otherwise.
+   */
+  public static boolean isAbsent(Object object) {
+    return object == null;
   }
 
   /**
@@ -49,6 +69,6 @@ public class ObjectUtils {
    * @return true if the given object is null, false otherwise.
    */
   public static boolean isNull(Object object) {
-    return object == null;
+    return isAbsent(object);
   }
 }

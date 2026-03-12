@@ -31,7 +31,7 @@ import static org.apache.commons.collections4.CollectionUtils.isEmpty;
 import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 import static org.hisp.dhis.model.analytics.AnalyticsDataIndex.toKey;
-import static org.hisp.dhis.util.ObjectUtils.isNotNull;
+import static org.hisp.dhis.util.ObjectUtils.isPresent;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -279,7 +279,7 @@ public class AnalyticsData implements Serializable {
     Set<Integer> metaIndexes = getHeaderMetaIndexSet();
 
     Map<String, String> dimItemNameIdMap =
-        isNotBlank(dimension) && isNotNull(metaData)
+        isNotBlank(dimension) && isPresent(metaData)
             ? metaData.getDimensionItemNameIdMap(dimension)
             : Map.of();
     int dimIndex = headerIndex(dimension);

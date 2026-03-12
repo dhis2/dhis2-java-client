@@ -31,7 +31,7 @@ import static org.apache.commons.collections4.CollectionUtils.isEmpty;
 import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
 import static org.apache.commons.collections4.MapUtils.isEmpty;
 import static org.hisp.dhis.util.CollectionUtils.filterToList;
-import static org.hisp.dhis.util.ObjectUtils.isNull;
+import static org.hisp.dhis.util.ObjectUtils.isAbsent;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -93,7 +93,7 @@ public class AnalyticsMetaData implements Serializable {
     for (String item : dimItems) {
       MetaDataItem metadataItem = items.get(item);
 
-      if (isNull(metadataItem) || isNull(metadataItem.getName())) {
+      if (isAbsent(metadataItem) || isAbsent(metadataItem.getName())) {
         return Map.of();
       }
 
