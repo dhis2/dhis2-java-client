@@ -28,6 +28,7 @@
 package org.hisp.dhis.model.user;
 
 import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
+import static org.hisp.dhis.util.CollectionUtils.firstNonEmptyList;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -91,5 +92,15 @@ public class User extends IdentifiableObject {
    */
   public OrgUnit getFirstOrganisationUnit() {
     return isNotEmpty(organisationUnits) ? organisationUnits.get(0) : null;
+  }
+
+  /**
+   * Returns data view organisation units, or organisation units if data view organisation units are
+   * not present.
+   *
+   * @return a list of {@link OrgUnit}.
+   */
+  public List<OrgUnit> getDataViewOrganisationUnitsWithFallback() {
+    return firstNonEmptyList(dataViewOrganisationUnits, organisationUnits);
   }
 }

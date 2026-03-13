@@ -36,6 +36,7 @@ import static org.hisp.dhis.util.CollectionUtils.filterToList;
 import static org.hisp.dhis.util.CollectionUtils.filterToSet;
 import static org.hisp.dhis.util.CollectionUtils.first;
 import static org.hisp.dhis.util.CollectionUtils.firstMatch;
+import static org.hisp.dhis.util.CollectionUtils.firstNonEmptyList;
 import static org.hisp.dhis.util.CollectionUtils.get;
 import static org.hisp.dhis.util.CollectionUtils.index;
 import static org.hisp.dhis.util.CollectionUtils.list;
@@ -416,6 +417,18 @@ class CollectionUtilsTest {
     assertTrue(empty(List.of()));
     assertTrue(empty(null));
     assertFalse(empty(List.of("a")));
+  }
+
+  @Test
+  void testFirstNonEmptyList() {
+    List<String> lA = list("a", "b");
+    List<String> lB = list("c", "d");
+
+    assertContainsExactly(firstNonEmptyList(lA, lB), "a", "b");
+    assertContainsExactly(firstNonEmptyList(List.of(), lB), "c", "d");
+    assertContainsExactly(firstNonEmptyList(null, lB), "c", "d");
+    assertEmpty(firstNonEmptyList(List.of(), null));
+    assertEmpty(firstNonEmptyList());
   }
 
   @Test

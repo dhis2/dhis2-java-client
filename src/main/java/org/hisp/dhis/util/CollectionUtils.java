@@ -257,6 +257,25 @@ public class CollectionUtils {
   }
 
   /**
+   * Returns the first non-empty list in the given array of lists. Returns an empty list if all
+   * lists are empty or null.
+   *
+   * @param <T> type.
+   * @param lists the array of lists.
+   * @return the first non-empty list, or an empty list if all lists are empty or null.
+   */
+  @SafeVarargs
+  public static <T> List<T> firstNonEmptyList(List<T>... lists) {
+    for (List<T> list : lists) {
+      if (notEmpty(list)) {
+        return list;
+      }
+    }
+
+    return List.of();
+  }
+
+  /**
    * Returns a new list of the items in the given collection which are not null and match the given
    * predicate.
    *
