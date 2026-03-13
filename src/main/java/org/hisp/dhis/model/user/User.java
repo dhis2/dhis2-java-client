@@ -29,18 +29,19 @@ package org.hisp.dhis.model.user;
 
 import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
 import static org.hisp.dhis.util.CollectionUtils.firstNonEmptyList;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import org.hisp.dhis.model.IdentifiableObject;
-import org.hisp.dhis.model.OrgUnit;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hisp.dhis.model.IdentifiableObject;
+import org.hisp.dhis.model.OrgUnit;
 
 @Getter
 @Setter
@@ -92,7 +93,7 @@ public class User extends IdentifiableObject {
   public OrgUnit getFirstOrganisationUnit() {
     return isNotEmpty(organisationUnits) ? organisationUnits.get(0) : null;
   }
-  
+
   /**
    * Returns data view organisation units, or organisation units if data view organisation units are
    * not present.
