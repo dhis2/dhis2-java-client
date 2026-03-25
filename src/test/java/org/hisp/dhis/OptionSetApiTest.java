@@ -61,6 +61,7 @@ class OptionSetApiTest {
     assertEquals("VQ2lai3OfVG", optionSet.getId());
     assertNotBlank(optionSet.getName());
     assertNotNull(optionSet.getCreated());
+    assertNotNull(optionSet.getCreatedBy());
     assertNotNull(optionSet.getLastUpdated());
     assertNotNull(optionSet.getSharing());
     assertNotNull(optionSet.getAccess());
@@ -205,6 +206,7 @@ class OptionSetApiTest {
     assertNotNull(updated);
     assertEquals("qszOn4ydMDE", updated.getId());
     assertEquals("DJC: Legend", updated.getName());
+    assertNotNull(updated.getLastUpdatedBy());
     assertSize(3, updated.getOptions());
 
     ObjectResponse removeResponse = dhis2.removeOptionSet("qszOn4ydMDE");

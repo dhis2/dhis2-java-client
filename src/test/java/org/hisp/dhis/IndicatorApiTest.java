@@ -63,6 +63,7 @@ class IndicatorApiTest {
     assertNotNull(indicator.getAccess());
     assertEquals("ANC IPT 1 Coverage", indicator.getShortName());
     assertNotNull(indicator.getCreated());
+    assertNotNull(indicator.getCreatedBy());
     assertNotNull(indicator.getLastUpdated());
     assertFalse(indicator.isAnnualized());
     assertNotNull(indicator.getUrl());
@@ -180,6 +181,7 @@ class IndicatorApiTest {
     assertNotNull(indicator);
     assertEquals(indicatorUid, indicator.getId());
     assertEquals(uidB, indicator.getName());
+    assertNotNull(indicator.getLastUpdatedBy());
 
     // Remove
     ObjectResponse removeRespA = dhis2.removeIndicator(indicatorUid);

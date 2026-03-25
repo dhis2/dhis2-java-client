@@ -46,7 +46,7 @@ public class ApiFields {
 
   /** Identifiable object extended fields. */
   public static final String ID_EXT_FIELDS =
-      String.format("%s,translations,sharing,access", ID_FIELDS);
+      String.format("%s,createdBy,lastUpdatedBy,translations,sharing,access", ID_FIELDS);
 
   /** Nameable object fields. */
   public static final String NAME_FIELDS = String.format("%s,shortName,description", ID_FIELDS);
@@ -335,7 +335,7 @@ public class ApiFields {
   public static final String PROGRAM_INDICATOR_FIELDS =
       String.format(
           "%1$s,program[%1$s],expression,filter,decimals,aggregationType,analyticsType",
-          NAME_FIELDS);
+          NAME_EXT_FIELDS, NAME_FIELDS);
 
   /** Program section fields. */
   public static final String PROGRAM_SECTION_FIELDS =

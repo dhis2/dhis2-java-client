@@ -55,6 +55,7 @@ class UserRoleApiTest {
     assertEquals("Ufph3mGRmMo", userRole.getId());
     assertEquals("Superuser", userRole.getName());
     assertNotNull(userRole.getCreated());
+    assertNotNull(userRole.getCreatedBy());
     assertNotNull(userRole.getLastUpdated());
     assertFalse(userRole.getUsers().isEmpty());
   }
@@ -108,6 +109,7 @@ class UserRoleApiTest {
     assertNotNull(userRole);
     assertEquals(userRoleUid, userRole.getId());
     assertEquals(uidB, userRole.getName());
+    assertNotNull(userRole.getLastUpdatedBy());
 
     // Remove
     ObjectResponse removeRespA = dhis2.removeUserRole(userRoleUid);

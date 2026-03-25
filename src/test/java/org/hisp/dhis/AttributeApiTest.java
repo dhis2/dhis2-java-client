@@ -57,6 +57,7 @@ class AttributeApiTest {
     assertEquals("Classification", attribute.getName());
     assertEquals("CLASSIFICATION", attribute.getCode());
     assertNotNull(attribute.getCreated());
+    assertNotNull(attribute.getCreatedBy());
     assertNotNull(attribute.getLastUpdated());
   }
 
@@ -115,6 +116,7 @@ class AttributeApiTest {
     assertEquals(uidA, attribute.getDescription());
     assertFalse(attribute.getUnique());
     assertFalse(attribute.getMandatory());
+    assertNotNull(attribute.getCreatedBy());
 
     attribute.setName(uidB);
 
@@ -129,6 +131,7 @@ class AttributeApiTest {
     assertNotNull(attribute);
     assertEquals(attributeUid, attribute.getId());
     assertEquals(uidB, attribute.getName());
+    assertNotNull(attribute.getLastUpdatedBy());
 
     // Remove
     ObjectResponse removeRespA = dhis2.removeAttribute(attributeUid);

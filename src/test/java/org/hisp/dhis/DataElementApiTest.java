@@ -69,6 +69,7 @@ class DataElementApiTest {
     assertNotNull(dataElement.getId());
     assertNotBlank(dataElement.getName());
     assertNotNull(dataElement.getCreated());
+    assertNotNull(dataElement.getCreatedBy());
     assertNotNull(dataElement.getLastUpdated());
     assertNotNull(dataElement.getSharing());
     assertNotNull(dataElement.getAccess());

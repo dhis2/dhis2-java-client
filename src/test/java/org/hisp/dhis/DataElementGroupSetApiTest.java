@@ -87,6 +87,7 @@ class DataElementGroupSetApiTest {
     assertEquals("Diagnosis", dataElementGroupSet.getName());
     assertEquals("Diagnosis", dataElementGroupSet.getShortName());
     assertNotNull(dataElementGroupSet.getCreated());
+    assertNotNull(dataElementGroupSet.getCreatedBy());
     assertNotNull(dataElementGroupSet.getLastUpdated());
     assertNotNull(dataElementGroupSet.getSharing());
     assertNotNull(dataElementGroupSet.getAccess());
@@ -157,6 +158,7 @@ class DataElementGroupSetApiTest {
     assertNotNull(dataElementGroupSet);
     assertEquals(dataElementGroupSetUid, dataElementGroupSet.getId());
     assertEquals(uidB, dataElementGroupSet.getName());
+    assertNotNull(dataElementGroupSet.getLastUpdatedBy());
 
     // Remove
     ObjectResponse removeRespA = dhis2.removeDataElementGroupSet(dataElementGroupSetUid);

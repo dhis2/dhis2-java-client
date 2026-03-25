@@ -56,6 +56,7 @@ class IndicatorGroupApiTest {
     assertEquals("pKHOV0uwPJk", group.getId());
     assertNotBlank(group.getName());
     assertNotNull(group.getCreated());
+    assertNotNull(group.getCreatedBy());
     assertNotNull(group.getLastUpdated());
     assertNotNull(group.getSharing());
     assertNotNull(group.getAccess());
@@ -116,6 +117,7 @@ class IndicatorGroupApiTest {
     assertNotNull(indicatorGroup);
     assertEquals(indicatorGroupUid, indicatorGroup.getId());
     assertEquals(uidB, indicatorGroup.getName());
+    assertNotNull(indicatorGroup.getLastUpdatedBy());
 
     // Remove
     ObjectResponse removeRespA = dhis2.removeIndicatorGroup(indicatorGroupUid);

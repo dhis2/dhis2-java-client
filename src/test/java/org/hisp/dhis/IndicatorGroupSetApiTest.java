@@ -122,7 +122,7 @@ class IndicatorGroupSetApiTest {
     assertNotNull(indicatorGroupSet);
     assertEquals(indicatorGroupSetUid, indicatorGroupSet.getId());
     assertEquals(uidB, indicatorGroupSet.getName());
-
+    assertNotNull(indicatorGroupSet.getLastUpdatedBy());
     // Remove
     ObjectResponse removeRespA = dhis2.removeIndicatorGroupSet(indicatorGroupSetUid);
 

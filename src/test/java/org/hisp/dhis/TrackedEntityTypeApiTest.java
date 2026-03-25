@@ -61,6 +61,7 @@ public class TrackedEntityTypeApiTest {
     assertEquals("nEenWmSyUEp", tet.getId());
     assertNotBlank(tet.getName());
     assertNotNull(tet.getCreated());
+    assertNotNull(tet.getCreatedBy());
     assertNotNull(tet.getLastUpdated());
     assertNotEmpty(tet.getTrackedEntityTypeAttributes());
 
