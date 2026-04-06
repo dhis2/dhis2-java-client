@@ -62,6 +62,7 @@ class RelationshipTypeApiTest {
     assertEquals("Birth to Baby postnatal", relationshipType.getFromToName());
     assertEquals("Baby postnatal to Birth", relationshipType.getToFromName());
     assertNotNull(relationshipType.getCreated());
+    assertNotNull(relationshipType.getCreatedBy());
     assertNotNull(relationshipType.getLastUpdated());
 
     RelationshipConstraint constraint = relationshipType.getFromConstraint();
@@ -149,6 +150,7 @@ class RelationshipTypeApiTest {
     assertNotNull(relationshipType);
     assertEquals(relationshipTypeUid, relationshipType.getId());
     assertEquals(uidB, relationshipType.getName());
+    assertNotNull(relationshipType.getLastUpdatedBy());
 
     // Remove
     ObjectResponse removeRespA = dhis2.removeRelationshipType(relationshipTypeUid);

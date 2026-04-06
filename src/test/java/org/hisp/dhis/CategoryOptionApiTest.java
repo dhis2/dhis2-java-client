@@ -56,6 +56,7 @@ class CategoryOptionApiTest {
     assertNotBlank(categoryOption.getName());
     assertEquals("K4gwuiVvW3z", categoryOption.getId());
     assertNotNull(categoryOption.getCreated());
+    assertNotNull(categoryOption.getCreatedBy());
     assertNotNull(categoryOption.getLastUpdated());
     assertNotNull(categoryOption.getSharing());
     assertNotNull(categoryOption.getAccess());
@@ -119,5 +120,6 @@ class CategoryOptionApiTest {
     assertEquals(Status.OK, response.getStatus());
     categoryOption = dhis2.getCategoryOption("jRbMi0aBjYn");
     assertEquals("Male gender", categoryOption.getDescription());
+    assertNotNull(categoryOption.getLastUpdatedBy());
   }
 }

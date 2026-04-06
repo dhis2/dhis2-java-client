@@ -57,6 +57,7 @@ class ProgramIndicatorApiTest {
     assertNotBlank(programIndicator.getExpression());
     assertNotNull(programIndicator.getAggregationType());
     assertNotNull(programIndicator.getAnalyticsType());
+    assertNotNull(programIndicator.getCreatedBy());
   }
 
   @Test

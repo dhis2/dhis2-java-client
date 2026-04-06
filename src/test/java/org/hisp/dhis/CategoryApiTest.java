@@ -53,6 +53,7 @@ class CategoryApiTest {
     assertEquals("EC40NXmsTVu", category.getId());
     assertNotBlank(category.getName());
     assertNotNull(category.getCreated());
+    assertNotNull(category.getCreatedBy());
     assertNotNull(category.getLastUpdated());
     assertNotNull(category.getSharing());
     assertNotNull(category.getAccess());

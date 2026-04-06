@@ -63,6 +63,7 @@ class UserApiTest {
     assertEquals("John", user.getFirstName());
     assertEquals("Traore", user.getSurname());
     assertEquals("dummy@dhis2.org", user.getEmail());
+    assertNotNull(user.getCreatedBy());
     assertFalse(user.getOrganisationUnits().isEmpty());
 
     OrgUnit orgUnit = user.getOrganisationUnits().get(0);
@@ -145,6 +146,7 @@ class UserApiTest {
     assertNotNull(user);
     assertEquals(userUid, user.getId());
     assertEquals(updatedFirstName, user.getFirstName());
+    assertNotNull(user.getLastUpdatedBy());
 
     // Remove
     ObjectResponse removeRespA = dhis2.removeUser(userUid);

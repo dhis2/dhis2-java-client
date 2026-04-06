@@ -52,6 +52,7 @@ class DashboardApiTest {
     assertEquals("L1BtjXgpUpd", dashboard.getId());
     assertNotBlank(dashboard.getName());
     assertNotNull(dashboard.getCreated());
+    assertNotNull(dashboard.getCreatedBy());
     assertNotNull(dashboard.getLastUpdated());
     assertNotNull(dashboard.getSharing());
     assertNotNull(dashboard.getAccess());

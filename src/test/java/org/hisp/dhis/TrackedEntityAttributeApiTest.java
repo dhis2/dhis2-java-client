@@ -59,6 +59,7 @@ class TrackedEntityAttributeApiTest {
     assertNotNull(trackedEntityAttribute);
     assertEquals("VqEFza8wbwA", trackedEntityAttribute.getId());
     assertEquals("Address", trackedEntityAttribute.getName());
+    assertNotNull(trackedEntityAttribute.getCreatedBy());
   }
 
   @Test
@@ -126,6 +127,7 @@ class TrackedEntityAttributeApiTest {
     assertEquals(teaId, retrieved.getId());
     assertEquals(uidB, retrieved.getName());
     assertNotNull(retrieved.getDescription());
+    assertNotNull(retrieved.getLastUpdatedBy());
 
     // Remove
 

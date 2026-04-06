@@ -188,6 +188,7 @@ class EventFilterApiTest {
     assertNotNull(eventFilter.getSharing());
     assertNotNull(eventFilter.getAccess());
     assertNotNull(eventFilter.getCreated());
+    assertNotNull(eventFilter.getCreatedBy());
     assertNotNull(eventFilter.getLastUpdated());
     assertNotNull(eventFilter.getProgram());
     assertNotNull(eventFilter.getEventQueryCriteria());

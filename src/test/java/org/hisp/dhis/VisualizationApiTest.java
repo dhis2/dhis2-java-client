@@ -61,6 +61,7 @@ class VisualizationApiTest {
     assertEquals("UlfTKWZWV4u", visualization.getId());
     assertNotBlank(visualization.getName());
     assertNotNull(visualization.getCreated());
+    assertNotNull(visualization.getCreatedBy());
     assertNotNull(visualization.getLastUpdated());
     assertNotNull(visualization.getSharing());
     assertNotNull(visualization.getAccess());
@@ -83,6 +84,7 @@ class VisualizationApiTest {
     assertEquals("hrDweynvx7G", visualization.getId());
     assertNotBlank(visualization.getName());
     assertNotNull(visualization.getCreated());
+    assertNotNull(visualization.getCreatedBy());
     assertNotNull(visualization.getLastUpdated());
     assertNotNull(visualization.getSharing());
     assertNotNull(visualization.getAccess());

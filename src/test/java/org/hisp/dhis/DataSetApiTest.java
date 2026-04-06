@@ -60,6 +60,7 @@ class DataSetApiTest {
     assertEquals("Mortality < 5 years", dataSet.getName());
     assertEquals("Mortality < 5 years", dataSet.getDisplayFormName());
     assertNotNull(dataSet.getCreated());
+    assertNotNull(dataSet.getCreatedBy());
     assertNotNull(dataSet.getLastUpdated());
     assertNotNull(dataSet.getSharing());
     assertNotNull(dataSet.getAccess());

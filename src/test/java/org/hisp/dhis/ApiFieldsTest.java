@@ -40,17 +40,23 @@ class ApiFieldsTest {
   void testProgramStageFields() {
     String expected =
         """
-        id,code,name,created,lastUpdated,attributeValues,translations,sharing,access,shortName,description,formName,\
+        id,code,name,created,lastUpdated,attributeValues,createdBy,lastUpdatedBy,\
+        translations,sharing,access,shortName,description,formName,\
         program[id,code,name,created,lastUpdated,attributeValues],\
-        programStageDataElements[id,code,name,created,lastUpdated,attributeValues,translations,sharing,access,shortName,description,formName,\
+        programStageDataElements[id,code,name,created,lastUpdated,attributeValues,\
+        createdBy,lastUpdatedBy,translations,sharing,access,shortName,description,formName,\
         programStage[id,code,name,created,lastUpdated,attributeValues,shortName,description],\
-        dataElement[id,code,name,created,lastUpdated,attributeValues,translations,sharing,access,shortName,description,formName,\
-        aggregationType,valueType,domainType,url,categoryCombo[id,code,name,created,lastUpdated,attributeValues,shortName,description],\
+        dataElement[id,code,name,created,lastUpdated,attributeValues,createdBy,lastUpdatedBy,\
+        translations,sharing,access,shortName,description,formName,\
+        aggregationType,valueType,domainType,url,categoryCombo[id,code,name,created,\
+        lastUpdated,attributeValues,shortName,description],\
         legendSets[id,code,name,created,lastUpdated,\
         attributeValues,shortName,description],\
-        optionSet[id,code,name,created,lastUpdated,attributeValues,translations,sharing,access,valueType,version]],\
+        optionSet[id,code,name,created,lastUpdated,attributeValues,createdBy,\
+        lastUpdatedBy,translations,sharing,access,valueType,version]],\
         compulsory,displayInReports,skipSynchronization,skipAnalytics,allowFutureDate,sortOrder],\
-        programStageSections[id,code,name,created,lastUpdated,attributeValues,translations,sharing,access,\
+        programStageSections[id,code,name,created,lastUpdated,attributeValues,\
+        createdBy,lastUpdatedBy,translations,sharing,access,\
         shortName,description,formName,programStage[id,code,name,created,lastUpdated,\
         attributeValues,shortName,description],sortOrder,\
         dataElements[id,code,name,created,lastUpdated,attributeValues,shortName,description],\
@@ -67,30 +73,39 @@ class ApiFieldsTest {
   void testProgramExtFields() {
     String expected =
         """
-        id,code,name,created,lastUpdated,attributeValues,translations,sharing,access,shortName,description,formName,\
-        trackedEntityType[id,code,name,created,lastUpdated,attributeValues,translations,sharing,access,shortName,description,formName,\
+        id,code,name,created,lastUpdated,attributeValues,createdBy,lastUpdatedBy,\
+        translations,sharing,access,shortName,description,formName,\
+        trackedEntityType[id,code,name,created,lastUpdated,attributeValues,\
+        createdBy,lastUpdatedBy,translations,sharing,access,shortName,description,formName,\
         trackedEntityTypeAttributes[id,\
         trackedEntityAttribute[id,code,name,created,lastUpdated,attributeValues,shortName,description,valueType,\
         aggregationType,confidential,unique,orgunitScope],displayInList,mandatory,searchable]],\
         categoryCombo[id,code,name,created,lastUpdated,attributeValues,shortName,description,\
-        categories[id,code,name,created,lastUpdated,attributeValues,translations,sharing,access,shortName,description,formName,dataDimensionType,dataDimension,\
+        categories[id,code,name,created,lastUpdated,attributeValues,createdBy,lastUpdatedBy,translations,\
+        sharing,access,shortName,description,formName,dataDimensionType,dataDimension,\
         categoryOptions[id,code,name,created,lastUpdated,attributeValues],\
         categoryCombos[id,code,name,created,lastUpdated,attributeValues]]],\
         organisationUnits[id,code,name,created,lastUpdated,attributeValues,shortName,description],\
-        programSections[id,code,name,created,lastUpdated,attributeValues,translations,sharing,access,shortName,description,formName,sortOrder,\
+        programSections[id,code,name,created,lastUpdated,attributeValues,createdBy,lastUpdatedBy,\
+        translations,sharing,access,shortName,description,formName,sortOrder,\
         program[id,code,name,created,lastUpdated,attributeValues,shortName,description],\
         trackedEntityAttributes[id,code,name,created,lastUpdated,attributeValues,shortName,description]],\
-        programStages[id,code,name,created,lastUpdated,attributeValues,translations,sharing,access,shortName,description,formName,\
+        programStages[id,code,name,created,lastUpdated,attributeValues,createdBy,lastUpdatedBy,\
+        translations,sharing,access,shortName,description,formName,\
         program[id,code,name,created,lastUpdated,attributeValues],\
-        programStageDataElements[id,code,name,created,lastUpdated,attributeValues,translations,sharing,access,shortName,description,formName,\
+        programStageDataElements[id,code,name,created,lastUpdated,attributeValues,createdBy,lastUpdatedBy,\
+        translations,sharing,access,shortName,description,formName,\
         programStage[id,code,name,created,lastUpdated,attributeValues,shortName,description],\
-        dataElement[id,code,name,created,lastUpdated,attributeValues,translations,sharing,access,shortName,description,formName,\
-        aggregationType,valueType,domainType,url,categoryCombo[id,code,name,created,lastUpdated,attributeValues,shortName,description],\
+        dataElement[id,code,name,created,lastUpdated,attributeValues,createdBy,lastUpdatedBy,translations,\
+        sharing,access,shortName,description,formName,aggregationType,valueType,domainType,url,\
+        categoryCombo[id,code,name,created,lastUpdated,attributeValues,shortName,description],\
         legendSets[id,code,name,created,lastUpdated,attributeValues,shortName,description],\
-        optionSet[id,code,name,created,lastUpdated,attributeValues,translations,sharing,access,valueType,version]],\
+        optionSet[id,code,name,created,lastUpdated,attributeValues,createdBy,lastUpdatedBy,\
+        translations,sharing,access,valueType,version]],\
         compulsory,displayInReports,skipSynchronization,skipAnalytics,allowFutureDate,sortOrder],\
-        programStageSections[id,code,name,created,lastUpdated,attributeValues,translations,sharing,access,\
-        shortName,description,formName,programStage[id,code,name,created,lastUpdated,attributeValues,shortName,description],\
+        programStageSections[id,code,name,created,lastUpdated,attributeValues,createdBy,\
+        lastUpdatedBy,translations,sharing,access,shortName,description,formName,\
+        programStage[id,code,name,created,lastUpdated,attributeValues,shortName,description],\
         sortOrder,dataElements[id,code,name,created,lastUpdated,attributeValues,shortName,description],\
         programIndicators[id,code,name,created,lastUpdated,attributeValues,shortName,description]],\
         executionDateLabel,dueDateLabel,programStageLabel,eventLabel,\
@@ -99,11 +114,11 @@ class ApiFieldsTest {
         hideDueDate,enableUserAssignment,referral,featureType],\
         programTrackedEntityAttributes[id,code,name,program[id,code,name,created,lastUpdated,\
         attributeValues,shortName,description],\
-        trackedEntityAttribute[id,code,name,created,lastUpdated,attributeValues,shortName,\
-        description,valueType,aggregationType,confidential,unique,orgunitScope],\
+        trackedEntityAttribute[id,code,name,created,lastUpdated,attributeValues,\
+        shortName,description,valueType,aggregationType,confidential,unique,orgunitScope],\
         sortOrder,displayInList,mandatory,allowFutureDate,searchable],\
-        programRuleVariables[id,code,name,created,lastUpdated,attributeValues,translations,\
-        sharing,access,program[id,code,name,created,lastUpdated,attributeValues],\
+        programRuleVariables[id,code,name,created,lastUpdated,attributeValues,createdBy,\
+        lastUpdatedBy,translations,sharing,access,program[id,code,name,created,lastUpdated,attributeValues],\
         programRuleVariableSourceType,valueType,programStage[id,code,name,created,\
         lastUpdated,attributeValues],trackedEntityAttribute[id,code,name,created,\
         lastUpdated,attributeValues],useCodeForOptionSet,\
@@ -124,7 +139,7 @@ class ApiFieldsTest {
   void testProgramMinFields() {
     String expected =
         """
-        id,code,name,created,lastUpdated,attributeValues,translations,sharing,access,shortName,description,\
+        id,code,name,created,lastUpdated,attributeValues,createdBy,lastUpdatedBy,translations,sharing,access,shortName,description,\
         formName,trackedEntityType[id,code,name,created,lastUpdated,attributeValues,shortName,description],\
         categoryCombo[id,code,name,created,lastUpdated,attributeValues,shortName,description],\
         programSections[id,code,name,created,lastUpdated,attributeValues,shortName,description],\
@@ -150,11 +165,11 @@ class ApiFieldsTest {
   void testUserFields() {
     String expected =
         """
-        id,code,name,created,lastUpdated,attributeValues,translations,sharing,access,\
+        id,code,name,created,lastUpdated,attributeValues,createdBy,lastUpdatedBy,translations,sharing,access,\
         username,firstName,surname,email,phoneNumber,externalAuth,lastLogin,disabled,interests,\
         organisationUnits[id,code,name,created,lastUpdated,attributeValues,shortName,description],\
-        groups[id,code,name,created,lastUpdated,attributeValues,translations,sharing,access],\
-        userRoles[id,code,name,created,lastUpdated,attributeValues,translations,sharing,access],\
+        groups[id,code,name,created,lastUpdated,attributeValues,createdBy,lastUpdatedBy,translations,sharing,access],\
+        userRoles[id,code,name,created,lastUpdated,attributeValues,createdBy,lastUpdatedBy,translations,sharing,access],\
         dataViewOrganisationUnits[id,code,name,created,lastUpdated,attributeValues,shortName,description],\
         teiSearchOrganisationUnits[id,code,name,created,lastUpdated,attributeValues,shortName,description]""";
 
