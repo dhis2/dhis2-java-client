@@ -32,5 +32,6 @@ public enum NotificationLevel {
   DEBUG,
   INFO,
   WARN,
-  ERROR
+  ERROR,
+  LOOP
 }
