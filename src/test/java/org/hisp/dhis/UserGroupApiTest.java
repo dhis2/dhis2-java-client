@@ -58,6 +58,7 @@ class UserGroupApiTest {
     assertEquals("ZrsVF7IJ93y", userGroup.getId());
     assertEquals("Family Health Partner", userGroup.getName());
     assertNotNull(userGroup.getCreated());
+    assertNotNull(userGroup.getCreatedBy());
     assertNotNull(userGroup.getLastUpdated());
     assertNotEmpty(userGroup.getUsers());
   }
@@ -132,6 +133,7 @@ class UserGroupApiTest {
     assertNotNull(userGroup);
     assertEquals(userGroupUid, userGroup.getId());
     assertEquals(uidB, userGroup.getName());
+    assertNotNull(userGroup.getLastUpdatedBy());
 
     // Remove
     ObjectResponse removeRespA = dhis2.removeUserGroup(userGroupUid);

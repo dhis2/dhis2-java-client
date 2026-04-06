@@ -50,16 +50,17 @@ class DocumentApiTest {
   void testGetDocument() {
     Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
 
-    Document document = dhis2.getDocument("hKYLLpNinZR");
+    Document document = dhis2.getDocument("L2APFupqBU1");
 
     assertNotNull(document);
-    assertEquals("hKYLLpNinZR", document.getId());
+    assertEquals("L2APFupqBU1", document.getId());
     assertNotBlank(document.getName());
     assertNotNull(document.getCreated());
+    assertNotNull(document.getCreatedBy());
     assertNotNull(document.getLastUpdated());
     assertNotBlank(document.getUrl());
-    assertTrue(document.getExternal());
-    assertTrue(document.isExternal());
+    assertFalse(document.getExternal());
+    assertFalse(document.isExternal());
     assertFalse(document.isAttachment());
   }
 

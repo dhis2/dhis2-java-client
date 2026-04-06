@@ -53,6 +53,7 @@ class ProgramStageApiTest {
     assertEquals("A03MvHHogjR", programStage.getId());
     assertNotBlank(programStage.getName());
     assertNotNull(programStage.getCreated());
+    assertNotNull(programStage.getCreatedBy());
     assertNotNull(programStage.getLastUpdated());
     assertNotBlank(programStage.getDescription());
     assertNotEmpty(programStage.getProgramStageDataElements());

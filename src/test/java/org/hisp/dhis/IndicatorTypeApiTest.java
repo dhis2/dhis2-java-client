@@ -119,6 +119,7 @@ class IndicatorTypeApiTest {
     assertNotNull(indicatorType);
     assertEquals(indicatorTypeUid, indicatorType.getId());
     assertEquals(updatedName, indicatorType.getName());
+    assertNotNull(indicatorType.getLastUpdatedBy());
 
     // Remove
     ObjectResponse removeRespA = dhis2.removeIndicatorType(indicatorTypeUid);
