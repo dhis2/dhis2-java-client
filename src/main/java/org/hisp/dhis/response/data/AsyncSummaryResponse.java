@@ -66,7 +66,7 @@ public abstract class AsyncSummaryResponse extends BaseHttpResponse {
   /**
    * Returns the total count including imported, updated, deleted and ignored data values.
    *
-   * @return a total count.
+   * @return the total count.
    */
   @JsonIgnore
   private long getTotalCount() {
@@ -75,6 +75,17 @@ public abstract class AsyncSummaryResponse extends BaseHttpResponse {
             + importCount.getUpdated()
             + importCount.getDeleted()
             + importCount.getIgnored())
+        : 0;
+  }
+
+  /**
+   * Returns the affected count including imported, updated and deleted data values.
+   *
+   * @return the affected count.
+   */
+  public long getAffectedCount() {
+    return hasImportCount()
+        ? (importCount.getImported() + importCount.getUpdated() + importCount.getDeleted())
         : 0;
   }
 
