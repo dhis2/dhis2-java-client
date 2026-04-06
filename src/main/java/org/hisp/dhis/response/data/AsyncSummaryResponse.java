@@ -83,6 +83,7 @@ public abstract class AsyncSummaryResponse extends BaseHttpResponse {
    *
    * @return the affected count.
    */
+  @JsonIgnore
   public long getAffectedCount() {
     return hasImportCount()
         ? (importCount.getImported() + importCount.getUpdated() + importCount.getDeleted())
