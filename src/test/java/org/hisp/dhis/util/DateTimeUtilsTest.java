@@ -314,6 +314,29 @@ class DateTimeUtilsTest {
     assertTrue(DateTimeUtils.isValidLocalDateTime("2018-12-02T18:12:35.798Z"));
   }
 
+  @Test
+  void shouldEscapeDateTimeColonsForFilter() {
+    assertEquals(
+        "2024-01-15T10/:30/:00", DateTimeUtils.escapeDateTimeForFilter("2024-01-15T10:30:00"));
+  }
+
+  @Test
+  void shouldEscapeDateTimeWithSecondsForFilter() {
+    assertEquals(
+        "2024-01-15T10/:30/:45.123",
+        DateTimeUtils.escapeDateTimeForFilter("2024-01-15T10:30:45.123"));
+  }
+
+  @Test
+  void shouldReturnSameStringWhenNoColonsPresent() {
+    assertEquals("2024-01-15", DateTimeUtils.escapeDateTimeForFilter("2024-01-15"));
+  }
+
+  @Test
+  void shouldReturnEmptyStringWhenDateTimeIsNull() {
+    assertEquals("", DateTimeUtils.escapeDateTimeForFilter(null));
+  }
+
   // -----------------------------------------------------------------------------------------------
   // Support methods
   // -----------------------------------------------------------------------------------------------
