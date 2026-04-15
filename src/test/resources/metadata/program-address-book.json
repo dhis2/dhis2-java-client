@@ -38,7 +38,12 @@
             "id": "dIFNZrYGcOB"
           },
           "trackedEntityAttribute": {
-            "id": "lZGmxYbs97q"
+            "id": "lZGmxYbs97q",
+            "name": "First name",
+            "confidential": false,
+            "unique": false,
+            "orgunitScope": false,
+            "skipSynchronization": false
           },
           "displayInList": true,
           "mandatory": true,
@@ -51,7 +56,12 @@
             "id": "dIFNZrYGcOB"
           },
           "trackedEntityAttribute": {
-            "id": "w75KJ2mc4zz"
+            "id": "w75KJ2mc4zz",
+            "name": "Last name",
+            "confidential": false,
+            "unique": false,
+            "orgunitScope": false,
+            "skipSynchronization": false
           },
           "displayInList": true,
           "mandatory": true,
@@ -64,7 +74,12 @@
             "id": "dIFNZrYGcOB"
           },
           "trackedEntityAttribute": {
-            "id": "zDhUuAYrxNC"
+            "id": "zDhUuAYrxNC",
+            "name": "Street address",
+            "confidential": false,
+            "unique": false,
+            "orgunitScope": false,
+            "skipSynchronization": false
           },
           "displayInList": true,
           "mandatory": true,
@@ -77,7 +92,12 @@
             "id": "dIFNZrYGcOB"
           },
           "trackedEntityAttribute": {
-            "id": "VqEFza8wbwA"
+            "id": "VqEFza8wbwA",
+            "name": "City",
+            "confidential": false,
+            "unique": false,
+            "orgunitScope": false,
+            "skipSynchronization": false
           },
           "displayInList": true,
           "mandatory": true,
