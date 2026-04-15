@@ -27,6 +27,7 @@
  */
 package org.hisp.dhis;
 
+import static org.hisp.dhis.support.Assertions.assertSize;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -86,7 +87,7 @@ class DataStoreApiTest {
         dhis2.getDatastoreEntries("fruits", List.of("name", "color"));
 
     assertNotNull(fruits);
-    assertEquals(2, fruits.size());
+    assertSize(2, fruits);
     assertNotNull(fruits.get(0));
     assertNotNull(fruits.get(0).get("name"));
     assertNotNull(fruits.get(0).get("color"));

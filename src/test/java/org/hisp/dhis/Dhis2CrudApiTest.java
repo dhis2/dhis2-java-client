@@ -27,6 +27,7 @@
  */
 package org.hisp.dhis;
 
+import static org.hisp.dhis.support.Assertions.assertSize;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -87,7 +88,7 @@ class Dhis2CrudApiTest {
     assertEquals(codeA, coA.getCode());
     assertEquals(nameA, coA.getName());
     assertEquals(shortNameA, coA.getShortName());
-    assertEquals(2, coA.getOrganisationUnits().size());
+    assertSize(2, coA.getOrganisationUnits());
     assertTrue(coA.getOrganisationUnits().contains(ouA));
     assertTrue(coA.getOrganisationUnits().contains(ouB));
 
@@ -112,7 +113,7 @@ class Dhis2CrudApiTest {
     assertNotNull(coA.getAttributeValues());
     assertEquals(uidA, coA.getId());
     assertEquals(codeA, coA.getCode());
-    assertEquals(2, coA.getOrganisationUnits().size());
+    assertSize(2, coA.getOrganisationUnits());
     assertTrue(coA.getOrganisationUnits().contains(ouA));
     assertTrue(coA.getOrganisationUnits().contains(ouB));
 

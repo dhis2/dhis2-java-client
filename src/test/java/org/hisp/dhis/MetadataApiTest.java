@@ -28,6 +28,7 @@
 package org.hisp.dhis;
 
 import static org.hisp.dhis.support.Assertions.assertNotEmpty;
+import static org.hisp.dhis.support.Assertions.assertSize;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -78,7 +79,7 @@ class MetadataApiTest {
     assertEquals(4, stats.getTotal());
 
     assertNotEmpty(response.getTypeReports());
-    assertEquals(2, response.getTypeReports().size());
+    assertSize(2, response.getTypeReports());
 
     ObjectResponse removeResponse =
         dhis2.removeMetadataObject(MetadataEntity.OPTION_SET, "gKdxTM8BcI7");

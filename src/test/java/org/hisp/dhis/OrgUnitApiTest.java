@@ -28,6 +28,7 @@
 package org.hisp.dhis;
 
 import static org.hisp.dhis.support.Assertions.assertNotEmpty;
+import static org.hisp.dhis.support.Assertions.assertSize;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -111,7 +112,7 @@ class OrgUnitApiTest {
 
     assertNotNull(orgUnit);
     assertEquals(uidA, orgUnit.getId());
-    assertEquals(2, orgUnit.getAttributeValues().size());
+    assertSize(2, orgUnit.getAttributeValues());
 
     response = dhis2.removeOrgUnit(uidA);
 
@@ -154,7 +155,7 @@ class OrgUnitApiTest {
                 .addFilter(Filter.like("name", "Sierra Leone"))
                 .addFilter(Filter.like("name", "Agape CHP")));
 
-    assertEquals(0, orgUnits.size());
+    assertSize(0, orgUnits);
   }
 
   @Test
@@ -168,7 +169,7 @@ class OrgUnitApiTest {
                 .addFilter(Filter.eq("id", "eIQbndfxQMb"))
                 .addFilter(Filter.eq("id", "at6UHUQatSo")));
 
-    assertEquals(2, orgUnits.size());
+    assertSize(2, orgUnits);
   }
 
   @Test

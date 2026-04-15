@@ -27,6 +27,7 @@
  */
 package org.hisp.dhis;
 
+import static org.hisp.dhis.support.Assertions.assertSize;
 import static org.hisp.dhis.util.CollectionUtils.list;
 import static org.hisp.dhis.util.DateTimeUtils.toDate;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -252,7 +253,7 @@ class EventsApiTest {
     assertTrue(response.hasErrorReports());
     assertEquals(Status.ERROR, response.getStatus(), response.toString());
     assertEquals(1, response.getStats().getIgnored());
-    assertEquals(1, response.getValidationReport().getErrorReports().size());
+    assertSize(1, response.getValidationReport().getErrorReports());
 
     ErrorReport errorReport = response.getValidationReport().getErrorReports().get(0);
     assertEquals("E1031", errorReport.getErrorCode());
@@ -269,7 +270,7 @@ class EventsApiTest {
 
     assertNotNull(events);
     assertNotNull(events.getEvents());
-    assertEquals(50, events.getEvents().size());
+    assertSize(50, events.getEvents());
 
     Event event = events.getEvents().get(0);
 
@@ -294,7 +295,7 @@ class EventsApiTest {
 
     assertNotNull(events);
     assertNotNull(events.getEvents());
-    assertEquals(50, events.getEvents().size());
+    assertSize(50, events.getEvents());
 
     Event event = events.getEvents().get(0);
 
@@ -323,7 +324,7 @@ class EventsApiTest {
 
     assertNotNull(events);
     assertNotNull(events.getEvents());
-    assertEquals(10, events.getEvents().size());
+    assertSize(10, events.getEvents());
 
     Event firstEvent = events.getEvents().get(0);
     int firstValue = Integer.parseInt(firstEvent.getDataValue("qrur9Dvnyt5"));

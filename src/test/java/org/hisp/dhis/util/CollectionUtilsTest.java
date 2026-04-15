@@ -29,6 +29,7 @@ package org.hisp.dhis.util;
 
 import static org.hisp.dhis.support.Assertions.assertContainsExactly;
 import static org.hisp.dhis.support.Assertions.assertEmpty;
+import static org.hisp.dhis.support.Assertions.assertSize;
 import static org.hisp.dhis.util.CollectionUtils.anyStartsWith;
 import static org.hisp.dhis.util.CollectionUtils.empty;
 import static org.hisp.dhis.util.CollectionUtils.excludeIndexes;
@@ -80,7 +81,7 @@ class CollectionUtilsTest {
 
     Map<String, Product> map = index(list, value -> value.getId());
 
-    assertEquals(3, map.keySet().size());
+    assertSize(3, map.keySet());
     assertEquals(pA, map.get("P01"));
     assertEquals(pB, map.get("P02"));
     assertEquals(pC, map.get("P03"));
@@ -172,28 +173,28 @@ class CollectionUtilsTest {
   void testSetAcceptsNull() {
     Set<String> set = set("a", null, "b");
 
-    assertEquals(3, set.size());
+    assertSize(3, set);
   }
 
   @Test
   void testMutableSetAcceptsNull() {
     Set<String> set = mutableSet("a", null, "b");
 
-    assertEquals(3, set.size());
+    assertSize(3, set);
   }
 
   @Test
   void testListAcceptsNull() {
     List<String> list = list("a", null, "b");
 
-    assertEquals(3, list.size());
+    assertSize(3, list);
   }
 
   @Test
   void testMutableListAcceptsNull() {
     List<String> list = mutableList("a", null, "b");
 
-    assertEquals(3, list.size());
+    assertSize(3, list);
   }
 
   @Test
@@ -362,7 +363,7 @@ class CollectionUtilsTest {
 
     Map<String, DataElement> map = mapToMap(list, DataElement::getId);
 
-    assertEquals(3, map.keySet().size());
+    assertSize(3, map.keySet());
     assertEquals(deA.getId(), map.get(deA.getId()).getId());
     assertEquals(deB.getId(), map.get(deB.getId()).getId());
     assertEquals(deC.getId(), map.get(deC.getId()).getId());
@@ -384,7 +385,7 @@ class CollectionUtilsTest {
 
     Map<String, String> map = mapToMap(list, DataElement::getId, DataElement::getName);
 
-    assertEquals(3, map.keySet().size());
+    assertSize(3, map.keySet());
     assertEquals("Red", map.get(deA.getId()));
     assertEquals("Green", map.get(deB.getId()));
     assertEquals("Blue", map.get(deC.getId()));

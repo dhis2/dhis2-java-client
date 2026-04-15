@@ -241,7 +241,7 @@ class ProgramApiTest {
     assertEquals("Information", sc.getDescription());
     assertNotNull(sc.getProgram());
     assertNotBlank(sc.getProgram().getId());
-    assertEquals(5, sc.getTrackedEntityAttributes().size());
+    assertSize(5, sc.getTrackedEntityAttributes());
 
     ProgramStageSection pss = retrieved.getProgramStageSections().get(0);
 

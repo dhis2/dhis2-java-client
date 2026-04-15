@@ -27,6 +27,7 @@
  */
 package org.hisp.dhis.util;
 
+import static org.hisp.dhis.support.Assertions.assertSize;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -59,7 +60,7 @@ class DuplicateFinderTest {
 
     Map<String, Integer> duplicates = finder.getDuplicates();
 
-    assertEquals(1, duplicates.size(), "Should be one duplicate");
+    assertSize(1, duplicates.keySet());
     assertTrue(duplicates.containsKey("apple"), "Duplicate should be 'apple'");
     assertEquals(2, duplicates.get("apple"), "'apple' should have a count of 2");
   }
@@ -73,7 +74,7 @@ class DuplicateFinderTest {
 
     Map<String, Integer> duplicates = finder.getDuplicates();
 
-    assertEquals(1, duplicates.size(), "Should be one duplicate");
+    assertSize(1, duplicates.keySet());
     assertTrue(duplicates.containsKey("apple"), "Duplicate should be 'apple'");
     assertEquals(2, duplicates.get("apple"), "'apple' should have a count of 2");
   }
@@ -90,7 +91,7 @@ class DuplicateFinderTest {
 
     Map<String, Integer> duplicates = finder.getDuplicates();
 
-    assertEquals(2, duplicates.size(), "Should be two duplicates");
+    assertSize(2, duplicates.keySet());
     assertTrue(duplicates.containsKey("apple"), "Duplicate should contain 'apple'");
     assertEquals(2, duplicates.get("apple"), "'apple' should have a count of 2");
     assertTrue(duplicates.containsKey("banana"), "Duplicate should contain 'banana'");
@@ -106,7 +107,7 @@ class DuplicateFinderTest {
     finder.add("apple");
 
     Map<String, Integer> duplicates = finder.getDuplicates();
-    assertEquals(2, duplicates.size(), "Should be two duplicates (case-sensitive)");
+    assertSize(2, duplicates.keySet());
     assertTrue(duplicates.containsKey("Apple"), "'Apple' should be a duplicate");
     assertEquals(2, duplicates.get("Apple"), "'Apple' should have a count of 2");
     assertTrue(duplicates.containsKey("apple"), "'apple' should be a duplicate");
@@ -133,7 +134,7 @@ class DuplicateFinderTest {
 
     Map<String, Integer> duplicates = finder.getDuplicates();
 
-    assertEquals(2, duplicates.size(), "Should be two duplicates");
+    assertSize(2, duplicates.keySet());
     assertTrue(duplicates.containsKey("a"), "Duplicate should contain 'a'");
     assertEquals(2, duplicates.get("a"), "'a' should have a count of 2");
     assertTrue(duplicates.containsKey("b"), "Duplicate should contain 'b'");

@@ -30,6 +30,7 @@ package org.hisp.dhis.model.analytics;
 import static org.hisp.dhis.model.analytics.AnalyticsDimension.DATA_X;
 import static org.hisp.dhis.model.analytics.AnalyticsDimension.ORG_UNIT;
 import static org.hisp.dhis.model.analytics.AnalyticsDimension.PERIOD;
+import static org.hisp.dhis.support.Assertions.assertSize;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -108,7 +109,7 @@ class AnalyticsDataIndexTest {
 
     AnalyticsDataIndex index = data.getIndex(3);
 
-    assertEquals(8, index.keySet().size());
+    assertSize(8, index.keySet());
 
     assertEquals("2", index.getValue("A1", "B1", "C1"));
     assertEquals("4", index.getValue("A2", "B2", "C2"));
@@ -128,7 +129,7 @@ class AnalyticsDataIndexTest {
 
     AnalyticsDataIndex index = data.getIndex(3);
 
-    assertEquals(8, index.keySet().size());
+    assertSize(8, index.keySet());
 
     assertEquals(2d, index.getDoubleValue("A1", "B1", "C1"));
     assertEquals(4d, index.getDoubleValue("A2", "B2", "C2"));

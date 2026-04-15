@@ -27,6 +27,7 @@
  */
 package org.hisp.dhis;
 
+import static org.hisp.dhis.support.Assertions.assertSize;
 import static org.hisp.dhis.util.CollectionUtils.list;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -197,19 +198,19 @@ class OrgUnitsApiTest {
     assertEquals(
         "org.hisp.dhis.organisationunit.OrganisationUnit", response.getTypeReport().getKlass());
     assertEquals(2, response.getTypeReport().getStats().getIgnored());
-    assertEquals(1, response.getTypeReports().size());
-    assertEquals(2, response.getTypeReport().getObjectReports().size());
+    assertSize(1, response.getTypeReports());
+    assertSize(2, response.getTypeReport().getObjectReports());
 
     ObjectReport objectReport1 = response.getTypeReport().getObjectReports().get(0);
     ObjectReport objectReport2 = response.getTypeReport().getObjectReports().get(1);
 
     assertNotNull(objectReport1);
     assertEquals("org.hisp.dhis.organisationunit.OrganisationUnit", objectReport1.getKlass());
-    assertEquals(2, objectReport1.getErrorReports().size());
+    assertSize(2, objectReport1.getErrorReports());
 
     assertNotNull(objectReport2);
     assertEquals("org.hisp.dhis.organisationunit.OrganisationUnit", objectReport2.getKlass());
-    assertEquals(2, objectReport2.getErrorReports().size());
+    assertSize(2, objectReport2.getErrorReports());
 
     ErrorReport errorReport1 = objectReport1.getErrorReports().get(0);
     ErrorReport errorReport2 = objectReport1.getErrorReports().get(1);
@@ -233,7 +234,7 @@ class OrgUnitsApiTest {
                 .addFilter(Filter.in("id", list("YuQRtpLP10I", "jPidqyo7cpF", "vWbkYPRmKyS"))));
 
     assertNotNull(orgUnits);
-    assertEquals(3, orgUnits.size());
+    assertSize(3, orgUnits);
 
     OrgUnit ou = orgUnits.get(0);
 
@@ -273,7 +274,7 @@ class OrgUnitsApiTest {
                 .addFilter(Filter.eq("attributeValues.attribute.id", "l1VmqIHKk6t"))
                 .addFilter(Filter.eq("attributeValues.value", "KE02")));
 
-    assertEquals(1, orgUnits.size());
+    assertSize(1, orgUnits);
     assertTrue(orgUnits.contains(new OrgUnit("g8upMTyEZGZ", "Njandama MCHP")));
   }
 
@@ -283,7 +284,7 @@ class OrgUnitsApiTest {
 
     List<OrgUnit> orgUnits = dhis2.getOrgUnitSubHierarchy("O6uvpzGd5pu", 1, Query.instance());
 
-    assertEquals(15, orgUnits.size());
+    assertSize(15, orgUnits);
     assertTrue(orgUnits.contains(new OrgUnit("YuQRtpLP10I", "Badjia")));
     assertTrue(orgUnits.contains(new OrgUnit("dGheVylzol6", "Bargbe")));
     assertTrue(orgUnits.contains(new OrgUnit("kU8vhUkAGaT", "Lugbu")));
@@ -297,6 +298,6 @@ class OrgUnitsApiTest {
 
     List<OrgUnit> orgUnits = dhis2.getOrgUnits(Query.instance().addFilter(Filter.in("id", values)));
 
-    assertEquals(3, orgUnits.size());
+    assertSize(3, orgUnits);
   }
 }
