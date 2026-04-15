@@ -313,7 +313,7 @@ public class DateTimeUtils {
     if (dateTime == null) {
       return "";
     }
-    return dateTime.replaceAll(":", "/:");
+    return dateTime.replace(":", "/:");
   }
 
   // -----------------------------------------------------------------------------------------------
