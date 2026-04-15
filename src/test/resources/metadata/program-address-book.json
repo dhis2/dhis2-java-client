@@ -32,6 +32,24 @@
         "icon": "Address_Book"
       },
       "programTrackedEntityAttributes": [
+		{
+          "id": "p53aDl4OKpS",
+          "program": {
+            "id": "dIFNZrYGcOB"
+          },
+          "trackedEntityAttribute": {
+            "id": "TzTXLcSFnry",
+            "name": "Personal ID",
+            "confidential": true,
+            "unique": true,
+            "orgunitScope": true,
+            "skipSynchronization": true
+          },
+          "displayInList": true,
+          "mandatory": true,
+          "allowFutureDate": false,
+          "searchable": true
+        },
         {
           "id": "NkvU4urhVNv",
           "program": {
@@ -110,7 +128,12 @@
             "id": "dIFNZrYGcOB"
           },
           "trackedEntityAttribute": {
-            "id": "P2cwLGskgxn"
+            "id": "P2cwLGskgxn",
+			"name": "Country",
+			"confidential": false,
+			"unique": false,
+			"orgunitScope": false,
+			"skipSynchronization": false
           },
           "displayInList": true,
           "mandatory": true,
@@ -150,6 +173,9 @@
         "id": "dIFNZrYGcOB"
       },
       "trackedEntityAttributes": [
+		{
+          "id": "TzTXLcSFnry"
+        },
         {
           "id": "lZGmxYbs97q"
         },

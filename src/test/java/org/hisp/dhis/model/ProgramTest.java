@@ -41,16 +41,32 @@ import org.junit.jupiter.api.Test;
 
 @Tag(TestTags.UNIT)
 class ProgramTest {
+  private static final String PATH_PROGRAM_ADDRESS_BOOK = "metadata/program-address-book.json";
+
   @Test
   void testDeserializeProgramObjects() {
     ProgramObjects objects =
-        JsonClassPathFile.fromJson("metadata/program-address-book.json", ProgramObjects.class);
+        JsonClassPathFile.fromJson(PATH_PROGRAM_ADDRESS_BOOK, ProgramObjects.class);
 
     assertNotNull(objects);
     assertSize(1, objects.getPrograms());
     assertNotEmpty(objects.getProgramSections());
     assertNotEmpty(objects.getProgramStages());
     assertNotEmpty(objects.getProgramStageSections());
+  }
+
+  @Test
+  void testTrackedEntityAttributes() {
+    ProgramObjects objects =
+        JsonClassPathFile.fromJson(PATH_PROGRAM_ADDRESS_BOOK, ProgramObjects.class);
+
+    Program program = objects.getPrograms().get(0);
+
+    assertNotNull(program);
+
+    assertSize(6, program.getTrackedEntityAttributes());
+    assertSize(5, program.getNonConfidentialTrackedEntityAttributes());
+    assertSize(5, program.getSynchronizableTrackedEntityAttributes());
   }
 
   @Test
