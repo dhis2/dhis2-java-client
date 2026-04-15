@@ -303,6 +303,19 @@ public class DateTimeUtils {
     return String.format("%sZ", getUtcDateFormat(DATE_TIME_FORMAT).format(dateTime));
   }
 
+  /**
+   * Escapes a date time string for use in filter operations
+   *
+   * @param dateTime the date time string to escape (e.g. {@code "2024-01-15T10:30:00"}).
+   * @return the escaped date time string (e.g. {@code "2024-01-15T10/:30/:00"}).
+   */
+  public static String escapeDateTimeForFilter(String dateTime) {
+    if (dateTime == null) {
+      return "";
+    }
+    return dateTime.replaceAll(":", "/:");
+  }
+
   // -----------------------------------------------------------------------------------------------
   // Validation methods
   // -----------------------------------------------------------------------------------------------
