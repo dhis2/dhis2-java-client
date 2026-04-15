@@ -27,6 +27,7 @@
  */
 package org.hisp.dhis.model;
 
+import static org.hisp.dhis.support.Assertions.assertSize;
 import static org.hisp.dhis.support.TestObjects.set;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -54,7 +55,7 @@ class AttributeValueTest {
     orgUnit.addAttributeValue(avB);
     orgUnit.addAttributeValue(avC);
 
-    assertEquals(3, orgUnit.getAttributeValues().size());
+    assertSize(3, orgUnit.getAttributeValues());
     assertTrue(orgUnit.getAttributeValues().contains(avA));
     assertTrue(orgUnit.getAttributeValues().contains(avB));
     assertTrue(orgUnit.getAttributeValues().contains(avC));
@@ -139,21 +140,21 @@ class AttributeValueTest {
     orgUnit.addAttributeValue(avB);
     orgUnit.addAttributeValue(avC);
 
-    assertEquals(3, orgUnit.getAttributeValues().size());
+    assertSize(3, orgUnit.getAttributeValues());
     assertTrue(orgUnit.getAttributeValues().contains(avA));
     assertTrue(orgUnit.getAttributeValues().contains(avB));
     assertTrue(orgUnit.getAttributeValues().contains(avC));
 
     orgUnit.removeAttributeValue(atA.getId());
 
-    assertEquals(2, orgUnit.getAttributeValues().size());
+    assertSize(2, orgUnit.getAttributeValues());
     assertFalse(orgUnit.getAttributeValues().contains(avA));
     assertTrue(orgUnit.getAttributeValues().contains(avB));
     assertTrue(orgUnit.getAttributeValues().contains(avC));
 
     orgUnit.removeAttributeValue(atB.getId());
 
-    assertEquals(1, orgUnit.getAttributeValues().size());
+    assertSize(1, orgUnit.getAttributeValues());
     assertFalse(orgUnit.getAttributeValues().contains(avA));
     assertFalse(orgUnit.getAttributeValues().contains(avB));
     assertTrue(orgUnit.getAttributeValues().contains(avC));

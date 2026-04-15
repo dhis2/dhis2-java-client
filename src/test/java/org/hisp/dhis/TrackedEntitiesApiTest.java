@@ -27,6 +27,7 @@
  */
 package org.hisp.dhis;
 
+import static org.hisp.dhis.support.Assertions.assertSize;
 import static org.hisp.dhis.util.DateTimeUtils.toDate;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -131,7 +132,7 @@ class TrackedEntitiesApiTest {
 
     List<TrackedEntity> trackedEntities = result.getTrackedEntities();
     assertNotNull(trackedEntities);
-    assertEquals(1, trackedEntities.size());
+    assertSize(1, trackedEntities);
 
     TrackedEntity trackedEntity = trackedEntities.get(0);
     assertNotNull(trackedEntity);

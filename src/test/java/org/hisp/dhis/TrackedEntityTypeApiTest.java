@@ -29,6 +29,7 @@ package org.hisp.dhis;
 
 import static org.hisp.dhis.support.Assertions.assertNotBlank;
 import static org.hisp.dhis.support.Assertions.assertNotEmpty;
+import static org.hisp.dhis.support.Assertions.assertSize;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -97,7 +98,7 @@ public class TrackedEntityTypeApiTest {
                 .addFilter(Filter.in("id", List.of("hyKZglfYp0C", "nEenWmSyUEp", "kIeke8tAQnd")))
                 .setOrder(Order.asc("id")));
 
-    assertEquals(3, types.size());
+    assertSize(3, types);
     assertEquals("hyKZglfYp0C", types.get(0).getId());
     assertEquals("kIeke8tAQnd", types.get(1).getId());
     assertEquals("nEenWmSyUEp", types.get(2).getId());

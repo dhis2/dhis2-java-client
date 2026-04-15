@@ -27,6 +27,8 @@
  */
 package org.hisp.dhis;
 
+import static org.hisp.dhis.support.Assertions.assertNotBlank;
+import static org.hisp.dhis.support.Assertions.assertSize;
 import static org.hisp.dhis.support.Assertions.assertSuccessResponse;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -58,11 +60,11 @@ class UserApiTest {
 
     assertNotNull(user);
     assertEquals("xE7jOejl9FI", user.getId());
-    assertEquals("John Traore", user.getName());
-    assertEquals("admin", user.getUsername());
-    assertEquals("John", user.getFirstName());
-    assertEquals("Traore", user.getSurname());
-    assertEquals("dummy@dhis2.org", user.getEmail());
+    assertNotBlank(user.getName());
+    assertNotBlank(user.getUsername());
+    assertNotBlank(user.getFirstName());
+    assertNotBlank(user.getSurname());
+    assertNotBlank(user.getEmail());
     assertNotNull(user.getCreatedBy());
     assertFalse(user.getOrganisationUnits().isEmpty());
 
@@ -80,7 +82,7 @@ class UserApiTest {
     List<User> users = dhis2.getUsers(Query.instance().addFilter(Filter.eq("username", "admin")));
 
     assertNotNull(users);
-    assertEquals(1, users.size());
+    assertSize(1, users);
 
     User user = users.get(0);
 

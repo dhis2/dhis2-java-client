@@ -31,6 +31,7 @@ import static org.hisp.dhis.model.analytics.AnalyticsDimension.DATA_X;
 import static org.hisp.dhis.model.analytics.AnalyticsDimension.ORG_UNIT;
 import static org.hisp.dhis.model.analytics.AnalyticsDimension.PERIOD;
 import static org.hisp.dhis.support.Assertions.assertContainsExactly;
+import static org.hisp.dhis.support.Assertions.assertSize;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -135,7 +136,7 @@ class AnalyticsDataTest {
 
     List<AnalyticsHeader> copy = data.getCopyOfHeaders();
 
-    assertEquals(4, copy.size());
+    assertSize(4, copy);
     assertEquals("dx", copy.get(0).getName());
     assertEquals("ou", copy.get(2).getName());
   }

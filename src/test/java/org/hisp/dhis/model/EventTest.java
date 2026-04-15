@@ -27,6 +27,7 @@
  */
 package org.hisp.dhis.model;
 
+import static org.hisp.dhis.support.Assertions.assertSize;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -49,7 +50,7 @@ class EventTest {
     event.addDataValue(new EventDataValue("b5VnIJbjioI", "4"));
     event.addDataValue(new EventDataValue("hK06Hg9jDSB", "5")); // Exists
 
-    assertEquals(3, event.getDataValues().size());
+    assertSize(3, event.getDataValues());
     assertEquals("3", event.getEventDataValue("i7LbGuGEana").getValue());
     assertEquals("5", event.getEventDataValue("hK06Hg9jDSB").getValue());
     assertEquals("4", event.getEventDataValue("b5VnIJbjioI").getValue());

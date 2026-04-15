@@ -154,7 +154,7 @@ public class Program extends NameableObject {
 
     return trackedEntityType.getTrackedEntityTypeAttributes().stream()
         .map(TrackedEntityTypeAttribute::getTrackedEntityAttribute)
-        .filter(tea -> !tea.isConfidentialNullSafe())
+        .filter(tea -> !tea.isConfidential())
         .collect(Collectors.toUnmodifiableList());
   }
 
@@ -179,7 +179,22 @@ public class Program extends NameableObject {
   public List<TrackedEntityAttribute> getNonConfidentialTrackedEntityAttributes() {
     return programTrackedEntityAttributes.stream()
         .map(ProgramTrackedEntityAttribute::getTrackedEntityAttribute)
-        .filter(tea -> !tea.isConfidentialNullSafe())
+        .filter(tea -> !tea.isConfidential())
+        .toList();
+  }
+
+  /**
+   * Returns tracked entity attributes which are not confidential and synchronizable and part of the
+   * program.
+   *
+   * @return an immutable list of {@link TrackedEntityAttribute}.
+   */
+  @JsonIgnore
+  public List<TrackedEntityAttribute> getSynchronizableTrackedEntityAttributes() {
+    return programTrackedEntityAttributes.stream()
+        .map(ProgramTrackedEntityAttribute::getTrackedEntityAttribute)
+        .filter(tea -> !tea.isConfidential())
+        .filter(tea -> !tea.isSkipSynchronization())
         .toList();
   }
 

@@ -27,6 +27,7 @@
  */
 package org.hisp.dhis.model.trackedentity;
 
+import static org.hisp.dhis.support.Assertions.assertSize;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
@@ -97,26 +98,26 @@ class TrackedEntityTest {
     TrackedEntity te = new TrackedEntity();
     te.addAttributeValue("jTyx81h4qnD", "blue");
     assertEquals("blue", te.getAttributeValue("jTyx81h4qnD"));
-    assertEquals(1, te.getAttributes().size());
+    assertSize(1, te.getAttributes());
 
     te.addAttributeValue("nfWLML6SZ4G", "heavy");
     assertEquals("heavy", te.getAttributeValue("nfWLML6SZ4G"));
-    assertEquals(2, te.getAttributes().size());
+    assertSize(2, te.getAttributes());
 
     te.addAttributeValue("nfWLML6SZ4G", "light");
     assertEquals("light", te.getAttributeValue("nfWLML6SZ4G"));
-    assertEquals(2, te.getAttributes().size());
+    assertSize(2, te.getAttributes());
 
     te.addAttributeValue("nfWLML6SZ4G", "super_light");
     assertEquals("super_light", te.getAttributeValue("nfWLML6SZ4G"));
-    assertEquals(2, te.getAttributes().size());
+    assertSize(2, te.getAttributes());
 
     te.addAttributeValue("aug8T4IreCz", "large");
     assertEquals("large", te.getAttributeValue("aug8T4IreCz"));
-    assertEquals(3, te.getAttributes().size());
+    assertSize(3, te.getAttributes());
 
     te.addAttributeValue("aug8T4IreCz", "small");
     assertEquals("small", te.getAttributeValue("aug8T4IreCz"));
-    assertEquals(3, te.getAttributes().size());
+    assertSize(3, te.getAttributes());
   }
 }

@@ -98,9 +98,9 @@ class AnalyticsMetadataTest {
 
   @Test
   void testGetDimensionItems() {
-    assertEquals(8, metadata.getDimensionItems(DATA_X).size());
-    assertEquals(4, metadata.getDimensionItems(PERIOD).size());
-    assertEquals(0, metadata.getDimensionItems("foo").size());
+    assertSize(8, metadata.getDimensionItems(DATA_X));
+    assertSize(4, metadata.getDimensionItems(PERIOD));
+    assertSize(0, metadata.getDimensionItems("foo"));
   }
 
   @Test
@@ -134,19 +134,19 @@ class AnalyticsMetadataTest {
   void testGetMetadataItems() {
     List<MetaDataItem> dataItems = metadata.getMetadataItems(DATA_X);
 
-    assertEquals(8, dataItems.size());
+    assertSize(8, dataItems);
     assertEquals("A1", dataItems.get(0).getUid());
     assertEquals("Indicator 1", dataItems.get(0).getName());
 
     List<MetaDataItem> periodItems = metadata.getMetadataItems(PERIOD);
 
-    assertEquals(4, periodItems.size());
+    assertSize(4, periodItems);
     assertEquals("B1", periodItems.get(0).getUid());
     assertEquals("Month 1", periodItems.get(0).getName());
 
     List<MetaDataItem> orgUnitItems = metadata.getMetadataItems(ORG_UNIT);
 
-    assertEquals(2, orgUnitItems.size());
+    assertSize(2, orgUnitItems);
     assertEquals("C1", orgUnitItems.get(0).getUid());
     assertEquals("Facility 1", orgUnitItems.get(0).getName());
   }
@@ -160,7 +160,7 @@ class AnalyticsMetadataTest {
   void testGetDimensionItemNameIdMap() {
     Map<String, String> map = metadata.getDimensionItemNameIdMap(AnalyticsDimension.PERIOD);
 
-    assertEquals(4, map.keySet().size());
+    assertSize(4, map.keySet());
     assertEquals("B1", map.get("Month 1"));
     assertEquals("B2", map.get("Month 2"));
     assertEquals("B4", map.get("Month 4"));

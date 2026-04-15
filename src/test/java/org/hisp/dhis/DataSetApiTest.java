@@ -105,7 +105,7 @@ class DataSetApiTest {
                 .withExpandAssociations()
                 .addFilter(Filter.in("id", list("BfMAe6Itzgt"))));
 
-    assertEquals(1, dataSets.size());
+    assertSize(1, dataSets);
 
     DataSet dataSet = dataSets.get(0);
 

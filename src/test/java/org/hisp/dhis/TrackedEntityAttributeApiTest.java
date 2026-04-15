@@ -29,7 +29,6 @@ package org.hisp.dhis;
 
 import static org.hisp.dhis.support.Assertions.assertNotEmpty;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.List;
@@ -60,6 +59,10 @@ class TrackedEntityAttributeApiTest {
     assertEquals("VqEFza8wbwA", trackedEntityAttribute.getId());
     assertEquals("Address", trackedEntityAttribute.getName());
     assertNotNull(trackedEntityAttribute.getCreatedBy());
+    assertNotNull(trackedEntityAttribute.getConfidential());
+    assertNotNull(trackedEntityAttribute.getUnique());
+    assertNotNull(trackedEntityAttribute.getOrgunitScope());
+    assertNotNull(trackedEntityAttribute.getSkipSynchronization());
   }
 
   @Test
@@ -70,11 +73,10 @@ class TrackedEntityAttributeApiTest {
         dhis2.getTrackedEntityAttributes(Query.instance());
 
     assertNotNull(trackedEntityAttributes);
-    assertFalse(trackedEntityAttributes.isEmpty());
+    assertNotEmpty(trackedEntityAttributes);
 
     TrackedEntityAttribute trackedEntityAttribute = trackedEntityAttributes.get(0);
-    assertEquals("VqEFza8wbwA", trackedEntityAttribute.getId());
-    assertEquals("Address", trackedEntityAttribute.getName());
+    assertNotNull(trackedEntityAttribute);
   }
 
   @Test

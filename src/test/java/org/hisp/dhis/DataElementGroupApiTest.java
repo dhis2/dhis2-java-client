@@ -27,6 +27,7 @@
  */
 package org.hisp.dhis;
 
+import static org.hisp.dhis.support.Assertions.assertSize;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -67,7 +68,7 @@ class DataElementGroupApiTest {
     List<DataElement> dataElements = deg.getDataElements();
 
     assertNotNull(dataElements);
-    assertEquals(3, dataElements.size());
+    assertSize(3, dataElements);
 
     List<String> deIds =
         dataElements.stream().map(IdentifiableObject::getId).collect(Collectors.toList());

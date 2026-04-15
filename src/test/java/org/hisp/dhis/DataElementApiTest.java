@@ -29,6 +29,7 @@ package org.hisp.dhis;
 
 import static org.hisp.dhis.support.Assertions.assertNotBlank;
 import static org.hisp.dhis.support.Assertions.assertNotEmpty;
+import static org.hisp.dhis.support.Assertions.assertSize;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -185,8 +186,8 @@ class DataElementApiTest {
     assertNotNull(sharing);
     assertNotBlank(sharing.getOwner());
     assertNotBlank(sharing.getPublicAccess());
-    assertEquals(2, sharing.getUsers().size());
-    assertEquals(2, sharing.getUserGroups().size());
+    assertSize(2, sharing.getUsers().values());
+    assertSize(2, sharing.getUserGroups().values());
 
     UserAccess userAccess = sharing.getUsers().get("awtnYWiVEd5");
 

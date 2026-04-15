@@ -27,6 +27,7 @@
  */
 package org.hisp.dhis.util;
 
+import static org.hisp.dhis.support.Assertions.assertSize;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -51,7 +52,7 @@ class UidUtilsTest {
 
   @Test
   void testGenerateUids() {
-    assertEquals(3, UidUtils.generateUids(3).size());
+    assertSize(3, UidUtils.generateUids(3));
   }
 
   @Test

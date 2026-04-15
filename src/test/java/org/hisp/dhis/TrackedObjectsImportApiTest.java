@@ -27,6 +27,7 @@
  */
 package org.hisp.dhis;
 
+import static org.hisp.dhis.support.Assertions.assertSize;
 import static org.hisp.dhis.util.CollectionUtils.list;
 import static org.hisp.dhis.util.DateTimeUtils.toDate;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -247,7 +248,7 @@ class TrackedObjectsImportApiTest {
     RelationshipsResult relationshipResult = dhis2.getRelationships(relationshipQuery);
     assertNotNull(relationshipResult);
     assertNotNull(relationshipResult.getRelationships());
-    assertEquals(1, relationshipResult.getRelationships().size());
+    assertSize(1, relationshipResult.getRelationships());
     assertEquals(relationshipUidA, relationshipResult.getRelationships().get(0).getRelationship());
 
     TrackedEntityObjects trackedEntityRelationship = new TrackedEntityObjects();
@@ -294,7 +295,7 @@ class TrackedObjectsImportApiTest {
     assertEquals(0, response.getStats().getDeleted());
 
     assertNotNull(response.getValidationReport());
-    assertEquals(1, response.getValidationReport().getErrorReports().size());
+    assertSize(1, response.getValidationReport().getErrorReports());
 
     ErrorReport errorReport = response.getValidationReport().getErrorReports().get(0);
     assertNotNull(errorReport);

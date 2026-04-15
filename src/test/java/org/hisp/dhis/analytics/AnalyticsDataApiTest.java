@@ -84,7 +84,7 @@ class AnalyticsDataApiTest {
     List<AnalyticsHeader> headers = data.getHeaders();
 
     assertNotNull(headers);
-    assertEquals(3, headers.size());
+    assertSize(3, headers);
 
     AnalyticsHeader firstHeader = headers.get(0);
 

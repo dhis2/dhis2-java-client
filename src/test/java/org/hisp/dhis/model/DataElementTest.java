@@ -27,6 +27,7 @@
  */
 package org.hisp.dhis.model;
 
+import static org.hisp.dhis.support.Assertions.assertSize;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -44,7 +45,7 @@ class DataElementTest {
 
     assertNotNull(dataElement);
     assertEquals("cZtM3Zhg3FQ", dataElement.getId());
-    assertEquals(6, dataElement.getTranslations().size());
+    assertSize(6, dataElement.getTranslations());
     assertNotNull(dataElement.getSharing());
   }
 }

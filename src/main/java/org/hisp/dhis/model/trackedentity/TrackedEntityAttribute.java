@@ -27,6 +27,8 @@
  */
 package org.hisp.dhis.model.trackedentity;
 
+import static org.apache.commons.lang3.BooleanUtils.isTrue;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
@@ -53,13 +55,25 @@ public class TrackedEntityAttribute extends NameableObject {
 
   @JsonProperty private Boolean orgunitScope = false;
 
+  @JsonProperty private Boolean skipSynchronization = false;
+
   @JsonIgnore
-  public boolean isConfidentialNullSafe() {
-    return confidential != null && confidential;
+  public boolean isConfidential() {
+    return isTrue(confidential);
   }
 
   @JsonIgnore
-  public boolean isUniqueNullSafe() {
-    return unique != null && unique;
+  public boolean isUnique() {
+    return isTrue(unique);
+  }
+
+  @JsonIgnore
+  public boolean isOrgUnitScope() {
+    return isTrue(orgunitScope);
+  }
+
+  @JsonIgnore
+  public boolean isSkipSynchronization() {
+    return isTrue(skipSynchronization);
   }
 }

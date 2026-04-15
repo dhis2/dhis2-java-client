@@ -28,6 +28,7 @@
 package org.hisp.dhis;
 
 import static org.hisp.dhis.support.Assertions.assertNotEmpty;
+import static org.hisp.dhis.support.Assertions.assertSize;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -116,6 +117,6 @@ class TrackedEntityApiTest {
 
     assertNotNull(trackedEntities);
     assertNotEmpty(trackedEntities.getTrackedEntities());
-    assertEquals(2, trackedEntities.getTrackedEntities().size());
+    assertSize(2, trackedEntities.getTrackedEntities());
   }
 }

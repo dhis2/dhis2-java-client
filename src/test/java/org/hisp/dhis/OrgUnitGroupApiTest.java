@@ -29,6 +29,7 @@ package org.hisp.dhis;
 
 import static org.hisp.dhis.support.Assertions.assertNotBlank;
 import static org.hisp.dhis.support.Assertions.assertNotEmpty;
+import static org.hisp.dhis.support.Assertions.assertSize;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -68,7 +69,7 @@ class OrgUnitGroupApiTest {
     List<OrgUnit> orgUnits = oug.getOrgUnits();
 
     assertNotNull(orgUnits);
-    assertEquals(1, orgUnits.size());
+    assertSize(1, orgUnits);
 
     assertEquals("ImspTQPwCqd", orgUnits.get(0).getId());
     assertNotBlank(orgUnits.get(0).getName());
