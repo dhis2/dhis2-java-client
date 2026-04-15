@@ -165,8 +165,8 @@ class OrgUnitApiTest {
         dhis2.getOrgUnits(
             Query.instance()
                 .withRootJunction(RootJunction.OR)
-                .addFilter(Filter.like("name", "Sierra Leone"))
-                .addFilter(Filter.like("name", "Agape CHP")));
+                .addFilter(Filter.eq("id", "eIQbndfxQMb"))
+                .addFilter(Filter.eq("id", "at6UHUQatSo")));
 
     assertEquals(2, orgUnits.size());
   }

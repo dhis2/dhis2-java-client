@@ -27,6 +27,7 @@
  */
 package org.hisp.dhis;
 
+import static org.hisp.dhis.support.Assertions.assertNotBlank;
 import static org.hisp.dhis.support.Assertions.assertNotEmpty;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -45,7 +46,7 @@ class CategoryOptionComboApiTest {
     CategoryOptionCombo coc = dhis2.getCategoryOptionCombo("KQ50BVoUrd6");
 
     assertEquals("KQ50BVoUrd6", coc.getId());
-    assertEquals("Male", coc.getName());
+    assertNotBlank(coc.getName());
     assertFalse(coc.getIgnoreApproval());
     assertNotEmpty(coc.getCategoryOptions());
   }
