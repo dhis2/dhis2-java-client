@@ -49,6 +49,6 @@ public class ImportCount {
 
   @JsonIgnore
   public long getTotal() {
-    return imported + updated + ignored + deleted;
+    return (long) imported + updated + ignored + deleted;
   }
 }
