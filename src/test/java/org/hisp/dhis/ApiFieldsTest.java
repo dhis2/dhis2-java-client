@@ -79,7 +79,7 @@ class ApiFieldsTest {
         createdBy,lastUpdatedBy,translations,sharing,access,shortName,description,formName,\
         trackedEntityTypeAttributes[id,\
         trackedEntityAttribute[id,code,name,created,lastUpdated,attributeValues,shortName,description,valueType,\
-        aggregationType,confidential,unique,orgunitScope],displayInList,mandatory,searchable]],\
+        aggregationType,confidential,unique,orgunitScope,skipSynchronization],displayInList,mandatory,searchable]],\
         categoryCombo[id,code,name,created,lastUpdated,attributeValues,shortName,description,\
         categories[id,code,name,created,lastUpdated,attributeValues,createdBy,lastUpdatedBy,translations,\
         sharing,access,shortName,description,formName,dataDimensionType,dataDimension,\
@@ -115,7 +115,7 @@ class ApiFieldsTest {
         programTrackedEntityAttributes[id,code,name,program[id,code,name,created,lastUpdated,\
         attributeValues,shortName,description],\
         trackedEntityAttribute[id,code,name,created,lastUpdated,attributeValues,\
-        shortName,description,valueType,aggregationType,confidential,unique,orgunitScope],\
+        shortName,description,valueType,aggregationType,confidential,unique,orgunitScope,skipSynchronization],\
         sortOrder,displayInList,mandatory,allowFutureDate,searchable],\
         programRuleVariables[id,code,name,created,lastUpdated,attributeValues,createdBy,\
         lastUpdatedBy,translations,sharing,access,program[id,code,name,created,lastUpdated,attributeValues],\
@@ -147,7 +147,7 @@ class ApiFieldsTest {
         programTrackedEntityAttributes[id,code,name,\
         program[id,code,name,created,lastUpdated,attributeValues,shortName,description],\
         trackedEntityAttribute[id,code,name,created,lastUpdated,attributeValues,shortName,\
-        description,valueType,aggregationType,confidential,unique,orgunitScope],\
+        description,valueType,aggregationType,confidential,unique,orgunitScope,skipSynchronization],\
         sortOrder,displayInList,mandatory,allowFutureDate,searchable],\
         programType,\
         enrollmentDateLabel,incidentDateLabel,enrollmentLabel,followUpLabel,\

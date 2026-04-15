@@ -292,12 +292,15 @@ public class ApiFields {
 
   /** Tracked entity attribute fields. */
   public static final String TRACKED_ENTITY_ATTRIBUTE_FIELDS =
-      String.format("%s,valueType,aggregationType,confidential,unique,orgunitScope", NAME_FIELDS);
+      String.format(
+          "%s,valueType,aggregationType,confidential,unique,orgunitScope,skipSynchronization",
+          NAME_FIELDS);
 
   /** Tracked entity attribute extended fields. */
   public static final String TRACKED_ENTITY_ATTRIBUTE_EXT_FIELDS =
       String.format(
-          "%s,valueType,aggregationType,confidential,unique,orgunitScope", NAME_EXT_FIELDS);
+          "%s,valueType,aggregationType,confidential,unique,orgunitScope,skipSynchronization",
+          NAME_EXT_FIELDS);
 
   /** Tracked entity type fields. */
   public static final String TRACKED_ENTITY_TYPE_FIELDS =

@@ -188,12 +188,20 @@ class ProgramApiTest {
     assertEquals("NkvU4urhVNv", ptea.getId());
     assertNotNull(ptea.getProgram());
     assertEquals(PR_ID, ptea.getProgram().getId());
-    assertNotNull(ptea.getTrackedEntityAttribute());
-    assertEquals("lZGmxYbs97q", ptea.getTrackedEntityAttribute().getId());
     assertTrue(ptea.getDisplayInList());
     assertTrue(ptea.getMandatory());
     assertFalse(ptea.getAllowFutureDate());
     assertTrue(ptea.getSearchable());
+
+    TrackedEntityAttribute tea = ptea.getTrackedEntityAttribute();
+
+    assertNotNull(tea);
+    assertNotNull(tea.getId());
+    assertNotBlank(tea.getName());
+    assertNotNull(tea.getConfidential());
+    assertNotNull(tea.getUnique());
+    assertNotNull(tea.getOrgunitScope());
+    assertNotNull(tea.getSkipSynchronization());
 
     ProgramStage ps = retrieved.getProgramStages().get(0);
 
@@ -358,7 +366,12 @@ class ProgramApiTest {
     TrackedEntityAttribute tea = ptea.getTrackedEntityAttribute();
 
     assertNotNull(tea);
-    assertNotBlank(tea.getId());
+    assertNotNull(tea.getId());
+    assertNotBlank(tea.getName());
+    assertNotNull(tea.getConfidential());
+    assertNotNull(tea.getUnique());
+    assertNotNull(tea.getOrgunitScope());
+    assertNotNull(tea.getSkipSynchronization());
 
     ProgramStage ps = pr.getProgramStages().get(0);
 
@@ -464,7 +477,12 @@ class ProgramApiTest {
     TrackedEntityAttribute tea = ptea.getTrackedEntityAttribute();
 
     assertNotNull(tea);
-    assertNotBlank(tea.getId());
+    assertNotNull(tea.getId());
+    assertNotBlank(tea.getName());
+    assertNotNull(tea.getConfidential());
+    assertNotNull(tea.getUnique());
+    assertNotNull(tea.getOrgunitScope());
+    assertNotNull(tea.getSkipSynchronization());
 
     ProgramStage ps = pr.getProgramStages().get(0);
 

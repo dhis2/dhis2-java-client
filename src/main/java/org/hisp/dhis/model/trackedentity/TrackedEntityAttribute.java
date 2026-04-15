@@ -53,6 +53,8 @@ public class TrackedEntityAttribute extends NameableObject {
 
   @JsonProperty private Boolean orgunitScope = false;
 
+  @JsonProperty private Boolean skipSynchronization = false;
+
   @JsonIgnore
   public boolean isConfidentialNullSafe() {
     return confidential != null && confidential;
