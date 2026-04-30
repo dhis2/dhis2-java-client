@@ -419,6 +419,30 @@ public class CollectionUtils {
   }
 
   /**
+   * Returns an optional last item in the given list. Returns an empty optional if the given list is
+   * null or empty, or if the last item is null.
+   *
+   * @param <T> type.
+   * @param list the list.
+   * @return an optional last item in the given list.
+   */
+  public static <T> Optional<T> last(List<T> list) {
+    return empty(list) ? Optional.empty() : Optional.ofNullable(list.get(list.size() - 1));
+  }
+
+  /**
+   * Indicates if the given index is the last index in the given list. Returns false if the list is
+   * null or empty, or if the index is negative or out of bounds.
+   *
+   * @param list the list.
+   * @param index the index.
+   * @return true if the index is the last index in the list.
+   */
+  public static boolean isLast(List<?> list, int index) {
+    return list != null && !list.isEmpty() && index >= 0 && index == list.size() - 1;
+  }
+
+  /**
    * Converts the given collection to a comma separated string value of the joined string
    * representation of each item. Returns null if the given collection is null or empty.
    *
