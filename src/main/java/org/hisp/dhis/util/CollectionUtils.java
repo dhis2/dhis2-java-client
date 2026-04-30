@@ -109,24 +109,26 @@ public class CollectionUtils {
   }
 
   /**
-   * Returns a sublist of the given list of the given length, starting from the beginning at index
-   * 0. Does not throw any exceptions. Returns an empty list of the given items is null, or of the
-   * given length is less than or equal to zero.
+   * Returns a sublist of the given list of the given length starting from the beginning (i.e. index
+   * 0). Does not throw exceptions. Returns an empty list if the given items is null, or if the
+   * given size is less than or equal to zero. Returns a copy of the given list if the list size is
+   * less than or equal to the given size.
    *
    * @param <T> type.
    * @param items the items.
+   * @param size the size of the sublist.
    * @return a sublist.
    */
-  public static <T> List<T> sublist(List<T> items, int length) {
-    if (empty(items) || length <= 0) {
+  public static <T> List<T> sublist(List<T> items, int size) {
+    if (empty(items) || size <= 0) {
       return List.of();
     }
 
-    if (items.size() <= length) {
+    if (items.size() <= size) {
       return new ArrayList<>(items);
     }
 
-    return new ArrayList<>(items.subList(0, length));
+    return new ArrayList<>(items.subList(0, size));
   }
 
   /**
