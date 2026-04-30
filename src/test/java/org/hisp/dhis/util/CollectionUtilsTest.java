@@ -40,6 +40,8 @@ import static org.hisp.dhis.util.CollectionUtils.firstMatch;
 import static org.hisp.dhis.util.CollectionUtils.firstNonEmptyList;
 import static org.hisp.dhis.util.CollectionUtils.get;
 import static org.hisp.dhis.util.CollectionUtils.index;
+import static org.hisp.dhis.util.CollectionUtils.isLast;
+import static org.hisp.dhis.util.CollectionUtils.last;
 import static org.hisp.dhis.util.CollectionUtils.list;
 import static org.hisp.dhis.util.CollectionUtils.mapJoin;
 import static org.hisp.dhis.util.CollectionUtils.mapToCommaSeparated;
@@ -398,6 +400,29 @@ class CollectionUtilsTest {
     assertTrue(first(null).isEmpty());
     assertTrue(first(list()).isEmpty());
     assertTrue(first(list(null, "b", "c")).isEmpty());
+  }
+
+  @Test
+  void testLast() {
+    assertEquals("c", last(list("a", "b", "c")).get());
+    assertFalse(last(list("a", "b", "c")).isEmpty());
+    assertTrue(last(null).isEmpty());
+    assertTrue(last(list()).isEmpty());
+    assertTrue(last(list("a", "b", null)).isEmpty());
+  }
+
+  @Test
+  void testIsLast() {
+    List<String> list = list("a", "b", "c");
+
+    assertFalse(isLast(list, 0));
+    assertFalse(isLast(list, 1));
+    assertTrue(isLast(list, 2));
+
+    assertFalse(isLast(list, -1));
+    assertFalse(isLast(list, 3));
+    assertFalse(isLast(null, 0));
+    assertFalse(isLast(list(), 0));
   }
 
   @Test

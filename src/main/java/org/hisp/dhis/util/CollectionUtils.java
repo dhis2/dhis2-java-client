@@ -109,24 +109,26 @@ public class CollectionUtils {
   }
 
   /**
-   * Returns a sublist of the given list of the given length, starting from the beginning at index
-   * 0. Does not throw any exceptions. Returns an empty list of the given items is null, or of the
-   * given length is less than or equal to zero.
+   * Returns a sublist of the given list of the given length starting from the beginning (i.e. index
+   * 0). Does not throw exceptions. Returns an empty list if the given items is null, or if the
+   * given size is less than or equal to zero. Returns a copy of the given list if the list size is
+   * less than or equal to the given size.
    *
    * @param <T> type.
    * @param items the items.
+   * @param size the size of the sublist.
    * @return a sublist.
    */
-  public static <T> List<T> sublist(List<T> items, int length) {
-    if (empty(items) || length <= 0) {
+  public static <T> List<T> sublist(List<T> items, int size) {
+    if (empty(items) || size <= 0) {
       return List.of();
     }
 
-    if (items.size() <= length) {
+    if (items.size() <= size) {
       return new ArrayList<>(items);
     }
 
-    return new ArrayList<>(items.subList(0, length));
+    return new ArrayList<>(items.subList(0, size));
   }
 
   /**
@@ -414,6 +416,30 @@ public class CollectionUtils {
    */
   public static <T> Optional<T> first(Collection<T> collection) {
     return empty(collection) ? Optional.empty() : Optional.ofNullable(collection.iterator().next());
+  }
+
+  /**
+   * Returns an optional last item in the given list. Returns an empty optional if the given list is
+   * null or empty, or if the last item is null.
+   *
+   * @param <T> type.
+   * @param list the list.
+   * @return an optional last item in the given list.
+   */
+  public static <T> Optional<T> last(List<T> list) {
+    return empty(list) ? Optional.empty() : Optional.ofNullable(list.get(list.size() - 1));
+  }
+
+  /**
+   * Indicates if the given index is the last index in the given list. Returns false if the list is
+   * null or empty, or if the index is negative or out of bounds.
+   *
+   * @param list the list.
+   * @param index the index.
+   * @return true if the index is the last index in the list.
+   */
+  public static boolean isLast(List<?> list, int index) {
+    return list != null && !list.isEmpty() && index >= 0 && index == list.size() - 1;
   }
 
   /**

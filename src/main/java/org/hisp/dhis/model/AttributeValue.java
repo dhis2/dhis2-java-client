@@ -51,6 +51,15 @@ public class AttributeValue implements Serializable {
   }
 
   /**
+   * Indicates whether the attribute is not null.
+   *
+   * @return true if the attribute is not null.
+   */
+  public boolean hasAttribute() {
+    return attribute != null;
+  }
+
+  /**
    * Indicates whether the value is not null or empty.
    *
    * @return true if the value is not null or empty.
