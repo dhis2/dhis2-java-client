@@ -35,6 +35,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import lombok.experimental.Accessors;
 import org.hisp.dhis.model.AggregationType;
 import org.hisp.dhis.model.IdScheme;
@@ -53,6 +54,7 @@ import org.hisp.dhis.model.analytics.AnalyticsDimension;
 @Getter
 @Setter
 @Accessors(chain = true)
+@ToString
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class AnalyticsQuery {
   private final List<QueryDimension> dimensions = new ArrayList<>();

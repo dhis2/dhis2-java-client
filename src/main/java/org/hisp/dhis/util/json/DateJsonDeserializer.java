@@ -27,20 +27,20 @@
  */
 package org.hisp.dhis.util.json;
 
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.databind.DeserializationContext;
-import com.fasterxml.jackson.databind.JsonDeserializer;
-import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import org.hisp.dhis.util.DateTimeUtils;
+import tools.jackson.core.JacksonException;
+import tools.jackson.core.JsonParser;
+import tools.jackson.databind.DeserializationContext;
+import tools.jackson.databind.ValueDeserializer;
 
-public class DateJsonDeserializer extends JsonDeserializer<Date> {
+public class DateJsonDeserializer extends ValueDeserializer<Date> {
   @Override
-  public Date deserialize(JsonParser jsonParser, DeserializationContext deserializationContext)
-      throws IOException {
-    String dateString = jsonParser.getText();
+  public Date deserialize(JsonParser jsonParser, DeserializationContext ctxt)
+      throws JacksonException {
+    String dateString = jsonParser.getString();
     for (String dateFormat : DateTimeUtils.DATE_TIME_DESERIALIZATION_FORMATS) {
       try {
         // Note that SimpleDateFormat is not thread safe
@@ -49,6 +49,7 @@ public class DateJsonDeserializer extends JsonDeserializer<Date> {
         // Ignore and try next format
       }
     }
-    throw new IOException(String.format("Unable to parse date: '%s'", dateString));
+    ctxt.reportInputMismatch(this, "Unable to parse date: '%s'", dateString);
+    return null; // unreachable
   }
 }

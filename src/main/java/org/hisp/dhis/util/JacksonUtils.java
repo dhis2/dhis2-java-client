@@ -27,18 +27,9 @@
  */
 package org.hisp.dhis.util;
 
-import com.bedatadriven.jackson.datatype.jts.JtsModule;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.databind.module.SimpleModule;
-import java.io.IOException;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.UncheckedIOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -46,6 +37,14 @@ import java.util.Set;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.hisp.dhis.util.json.DateJsonDeserializer;
+import tools.jackson.core.type.TypeReference;
+import tools.jackson.databind.DeserializationFeature;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.ObjectMapper;
+import tools.jackson.databind.SerializationFeature;
+import tools.jackson.databind.cfg.DateTimeFeature;
+import tools.jackson.databind.json.JsonMapper;
+import tools.jackson.databind.module.SimpleModule;
 
 /** Utilities for JSON parsing and serialization. */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -77,17 +76,18 @@ public class JacksonUtils {
    * @return an {@link ObjectMapper}.
    */
   private static ObjectMapper getMapper() {
-    ObjectMapper objectMapper = new ObjectMapper();
-    objectMapper.registerModule(new JtsModule());
-    objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
-    objectMapper.disable(DeserializationFeature.FAIL_ON_IGNORED_PROPERTIES);
-    objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-    objectMapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
-    objectMapper.setSerializationInclusion(Include.NON_NULL);
-    objectMapper.setDateFormat(getDateFormatInternal());
-    objectMapper.setTimeZone(DateTimeUtils.TZ_UTC);
-    objectMapper.registerModule(getDateModule());
-    return objectMapper;
+    return JsonMapper.builder()
+        .disable(DateTimeFeature.WRITE_DATES_AS_TIMESTAMPS)
+        .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
+        .disable(SerializationFeature.FAIL_ON_EMPTY_BEANS)
+        .changeDefaultPropertyInclusion(
+            incl -> incl.withValueInclusion(JsonInclude.Include.NON_NULL))
+        .changeDefaultPropertyInclusion(
+            incl -> incl.withContentInclusion(JsonInclude.Include.NON_NULL))
+        .defaultDateFormat(getDateFormatInternal())
+        .defaultTimeZone(DateTimeUtils.TZ_UTC)
+        .addModule(getDateModule())
+        .build();
   }
 
   /**
@@ -119,11 +119,7 @@ public class JacksonUtils {
    * @return a JSON representation of the given object as a String.
    */
   public static String toJsonString(Object value) {
-    try {
-      return OBJECT_MAPPER.writeValueAsString(value);
-    } catch (IOException ex) {
-      throw new UncheckedIOException(ex);
-    }
+    return OBJECT_MAPPER.writeValueAsString(value);
   }
 
   /**
@@ -133,11 +129,7 @@ public class JacksonUtils {
    * @return a JSON representation of the given object as a formatted String.
    */
   public static String toFormattedJsonString(Object value) {
-    try {
-      return OBJECT_MAPPER.writerWithDefaultPrettyPrinter().writeValueAsString(value);
-    } catch (IOException ex) {
-      throw new UncheckedIOException(ex);
-    }
+    return OBJECT_MAPPER.writerWithDefaultPrettyPrinter().writeValueAsString(value);
   }
 
   /**
@@ -147,11 +139,7 @@ public class JacksonUtils {
    * @return a {@link JsonNode} representation of the JSON string.
    */
   public static JsonNode toJsonNode(String value) {
-    try {
-      return OBJECT_MAPPER.readTree(value);
-    } catch (IOException ex) {
-      throw new UncheckedIOException(ex);
-    }
+    return OBJECT_MAPPER.readTree(value);
   }
 
   /**
@@ -161,11 +149,7 @@ public class JacksonUtils {
    * @param value the object value.
    */
   public static void toJson(OutputStream out, Object value) {
-    try {
-      OBJECT_MAPPER.writeValue(out, value);
-    } catch (IOException ex) {
-      throw new UncheckedIOException(ex);
-    }
+    OBJECT_MAPPER.writeValue(out, value);
   }
 
   /**
@@ -177,11 +161,7 @@ public class JacksonUtils {
    * @return an object of type T.
    */
   public static <T> T fromJson(String string, Class<T> type) {
-    try {
-      return OBJECT_MAPPER.readValue(string, type);
-    } catch (IOException ex) {
-      throw new UncheckedIOException(ex);
-    }
+    return OBJECT_MAPPER.readValue(string, type);
   }
 
   /**
@@ -192,11 +172,7 @@ public class JacksonUtils {
    * @return an list of items of type T.
    */
   public static <T> List<T> fromJsonToList(String string) {
-    try {
-      return OBJECT_MAPPER.readValue(string, new TypeReference<List<T>>() {});
-    } catch (IOException ex) {
-      throw new UncheckedIOException(ex);
-    }
+    return OBJECT_MAPPER.readValue(string, new TypeReference<List<T>>() {});
   }
 
   /**
@@ -207,11 +183,7 @@ public class JacksonUtils {
    * @return an set of items of type T.
    */
   public static <T> Set<T> fromJsonToSet(String string) {
-    try {
-      return OBJECT_MAPPER.readValue(string, new TypeReference<Set<T>>() {});
-    } catch (IOException ex) {
-      throw new UncheckedIOException(ex);
-    }
+    return OBJECT_MAPPER.readValue(string, new TypeReference<Set<T>>() {});
   }
 
   /**
@@ -223,10 +195,6 @@ public class JacksonUtils {
    * @return an object of type T.
    */
   public static <T> T fromJson(InputStream in, Class<T> type) {
-    try {
-      return OBJECT_MAPPER.readValue(in, type);
-    } catch (IOException ex) {
-      throw new UncheckedIOException(ex);
-    }
+    return OBJECT_MAPPER.readValue(in, type);
   }
 }

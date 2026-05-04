@@ -27,7 +27,6 @@
  */
 package org.hisp.dhis;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.net.URI;
 import java.util.ArrayList;
@@ -47,6 +46,7 @@ import org.hisp.dhis.response.job.JobInfo;
 import org.hisp.dhis.response.job.JobInfoResponse;
 import org.hisp.dhis.response.job.JobNotification;
 import org.hisp.dhis.util.HttpUtils;
+import tools.jackson.databind.ObjectMapper;
 
 @Slf4j
 public class Dhis2AsyncRequest {
@@ -223,11 +223,7 @@ public class Dhis2AsyncRequest {
 
     String summary = getForBody(summaryUrl);
 
-    try {
-      return objectMapper.readValue(summary, klass);
-    } catch (IOException ex) {
-      throw new Dhis2ClientException("Failed to parse task summaries", ex);
-    }
+    return objectMapper.readValue(summary, klass);
   }
 
   /**
@@ -237,18 +233,13 @@ public class Dhis2AsyncRequest {
    * @return a {@link JobNotification}.
    */
   private JobNotification getLastNotification(URI url) {
-    try {
-      String response = getForBody(url);
+    String response = getForBody(url);
 
-      JobNotification[] notificationArray =
-          objectMapper.readValue(response, JobNotification[].class);
+    JobNotification[] notificationArray = objectMapper.readValue(response, JobNotification[].class);
 
-      List<JobNotification> notifications = new ArrayList<>(Arrays.asList(notificationArray));
+    List<JobNotification> notifications = new ArrayList<>(Arrays.asList(notificationArray));
 
-      return !notifications.isEmpty() ? notifications.get(0) : new JobNotification();
-    } catch (IOException ex) {
-      throw new Dhis2ClientException("Failed to parse job notifications", ex);
-    }
+    return !notifications.isEmpty() ? notifications.get(0) : new JobNotification();
   }
 
   /**

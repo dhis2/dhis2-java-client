@@ -28,6 +28,7 @@
 package org.hisp.dhis.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
@@ -46,6 +47,20 @@ import org.hisp.dhis.model.user.User;
 @Setter
 @ToString
 @NoArgsConstructor
+@JsonPropertyOrder(
+    value = {
+      "id",
+      "code",
+      "name",
+      "created",
+      "createdBy",
+      "lastUpdated",
+      "lastUpdatedBy",
+      "attributeValues",
+      "translations",
+      "sharing",
+      "access"
+    })
 public class IdentifiableObject implements Serializable {
   @JsonProperty protected String id;
 

@@ -27,16 +27,10 @@
  */
 package org.hisp.dhis.util;
 
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.dataformat.xml.XmlFactory;
-import com.fasterxml.jackson.dataformat.xml.XmlMapper;
-import java.io.IOException;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.StringReader;
-import java.io.UncheckedIOException;
 import java.text.SimpleDateFormat;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamConstants;
@@ -46,6 +40,10 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.hisp.dhis.response.Dhis2ClientException;
+import tools.jackson.databind.DeserializationFeature;
+import tools.jackson.databind.cfg.DateTimeFeature;
+import tools.jackson.dataformat.xml.XmlFactory;
+import tools.jackson.dataformat.xml.XmlMapper;
 
 /** Utilities for XML parsing and serialization. */
 @Slf4j
@@ -76,7 +74,7 @@ public class JacksonXmlUtils {
    * @return the XML factory used by the static {@link XmlMapper}.
    */
   public static XmlFactory getXmlFactory() {
-    XmlFactory xmlFactory = XML_MAPPER.getFactory();
+    XmlFactory xmlFactory = (XmlFactory) XML_MAPPER.tokenStreamFactory();
     xmlFactory.getXMLInputFactory().setProperty(XMLInputFactory.SUPPORT_DTD, false);
     xmlFactory
         .getXMLInputFactory()
@@ -90,13 +88,15 @@ public class JacksonXmlUtils {
    * @return a new {@link XmlMapper} instance.
    */
   private static XmlMapper getMapper() {
-    XmlMapper xmlMapper = new XmlMapper();
-    xmlMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
-    xmlMapper.disable(DeserializationFeature.FAIL_ON_IGNORED_PROPERTIES);
-    xmlMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-    xmlMapper.setSerializationInclusion(Include.NON_NULL);
-    xmlMapper.setDateFormat(new SimpleDateFormat(DATE_FORMAT));
-    return xmlMapper;
+    return XmlMapper.builder()
+        .disable(DateTimeFeature.WRITE_DATES_AS_TIMESTAMPS)
+        .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
+        .changeDefaultPropertyInclusion(
+            incl -> incl.withValueInclusion(JsonInclude.Include.NON_NULL))
+        .changeDefaultPropertyInclusion(
+            incl -> incl.withContentInclusion(JsonInclude.Include.NON_NULL))
+        .defaultDateFormat(new SimpleDateFormat(DATE_FORMAT))
+        .build();
   }
 
   /**
@@ -106,11 +106,7 @@ public class JacksonXmlUtils {
    * @return an XML representation of the given object as a String.
    */
   public static String toXmlString(Object value) {
-    try {
-      return XML_MAPPER.writeValueAsString(value);
-    } catch (IOException ex) {
-      throw new UncheckedIOException(ex);
-    }
+    return XML_MAPPER.writeValueAsString(value);
   }
 
   /**
@@ -120,11 +116,7 @@ public class JacksonXmlUtils {
    * @param value the object value to serialize.
    */
   public static void toXml(OutputStream out, Object value) {
-    try {
-      XML_MAPPER.writeValue(out, value);
-    } catch (IOException ex) {
-      throw new UncheckedIOException(ex);
-    }
+    XML_MAPPER.writeValue(out, value);
   }
 
   /**
@@ -136,11 +128,7 @@ public class JacksonXmlUtils {
    * @return an object of type T.
    */
   public static <T> T fromXml(String string, Class<T> type) {
-    try {
-      return XML_MAPPER.readValue(string, type);
-    } catch (IOException ex) {
-      throw new UncheckedIOException(ex);
-    }
+    return XML_MAPPER.readValue(string, type);
   }
 
   /**
@@ -152,11 +140,7 @@ public class JacksonXmlUtils {
    * @return an object of type T.
    */
   public static <T> T fromXml(InputStream in, Class<T> type) {
-    try {
-      return XML_MAPPER.readValue(in, type);
-    } catch (IOException ex) {
-      throw new UncheckedIOException(ex);
-    }
+    return XML_MAPPER.readValue(in, type);
   }
 
   /**
