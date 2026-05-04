@@ -41,7 +41,6 @@ import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.hisp.dhis.response.Dhis2ClientException;
 import tools.jackson.databind.DeserializationFeature;
-import tools.jackson.databind.cfg.DateTimeFeature;
 import tools.jackson.dataformat.xml.XmlFactory;
 import tools.jackson.dataformat.xml.XmlMapper;
 
@@ -89,7 +88,6 @@ public class JacksonXmlUtils {
    */
   private static XmlMapper getMapper() {
     return XmlMapper.builder()
-        .disable(DateTimeFeature.WRITE_DATES_AS_TIMESTAMPS)
         .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
         .changeDefaultPropertyInclusion(
             incl -> incl.withValueInclusion(JsonInclude.Include.NON_NULL))

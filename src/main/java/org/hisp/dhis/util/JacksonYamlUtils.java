@@ -32,7 +32,6 @@ import java.io.OutputStream;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import tools.jackson.databind.cfg.DateTimeFeature;
 import tools.jackson.dataformat.yaml.YAMLMapper;
 import tools.jackson.dataformat.yaml.YAMLWriteFeature;
 
@@ -95,9 +94,6 @@ public class JacksonYamlUtils {
    * @return an {@link YAMLMapper}.
    */
   private static YAMLMapper getMapper() {
-    return YAMLMapper.builder()
-        .disable(YAMLWriteFeature.WRITE_DOC_START_MARKER)
-        .disable(DateTimeFeature.WRITE_DATES_AS_TIMESTAMPS)
-        .build();
+    return YAMLMapper.builder().disable(YAMLWriteFeature.WRITE_DOC_START_MARKER).build();
   }
 }

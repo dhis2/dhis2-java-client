@@ -45,7 +45,6 @@ import tools.jackson.databind.DeserializationFeature;
 import tools.jackson.databind.JsonNode;
 import tools.jackson.databind.ObjectMapper;
 import tools.jackson.databind.SerializationFeature;
-import tools.jackson.databind.cfg.DateTimeFeature;
 import tools.jackson.databind.json.JsonMapper;
 import tools.jackson.databind.module.SimpleModule;
 
@@ -80,7 +79,6 @@ public class JacksonUtils {
    */
   private static ObjectMapper getMapper() {
     return JsonMapper.builder()
-        .disable(DateTimeFeature.WRITE_DATES_AS_TIMESTAMPS)
         .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
         .disable(SerializationFeature.FAIL_ON_EMPTY_BEANS)
         .changeDefaultPropertyInclusion(
@@ -89,7 +87,7 @@ public class JacksonUtils {
             incl -> incl.withContentInclusion(JsonInclude.Include.NON_NULL))
         .defaultDateFormat(getDateFormatInternal())
         .defaultTimeZone(DateTimeUtils.TZ_UTC)
-        .addModule(getDateModule())
+        .addModule(getCustomModule())
         .build();
   }
 
@@ -98,7 +96,7 @@ public class JacksonUtils {
    *
    * @return a {@link SimpleModule} with a custom date deserializer.
    */
-  private static SimpleModule getDateModule() {
+  private static SimpleModule getCustomModule() {
     SimpleModule module = new SimpleModule();
     module.addDeserializer(Date.class, new DateJsonDeserializer());
     module.addSerializer(Geometry.class, new GeometryJsonSerializer());
