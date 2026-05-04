@@ -29,6 +29,7 @@ package org.hisp.dhis.model.event;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -47,6 +48,23 @@ import org.locationtech.jts.geom.Geometry;
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @ToString(onlyExplicitlyIncluded = true)
+@JsonPropertyOrder({
+  "event",
+  "program",
+  "trackedEntity",
+  "programStage",
+  "enrollment",
+  "orgUnit",
+  "attributeOptionCombo",
+  "status",
+  "createdAt",
+  "createdAtClient",
+  "updatedAt",
+  "updatedAtClient",
+  "scheduledAt",
+  "occurredAt",
+  "completedAt"
+})
 public class Event implements Serializable {
   @EqualsAndHashCode.Include
   @ToString.Include
