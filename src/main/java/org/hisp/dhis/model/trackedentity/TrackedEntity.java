@@ -32,6 +32,7 @@ import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -49,6 +50,15 @@ import org.locationtech.jts.geom.Geometry;
 @Setter
 @ToString
 @NoArgsConstructor
+@JsonPropertyOrder({
+  "trackedEntity",
+  "trackedEntityType",
+  "createdAt",
+  "createdAtClient",
+  "updatedAt",
+  "updatedAtClient",
+  "orgUnit"
+})
 public class TrackedEntity implements Serializable {
   @JsonProperty private String trackedEntity;
 
