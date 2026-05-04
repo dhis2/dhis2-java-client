@@ -37,6 +37,9 @@ import java.util.Set;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.hisp.dhis.util.json.DateJsonDeserializer;
+import org.hisp.dhis.util.json.GeometryJsonDeserializer;
+import org.hisp.dhis.util.json.GeometryJsonSerializer;
+import org.locationtech.jts.geom.Geometry;
 import tools.jackson.core.type.TypeReference;
 import tools.jackson.databind.DeserializationFeature;
 import tools.jackson.databind.JsonNode;
@@ -98,6 +101,8 @@ public class JacksonUtils {
   private static SimpleModule getDateModule() {
     SimpleModule module = new SimpleModule();
     module.addDeserializer(Date.class, new DateJsonDeserializer());
+    module.addSerializer(Geometry.class, new GeometryJsonSerializer());
+    module.addDeserializer(Geometry.class, new GeometryJsonDeserializer());
     return module;
   }
 
