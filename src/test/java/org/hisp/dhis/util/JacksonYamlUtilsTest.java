@@ -49,7 +49,7 @@ class JacksonYamlUtilsTest {
         """
         id: "YDb6ff4R3a8"
         name: "ThinkPadT14s"
-        created: "2024-01-15T14:32:12.732+00:00"
+        created: "2024-01-15T14:32:12.732Z"
         """;
 
     Product object = new Product();
@@ -69,10 +69,10 @@ class JacksonYamlUtilsTest {
         products:
         - id: "YDb6ff4R3a8"
           name: "ThinkPad T14s"
-          created: "2024-01-15T14:32:12.732+00:00"
+          created: "2024-01-15T14:32:12.732Z"
         - id: "p84TSR7yXnc"
           name: "Dell XPS 13"
-          created: "2024-01-15T14:32:12.732+00:00"
+          created: "2024-01-15T14:32:12.732Z"
         """;
 
     Product pA = new Product();
@@ -99,10 +99,10 @@ class JacksonYamlUtilsTest {
         products:
         - id: "YDb6ff4R3a8"
           name: "ThinkPad T14s"
-          created: "2024-01-15T14:32:12.732+00:00"
+          created: "2024-01-15T14:32:12.732Z"
         - id: "p84TSR7yXnc"
           name: "Dell XPS 13"
-          created: "2024-01-15T14:32:12.732+00:00"
+          created: "2024-01-15T14:32:12.732Z"
         """;
 
     Container container = JacksonYamlUtils.fromYaml(yaml, Container.class);

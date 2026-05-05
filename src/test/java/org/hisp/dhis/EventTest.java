@@ -80,10 +80,10 @@ class EventTest {
     String expected =
         """
         {\
+        "event":"fq7DInE403B",\
         "status":"ACTIVE",\
-        "geometry":{"type":"Point","coordinates":[10.752,59.914]},\
         "dataValues":[],\
-        "event":"fq7DInE403B"}""";
+        "geometry":{"type":"Point","coordinates":[10.752,59.914]}}""";
 
     assertEquals(expected, actual);
   }
@@ -133,6 +133,7 @@ class EventTest {
     String expected =
         """
         {\
+        "event":"fq7DInE403B",\
         "programStage":"Zj7UnCAulEk",\
         "orgUnit":"DiszpKrYNg8",\
         "status":"COMPLETED",\
@@ -140,8 +141,7 @@ class EventTest {
         "updatedAt":"2025-03-10T14:35:22.314",\
         "occurredAt":"2025-03-10T14:35:22.314",\
         "completedAt":"2025-03-10T14:35:22.314",\
-        "dataValues":[],\
-        "event":"fq7DInE403B"}""";
+        "dataValues":[]}""";
 
     assertEquals(expected, actual);
   }

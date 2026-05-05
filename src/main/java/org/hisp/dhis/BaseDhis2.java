@@ -38,7 +38,6 @@ import static org.hisp.dhis.util.CollectionUtils.asList;
 import static org.hisp.dhis.util.CollectionUtils.toCommaSeparated;
 import static org.hisp.dhis.util.HttpUtils.getUriAsString;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -118,6 +117,7 @@ import org.hisp.dhis.response.completedatasetregistration.CompleteDataSetRegistr
 import org.hisp.dhis.util.DateTimeUtils;
 import org.hisp.dhis.util.HttpUtils;
 import org.hisp.dhis.util.JacksonUtils;
+import tools.jackson.databind.ObjectMapper;
 
 /**
  * @author Lars Helge Overland
@@ -1188,12 +1188,7 @@ public class BaseDhis2 {
    * @throws IOException if reading failed.
    */
   protected <T> T readValue(String content, Class<T> type) throws IOException {
-    try {
-      return objectMapper.readValue(content, type);
-    } catch (IOException ex) {
-      log.error("JSON deserialization error for content: {}", content);
-      throw ex;
-    }
+    return objectMapper.readValue(content, type);
   }
 
   /**
@@ -1289,15 +1284,11 @@ public class BaseDhis2 {
    * @throws Dhis2ClientException if the serialization failed.
    */
   protected String toJsonString(Object object) {
-    try {
-      String json = objectMapper.writeValueAsString(object);
+    String json = objectMapper.writeValueAsString(object);
 
-      log("Object JSON: '{}'", json);
+    log("Object JSON: '{}'", json);
 
-      return json;
-    } catch (IOException ex) {
-      throw new Dhis2ClientException("Failed to deserialize JSON", ex);
-    }
+    return json;
   }
 
   /**

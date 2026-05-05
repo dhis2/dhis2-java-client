@@ -27,29 +27,19 @@
  */
 package org.hisp.dhis.util.json;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import org.hisp.dhis.util.DateTimeUtils;
+import org.locationtech.jts.geom.Geometry;
+import org.locationtech.jts.io.geojson.GeoJsonWriter;
 import tools.jackson.core.JacksonException;
-import tools.jackson.core.JsonParser;
-import tools.jackson.databind.DeserializationContext;
-import tools.jackson.databind.ValueDeserializer;
+import tools.jackson.core.JsonGenerator;
+import tools.jackson.databind.SerializationContext;
+import tools.jackson.databind.ValueSerializer;
 
-public class DateJsonDeserializer extends ValueDeserializer<Date> {
+public class GeometryJsonSerializer extends ValueSerializer<Geometry> {
   @Override
-  public Date deserialize(JsonParser jsonParser, DeserializationContext ctxt)
+  public void serialize(Geometry geometry, JsonGenerator gen, SerializationContext provider)
       throws JacksonException {
-    String dateString = jsonParser.getString();
-    for (String dateFormat : DateTimeUtils.DATE_TIME_DESERIALIZATION_FORMATS) {
-      try {
-        // Note that SimpleDateFormat is not thread safe
-        return new SimpleDateFormat(dateFormat).parse(dateString);
-      } catch (ParseException ex) {
-        // Ignore and try next format
-      }
-    }
-    ctxt.reportInputMismatch(this, "Unable to parse date: '%s'", dateString);
-    return null; // unreachable
+    GeoJsonWriter writer = new GeoJsonWriter();
+    writer.setEncodeCRS(false);
+    gen.writeRawValue(writer.write(geometry));
   }
 }

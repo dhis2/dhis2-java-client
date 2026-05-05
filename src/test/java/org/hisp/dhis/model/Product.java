@@ -28,7 +28,8 @@
 package org.hisp.dhis.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonRootName;
 import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -39,7 +40,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@JacksonXmlRootElement(localName = "product")
+@JsonRootName(value = "product")
+@JsonPropertyOrder(value = {"id", "name", "created"})
 public class Product {
   @EqualsAndHashCode.Include @JsonProperty private String id;
 

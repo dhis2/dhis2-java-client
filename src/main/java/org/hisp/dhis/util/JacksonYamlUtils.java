@@ -27,16 +27,13 @@
  */
 package org.hisp.dhis.util;
 
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator.Feature;
-import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.UncheckedIOException;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import tools.jackson.dataformat.yaml.YAMLMapper;
+import tools.jackson.dataformat.yaml.YAMLWriteFeature;
 
 @Slf4j
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -54,11 +51,7 @@ public class JacksonYamlUtils {
    * @return an YAML representation of the given object as a String.
    */
   public static String toYamlString(Object value) {
-    try {
-      return YAML_MAPPER.writeValueAsString(value);
-    } catch (IOException ex) {
-      throw new UncheckedIOException(ex);
-    }
+    return YAML_MAPPER.writeValueAsString(value);
   }
 
   /**
@@ -68,11 +61,7 @@ public class JacksonYamlUtils {
    * @param value the object value to serialize.
    */
   public static void toYaml(OutputStream out, Object value) {
-    try {
-      YAML_MAPPER.writeValue(out, value);
-    } catch (IOException ex) {
-      throw new UncheckedIOException(ex);
-    }
+    YAML_MAPPER.writeValue(out, value);
   }
 
   /**
@@ -84,11 +73,7 @@ public class JacksonYamlUtils {
    * @return an object of type T.
    */
   public static <T> T fromYaml(String string, Class<T> type) {
-    try {
-      return YAML_MAPPER.readValue(string, type);
-    } catch (IOException ex) {
-      throw new UncheckedIOException(ex);
-    }
+    return YAML_MAPPER.readValue(string, type);
   }
 
   /**
@@ -100,11 +85,7 @@ public class JacksonYamlUtils {
    * @return an object of type T.
    */
   public static <T> T fromYaml(InputStream in, Class<T> type) {
-    try {
-      return YAML_MAPPER.readValue(in, type);
-    } catch (IOException ex) {
-      throw new UncheckedIOException(ex);
-    }
+    return YAML_MAPPER.readValue(in, type);
   }
 
   /**
@@ -113,9 +94,6 @@ public class JacksonYamlUtils {
    * @return an {@link YAMLMapper}.
    */
   private static YAMLMapper getMapper() {
-    YAMLMapper mapper = new YAMLMapper();
-    mapper.disable(Feature.WRITE_DOC_START_MARKER);
-    mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
-    return mapper;
+    return YAMLMapper.builder().disable(YAMLWriteFeature.WRITE_DOC_START_MARKER).build();
   }
 }

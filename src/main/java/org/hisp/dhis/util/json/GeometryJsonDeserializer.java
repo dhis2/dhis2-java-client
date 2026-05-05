@@ -27,29 +27,24 @@
  */
 package org.hisp.dhis.util.json;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import org.hisp.dhis.util.DateTimeUtils;
+import org.locationtech.jts.geom.Geometry;
+import org.locationtech.jts.io.ParseException;
+import org.locationtech.jts.io.geojson.GeoJsonReader;
 import tools.jackson.core.JacksonException;
 import tools.jackson.core.JsonParser;
 import tools.jackson.databind.DeserializationContext;
 import tools.jackson.databind.ValueDeserializer;
 
-public class DateJsonDeserializer extends ValueDeserializer<Date> {
+public class GeometryJsonDeserializer extends ValueDeserializer<Geometry> {
   @Override
-  public Date deserialize(JsonParser jsonParser, DeserializationContext ctxt)
+  public Geometry deserialize(JsonParser parser, DeserializationContext ctxt)
       throws JacksonException {
-    String dateString = jsonParser.getString();
-    for (String dateFormat : DateTimeUtils.DATE_TIME_DESERIALIZATION_FORMATS) {
-      try {
-        // Note that SimpleDateFormat is not thread safe
-        return new SimpleDateFormat(dateFormat).parse(dateString);
-      } catch (ParseException ex) {
-        // Ignore and try next format
-      }
+    String geoJson = parser.readValueAsTree().toString();
+    try {
+      return new GeoJsonReader().read(geoJson);
+    } catch (ParseException e) {
+      ctxt.reportInputMismatch(this, "Unable to parse geometry: %s", e.getMessage());
+      return null; // unreachable
     }
-    ctxt.reportInputMismatch(this, "Unable to parse date: '%s'", dateString);
-    return null; // unreachable
   }
 }
