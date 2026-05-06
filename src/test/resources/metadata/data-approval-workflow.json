@@ -1,0 +1,20 @@
+{
+  "id": "wkn0K4gtVHo",
+  "code": "MALARIA_WORKFLOW",
+  "name": "Malaria Approval Workflow",
+  "periodType": "Monthly",
+  "dataSets": [
+    {
+      "id": "pBOMPrpg1QX",
+      "name": "Mortality < 5 years"
+    },
+    {
+      "id": "VTdjfLXXmoi",
+      "name": "Child Health"
+    },
+    {
+      "id": "Lpw6GcnTrmS",
+      "name": "Malaria Annual Data"
+    }
+  ]
+}
