@@ -72,7 +72,8 @@ public class DataResponse extends Response {
    * @return a {@link DataResponse} indicating a HTTP 201 Created status.
    */
   public static DataResponse created(String id) {
-    return new DataResponse(Status.OK, HttpStatus.CREATED, "Object created", getIdMap(id));
+    return new DataResponse(Status.OK, HttpStatus.CREATED, HttpStatus.CREATED.getReasonPhrase(),
+        getIdMap(id));
   }
 
   /**

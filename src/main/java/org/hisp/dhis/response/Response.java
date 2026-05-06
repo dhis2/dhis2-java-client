@@ -129,7 +129,16 @@ public class Response extends BaseHttpResponse {
    * @return a {@link Response} indicating a HTTP 200 OK status.
    */
   public static Response ok() {
-    return new Response(Status.OK, HttpStatus.OK, HttpStatus.OK.name());
+    return new Response(Status.OK, HttpStatus.OK, HttpStatus.OK.getReasonPhrase());
+  }
+
+  /**
+   * Creates a {@link Response} indicating a HTTP 204 OK status.
+   *
+   * @return a {@link Response} indicating a HTTP 204 OK status.
+   */
+  public static Response noContent() {
+    return new Response(Status.OK, HttpStatus.NO_CONTENT, HttpStatus.NO_CONTENT.getReasonPhrase());
   }
 
   /**
