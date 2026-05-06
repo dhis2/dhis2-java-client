@@ -43,6 +43,8 @@ import org.hisp.dhis.response.Status;
 @Setter
 @NoArgsConstructor
 public class DataResponse extends Response {
+  private static final String KEY_ID = "id";
+
   @JsonProperty protected Object data;
 
   /**
@@ -64,12 +66,22 @@ public class DataResponse extends Response {
   }
 
   /**
+   * Creates a {@link DataResponse} indicating a HTTP 201 Created status.
+   *
+   * @param id the identifier of the created object.
+   * @return a {@link DataResponse} indicating a HTTP 201 Created status.
+   */
+  public static DataResponse created(String id) {
+    return new DataResponse(Status.OK, HttpStatus.CREATED, "Object created", getIdMap(id));
+  }
+
+  /**
    * Creates a map with a single entry where the key is "id" and the value is the provided value.
    *
    * @param id the identifier value.
    * @return a map containing the "id" entry.
    */
   public static Map<String, String> getIdMap(String id) {
-    return Map.of("id", id);
+    return Map.of(KEY_ID, id);
   }
 }
