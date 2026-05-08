@@ -239,6 +239,10 @@ public class ApiFields {
           "%1$s,organisationUnits[%2$s],workflow[%2$s],indicators[%2$s],sections[%2$s],legendSets[%2$s]",
           DATA_SET_FIELDS, NAME_FIELDS);
 
+  /** Data approval workflow fields. */
+  public static final String DATA_APPROVAL_WORKFLOW_FIELDS =
+      String.format("%s,periodType,dataSets[%s]", NAME_EXT_FIELDS, NAME_FIELDS);
+
   /** Data entry form fields. */
   public static final String DATA_ENTRY_FORM_FIELDS =
       String.format("%s,htmlCode,style,format", NAME_FIELDS);

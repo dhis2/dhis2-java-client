@@ -88,6 +88,8 @@ public class Dhis2Objects implements Serializable {
 
   @JsonProperty private List<DataEntryForm> dataEntryForms = new ArrayList<>();
 
+  @JsonProperty private List<DataApprovalWorkflow> dataApprovalWorkflows = new ArrayList<>();
+
   @JsonProperty private List<DataSet> dataSets = new ArrayList<>();
 
   @JsonProperty private List<Dimension> dimensions = new ArrayList<>();
