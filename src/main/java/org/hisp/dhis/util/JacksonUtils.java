@@ -51,20 +51,30 @@ import tools.jackson.databind.module.SimpleModule;
 /** Utilities for JSON parsing and serialization. */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class JacksonUtils {
-  /** Static JSON object mapper. */
-  private static final ObjectMapper OBJECT_MAPPER;
+  /** Static JSON mapper. */
+  private static final JsonMapper JSON_MAPPER;
 
   static {
-    OBJECT_MAPPER = getMapper();
+    JSON_MAPPER = createJsonMapper();
   }
 
   /**
-   * Returns an {@link ObjectMapper}.
+   * Returns a {@link JsonMapper}.
    *
-   * @return an {@link ObjectMapper}.
+   * @return a {@link JsonMapper}.
+   * @deprecated Use {@code getJsonMapper}.
    */
-  public static ObjectMapper getObjectMapper() {
-    return OBJECT_MAPPER;
+  public static JsonMapper getObjectMapper() {
+    return JSON_MAPPER;
+  }
+
+  /**
+   * Returns a {@link JsonMapper}.
+   *
+   * @return a {@link JsonMapper}.
+   */
+  public static JsonMapper getJsonMapper() {
+    return JSON_MAPPER;
   }
 
   /**
@@ -77,7 +87,7 @@ public class JacksonUtils {
    *
    * @return an {@link ObjectMapper}.
    */
-  private static ObjectMapper getMapper() {
+  private static JsonMapper createJsonMapper() {
     return JsonMapper.builder()
         .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
         .disable(SerializationFeature.FAIL_ON_EMPTY_BEANS)
@@ -122,7 +132,7 @@ public class JacksonUtils {
    * @return a JSON representation of the given object as a String.
    */
   public static String toJsonString(Object value) {
-    return OBJECT_MAPPER.writeValueAsString(value);
+    return JSON_MAPPER.writeValueAsString(value);
   }
 
   /**
@@ -132,7 +142,7 @@ public class JacksonUtils {
    * @return a JSON representation of the given object as a formatted String.
    */
   public static String toFormattedJsonString(Object value) {
-    return OBJECT_MAPPER.writerWithDefaultPrettyPrinter().writeValueAsString(value);
+    return JSON_MAPPER.writerWithDefaultPrettyPrinter().writeValueAsString(value);
   }
 
   /**
@@ -142,7 +152,7 @@ public class JacksonUtils {
    * @return a {@link JsonNode} representation of the JSON string.
    */
   public static JsonNode toJsonNode(String value) {
-    return OBJECT_MAPPER.readTree(value);
+    return JSON_MAPPER.readTree(value);
   }
 
   /**
@@ -152,7 +162,7 @@ public class JacksonUtils {
    * @param value the object value.
    */
   public static void toJson(OutputStream out, Object value) {
-    OBJECT_MAPPER.writeValue(out, value);
+    JSON_MAPPER.writeValue(out, value);
   }
 
   /**
@@ -164,7 +174,7 @@ public class JacksonUtils {
    * @return an object of type T.
    */
   public static <T> T fromJson(String string, Class<T> type) {
-    return OBJECT_MAPPER.readValue(string, type);
+    return JSON_MAPPER.readValue(string, type);
   }
 
   /**
@@ -175,7 +185,7 @@ public class JacksonUtils {
    * @return an list of items of type T.
    */
   public static <T> List<T> fromJsonToList(String string) {
-    return OBJECT_MAPPER.readValue(string, new TypeReference<List<T>>() {});
+    return JSON_MAPPER.readValue(string, new TypeReference<List<T>>() {});
   }
 
   /**
@@ -186,7 +196,7 @@ public class JacksonUtils {
    * @return an set of items of type T.
    */
   public static <T> Set<T> fromJsonToSet(String string) {
-    return OBJECT_MAPPER.readValue(string, new TypeReference<Set<T>>() {});
+    return JSON_MAPPER.readValue(string, new TypeReference<Set<T>>() {});
   }
 
   /**
@@ -198,6 +208,6 @@ public class JacksonUtils {
    * @return an object of type T.
    */
   public static <T> T fromJson(InputStream in, Class<T> type) {
-    return OBJECT_MAPPER.readValue(in, type);
+    return JSON_MAPPER.readValue(in, type);
   }
 }
