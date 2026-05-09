@@ -44,6 +44,9 @@ import org.hisp.dhis.model.DataElement;
 import org.hisp.dhis.model.Option;
 import org.hisp.dhis.model.Product;
 import org.hisp.dhis.model.ValueType;
+import org.hisp.dhis.response.HttpStatus;
+import org.hisp.dhis.response.Response;
+import org.hisp.dhis.response.Status;
 import org.hisp.dhis.support.TestTags;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -268,6 +271,31 @@ class JacksonUtilsTest {
 
     assertSize(5, list);
     assertEquals(expected, list);
+  }
+
+  @Test
+  void testToJsonEum() {
+    Response response = new Response(Status.OK, HttpStatus.CONFLICT, "Conflict");
+
+    String expected =
+        """
+        {"httpStatusCode":409,"httpStatus":"CONFLICT","status":"OK","message":"Conflict"}""";
+
+    assertEquals(expected, JacksonUtils.toJsonString(response));
+  }
+
+  @Test
+  void testFromJsonEnum() {
+    String json =
+        """
+        {"httpStatusCode":409,"httpStatus":"CONFLICT","status":"OK","message":"Conflict"}""";
+
+    Response response = JacksonUtils.fromJson(json, Response.class);
+
+    assertNotNull(response);
+    assertEquals(409, response.getHttpStatusCode());
+    assertEquals(Status.OK, response.getStatus());
+    assertEquals(HttpStatus.CONFLICT, response.getHttpStatus());
   }
 
   /**
