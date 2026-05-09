@@ -221,7 +221,7 @@ public enum HttpStatus {
     try {
       return Enum.valueOf(HttpStatus.class, name);
     } catch (IllegalArgumentException ex) {
-      throw new IllegalArgumentFormatException("No matching name for status code: {}", name);
+      throw new IllegalArgumentFormatException("No matching name for status code: '{}'", name);
     }
   }
 
