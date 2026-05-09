@@ -117,7 +117,7 @@ import org.hisp.dhis.response.completedatasetregistration.CompleteDataSetRegistr
 import org.hisp.dhis.util.DateTimeUtils;
 import org.hisp.dhis.util.HttpUtils;
 import org.hisp.dhis.util.JacksonUtils;
-import tools.jackson.databind.ObjectMapper;
+import tools.jackson.databind.json.JsonMapper;
 
 /**
  * @author Lars Helge Overland
@@ -163,7 +163,7 @@ public class BaseDhis2 {
 
   protected final Dhis2Config config;
 
-  protected final ObjectMapper objectMapper;
+  protected final JsonMapper objectMapper;
 
   protected final CloseableHttpClient httpClient;
 
@@ -175,7 +175,7 @@ public class BaseDhis2 {
   public BaseDhis2(Dhis2Config config) {
     Objects.requireNonNull(config, "Config must be specified");
     this.config = config;
-    this.objectMapper = JacksonUtils.getObjectMapper();
+    this.objectMapper = JacksonUtils.getJsonMapper();
     this.httpClient = HttpClients.createDefault();
   }
 
