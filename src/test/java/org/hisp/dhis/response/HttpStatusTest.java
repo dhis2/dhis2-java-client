@@ -69,6 +69,6 @@ class HttpStatusTest {
         assertThrows(IllegalArgumentFormatException.class, () -> HttpStatus.fromName("INVALID"));
 
     assertNotNull(exception);
-    assertEquals("No matching name for status code: INVALID", exception.getMessage());
+    assertEquals("No matching name for status code: 'INVALID'", exception.getMessage());
   }
 }
