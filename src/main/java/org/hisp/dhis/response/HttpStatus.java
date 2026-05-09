@@ -27,7 +27,6 @@
  */
 package org.hisp.dhis.response;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import org.hisp.dhis.model.exception.IllegalArgumentFormatException;
 
 /** Enumeration of HTTP status codes. */
@@ -184,21 +183,11 @@ public enum HttpStatus {
   }
 
   /**
-   * Return a string representation of this status code.
-   *
-   * @return a string representation of this status code.
-   */
-  @Override
-  public String toString() {
-    return String.format("%s %s", value, name());
-  }
-
-  /**
    * Return the enum constant of this type with the specified numeric value.
    *
-   * @param statusCode the numeric value of the enum to be returned
-   * @return the enum constant with the specified numeric value
-   * @throws IllegalArgumentException if this enum has no constant for the specified numeric value
+   * @param statusCode the numeric value of the enum to be returned.
+   * @return the enum constant with the specified numeric value.
+   * @throws IllegalArgumentException if this enum has no constant for the specified numeric value.
    */
   public static HttpStatus valueOf(int statusCode) {
     HttpStatus status = resolve(statusCode);
@@ -212,11 +201,10 @@ public enum HttpStatus {
   /**
    * Return the enum constant of this type with the specified name.
    *
-   * @param name the enum name of the enum to be returned
-   * @return the enum constant with the specified name
-   * @throws IllegalArgumentException if this enum has no constant for the specified name
+   * @param name the enum name of the enum to be returned.
+   * @return the enum constant with the specified name.
+   * @throws IllegalArgumentException if this enum has no constant for the specified name.
    */
-  @JsonCreator
   public static HttpStatus fromName(String name) {
     try {
       return Enum.valueOf(HttpStatus.class, name);
@@ -228,8 +216,8 @@ public enum HttpStatus {
   /**
    * Resolve the given status code to an {@code HttpStatus}, if possible.
    *
-   * @param statusCode the HTTP status code (potentially non-standard)
-   * @return the corresponding {@code HttpStatus}, or {@code null} if not found
+   * @param statusCode the HTTP status code (potentially non-standard).
+   * @return the corresponding {@code HttpStatus}, or {@code null} if not found.
    */
   public static HttpStatus resolve(int statusCode) {
     for (HttpStatus status : values()) {
