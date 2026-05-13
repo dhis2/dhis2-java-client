@@ -29,6 +29,8 @@ package org.hisp.dhis.util;
 
 import java.util.Objects;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -226,6 +228,20 @@ public class TextUtils {
    */
   public static boolean isNull(String input) {
     return input == null;
+  }
+
+  /**
+   * Returns a concatenated string of the input elements, ignoring null and empty items, separated
+   * by the specified delimiter, in encounter order.
+   *
+   * @param delimiter the delimiter.
+   * @param items the items.
+   * @return concatenated string of the input elements.
+   */
+  public static String join(CharSequence delimiter, String... items) {
+    return Stream.of(items)
+        .filter(item -> item != null && item.length() > 0)
+        .collect(Collectors.joining(delimiter));
   }
 
   /**
