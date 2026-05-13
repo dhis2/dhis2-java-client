@@ -241,7 +241,9 @@ public class ApiFields {
 
   /** Data approval workflow fields. */
   public static final String DATA_APPROVAL_WORKFLOW_FIELDS =
-      String.format("%s,periodType,dataSets[%s]", NAME_EXT_FIELDS, NAME_FIELDS);
+      String.format(
+          "%s,periodType,categoryCombo[%s],dataSets[%s]",
+          NAME_EXT_FIELDS, NAME_FIELDS, NAME_FIELDS);
 
   /** Data entry form fields. */
   public static final String DATA_ENTRY_FORM_FIELDS =

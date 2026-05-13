@@ -40,5 +40,7 @@ import lombok.Setter;
 public class DataApprovalWorkflow extends NameableObject {
   @JsonProperty private String periodType;
 
+  @JsonProperty private CategoryCombo categoryCombo;
+
   @JsonProperty private List<DataSet> dataSets = new ArrayList<>();
 }

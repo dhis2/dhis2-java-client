@@ -3,6 +3,10 @@
   "code": "MALARIA_WORKFLOW",
   "name": "Malaria Approval Workflow",
   "periodType": "Monthly",
+  "categoryCombo": {
+    "id": "bjDvmb4bfuf",
+    "name": "default"
+  },
   "dataSets": [
     {
       "id": "pBOMPrpg1QX",
