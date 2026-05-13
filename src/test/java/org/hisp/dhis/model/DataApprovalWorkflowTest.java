@@ -48,6 +48,9 @@ class DataApprovalWorkflowTest {
     assertEquals("wkn0K4gtVHo", workflow.getId());
     assertEquals("Malaria Approval Workflow", workflow.getName());
     assertEquals("Monthly", workflow.getPeriodType());
+    assertNotNull(workflow.getCategoryCombo());
+    assertEquals("bjDvmb4bfuf", workflow.getCategoryCombo().getId());
+    assertEquals("default", workflow.getCategoryCombo().getName());
     assertSize(3, workflow.getDataSets());
     assertEquals("pBOMPrpg1QX", workflow.getDataSets().get(0).getId());
     assertEquals("VTdjfLXXmoi", workflow.getDataSets().get(1).getId());
