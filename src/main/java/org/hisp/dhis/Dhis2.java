@@ -83,6 +83,7 @@ import org.hisp.dhis.model.CategoryOptionCombo;
 import org.hisp.dhis.model.CategoryOptionGroup;
 import org.hisp.dhis.model.CategoryOptionGroupSet;
 import org.hisp.dhis.model.Constant;
+import org.hisp.dhis.model.DataApprovalLevel;
 import org.hisp.dhis.model.DataApprovalWorkflow;
 import org.hisp.dhis.model.DataElement;
 import org.hisp.dhis.model.DataElementGroup;
@@ -1657,6 +1658,30 @@ public class Dhis2 extends BaseDhis2 {
    */
   public ObjectResponse removeDataElementGroupSet(String id) {
     return removeMetadataObject(MetadataEntity.DATA_ELEMENT_GROUP_SET, id);
+  }
+
+  // -------------------------------------------------------------------------
+  // DataApprovalLevel
+  // -------------------------------------------------------------------------
+
+  /**
+   * Retrieves a list of {@link DataApprovalLevel}.
+   *
+   * @param query the {@link Query}.
+   * @return list of {@link DataApprovalLevel}.
+   */
+  public List<DataApprovalLevel> getDataApprovalLevels(Query query) {
+    return getMetadataList(MetadataEntity.DATA_APPROVAL_LEVEL, query);
+  }
+
+  /**
+   * Retrieves a {@link Metadata} of type {@link DataApprovalLevel}.
+   *
+   * @param query the {@link Query}.
+   * @return a {@link Metadata}.
+   */
+  public Metadata<DataApprovalLevel> getDataApprovalLevelsPaged(Query query) {
+    return getMetadata(MetadataEntity.DATA_APPROVAL_LEVEL, query);
   }
 
   // -------------------------------------------------------------------------
