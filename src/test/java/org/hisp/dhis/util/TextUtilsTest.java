@@ -281,4 +281,12 @@ class TextUtilsTest {
     assertTrue(TextUtils.isNull(null));
     assertFalse(TextUtils.isNull(""));
   }
+
+  @Test
+  void testJoin() {
+    assertEquals("one::two::three", TextUtils.join("::", "one", "two", "three"));
+    assertEquals("one::three", TextUtils.join("::", "one", "", "three"));
+    assertEquals("one::three", TextUtils.join("::", "one", null, "three"));
+    assertEquals("", TextUtils.join("::", ""));
+  }
 }
