@@ -42,5 +42,7 @@ public class DataApprovalWorkflow extends NameableObject {
 
   @JsonProperty private CategoryCombo categoryCombo;
 
+  @JsonProperty private List<DataApprovalLevel> dataApprovalLevels = new ArrayList<>();
+
   @JsonProperty private List<DataSet> dataSets = new ArrayList<>();
 }
