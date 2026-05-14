@@ -25,40 +25,48 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.hisp.dhis.model;
+package org.hisp.dhis;
 
-import static org.hisp.dhis.support.Assertions.assertSize;
+import static org.hisp.dhis.support.Assertions.assertNotEmpty;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import org.hisp.dhis.support.JsonClassPathFile;
+import java.util.List;
+import org.hisp.dhis.model.DataApprovalWorkflow;
+import org.hisp.dhis.query.Query;
 import org.hisp.dhis.support.TestTags;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
-@Tag(TestTags.UNIT)
-class DataApprovalWorkflowTest {
+@Tag(TestTags.INTEGRATION)
+class DataApprovalWorkflowApiTest {
   @Test
-  void testDeserialize() {
-    DataApprovalWorkflow workflow =
-        JsonClassPathFile.fromJson(
-            "metadata/data-approval-workflow.json", DataApprovalWorkflow.class);
+  void testGetDataApprovalWorkflows() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
 
-    assertNotNull(workflow);
-    assertEquals("wkn0K4gtVHo", workflow.getId());
-    assertEquals("Malaria Approval Workflow", workflow.getName());
-    assertEquals("Monthly", workflow.getPeriodType());
-    assertNotNull(workflow.getCategoryCombo());
-    assertEquals("bjDvmb4bfuf", workflow.getCategoryCombo().getId());
-    assertEquals("default", workflow.getCategoryCombo().getName());
-    assertSize(2, workflow.getDataApprovalLevels());
-    assertEquals("b2uHwX9YLhu", workflow.getDataApprovalLevels().get(0).getId());
-    assertEquals("National", workflow.getDataApprovalLevels().get(0).getName());
-    assertEquals("K7PvhCEjUmY", workflow.getDataApprovalLevels().get(1).getId());
-    assertEquals("District", workflow.getDataApprovalLevels().get(1).getName());
-    assertSize(3, workflow.getDataSets());
-    assertEquals("pBOMPrpg1QX", workflow.getDataSets().get(0).getId());
-    assertEquals("VTdjfLXXmoi", workflow.getDataSets().get(1).getId());
-    assertEquals("Lpw6GcnTrmS", workflow.getDataSets().get(2).getId());
+    List<DataApprovalWorkflow> workflows = dhis2.getDataApprovalWorkflows(Query.instance());
+
+    assertNotNull(workflows);
+    assertNotEmpty(workflows);
+  }
+
+  @Test
+  void testGetDataApprovalWorkflowsWithApprovalLevels() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    List<DataApprovalWorkflow> workflows =
+        dhis2.getDataApprovalWorkflows(
+            Query.instance().addFilter(org.hisp.dhis.query.Filter.eq("id", "rIUL3hYOjJc")));
+
+    assertNotNull(workflows);
+    assertEquals(1, workflows.size());
+
+    DataApprovalWorkflow workflow = workflows.get(0);
+
+    assertEquals("rIUL3hYOjJc", workflow.getId());
+    assertNotNull(workflow.getName());
+    assertNotNull(workflow.getPeriodType());
+    assertNotEmpty(workflow.getDataApprovalLevels());
+    assertNotNull(workflow.getDataApprovalLevels().get(0).getId());
   }
 }
