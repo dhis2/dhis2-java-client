@@ -73,6 +73,16 @@ class ProgramStageApiTest {
   }
 
   @Test
+  void getGetProgramStageWithDataEntryForm() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    ProgramStage programStage = dhis2.getProgramStage("pSllsjpfLH2");
+    assertNotNull(programStage);
+    assertEquals("pSllsjpfLH2", programStage.getId());
+    assertNotNull(programStage.getDataEntryForm());
+  }
+
+  @Test
   void getProgramStages() {
     Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
 

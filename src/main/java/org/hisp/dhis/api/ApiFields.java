@@ -374,7 +374,7 @@ public class ApiFields {
           executionDateLabel,dueDateLabel,programStageLabel,eventLabel,\
           repeatable,autoGenerateEvent,displayGenerateEventBox,blockEntryForm,preGenerateUID,\
           remindCompleted,generatedByEnrollmentDate,allowGenerateNextVisit,openAfterEnrollment,\
-          hideDueDate,enableUserAssignment,referral,featureType""",
+          hideDueDate,enableUserAssignment,referral,featureType,dataEntryForm[%2$s]""",
           NAME_EXT_FIELDS,
           ID_FIELDS,
           PROGRAM_STAGE_DATA_ELEMENT_FIELDS,

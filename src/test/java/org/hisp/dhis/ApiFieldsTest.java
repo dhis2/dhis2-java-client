@@ -64,7 +64,8 @@ class ApiFieldsTest {
         executionDateLabel,dueDateLabel,programStageLabel,eventLabel,\
         repeatable,autoGenerateEvent,displayGenerateEventBox,blockEntryForm,preGenerateUID,\
         remindCompleted,generatedByEnrollmentDate,allowGenerateNextVisit,openAfterEnrollment,\
-        hideDueDate,enableUserAssignment,referral,featureType""";
+        hideDueDate,enableUserAssignment,referral,featureType,\
+        dataEntryForm[id,code,name,created,lastUpdated,attributeValues]""";
 
     assertEquals(expected, ApiFields.PROGRAM_STAGE_FIELDS);
   }
@@ -111,7 +112,8 @@ class ApiFieldsTest {
         executionDateLabel,dueDateLabel,programStageLabel,eventLabel,\
         repeatable,autoGenerateEvent,displayGenerateEventBox,blockEntryForm,preGenerateUID,\
         remindCompleted,generatedByEnrollmentDate,allowGenerateNextVisit,openAfterEnrollment,\
-        hideDueDate,enableUserAssignment,referral,featureType],\
+        hideDueDate,enableUserAssignment,referral,featureType,\
+        dataEntryForm[id,code,name,created,lastUpdated,attributeValues]],\
         programTrackedEntityAttributes[id,code,name,program[id,code,name,created,lastUpdated,\
         attributeValues,shortName,description],\
         trackedEntityAttribute[id,code,name,created,lastUpdated,attributeValues,\
