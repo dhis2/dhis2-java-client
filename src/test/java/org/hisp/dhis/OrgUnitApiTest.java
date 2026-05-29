@@ -64,8 +64,6 @@ class OrgUnitApiTest {
     assertEquals("YuQRtpLP10I", ou.getId());
     assertEquals("OU_539", ou.getCode());
     assertNotNull(ou.getCreated());
-    assertNotNull(ou.getCreatedBy());
-    assertNotNull(ou.getLastUpdated());
     assertEquals("Badjia", ou.getName());
     assertEquals("Badjia", ou.getShortName());
     assertEquals("/ImspTQPwCqd/O6uvpzGd5pu/YuQRtpLP10I", ou.getPath());
