@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004-2024, University of Oslo
+ * Copyright (c) 2004-2025, University of Oslo
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -28,8 +28,6 @@
 package org.hisp.dhis.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.ArrayList;
-import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -37,12 +35,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class DataApprovalWorkflow extends NameableObject {
-  @JsonProperty private String periodType;
-
-  @JsonProperty private CategoryCombo categoryCombo;
-
-  @JsonProperty private List<DataApprovalLevel> dataApprovalLevels = new ArrayList<>();
-
-  @JsonProperty private List<DataSet> dataSets = new ArrayList<>();
+public class DataApprovalLevel extends NameableObject {
+  @JsonProperty private int orgUnitLevel;
 }

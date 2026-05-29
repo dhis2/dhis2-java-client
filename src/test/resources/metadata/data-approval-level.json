@@ -1,0 +1,22 @@
+{
+  "dataApprovalLevels": [
+    {
+      "id": "b2uHwX9YLhu",
+      "code": "NATIONAL_LEVEL",
+      "name": "National",
+      "orgUnitLevel": 1
+    },
+    {
+      "id": "K7PvhCEjUmY",
+      "code": "DISTRICT_LEVEL",
+      "name": "District",
+      "orgUnitLevel": 2
+    },
+    {
+      "id": "M3nqHpZwRtL",
+      "code": "FACILITY_LEVEL",
+      "name": "Facility",
+      "orgUnitLevel": 3
+    }
+  ]
+}

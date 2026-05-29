@@ -39,6 +39,7 @@ import static org.hisp.dhis.api.ApiFields.CATEGORY_OPTION_GROUP_FIELDS;
 import static org.hisp.dhis.api.ApiFields.CATEGORY_OPTION_GROUP_SET_FIELDS;
 import static org.hisp.dhis.api.ApiFields.CONSTANT_FIELDS;
 import static org.hisp.dhis.api.ApiFields.DASHBOARD_FIELDS;
+import static org.hisp.dhis.api.ApiFields.DATA_APPROVAL_LEVEL_FIELDS;
 import static org.hisp.dhis.api.ApiFields.DATA_APPROVAL_WORKFLOW_FIELDS;
 import static org.hisp.dhis.api.ApiFields.DATA_ELEMENT_EXT_FIELDS;
 import static org.hisp.dhis.api.ApiFields.DATA_ELEMENT_GROUP_EXT_FIELDS;
@@ -96,6 +97,7 @@ import org.hisp.dhis.model.CategoryOptionCombo;
 import org.hisp.dhis.model.CategoryOptionGroup;
 import org.hisp.dhis.model.CategoryOptionGroupSet;
 import org.hisp.dhis.model.Constant;
+import org.hisp.dhis.model.DataApprovalLevel;
 import org.hisp.dhis.model.DataApprovalWorkflow;
 import org.hisp.dhis.model.DataElement;
 import org.hisp.dhis.model.DataElementGroup;
@@ -201,6 +203,12 @@ public enum MetadataEntity {
       DASHBOARD_FIELDS,
       "dashboards",
       Dhis2Objects::getDashboards),
+  DATA_APPROVAL_LEVEL(
+      DataApprovalLevel.class,
+      DATA_APPROVAL_LEVEL_FIELDS,
+      DATA_APPROVAL_LEVEL_FIELDS,
+      "dataApprovalLevels",
+      Dhis2Objects::getDataApprovalLevels),
   DATA_APPROVAL_WORKFLOW(
       DataApprovalWorkflow.class,
       DATA_APPROVAL_WORKFLOW_FIELDS,
@@ -455,6 +463,8 @@ public enum MetadataEntity {
       return CATEGORY_OPTION_GROUP_SET;
     } else if (object instanceof Dashboard) {
       return DASHBOARD;
+    } else if (object instanceof DataApprovalLevel) {
+      return DATA_APPROVAL_LEVEL;
     } else if (object instanceof DataApprovalWorkflow) {
       return DATA_APPROVAL_WORKFLOW;
     } else if (object instanceof DataElement) {

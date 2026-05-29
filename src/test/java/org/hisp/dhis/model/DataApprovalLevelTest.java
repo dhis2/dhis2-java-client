@@ -31,34 +31,39 @@ import static org.hisp.dhis.support.Assertions.assertSize;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import java.util.List;
 import org.hisp.dhis.support.JsonClassPathFile;
 import org.hisp.dhis.support.TestTags;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 @Tag(TestTags.UNIT)
-class DataApprovalWorkflowTest {
+class DataApprovalLevelTest {
   @Test
   void testDeserialize() {
-    DataApprovalWorkflow workflow =
-        JsonClassPathFile.fromJson(
-            "metadata/data-approval-workflow.json", DataApprovalWorkflow.class);
+    List<DataApprovalLevel> levels =
+        JsonClassPathFile.fromJson("metadata/data-approval-level.json", Dhis2Objects.class)
+            .getDataApprovalLevels();
 
-    assertNotNull(workflow);
-    assertEquals("wkn0K4gtVHo", workflow.getId());
-    assertEquals("Malaria Approval Workflow", workflow.getName());
-    assertEquals("Monthly", workflow.getPeriodType());
-    assertNotNull(workflow.getCategoryCombo());
-    assertEquals("bjDvmb4bfuf", workflow.getCategoryCombo().getId());
-    assertEquals("default", workflow.getCategoryCombo().getName());
-    assertSize(2, workflow.getDataApprovalLevels());
-    assertEquals("b2uHwX9YLhu", workflow.getDataApprovalLevels().get(0).getId());
-    assertEquals("National", workflow.getDataApprovalLevels().get(0).getName());
-    assertEquals("K7PvhCEjUmY", workflow.getDataApprovalLevels().get(1).getId());
-    assertEquals("District", workflow.getDataApprovalLevels().get(1).getName());
-    assertSize(3, workflow.getDataSets());
-    assertEquals("pBOMPrpg1QX", workflow.getDataSets().get(0).getId());
-    assertEquals("VTdjfLXXmoi", workflow.getDataSets().get(1).getId());
-    assertEquals("Lpw6GcnTrmS", workflow.getDataSets().get(2).getId());
+    assertNotNull(levels);
+    assertSize(3, levels);
+
+    DataApprovalLevel national = levels.get(0);
+    assertEquals("b2uHwX9YLhu", national.getId());
+    assertEquals("NATIONAL_LEVEL", national.getCode());
+    assertEquals("National", national.getName());
+    assertEquals(1, national.getOrgUnitLevel());
+
+    DataApprovalLevel district = levels.get(1);
+    assertEquals("K7PvhCEjUmY", district.getId());
+    assertEquals("DISTRICT_LEVEL", district.getCode());
+    assertEquals("District", district.getName());
+    assertEquals(2, district.getOrgUnitLevel());
+
+    DataApprovalLevel facility = levels.get(2);
+    assertEquals("M3nqHpZwRtL", facility.getId());
+    assertEquals("FACILITY_LEVEL", facility.getCode());
+    assertEquals("Facility", facility.getName());
+    assertEquals(3, facility.getOrgUnitLevel());
   }
 }
