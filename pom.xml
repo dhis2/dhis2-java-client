@@ -13,7 +13,7 @@
 
   <organization>
     <name>UiO</name>
-    <url>http://www.dhis2.org</url>
+    <url>https://dhis2.org</url>
   </organization>
 
   <licenses>
@@ -28,7 +28,7 @@
       <name>Lars Helge Overland</name>
       <email>lars@dhis2.org</email>
       <organization>UiO</organization>
-      <organizationUrl>http://www.uio.no/</organizationUrl>
+      <organizationUrl>https://uio.no</organizationUrl>
     </developer>
   </developers>
 
@@ -52,15 +52,15 @@
     <slf4j.version>2.0.17</slf4j.version>
     <lombok.version>1.18.36</lombok.version>
     <maven-artifact.version>3.9.9</maven-artifact.version>
-    <httpclient5.version>5.3.1</httpclient5.version>
-    <junit-jupiter.version>5.12.1</junit-jupiter.version>
-    <maven-artifact.version>3.9.4</maven-artifact.version>
-    <maven-surefire-plugin.version>3.5.2</maven-surefire-plugin.version>
-    <commons-io.version>2.19.0</commons-io.version>
-    <commons-lang3.version>3.18.0</commons-lang3.version>
+    <httpclient5.version>5.6.1</httpclient5.version>
+    <junit-jupiter.version>5.14.4</junit-jupiter.version>
+    <maven-artifact.version>3.9.16</maven-artifact.version>
+    <maven-surefire-plugin.version>3.5.6</maven-surefire-plugin.version>
+    <commons-io.version>2.22.0</commons-io.version>
+    <commons-lang3.version>3.20.0</commons-lang3.version>
     <commons-collections4.version>4.5.0</commons-collections4.version>
-    <commons-codec.version>1.18.0</commons-codec.version>
-    <spotless.version>2.44.3</spotless.version>
+    <commons-codec.version>1.22.0</commons-codec.version>
+    <spotless.version>2.46.1</spotless.version>
     <gpg.skip>true</gpg.skip>
   </properties>
 
