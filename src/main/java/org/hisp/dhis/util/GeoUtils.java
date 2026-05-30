@@ -35,7 +35,7 @@ import org.locationtech.jts.geom.Point;
 
 /** Utilities for geospatial objects. */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class GeoUtils {
+public final class GeoUtils {
   private static final GeometryFactory GEO_FACTORY = new GeometryFactory();
 
   /**

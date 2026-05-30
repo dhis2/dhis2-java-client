@@ -47,7 +47,7 @@ import tools.jackson.dataformat.xml.XmlMapper;
 /** Utilities for XML parsing and serialization. */
 @Slf4j
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class JacksonXmlUtils {
+public final class JacksonXmlUtils {
   /** Default date format. */
   private static final String DATE_FORMAT = "yyyy-MM-dd";
 

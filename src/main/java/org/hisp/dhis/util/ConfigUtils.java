@@ -40,7 +40,7 @@ import org.apache.commons.lang3.StringUtils;
 
 /** Utilities for configuration. */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class ConfigUtils {
+public final class ConfigUtils {
   private static final char VALUE_SEPARATOR = ',';
 
   private static final String VALUE_ENABLED = "on";

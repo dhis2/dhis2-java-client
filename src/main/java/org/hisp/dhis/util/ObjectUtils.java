@@ -31,7 +31,7 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class ObjectUtils {
+public final class ObjectUtils {
   /**
    * Indicates whether the given object is not null.
    *

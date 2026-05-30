@@ -51,7 +51,7 @@ import tools.jackson.databind.module.SimpleModule;
 
 /** Utilities for JSON parsing and serialization. */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class JacksonUtils {
+public final class JacksonUtils {
   /** Static JSON mapper. */
   private static final JsonMapper JSON_MAPPER;
 

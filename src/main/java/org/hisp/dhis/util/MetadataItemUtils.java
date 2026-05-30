@@ -32,7 +32,7 @@ import java.util.List;
 import java.util.Objects;
 import org.hisp.dhis.model.analytics.MetaDataItem;
 
-public class MetadataItemUtils {
+public final class MetadataItemUtils {
   /**
    * Converts the given collection of metaedata items a new list of names.
    *

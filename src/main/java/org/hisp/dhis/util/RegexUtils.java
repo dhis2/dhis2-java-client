@@ -34,7 +34,7 @@ import lombok.NoArgsConstructor;
 
 /** Utilitis for regular expressions. */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class RegexUtils {
+public final class RegexUtils {
   /**
    * Returns the first match of the given pattern in the provided value.
    *

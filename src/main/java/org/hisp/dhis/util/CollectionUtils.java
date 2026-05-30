@@ -47,7 +47,7 @@ import lombok.NoArgsConstructor;
 
 /** Utilities for collections. */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class CollectionUtils {
+public final class CollectionUtils {
   /**
    * Returns an immutable set containing the given items. Accepts null items.
    *

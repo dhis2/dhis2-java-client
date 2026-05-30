@@ -47,7 +47,7 @@ import lombok.extern.slf4j.Slf4j;
 /** Utilities for date and time. */
 @Slf4j
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class DateTimeUtils {
+public final class DateTimeUtils {
   /** Default date format. */
   public static final String DATE_FORMAT = "yyyy-MM-dd";
 
