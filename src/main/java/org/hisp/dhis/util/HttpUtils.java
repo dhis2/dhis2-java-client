@@ -44,7 +44,7 @@ import org.hisp.dhis.auth.Authentication;
 
 /** Utilities for HTTP communication. */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class HttpUtils {
+public final class HttpUtils {
   /** Pattern for matching a DHIS2 access token as part of a HTTP header value. */
   public static final Pattern PATTERN_ACCESS_TOKEN = Pattern.compile("^ApiToken\\s+(.+)$");
 

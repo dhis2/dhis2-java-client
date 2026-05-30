@@ -1160,7 +1160,7 @@ public class BaseDhis2 {
    *   <li>409 Conflict
    * </ul>
    *
-   * @param response the {@link CloseableHttpResponse}.
+   * @param response the {@link ClassicHttpResponse}.
    * @param url the request URL.
    * @throws Dhis2ClientException in the case of error status codes.
    */

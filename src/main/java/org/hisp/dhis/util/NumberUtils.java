@@ -38,7 +38,7 @@ import org.apache.commons.lang3.StringUtils;
 
 /** Utilities for numbers. */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class NumberUtils {
+public final class NumberUtils {
   /**
    * Scales (rounds) the given double value to the given scale.
    *

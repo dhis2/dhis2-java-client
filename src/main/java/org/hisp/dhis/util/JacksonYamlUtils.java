@@ -37,7 +37,7 @@ import tools.jackson.dataformat.yaml.YAMLWriteFeature;
 
 @Slf4j
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class JacksonYamlUtils {
+public final class JacksonYamlUtils {
   private static final YAMLMapper YAML_MAPPER;
 
   static {

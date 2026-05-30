@@ -39,7 +39,7 @@ import org.hisp.dhis.model.IdentifiableObject;
 
 /** Utilities for {@link IdentifiableObject}. */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class IdentifiableObjectUtils {
+public final class IdentifiableObjectUtils {
   /**
    * Converts the given collection of identifiable objects to a new list of object identifiers.
    *

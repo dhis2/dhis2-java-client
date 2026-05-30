@@ -35,7 +35,7 @@ import lombok.NoArgsConstructor;
 import org.apache.commons.codec.digest.DigestUtils;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class CodecUtils {
+public final class CodecUtils {
   /**
    * Generates an MD5 hash of the given input string.
    *

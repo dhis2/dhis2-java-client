@@ -31,13 +31,16 @@ import java.util.Objects;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.slf4j.helpers.MessageFormatter;
 
-public class TextUtils {
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public final class TextUtils {
   private static final Pattern PATTTERN_VARIABLE = Pattern.compile("^\\$\\{(.*?)\\}$");
 
   private static final String PATTERN_LEAD_TICKS = "^```[a-zA-Z0-9]*\\s*\\n?";
