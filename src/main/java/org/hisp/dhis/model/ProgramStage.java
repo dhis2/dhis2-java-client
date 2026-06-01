@@ -82,6 +82,8 @@ public class ProgramStage extends NameableObject {
 
   @JsonProperty private FeatureType featureType;
 
+  @JsonProperty private DataEntryForm dataEntryForm;
+
   /**
    * Constructor.
    *

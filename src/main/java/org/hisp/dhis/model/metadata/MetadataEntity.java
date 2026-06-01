@@ -73,6 +73,7 @@ import static org.hisp.dhis.api.ApiFields.PROGRAM_RULE_ACTION_FIELDS;
 import static org.hisp.dhis.api.ApiFields.PROGRAM_RULE_FIELDS;
 import static org.hisp.dhis.api.ApiFields.PROGRAM_RULE_VARIABLE_FIELDS;
 import static org.hisp.dhis.api.ApiFields.PROGRAM_SECTION_FIELDS;
+import static org.hisp.dhis.api.ApiFields.PROGRAM_STAGE_EXT_FIELDS;
 import static org.hisp.dhis.api.ApiFields.PROGRAM_STAGE_FIELDS;
 import static org.hisp.dhis.api.ApiFields.PROGRAM_STAGE_SECTION_FIELDS;
 import static org.hisp.dhis.api.ApiFields.RELATIONSHIP_TYPE_FIELDS;
@@ -343,7 +344,7 @@ public enum MetadataEntity {
   PROGRAM_STAGE(
       ProgramStage.class,
       PROGRAM_STAGE_FIELDS,
-      PROGRAM_STAGE_FIELDS,
+      PROGRAM_STAGE_EXT_FIELDS,
       "programStages",
       Dhis2Objects::getProgramStages),
   PROGRAM_STAGE_SECTION(
