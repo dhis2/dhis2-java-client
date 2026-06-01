@@ -4081,7 +4081,7 @@ public class Dhis2 extends BaseDhis2 {
     HttpPost request =
         getPostRequest(url, new StringEntity(toJsonString(dataValueSet), StandardCharsets.UTF_8));
 
-    Dhis2AsyncRequest asyncRequest = new Dhis2AsyncRequest(config, httpClient, objectMapper);
+    Dhis2AsyncRequest asyncRequest = new Dhis2AsyncRequest(config, httpClient, jsonMapper);
 
     return asyncRequest.post(request, DataValueSetResponse.class);
   }
@@ -4100,7 +4100,7 @@ public class Dhis2 extends BaseDhis2 {
 
     HttpPost request = getPostRequest(url, new FileEntity(file, ContentType.APPLICATION_JSON));
 
-    Dhis2AsyncRequest asyncRequest = new Dhis2AsyncRequest(config, httpClient, objectMapper);
+    Dhis2AsyncRequest asyncRequest = new Dhis2AsyncRequest(config, httpClient, jsonMapper);
 
     return asyncRequest.post(request, DataValueSetResponse.class);
   }
@@ -4121,7 +4121,7 @@ public class Dhis2 extends BaseDhis2 {
     HttpPost request =
         getPostRequest(url, new InputStreamEntity(inputStream, ContentType.APPLICATION_JSON));
 
-    Dhis2AsyncRequest asyncRequest = new Dhis2AsyncRequest(config, httpClient, objectMapper);
+    Dhis2AsyncRequest asyncRequest = new Dhis2AsyncRequest(config, httpClient, jsonMapper);
 
     return asyncRequest.post(request, DataValueSetResponse.class);
   }
@@ -4319,7 +4319,7 @@ public class Dhis2 extends BaseDhis2 {
             HttpUtils.build(builder),
             new InputStreamEntity(inputStream, ContentType.APPLICATION_JSON));
 
-    Dhis2AsyncRequest asyncRequest = new Dhis2AsyncRequest(config, httpClient, objectMapper);
+    Dhis2AsyncRequest asyncRequest = new Dhis2AsyncRequest(config, httpClient, jsonMapper);
 
     return asyncRequest.postEvent(request, EventResponse.class);
   }
