@@ -52,7 +52,7 @@
     <jts.version>1.20.0</jts.version>
     <slf4j.version>2.0.17</slf4j.version>
     <lombok.version>1.18.36</lombok.version>
-    <maven-artifact.version>3.9.9</maven-artifact.version>
+    <maven-artifact.version>3.9.16</maven-artifact.version>
     <httpclient5.version>5.6.1</httpclient5.version>
     <junit-jupiter.version>5.14.4</junit-jupiter.version>
     <maven-artifact.version>3.9.16</maven-artifact.version>
