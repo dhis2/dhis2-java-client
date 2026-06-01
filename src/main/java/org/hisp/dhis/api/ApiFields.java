@@ -380,6 +380,9 @@ public class ApiFields {
           PROGRAM_STAGE_DATA_ELEMENT_FIELDS,
           PROGRAM_STAGE_SECTION_FIELDS);
 
+  public static final String PROGRAM_STAGE_EXT_FIELDS =
+      String.format("%1$s,dataEntryForm[%2$s]", PROGRAM_STAGE_FIELDS, ID_FIELDS);
+
   public static final String PROGRAM_TRACKED_ENTITY_ATTRIBUTES_FIELDS =
       String.format(
           """
