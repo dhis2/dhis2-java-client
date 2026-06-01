@@ -149,8 +149,6 @@ public class BaseDhis2 {
   /** Error status codes for GET queries. */
   private static final Set<Integer> GET_ERROR_STATUS_CODES = Set.of(SC_BAD_REQUEST, SC_CONFLICT);
 
-  // Fields
-
   // Headers
 
   protected static final Header HEADER_CONTENT_TYPE_JSON =
@@ -163,7 +161,7 @@ public class BaseDhis2 {
 
   protected final Dhis2Config config;
 
-  protected final JsonMapper objectMapper;
+  protected final JsonMapper jsonMapper;
 
   protected final CloseableHttpClient httpClient;
 
@@ -175,7 +173,7 @@ public class BaseDhis2 {
   public BaseDhis2(Dhis2Config config) {
     Objects.requireNonNull(config, "Config must be specified");
     this.config = config;
-    this.objectMapper = JacksonUtils.getJsonMapper();
+    this.jsonMapper = JacksonUtils.getJsonMapper();
     this.httpClient = HttpClients.createDefault();
   }
 
@@ -503,7 +501,7 @@ public class BaseDhis2 {
     URIBuilder builder = config.getResolvedUriBuilder().appendPath("completeDataSetRegistrations");
     URI url = withCompleteDataSetRegistrationsImportQueryParams(builder, options);
     HttpPost request = getPostRequest(url, entity);
-    Dhis2AsyncRequest asyncRequest = new Dhis2AsyncRequest(config, httpClient, objectMapper);
+    Dhis2AsyncRequest asyncRequest = new Dhis2AsyncRequest(config, httpClient, jsonMapper);
 
     return asyncRequest.post(request, CompleteDataSetRegistrationResponse.class);
   }
@@ -997,7 +995,7 @@ public class BaseDhis2 {
 
             log(code, "Response body: '{}'", responseBody);
 
-            T responseMessage = objectMapper.readValue(responseBody, type);
+            T responseMessage = jsonMapper.readValue(responseBody, type);
 
             responseMessage.setHeaders(asList(response.getHeaders()));
             responseMessage.setHttpStatusCode(response.getCode());
@@ -1188,7 +1186,7 @@ public class BaseDhis2 {
    * @throws IOException if reading failed.
    */
   protected <T> T readValue(String content, Class<T> type) throws IOException {
-    return objectMapper.readValue(content, type);
+    return jsonMapper.readValue(content, type);
   }
 
   /**
@@ -1284,7 +1282,7 @@ public class BaseDhis2 {
    * @throws Dhis2ClientException if the serialization failed.
    */
   protected String toJsonString(Object object) {
-    String json = objectMapper.writeValueAsString(object);
+    String json = jsonMapper.writeValueAsString(object);
 
     log("Object JSON: '{}'", json);
 
