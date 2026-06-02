@@ -62,9 +62,24 @@ class StopWatchTest {
     sleep();
     watch.split();
     assertPositive(watch.getTime());
+    assertPositive(watch.getStartInstant().toEpochMilli());
     sleep();
     watch.stop();
     assertPositive(watch.getTime());
+    assertPositive(watch.getStopInstant().toEpochMilli());
+  }
+
+  @Test
+  void testSplitStopGetDuration() {
+    StopWatch watch = StopWatch.createStarted();
+    sleep();
+    watch.split();
+    assertPositive(watch.getDuration().toMillis());
+    assertPositive(watch.getStartInstant().toEpochMilli());
+    sleep();
+    watch.stop();
+    assertPositive(watch.getDuration().toMillis());
+    assertPositive(watch.getStopInstant().toEpochMilli());
   }
 
   @Test
