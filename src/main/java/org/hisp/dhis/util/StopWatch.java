@@ -163,12 +163,39 @@ public class StopWatch {
   // Reads
 
   /**
+   * Returns the start instant.
+   *
+   * @return the start instant.
+   */
+  public Instant getStartInstant() {
+    return start;
+  }
+
+  /**
+   * Returns the stop instant.
+   *
+   * @return the stop instant.
+   */
+  public Instant getStopInstant() {
+    return stop;
+  }
+
+  /**
    * Returns the duration between start and stop in milliseconds.
    *
    * @return the duration between start and stop in milliseconds.
    */
   public long getTime() {
     return ChronoUnit.MILLIS.between(start, stop);
+  }
+
+  /**
+   * Returns the duration between start and stop.
+   *
+   * @return the duration between start and stop.
+   */
+  public Duration getDuration() {
+    return Duration.ofMillis(getTime());
   }
 
   /**
