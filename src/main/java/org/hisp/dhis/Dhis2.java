@@ -306,6 +306,11 @@ public class Dhis2 extends BaseDhis2 {
           request,
           response -> {
             int statusCode = response.getCode();
+
+            if (redirectedToLogin(response)) {
+              statusCode = HttpStatus.UNAUTHORIZED.value();
+            }
+
             return HttpStatus.valueOf(statusCode);
           });
     } catch (IOException ex) {
