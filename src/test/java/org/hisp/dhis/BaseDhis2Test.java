@@ -27,8 +27,7 @@
  */
 package org.hisp.dhis;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.IOException;
 import java.net.URI;
@@ -39,6 +38,8 @@ import org.hisp.dhis.model.DataDomain;
 import org.hisp.dhis.model.DataElement;
 import org.hisp.dhis.model.ValueType;
 import org.hisp.dhis.query.analytics.AnalyticsQuery;
+import org.hisp.dhis.response.Dhis2ClientException;
+import org.hisp.dhis.response.HttpStatus;
 import org.hisp.dhis.support.TestTags;
 import org.hisp.dhis.util.CodecUtils;
 import org.junit.jupiter.api.Tag;
@@ -150,5 +151,16 @@ class BaseDhis2Test {
             TestFixture.DEFAULT_URL);
 
     assertEquals(expected, decodedUrl);
+  }
+
+  @Test
+  void testWithInvalidSessionIdReturnsUnauthorized() {
+    Dhis2 dhis2 = Dhis2.withCookieAuth(TestFixture.DEFAULT_URL, "InvalidSessionId");
+
+    Dhis2ClientException ex = assertThrows(Dhis2ClientException.class, dhis2::getSystemInfo);
+    assertNotNull(ex);
+    assertEquals(HttpStatus.UNAUTHORIZED, ex.getHttpStatus());
+
+    assertEquals(HttpStatus.UNAUTHORIZED, dhis2.getStatus());
   }
 }

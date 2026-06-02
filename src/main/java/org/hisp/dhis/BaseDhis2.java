@@ -174,7 +174,7 @@ public class BaseDhis2 {
     Objects.requireNonNull(config, "Config must be specified");
     this.config = config;
     this.jsonMapper = JacksonUtils.getJsonMapper();
-    this.httpClient = HttpClients.createDefault();
+    this.httpClient = HttpClients.custom().disableRedirectHandling().build();
   }
 
   /**
@@ -1139,7 +1139,11 @@ public class BaseDhis2 {
    * @throws Dhis2ClientException in the case of error status codes.
    */
   private void handleErrors(HttpResponse response, String url) {
-    final int code = response.getCode();
+    int code = response.getCode();
+
+    if (redirectedToLogin(response)) {
+      code = HttpStatus.UNAUTHORIZED.value();
+    }
 
     if (ERROR_STATUS_CODES.contains(code)) {
       String message = String.format("%s (%d)", getErrorMessage(code), code);
@@ -1438,6 +1442,21 @@ public class BaseDhis2 {
             : Status.ERROR;
 
     return new Response(status, response.getHttpStatusCode(), response.getMessage());
+  }
+
+  /**
+   * Checks whether the response redirects to the DHIS2 login page.
+   *
+   * @param response the HTTP response
+   * @return {@code true} if the response is a login redirect, otherwise {@code false}
+   */
+  protected boolean redirectedToLogin(HttpResponse response) {
+    if (!HttpStatus.valueOf(response.getCode()).is3xxRedirection()) {
+      return false;
+    }
+
+    final Header locationHeader = response.getLastHeader(HttpHeaders.LOCATION);
+    return locationHeader != null && locationHeader.getValue().contains("dhis-web-login");
   }
 
   /**

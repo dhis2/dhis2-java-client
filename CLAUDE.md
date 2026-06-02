@@ -70,7 +70,7 @@ Contains constants for DHIS2 API paths and field sets used when constructing req
 ## Key Dependencies
 
 - **Apache HttpComponents Client 5** — HTTP transport
-- **Jackson 2** — JSON serialization/deserialization (`JacksonUtils` in `util/`)
+- **Jackson 3** (`tools.jackson`) — JSON/XML/YAML serialization (`JacksonUtils` in `util/`)
 - **Lombok** — reduces boilerplate on model classes
 - **JTS** — geometry/spatial types for GeoJSON
 - **SLF4J** — logging facade
