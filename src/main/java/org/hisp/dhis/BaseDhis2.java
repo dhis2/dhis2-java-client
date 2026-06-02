@@ -1451,7 +1451,7 @@ public class BaseDhis2 {
    * @return {@code true} if the response is a login redirect, otherwise {@code false}
    */
   protected boolean redirectedToLogin(HttpResponse response) {
-    if (!HttpStatus.valueOf(response.getCode()).is3xxRedirection()) {
+    if (HttpStatus.FOUND.value() != response.getCode()) {
       return false;
     }
 
