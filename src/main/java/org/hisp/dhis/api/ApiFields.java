@@ -241,7 +241,7 @@ public class ApiFields {
 
   /** Data approval level fields. */
   public static final String DATA_APPROVAL_LEVEL_FIELDS =
-      String.format("%s,orgUnitLevel", NAME_EXT_FIELDS);
+      String.format("%s,level,orgUnitLevel", NAME_EXT_FIELDS);
 
   /** Data approval workflow fields. */
   public static final String DATA_APPROVAL_WORKFLOW_FIELDS =
