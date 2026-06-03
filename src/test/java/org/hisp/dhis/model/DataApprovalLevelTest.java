@@ -52,18 +52,21 @@ class DataApprovalLevelTest {
     assertEquals("b2uHwX9YLhu", national.getId());
     assertEquals("NATIONAL_LEVEL", national.getCode());
     assertEquals("National", national.getName());
+    assertEquals(4, national.getLevel());
     assertEquals(1, national.getOrgUnitLevel());
 
     DataApprovalLevel district = levels.get(1);
     assertEquals("K7PvhCEjUmY", district.getId());
     assertEquals("DISTRICT_LEVEL", district.getCode());
     assertEquals("District", district.getName());
+    assertEquals(5, district.getLevel());
     assertEquals(2, district.getOrgUnitLevel());
 
     DataApprovalLevel facility = levels.get(2);
     assertEquals("M3nqHpZwRtL", facility.getId());
     assertEquals("FACILITY_LEVEL", facility.getCode());
     assertEquals("Facility", facility.getName());
+    assertEquals(6, facility.getLevel());
     assertEquals(3, facility.getOrgUnitLevel());
   }
 }
