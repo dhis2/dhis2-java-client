@@ -32,11 +32,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.io.InputStream;
 import java.util.List;
 import org.hisp.dhis.model.completedatasetregistration.CompleteDataSetRegistration;
+import org.hisp.dhis.model.completedatasetregistration.CompleteDataSetRegistrationImportOptions;
 import org.hisp.dhis.query.completedatasetregistration.CompleteDataSetRegistrationQuery;
 import org.hisp.dhis.response.Dhis2ClientException;
+import org.hisp.dhis.response.completedatasetregistration.CompleteDataSetRegistrationResponse;
+import org.hisp.dhis.response.data.ImportSummaryResponse;
 import org.hisp.dhis.support.TestTags;
+import org.hisp.dhis.util.ClassPathFile;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
@@ -88,5 +93,63 @@ class CompleteDataSetRegistrationApiTest {
     assertNotNull(ex);
     assertEquals(409, ex.getStatusCode());
     assertEquals("E2013", ex.getErrorCode());
+  }
+
+  @Test
+  void testSaveCompleteDataSetRegistrations() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.LOCAL_CONFIG);
+
+    CompleteDataSetRegistrationResponse response =
+        dhis2.saveCompleteDataSetRegistrations(
+            getRegistrations(), CompleteDataSetRegistrationImportOptions.instance());
+
+    assertNotNull(response);
+  }
+
+  @Test
+  void testSaveCompleteDataSetRegistrationsInputStream() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.LOCAL_CONFIG);
+
+    InputStream input =
+        new ClassPathFile("metadata/complete-data-set-registration.json").getInputStream();
+
+    CompleteDataSetRegistrationResponse response =
+        dhis2.saveCompleteDataSetRegistrations(
+            input, CompleteDataSetRegistrationImportOptions.instance());
+
+    assertNotNull(response);
+  }
+
+  @Test
+  void testSaveCompleteDataSetRegistrationsSyncInputStream() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.LOCAL_CONFIG);
+
+    InputStream input =
+        new ClassPathFile("metadata/complete-data-set-registration.json").getInputStream();
+
+    ImportSummaryResponse response =
+        dhis2.saveCompleteDataSetRegistrationsSync(
+            input, CompleteDataSetRegistrationImportOptions.instance());
+
+    assertNotNull(response);
+    assertNotNull(response.getResponse());
+  }
+
+  private List<CompleteDataSetRegistration> getRegistrations() {
+    return List.of(
+        getRegistration("y77LiPqLMoq"),
+        getRegistration("rwfuVQHnZJ5"),
+        getRegistration("xXYv82KlBUh"));
+  }
+
+  private CompleteDataSetRegistration getRegistration(String orgUnit) {
+    CompleteDataSetRegistration cdr = new CompleteDataSetRegistration();
+    cdr.setDataSet("lyLU2wR22tC");
+    cdr.setPeriod("202602");
+    cdr.setOrgUnit(orgUnit);
+    cdr.setAttributeOptionCombo("HllvX50cXC0");
+    cdr.setCompleted(true);
+    cdr.setCreatedBy("admin");
+    return cdr;
   }
 }

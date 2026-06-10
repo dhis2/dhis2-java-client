@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004-2024, University of Oslo
+ * Copyright (c) 2004-2026, University of Oslo
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,30 +25,20 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.hisp.dhis.response;
+package org.hisp.dhis.response.data;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
+@NoArgsConstructor
 @Getter
 @Setter
-@ToString
-@NoArgsConstructor
-public class Stats {
-  @JsonProperty private int created;
+public class ImportSummary {
+  @JsonProperty private Status status;
 
-  @JsonProperty private int updated;
+  @JsonProperty private String description;
 
-  @JsonProperty private int ignored;
-
-  @JsonProperty private int deleted;
-
-  @JsonIgnore
-  public long getTotal() {
-    return (long) created + updated + ignored + deleted;
-  }
+  @JsonProperty private ImportCount importCount;
 }

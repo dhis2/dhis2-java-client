@@ -54,7 +54,7 @@ class DataValueSetApiTest {
     DataValueSetQuery query =
         DataValueSetQuery.instance()
             .addDataSets(list("lyLU2wR22tC"))
-            .addPeriods(list("202211"))
+            .addPeriods(list("202511"))
             .addOrgUnits(list("ImspTQPwCqd"))
             .setChildren(true);
 
@@ -70,7 +70,7 @@ class DataValueSetApiTest {
     Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
 
     DataValueSetQuery query =
-        DataValueSetQuery.instance().addDataSets(list("lyLU2wR22tC")).addPeriods(list("202211"));
+        DataValueSetQuery.instance().addDataSets(list("lyLU2wR22tC")).addPeriods(list("202511"));
 
     Dhis2ClientException ex =
         assertThrows(Dhis2ClientException.class, () -> dhis2.getDataValueSet(query));
@@ -98,16 +98,18 @@ class DataValueSetApiTest {
   private DataValueSet getDataValueSet() {
     DataValueSet dataValueSet = new DataValueSet();
     dataValueSet.setDataSet("lyLU2wR22tC");
-    dataValueSet.setPeriod("202411");
+    dataValueSet.setPeriod("202511");
     dataValueSet.setOrgUnit("ImspTQPwCqd");
-    dataValueSet.addDataValue(getDataValue());
+    dataValueSet.addDataValue(getDataValue("BOSZApCrBni"));
+    dataValueSet.addDataValue(getDataValue("tZLjsE0VXrL"));
+    dataValueSet.addDataValue(getDataValue("hI7NM78r3Rg"));
     return dataValueSet;
   }
 
-  private DataValue getDataValue() {
+  private DataValue getDataValue(String dataElement) {
     DataValue dataValue = new DataValue();
-    dataValue.setDataElement("BOSZApCrBni");
-    dataValue.setPeriod("202411");
+    dataValue.setDataElement(dataElement);
+    dataValue.setPeriod("202511");
     dataValue.setOrgUnit("ImspTQPwCqd");
     dataValue.setAttributeOptionCombo("");
     dataValue.setValue("23");

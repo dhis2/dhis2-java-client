@@ -36,5 +36,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class DataApprovalLevel extends NameableObject {
+  @JsonProperty private int level;
+
   @JsonProperty private int orgUnitLevel;
 }

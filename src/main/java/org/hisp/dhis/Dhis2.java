@@ -36,9 +36,16 @@ import static org.hisp.dhis.api.ApiFields.TRACKED_ENTITY_FIELDS;
 import static org.hisp.dhis.api.ApiFields.VALIDATION_RULE_FIELDS;
 import static org.hisp.dhis.api.ApiParams.ASYNC_PARAM;
 import static org.hisp.dhis.api.ApiParams.FIELDS_PARAM;
+import static org.hisp.dhis.api.ApiParams.IMPORT_STRATEGY_PARAM;
 import static org.hisp.dhis.api.ApiParams.SKIP_SHARING_PARAM;
 import static org.hisp.dhis.api.ApiPaths.PATH_ANALYTICS;
+import static org.hisp.dhis.api.ApiPaths.PATH_COMPLETE_DS_REGISTRATIONS;
+import static org.hisp.dhis.api.ApiPaths.PATH_DATA_VALUE_SETS;
+import static org.hisp.dhis.api.ApiPaths.PATH_ENROLLMENTS;
+import static org.hisp.dhis.api.ApiPaths.PATH_EVENTS;
+import static org.hisp.dhis.api.ApiPaths.PATH_FILE_RESOURCES;
 import static org.hisp.dhis.api.ApiPaths.PATH_METADATA;
+import static org.hisp.dhis.api.ApiPaths.PATH_TRACKED_ENTITIES;
 import static org.hisp.dhis.api.ApiPaths.PATH_TRACKER;
 import static org.hisp.dhis.util.CollectionUtils.asList;
 import static org.hisp.dhis.util.CollectionUtils.list;
@@ -172,6 +179,7 @@ import org.hisp.dhis.response.Dhis2ClientException;
 import org.hisp.dhis.response.HttpStatus;
 import org.hisp.dhis.response.Response;
 import org.hisp.dhis.response.completedatasetregistration.CompleteDataSetRegistrationResponse;
+import org.hisp.dhis.response.data.ImportSummaryResponse;
 import org.hisp.dhis.response.datavalueset.DataValueSetResponse;
 import org.hisp.dhis.response.event.EventResponse;
 import org.hisp.dhis.response.job.JobCategory;
@@ -3879,7 +3887,7 @@ public class Dhis2 extends BaseDhis2 {
     return getObject(
         config
             .getResolvedUriBuilder()
-            .appendPath("fileResources")
+            .appendPath(PATH_FILE_RESOURCES)
             .appendPath(id)
             .addParameter(FIELDS_PARAM, FILE_RESOURCE_FIELDS),
         Query.instance(),
@@ -3896,7 +3904,7 @@ public class Dhis2 extends BaseDhis2 {
     return getObject(
             config
                 .getResolvedUriBuilder()
-                .appendPath("fileResources")
+                .appendPath(PATH_FILE_RESOURCES)
                 .addParameter(FIELDS_PARAM, FILE_RESOURCE_FIELDS),
             query,
             Dhis2Objects.class)
@@ -3939,7 +3947,7 @@ public class Dhis2 extends BaseDhis2 {
         HttpUtils.build(
             config
                 .getResolvedUriBuilder()
-                .appendPath("fileResources")
+                .appendPath(PATH_FILE_RESOURCES)
                 .appendPath(id)
                 .appendPath("data"));
 
@@ -3990,7 +3998,7 @@ public class Dhis2 extends BaseDhis2 {
         HttpUtils.build(
             config
                 .getResolvedUriBuilder()
-                .appendPath("events")
+                .appendPath(PATH_EVENTS)
                 .appendPath("files")
                 .addParameter("eventUid", eventUid)
                 .addParameter("dataElementUid", dataElementUid));
@@ -4014,8 +4022,8 @@ public class Dhis2 extends BaseDhis2 {
         HttpUtils.build(
             config
                 .getResolvedUriBuilder()
-                .appendPath("tracker")
-                .appendPath("events")
+                .appendPath(PATH_TRACKER)
+                .appendPath(PATH_EVENTS)
                 .appendPath(eventUid)
                 .appendPath("dataValues")
                 .appendPath(dataElementUid)
@@ -4040,7 +4048,7 @@ public class Dhis2 extends BaseDhis2 {
         HttpUtils.build(
             config
                 .getResolvedUriBuilder()
-                .appendPath("tracker")
+                .appendPath(PATH_TRACKER)
                 .appendPath("trackedEntities")
                 .appendPath(trackedEntityUid)
                 .appendPath("attributes")
@@ -4079,7 +4087,7 @@ public class Dhis2 extends BaseDhis2 {
    */
   public DataValueSetResponse saveDataValueSet(
       DataValueSet dataValueSet, DataValueSetImportOptions options) {
-    URIBuilder builder = config.getResolvedUriBuilder().appendPath("dataValueSets");
+    URIBuilder builder = config.getResolvedUriBuilder().appendPath(PATH_DATA_VALUE_SETS);
 
     URI url = withDataValueSetImportParams(builder, options);
 
@@ -4099,7 +4107,7 @@ public class Dhis2 extends BaseDhis2 {
    * @return {@link DataValueSetResponse} holding information about the operation.
    */
   public DataValueSetResponse saveDataValueSet(File file, DataValueSetImportOptions options) {
-    URIBuilder builder = config.getResolvedUriBuilder().appendPath("dataValueSets");
+    URIBuilder builder = config.getResolvedUriBuilder().appendPath(PATH_DATA_VALUE_SETS);
 
     URI url = withDataValueSetImportParams(builder, options);
 
@@ -4113,18 +4121,18 @@ public class Dhis2 extends BaseDhis2 {
   /**
    * Saves a data value set payload in JSON format represented by the given input stream.
    *
-   * @param inputStream the input stream representing the data value set JSON payload.
+   * @param input the input stream representing the data value set JSON payload.
    * @param options the {@link DataValueSetImportOptions}.
    * @return {@link DataValueSetResponse} holding information about the operation.
    */
   public DataValueSetResponse saveDataValueSet(
-      InputStream inputStream, DataValueSetImportOptions options) {
-    URIBuilder builder = config.getResolvedUriBuilder().appendPath("dataValueSets");
+      InputStream input, DataValueSetImportOptions options) {
+    URIBuilder builder = config.getResolvedUriBuilder().appendPath(PATH_DATA_VALUE_SETS);
 
     URI url = withDataValueSetImportParams(builder, options);
 
     HttpPost request =
-        getPostRequest(url, new InputStreamEntity(inputStream, ContentType.APPLICATION_JSON));
+        getPostRequest(url, new InputStreamEntity(input, ContentType.APPLICATION_JSON));
 
     Dhis2AsyncRequest asyncRequest = new Dhis2AsyncRequest(config, httpClient, jsonMapper);
 
@@ -4229,7 +4237,7 @@ public class Dhis2 extends BaseDhis2 {
     Objects.requireNonNull(query, "query must be specified");
 
     URIBuilder uriBuilder =
-        config.getResolvedUriBuilder().appendPath("completeDataSetRegistrations");
+        config.getResolvedUriBuilder().appendPath(PATH_COMPLETE_DS_REGISTRATIONS);
 
     URI uri = withCompleteDataSetRegistrationQueryParams(uriBuilder, query);
 
@@ -4272,17 +4280,34 @@ public class Dhis2 extends BaseDhis2 {
    * Saves a complete data set registration payload in JSON format represented by the given input
    * stream.
    *
-   * @param inputStream the input stream representing the complete data set registration JSON
-   *     payload.
+   * @param input the input stream representing the complete data set registration JSON payload.
    * @param options the {@link CompleteDataSetRegistrationImportOptions}.
    * @return {@link CompleteDataSetRegistrationResponse} holding information about the operation.
    */
   public CompleteDataSetRegistrationResponse saveCompleteDataSetRegistrations(
-      InputStream inputStream, CompleteDataSetRegistrationImportOptions options) {
-    InputStreamEntity inputStreamEntity =
-        new InputStreamEntity(inputStream, ContentType.APPLICATION_JSON);
+      InputStream input, CompleteDataSetRegistrationImportOptions options) {
+    InputStreamEntity entity = new InputStreamEntity(input, ContentType.APPLICATION_JSON);
 
-    return saveCompleteDataSetRegistrations(inputStreamEntity, options);
+    return saveCompleteDataSetRegistrations(entity, options);
+  }
+
+  /**
+   * Saves a complete data set registration payload in JSON format synchronously represented by the
+   * given input stream.
+   *
+   * @param input the input stream representing the complete data set registration JSON payload.
+   * @param options the {@link CompleteDataSetRegistrationImportOptions}.
+   * @return {@link CompleteDataSetRegistrationResponse} holding information about the operation.
+   */
+  public ImportSummaryResponse saveCompleteDataSetRegistrationsSync(
+      InputStream input, CompleteDataSetRegistrationImportOptions options) {
+    InputStreamEntity entity = new InputStreamEntity(input, ContentType.APPLICATION_JSON);
+
+    URIBuilder builder = config.getResolvedUriBuilder().appendPath(PATH_COMPLETE_DS_REGISTRATIONS);
+    URI url = withCompleteDataSetRegistrationsImportQueryParams(builder, options);
+    HttpPost request = getPostRequest(url, entity);
+
+    return executeRequest(request, ImportSummaryResponse.class);
   }
 
   // -------------------------------------------------------------------------
@@ -4340,7 +4365,11 @@ public class Dhis2 extends BaseDhis2 {
    */
   public Event getEvent(String id) {
     return getObject(
-        config.getResolvedUriBuilder().appendPath(PATH_TRACKER).appendPath("events").appendPath(id),
+        config
+            .getResolvedUriBuilder()
+            .appendPath(PATH_TRACKER)
+            .appendPath(PATH_EVENTS)
+            .appendPath(id),
         Query.instance(),
         Event.class);
   }
@@ -4355,7 +4384,7 @@ public class Dhis2 extends BaseDhis2 {
    */
   public EventsResult getEvents(EventQuery query) {
     return getEventsResult(
-        config.getResolvedUriBuilder().appendPath(PATH_TRACKER).appendPath("events"), query);
+        config.getResolvedUriBuilder().appendPath(PATH_TRACKER).appendPath(PATH_EVENTS), query);
   }
 
   /**
@@ -4372,7 +4401,7 @@ public class Dhis2 extends BaseDhis2 {
             .getResolvedUriBuilder()
             .appendPath(PATH_TRACKER)
             .setParameter(ASYNC_PARAM, "false")
-            .setParameter("importStrategy", ImportStrategy.DELETE.name()),
+            .setParameter(IMPORT_STRATEGY_PARAM, ImportStrategy.DELETE.name()),
         events,
         EventResponse.class);
   }
@@ -4395,7 +4424,7 @@ public class Dhis2 extends BaseDhis2 {
             .getResolvedUriBuilder()
             .appendPath(PATH_TRACKER)
             .setParameter(ASYNC_PARAM, "false")
-            .setParameter("importStrategy", "DELETE"),
+            .setParameter(IMPORT_STRATEGY_PARAM, "DELETE"),
         events,
         EventResponse.class);
   }
@@ -4427,8 +4456,8 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   /**
-   * Retrieves an {@link TrackedEntity}. Includes attribute values for attributes associated with
-   * the tracked entity type only.
+   * Retrieves a {@link TrackedEntity}. Includes attribute values for attributes associated with the
+   * tracked entity type only.
    *
    * <p>Requires DHIS2 version 2.36 or later.
    *
@@ -4441,7 +4470,7 @@ public class Dhis2 extends BaseDhis2 {
         config
             .getResolvedUriBuilder()
             .appendPath(PATH_TRACKER)
-            .appendPath("trackedEntities")
+            .appendPath(PATH_TRACKED_ENTITIES)
             .appendPath(id)
             .addParameter(FIELDS_PARAM, TRACKED_ENTITY_FIELDS),
         Query.instance(),
@@ -4462,7 +4491,7 @@ public class Dhis2 extends BaseDhis2 {
         config
             .getResolvedUriBuilder()
             .appendPath(PATH_TRACKER)
-            .appendPath("trackedEntities")
+            .appendPath(PATH_TRACKED_ENTITIES)
             .addParameter(FIELDS_PARAM, TRACKED_ENTITY_FIELDS),
         query);
   }
@@ -4484,7 +4513,7 @@ public class Dhis2 extends BaseDhis2 {
         config
             .getResolvedUriBuilder()
             .appendPath(PATH_TRACKER)
-            .appendPath("enrollments")
+            .appendPath(PATH_ENROLLMENTS)
             .appendPath(id),
         Query.instance(),
         Enrollment.class);
@@ -4500,7 +4529,8 @@ public class Dhis2 extends BaseDhis2 {
    */
   public EnrollmentsResult getEnrollments(EnrollmentQuery query) {
     return getEnrollmentResult(
-        config.getResolvedUriBuilder().appendPath(PATH_TRACKER).appendPath("enrollments"), query);
+        config.getResolvedUriBuilder().appendPath(PATH_TRACKER).appendPath(PATH_ENROLLMENTS),
+        query);
   }
 
   // -------------------------------------------------------------------------
