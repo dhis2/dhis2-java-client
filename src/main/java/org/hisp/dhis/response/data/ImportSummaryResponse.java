@@ -27,6 +27,7 @@
  */
 package org.hisp.dhis.response.data;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -38,4 +39,14 @@ import org.hisp.dhis.response.Response;
 @NoArgsConstructor
 public class ImportSummaryResponse extends Response {
   @JsonProperty private ImportSummary response;
+
+  @JsonIgnore
+  public boolean hasResponse() {
+    return response != null;
+  }
+
+  @JsonIgnore
+  public ImportCount getImportCount() {
+    return hasResponse() ? response.getImportCount() : null;
+  }
 }
