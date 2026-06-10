@@ -51,4 +51,8 @@ public class ImportCount {
   public long getTotal() {
     return (long) imported + updated + ignored + deleted;
   }
+
+  public long getAffected() {
+    return (long) imported + updated + deleted;
+  }
 }

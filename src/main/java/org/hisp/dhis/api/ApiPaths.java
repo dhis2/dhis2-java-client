@@ -36,11 +36,28 @@ public class ApiPaths {
   public static final String PATH_METADATA = "metadata";
 
   /** Tracker API path. */
+  public static final String PATH_EVENTS = "events";
+
+  /** Tracker API path. */
   public static final String PATH_TRACKER = "tracker";
+
+  /** Tracked entities API path. */
+  public static final String PATH_TRACKED_ENTITIES = "trackedEntities";
+
+  /** Enrollments API path. */
+  public static final String PATH_ENROLLMENTS = "enrollments";
+
+  /** Tracker API path. */
+  public static final String PATH_FILE_RESOURCES = "fileResources";
 
   /** Analytics API path. */
   public static final String PATH_ANALYTICS = "analytics";
 
   /** Dimensions API path. */
   public static final String PATH_DIMENSIONS = "dimensions";
+
+  /** Data value sets API path. */
+  public static final String PATH_DATA_VALUE_SETS = "dataValueSets";
+
+  public static final String PATH_COMPLETE_DS_REGISTRATIONS = "completeDataSetRegistrations";
 }

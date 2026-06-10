@@ -40,4 +40,7 @@ public class ApiParams {
 
   /** Async parameter. */
   public static final String ASYNC_PARAM = "async";
+
+  /** Import strategy parameter. */
+  public static final String IMPORT_STRATEGY_PARAM = "importStrategy";
 }

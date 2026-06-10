@@ -34,6 +34,7 @@ import static org.apache.hc.core5.http.HttpStatus.SC_FORBIDDEN;
 import static org.apache.hc.core5.http.HttpStatus.SC_NOT_FOUND;
 import static org.apache.hc.core5.http.HttpStatus.SC_OK;
 import static org.apache.hc.core5.http.HttpStatus.SC_UNAUTHORIZED;
+import static org.hisp.dhis.api.ApiPaths.PATH_COMPLETE_DS_REGISTRATIONS;
 import static org.hisp.dhis.util.CollectionUtils.asList;
 import static org.hisp.dhis.util.CollectionUtils.toCommaSeparated;
 import static org.hisp.dhis.util.HttpUtils.getUriAsString;
@@ -498,8 +499,8 @@ public class BaseDhis2 {
    */
   protected CompleteDataSetRegistrationResponse saveCompleteDataSetRegistrations(
       HttpEntity entity, CompleteDataSetRegistrationImportOptions options) {
-    URIBuilder builder = config.getResolvedUriBuilder().appendPath("completeDataSetRegistrations");
-    URI url = withCompleteDataSetRegistrationsImportQueryParams(builder, options);
+    URIBuilder builder = config.getResolvedUriBuilder().appendPath(PATH_COMPLETE_DS_REGISTRATIONS);
+    URI url = withCompleteDataSetRegistrationsAsyncImportQueryParams(builder, options);
     HttpPost request = getPostRequest(url, entity);
     Dhis2AsyncRequest asyncRequest = new Dhis2AsyncRequest(config, httpClient, jsonMapper);
 
@@ -846,15 +847,28 @@ public class BaseDhis2 {
   }
 
   /**
+   * Returns a {@link URI} based on the complete data set registration import options with async
+   * import enabled.
+   *
+   * @param uriBuilder the URI builder.
+   * @param options the {@link CompleteDataSetRegistrationImportOptions} to apply.
+   * @return a URI.
+   */
+  protected URI withCompleteDataSetRegistrationsAsyncImportQueryParams(
+      URIBuilder uriBuilder, CompleteDataSetRegistrationImportOptions options) {
+    addParameter(uriBuilder, "async", "true");
+    return withCompleteDataSetRegistrationsImportQueryParams(uriBuilder, options);
+  }
+
+  /**
    * Returns a {@link URI} based on the complete data set registration import options.
    *
    * @param uriBuilder the URI builder.
    * @param options the {@link CompleteDataSetRegistrationImportOptions} to apply.
    * @return a URI.
    */
-  private URI withCompleteDataSetRegistrationsImportQueryParams(
+  protected URI withCompleteDataSetRegistrationsImportQueryParams(
       URIBuilder uriBuilder, CompleteDataSetRegistrationImportOptions options) {
-    addParameter(uriBuilder, "async", "true"); // Always use async
     addParameter(uriBuilder, "dataSetIdScheme", options.getDataSetIdScheme());
     addParameter(uriBuilder, "orgUnitIdScheme", options.getOrgUnitIdScheme());
     addParameter(

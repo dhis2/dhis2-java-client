@@ -70,12 +70,7 @@ public abstract class AsyncSummaryResponse extends BaseHttpResponse {
    */
   @JsonIgnore
   private long getTotalCount() {
-    return hasImportCount()
-        ? (importCount.getImported()
-            + importCount.getUpdated()
-            + importCount.getDeleted()
-            + importCount.getIgnored())
-        : 0;
+    return hasImportCount() ? importCount.getTotal() : 0;
   }
 
   /**
@@ -85,9 +80,7 @@ public abstract class AsyncSummaryResponse extends BaseHttpResponse {
    */
   @JsonIgnore
   public long getAffectedCount() {
-    return hasImportCount()
-        ? (importCount.getImported() + importCount.getUpdated() + importCount.getDeleted())
-        : 0;
+    return hasImportCount() ? importCount.getAffected() : 0;
   }
 
   @Override

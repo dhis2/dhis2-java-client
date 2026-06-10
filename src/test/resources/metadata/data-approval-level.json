@@ -4,18 +4,21 @@
       "id": "b2uHwX9YLhu",
       "code": "NATIONAL_LEVEL",
       "name": "National",
+      "level": 1,
       "orgUnitLevel": 1
     },
     {
       "id": "K7PvhCEjUmY",
       "code": "DISTRICT_LEVEL",
       "name": "District",
+      "level": 2,
       "orgUnitLevel": 2
     },
     {
       "id": "M3nqHpZwRtL",
       "code": "FACILITY_LEVEL",
       "name": "Facility",
+      "level": 3,
       "orgUnitLevel": 3
     }
   ]

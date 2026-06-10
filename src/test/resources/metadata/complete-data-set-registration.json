@@ -1,0 +1,28 @@
+{
+  "completeDataSetRegistrations": [
+    {
+      "dataSet": "lyLU2wR22tC",
+      "period": "202603",
+      "organisationUnit": "y77LiPqLMoq",
+      "attributeOptionCombo": "HllvX50cXC0",
+      "completed": true,
+      "storedBy": "admin"
+    },
+    {
+      "dataSet": "lyLU2wR22tC",
+      "period": "202603",
+      "organisationUnit": "rwfuVQHnZJ5",
+      "attributeOptionCombo": "HllvX50cXC0",
+      "completed": true,
+      "storedBy": "admin"
+    },
+    {
+      "dataSet": "lyLU2wR22tC",
+      "period": "202603",
+      "organisationUnit": "xXYv82KlBUh",
+      "attributeOptionCombo": "HllvX50cXC0",
+      "completed": true,
+      "storedBy": "admin"
+    }
+  ]
+}
