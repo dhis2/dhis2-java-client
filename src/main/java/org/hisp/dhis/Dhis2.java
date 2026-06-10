@@ -4257,8 +4257,7 @@ public class Dhis2 extends BaseDhis2 {
     Dhis2Objects entityObject =
         new Dhis2Objects().setCompleteDataSetRegistrations(completeDataSetRegistrations);
 
-    String str = toJsonString(entityObject);
-    StringEntity entity = new StringEntity(str, StandardCharsets.UTF_8);
+    StringEntity entity = new StringEntity(toJsonString(entityObject), StandardCharsets.UTF_8);
 
     return saveCompleteDataSetRegistrations(entity, options);
   }

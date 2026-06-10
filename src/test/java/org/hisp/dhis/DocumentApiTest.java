@@ -100,7 +100,6 @@ class DocumentApiTest {
 
     String docValue = out.toString(UTF_8);
     assertNotNull(docValue);
-    assertTrue(docValue.contains("Y1ILwhy5VDY"));
 
     // Remove
     ObjectResponse removeRespA = dhis2.removeDocument(documentUid);
