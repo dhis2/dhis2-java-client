@@ -36,6 +36,7 @@ import java.util.List;
 import org.apache.hc.core5.net.URIBuilder;
 import org.hisp.dhis.model.AggregationType;
 import org.hisp.dhis.model.IdScheme;
+import org.hisp.dhis.model.completedatasetregistration.CompleteDataSetRegistrationImportOptions;
 import org.hisp.dhis.model.datavalueset.DataValueSetImportOptions;
 import org.hisp.dhis.model.event.ProgramStatus;
 import org.hisp.dhis.query.Filter;
@@ -199,7 +200,7 @@ class QueryTest {
   }
 
   @Test
-  void testGetDataValueSetImportQuery() {
+  void testWithDataValueSetImportParams() {
     Dhis2Config config = getDhis2Config();
 
     Dhis2 dhis2 = new Dhis2(config);
@@ -209,17 +210,38 @@ class QueryTest {
     DataValueSetImportOptions options =
         DataValueSetImportOptions.instance()
             .setDataElementIdScheme(IdScheme.CODE)
-            .setDryRun(true)
-            .setPreheatCache(true)
-            .setSkipAudit(true);
+            .setPreheatCache(true);
 
     URI uri = dhis2.withDataValueSetImportParams(uriBuilder, options);
 
     String expected =
         """
         https://dhis2.org/api/dataValueSets?\
-        async=true&dataElementIdScheme=code&\
-        dryRun=true&preheatCache=true&skipAudit=true""";
+        async=true&skipAudit=true&dryRun=false&\
+        dataElementIdScheme=code&preheatCache=true""";
+
+    assertEquals(expected, uri.toString());
+  }
+
+  @Test
+  void testWithCompleteDataSetRegistrationImportParams() {
+
+    Dhis2Config config = getDhis2Config();
+
+    Dhis2 dhis2 = new Dhis2(config);
+
+    URIBuilder uriBuilder =
+        config.getResolvedUriBuilder().appendPath("completeDataSetRegistrations");
+
+    CompleteDataSetRegistrationImportOptions options =
+        CompleteDataSetRegistrationImportOptions.instance().setOrgUnitIdScheme(IdScheme.CODE);
+
+    URI uri = dhis2.withCompleteDataSetRegistrationsImportParams(uriBuilder, options);
+
+    String expected =
+        """
+        https://dhis2.org/api/completeDataSetRegistrations?\
+        skipAudit=true&dryRun=false&orgUnitIdScheme=code""";
 
     assertEquals(expected, uri.toString());
   }

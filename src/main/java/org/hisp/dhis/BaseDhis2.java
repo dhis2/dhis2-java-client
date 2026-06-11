@@ -476,15 +476,15 @@ public class BaseDhis2 {
   protected URI withDataValueSetImportParams(
       URIBuilder uriBuilder, DataValueSetImportOptions options) {
     addParameter(uriBuilder, "async", "true"); // Always use async
+    addParameter(uriBuilder, "skipAudit", "true"); // Always skip audit
+    addParameter(uriBuilder, "dryRun", "false"); // Never use dry run
     addParameter(uriBuilder, "dataElementIdScheme", options.getDataElementIdScheme());
     addParameter(uriBuilder, "orgUnitIdScheme", options.getOrgUnitIdScheme());
     addParameter(
         uriBuilder, "categoryOptionComboIdScheme", options.getCategoryOptionComboIdScheme());
     addParameter(uriBuilder, "idScheme", options.getIdScheme());
-    addParameter(uriBuilder, "dryRun", options.getDryRun());
     addParameter(uriBuilder, "importStrategy", options.getImportStrategy());
     addParameter(uriBuilder, "preheatCache", options.getPreheatCache());
-    addParameter(uriBuilder, "skipAudit", options.getSkipAudit());
 
     return HttpUtils.build(uriBuilder);
   }
@@ -500,7 +500,7 @@ public class BaseDhis2 {
   protected CompleteDataSetRegistrationResponse saveCompleteDataSetRegistrations(
       HttpEntity entity, CompleteDataSetRegistrationImportOptions options) {
     URIBuilder builder = config.getResolvedUriBuilder().appendPath(PATH_COMPLETE_DS_REGISTRATIONS);
-    URI url = withCompleteDataSetRegistrationsAsyncImportQueryParams(builder, options);
+    URI url = withCompleteDataSetRegistrationsAsyncImportParams(builder, options);
     HttpPost request = getPostRequest(url, entity);
     Dhis2AsyncRequest asyncRequest = new Dhis2AsyncRequest(config, httpClient, jsonMapper);
 
@@ -854,10 +854,10 @@ public class BaseDhis2 {
    * @param options the {@link CompleteDataSetRegistrationImportOptions} to apply.
    * @return a URI.
    */
-  protected URI withCompleteDataSetRegistrationsAsyncImportQueryParams(
+  protected URI withCompleteDataSetRegistrationsAsyncImportParams(
       URIBuilder uriBuilder, CompleteDataSetRegistrationImportOptions options) {
     addParameter(uriBuilder, "async", "true");
-    return withCompleteDataSetRegistrationsImportQueryParams(uriBuilder, options);
+    return withCompleteDataSetRegistrationsImportParams(uriBuilder, options);
   }
 
   /**
@@ -867,15 +867,16 @@ public class BaseDhis2 {
    * @param options the {@link CompleteDataSetRegistrationImportOptions} to apply.
    * @return a URI.
    */
-  protected URI withCompleteDataSetRegistrationsImportQueryParams(
+  protected URI withCompleteDataSetRegistrationsImportParams(
       URIBuilder uriBuilder, CompleteDataSetRegistrationImportOptions options) {
+    addParameter(uriBuilder, "skipAudit", "true"); // Always skip audit
+    addParameter(uriBuilder, "dryRun", "false"); // Never use dry run
     addParameter(uriBuilder, "dataSetIdScheme", options.getDataSetIdScheme());
     addParameter(uriBuilder, "orgUnitIdScheme", options.getOrgUnitIdScheme());
     addParameter(
         uriBuilder, "attributeOptionComboIdScheme", options.getAttributeOptionComboIdScheme());
     addParameter(uriBuilder, "idScheme", options.getIdScheme());
     addParameter(uriBuilder, "preheatCache", options.getPreheatCache());
-    addParameter(uriBuilder, "dryRun", options.getDryRun());
     addParameter(uriBuilder, "importStrategy", options.getImportStrategy());
     addParameter(uriBuilder, "skipExistingCheck", options.getSkipExistingCheck());
 

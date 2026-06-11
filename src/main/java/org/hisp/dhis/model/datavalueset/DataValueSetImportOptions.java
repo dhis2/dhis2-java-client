@@ -28,7 +28,9 @@
 package org.hisp.dhis.model.datavalueset;
 
 import java.io.Serializable;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
@@ -39,6 +41,7 @@ import org.hisp.dhis.model.metadata.ImportStrategy;
 @Setter
 @ToString
 @Accessors(chain = true)
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class DataValueSetImportOptions implements Serializable {
   private IdScheme dataElementIdScheme;
 
@@ -55,8 +58,6 @@ public class DataValueSetImportOptions implements Serializable {
   private Boolean skipAudit;
 
   private ImportStrategy importStrategy;
-
-  private DataValueSetImportOptions() {}
 
   public static DataValueSetImportOptions instance() {
     return new DataValueSetImportOptions();
