@@ -4304,7 +4304,7 @@ public class Dhis2 extends BaseDhis2 {
     InputStreamEntity entity = new InputStreamEntity(input, ContentType.APPLICATION_JSON);
 
     URIBuilder builder = config.getResolvedUriBuilder().appendPath(PATH_COMPLETE_DS_REGISTRATIONS);
-    URI url = withCompleteDataSetRegistrationsImportQueryParams(builder, options);
+    URI url = withCompleteDataSetRegistrationsImportParams(builder, options);
     HttpPost request = getPostRequest(url, entity);
 
     return executeRequest(request, ImportSummaryResponse.class);

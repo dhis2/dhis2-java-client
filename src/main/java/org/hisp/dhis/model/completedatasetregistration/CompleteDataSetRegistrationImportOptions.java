@@ -33,12 +33,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import lombok.experimental.Accessors;
 import org.hisp.dhis.model.IdScheme;
 import org.hisp.dhis.model.metadata.ImportStrategy;
 
 @Getter
 @Setter
 @ToString
+@Accessors(chain = true)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class CompleteDataSetRegistrationImportOptions implements Serializable {
   /** Identifier property used for data sets in the response. Overrides idScheme. */
