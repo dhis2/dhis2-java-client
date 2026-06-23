@@ -1274,7 +1274,7 @@ public class BaseDhis2 {
    * @return the number of bytes copied.
    * @throws Dhis2ClientException if the write operation failed.
    */
-  protected int writeToStream(ClassicHttpResponse response, OutputStream out) {
+  protected int writeToOutputStream(ClassicHttpResponse response, OutputStream out) {
     try (InputStream in = response.getEntity().getContent()) {
       return IOUtils.copy(in, out);
     } catch (IOException ex) {
