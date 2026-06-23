@@ -27,6 +27,9 @@
  */
 package org.hisp.dhis.model;
 
+import static org.hisp.dhis.util.ObjectUtils.isPresent;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.List;
@@ -101,5 +104,15 @@ public class DataSet extends DimensionItem {
   @Override
   public DimensionItemType getDimensionItemType() {
     return DimensionItemType.REPORTING_RATE;
+  }
+
+  @JsonIgnore
+  public boolean hasCategoryCombo() {
+    return isPresent(categoryCombo);
+  }
+
+  @JsonIgnore
+  public boolean hasWorkflow() {
+    return isPresent(workflow);
   }
 }
