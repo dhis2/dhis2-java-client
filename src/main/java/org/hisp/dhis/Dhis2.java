@@ -1906,17 +1906,7 @@ public class Dhis2 extends BaseDhis2 {
                 .appendPath(id)
                 .appendPath("data"));
 
-    HttpGet request = getHttpGetRequest(url, List.of());
-
-    try {
-      return httpClient.execute(
-          request,
-          response -> {
-            return writeToStream(response, out);
-          });
-    } catch (IOException ex) {
-      throw new Dhis2ClientException("HTTP request failed", ex);
-    }
+    return writeToOutputStream(url, out);
   }
 
   /**
@@ -3936,6 +3926,29 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   /**
+   * Retrieves the resource at the given URI and writes the content to the given {@link
+   * OutputStream}.
+   *
+   * @param uri the URL to retrieve.
+   * @param out the {@link OutputStream} to write to.
+   * @return the number of bytes copied to the {@link OutputStream}.
+   * @throws Dhis2ClientException if the download fails.
+   */
+  public int writeToOutputStream(URI uri, OutputStream out) {
+    HttpGet request = getHttpGetRequest(uri, List.of());
+
+    try {
+      return httpClient.execute(
+          request,
+          response -> {
+            return writeToOutputStream(response, out);
+          });
+    } catch (IOException ex) {
+      throw new Dhis2ClientException("HTTP request failed", ex);
+    }
+  }
+
+  /**
    * Retrieves the file content for a {@link FileResource}.
    *
    * @param id the object identifier.
@@ -4004,6 +4017,31 @@ public class Dhis2 extends BaseDhis2 {
                 .addParameter("dataElementUid", dataElementUid));
 
     return downloadFile(uri, "Failed to download event file");
+  }
+
+  /**
+   * Write the file associated with the specified event data element value and writes its content to
+   * the given {@link OutputStream}.
+   *
+   * @param eventUid the event UID.
+   * @param dataElementUid the data element value that represents the file resource UID associated
+   *     to the data element.
+   * @return the file content as a byte array.
+   * @throws Dhis2ClientException if the file resource does not exist or download fails.
+   */
+  public int writeEventFile(String eventUid, String dataElementUid, OutputStream out) {
+    URI uri =
+        HttpUtils.build(
+            config
+                .getResolvedUriBuilder()
+                .appendPath(PATH_TRACKER)
+                .appendPath(PATH_EVENTS)
+                .appendPath(eventUid)
+                .appendPath("dataValues")
+                .appendPath(dataElementUid)
+                .appendPath("file"));
+
+    return writeToOutputStream(uri, out);
   }
 
   /**
