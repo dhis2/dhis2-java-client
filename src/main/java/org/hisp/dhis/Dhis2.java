@@ -1906,7 +1906,7 @@ public class Dhis2 extends BaseDhis2 {
                 .appendPath(id)
                 .appendPath("data"));
 
-    return writeFileToOutputStream(url, out);
+    return writeToOutputStream(url, out);
   }
 
   /**
@@ -3926,21 +3926,22 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   /**
-   * Downloads file content from the given URL into the provided {@link OutputStream}.
+   * Retrieves the resource at the given URI and writes the content to the given {@link
+   * OutputStream}.
    *
-   * @param uri the URL to download from.
-   * @param out the {@link OutputStream} to write data to.
+   * @param uri the URL to retrieve.
+   * @param out the {@link OutputStream} to write to.
    * @return the number of bytes copied to the {@link OutputStream}.
    * @throws Dhis2ClientException if the download fails.
    */
-  public Integer writeFileToOutputStream(URI uri, OutputStream out) {
+  public int writeToOutputStream(URI uri, OutputStream out) {
     HttpGet request = getHttpGetRequest(uri, List.of());
 
     try {
       return httpClient.execute(
           request,
           response -> {
-            return writeToStream(response, out);
+            return writeToOutputStream(response, out);
           });
     } catch (IOException ex) {
       throw new Dhis2ClientException("HTTP request failed", ex);
@@ -4020,7 +4021,7 @@ public class Dhis2 extends BaseDhis2 {
 
   /**
    * Write the file associated with the specified event data element value and writes its content to
-   * the provided {@link OutputStream}.
+   * the given {@link OutputStream}.
    *
    * @param eventUid the event UID.
    * @param dataElementUid the data element value that represents the file resource UID associated
@@ -4040,7 +4041,7 @@ public class Dhis2 extends BaseDhis2 {
                 .appendPath(dataElementUid)
                 .appendPath("file"));
 
-    return writeFileToOutputStream(uri, out);
+    return writeToOutputStream(uri, out);
   }
 
   /**
