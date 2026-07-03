@@ -79,6 +79,7 @@ import org.hisp.dhis.api.ApiFields;
 import org.hisp.dhis.api.LogLevel;
 import org.hisp.dhis.auth.AccessTokenAuthentication;
 import org.hisp.dhis.auth.BasicAuthentication;
+import org.hisp.dhis.auth.BearerAuthentication;
 import org.hisp.dhis.auth.CookieAuthentication;
 import org.hisp.dhis.auth.NoAuthentication;
 import org.hisp.dhis.model.AnalyticsTableHook;
@@ -235,6 +236,23 @@ public class Dhis2 extends BaseDhis2 {
     Verify.notEmpty(url, "URL must be provided");
     Verify.notEmpty(accessToken, "Access token must be provided");
     return new Dhis2(new Dhis2Config(url, new AccessTokenAuthentication(accessToken)));
+  }
+
+  /**
+   * Creates a {@link Dhis2} instance configured for OAuth2 bearer token authentication. The token
+   * is sent as {@code Authorization: Bearer <token>}, suitable for OAuth2 access tokens (as opposed
+   * to {@link #withAccessTokenAuth(String, String)}, which uses the {@code ApiToken} scheme for
+   * personal access tokens).
+   *
+   * @param url the URL to the DHIS2 instance, do not include the {@code /api} part or a trailing
+   *     {@code /}.
+   * @param bearerToken the OAuth2 bearer access token.
+   * @return a {@link Dhis2} instance.
+   */
+  public static Dhis2 withBearerTokenAuth(String url, String bearerToken) {
+    Verify.notEmpty(url, "URL must be provided");
+    Verify.notEmpty(bearerToken, "Bearer token must be provided");
+    return new Dhis2(new Dhis2Config(url, new BearerAuthentication(bearerToken)));
   }
 
   /**
