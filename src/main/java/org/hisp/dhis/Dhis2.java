@@ -239,9 +239,9 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   /**
-   * Creates a {@link Dhis2} instance configured for OAuth2 bearer token authentication. The token is
-   * sent as {@code Authorization: Bearer <token>}, suitable for OAuth2 access tokens (as opposed to
-   * {@link #withAccessTokenAuth(String, String)}, which uses the {@code ApiToken} scheme for
+   * Creates a {@link Dhis2} instance configured for OAuth2 bearer token authentication. The token
+   * is sent as {@code Authorization: Bearer <token>}, suitable for OAuth2 access tokens (as opposed
+   * to {@link #withAccessTokenAuth(String, String)}, which uses the {@code ApiToken} scheme for
    * personal access tokens).
    *
    * @param url the URL to the DHIS2 instance, do not include the {@code /api} part or a trailing
