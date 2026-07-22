@@ -70,7 +70,9 @@ import org.apache.commons.lang3.Validate;
 import org.apache.hc.client5.http.HttpResponseException;
 import org.apache.hc.client5.http.classic.methods.HttpGet;
 import org.apache.hc.client5.http.classic.methods.HttpPost;
+import org.apache.hc.client5.http.entity.mime.MultipartEntityBuilder;
 import org.apache.hc.core5.http.ContentType;
+import org.apache.hc.core5.http.HttpEntity;
 import org.apache.hc.core5.http.io.entity.FileEntity;
 import org.apache.hc.core5.http.io.entity.InputStreamEntity;
 import org.apache.hc.core5.http.io.entity.StringEntity;
@@ -183,6 +185,7 @@ import org.hisp.dhis.response.completedatasetregistration.CompleteDataSetRegistr
 import org.hisp.dhis.response.data.ImportSummaryResponse;
 import org.hisp.dhis.response.datavalueset.DataValueSetResponse;
 import org.hisp.dhis.response.event.EventResponse;
+import org.hisp.dhis.response.fileresource.FileResourceResponse;
 import org.hisp.dhis.response.job.JobCategory;
 import org.hisp.dhis.response.job.JobInfoResponse;
 import org.hisp.dhis.response.job.JobNotification;
@@ -3917,6 +3920,42 @@ public class Dhis2 extends BaseDhis2 {
             query,
             Dhis2Objects.class)
         .getFileResources();
+  }
+
+  /**
+   * Creates a {@link FileResource} by uploading the given file.
+   *
+   * @param file the {@link File} to upload.
+   * @return a {@link FileResourceResponse}.
+   * @throws Dhis2ClientException if the request was invalid.
+   */
+  public FileResourceResponse saveFileResource(File file) {
+    HttpEntity entity = MultipartEntityBuilder.create().addBinaryBody("file", file).build();
+
+    URI url = HttpUtils.build(config.getResolvedUriBuilder().appendPath(PATH_FILE_RESOURCES));
+
+    return executeRequest(getMultipartPostRequest(url, entity), FileResourceResponse.class);
+  }
+
+  /**
+   * Creates a {@link FileResource} by uploading the content of the given {@link InputStream}.
+   *
+   * @param fileName the name of the file.
+   * @param contentType the content type of the file, e.g. "image/png".
+   * @param input the {@link InputStream} of the file content.
+   * @return a {@link FileResourceResponse}.
+   * @throws Dhis2ClientException if the request was invalid.
+   */
+  public FileResourceResponse saveFileResource(
+      String fileName, String contentType, InputStream input) {
+    HttpEntity entity =
+        MultipartEntityBuilder.create()
+            .addBinaryBody("file", input, ContentType.parse(contentType), fileName)
+            .build();
+
+    URI url = HttpUtils.build(config.getResolvedUriBuilder().appendPath(PATH_FILE_RESOURCES));
+
+    return executeRequest(getMultipartPostRequest(url, entity), FileResourceResponse.class);
   }
 
   /**
