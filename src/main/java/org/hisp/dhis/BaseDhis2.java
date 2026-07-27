@@ -1080,6 +1080,19 @@ public class BaseDhis2 {
   }
 
   /**
+   * Returns a HTTP post request with a multipart entity for the given URL, e.g. for file uploads.
+   *
+   * @param url the {@link URI}.
+   * @param entity the multipart {@link HttpEntity}.
+   * @return a {@link HttpPost} request.
+   */
+  protected HttpPost getMultipartPostRequest(URI url, HttpEntity entity) {
+    HttpPost request = withAuth(new HttpPost(url));
+    request.setEntity(entity);
+    return request;
+  }
+
+  /**
    * Retrieves an object using HTTP GET.
    *
    * @param <T> the type.
@@ -1447,16 +1460,7 @@ public class BaseDhis2 {
                 .appendPath(collection)
                 .appendPath(item));
 
-    Response response = executeRequest(new HttpPost(url));
-
-    Status status =
-        response != null
-                && response.getHttpStatus() != null
-                && response.getHttpStatus().is2xxSuccessful()
-            ? Status.OK
-            : Status.ERROR;
-
-    return new Response(status, response.getHttpStatusCode(), response.getMessage());
+    return executeRequest(new HttpPost(url));
   }
 
   /**
