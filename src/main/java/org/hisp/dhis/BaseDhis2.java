@@ -1460,16 +1460,7 @@ public class BaseDhis2 {
                 .appendPath(collection)
                 .appendPath(item));
 
-    Response response = executeRequest(new HttpPost(url));
-
-    Status status =
-        response != null
-                && response.getHttpStatus() != null
-                && response.getHttpStatus().is2xxSuccessful()
-            ? Status.OK
-            : Status.ERROR;
-
-    return new Response(status, response.getHttpStatusCode(), response.getMessage());
+    return executeRequest(new HttpPost(url));
   }
 
   /**
