@@ -4068,10 +4068,12 @@ public class Dhis2 extends BaseDhis2 {
         HttpUtils.build(
             config
                 .getResolvedUriBuilder()
+                .appendPath(PATH_TRACKER)
                 .appendPath(PATH_EVENTS)
-                .appendPath("files")
-                .addParameter("eventUid", eventUid)
-                .addParameter("dataElementUid", dataElementUid));
+                .appendPath(eventUid)
+                .appendPath("dataValues")
+                .appendPath(dataElementUid)
+                .appendPath("file"));
 
     return downloadFile(uri, "Failed to download event file");
   }
