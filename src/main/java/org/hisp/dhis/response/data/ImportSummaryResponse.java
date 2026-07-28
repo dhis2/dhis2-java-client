@@ -27,6 +27,8 @@
  */
 package org.hisp.dhis.response.data;
 
+import static org.hisp.dhis.util.ObjectUtils.isPresent;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
@@ -42,7 +44,7 @@ public class ImportSummaryResponse extends Response {
 
   @JsonIgnore
   public boolean hasResponse() {
-    return response != null;
+    return isPresent(response);
   }
 
   @JsonIgnore

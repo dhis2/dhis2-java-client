@@ -27,6 +27,7 @@
  */
 package org.hisp.dhis.response.trackedentity;
 
+import static org.hisp.dhis.util.ObjectUtils.isPresent;
 import static org.hisp.dhis.util.TextUtils.newToStringBuilder;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -48,7 +49,7 @@ public class TrackedEntityResponse extends Response {
 
   @JsonIgnore
   public boolean hasValidationReport() {
-    return validationReport != null;
+    return isPresent(validationReport);
   }
 
   @JsonIgnore

@@ -27,6 +27,9 @@
  */
 package org.hisp.dhis.util;
 
+import static org.hisp.dhis.util.ObjectUtils.isAbsent;
+import static org.hisp.dhis.util.ObjectUtils.isPresent;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
@@ -57,7 +60,7 @@ public final class NumberUtils {
    * @return a string.
    */
   public static String toString(Integer number) {
-    return number == null ? null : String.valueOf(number);
+    return isAbsent(number) ? null : String.valueOf(number);
   }
 
   /**
@@ -67,7 +70,7 @@ public final class NumberUtils {
    * @return a string.
    */
   public static String toString(Double number) {
-    return number == null ? null : String.valueOf(number);
+    return isAbsent(number) ? null : String.valueOf(number);
   }
 
   /**
@@ -107,7 +110,7 @@ public final class NumberUtils {
    * @return the int value.
    */
   public static int toInt(Integer integer) {
-    return integer != null ? integer.intValue() : 0;
+    return isPresent(integer) ? integer.intValue() : 0;
   }
 
   /**
@@ -127,7 +130,7 @@ public final class NumberUtils {
    * @return true if the given value equals zero, false otherwise.
    */
   public static boolean isZero(Double value) {
-    return value != null && Double.compare(value, 0.0) == 0;
+    return isPresent(value) && Double.compare(value, 0.0) == 0;
   }
 
   /**
@@ -139,7 +142,7 @@ public final class NumberUtils {
    * @return the value formatted as a string.
    */
   public static String formatDouble(Double value) {
-    if (value == null) {
+    if (isAbsent(value)) {
       return StringUtils.EMPTY;
     }
 

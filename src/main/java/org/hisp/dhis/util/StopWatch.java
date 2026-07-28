@@ -27,6 +27,8 @@
  */
 package org.hisp.dhis.util;
 
+import static org.hisp.dhis.util.ObjectUtils.isPresent;
+
 import java.time.Duration;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
@@ -213,7 +215,7 @@ public class StopWatch {
    * @return the duration of the last split in milliseconds, or -1 if watch is not split.
    */
   public long getLastSplitDuration() {
-    return lastSplitDuration != null ? lastSplitDuration.toMillis() : -1;
+    return isPresent(lastSplitDuration) ? lastSplitDuration.toMillis() : -1;
   }
 
   /**

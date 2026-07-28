@@ -27,6 +27,8 @@
  */
 package org.hisp.dhis.model;
 
+import static org.hisp.dhis.util.ObjectUtils.isPresent;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
@@ -61,12 +63,12 @@ public class DataElement extends DimensionItem {
 
   @JsonIgnore
   public boolean hasOptionSet() {
-    return optionSet != null;
+    return isPresent(optionSet);
   }
 
   @JsonIgnore
   public boolean hasCategoryCombo() {
-    return categoryCombo != null;
+    return isPresent(categoryCombo);
   }
 
   @Override

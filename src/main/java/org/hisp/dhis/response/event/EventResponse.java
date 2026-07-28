@@ -27,6 +27,7 @@
  */
 package org.hisp.dhis.response.event;
 
+import static org.hisp.dhis.util.ObjectUtils.isPresent;
 import static org.hisp.dhis.util.TextUtils.newToStringBuilder;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -52,7 +53,7 @@ public class EventResponse extends Response {
 
   @JsonIgnore
   public boolean hasValidationReport() {
-    return validationReport != null;
+    return isPresent(validationReport);
   }
 
   @JsonIgnore

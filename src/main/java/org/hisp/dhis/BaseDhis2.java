@@ -38,6 +38,8 @@ import static org.hisp.dhis.api.ApiPaths.PATH_COMPLETE_DS_REGISTRATIONS;
 import static org.hisp.dhis.util.CollectionUtils.asList;
 import static org.hisp.dhis.util.CollectionUtils.toCommaSeparated;
 import static org.hisp.dhis.util.HttpUtils.getUriAsString;
+import static org.hisp.dhis.util.ObjectUtils.isAbsent;
+import static org.hisp.dhis.util.ObjectUtils.isPresent;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -892,7 +894,7 @@ public class BaseDhis2 {
    * @param value the query parameter value.
    */
   private void addParameter(URIBuilder uriBuilder, String parameter, Object value) {
-    if (value != null) {
+    if (isPresent(value)) {
       uriBuilder.addParameter(parameter, value.toString());
     }
   }
@@ -906,7 +908,7 @@ public class BaseDhis2 {
    * @param value the query parameter Date value.
    */
   private void addParameter(URIBuilder uriBuilder, String parameter, Date value) {
-    if (value != null) {
+    if (isPresent(value)) {
       uriBuilder.addParameter(parameter, DateTimeUtils.getDateTimeString(value));
     }
   }
@@ -1041,7 +1043,7 @@ public class BaseDhis2 {
 
             HttpStatus httpStatus = HttpStatus.valueOf(response.getCode());
             Status status =
-                httpStatus != null && httpStatus.is2xxSuccessful() ? Status.OK : Status.ERROR;
+                isPresent(httpStatus) && httpStatus.is2xxSuccessful() ? Status.OK : Status.ERROR;
 
             Response resp = new Response();
             resp.setHeaders(asList(response.getHeaders()));
@@ -1257,7 +1259,7 @@ public class BaseDhis2 {
    * @throws Dhis2ClientException if object is invalid.
    */
   private void validateRequestObject(Object object) {
-    if (object == null) {
+    if (isAbsent(object)) {
       throw new Dhis2ClientException("Request object is null", 400);
     }
   }
@@ -1475,7 +1477,7 @@ public class BaseDhis2 {
     }
 
     final Header locationHeader = response.getLastHeader(HttpHeaders.LOCATION);
-    return locationHeader != null && locationHeader.getValue().contains("dhis-web-login");
+    return isPresent(locationHeader) && locationHeader.getValue().contains("dhis-web-login");
   }
 
   /**

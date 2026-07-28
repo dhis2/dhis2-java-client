@@ -27,6 +27,8 @@
  */
 package org.hisp.dhis.model.dashboard;
 
+import static org.hisp.dhis.util.ObjectUtils.isPresent;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
@@ -47,6 +49,6 @@ public class Dashboard extends NameableObject {
 
   @JsonIgnore
   public boolean isEmbedded() {
-    return embedded != null;
+    return isPresent(embedded);
   }
 }

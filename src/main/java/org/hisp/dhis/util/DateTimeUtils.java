@@ -27,6 +27,9 @@
  */
 package org.hisp.dhis.util;
 
+import static org.hisp.dhis.util.ObjectUtils.isAbsent;
+import static org.hisp.dhis.util.ObjectUtils.isPresent;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.DateTimeException;
@@ -165,7 +168,7 @@ public final class DateTimeUtils {
    * @return the {@link Instant} of received date param.
    */
   public static Instant toInstant(Date date) {
-    return date != null ? date.toInstant() : null;
+    return isPresent(date) ? date.toInstant() : null;
   }
 
   /**
@@ -310,7 +313,7 @@ public final class DateTimeUtils {
    * @return the escaped date time string (e.g. {@code "2024-01-15T10/:30/:00"}).
    */
   public static String escapeDateTimeForFilter(String dateTime) {
-    if (dateTime == null) {
+    if (isAbsent(dateTime)) {
       return "";
     }
     return dateTime.replace(":", "/:");
@@ -329,7 +332,7 @@ public final class DateTimeUtils {
    */
   public static boolean isValidLocalDate(String string) {
     try {
-      return string != null && toLocalDate(string) != null;
+      return isPresent(string) && isPresent(toLocalDate(string));
     } catch (DateTimeException ex) {
       return false;
     }
@@ -344,7 +347,7 @@ public final class DateTimeUtils {
    */
   public static boolean isValidLocalDateTime(String string) {
     try {
-      return string != null && toLocalDateTime(string) != null;
+      return isPresent(string) && isPresent(toLocalDateTime(string));
     } catch (DateTimeException ex) {
       return false;
     }
@@ -359,7 +362,7 @@ public final class DateTimeUtils {
    */
   public static boolean isValidDuration(String string) {
     try {
-      return string != null && toDuration(string) != null;
+      return isPresent(string) && isPresent(toDuration(string));
     } catch (DateTimeException ex) {
       return false;
     }

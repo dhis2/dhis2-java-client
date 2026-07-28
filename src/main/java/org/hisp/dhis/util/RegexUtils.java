@@ -27,6 +27,8 @@
  */
 package org.hisp.dhis.util;
 
+import static org.hisp.dhis.util.ObjectUtils.isAbsent;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import lombok.AccessLevel;
@@ -55,7 +57,7 @@ public final class RegexUtils {
    * @return the matching group, or null if no match is found.
    */
   public static String getMatch(Pattern pattern, String value, int group) {
-    if (pattern == null || value == null) {
+    if (isAbsent(pattern) || isAbsent(value)) {
       return null;
     }
 

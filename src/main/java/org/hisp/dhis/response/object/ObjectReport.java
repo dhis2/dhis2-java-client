@@ -27,6 +27,8 @@
  */
 package org.hisp.dhis.response.object;
 
+import static org.hisp.dhis.util.ObjectUtils.isPresent;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.List;
@@ -61,6 +63,6 @@ public class ObjectReport {
    * @return the number of errors.
    */
   public int getErrorCount() {
-    return errorReports != null ? errorReports.size() : 0;
+    return isPresent(errorReports) ? errorReports.size() : 0;
   }
 }

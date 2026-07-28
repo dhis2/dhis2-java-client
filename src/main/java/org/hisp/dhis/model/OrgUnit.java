@@ -28,6 +28,7 @@
 package org.hisp.dhis.model;
 
 import static org.hisp.dhis.util.DateTimeUtils.DATE_FORMAT;
+import static org.hisp.dhis.util.ObjectUtils.isPresent;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -99,6 +100,6 @@ public class OrgUnit extends DimensionItem {
    * @return true if this org unit has a parent, false otherwise.
    */
   public boolean hasParent() {
-    return parent != null;
+    return isPresent(parent);
   }
 }
