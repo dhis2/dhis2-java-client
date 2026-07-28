@@ -27,6 +27,8 @@
  */
 package org.hisp.dhis.model.analytics;
 
+import static org.hisp.dhis.util.ObjectUtils.isPresent;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
@@ -92,11 +94,11 @@ public class AnalyticsHeader implements Serializable {
 
   @JsonIgnore
   public boolean isHidden() {
-    return hidden != null && hidden;
+    return isPresent(hidden) && hidden;
   }
 
   @JsonIgnore
   public boolean isMeta() {
-    return meta != null && meta;
+    return isPresent(meta) && meta;
   }
 }

@@ -27,6 +27,8 @@
  */
 package org.hisp.dhis.util;
 
+import static org.hisp.dhis.util.ObjectUtils.isPresent;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -175,7 +177,7 @@ public final class JacksonXmlUtils {
    * @param reader the {@link XMLStreamReader} to close.
    */
   private static void closeReader(XMLStreamReader reader) {
-    if (reader != null) {
+    if (isPresent(reader)) {
       try {
         reader.close();
       } catch (XMLStreamException ex) {

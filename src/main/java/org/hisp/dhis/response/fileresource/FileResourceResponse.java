@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004-2024, University of Oslo
+ * Copyright (c) 2004-2025, University of Oslo
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,44 +25,24 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.hisp.dhis.response.object;
+package org.hisp.dhis.response.fileresource;
 
-import static org.hisp.dhis.util.ObjectUtils.isPresent;
+import static org.hisp.dhis.util.TextUtils.newToStringBuilder;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.ArrayList;
-import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
+import org.hisp.dhis.response.Response;
 
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
-public class ObjectReport {
-  @JsonProperty private String klass;
+public class FileResourceResponse extends Response {
+  @JsonProperty protected FileResourceReport response;
 
-  @JsonProperty private String uid;
-
-  @JsonProperty private List<ErrorReport> errorReports = new ArrayList<>();
-
-  /**
-   * Alias for UID.
-   *
-   * @return the identifier.
-   */
-  public String getId() {
-    return uid;
-  }
-
-  /**
-   * Returns the number of errors.
-   *
-   * @return the number of errors.
-   */
-  public int getErrorCount() {
-    return isPresent(errorReports) ? errorReports.size() : 0;
+  @Override
+  public String toString() {
+    return newToStringBuilder(this, super.toString()).append("response", response).toString();
   }
 }

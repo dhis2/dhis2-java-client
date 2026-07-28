@@ -27,6 +27,9 @@
  */
 package org.hisp.dhis.util;
 
+import static org.hisp.dhis.util.ObjectUtils.isAbsent;
+import static org.hisp.dhis.util.ObjectUtils.isPresent;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -330,7 +333,7 @@ public final class CollectionUtils {
    * @return true if any item is a prefix, false otherwise.
    */
   public static boolean anyStartsWith(Collection<String> collection, String input) {
-    if (empty(collection) || input == null) {
+    if (empty(collection) || isAbsent(input)) {
       return false;
     }
 
@@ -375,7 +378,7 @@ public final class CollectionUtils {
    * @return true if the given collection is null or empty.
    */
   public static <T> boolean empty(Collection<T> collection) {
-    return collection == null || collection.isEmpty();
+    return isAbsent(collection) || collection.isEmpty();
   }
 
   /**
@@ -386,7 +389,7 @@ public final class CollectionUtils {
    * @return true if the given collection is not null and not empty.
    */
   public static <T> boolean notEmpty(Collection<T> collection) {
-    return collection != null && !collection.isEmpty();
+    return isPresent(collection) && !collection.isEmpty();
   }
 
   /**
@@ -399,7 +402,7 @@ public final class CollectionUtils {
    * @return an item or null.
    */
   public static <T> T get(List<T> list, int index) {
-    if (index >= 0 && list != null && index < list.size()) {
+    if (index >= 0 && isPresent(list) && index < list.size()) {
       return list.get(index);
     }
 
@@ -439,7 +442,7 @@ public final class CollectionUtils {
    * @return true if the index is the last index in the list.
    */
   public static boolean isLast(List<?> list, int index) {
-    return list != null && !list.isEmpty() && index >= 0 && index == list.size() - 1;
+    return isPresent(list) && !list.isEmpty() && index >= 0 && index == list.size() - 1;
   }
 
   /**

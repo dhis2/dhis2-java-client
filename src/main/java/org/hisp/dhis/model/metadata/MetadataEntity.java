@@ -84,6 +84,7 @@ import static org.hisp.dhis.api.ApiFields.USER_FIELDS;
 import static org.hisp.dhis.api.ApiFields.USER_GROUP_FIELDS;
 import static org.hisp.dhis.api.ApiFields.USER_ROLE_FIELDS;
 import static org.hisp.dhis.api.ApiFields.VISUALIZATION_FIELDS;
+import static org.hisp.dhis.util.ObjectUtils.isAbsent;
 
 import java.util.List;
 import java.util.function.Function;
@@ -444,7 +445,7 @@ public enum MetadataEntity {
    * @return the {@link MetadataEntity}.
    */
   public static <T extends IdentifiableObject> MetadataEntity from(T object) {
-    if (object == null) {
+    if (isAbsent(object)) {
       throw new Dhis2ClientException("Object is null", HttpStatus.BAD_REQUEST);
     } else if (object instanceof AnalyticsTableHook) {
       return ANALYTICS_TABLE_HOOK;

@@ -27,6 +27,8 @@
  */
 package org.hisp.dhis.util;
 
+import static org.hisp.dhis.util.ObjectUtils.isPresent;
+
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -48,7 +50,7 @@ public class Comparing {
       return 0;
     }
 
-    return a != null ? b != null ? a.compareTo(b) : 1 : -1;
+    return isPresent(a) ? isPresent(b) ? a.compareTo(b) : 1 : -1;
   }
 
   /**
@@ -66,6 +68,6 @@ public class Comparing {
       return 0;
     }
 
-    return a != null ? b != null ? a.compareTo(b) : -1 : 1;
+    return isPresent(a) ? isPresent(b) ? a.compareTo(b) : -1 : 1;
   }
 }

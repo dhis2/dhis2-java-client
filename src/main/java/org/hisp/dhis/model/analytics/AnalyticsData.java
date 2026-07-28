@@ -31,6 +31,7 @@ import static org.apache.commons.collections4.CollectionUtils.isEmpty;
 import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 import static org.hisp.dhis.model.analytics.AnalyticsDataIndex.toKey;
+import static org.hisp.dhis.util.ObjectUtils.isAbsent;
 import static org.hisp.dhis.util.ObjectUtils.isPresent;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -89,7 +90,7 @@ public class AnalyticsData implements Serializable {
    */
   @JsonProperty
   public int getHeight() {
-    return rows != null ? rows.size() : 0;
+    return isPresent(rows) ? rows.size() : 0;
   }
 
   /**
@@ -99,7 +100,7 @@ public class AnalyticsData implements Serializable {
    */
   @JsonProperty
   public int getWidth() {
-    return rows != null && !rows.isEmpty() ? rows.get(0).size() : 0;
+    return isPresent(rows) && !rows.isEmpty() ? rows.get(0).size() : 0;
   }
 
   /**
@@ -109,7 +110,7 @@ public class AnalyticsData implements Serializable {
    */
   @JsonProperty
   public int getHeaderWidth() {
-    return headers != null ? headers.size() : 0;
+    return isPresent(headers) ? headers.size() : 0;
   }
 
   // Non-serializable logic methods
@@ -181,7 +182,7 @@ public class AnalyticsData implements Serializable {
    */
   @JsonIgnore
   public boolean hasMetaData() {
-    return metaData != null;
+    return isPresent(metaData);
   }
 
   /**
@@ -212,7 +213,7 @@ public class AnalyticsData implements Serializable {
    */
   @JsonIgnore
   public List<String> getRow(int index) {
-    if (rows == null || index < 0 || index >= rows.size()) {
+    if (isAbsent(rows) || index < 0 || index >= rows.size()) {
       return null;
     }
 
@@ -227,7 +228,7 @@ public class AnalyticsData implements Serializable {
    */
   @JsonIgnore
   public void truncate(int maxRows) {
-    if (rows != null && rows.size() > maxRows) {
+    if (isPresent(rows) && rows.size() > maxRows) {
       rows = rows.subList(0, maxRows);
       truncated = true;
     }

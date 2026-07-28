@@ -27,6 +27,8 @@
  */
 package org.hisp.dhis.util;
 
+import static org.hisp.dhis.util.ObjectUtils.isPresent;
+
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
@@ -46,7 +48,7 @@ public class Verify {
    * @return the object if it is not null.
    */
   public static <T> T notNull(T object, String format, Object... arguments) {
-    test(object != null, format, arguments);
+    test(isPresent(object), format, arguments);
     return object;
   }
 

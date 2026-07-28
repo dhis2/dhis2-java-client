@@ -38,7 +38,7 @@ import lombok.NoArgsConstructor;
 public final class TestFixture {
   public static final String DEV_URL = "https://play.im.dhis2.org/dev";
 
-  public static final String V41_URL = "https://play.im.dhis2.org/stable-2-41-8-1";
+  public static final String V41_URL = "https://play.im.dhis2.org/stable-2-41-9";
 
   public static final String V42_URL = "https://play.im.dhis2.org/stable-2-42-4-1";
 

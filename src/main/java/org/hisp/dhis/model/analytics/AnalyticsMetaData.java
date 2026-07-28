@@ -32,6 +32,7 @@ import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
 import static org.apache.commons.collections4.MapUtils.isEmpty;
 import static org.hisp.dhis.util.CollectionUtils.filterToList;
 import static org.hisp.dhis.util.ObjectUtils.isAbsent;
+import static org.hisp.dhis.util.ObjectUtils.isPresent;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -148,7 +149,7 @@ public class AnalyticsMetaData implements Serializable {
   @JsonIgnore
   public int getDimensionItemCount(String dimension) {
     List<String> dimItems = dimensions.get(dimension);
-    return dimItems != null ? dimItems.size() : -1;
+    return isPresent(dimItems) ? dimItems.size() : -1;
   }
 
   /** Returns the count of data dimension items. */
@@ -192,7 +193,7 @@ public class AnalyticsMetaData implements Serializable {
   @JsonIgnore
   public MetaDataItem getMetadataItem(String id) {
     MetaDataItem item = items.get(id);
-    if (item != null) {
+    if (isPresent(item)) {
       item.setUid(id);
     }
     return item;
@@ -207,7 +208,7 @@ public class AnalyticsMetaData implements Serializable {
   @JsonIgnore
   public String getMetadataItemName(String id) {
     MetaDataItem item = items.get(id);
-    return item != null ? item.getName() : null;
+    return isPresent(item) ? item.getName() : null;
   }
 
   /**

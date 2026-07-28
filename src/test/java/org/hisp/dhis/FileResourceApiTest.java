@@ -32,9 +32,17 @@ import static org.hisp.dhis.support.Assertions.assertNotEmpty;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.util.List;
 import org.hisp.dhis.model.FileResource;
 import org.hisp.dhis.query.Query;
+import org.hisp.dhis.response.fileresource.FileResourceReport;
+import org.hisp.dhis.response.fileresource.FileResourceResponse;
 import org.hisp.dhis.support.TestTags;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -100,5 +108,52 @@ class FileResourceApiTest {
 
     assertNotNull(data);
     assertTrue(data.length > 0);
+  }
+
+  @Test
+  void testSaveFileResource() throws IOException {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    File file = File.createTempFile("dhis2-java-client-test", ".txt");
+    file.deleteOnExit();
+    Files.writeString(file.toPath(), "Dhis2 Java client file resource test content");
+
+    FileResourceResponse response = dhis2.saveFileResource(file);
+
+    assertNotNull(response);
+    assertTrue(response.isStatusOk());
+
+    FileResourceReport report = response.getResponse();
+
+    assertNotNull(report);
+
+    FileResource fileResource = report.getFileResource();
+
+    assertNotNull(fileResource);
+    assertNotBlank(fileResource.getId());
+  }
+
+  @Test
+  void testSaveFileResourceFromInputStream() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    InputStream input =
+        new ByteArrayInputStream(
+            "Dhis2 Java client file resource test content".getBytes(StandardCharsets.UTF_8));
+
+    FileResourceResponse response =
+        dhis2.saveFileResource("dhis2-java-client-test.txt", "text/plain", input);
+
+    assertNotNull(response);
+    assertTrue(response.isStatusOk());
+
+    FileResourceReport report = response.getResponse();
+
+    assertNotNull(report);
+
+    FileResource fileResource = report.getFileResource();
+
+    assertNotNull(fileResource);
+    assertNotBlank(fileResource.getId());
   }
 }

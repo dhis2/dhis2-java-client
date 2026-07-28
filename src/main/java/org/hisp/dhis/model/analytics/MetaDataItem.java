@@ -28,6 +28,7 @@
 package org.hisp.dhis.model.analytics;
 
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
+import static org.hisp.dhis.util.ObjectUtils.isPresent;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -129,6 +130,6 @@ public class MetaDataItem implements Serializable {
    */
   @JsonIgnore
   public boolean hasIndicatorType() {
-    return indicatorType != null;
+    return isPresent(indicatorType);
   }
 }
