@@ -27,18 +27,25 @@
  */
 package org.hisp.dhis;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
 import java.net.URI;
 import java.util.List;
+import org.apache.hc.core5.http.ContentType;
+import org.apache.hc.core5.http.io.entity.StringEntity;
+import org.apache.hc.core5.http.message.BasicClassicHttpResponse;
 import org.apache.hc.core5.net.URIBuilder;
 import org.hisp.dhis.model.AggregationType;
 import org.hisp.dhis.model.DataDomain;
 import org.hisp.dhis.model.DataElement;
 import org.hisp.dhis.model.ValueType;
 import org.hisp.dhis.query.analytics.AnalyticsQuery;
+import org.hisp.dhis.response.Dhis2ClientException;
 import org.hisp.dhis.support.TestTags;
 import org.hisp.dhis.util.CodecUtils;
 import org.junit.jupiter.api.Tag;
@@ -150,5 +157,69 @@ class BaseDhis2Test {
             TestFixture.DEFAULT_URL);
 
     assertEquals(expected, decodedUrl);
+  }
+
+  @Test
+  void testHandleErrorsThrowsForGatewayHtmlResponse() throws IOException {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    try (BasicClassicHttpResponse response = new BasicClassicHttpResponse(502)) {
+      response.setEntity(
+          new StringEntity("<html><body>502 Bad Gateway</body></html>", ContentType.TEXT_HTML));
+
+      Dhis2ClientException ex =
+          assertThrows(
+              Dhis2ClientException.class,
+              () ->
+                  dhis2.handleErrors(
+                      response, "https://server.org/api/completeDataSetRegistrations"));
+
+      assertEquals(502, ex.getStatusCode());
+      assertTrue(ex.getMessage().contains("502"), ex.getMessage());
+      assertTrue(ex.getMessage().contains("502 Bad Gateway"), ex.getMessage());
+    }
+  }
+
+  @Test
+  void testHandleErrorsThrowsForErrorResponseWithoutContentType() throws IOException {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    try (BasicClassicHttpResponse response = new BasicClassicHttpResponse(503)) {
+      response.setEntity(new StringEntity("Service Unavailable", (ContentType) null));
+
+      Dhis2ClientException ex =
+          assertThrows(
+              Dhis2ClientException.class,
+              () -> dhis2.handleErrors(response, "https://server.org/api/dataValueSets"));
+
+      assertEquals(503, ex.getStatusCode());
+    }
+  }
+
+  @Test
+  void testHandleErrorsIgnoresJsonErrorResponse() throws IOException {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    try (BasicClassicHttpResponse response = new BasicClassicHttpResponse(409)) {
+      response.setEntity(
+          new StringEntity(
+              "{\"status\":\"ERROR\",\"httpStatusCode\":409}", ContentType.APPLICATION_JSON));
+
+      // A JSON error body (e.g. a DHIS2 conflict WebMessage) must be left for the caller to parse.
+      assertDoesNotThrow(
+          () -> dhis2.handleErrors(response, "https://server.org/api/dataValueSets"));
+    }
+  }
+
+  @Test
+  void testHandleErrorsIgnoresSuccessfulResponse() throws IOException {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    try (BasicClassicHttpResponse response = new BasicClassicHttpResponse(200)) {
+      response.setEntity(new StringEntity("{\"status\":\"OK\"}", ContentType.APPLICATION_JSON));
+
+      assertDoesNotThrow(
+          () -> dhis2.handleErrors(response, "https://server.org/api/dataValueSets"));
+    }
   }
 }

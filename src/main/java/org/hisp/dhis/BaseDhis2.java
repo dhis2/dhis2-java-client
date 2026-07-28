@@ -60,6 +60,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Strings;
 import org.apache.hc.client5.http.HttpResponseException;
 import org.apache.hc.client5.http.classic.methods.HttpDelete;
 import org.apache.hc.client5.http.classic.methods.HttpGet;
@@ -151,6 +152,9 @@ public class BaseDhis2 {
 
   /** Error status codes for GET queries. */
   private static final Set<Integer> GET_ERROR_STATUS_CODES = Set.of(SC_BAD_REQUEST, SC_CONFLICT);
+
+  /** Maximum length of the response body snippet included in error messages. */
+  private static final int MAX_ERROR_BODY_SNIPPET_LENGTH = 500;
 
   // Headers
 
@@ -1168,7 +1172,7 @@ public class BaseDhis2 {
    * @param url the request URL.
    * @throws Dhis2ClientException in the case of error status codes.
    */
-  private void handleErrors(HttpResponse response, String url) {
+  void handleErrors(ClassicHttpResponse response, String url) {
     int code = response.getCode();
 
     if (redirectedToLogin(response)) {
@@ -1181,6 +1185,78 @@ public class BaseDhis2 {
       log(code, "Error URL: '{}'", url);
 
       throw new Dhis2ClientException(message, code);
+    }
+
+    // Gateway and proxy errors (e.g. 502, 503, 504) and unexpected login redirects
+    // typically return a non-JSON body such as an HTML error or login page. Detect these
+    // before attempting to parse the body as JSON, and surface the HTTP status code and a
+    // snippet of the response body so the underlying cause is immediately diagnosable.
+    if (isErrorStatusCode(code) && !isJsonResponse(response)) {
+      String snippet = getBodySnippet(response);
+      String message =
+          StringUtils.isNotBlank(snippet)
+              ? String.format("%s (%d): %s", getErrorMessage(code), code, snippet)
+              : String.format("%s (%d)", getErrorMessage(code), code);
+
+      log(code, "Error URL: '{}', response body: '{}'", url, snippet);
+
+      throw new Dhis2ClientException(message, code);
+    }
+  }
+
+  /**
+   * Indicates whether the given status code represents an error, i.e. a client (4xx) or server
+   * (5xx) error.
+   *
+   * @param code the HTTP status code.
+   * @return true if the status code represents an error.
+   */
+  private boolean isErrorStatusCode(int code) {
+    return code >= SC_BAD_REQUEST;
+  }
+
+  /**
+   * Indicates whether the given response has a JSON content type. A response without a content type
+   * header is not considered a JSON response.
+   *
+   * @param response the {@link ClassicHttpResponse}.
+   * @return true if the response content type is JSON.
+   */
+  private boolean isJsonResponse(ClassicHttpResponse response) {
+    HttpEntity entity = response.getEntity();
+
+    if (entity == null || StringUtils.isBlank(entity.getContentType())) {
+      return false;
+    }
+
+    String mimeType = ContentType.parse(entity.getContentType()).getMimeType();
+
+    return mimeType != null && Strings.CI.contains(mimeType, "json");
+  }
+
+  /**
+   * Returns a truncated, single-line snippet of the given response body, or an empty string if the
+   * body could not be read.
+   *
+   * @param response the {@link ClassicHttpResponse}.
+   * @return a response body snippet.
+   */
+  private String getBodySnippet(ClassicHttpResponse response) {
+    try {
+      HttpEntity entity = response.getEntity();
+
+      if (entity == null) {
+        return StringUtils.EMPTY;
+      }
+
+      String body = EntityUtils.toString(entity, StandardCharsets.UTF_8);
+
+      return StringUtils.abbreviate(
+          StringUtils.normalizeSpace(body), MAX_ERROR_BODY_SNIPPET_LENGTH);
+    } catch (IOException | ParseException ex) {
+      log.debug("Failed to read response body for snippet", ex);
+
+      return StringUtils.EMPTY;
     }
   }
 
@@ -1462,7 +1538,15 @@ public class BaseDhis2 {
                 .appendPath(collection)
                 .appendPath(item));
 
-    return executeRequest(new HttpPost(url));
+    Response response =
+        Objects.requireNonNull(executeRequest(new HttpPost(url)), "Response must not be null");
+
+    Status status =
+        response.getHttpStatus() != null && response.getHttpStatus().is2xxSuccessful()
+            ? Status.OK
+            : Status.ERROR;
+
+    return new Response(status, response.getHttpStatusCode(), response.getMessage());
   }
 
   /**
