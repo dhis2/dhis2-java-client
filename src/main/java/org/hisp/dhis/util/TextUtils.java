@@ -68,7 +68,7 @@ public final class TextUtils {
    * @return "false" or "true".
    */
   public static String toTrueFalse(Boolean bool) {
-    return isPresent(bool) && bool ? "true" : "false";
+    return isPresent(bool) && bool == true ? "true" : "false";
   }
 
   /**
