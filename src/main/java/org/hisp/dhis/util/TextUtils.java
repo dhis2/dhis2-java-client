@@ -27,6 +27,9 @@
  */
 package org.hisp.dhis.util;
 
+import static org.hisp.dhis.util.ObjectUtils.isAbsent;
+import static org.hisp.dhis.util.ObjectUtils.isPresent;
+
 import java.util.Objects;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -65,7 +68,7 @@ public final class TextUtils {
    * @return "false" or "true".
    */
   public static String toTrueFalse(Boolean bool) {
-    return bool != null && bool ? "true" : "false";
+    return isPresent(bool) && bool == true ? "true" : "false";
   }
 
   /**
@@ -201,7 +204,7 @@ public final class TextUtils {
    * @return the possibly truncated input string.
    */
   public static String truncate(String input, int maxLength, String ellipsis) {
-    if (StringUtils.isEmpty(input) || maxLength <= 0 || ellipsis == null) {
+    if (StringUtils.isEmpty(input) || maxLength <= 0 || isAbsent(ellipsis)) {
       return input;
     }
 
@@ -230,7 +233,7 @@ public final class TextUtils {
    * @return true if the input is null, false otherwise.
    */
   public static boolean isNull(String input) {
-    return input == null;
+    return isAbsent(input);
   }
 
   /**
@@ -243,7 +246,7 @@ public final class TextUtils {
    */
   public static String join(CharSequence delimiter, String... items) {
     return Stream.of(items)
-        .filter(item -> item != null && item.length() > 0)
+        .filter(item -> isPresent(item) && item.length() > 0)
         .collect(Collectors.joining(delimiter));
   }
 

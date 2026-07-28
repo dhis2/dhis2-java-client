@@ -27,6 +27,8 @@
  */
 package org.hisp.dhis.query;
 
+import static org.hisp.dhis.util.ObjectUtils.isPresent;
+
 import java.util.ArrayList;
 import java.util.List;
 import lombok.AccessLevel;
@@ -155,7 +157,7 @@ public class Query implements BaseQuery {
    */
   @Override
   public Paging getPaging() {
-    return paging != null ? paging : new Paging(null, null);
+    return isPresent(paging) ? paging : new Paging(null, null);
   }
 
   /**
@@ -164,7 +166,7 @@ public class Query implements BaseQuery {
    * @return the {@link RootJunction}
    */
   public RootJunction getRootJunction() {
-    return rootJunction != null ? rootJunction : RootJunction.AND;
+    return isPresent(rootJunction) ? rootJunction : RootJunction.AND;
   }
 
   /**

@@ -27,6 +27,8 @@
  */
 package org.hisp.dhis.model.event;
 
+import static org.hisp.dhis.util.ObjectUtils.isPresent;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -205,7 +207,7 @@ public class Event implements Serializable {
    */
   public boolean isGeometryType(String type) {
     Objects.requireNonNull(type);
-    return geometry != null && type.equals(geometry.getGeometryType());
+    return isPresent(geometry) && type.equals(geometry.getGeometryType());
   }
 
   /**
@@ -231,7 +233,7 @@ public class Event implements Serializable {
    */
   public String getDataValue(String dataElement) {
     EventDataValue eventDataValue = getEventDataValue(dataElement);
-    return eventDataValue != null ? eventDataValue.getValue() : null;
+    return isPresent(eventDataValue) ? eventDataValue.getValue() : null;
   }
 
   /**

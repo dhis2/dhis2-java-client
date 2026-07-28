@@ -28,6 +28,7 @@
 package org.hisp.dhis.response.objects;
 
 import static org.hisp.dhis.util.CollectionUtils.notEmpty;
+import static org.hisp.dhis.util.ObjectUtils.isPresent;
 import static org.hisp.dhis.util.TextUtils.newToStringBuilder;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -84,7 +85,7 @@ public class ObjectsResponse extends Response {
   }
 
   private boolean hasResponse() {
-    return response != null;
+    return isPresent(response);
   }
 
   @Override

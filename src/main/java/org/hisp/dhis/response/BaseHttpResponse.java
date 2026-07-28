@@ -27,6 +27,7 @@
  */
 package org.hisp.dhis.response;
 
+import static org.hisp.dhis.util.ObjectUtils.isPresent;
 import static org.hisp.dhis.util.TextUtils.newToStringBuilder;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -64,7 +65,7 @@ public abstract class BaseHttpResponse {
    * @return an {@link HttpStatus}.
    */
   public HttpStatus getHttpStatus() {
-    if (httpStatusCode != null) {
+    if (isPresent(httpStatusCode)) {
       return HttpStatus.valueOf(httpStatusCode);
     }
 
@@ -78,7 +79,7 @@ public abstract class BaseHttpResponse {
    * @return the HTTP header value.
    */
   public String getHeader(String name) {
-    if (headers != null) {
+    if (isPresent(headers)) {
       for (Header header : headers) {
         if (name.equals(header.getName())) {
           return header.getValue();

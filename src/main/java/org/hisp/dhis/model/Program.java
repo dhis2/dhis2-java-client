@@ -28,6 +28,8 @@
 package org.hisp.dhis.model;
 
 import static org.hisp.dhis.util.CollectionUtils.notEmpty;
+import static org.hisp.dhis.util.ObjectUtils.isAbsent;
+import static org.hisp.dhis.util.ObjectUtils.isPresent;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -132,7 +134,7 @@ public class Program extends NameableObject {
    */
   @JsonIgnore
   public List<TrackedEntityAttribute> getTrackedEntityTypeAttributes() {
-    if (ProgramType.WITHOUT_REGISTRATION == programType || trackedEntityType == null) {
+    if (ProgramType.WITHOUT_REGISTRATION == programType || isAbsent(trackedEntityType)) {
       return List.of();
     }
 
@@ -148,7 +150,7 @@ public class Program extends NameableObject {
    * @return an immutable list of {@link TrackedEntityAttribute}.
    */
   public List<TrackedEntityAttribute> getNonConfidentialTrackedEntityTypeAttributes() {
-    if (ProgramType.WITHOUT_REGISTRATION == programType || trackedEntityType == null) {
+    if (ProgramType.WITHOUT_REGISTRATION == programType || isAbsent(trackedEntityType)) {
       return List.of();
     }
 
@@ -253,7 +255,7 @@ public class Program extends NameableObject {
    */
   @JsonIgnore
   public boolean hasCategoryCombo() {
-    return categoryCombo != null;
+    return isPresent(categoryCombo);
   }
 
   /**
@@ -263,7 +265,7 @@ public class Program extends NameableObject {
    */
   @JsonIgnore
   public boolean hasTrackedEntityType() {
-    return trackedEntityType != null;
+    return isPresent(trackedEntityType);
   }
 
   /**

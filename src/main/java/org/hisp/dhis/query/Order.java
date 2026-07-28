@@ -27,6 +27,8 @@
  */
 package org.hisp.dhis.query;
 
+import static org.hisp.dhis.util.ObjectUtils.isPresent;
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -62,7 +64,7 @@ public class Order {
   }
 
   public boolean hasOrder() {
-    return property != null && direction != null;
+    return isPresent(property) && isPresent(direction);
   }
 
   public String toValue() {

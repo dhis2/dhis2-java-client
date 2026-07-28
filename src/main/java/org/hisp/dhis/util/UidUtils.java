@@ -27,6 +27,9 @@
  */
 package org.hisp.dhis.util;
 
+import static org.hisp.dhis.util.ObjectUtils.isAbsent;
+import static org.hisp.dhis.util.ObjectUtils.isPresent;
+
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -87,7 +90,7 @@ public class UidUtils {
    * @return true if the code is valid.
    */
   public static boolean isValidUid(String input) {
-    return input != null && UID_PATTERN.matcher(input).matches();
+    return isPresent(input) && UID_PATTERN.matcher(input).matches();
   }
 
   /**
@@ -139,7 +142,7 @@ public class UidUtils {
    * @throws IllegalArgumentException if the input string is invalid.
    */
   public static String toUid(String input) {
-    if (input == null) {
+    if (isAbsent(input)) {
       return null;
     }
     if (input.isBlank()) {

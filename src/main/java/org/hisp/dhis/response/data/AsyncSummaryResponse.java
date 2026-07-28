@@ -27,6 +27,7 @@
  */
 package org.hisp.dhis.response.data;
 
+import static org.hisp.dhis.util.ObjectUtils.isPresent;
 import static org.hisp.dhis.util.TextUtils.newToStringBuilder;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -60,7 +61,7 @@ public abstract class AsyncSummaryResponse extends BaseHttpResponse {
    */
   @JsonIgnore
   public boolean hasImportCount() {
-    return importCount != null;
+    return isPresent(importCount);
   }
 
   /**

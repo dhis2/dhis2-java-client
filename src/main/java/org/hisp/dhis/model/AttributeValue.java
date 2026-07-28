@@ -27,6 +27,9 @@
  */
 package org.hisp.dhis.model;
 
+import static org.hisp.dhis.util.ObjectUtils.isAbsent;
+import static org.hisp.dhis.util.ObjectUtils.isPresent;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
@@ -56,7 +59,7 @@ public class AttributeValue implements Serializable {
    * @return true if the attribute is not null.
    */
   public boolean hasAttribute() {
-    return attribute != null;
+    return isPresent(attribute);
   }
 
   /**
@@ -111,7 +114,7 @@ public class AttributeValue implements Serializable {
 
   @Override
   public int hashCode() {
-    return attribute != null ? Objects.hash(attribute.getId()) : 0;
+    return isPresent(attribute) ? Objects.hash(attribute.getId()) : 0;
   }
 
   @Override
@@ -120,7 +123,7 @@ public class AttributeValue implements Serializable {
       return true;
     }
 
-    if (o == null || attribute == null) {
+    if (isAbsent(o) || isAbsent(attribute)) {
       return false;
     }
 

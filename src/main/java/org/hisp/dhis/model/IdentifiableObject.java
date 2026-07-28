@@ -27,6 +27,9 @@
  */
 package org.hisp.dhis.model;
 
+import static org.hisp.dhis.util.ObjectUtils.isAbsent;
+import static org.hisp.dhis.util.ObjectUtils.isPresent;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.io.Serializable;
@@ -157,7 +160,7 @@ public class IdentifiableObject implements Serializable {
    */
   public String getAttributeValueAsString(String attribute) {
     AttributeValue attributeValue = getAttributeValue(attribute);
-    return attributeValue != null ? attributeValue.getValue() : null;
+    return isPresent(attributeValue) ? attributeValue.getValue() : null;
   }
 
   /**
@@ -190,7 +193,7 @@ public class IdentifiableObject implements Serializable {
       return true;
     }
 
-    if (o == null) {
+    if (isAbsent(o)) {
       return false;
     }
 

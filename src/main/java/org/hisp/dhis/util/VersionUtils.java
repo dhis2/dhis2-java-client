@@ -27,6 +27,8 @@
  */
 package org.hisp.dhis.util;
 
+import static org.hisp.dhis.util.ObjectUtils.isPresent;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import lombok.AccessLevel;
@@ -62,7 +64,7 @@ public class VersionUtils {
   }
 
   private static Integer asInt(String string) {
-    return string != null ? Integer.valueOf(string) : null;
+    return isPresent(string) ? Integer.valueOf(string) : null;
   }
 
   private static String getFirstGroup(Pattern pattern, String string) {

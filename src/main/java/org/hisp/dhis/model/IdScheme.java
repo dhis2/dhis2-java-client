@@ -27,6 +27,9 @@
  */
 package org.hisp.dhis.model;
 
+import static org.hisp.dhis.util.ObjectUtils.isAbsent;
+import static org.hisp.dhis.util.ObjectUtils.isPresent;
+
 import java.io.Serializable;
 import java.util.Objects;
 import java.util.regex.Matcher;
@@ -105,7 +108,7 @@ public class IdScheme implements Serializable {
    * @throws IllegalArgumentException if the ID scheme string is invalid.
    */
   public static IdScheme createIdScheme(String idScheme) {
-    if (idScheme == null) {
+    if (isAbsent(idScheme)) {
       return null;
     }
 
@@ -135,7 +138,7 @@ public class IdScheme implements Serializable {
    * @return true if the given UID is valid.
    */
   private static boolean isValidUid(String uid) {
-    return uid != null && UID_PATTERN.matcher(uid).matches();
+    return isPresent(uid) && UID_PATTERN.matcher(uid).matches();
   }
 
   // -------------------------------------------------------------------------
@@ -165,7 +168,7 @@ public class IdScheme implements Serializable {
       return true;
     }
 
-    if (o == null || !getClass().isAssignableFrom(o.getClass())) {
+    if (isAbsent(o) || !getClass().isAssignableFrom(o.getClass())) {
       return false;
     }
 

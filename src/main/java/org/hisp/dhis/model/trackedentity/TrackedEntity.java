@@ -29,6 +29,7 @@ package org.hisp.dhis.model.trackedentity;
 
 import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
+import static org.hisp.dhis.util.ObjectUtils.isPresent;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -128,7 +129,7 @@ public class TrackedEntity implements Serializable {
   public void addAttributeValue(String attribute, String value) {
     TrackedEntityAttributeValue existing = getTrackedEntityAttributeValue(attribute);
 
-    if (existing != null) {
+    if (isPresent(existing)) {
       existing.setValue(value);
     } else {
       attributes.add(new TrackedEntityAttributeValue(attribute, value));

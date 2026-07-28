@@ -27,12 +27,14 @@
  */
 package org.hisp.dhis.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hisp.dhis.util.CollectionUtils;
 
 @Getter
 @Setter
@@ -45,4 +47,24 @@ public class OptionSet extends IdentifiableObject {
   @JsonProperty private String version;
 
   @JsonProperty private List<Option> options = new ArrayList<>();
+
+  /**
+   * Returns the number of options.
+   *
+   * @return the number of options.
+   */
+  @JsonIgnore
+  public int getOptionCount() {
+    return options.size();
+  }
+
+  /**
+   * Returns a list with the codes of the options.
+   *
+   * @return a list with the codes of the options.
+   */
+  @JsonIgnore
+  public List<String> getOptionCodes() {
+    return CollectionUtils.mapToList(options, Option::getCode);
+  }
 }
