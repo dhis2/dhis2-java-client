@@ -28,6 +28,7 @@
 package org.hisp.dhis.model.trackedentity;
 
 import static org.apache.commons.lang3.BooleanUtils.isTrue;
+import static org.hisp.dhis.util.ObjectUtils.isPresent;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -56,6 +57,11 @@ public class TrackedEntityAttribute extends NameableObject {
   @JsonProperty private Boolean orgunitScope = false;
 
   @JsonProperty private Boolean skipSynchronization = false;
+
+  @JsonIgnore
+  public boolean hasOptionSet() {
+    return isPresent(optionSet);
+  }
 
   @JsonIgnore
   public boolean isConfidential() {
