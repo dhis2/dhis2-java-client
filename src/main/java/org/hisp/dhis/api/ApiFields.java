@@ -41,8 +41,12 @@ public class ApiFields {
   /** Name field. */
   public static final String NAME_FIELD = "name";
 
+  public static final String ATTRIBUTE_VALUES_FIELDS = "value,attribute[id,name]";
+
   /** Identifiable object fields. */
-  public static final String ID_FIELDS = "id,code,name,created,lastUpdated,attributeValues";
+  public static final String ID_FIELDS =
+      String.format(
+          "id,code,name,created,lastUpdated,attributeValues[%s]", ATTRIBUTE_VALUES_FIELDS);
 
   /** Identifiable object extended fields. */
   public static final String ID_EXT_FIELDS =

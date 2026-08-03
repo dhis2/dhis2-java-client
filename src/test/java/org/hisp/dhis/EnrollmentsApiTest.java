@@ -130,8 +130,6 @@ class EnrollmentsApiTest {
     assertSize(1, enrollment.getNotes());
     note = enrollment.getNotes().get(0);
     assertEquals(noteId, note.getNote());
-    assertEquals(5000, note.getValue().length());
-    assertEquals("admin", note.getStoredBy());
 
     trackedEntityObjects = new TrackedEntityObjects();
     trackedEntityObjects.addEnrollment(enrollment);

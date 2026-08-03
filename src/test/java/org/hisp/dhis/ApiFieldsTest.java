@@ -40,27 +40,27 @@ class ApiFieldsTest {
   void testProgramStageFields() {
     String expected =
         """
-        id,code,name,created,lastUpdated,attributeValues,createdBy,lastUpdatedBy,\
+        id,code,name,created,lastUpdated,attributeValues[value,attribute[id,name]],createdBy,lastUpdatedBy,\
         translations,sharing,access,shortName,description,formName,\
-        program[id,code,name,created,lastUpdated,attributeValues],\
-        programStageDataElements[id,code,name,created,lastUpdated,attributeValues,\
+        program[id,code,name,created,lastUpdated,attributeValues[value,attribute[id,name]]],\
+        programStageDataElements[id,code,name,created,lastUpdated,attributeValues[value,attribute[id,name]],\
         createdBy,lastUpdatedBy,translations,sharing,access,shortName,description,formName,\
-        programStage[id,code,name,created,lastUpdated,attributeValues,shortName,description],\
-        dataElement[id,code,name,created,lastUpdated,attributeValues,createdBy,lastUpdatedBy,\
+        programStage[id,code,name,created,lastUpdated,attributeValues[value,attribute[id,name]],shortName,description],\
+        dataElement[id,code,name,created,lastUpdated,attributeValues[value,attribute[id,name]],createdBy,lastUpdatedBy,\
         translations,sharing,access,shortName,description,formName,\
         aggregationType,valueType,domainType,url,categoryCombo[id,code,name,created,\
-        lastUpdated,attributeValues,shortName,description],\
+        lastUpdated,attributeValues[value,attribute[id,name]],shortName,description],\
         legendSets[id,code,name,created,lastUpdated,\
-        attributeValues,shortName,description],\
-        optionSet[id,code,name,created,lastUpdated,attributeValues,createdBy,\
+        attributeValues[value,attribute[id,name]],shortName,description],\
+        optionSet[id,code,name,created,lastUpdated,attributeValues[value,attribute[id,name]],createdBy,\
         lastUpdatedBy,translations,sharing,access,valueType,version]],\
         compulsory,displayInReports,skipSynchronization,skipAnalytics,allowFutureDate,sortOrder],\
-        programStageSections[id,code,name,created,lastUpdated,attributeValues,\
+        programStageSections[id,code,name,created,lastUpdated,attributeValues[value,attribute[id,name]],\
         createdBy,lastUpdatedBy,translations,sharing,access,\
         shortName,description,formName,programStage[id,code,name,created,lastUpdated,\
-        attributeValues,shortName,description],sortOrder,\
-        dataElements[id,code,name,created,lastUpdated,attributeValues,shortName,description],\
-        programIndicators[id,code,name,created,lastUpdated,attributeValues,shortName,description]],\
+        attributeValues[value,attribute[id,name]],shortName,description],sortOrder,\
+        dataElements[id,code,name,created,lastUpdated,attributeValues[value,attribute[id,name]],shortName,description],\
+        programIndicators[id,code,name,created,lastUpdated,attributeValues[value,attribute[id,name]],shortName,description]],\
         executionDateLabel,dueDateLabel,programStageLabel,eventLabel,\
         repeatable,autoGenerateEvent,displayGenerateEventBox,blockEntryForm,preGenerateUID,\
         remindCompleted,generatedByEnrollmentDate,allowGenerateNextVisit,openAfterEnrollment,\
@@ -73,56 +73,56 @@ class ApiFieldsTest {
   void testProgramExtFields() {
     String expected =
         """
-        id,code,name,created,lastUpdated,attributeValues,createdBy,lastUpdatedBy,\
+        id,code,name,created,lastUpdated,attributeValues[value,attribute[id,name]],createdBy,lastUpdatedBy,\
         translations,sharing,access,shortName,description,formName,\
-        trackedEntityType[id,code,name,created,lastUpdated,attributeValues,\
+        trackedEntityType[id,code,name,created,lastUpdated,attributeValues[value,attribute[id,name]],\
         createdBy,lastUpdatedBy,translations,sharing,access,shortName,description,formName,\
         trackedEntityTypeAttributes[id,\
-        trackedEntityAttribute[id,code,name,created,lastUpdated,attributeValues,shortName,description,valueType,\
+        trackedEntityAttribute[id,code,name,created,lastUpdated,attributeValues[value,attribute[id,name]],shortName,description,valueType,\
         aggregationType,confidential,unique,orgunitScope,skipSynchronization],displayInList,mandatory,searchable]],\
-        categoryCombo[id,code,name,created,lastUpdated,attributeValues,shortName,description,\
-        categories[id,code,name,created,lastUpdated,attributeValues,createdBy,lastUpdatedBy,translations,\
+        categoryCombo[id,code,name,created,lastUpdated,attributeValues[value,attribute[id,name]],shortName,description,\
+        categories[id,code,name,created,lastUpdated,attributeValues[value,attribute[id,name]],createdBy,lastUpdatedBy,translations,\
         sharing,access,shortName,description,formName,dataDimensionType,dataDimension,\
-        categoryOptions[id,code,name,created,lastUpdated,attributeValues],\
-        categoryCombos[id,code,name,created,lastUpdated,attributeValues]]],\
-        organisationUnits[id,code,name,created,lastUpdated,attributeValues,shortName,description],\
-        programSections[id,code,name,created,lastUpdated,attributeValues,createdBy,lastUpdatedBy,\
+        categoryOptions[id,code,name,created,lastUpdated,attributeValues[value,attribute[id,name]]],\
+        categoryCombos[id,code,name,created,lastUpdated,attributeValues[value,attribute[id,name]]]]],\
+        organisationUnits[id,code,name,created,lastUpdated,attributeValues[value,attribute[id,name]],shortName,description],\
+        programSections[id,code,name,created,lastUpdated,attributeValues[value,attribute[id,name]],createdBy,lastUpdatedBy,\
         translations,sharing,access,shortName,description,formName,sortOrder,\
-        program[id,code,name,created,lastUpdated,attributeValues,shortName,description],\
-        trackedEntityAttributes[id,code,name,created,lastUpdated,attributeValues,shortName,description]],\
-        programStages[id,code,name,created,lastUpdated,attributeValues,createdBy,lastUpdatedBy,\
+        program[id,code,name,created,lastUpdated,attributeValues[value,attribute[id,name]],shortName,description],\
+        trackedEntityAttributes[id,code,name,created,lastUpdated,attributeValues[value,attribute[id,name]],shortName,description]],\
+        programStages[id,code,name,created,lastUpdated,attributeValues[value,attribute[id,name]],createdBy,lastUpdatedBy,\
         translations,sharing,access,shortName,description,formName,\
-        program[id,code,name,created,lastUpdated,attributeValues],\
-        programStageDataElements[id,code,name,created,lastUpdated,attributeValues,createdBy,lastUpdatedBy,\
+        program[id,code,name,created,lastUpdated,attributeValues[value,attribute[id,name]]],\
+        programStageDataElements[id,code,name,created,lastUpdated,attributeValues[value,attribute[id,name]],createdBy,lastUpdatedBy,\
         translations,sharing,access,shortName,description,formName,\
-        programStage[id,code,name,created,lastUpdated,attributeValues,shortName,description],\
-        dataElement[id,code,name,created,lastUpdated,attributeValues,createdBy,lastUpdatedBy,translations,\
+        programStage[id,code,name,created,lastUpdated,attributeValues[value,attribute[id,name]],shortName,description],\
+        dataElement[id,code,name,created,lastUpdated,attributeValues[value,attribute[id,name]],createdBy,lastUpdatedBy,translations,\
         sharing,access,shortName,description,formName,aggregationType,valueType,domainType,url,\
-        categoryCombo[id,code,name,created,lastUpdated,attributeValues,shortName,description],\
-        legendSets[id,code,name,created,lastUpdated,attributeValues,shortName,description],\
-        optionSet[id,code,name,created,lastUpdated,attributeValues,createdBy,lastUpdatedBy,\
+        categoryCombo[id,code,name,created,lastUpdated,attributeValues[value,attribute[id,name]],shortName,description],\
+        legendSets[id,code,name,created,lastUpdated,attributeValues[value,attribute[id,name]],shortName,description],\
+        optionSet[id,code,name,created,lastUpdated,attributeValues[value,attribute[id,name]],createdBy,lastUpdatedBy,\
         translations,sharing,access,valueType,version]],\
         compulsory,displayInReports,skipSynchronization,skipAnalytics,allowFutureDate,sortOrder],\
-        programStageSections[id,code,name,created,lastUpdated,attributeValues,createdBy,\
+        programStageSections[id,code,name,created,lastUpdated,attributeValues[value,attribute[id,name]],createdBy,\
         lastUpdatedBy,translations,sharing,access,shortName,description,formName,\
-        programStage[id,code,name,created,lastUpdated,attributeValues,shortName,description],\
-        sortOrder,dataElements[id,code,name,created,lastUpdated,attributeValues,shortName,description],\
-        programIndicators[id,code,name,created,lastUpdated,attributeValues,shortName,description]],\
+        programStage[id,code,name,created,lastUpdated,attributeValues[value,attribute[id,name]],shortName,description],\
+        sortOrder,dataElements[id,code,name,created,lastUpdated,attributeValues[value,attribute[id,name]],shortName,description],\
+        programIndicators[id,code,name,created,lastUpdated,attributeValues[value,attribute[id,name]],shortName,description]],\
         executionDateLabel,dueDateLabel,programStageLabel,eventLabel,\
         repeatable,autoGenerateEvent,displayGenerateEventBox,blockEntryForm,preGenerateUID,\
         remindCompleted,generatedByEnrollmentDate,allowGenerateNextVisit,openAfterEnrollment,\
         hideDueDate,enableUserAssignment,referral,featureType],\
         programTrackedEntityAttributes[id,code,name,program[id,code,name,created,lastUpdated,\
-        attributeValues,shortName,description],\
-        trackedEntityAttribute[id,code,name,created,lastUpdated,attributeValues,\
+        attributeValues[value,attribute[id,name]],shortName,description],\
+        trackedEntityAttribute[id,code,name,created,lastUpdated,attributeValues[value,attribute[id,name]],\
         shortName,description,valueType,aggregationType,confidential,unique,orgunitScope,skipSynchronization],\
         sortOrder,displayInList,mandatory,allowFutureDate,searchable],\
-        programRuleVariables[id,code,name,created,lastUpdated,attributeValues,createdBy,\
-        lastUpdatedBy,translations,sharing,access,program[id,code,name,created,lastUpdated,attributeValues],\
+        programRuleVariables[id,code,name,created,lastUpdated,attributeValues[value,attribute[id,name]],createdBy,\
+        lastUpdatedBy,translations,sharing,access,program[id,code,name,created,lastUpdated,attributeValues[value,attribute[id,name]]],\
         programRuleVariableSourceType,valueType,programStage[id,code,name,created,\
-        lastUpdated,attributeValues],trackedEntityAttribute[id,code,name,created,\
-        lastUpdated,attributeValues],useCodeForOptionSet,\
-        dataElement[id,code,name,created,lastUpdated,attributeValues]],\
+        lastUpdated,attributeValues[value,attribute[id,name]]],trackedEntityAttribute[id,code,name,created,\
+        lastUpdated,attributeValues[value,attribute[id,name]]],useCodeForOptionSet,\
+        dataElement[id,code,name,created,lastUpdated,attributeValues[value,attribute[id,name]]]],\
         style[color,icon],programType,\
         enrollmentDateLabel,incidentDateLabel,enrollmentLabel,followUpLabel,\
         orgUnitLabel,relationshipLabel,noteLabel,trackedEntityAttributeLabel,\
@@ -139,14 +139,14 @@ class ApiFieldsTest {
   void testProgramMinFields() {
     String expected =
         """
-        id,code,name,created,lastUpdated,attributeValues,createdBy,lastUpdatedBy,translations,sharing,access,shortName,description,\
-        formName,trackedEntityType[id,code,name,created,lastUpdated,attributeValues,shortName,description],\
-        categoryCombo[id,code,name,created,lastUpdated,attributeValues,shortName,description],\
-        programSections[id,code,name,created,lastUpdated,attributeValues,shortName,description],\
-        programStages[id,code,name,created,lastUpdated,attributeValues,shortName,description],\
+        id,code,name,created,lastUpdated,attributeValues[value,attribute[id,name]],createdBy,lastUpdatedBy,translations,sharing,access,shortName,description,\
+        formName,trackedEntityType[id,code,name,created,lastUpdated,attributeValues[value,attribute[id,name]],shortName,description],\
+        categoryCombo[id,code,name,created,lastUpdated,attributeValues[value,attribute[id,name]],shortName,description],\
+        programSections[id,code,name,created,lastUpdated,attributeValues[value,attribute[id,name]],shortName,description],\
+        programStages[id,code,name,created,lastUpdated,attributeValues[value,attribute[id,name]],shortName,description],\
         programTrackedEntityAttributes[id,code,name,\
-        program[id,code,name,created,lastUpdated,attributeValues,shortName,description],\
-        trackedEntityAttribute[id,code,name,created,lastUpdated,attributeValues,shortName,\
+        program[id,code,name,created,lastUpdated,attributeValues[value,attribute[id,name]],shortName,description],\
+        trackedEntityAttribute[id,code,name,created,lastUpdated,attributeValues[value,attribute[id,name]],shortName,\
         description,valueType,aggregationType,confidential,unique,orgunitScope,skipSynchronization],\
         sortOrder,displayInList,mandatory,allowFutureDate,searchable],\
         programType,\
@@ -165,13 +165,13 @@ class ApiFieldsTest {
   void testUserFields() {
     String expected =
         """
-        id,code,name,created,lastUpdated,attributeValues,createdBy,lastUpdatedBy,translations,sharing,access,\
+        id,code,name,created,lastUpdated,attributeValues[value,attribute[id,name]],createdBy,lastUpdatedBy,translations,sharing,access,\
         username,firstName,surname,email,phoneNumber,externalAuth,lastLogin,disabled,interests,\
-        organisationUnits[id,code,name,created,lastUpdated,attributeValues,shortName,description],\
-        groups[id,code,name,created,lastUpdated,attributeValues,createdBy,lastUpdatedBy,translations,sharing,access],\
-        userRoles[id,code,name,created,lastUpdated,attributeValues,createdBy,lastUpdatedBy,translations,sharing,access],\
-        dataViewOrganisationUnits[id,code,name,created,lastUpdated,attributeValues,shortName,description],\
-        teiSearchOrganisationUnits[id,code,name,created,lastUpdated,attributeValues,shortName,description]""";
+        organisationUnits[id,code,name,created,lastUpdated,attributeValues[value,attribute[id,name]],shortName,description],\
+        groups[id,code,name,created,lastUpdated,attributeValues[value,attribute[id,name]],createdBy,lastUpdatedBy,translations,sharing,access],\
+        userRoles[id,code,name,created,lastUpdated,attributeValues[value,attribute[id,name]],createdBy,lastUpdatedBy,translations,sharing,access],\
+        dataViewOrganisationUnits[id,code,name,created,lastUpdated,attributeValues[value,attribute[id,name]],shortName,description],\
+        teiSearchOrganisationUnits[id,code,name,created,lastUpdated,attributeValues[value,attribute[id,name]],shortName,description]""";
 
     assertEquals(expected, ApiFields.USER_FIELDS);
   }
