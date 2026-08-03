@@ -27,10 +27,13 @@
  */
 package org.hisp.dhis.util;
 
+import static org.hisp.dhis.util.CollectionUtils.mutableList;
 import static org.hisp.dhis.util.ObjectUtils.isAbsent;
 import static org.hisp.dhis.util.ObjectUtils.isPresent;
 
+import java.util.List;
 import java.util.Objects;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -248,6 +251,48 @@ public final class TextUtils {
     return Stream.of(items)
         .filter(item -> isPresent(item) && item.length() > 0)
         .collect(Collectors.joining(delimiter));
+  }
+
+  /**
+   * Retrieves the reference value for the given reference key from a target text string. A
+   * reference must follow the format <code>[KEY:VALUE]</code>.
+   *
+   * @param text the source text containing references.
+   * @param key the reference key to look for, example: "D2_KNOWN_VALUES".
+   * @return the extracted reference value, or {@code null} if not found or if format is invalid.
+   */
+  public static String getReference(String text, String key) {
+    if (StringUtils.isBlank(text) || StringUtils.isBlank(key)) {
+      return null;
+    }
+
+    String quotedKey = Pattern.quote(key.trim());
+    String regex = "\\[" + quotedKey + ":([^\\]]+)\\]";
+    Pattern pattern = Pattern.compile(regex);
+    Matcher matcher = pattern.matcher(text);
+
+    if (matcher.find()) {
+      String value = matcher.group(1).trim();
+      return StringUtils.trimToNull(value);
+    }
+
+    return null;
+  }
+
+  /**
+   * Splits the given value on the given separator and returns the values as a mutable list. Trims
+   * each value and filters out null and empty values.
+   *
+   * @param value the value.
+   * @return the values as a {@link List}.
+   */
+  public static List<String> toList(String value, String separator) {
+    List<String> values = mutableList(StringUtils.split(value, separator));
+
+    return values.stream()
+        .map(String::trim)
+        .filter(StringUtils::isNotEmpty)
+        .collect(Collectors.toList());
   }
 
   /**

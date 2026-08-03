@@ -30,8 +30,10 @@ package org.hisp.dhis.util;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.List;
 import org.hisp.dhis.support.TestTags;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -288,5 +290,60 @@ class TextUtilsTest {
     assertEquals("one::three", TextUtils.join("::", "one", "", "three"));
     assertEquals("one::three", TextUtils.join("::", "one", null, "three"));
     assertEquals("", TextUtils.join("::", ""));
+  }
+
+  @Test
+  void testGetReferenceValid() {
+    assertEquals(
+        "ONE,TWO,THREE",
+        TextUtils.getReference("Data element [KNOWN_VALUES:ONE,TWO,THREE]", "KNOWN_VALUES"));
+    assertEquals(
+        "ACTIVE", TextUtils.getReference("Status is [KNOWN_VALUES:ACTIVE]", "KNOWN_VALUES"));
+    assertEquals(
+        "VALUE ONE, VALUE TWO",
+        TextUtils.getReference("Check [KNOWN_VALUES: VALUE ONE, VALUE TWO ]", "KNOWN_VALUES"));
+    assertEquals("123", TextUtils.getReference("Prefix [KNOWN_VALUES:123] Suffix", "KNOWN_VALUES"));
+    String multiText = "First [OTHER_KEY:VAL_A] and target [KNOWN_VALUES:TARGET_VAL]";
+    assertEquals("TARGET_VAL", TextUtils.getReference(multiText, "KNOWN_VALUES"));
+  }
+
+  @Test
+  void testGetReferenceInvalid() {
+    // Space between opening bracket and key
+    assertNull(TextUtils.getReference("[ KNOWN_VALUES:ONE,TWO]", "KNOWN_VALUES"));
+    // Space between key and colon
+    assertNull(TextUtils.getReference("[KNOWN_VALUES :ONE,TWO]", "KNOWN_VALUES"));
+    // Space before key and around colon
+    assertNull(TextUtils.getReference("[ KNOWN_VALUES : ONE,TWO]", "KNOWN_VALUES"));
+    // Missing closing bracket
+    assertNull(TextUtils.getReference("Data element [KNOWN_VALUES:ONE,TWO", "KNOWN_VALUES"));
+    // Missing opening bracket
+    assertNull(TextUtils.getReference("Data element KNOWN_VALUES:ONE,TWO]", "KNOWN_VALUES"));
+    // Missing colon
+    assertNull(TextUtils.getReference("[KNOWN_VALUES ONE,TWO]", "KNOWN_VALUES"));
+    // Empty value after colon
+    assertNull(TextUtils.getReference("[KNOWN_VALUES:]", "KNOWN_VALUES"));
+    // Key mismatch
+    assertNull(TextUtils.getReference("[OTHER_KEY:ONE,TWO]", "KNOWN_VALUES"));
+    // Null and blank arguments
+    assertNull(TextUtils.getReference(null, "KNOWN_VALUES"));
+    assertNull(TextUtils.getReference("", "KNOWN_VALUES"));
+    assertNull(TextUtils.getReference("   ", "KNOWN_VALUES"));
+    assertNull(TextUtils.getReference("[KNOWN_VALUES:ONE]", null));
+    assertNull(TextUtils.getReference("[KNOWN_VALUES:ONE]", ""));
+    assertNull(TextUtils.getReference("[KNOWN_VALUES:ONE]", "   "));
+  }
+
+  @Test
+  void testToList() {
+    assertEquals(List.of("a", "b", "c"), TextUtils.toList("a,b,c", ","));
+    assertEquals(List.of("a", "b", "c"), TextUtils.toList(" a , b , c ", ","));
+    assertEquals(List.of("a", "b"), TextUtils.toList("a, ,b", ","));
+    assertEquals(List.of("a", "b", "c"), TextUtils.toList(",a,b,c,", ","));
+    assertEquals(List.of("a", "b", "c"), TextUtils.toList("a;b,c", ";,"));
+    assertEquals(List.of("abc"), TextUtils.toList("abc", ","));
+    assertEquals(List.of(), TextUtils.toList("", ","));
+    assertEquals(List.of(), TextUtils.toList("   ", ","));
+    assertThrows(NullPointerException.class, () -> TextUtils.toList(null, ","));
   }
 }
