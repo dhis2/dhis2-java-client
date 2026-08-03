@@ -28,6 +28,7 @@
 package org.hisp.dhis.model;
 
 import static org.hisp.dhis.support.Assertions.assertSize;
+import static org.hisp.dhis.support.TestObjects.ID_A;
 import static org.hisp.dhis.support.TestObjects.set;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -86,6 +87,30 @@ class AttributeValueTest {
   }
 
   @Test
+  void testGetAttributeValueByName() {
+    Attribute atA = set(new Attribute(), 'A');
+    Attribute atB = set(new Attribute(), 'B');
+    Attribute atC = set(new Attribute(), 'C');
+
+    AttributeValue avA = new AttributeValue(atA, "ValA");
+    AttributeValue avB = new AttributeValue(atB, "ValB");
+    AttributeValue avC = new AttributeValue(atC, "ValC");
+
+    OrgUnit orgUnit = set(new OrgUnit(), 'A');
+    orgUnit.addAttributeValue(avA);
+    orgUnit.addAttributeValue(avB);
+    orgUnit.addAttributeValue(avC);
+
+    assertEquals(avA, orgUnit.getAttributeValueByName(atA.getName()));
+    assertEquals(avB, orgUnit.getAttributeValueByName(atB.getName()));
+    assertEquals(avC, orgUnit.getAttributeValueByName(atC.getName()));
+
+    assertEquals("ValA", orgUnit.getAttributeValue(atA.getId()).getValue());
+    assertEquals("ValB", orgUnit.getAttributeValue(atB.getId()).getValue());
+    assertEquals("ValC", orgUnit.getAttributeValue(atC.getId()).getValue());
+  }
+
+  @Test
   void testHasAttributeValue() {
     Attribute atA = set(new Attribute(), 'A');
     Attribute atB = set(new Attribute(), 'B');
@@ -101,6 +126,32 @@ class AttributeValueTest {
     assertTrue(orgUnit.hasAttributeValue(atA.getId()));
     assertTrue(orgUnit.hasAttributeValue(atB.getId()));
     assertFalse(orgUnit.hasAttributeValue(atC.getId()));
+  }
+
+  @Test
+  void testGetAttributeValueAsString() {
+    Attribute atA = set(new Attribute(), 'A');
+
+    AttributeValue avA = new AttributeValue(atA, "ValA");
+
+    OrgUnit orgUnit = set(new OrgUnit(), 'A');
+    orgUnit.addAttributeValue(avA);
+
+    assertEquals("ValA", orgUnit.getAttributeValueAsString(atA.getId()));
+    assertNull(orgUnit.getAttributeValueAsString(ID_A));
+  }
+
+  @Test
+  void testGetAttributeValueAsStringByName() {
+    Attribute atA = set(new Attribute(), 'A');
+
+    AttributeValue avA = new AttributeValue(atA, "ValA");
+
+    OrgUnit orgUnit = set(new OrgUnit(), 'A');
+    orgUnit.addAttributeValue(avA);
+
+    assertEquals("ValA", orgUnit.getAttributeValueAsStringByName(atA.getName()));
+    assertNull(orgUnit.getAttributeValueAsStringByName(ID_A));
   }
 
   @Test
