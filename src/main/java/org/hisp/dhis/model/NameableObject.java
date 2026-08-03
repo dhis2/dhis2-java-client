@@ -27,11 +27,14 @@
  */
 package org.hisp.dhis.model;
 
+import static org.hisp.dhis.util.ObjectUtils.isPresent;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.hisp.dhis.util.TextUtils;
 
 @Getter
 @Setter
@@ -63,5 +66,27 @@ public class NameableObject extends IdentifiableObject {
    */
   public NameableObject(String id, String code, String name) {
     super(id, code, name);
+  }
+
+  /**
+   * Returns the reference for the given key for this object. Reference is retrieved from the {@code
+   * name} property, then the {@code description} property. Returns {@code null} if no reference is
+   * found or if a reference is blank.
+   *
+   * @param key the reference key.
+   * @return the reference value, or {@code null}.
+   */
+  public String getReference(String key) {
+    String nameRef = TextUtils.getReference(name, key);
+    if (isPresent(nameRef)) {
+      return nameRef;
+    }
+
+    String codeRef = TextUtils.getReference(code, key);
+    if (isPresent(codeRef)) {
+      return codeRef;
+    }
+
+    return TextUtils.getReference(description, key);
   }
 }
