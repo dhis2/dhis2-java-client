@@ -143,19 +143,6 @@ public class IdentifiableObject implements Serializable {
   }
 
   /**
-   * Returns the attribute value with the given attribute name.
-   *
-   * @param attribute the attribute name.
-   * @return the attribute value with the given attribute name, or null.
-   */
-  public AttributeValue getAttributeValueByName(String name) {
-    return attributeValues.stream()
-        .filter(av -> av.getAttribute().getName().equals(name))
-        .findFirst()
-        .orElse(null);
-  }
-
-  /**
    * Indicates whether an attribute value exists for the given attribute identifier.
    *
    * @param attribute the attribute identifier.
@@ -173,17 +160,6 @@ public class IdentifiableObject implements Serializable {
    */
   public String getAttributeValueAsString(String attribute) {
     AttributeValue attributeValue = getAttributeValue(attribute);
-    return isPresent(attributeValue) ? attributeValue.getValue() : null;
-  }
-
-  /**
-   * Returns the attribute value with the given attribute name as a string.
-   *
-   * @param attribute the attribute name.
-   * @return the attribute value with the given attribute name, or null.
-   */
-  public String getAttributeValueAsStringByName(String name) {
-    AttributeValue attributeValue = getAttributeValueByName(name);
     return isPresent(attributeValue) ? attributeValue.getValue() : null;
   }
 
