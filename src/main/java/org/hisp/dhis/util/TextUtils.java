@@ -259,7 +259,8 @@ public final class TextUtils {
    *
    * @param text the source text containing references.
    * @param key the reference key to look for, example: "D2_KNOWN_VALUES".
-   * @return the extracted reference value, or {@code null} if not found or if format is invalid.
+   * @return the extracted reference value, or {@code null} if not found, if format is invalid or if
+   *     reference is blank.
    */
   public static String getReference(String text, String key) {
     if (StringUtils.isBlank(text) || StringUtils.isBlank(key)) {
