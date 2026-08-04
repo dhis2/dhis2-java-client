@@ -47,5 +47,26 @@
         "id": "qszOn4ydMDE"
       }
     }
+  ],
+  "optionGroups": [
+    {
+      "name": "RGB Color group",
+      "shortName": "RGB Color",
+      "id": "BZK0eV8dEYs",
+      "options": [
+        {
+          "id": "cszOn4ydMDE"
+        },
+        {
+          "id": "bIGx0gFo9fs"
+        },
+        {
+          "id": "aszOn4ydMDE"
+        }
+      ],
+      "optionSet": {
+        "id": "qszOn4ydMDE"
+      }
+    }
   ]
 }

@@ -118,11 +118,13 @@ public class Dhis2Objects implements Serializable {
 
   @JsonProperty private List<OrgUnitLevel> organisationUnitLevels = new ArrayList<>();
 
-  @JsonProperty private List<GeoMap> maps = new ArrayList<GeoMap>();
+  @JsonProperty private List<GeoMap> maps = new ArrayList<>();
 
   @JsonProperty private List<OptionSet> optionSets = new ArrayList<>();
 
   @JsonProperty private List<Option> options = new ArrayList<>();
+
+  @JsonProperty private List<OptionGroup> optionGroups = new ArrayList<>();
 
   @JsonProperty private List<Program> programs = new ArrayList<>();
 
