@@ -4620,7 +4620,7 @@ public class Dhis2 extends BaseDhis2 {
               .appendPath(PATH_TRANSFER)
               .addParameter("program", program);
       if (systemInfo.getSystemVersion().isHigherOrEqual("2.42")) {
-        builder.addParameter("trackedEntity", trackedEntity).addParameter("orgUnit", program);
+        builder.addParameter("trackedEntity", trackedEntity).addParameter("orgUnit", orgUnit);
       } else {
         builder.addParameter("trackedEntityInstance", trackedEntity).addParameter("ou", orgUnit);
       }
