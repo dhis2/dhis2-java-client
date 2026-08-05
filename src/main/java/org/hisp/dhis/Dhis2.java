@@ -115,6 +115,7 @@ import org.hisp.dhis.model.IndicatorGroupSet;
 import org.hisp.dhis.model.IndicatorType;
 import org.hisp.dhis.model.Me;
 import org.hisp.dhis.model.Option;
+import org.hisp.dhis.model.OptionGroup;
 import org.hisp.dhis.model.OptionSet;
 import org.hisp.dhis.model.OptionSetObjects;
 import org.hisp.dhis.model.OrgUnit;
@@ -2807,6 +2808,61 @@ public class Dhis2 extends BaseDhis2 {
    */
   public Metadata<Option> getOptionsPaged(Query query) {
     return getMetadata(MetadataEntity.OPTION, query);
+  }
+
+  // -------------------------------------------------------------------------
+  // OptionGroup
+  // -------------------------------------------------------------------------
+
+  /**
+   * Retrieves an {@link OptionGroup}.
+   *
+   * @param id the object identifier.
+   * @return the {@link OptionGroup}.
+   * @throws Dhis2ClientException if the object does not exist.
+   */
+  public OptionGroup getOptionGroup(String id) {
+    return getMetadataObject(MetadataEntity.OPTION_GROUP, id);
+  }
+
+  /**
+   * Indicates whether a {@link OptionGroup} exists.
+   *
+   * @param id the object identifier.
+   * @return true if the object exists.
+   */
+  public boolean isOptionGroup(String id) {
+    return objectExists(MetadataEntity.OPTION_GROUP, id);
+  }
+
+  /**
+   * Retrieves a list of {@link OptionGroup}.
+   *
+   * @param query the {@link Query}.
+   * @return list of {@link OptionGroup}.
+   */
+  public List<OptionGroup> getOptionGroups(Query query) {
+    return getMetadataList(MetadataEntity.OPTION_GROUP, query);
+  }
+
+  /**
+   * Retrieves a {@link Metadata} of type {@link OptionGroup}.
+   *
+   * @param query the {@link Query}.
+   * @return a {@link Metadata}.
+   */
+  public Metadata<OptionGroup> getOptionGroupsPaged(Query query) {
+    return getMetadata(MetadataEntity.OPTION_GROUP, query);
+  }
+
+  /**
+   * Removes an {@link OptionGroup}.
+   *
+   * @param id the identifier of the object to remove.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse removeOptionGroup(String id) {
+    return removeMetadataObject(MetadataEntity.OPTION_GROUP, id);
   }
 
   // -------------------------------------------------------------------------

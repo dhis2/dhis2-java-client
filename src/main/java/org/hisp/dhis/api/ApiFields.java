@@ -111,6 +111,14 @@ public class ApiFields {
   public static final String OPTION_EXT_FIELDS =
       String.format("%1$s,sortOrder,optionSet[%2$s]", NAME_EXT_FIELDS, ID_FIELDS);
 
+  /** Option group fields. */
+  public static final String OPTION_GROUP_FIELDS =
+      String.format("%1$s,options[%2$s],optionSet[%2$s]", NAME_FIELDS, ID_FIELDS);
+
+  /** Option group extended fields. */
+  public static final String OPTION_GROUP_EXT_FIELDS =
+      String.format("%1$s,options[%2$s],optionSet[%2$s]", NAME_EXT_FIELDS, ID_FIELDS);
+
   /** Option set fields. */
   public static final String OPTION_SET_FIELDS =
       String.format("%s,valueType,version", ID_EXT_FIELDS);
@@ -402,7 +410,7 @@ public class ApiFields {
           """
           %1$s,programRule[%2$s],programRuleActionType,dataElement[%2$s],trackedEntityAttribute[%2$s],\
           programIndicator[%2$s],programStageSection[%2$s],programStage[%2$s],option[%2$s],\
-          location,content,data""",
+          optionGroup[%2$s],location,content,data""",
           ID_EXT_FIELDS, ID_FIELDS);
 
   public static final String PROGRAM_RULE_FIELDS =
