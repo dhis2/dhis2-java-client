@@ -35,11 +35,17 @@ public class ApiPaths {
   /** Metadata API path. */
   public static final String PATH_METADATA = "metadata";
 
-  /** Tracker API path. */
+  /** Events API path. */
   public static final String PATH_EVENTS = "events";
 
   /** Tracker API path. */
   public static final String PATH_TRACKER = "tracker";
+
+  /** Ownership API path. */
+  public static final String PATH_OWNERSHIP = "ownership";
+
+  /** Transfer API path. */
+  public static final String PATH_TRANSFER = "transfer";
 
   /** Tracked entities API path. */
   public static final String PATH_TRACKED_ENTITIES = "trackedEntities";
@@ -47,7 +53,7 @@ public class ApiPaths {
   /** Enrollments API path. */
   public static final String PATH_ENROLLMENTS = "enrollments";
 
-  /** Tracker API path. */
+  /** File resources API path. */
   public static final String PATH_FILE_RESOURCES = "fileResources";
 
   /** Analytics API path. */

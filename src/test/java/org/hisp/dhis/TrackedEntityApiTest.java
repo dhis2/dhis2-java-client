@@ -30,14 +30,20 @@ package org.hisp.dhis;
 import static org.hisp.dhis.support.Assertions.assertNotEmpty;
 import static org.hisp.dhis.support.Assertions.assertSize;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.List;
+import org.hisp.dhis.model.enrollment.Enrollment;
+import org.hisp.dhis.model.enrollment.EnrollmentStatus;
 import org.hisp.dhis.model.trackedentity.TrackedEntitiesResult;
 import org.hisp.dhis.model.trackedentity.TrackedEntity;
 import org.hisp.dhis.query.Filter;
 import org.hisp.dhis.query.Paging;
 import org.hisp.dhis.query.trackedentity.TrackedEntityQuery;
+import org.hisp.dhis.response.HttpStatus;
+import org.hisp.dhis.response.Response;
+import org.hisp.dhis.response.Status;
 import org.hisp.dhis.support.TestTags;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -118,5 +124,28 @@ class TrackedEntityApiTest {
     assertNotNull(trackedEntities);
     assertNotEmpty(trackedEntities.getTrackedEntities());
     assertSize(2, trackedEntities.getTrackedEntities());
+  }
+
+  @Test
+  void testTransferTrackedEntityProgramOwnerOrgUnit() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    TrackedEntity trackedEntity = dhis2.getTrackedEntity("kfwLSxq7mXk");
+
+    assertNotNull(trackedEntity);
+    assertFalse(trackedEntity.getEnrollments().isEmpty());
+    Enrollment enrollment =
+        trackedEntity.getEnrollments().stream()
+            .filter(e -> e.getStatus() == EnrollmentStatus.ACTIVE)
+            .findFirst()
+            .orElse(null);
+
+    Response response =
+        dhis2.transferTrackedEntityProgramOwnerOrgUnit(
+            trackedEntity.getTrackedEntity(), enrollment.getProgram(), enrollment.getOrgUnit());
+
+    assertEquals(200, response.getHttpStatusCode().intValue(), response.toString());
+    assertEquals(HttpStatus.OK, response.getHttpStatus(), response.toString());
+    assertEquals(Status.OK, response.getStatus(), response.toString());
   }
 }
