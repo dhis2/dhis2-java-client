@@ -31,7 +31,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hisp.dhis.model.*;
+import org.hisp.dhis.model.DataElement;
+import org.hisp.dhis.model.IdentifiableObject;
+import org.hisp.dhis.model.Option;
+import org.hisp.dhis.model.OptionGroup;
+import org.hisp.dhis.model.ProgramIndicator;
+import org.hisp.dhis.model.ProgramStage;
+import org.hisp.dhis.model.ProgramStageSection;
 import org.hisp.dhis.model.trackedentity.TrackedEntityAttribute;
 
 @Getter
