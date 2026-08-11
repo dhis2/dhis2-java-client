@@ -68,6 +68,8 @@ import org.locationtech.jts.geom.Geometry;
   "completedAt"
 })
 public class Event implements Serializable {
+  private static final long serialVersionUID = 1L;
+
   @EqualsAndHashCode.Include
   @ToString.Include
   @JsonProperty(value = "event")

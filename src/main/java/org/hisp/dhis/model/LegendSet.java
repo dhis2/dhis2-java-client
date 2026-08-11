@@ -30,4 +30,6 @@ package org.hisp.dhis.model;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
-public class LegendSet extends NameableObject {}
+public class LegendSet extends NameableObject {
+  private static final long serialVersionUID = 1L;
+}

@@ -36,6 +36,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class AnalyticsTableHook extends IdentifiableObject {
+  private static final long serialVersionUID = 1L;
+
   @JsonProperty private TablePhase phase;
 
   @JsonProperty private ResourceTableType resourceTableType;

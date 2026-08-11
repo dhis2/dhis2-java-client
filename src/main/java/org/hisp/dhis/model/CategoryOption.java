@@ -44,6 +44,8 @@ import org.hisp.dhis.model.dimension.DimensionItemType;
 @Setter
 @NoArgsConstructor
 public class CategoryOption extends DimensionItem {
+  private static final long serialVersionUID = 1L;
+
   @JsonProperty
   @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_FORMAT)
   private Date startDate;

@@ -36,6 +36,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class Attribute extends NameableObject {
+  private static final long serialVersionUID = 1L;
+
   @JsonProperty private ValueType valueType;
 
   @JsonProperty private Boolean mandatory;

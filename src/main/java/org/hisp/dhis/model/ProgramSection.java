@@ -39,6 +39,8 @@ import org.hisp.dhis.model.trackedentity.TrackedEntityAttribute;
 @Setter
 @NoArgsConstructor
 public class ProgramSection extends NameableObject {
+  private static final long serialVersionUID = 1L;
+
   @JsonProperty private Program program;
 
   @JsonProperty private Integer sortOrder;

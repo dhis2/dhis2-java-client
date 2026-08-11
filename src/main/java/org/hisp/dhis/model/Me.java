@@ -43,6 +43,8 @@ import org.hisp.dhis.model.user.UserSettings;
 @Setter
 @NoArgsConstructor
 public class Me extends IdentifiableObject {
+  private static final long serialVersionUID = 1L;
+
   @JsonProperty private String username;
 
   @JsonProperty private String surname;

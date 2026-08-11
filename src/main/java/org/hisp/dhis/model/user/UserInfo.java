@@ -37,6 +37,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class UserInfo implements Serializable {
+  private static final long serialVersionUID = 1L;
+
   @JsonProperty private String uid;
 
   @JsonProperty private String username;

@@ -40,6 +40,8 @@ import org.hisp.dhis.model.dimension.DimensionItemType;
 @Setter
 @NoArgsConstructor
 public class OrgUnitGroup extends DimensionItem {
+  private static final long serialVersionUID = 1L;
+
   @JsonProperty("organisationUnits")
   private List<OrgUnit> orgUnits = new ArrayList<>();
 

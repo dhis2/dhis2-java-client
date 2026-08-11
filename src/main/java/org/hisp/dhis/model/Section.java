@@ -38,6 +38,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class Section extends NameableObject {
+  private static final long serialVersionUID = 1L;
+
   @JsonProperty private DataSet dataSet;
 
   @JsonProperty private List<DataElement> dataElements = new ArrayList<>();

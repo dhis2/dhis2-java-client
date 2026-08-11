@@ -121,6 +121,7 @@ import org.hisp.dhis.response.completedatasetregistration.CompleteDataSetRegistr
 import org.hisp.dhis.util.DateTimeUtils;
 import org.hisp.dhis.util.HttpUtils;
 import org.hisp.dhis.util.JacksonUtils;
+import tools.jackson.core.exc.StreamReadException;
 import tools.jackson.databind.json.JsonMapper;
 
 /**
@@ -1296,7 +1297,12 @@ public class BaseDhis2 {
    * @throws IOException if reading failed.
    */
   protected <T> T readValue(String content, Class<T> type) throws IOException {
-    return jsonMapper.readValue(content, type);
+    try {
+      return jsonMapper.readValue(content, type);
+    } catch (StreamReadException ex) {
+      log.error(String.format("Failed to read JSON: %s", content), ex);
+      throw new Dhis2ClientException(ex.getMessage(), ex);
+    }
   }
 
   /**

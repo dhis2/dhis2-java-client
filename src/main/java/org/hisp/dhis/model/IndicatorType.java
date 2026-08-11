@@ -36,6 +36,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class IndicatorType extends IdentifiableObject {
+  private static final long serialVersionUID = 1L;
+
   @JsonProperty private Integer factor;
 
   @JsonProperty private Boolean number;

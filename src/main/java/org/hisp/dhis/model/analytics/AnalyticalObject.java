@@ -33,6 +33,7 @@ import org.hisp.dhis.model.NameableObject;
 import org.hisp.dhis.model.dimension.Dimension;
 
 public class AnalyticalObject extends NameableObject {
+  private static final long serialVersionUID = 1L;
 
   protected List<Dimension> columns = new ArrayList<>();
 

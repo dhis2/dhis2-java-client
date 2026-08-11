@@ -37,6 +37,8 @@ import org.hisp.dhis.model.IdentifiableObject;
 @Setter
 @NoArgsConstructor
 public class EventFilter extends IdentifiableObject {
+  private static final long serialVersionUID = 1L;
+
   /** Property for filtering events by program */
   @JsonProperty private String program;
 

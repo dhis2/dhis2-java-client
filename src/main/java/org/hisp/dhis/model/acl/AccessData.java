@@ -40,6 +40,8 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 public class AccessData implements Serializable {
+  private static final long serialVersionUID = 1L;
+
   @JsonProperty private Boolean write;
 
   @JsonProperty private Boolean read;

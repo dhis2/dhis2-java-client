@@ -38,6 +38,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class CategoryOptionCombo extends NameableObject {
+  private static final long serialVersionUID = 1L;
+
   @JsonProperty private Boolean ignoreApproval;
 
   @JsonProperty private Set<CategoryOption> categoryOptions = new HashSet<>();

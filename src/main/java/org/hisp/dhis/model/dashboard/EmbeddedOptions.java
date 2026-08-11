@@ -40,6 +40,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class EmbeddedOptions implements Serializable {
+  private static final long serialVersionUID = 1L;
+
   /** Hide tab. Applies to Superset. */
   @JsonProperty private boolean hideTab;
 

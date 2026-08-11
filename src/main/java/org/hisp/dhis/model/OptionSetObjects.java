@@ -43,6 +43,8 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @NoArgsConstructor
 public class OptionSetObjects implements Serializable {
+  private static final long serialVersionUID = 1L;
+
   @JsonProperty private List<OptionSet> optionSets = new ArrayList<>();
 
   @JsonProperty private List<Option> options = new ArrayList<>();

@@ -41,6 +41,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PeriodType implements Serializable {
+  private static final long serialVersionUID = 1L;
+
   @EqualsAndHashCode.Include @JsonProperty private String name;
 
   @JsonProperty private Integer frequencyOrder;

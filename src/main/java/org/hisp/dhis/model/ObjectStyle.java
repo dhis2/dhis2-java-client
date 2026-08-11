@@ -37,6 +37,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class ObjectStyle implements Serializable {
+  private static final long serialVersionUID = 1L;
+
   @JsonProperty private String color;
 
   @JsonProperty private String icon;

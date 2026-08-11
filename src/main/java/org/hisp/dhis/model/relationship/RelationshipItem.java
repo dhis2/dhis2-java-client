@@ -42,6 +42,8 @@ import org.hisp.dhis.model.trackedentity.TrackedEntity;
 @ToString
 @NoArgsConstructor
 public class RelationshipItem implements Serializable {
+  private static final long serialVersionUID = 1L;
+
   @JsonProperty private TrackedEntity trackedEntity;
 
   @JsonProperty private Event event;

@@ -36,5 +36,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class Constant extends NameableObject {
+  private static final long serialVersionUID = 1L;
+
   @JsonProperty private Double value;
 }

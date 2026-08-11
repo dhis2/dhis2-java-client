@@ -43,6 +43,8 @@ import org.hisp.dhis.model.metadata.ImportStrategy;
 @Accessors(chain = true)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class DataValueSetImportOptions implements Serializable {
+  private static final long serialVersionUID = 1L;
+
   private IdScheme dataElementIdScheme;
 
   private IdScheme orgUnitIdScheme;

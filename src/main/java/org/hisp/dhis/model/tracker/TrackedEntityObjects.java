@@ -47,6 +47,8 @@ import org.hisp.dhis.model.trackedentity.TrackedEntity;
 @ToString
 @NoArgsConstructor
 public class TrackedEntityObjects implements Serializable {
+  private static final long serialVersionUID = 1L;
+
   @JsonProperty private List<TrackedEntity> trackedEntities = new ArrayList<>();
 
   @JsonProperty private List<Enrollment> enrollments = new ArrayList<>();

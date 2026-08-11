@@ -38,6 +38,8 @@ import org.hisp.dhis.model.Program;
 @Setter
 @NoArgsConstructor
 public class ProgramTrackedEntityAttribute extends IdentifiableObject {
+  private static final long serialVersionUID = 1L;
+
   @JsonProperty private Program program;
 
   @JsonProperty private TrackedEntityAttribute trackedEntityAttribute;

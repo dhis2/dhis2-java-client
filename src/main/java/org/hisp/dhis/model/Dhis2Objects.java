@@ -57,6 +57,8 @@ import org.hisp.dhis.model.visualization.Visualization;
 @Accessors(chain = true)
 @NoArgsConstructor
 public class Dhis2Objects implements Serializable {
+  private static final long serialVersionUID = 1L;
+
   @JsonProperty private List<AnalyticsTableHook> analyticsTableHooks = new ArrayList<>();
 
   @JsonProperty private List<Attribute> attributes = new ArrayList<>();

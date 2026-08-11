@@ -41,6 +41,8 @@ import org.hisp.dhis.model.ProgramStage;
 @Setter
 @NoArgsConstructor
 public class ProgramRule extends IdentifiableObject {
+  private static final long serialVersionUID = 1L;
+
   @JsonProperty private String description;
 
   @JsonProperty private Program program;

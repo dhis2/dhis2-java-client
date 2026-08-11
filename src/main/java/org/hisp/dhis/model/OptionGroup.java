@@ -40,6 +40,8 @@ import org.hisp.dhis.model.dimension.DimensionItemType;
 @Setter
 @NoArgsConstructor
 public class OptionGroup extends DimensionItem {
+  private static final long serialVersionUID = 1L;
+
   @JsonProperty private Set<Option> options = new HashSet<>();
 
   @JsonProperty private OptionSet optionSet;

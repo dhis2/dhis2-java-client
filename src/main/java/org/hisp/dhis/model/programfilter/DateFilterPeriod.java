@@ -39,6 +39,8 @@ import org.hisp.dhis.model.RelativePeriod;
 @Setter
 @NoArgsConstructor
 public class DateFilterPeriod implements Serializable {
+  private static final long serialVersionUID = 1L;
+
   /** An integer referring to relative startDate based on the current date. */
   private @JsonProperty int startBuffer;
 

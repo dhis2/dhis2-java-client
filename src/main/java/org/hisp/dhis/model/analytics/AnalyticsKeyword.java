@@ -33,6 +33,8 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class AnalyticsKeyword implements Serializable {
+  private static final long serialVersionUID = 1L;
+
   /** User org unit. */
   public static final String USER_ORGUNIT = "USER_ORGUNIT";
 

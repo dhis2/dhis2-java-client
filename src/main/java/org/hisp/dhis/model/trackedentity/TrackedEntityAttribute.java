@@ -44,6 +44,8 @@ import org.hisp.dhis.model.ValueType;
 @Setter
 @NoArgsConstructor
 public class TrackedEntityAttribute extends NameableObject {
+  private static final long serialVersionUID = 1L;
+
   @JsonProperty private ValueType valueType;
 
   @JsonProperty private AggregationType aggregationType;

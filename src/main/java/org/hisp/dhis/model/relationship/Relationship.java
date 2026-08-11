@@ -40,6 +40,8 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 public class Relationship implements Serializable {
+  private static final long serialVersionUID = 1L;
+
   @JsonProperty private String relationship;
 
   @JsonProperty private String relationshipType;

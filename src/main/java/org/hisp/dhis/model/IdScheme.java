@@ -38,6 +38,8 @@ import org.apache.commons.lang3.Validate;
 import org.hisp.dhis.model.exception.IllegalArgumentFormatException;
 
 public class IdScheme implements Serializable {
+  private static final long serialVersionUID = 1L;
+
   public static final IdScheme UID = new IdScheme(ObjectProperty.UID);
 
   public static final IdScheme CODE = new IdScheme(ObjectProperty.CODE);

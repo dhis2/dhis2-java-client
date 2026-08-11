@@ -40,6 +40,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class EmbeddedDashboard implements Serializable {
+  private static final long serialVersionUID = 1L;
+
   /** Provider of embedded dashboards. */
   @JsonProperty private EmbeddedProvider provider;
 

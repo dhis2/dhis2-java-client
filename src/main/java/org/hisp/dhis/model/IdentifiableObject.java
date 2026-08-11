@@ -65,6 +65,8 @@ import org.hisp.dhis.model.user.User;
       "access"
     })
 public class IdentifiableObject implements Serializable {
+  private static final long serialVersionUID = 1L;
+
   @JsonProperty protected String id;
 
   @JsonProperty protected String code;

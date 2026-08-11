@@ -40,6 +40,8 @@ import org.hisp.dhis.model.dimension.DimensionItemType;
 @Setter
 @NoArgsConstructor
 public class DataElementGroup extends DimensionItem {
+  private static final long serialVersionUID = 1L;
+
   @JsonProperty private List<DataElement> dataElements = new ArrayList<>();
 
   @JsonProperty private List<DataElementGroupSet> groupSets = new ArrayList<>();

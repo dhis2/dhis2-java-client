@@ -38,6 +38,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class ProgramStageSection extends NameableObject {
+  private static final long serialVersionUID = 1L;
+
   @JsonProperty private ProgramStage programStage;
 
   @JsonProperty private Integer sortOrder;

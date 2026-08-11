@@ -39,6 +39,8 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 public class TrackedEntityTypeAttribute implements Serializable {
+  private static final long serialVersionUID = 1L;
+
   @JsonProperty private String id;
 
   @JsonProperty private TrackedEntityAttribute trackedEntityAttribute;

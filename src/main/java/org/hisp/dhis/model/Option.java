@@ -40,6 +40,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class Option extends NameableObject {
+  private static final long serialVersionUID = 1L;
+
   @JsonProperty private Integer sortOrder;
 
   @JsonProperty private OptionSet optionSet;

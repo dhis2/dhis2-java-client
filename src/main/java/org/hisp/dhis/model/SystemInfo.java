@@ -39,6 +39,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SystemInfo implements Serializable {
+  private static final long serialVersionUID = 1L;
+
   @JsonProperty private String version;
 
   @JsonProperty private String revision;

@@ -36,6 +36,8 @@ import org.apache.commons.lang3.math.NumberUtils;
 
 /** Mapping of analytics dimension items to values (metrics). */
 public class AnalyticsDataIndex extends HashMap<String, String> {
+  private static final long serialVersionUID = 1L;
+
   private static final String SEP = "::";
 
   private final List<Integer> keyIndexes;

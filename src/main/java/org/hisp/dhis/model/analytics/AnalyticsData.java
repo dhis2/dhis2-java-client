@@ -53,6 +53,8 @@ import org.apache.commons.lang3.StringUtils;
 @Setter
 @ToString
 public class AnalyticsData implements Serializable {
+  private static final long serialVersionUID = 1L;
+
   /** Analytics column headers. */
   @JsonProperty private List<AnalyticsHeader> headers;
 

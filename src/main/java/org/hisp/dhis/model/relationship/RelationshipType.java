@@ -39,6 +39,8 @@ import org.hisp.dhis.model.IdentifiableObject;
 @ToString
 @NoArgsConstructor
 public class RelationshipType extends IdentifiableObject {
+  private static final long serialVersionUID = 1L;
+
   @JsonProperty private RelationshipConstraint fromConstraint;
 
   @JsonProperty private RelationshipConstraint toConstraint;

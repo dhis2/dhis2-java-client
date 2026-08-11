@@ -41,6 +41,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class CompleteDataSetRegistration implements Serializable {
+  private static final long serialVersionUID = 1L;
+
   @JsonProperty private String dataSet;
 
   @JsonProperty private String period;

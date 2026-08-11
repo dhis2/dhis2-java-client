@@ -39,6 +39,8 @@ import org.hisp.dhis.model.user.UserMetadata;
 @Setter
 @ToString
 public class EntryMetadata implements Serializable {
+  private static final long serialVersionUID = 1L;
+
   @JsonProperty private String id;
 
   @JsonProperty private String namespace;

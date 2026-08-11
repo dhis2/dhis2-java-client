@@ -39,6 +39,8 @@ import org.hisp.dhis.model.NameableObject;
 @Setter
 @NoArgsConstructor
 public class Dimension extends NameableObject {
+  private static final long serialVersionUID = 1L;
+
   @JsonProperty private DimensionType dimensionType;
 
   @JsonProperty private DataDimensionType dataDimensionType;

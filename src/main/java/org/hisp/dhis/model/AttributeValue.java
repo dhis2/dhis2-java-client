@@ -44,6 +44,8 @@ import org.apache.commons.lang3.math.NumberUtils;
 @Setter
 @NoArgsConstructor
 public class AttributeValue implements Serializable {
+  private static final long serialVersionUID = 1L;
+
   @JsonProperty private Attribute attribute;
 
   @JsonProperty private String value;

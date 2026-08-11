@@ -38,6 +38,8 @@ import org.apache.commons.lang3.BooleanUtils;
 @Setter
 @NoArgsConstructor
 public class Document extends IdentifiableObject {
+  private static final long serialVersionUID = 1L;
+
   /**
    * Refers to a URL if the {@code external} property is true. Refers to the UID of the associated
    * {@link FileResource} if the {@code external} property is false. Note that the {@link

@@ -41,6 +41,8 @@ import org.hisp.dhis.model.ValueType;
 @ToString
 @NoArgsConstructor
 public class TrackedEntityAttributeValue implements Serializable {
+  private static final long serialVersionUID = 1L;
+
   @JsonProperty private String attribute;
 
   @JsonProperty private String displayName;

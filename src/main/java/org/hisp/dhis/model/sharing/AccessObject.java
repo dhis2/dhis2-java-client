@@ -41,6 +41,8 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AccessObject implements Serializable {
+  private static final long serialVersionUID = 1L;
+
   @JsonProperty protected String access;
 
   @JsonProperty protected String id;

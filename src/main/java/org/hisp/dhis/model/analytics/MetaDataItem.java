@@ -45,6 +45,8 @@ import org.hisp.dhis.model.dimension.DimensionItemType;
 @ToString
 @NoArgsConstructor
 public class MetaDataItem implements Serializable {
+  private static final long serialVersionUID = 1L;
+
   @JsonProperty private String uid;
 
   @JsonProperty private String name;

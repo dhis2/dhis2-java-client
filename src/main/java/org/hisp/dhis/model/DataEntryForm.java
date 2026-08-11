@@ -36,6 +36,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class DataEntryForm extends NameableObject {
+  private static final long serialVersionUID = 1L;
+
   @JsonProperty private String htmlCode;
 
   @JsonProperty private Integer format;

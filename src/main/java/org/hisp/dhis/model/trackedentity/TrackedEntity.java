@@ -61,6 +61,8 @@ import org.locationtech.jts.geom.Geometry;
   "orgUnit"
 })
 public class TrackedEntity implements Serializable {
+  private static final long serialVersionUID = 1L;
+
   @JsonProperty private String trackedEntity;
 
   @JsonProperty private String trackedEntityType;

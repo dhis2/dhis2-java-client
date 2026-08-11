@@ -38,6 +38,8 @@ import org.hisp.dhis.model.dimension.DimensionItemType;
 @Setter
 @NoArgsConstructor
 public class Indicator extends DimensionItem {
+  private static final long serialVersionUID = 1L;
+
   @JsonProperty private IndicatorType indicatorType;
 
   @JsonProperty private boolean annualized;

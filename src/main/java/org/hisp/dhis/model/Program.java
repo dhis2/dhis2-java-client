@@ -51,6 +51,8 @@ import org.hisp.dhis.model.trackedentity.TrackedEntityTypeAttribute;
 @Setter
 @NoArgsConstructor
 public class Program extends NameableObject {
+  private static final long serialVersionUID = 1L;
+
   @JsonProperty private ProgramType programType;
 
   /**

@@ -41,6 +41,8 @@ import lombok.experimental.Accessors;
 @NoArgsConstructor
 @Accessors(chain = true)
 public class DataValue implements Serializable {
+  private static final long serialVersionUID = 1L;
+
   @JsonProperty private String dataElement;
 
   @JsonProperty private String period;
