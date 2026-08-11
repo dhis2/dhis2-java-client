@@ -43,6 +43,8 @@ import org.hisp.dhis.model.metadata.ImportStrategy;
 @Accessors(chain = true)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class CompleteDataSetRegistrationImportOptions implements Serializable {
+  private static final long serialVersionUID = 1L;
+
   /** Identifier property used for data sets in the response. Overrides idScheme. */
   private IdScheme dataSetIdScheme;
 

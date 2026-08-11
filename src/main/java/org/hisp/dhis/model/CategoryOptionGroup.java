@@ -41,6 +41,8 @@ import org.hisp.dhis.model.dimension.DimensionItemType;
 @Setter
 @NoArgsConstructor
 public class CategoryOptionGroup extends DimensionItem {
+  private static final long serialVersionUID = 1L;
+
   @JsonProperty private DataDimensionType dataDimensionType;
 
   @JsonProperty private List<CategoryOption> categoryOptions = new ArrayList<>();

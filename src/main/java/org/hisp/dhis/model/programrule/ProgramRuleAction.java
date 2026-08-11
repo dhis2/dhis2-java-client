@@ -44,6 +44,8 @@ import org.hisp.dhis.model.trackedentity.TrackedEntityAttribute;
 @Setter
 @NoArgsConstructor
 public class ProgramRuleAction extends IdentifiableObject {
+  private static final long serialVersionUID = 1L;
+
   @JsonProperty private ProgramRule programRule;
 
   @JsonProperty private ProgramRuleActionType programRuleActionType;

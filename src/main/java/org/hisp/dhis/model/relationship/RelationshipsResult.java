@@ -39,6 +39,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class RelationshipsResult implements Serializable {
+  private static final long serialVersionUID = 1L;
+
   @JsonProperty private List<Relationship> relationships = new ArrayList<>();
 
   public RelationshipsResult(List<Relationship> relationships) {

@@ -39,5 +39,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class EventsResult implements Serializable {
+  private static final long serialVersionUID = 1L;
+
   @JsonProperty private final List<Event> events = new ArrayList<>();
 }

@@ -41,6 +41,8 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 public class Sharing implements Serializable {
+  private static final long serialVersionUID = 1L;
+
   @JsonProperty private String owner;
 
   @JsonProperty("public")

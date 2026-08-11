@@ -34,6 +34,8 @@ import org.hisp.dhis.util.TextUtils;
  * substitution using <code>{}</code> for arguments.
  */
 public class IllegalArgumentFormatException extends IllegalArgumentException {
+  private static final long serialVersionUID = 1L;
+
   /**
    * Constructor.
    *

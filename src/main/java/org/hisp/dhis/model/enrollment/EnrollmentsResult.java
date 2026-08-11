@@ -39,6 +39,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class EnrollmentsResult implements Serializable {
+  private static final long serialVersionUID = 1L;
+
   @JsonProperty private List<Enrollment> enrollments = new ArrayList<>();
 
   public EnrollmentsResult(List<Enrollment> enrollments) {

@@ -35,4 +35,6 @@ import org.hisp.dhis.model.analytics.AnalyticalObject;
 @Getter
 @Setter
 @NoArgsConstructor
-public class GeoMap extends AnalyticalObject {}
+public class GeoMap extends AnalyticalObject {
+  private static final long serialVersionUID = 1L;
+}

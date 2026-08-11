@@ -39,6 +39,8 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 public class Translation implements Serializable {
+  private static final long serialVersionUID = 1L;
+
   @JsonProperty private String locale;
 
   @JsonProperty private String property;

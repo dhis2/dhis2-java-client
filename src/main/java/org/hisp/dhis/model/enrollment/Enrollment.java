@@ -45,6 +45,8 @@ import org.locationtech.jts.geom.Geometry;
 @ToString
 @NoArgsConstructor
 public class Enrollment implements Serializable {
+  private static final long serialVersionUID = 1L;
+
   @JsonProperty private String enrollment;
 
   @JsonProperty private String program;

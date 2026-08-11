@@ -44,6 +44,8 @@ import org.hisp.dhis.model.period.Period;
 @Setter
 @NoArgsConstructor
 public class Visualization extends AnalyticalObject {
+  private static final long serialVersionUID = 1L;
+
   /** Type of visualization. */
   @JsonProperty private VisualizationType type;
 

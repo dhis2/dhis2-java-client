@@ -37,6 +37,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class ValidationSide implements Serializable {
+  private static final long serialVersionUID = 1L;
+
   @JsonProperty private String expression;
 
   @JsonProperty private String description;

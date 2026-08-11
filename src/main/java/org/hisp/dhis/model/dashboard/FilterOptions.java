@@ -40,6 +40,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class FilterOptions implements Serializable {
+  private static final long serialVersionUID = 1L;
+
   /** Whether filter sidebar should be accessible when opening the dashboard. */
   @JsonProperty private boolean visible;
 

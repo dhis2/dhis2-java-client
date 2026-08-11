@@ -33,6 +33,8 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class AnalyticsDimension implements Serializable {
+  private static final long serialVersionUID = 1L;
+
   /** Data dimension identifier. */
   public static final String DATA_X = "dx";
 

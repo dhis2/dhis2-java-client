@@ -41,6 +41,8 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AnalyticsIndicatorType implements Serializable {
+  private static final long serialVersionUID = 1L;
+
   @JsonProperty private String name;
 
   @JsonProperty private Integer factor;

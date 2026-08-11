@@ -39,6 +39,8 @@ import org.hisp.dhis.model.dimension.DataDimensionType;
 @Setter
 @NoArgsConstructor
 public class CategoryOptionGroupSet extends NameableObject {
+  private static final long serialVersionUID = 1L;
+
   @JsonProperty private Boolean dataDimension;
 
   @JsonProperty private DataDimensionType dataDimensionType;

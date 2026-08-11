@@ -38,6 +38,8 @@ import org.hisp.dhis.model.dimension.DataDimensionType;
 @Setter
 @NoArgsConstructor
 public class CategoryCombo extends NameableObject {
+  private static final long serialVersionUID = 1L;
+
   @JsonProperty private DataDimensionType dataDimensionType;
 
   @JsonProperty private Boolean skipTotal;

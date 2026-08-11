@@ -35,6 +35,8 @@ import org.apache.maven.artifact.versioning.ComparableVersion;
 @ToString
 @EqualsAndHashCode
 public class SystemVersion implements Serializable {
+  private static final long serialVersionUID = 1L;
+
   private final String version;
 
   /**

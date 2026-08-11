@@ -39,6 +39,8 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 public class Note implements Serializable {
+  private static final long serialVersionUID = 1L;
+
   @JsonProperty private String note;
 
   @JsonProperty private String value;

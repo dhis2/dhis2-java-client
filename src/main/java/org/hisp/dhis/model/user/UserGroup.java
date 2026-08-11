@@ -39,5 +39,7 @@ import org.hisp.dhis.model.IdentifiableObject;
 @Setter
 @NoArgsConstructor
 public class UserGroup extends IdentifiableObject {
+  private static final long serialVersionUID = 1L;
+
   @JsonProperty private List<User> users = new ArrayList<>();
 }

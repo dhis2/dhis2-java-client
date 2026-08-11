@@ -38,6 +38,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class OrgUnitGroupSet extends NameableObject {
+  private static final long serialVersionUID = 1L;
+
   @JsonProperty private Boolean dataDimension;
 
   @JsonProperty private Boolean compulsory;

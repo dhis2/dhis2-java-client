@@ -38,6 +38,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class EventDataFilter implements Serializable {
+  private static final long serialVersionUID = 1L;
+
   /** The data element id or data item */
   private @JsonProperty String dataItem;
 

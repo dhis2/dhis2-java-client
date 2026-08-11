@@ -37,6 +37,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class DataSetElement implements Serializable {
+  private static final long serialVersionUID = 1L;
+
   @JsonProperty private CategoryCombo categoryCombo;
 
   @JsonProperty private DataSet dataSet;

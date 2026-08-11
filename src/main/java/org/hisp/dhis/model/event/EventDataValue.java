@@ -47,6 +47,8 @@ import org.hisp.dhis.util.DateTimeUtils;
 @NoArgsConstructor
 @ToString(onlyExplicitlyIncluded = true)
 public class EventDataValue implements Serializable {
+  private static final long serialVersionUID = 1L;
+
   public static final String VALUE_TRUE = "true";
 
   public static final String VALUE_FALSE = "false";

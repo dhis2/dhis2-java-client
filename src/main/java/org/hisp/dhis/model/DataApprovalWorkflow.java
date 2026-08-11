@@ -38,6 +38,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class DataApprovalWorkflow extends NameableObject {
+  private static final long serialVersionUID = 1L;
+
   @JsonProperty private String periodType;
 
   @JsonProperty private CategoryCombo categoryCombo;

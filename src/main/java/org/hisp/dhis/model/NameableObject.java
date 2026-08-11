@@ -41,6 +41,8 @@ import org.hisp.dhis.util.TextUtils;
 @ToString(callSuper = true)
 @NoArgsConstructor
 public class NameableObject extends IdentifiableObject {
+  private static final long serialVersionUID = 1L;
+
   @JsonProperty protected String shortName;
 
   @JsonProperty protected String description;

@@ -42,6 +42,8 @@ import org.hisp.dhis.model.trackedentity.TrackedEntityType;
 @ToString
 @NoArgsConstructor
 public class RelationshipConstraint implements Serializable {
+  private static final long serialVersionUID = 1L;
+
   @JsonProperty private RelationshipEntity relationshipEntity;
 
   @JsonProperty private TrackedEntityType trackedEntityType;

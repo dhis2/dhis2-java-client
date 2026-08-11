@@ -41,6 +41,8 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 public class TrackerDataView implements Serializable {
+  private static final long serialVersionUID = 1L;
+
   @JsonProperty private Set<String> attributes = new LinkedHashSet<>();
 
   @JsonProperty private Set<String> dataElements = new LinkedHashSet<>();

@@ -37,6 +37,8 @@ import lombok.ToString;
 @ToString(callSuper = true)
 @NoArgsConstructor
 public class UserGroupAccess extends AccessObject {
+  private static final long serialVersionUID = 1L;
+
   /**
    * Constructor.
    *

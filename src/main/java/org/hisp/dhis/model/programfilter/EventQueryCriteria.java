@@ -42,6 +42,8 @@ import org.hisp.dhis.query.event.OrgUnitSelectionMode;
 @Setter
 @NoArgsConstructor
 public class EventQueryCriteria implements Serializable {
+  private static final long serialVersionUID = 1L;
+
   /** Property indicating the followUp status of the enrollment. */
   private @JsonProperty Boolean followUp;
 

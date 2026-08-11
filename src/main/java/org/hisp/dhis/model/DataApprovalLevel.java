@@ -36,6 +36,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class DataApprovalLevel extends NameableObject {
+  private static final long serialVersionUID = 1L;
+
   @JsonProperty private int level;
 
   @JsonProperty private int orgUnitLevel;

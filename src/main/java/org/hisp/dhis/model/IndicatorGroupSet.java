@@ -38,6 +38,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class IndicatorGroupSet extends NameableObject {
+  private static final long serialVersionUID = 1L;
+
   @JsonProperty private Boolean compulsory;
 
   @JsonProperty private List<IndicatorGroup> indicatorGroups = new ArrayList<>();

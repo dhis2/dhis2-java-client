@@ -40,5 +40,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class DataStoreEntries implements Serializable {
+  private static final long serialVersionUID = 1L;
+
   @JsonProperty private List<Map<String, Object>> entries = new ArrayList<>();
 }

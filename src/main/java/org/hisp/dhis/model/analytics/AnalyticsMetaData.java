@@ -54,6 +54,8 @@ import org.hisp.dhis.model.dimension.DimensionItemType;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AnalyticsMetaData implements Serializable {
+  private static final long serialVersionUID = 1L;
+
   /**
    * Map between dimension item identifiers and metadata item objects. The {@code name} property is
    * always set. Other properties are only set if the API request parameter {@code

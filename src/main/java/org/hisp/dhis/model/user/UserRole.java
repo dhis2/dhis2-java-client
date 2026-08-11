@@ -39,6 +39,8 @@ import org.hisp.dhis.model.IdentifiableObject;
 @Setter
 @NoArgsConstructor
 public class UserRole extends IdentifiableObject {
+  private static final long serialVersionUID = 1L;
+
   @JsonProperty private String description;
 
   @JsonProperty private Set<String> authorities = new HashSet<>();

@@ -42,6 +42,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class ProgramStage extends NameableObject {
+  private static final long serialVersionUID = 1L;
+
   @JsonProperty private Program program;
 
   @JsonProperty private List<ProgramStageDataElement> programStageDataElements = new ArrayList<>();

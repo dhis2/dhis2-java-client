@@ -38,6 +38,8 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 public class FileResource extends IdentifiableObject {
+  private static final long serialVersionUID = 1L;
+
   @JsonProperty private String contentType;
 
   @JsonProperty private Integer contentLength;

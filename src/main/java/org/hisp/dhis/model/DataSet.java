@@ -43,6 +43,8 @@ import org.hisp.dhis.model.dimension.DimensionItemType;
 @Setter
 @NoArgsConstructor
 public class DataSet extends DimensionItem {
+  private static final long serialVersionUID = 1L;
+
   @JsonProperty private String displayFormName;
 
   @JsonProperty private CategoryCombo categoryCombo;

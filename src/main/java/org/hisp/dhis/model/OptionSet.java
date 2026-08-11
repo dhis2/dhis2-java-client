@@ -40,6 +40,8 @@ import org.hisp.dhis.util.CollectionUtils;
 @Setter
 @NoArgsConstructor
 public class OptionSet extends IdentifiableObject {
+  private static final long serialVersionUID = 1L;
+
   @JsonProperty private String name;
 
   @JsonProperty private ValueType valueType;

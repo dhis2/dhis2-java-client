@@ -40,6 +40,8 @@ import lombok.Setter;
 @EqualsAndHashCode
 @NoArgsConstructor
 public class Period implements Serializable {
+  private static final long serialVersionUID = 1L;
+
   @JsonProperty private PeriodType periodType;
 
   @JsonProperty private Date startDate;

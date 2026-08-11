@@ -47,6 +47,8 @@ import org.hisp.dhis.model.ValueType;
 @AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class AnalyticsHeader implements Serializable {
+  private static final long serialVersionUID = 1L;
+
   @EqualsAndHashCode.Include @JsonProperty private String name;
 
   @JsonProperty private String column;

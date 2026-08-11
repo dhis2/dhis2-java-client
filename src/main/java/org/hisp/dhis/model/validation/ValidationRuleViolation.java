@@ -39,6 +39,8 @@ import org.hisp.dhis.model.OrgUnit;
 @Setter
 @NoArgsConstructor
 public class ValidationRuleViolation implements Serializable {
+  private static final long serialVersionUID = 1L;
+
   @JsonProperty private Integer id;
 
   @JsonProperty private ValidationRule validationRule;

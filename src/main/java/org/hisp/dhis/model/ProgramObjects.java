@@ -47,6 +47,8 @@ import org.hisp.dhis.model.programrule.ProgramRuleVariable;
 @Accessors(chain = true)
 @NoArgsConstructor
 public class ProgramObjects implements Serializable {
+  private static final long serialVersionUID = 1L;
+
   @JsonProperty private List<Program> programs = new ArrayList<>();
 
   @JsonProperty private List<ProgramSection> programSections = new ArrayList<>();

@@ -34,6 +34,8 @@ import org.hisp.dhis.model.Indicator;
 import org.hisp.dhis.model.ProgramIndicator;
 
 public class DataDimensionItem implements Serializable {
+  private static final long serialVersionUID = 1L;
+
   @JsonProperty private Indicator indicator;
 
   @JsonProperty private DataElement dataElement;

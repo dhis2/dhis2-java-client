@@ -37,6 +37,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class UserSettings implements Serializable {
+  private static final long serialVersionUID = 1L;
+
   @JsonProperty(value = "keyUiLocale")
   private String uiLocale;
 

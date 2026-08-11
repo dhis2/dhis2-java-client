@@ -41,6 +41,8 @@ import org.hisp.dhis.model.IdentifiableObject;
 @Setter
 @NoArgsConstructor
 public class Validation implements Serializable {
+  private static final long serialVersionUID = 1L;
+
   @JsonProperty private List<ValidationRuleViolation> validationRuleViolations = new ArrayList<>();
   @JsonProperty private List<IdentifiableObject> commentRequiredViolations = new ArrayList<>();
 
