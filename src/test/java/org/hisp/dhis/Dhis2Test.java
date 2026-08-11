@@ -102,8 +102,7 @@ class Dhis2Test {
 
   @Test
   void testGetAccessDenied() {
-    Dhis2 dhis2 =
-        new Dhis2(new Dhis2Config("https://play.dhis2.org/demo", "notauser", "invalidpw"));
+    Dhis2 dhis2 = new Dhis2(new Dhis2Config(TestFixture.DEFAULT_URL, "notauser", "invalidpw"));
 
     Dhis2ClientException ex =
         assertThrows(Dhis2ClientException.class, () -> dhis2.getOrgUnitGroups(Query.instance()));
