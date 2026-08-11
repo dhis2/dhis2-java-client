@@ -45,8 +45,10 @@ import static org.hisp.dhis.api.ApiPaths.PATH_ENROLLMENTS;
 import static org.hisp.dhis.api.ApiPaths.PATH_EVENTS;
 import static org.hisp.dhis.api.ApiPaths.PATH_FILE_RESOURCES;
 import static org.hisp.dhis.api.ApiPaths.PATH_METADATA;
+import static org.hisp.dhis.api.ApiPaths.PATH_OWNERSHIP;
 import static org.hisp.dhis.api.ApiPaths.PATH_TRACKED_ENTITIES;
 import static org.hisp.dhis.api.ApiPaths.PATH_TRACKER;
+import static org.hisp.dhis.api.ApiPaths.PATH_TRANSFER;
 import static org.hisp.dhis.util.CollectionUtils.asList;
 import static org.hisp.dhis.util.CollectionUtils.list;
 import static org.hisp.dhis.util.IdentifiableObjectUtils.toIdObjects;
@@ -56,6 +58,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -70,6 +73,7 @@ import org.apache.commons.lang3.Validate;
 import org.apache.hc.client5.http.HttpResponseException;
 import org.apache.hc.client5.http.classic.methods.HttpGet;
 import org.apache.hc.client5.http.classic.methods.HttpPost;
+import org.apache.hc.client5.http.classic.methods.HttpPut;
 import org.apache.hc.client5.http.entity.mime.MultipartEntityBuilder;
 import org.apache.hc.core5.http.ContentType;
 import org.apache.hc.core5.http.HttpEntity;
@@ -111,6 +115,7 @@ import org.hisp.dhis.model.IndicatorGroupSet;
 import org.hisp.dhis.model.IndicatorType;
 import org.hisp.dhis.model.Me;
 import org.hisp.dhis.model.Option;
+import org.hisp.dhis.model.OptionGroup;
 import org.hisp.dhis.model.OptionSet;
 import org.hisp.dhis.model.OptionSetObjects;
 import org.hisp.dhis.model.OrgUnit;
@@ -2806,6 +2811,61 @@ public class Dhis2 extends BaseDhis2 {
   }
 
   // -------------------------------------------------------------------------
+  // OptionGroup
+  // -------------------------------------------------------------------------
+
+  /**
+   * Retrieves an {@link OptionGroup}.
+   *
+   * @param id the object identifier.
+   * @return the {@link OptionGroup}.
+   * @throws Dhis2ClientException if the object does not exist.
+   */
+  public OptionGroup getOptionGroup(String id) {
+    return getMetadataObject(MetadataEntity.OPTION_GROUP, id);
+  }
+
+  /**
+   * Indicates whether a {@link OptionGroup} exists.
+   *
+   * @param id the object identifier.
+   * @return true if the object exists.
+   */
+  public boolean isOptionGroup(String id) {
+    return objectExists(MetadataEntity.OPTION_GROUP, id);
+  }
+
+  /**
+   * Retrieves a list of {@link OptionGroup}.
+   *
+   * @param query the {@link Query}.
+   * @return list of {@link OptionGroup}.
+   */
+  public List<OptionGroup> getOptionGroups(Query query) {
+    return getMetadataList(MetadataEntity.OPTION_GROUP, query);
+  }
+
+  /**
+   * Retrieves a {@link Metadata} of type {@link OptionGroup}.
+   *
+   * @param query the {@link Query}.
+   * @return a {@link Metadata}.
+   */
+  public Metadata<OptionGroup> getOptionGroupsPaged(Query query) {
+    return getMetadata(MetadataEntity.OPTION_GROUP, query);
+  }
+
+  /**
+   * Removes an {@link OptionGroup}.
+   *
+   * @param id the identifier of the object to remove.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse removeOptionGroup(String id) {
+    return removeMetadataObject(MetadataEntity.OPTION_GROUP, id);
+  }
+
+  // -------------------------------------------------------------------------
   // Program
   // -------------------------------------------------------------------------
 
@@ -4591,6 +4651,39 @@ public class Dhis2 extends BaseDhis2 {
             .appendPath(PATH_TRACKED_ENTITIES)
             .addParameter(FIELDS_PARAM, TRACKED_ENTITY_FIELDS),
         query);
+  }
+
+  /**
+   * Transfers the ownership org unit of a tracked entity for the given program.
+   *
+   * @param trackedEntity the tracked entity identifier.
+   * @param program the program identifier.
+   * @param orgUnit the identifier of the org unit to transfer ownership to.
+   * @return the {@link Response}.
+   */
+  public Response transferTrackedEntityProgramOwnerOrgUnit(
+      String trackedEntity, String program, String orgUnit) {
+    Objects.requireNonNull(trackedEntity, "trackedEntity must be specified");
+    Objects.requireNonNull(program, "program must be specified");
+    Objects.requireNonNull(orgUnit, "orgUnit must be specified");
+    SystemInfo systemInfo = getSystemInfo();
+    try {
+      URIBuilder builder =
+          config
+              .getResolvedUriBuilder()
+              .appendPath(PATH_TRACKER)
+              .appendPath(PATH_OWNERSHIP)
+              .appendPath(PATH_TRANSFER)
+              .addParameter("program", program);
+      if (systemInfo.getSystemVersion().isHigherOrEqual("2.42")) {
+        builder.addParameter("trackedEntity", trackedEntity).addParameter("orgUnit", orgUnit);
+      } else {
+        builder.addParameter("trackedEntityInstance", trackedEntity).addParameter("ou", orgUnit);
+      }
+      return executeRequest(new HttpPut(builder.build()), Response.class);
+    } catch (URISyntaxException ex) {
+      throw new Dhis2ClientException("Invalid URI syntax", ex);
+    }
   }
 
   // -------------------------------------------------------------------------

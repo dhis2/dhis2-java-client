@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004-2024, University of Oslo
+ * Copyright (c) 2004-2026, University of Oslo
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,33 +25,27 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.hisp.dhis;
+package org.hisp.dhis.model;
 
-import lombok.AccessLevel;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.HashSet;
+import java.util.Set;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.hisp.dhis.model.dimension.DimensionItem;
+import org.hisp.dhis.model.dimension.DimensionItemType;
 
-/**
- * Test fixture constants. Note that the URLs point to DHIS2 play instances, where the versions and
- * URLs will change over time.
- */
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
-public final class TestFixture {
-  public static final String DEV_URL = "https://play.im.dhis2.org/dev";
+@Getter
+@Setter
+@NoArgsConstructor
+public class OptionGroup extends DimensionItem {
+  @JsonProperty private Set<Option> options = new HashSet<>();
 
-  public static final String V41_URL = "https://play.im.dhis2.org/stable-2-41-9";
+  @JsonProperty private OptionSet optionSet;
 
-  public static final String V42_URL = "https://play.im.dhis2.org/stable-2-42-5-1";
-
-  public static final String LOCAL_URL = "http://localhost/dhis";
-
-  public static final String DEFAULT_URL = V41_URL;
-
-  public static final Dhis2Config DEV_CONFIG = new Dhis2Config(DEV_URL, "system", "System123");
-
-  public static final Dhis2Config V42_CONFIG = new Dhis2Config(V42_URL, "system", "System123");
-
-  public static final Dhis2Config LOCAL_CONFIG = new Dhis2Config(LOCAL_URL, "system", "System123");
-
-  public static final Dhis2Config DEFAULT_CONFIG =
-      new Dhis2Config(DEFAULT_URL, "system", "System123");
+  @Override
+  public DimensionItemType getDimensionItemType() {
+    return DimensionItemType.OPTION_GROUP;
+  }
 }

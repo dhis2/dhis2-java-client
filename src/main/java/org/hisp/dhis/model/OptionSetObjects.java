@@ -47,6 +47,8 @@ public class OptionSetObjects implements Serializable {
 
   @JsonProperty private List<Option> options = new ArrayList<>();
 
+  @JsonProperty private List<OptionGroup> optionGroups = new ArrayList<>();
+
   /**
    * Returns the first option in the list of options, or null if no options exist.
    *

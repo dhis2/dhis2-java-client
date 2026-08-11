@@ -30,6 +30,7 @@ package org.hisp.dhis;
 import static org.hisp.dhis.support.Assertions.assertNotBlank;
 import static org.hisp.dhis.support.Assertions.assertNotEmpty;
 import static org.hisp.dhis.support.Assertions.assertSize;
+import static org.hisp.dhis.support.Assertions.assertSuccessResponse;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -38,9 +39,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.List;
 import org.hisp.dhis.model.Dhis2Objects;
 import org.hisp.dhis.model.Option;
+import org.hisp.dhis.model.OptionGroup;
 import org.hisp.dhis.model.OptionSet;
 import org.hisp.dhis.model.OptionSetObjects;
 import org.hisp.dhis.query.Query;
+import org.hisp.dhis.response.HttpStatus;
 import org.hisp.dhis.response.Status;
 import org.hisp.dhis.response.object.ObjectResponse;
 import org.hisp.dhis.response.objects.ObjectsResponse;
@@ -153,6 +156,11 @@ class OptionSetApiTest {
     assertNotNull(option);
     assertNotBlank(option.getId());
 
+    ObjectResponse removeGroupResponse = dhis2.removeOptionGroup("BZK0eV8dEYs");
+    assertNotNull(removeGroupResponse);
+    assertEquals(Status.OK, removeGroupResponse.getStatus());
+    assertEquals(200, removeGroupResponse.getHttpStatusCode());
+
     ObjectResponse removeResponse = dhis2.removeOptionSet("qszOn4ydMDE");
 
     assertNotNull(removeResponse);
@@ -209,11 +217,11 @@ class OptionSetApiTest {
     assertNotNull(updated.getLastUpdatedBy());
     assertSize(3, updated.getOptions());
 
-    ObjectResponse removeResponse = dhis2.removeOptionSet("qszOn4ydMDE");
+    ObjectResponse removeGroupResponse = dhis2.removeOptionGroup("BZK0eV8dEYs");
+    assertSuccessResponse(removeGroupResponse, HttpStatus.OK, 200);
 
-    assertNotNull(removeResponse);
-    assertEquals(Status.OK, removeResponse.getStatus());
-    assertEquals(200, removeResponse.getHttpStatusCode());
+    ObjectResponse removeResponse = dhis2.removeOptionSet("qszOn4ydMDE");
+    assertSuccessResponse(removeResponse, HttpStatus.OK, 200);
   }
 
   @Test
@@ -221,6 +229,7 @@ class OptionSetApiTest {
     Dhis2Objects optionSet =
         JsonClassPathFile.fromJson("metadata/option-set-color.json", Dhis2Objects.class);
 
+    assertSize(1, optionSet.getOptionGroups());
     assertSize(1, optionSet.getOptionSets());
     assertSize(3, optionSet.getOptions());
 
@@ -244,6 +253,15 @@ class OptionSetApiTest {
 
     assertNotNull(option);
     assertNotBlank(option.getId());
+
+    OptionGroup optionGroup = dhis2.getOptionGroup("BZK0eV8dEYs");
+    assertNotNull(optionGroup);
+    assertNotBlank(optionGroup.getId());
+
+    ObjectResponse removeGroupResponse = dhis2.removeOptionGroup(optionGroup.getId());
+    assertNotNull(removeGroupResponse);
+    assertEquals(Status.OK, removeGroupResponse.getStatus());
+    assertEquals(200, removeGroupResponse.getHttpStatusCode());
 
     ObjectResponse removeResponse = dhis2.removeOptionSet("qszOn4ydMDE");
 

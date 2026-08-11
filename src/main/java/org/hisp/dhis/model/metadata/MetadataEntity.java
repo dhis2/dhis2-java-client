@@ -59,6 +59,8 @@ import static org.hisp.dhis.api.ApiFields.INDICATOR_TYPE_FIELDS;
 import static org.hisp.dhis.api.ApiFields.MAP_FIELDS;
 import static org.hisp.dhis.api.ApiFields.OPTION_EXT_FIELDS;
 import static org.hisp.dhis.api.ApiFields.OPTION_FIELDS;
+import static org.hisp.dhis.api.ApiFields.OPTION_GROUP_EXT_FIELDS;
+import static org.hisp.dhis.api.ApiFields.OPTION_GROUP_FIELDS;
 import static org.hisp.dhis.api.ApiFields.OPTION_SET_EXT_FIELDS;
 import static org.hisp.dhis.api.ApiFields.OPTION_SET_FIELDS;
 import static org.hisp.dhis.api.ApiFields.ORG_UNIT_FIELDS;
@@ -115,6 +117,7 @@ import org.hisp.dhis.model.IndicatorGroup;
 import org.hisp.dhis.model.IndicatorGroupSet;
 import org.hisp.dhis.model.IndicatorType;
 import org.hisp.dhis.model.Option;
+import org.hisp.dhis.model.OptionGroup;
 import org.hisp.dhis.model.OptionSet;
 import org.hisp.dhis.model.OrgUnit;
 import org.hisp.dhis.model.OrgUnitGroup;
@@ -330,6 +333,12 @@ public enum MetadataEntity {
       OPTION_EXT_FIELDS,
       "options",
       Dhis2Objects::getOptions),
+  OPTION_GROUP(
+      OptionGroup.class,
+      OPTION_GROUP_FIELDS,
+      OPTION_GROUP_EXT_FIELDS,
+      "optionGroups",
+      Dhis2Objects::getOptionGroups),
   PROGRAM(
       Program.class,
       PROGRAM_MIN_FIELDS,
@@ -503,6 +512,8 @@ public enum MetadataEntity {
       return OPTION_SET;
     } else if (object instanceof Option) {
       return OPTION;
+    } else if (object instanceof OptionGroup) {
+      return OPTION_GROUP;
     } else if (object instanceof Program) {
       return PROGRAM;
     } else if (object instanceof ProgramSection) {
