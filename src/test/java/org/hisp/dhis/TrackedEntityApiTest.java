@@ -32,8 +32,10 @@ import static org.hisp.dhis.support.Assertions.assertSize;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.util.List;
+import org.hisp.dhis.model.Pager;
 import org.hisp.dhis.model.enrollment.Enrollment;
 import org.hisp.dhis.model.enrollment.EnrollmentStatus;
 import org.hisp.dhis.model.trackedentity.TrackedEntitiesResult;
@@ -124,6 +126,38 @@ class TrackedEntityApiTest {
     assertNotNull(trackedEntities);
     assertNotEmpty(trackedEntities.getTrackedEntities());
     assertSize(2, trackedEntities.getTrackedEntities());
+
+    assertNotNull(trackedEntities.getPager());
+    Pager pager = trackedEntities.getPager();
+    assertNull(pager.getPageCount());
+    assertNull(pager.getTotal());
+    assertEquals(1, pager.getPage());
+    assertEquals(2, pager.getPageSize());
+  }
+
+  @Test
+  void testGetTrackedEntitiesWithTotalPaging() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    TrackedEntityQuery query =
+        TrackedEntityQuery.instance()
+            .setProgram("IpHINAT79UW")
+            .setOrgUnit("DiszpKrYNg8")
+            .setFields("trackedEntity,programOwners")
+            .setPaging(new Paging(1, 2, true));
+
+    TrackedEntitiesResult trackedEntities = dhis2.getTrackedEntities(query);
+
+    assertNotNull(trackedEntities);
+    assertNotEmpty(trackedEntities.getTrackedEntities());
+    assertSize(2, trackedEntities.getTrackedEntities());
+
+    assertNotNull(trackedEntities.getPager());
+    Pager pager = trackedEntities.getPager();
+    assertNotNull(pager.getPageCount());
+    assertNotNull(pager.getTotal());
+    assertEquals(1, pager.getPage());
+    assertEquals(2, pager.getPageSize());
   }
 
   @Test

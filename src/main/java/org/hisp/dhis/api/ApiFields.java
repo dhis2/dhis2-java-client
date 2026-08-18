@@ -536,4 +536,7 @@ public class ApiFields {
           periods[%2$s],userOrganisationUnit,\
           userOrganisationUnitChildren,userOrganisationUnitGrandChildren,organisationUnits[%2$s]""",
           NAME_EXT_FIELDS, ID_FIELDS);
+
+  /** Period type fields. */
+  public static final String PERIOD_TYPE_FIELDS = "frequencyOrder,name,isoDuration,isoFormat";
 }

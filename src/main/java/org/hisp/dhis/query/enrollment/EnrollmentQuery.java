@@ -37,15 +37,26 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import org.hisp.dhis.model.enrollment.EnrollmentStatus;
+import org.hisp.dhis.query.BaseQuery;
+import org.hisp.dhis.query.Filter;
+import org.hisp.dhis.query.Order;
+import org.hisp.dhis.query.Paging;
 import org.hisp.dhis.query.event.OrgUnitSelectionMode;
 
 @Getter
 @Setter
 @Accessors(chain = true)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class EnrollmentQuery {
+public class EnrollmentQuery implements BaseQuery {
+  private Paging paging = new Paging();
+
+  private List<Filter> filters = new ArrayList<>();
+
   /** Only return enrollments belonging to provided organisation units */
   private List<String> orgUnits = new ArrayList<>();
+
+  /** Any valid field filter. Include specified sub-objects in the response. */
+  private String fields;
 
   /**
    * The mode of selecting organisation units, can be. Default is SELECTED, which refers to the
@@ -85,10 +96,10 @@ public class EnrollmentQuery {
    * Supported fields: completedAt, createdAt, createdAtClient, enrolledAt, updatedAt,
    * updatedAtClient.
    */
-  private List<String> order;
+  private List<Order> order = new ArrayList<>();
 
   /** Filter the result down to a limited set of IDs by using enrollments=id1,id2. */
-  private List<String> enrollments;
+  private List<String> enrollments = new ArrayList<>();
 
   /** When true, soft deleted events will be included in your query result. */
   private Boolean includeDeleted;

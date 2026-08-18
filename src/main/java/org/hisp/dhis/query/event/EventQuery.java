@@ -54,6 +54,9 @@ public class EventQuery implements BaseQuery {
 
   private Paging paging = new Paging();
 
+  /** Any valid field filter. Include specified sub-objects in the response. */
+  private String fields;
+
   private String program;
 
   private String programStage;
