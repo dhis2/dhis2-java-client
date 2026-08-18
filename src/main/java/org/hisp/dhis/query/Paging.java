@@ -45,14 +45,19 @@ public class Paging {
 
   private static final int DEFAULT_PAGE = 1;
 
+  private static final boolean DEFAULT_TOTAL_PAGES = false;
+
   private final Integer page;
 
   private final Integer pageSize;
+
+  private final boolean totalPages;
 
   /** Constructor. */
   public Paging() {
     this.page = DEFAULT_PAGE;
     this.pageSize = DEFAULT_PAGE_SIZE;
+    this.totalPages = DEFAULT_TOTAL_PAGES;
   }
 
   /**
@@ -62,11 +67,22 @@ public class Paging {
    * @param pageSize the page size, can be null, cannot be negative.
    */
   public Paging(Integer page, Integer pageSize) {
+    this(page, pageSize, DEFAULT_TOTAL_PAGES);
+  }
+
+  /**
+   * Constructor.
+   *
+   * @param page the page number, starting on 1, can be null, cannot be negative.
+   * @param pageSize the page size, can be null, cannot be negative.
+   */
+  public Paging(Integer page, Integer pageSize, boolean totalPages) {
     Validate.isTrue(!(isPresent(page) && page < 1), "Page must be greater than zero if specified");
     Validate.isTrue(
         !(isPresent(pageSize) && pageSize < 1), "Page size must be greater than zero if specified");
     this.page = page;
     this.pageSize = pageSize;
+    this.totalPages = totalPages;
   }
 
   /**

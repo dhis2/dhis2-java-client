@@ -29,19 +29,24 @@ package org.hisp.dhis.model.trackedentity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.ToString;
+import org.hisp.dhis.model.Pager;
 
 @Getter
-@Setter
 @ToString
-@NoArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PRIVATE, force = true)
 public class TrackedEntitiesResult implements Serializable {
   private static final long serialVersionUID = 1L;
 
-  @JsonProperty private final List<TrackedEntity> trackedEntities = new ArrayList<>();
+  /** Paging information. */
+  @JsonProperty private final Pager pager;
+
+  /** List of tracked entities. */
+  @JsonProperty private final List<TrackedEntity> trackedEntities;
 }

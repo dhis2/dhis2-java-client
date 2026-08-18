@@ -53,6 +53,8 @@ public class Query implements BaseQuery {
 
   private boolean expandAssociations = false;
 
+  private String fields;
+
   /**
    * Produces a query instance.
    *
@@ -158,6 +160,27 @@ public class Query implements BaseQuery {
   @Override
   public Paging getPaging() {
     return isPresent(paging) ? paging : new Paging(null, null);
+  }
+
+  /**
+   * Sets fields for this query.
+   *
+   * @param fields the query fields.
+   * @return this {@link Query}.
+   */
+  public Query setFields(String fields) {
+    this.fields = fields;
+    return this;
+  }
+
+  /**
+   * Returns the fields for this query.
+   *
+   * @return the fields.
+   */
+  @Override
+  public String getFields() {
+    return this.fields;
   }
 
   /**

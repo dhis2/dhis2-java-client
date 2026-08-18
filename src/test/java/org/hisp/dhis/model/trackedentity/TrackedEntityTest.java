@@ -62,7 +62,8 @@ class TrackedEntityTest {
         "updatedAt":"2023-05-10T16:12:51.251",\
         "orgUnit":"DiszpKrYNg8",\
         "attributes":[],\
-        "enrollments":[]}""";
+        "enrollments":[],\
+        "programOwners":[]}""";
 
     assertEquals(expected, actual);
   }

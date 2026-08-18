@@ -35,4 +35,6 @@ public interface BaseQuery {
   List<Order> getOrder();
 
   Paging getPaging();
+
+  String getFields();
 }

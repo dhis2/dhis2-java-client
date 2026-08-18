@@ -29,21 +29,21 @@ package org.hisp.dhis.model.relationship;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
+import org.hisp.dhis.model.Pager;
 
 @Getter
-@Setter
-@NoArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PRIVATE, force = true)
 public class RelationshipsResult implements Serializable {
   private static final long serialVersionUID = 1L;
 
-  @JsonProperty private List<Relationship> relationships = new ArrayList<>();
+  /** Paging information. */
+  @JsonProperty private final Pager pager;
 
-  public RelationshipsResult(List<Relationship> relationships) {
-    this.relationships = relationships;
-  }
+  @JsonProperty private final List<Relationship> relationships;
 }

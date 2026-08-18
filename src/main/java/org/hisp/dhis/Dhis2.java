@@ -32,6 +32,7 @@ import static org.hisp.dhis.api.ApiFields.DATA_SET_VALIDATION_FIELDS;
 import static org.hisp.dhis.api.ApiFields.FILE_RESOURCE_FIELDS;
 import static org.hisp.dhis.api.ApiFields.ME_FIELDS;
 import static org.hisp.dhis.api.ApiFields.ORG_UNIT_FIELDS;
+import static org.hisp.dhis.api.ApiFields.PERIOD_TYPE_FIELDS;
 import static org.hisp.dhis.api.ApiFields.TRACKED_ENTITY_FIELDS;
 import static org.hisp.dhis.api.ApiFields.VALIDATION_RULE_FIELDS;
 import static org.hisp.dhis.api.ApiParams.ASYNC_PARAM;
@@ -780,7 +781,7 @@ public class Dhis2 extends BaseDhis2 {
    */
   public Dhis2Objects getMetadataObjects(MetadataEntity entity, Query query) {
     String path = entity.getPath();
-    String fields = query.isExpandAssociations() ? entity.getExtFields() : entity.getFields();
+    String fields = getQueryFields(entity, query);
     URIBuilder uri =
         config.getResolvedUriBuilder().appendPath(path).addParameter(FIELDS_PARAM, fields);
     return getObject(uri, query, Dhis2Objects.class);
@@ -798,7 +799,7 @@ public class Dhis2 extends BaseDhis2 {
   public <T extends IdentifiableObject> List<T> getMetadataList(
       MetadataEntity entity, Query query) {
     String path = entity.getPath();
-    String fields = query.isExpandAssociations() ? entity.getExtFields() : entity.getFields();
+    String fields = getQueryFields(entity, query);
 
     Dhis2Objects objects =
         getObject(
@@ -821,7 +822,7 @@ public class Dhis2 extends BaseDhis2 {
   public <T extends IdentifiableObject> Metadata<T> getMetadata(
       MetadataEntity entity, Query query) {
     String path = entity.getPath();
-    String fields = query.isExpandAssociations() ? entity.getExtFields() : entity.getFields();
+    String fields = getQueryFields(entity, query);
     InternalQuery internalQuery = InternalQuery.instance().withDefaultPaging();
 
     Dhis2Objects objects =
@@ -2351,12 +2352,13 @@ public class Dhis2 extends BaseDhis2 {
    * @return list of {@link OrgUnit}.
    */
   public List<OrgUnit> getOrgUnitSubHierarchy(String id, Integer level, Query query) {
+    final String fields = getQueryFieldsOrDefault(query, ORG_UNIT_FIELDS);
     return getObject(
             config
                 .getResolvedUriBuilder()
                 .appendPath("organisationUnits")
                 .appendPath(id)
-                .addParameter(FIELDS_PARAM, ORG_UNIT_FIELDS)
+                .addParameter(FIELDS_PARAM, fields)
                 .addParameter("level", String.valueOf(level)),
             query,
             Dhis2Objects.class)
@@ -3933,11 +3935,12 @@ public class Dhis2 extends BaseDhis2 {
    * @return list of {@link PeriodType}.
    */
   public List<PeriodType> getPeriodTypes(Query query) {
+    final String fields = getQueryFieldsOrDefault(query, PERIOD_TYPE_FIELDS);
     return getObject(
             config
                 .getResolvedUriBuilder()
                 .appendPath("periodTypes")
-                .addParameter(FIELDS_PARAM, "frequencyOrder,name,isoDuration,isoFormat"),
+                .addParameter(FIELDS_PARAM, fields),
             query,
             Dhis2Objects.class)
         .getPeriodTypes();
@@ -3972,11 +3975,12 @@ public class Dhis2 extends BaseDhis2 {
    * @return a list of {@link FileResource}.
    */
   public List<FileResource> getFileResources(Query query) {
+    String fields = getQueryFieldsOrDefault(query, FILE_RESOURCE_FIELDS);
     return getObject(
             config
                 .getResolvedUriBuilder()
                 .appendPath(PATH_FILE_RESOURCES)
-                .addParameter(FIELDS_PARAM, FILE_RESOURCE_FIELDS),
+                .addParameter(FIELDS_PARAM, fields),
             query,
             Dhis2Objects.class)
         .getFileResources();
@@ -4644,12 +4648,13 @@ public class Dhis2 extends BaseDhis2 {
    * @return the {@link TrackedEntitiesResult}.
    */
   public TrackedEntitiesResult getTrackedEntities(TrackedEntityQuery query) {
+    final String fields = getQueryFieldsOrDefault(query, TRACKED_ENTITY_FIELDS);
     return getTrackedEntitiesResult(
         config
             .getResolvedUriBuilder()
             .appendPath(PATH_TRACKER)
             .appendPath(PATH_TRACKED_ENTITIES)
-            .addParameter(FIELDS_PARAM, TRACKED_ENTITY_FIELDS),
+            .addParameter(FIELDS_PARAM, fields),
         query);
   }
 

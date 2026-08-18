@@ -31,15 +31,21 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
+import org.hisp.dhis.model.Pager;
 
 @Getter
-@Setter
-@NoArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PRIVATE, force = true)
 public class EventsResult implements Serializable {
   private static final long serialVersionUID = 1L;
 
+  /** Paging information. */
+  @JsonProperty private final Pager pager;
+
+  /** List of events. */
   @JsonProperty private final List<Event> events = new ArrayList<>();
 }

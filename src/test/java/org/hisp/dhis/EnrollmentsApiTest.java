@@ -98,7 +98,7 @@ class EnrollmentsApiTest {
     enrollment.setOccurredAt(toDate(2021, 7, 12));
     Note note = new Note();
     note.setNote(noteId);
-    note.setStoredBy("admin");
+    note.setStoredBy("system");
     note.setValue(StringUtils.repeat('a', 5000));
     enrollment.setNotes(List.of(note));
 
@@ -131,7 +131,7 @@ class EnrollmentsApiTest {
     note = enrollment.getNotes().get(0);
     assertEquals(noteId, note.getNote());
     assertEquals(5000, note.getValue().length());
-    assertEquals("admin", note.getStoredBy());
+    assertEquals("system", note.getStoredBy());
 
     trackedEntityObjects = new TrackedEntityObjects();
     trackedEntityObjects.addEnrollment(enrollment);
