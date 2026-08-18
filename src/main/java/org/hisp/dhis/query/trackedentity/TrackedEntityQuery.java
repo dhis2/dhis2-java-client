@@ -58,6 +58,9 @@ public class TrackedEntityQuery implements BaseQuery {
 
   private List<String> orgUnits = new ArrayList<>();
 
+  /** Any valid field filter. Include specified sub-objects in the response. */
+  private String fields;
+
   private OrgUnitSelectionMode orgUnitMode;
 
   private String program;

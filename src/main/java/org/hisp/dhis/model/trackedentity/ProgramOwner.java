@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004-2025, University of Oslo
+ * Copyright (c) 2004-2026, University of Oslo
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,16 +25,23 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.hisp.dhis.query;
+package org.hisp.dhis.model.trackedentity;
 
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.io.Serializable;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
-public interface BaseQuery {
-  List<Filter> getFilters();
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
+public class ProgramOwner implements Serializable {
+  @JsonProperty private String orgUnit;
 
-  List<Order> getOrder();
+  @JsonProperty private String trackedEntity;
 
-  Paging getPaging();
-
-  String getFields();
+  @JsonProperty private String program;
 }

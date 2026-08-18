@@ -27,6 +27,8 @@
  */
 package org.hisp.dhis;
 
+import static org.hisp.dhis.api.ApiFields.DATA_ELEMENT_GROUP_EXT_FIELDS;
+import static org.hisp.dhis.api.ApiFields.DATA_ELEMENT_GROUP_FIELDS;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -44,7 +46,14 @@ import org.hisp.dhis.model.AggregationType;
 import org.hisp.dhis.model.DataDomain;
 import org.hisp.dhis.model.DataElement;
 import org.hisp.dhis.model.ValueType;
+import org.hisp.dhis.model.metadata.MetadataEntity;
+import org.hisp.dhis.query.InternalQuery;
+import org.hisp.dhis.query.Order;
+import org.hisp.dhis.query.Paging;
+import org.hisp.dhis.query.Query;
 import org.hisp.dhis.query.analytics.AnalyticsQuery;
+import org.hisp.dhis.query.enrollment.EnrollmentQuery;
+import org.hisp.dhis.query.event.EventQuery;
 import org.hisp.dhis.response.Dhis2ClientException;
 import org.hisp.dhis.support.TestTags;
 import org.hisp.dhis.util.CodecUtils;
@@ -157,6 +166,111 @@ class BaseDhis2Test {
             TestFixture.DEFAULT_URL);
 
     assertEquals(expected, decodedUrl);
+  }
+
+  @Test
+  void testGetQueryFieldsReturnsQueryFieldsWhenSet() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    Query query = Query.instance().setFields("id,name").withExpandAssociations();
+
+    assertEquals("id,name", dhis2.getQueryFields(MetadataEntity.DATA_ELEMENT_GROUP, query));
+  }
+
+  @Test
+  void testGetQueryFieldsReturnsStandardFieldsByDefault() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    Query query = Query.instance();
+
+    assertEquals(
+        DATA_ELEMENT_GROUP_FIELDS, dhis2.getQueryFields(MetadataEntity.DATA_ELEMENT_GROUP, query));
+  }
+
+  @Test
+  void testGetQueryFieldsReturnsExtFieldsWhenExpandAssociations() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    Query query = Query.instance().withExpandAssociations();
+
+    assertEquals(
+        DATA_ELEMENT_GROUP_EXT_FIELDS,
+        dhis2.getQueryFields(MetadataEntity.DATA_ELEMENT_GROUP, query));
+  }
+
+  @Test
+  void testGetQueryFieldsOrDefaultReturnsQueryFieldsWhenSet() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    EventQuery query = EventQuery.instance().setFields("event,status");
+
+    assertEquals("event,status", dhis2.getQueryFieldsOrDefault(query, "default,fields"));
+  }
+
+  @Test
+  void testGetQueryFieldsOrDefaultReturnsDefaultWhenBlank() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    assertEquals(
+        "default,fields", dhis2.getQueryFieldsOrDefault(EventQuery.instance(), "default,fields"));
+    assertEquals(
+        "default,fields",
+        dhis2.getQueryFieldsOrDefault(EventQuery.instance().setFields("   "), "default,fields"));
+  }
+
+  @Test
+  void testAddPagingAddsTotalPagesParameter() throws Exception {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    EnrollmentQuery query = EnrollmentQuery.instance().setPaging(new Paging(1, 10, true));
+
+    URIBuilder builder = new URIBuilder("https://myserver.org/api");
+
+    dhis2.addPaging(builder, query, InternalQuery.instance());
+
+    assertEquals("https://myserver.org/api?page=1&pageSize=10&totalPages=true", builder.toString());
+  }
+
+  @Test
+  void testAddPagingWithNullPagingAndDefaultPagingAddsNoParameters() throws Exception {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    EnrollmentQuery query = EnrollmentQuery.instance().setPaging(null);
+
+    URIBuilder builder = new URIBuilder("https://myserver.org/api");
+
+    dhis2.addPaging(builder, query, InternalQuery.instance().withDefaultPaging());
+
+    assertEquals("https://myserver.org/api", builder.toString());
+  }
+
+  @Test
+  void testAddPagingWithNullPagingAndNoDefaultPagingDisablesPaging() throws Exception {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    EnrollmentQuery query = EnrollmentQuery.instance().setPaging(null);
+
+    URIBuilder builder = new URIBuilder("https://myserver.org/api");
+
+    dhis2.addPaging(builder, query, InternalQuery.instance());
+
+    assertEquals("https://myserver.org/api?paging=false", builder.toString());
+  }
+
+  @Test
+  void testWithEnrollmentQueryParamsAddsOrder() throws Exception {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    EnrollmentQuery query =
+        EnrollmentQuery.instance().setOrder(List.of(Order.asc("enrolledAt"), Order.desc("status")));
+
+    URIBuilder uriBuilder = new URIBuilder("https://myserver.org/api/tracker/enrollments");
+
+    URI uri = dhis2.withEnrollmentQueryParams(uriBuilder, query);
+
+    assertEquals(
+        "https://myserver.org/api/tracker/enrollments?order=enrolledAt:asc,status:desc",
+        CodecUtils.decode(uri));
   }
 
   @Test

@@ -93,6 +93,8 @@ public class TrackedEntity implements Serializable {
 
   @JsonProperty private List<Enrollment> enrollments = new ArrayList<>();
 
+  @JsonProperty private List<ProgramOwner> programOwners = new ArrayList<>();
+
   public TrackedEntity(String id) {
     this.trackedEntity = id;
   }

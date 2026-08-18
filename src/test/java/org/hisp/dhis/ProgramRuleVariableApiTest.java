@@ -36,6 +36,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
+import org.hisp.dhis.model.DataElement;
 import org.hisp.dhis.model.Program;
 import org.hisp.dhis.model.ValueType;
 import org.hisp.dhis.model.programrule.ProgramRuleVariable;
@@ -108,6 +109,9 @@ class ProgramRuleVariableApiTest {
     Program program = new Program();
     program.setId("IpHINAT79UW"); // Child Programme
 
+    DataElement dataElement = new DataElement();
+    dataElement.setId("H6uSAMO5WLD"); // MCH Apgar comment
+
     ProgramRuleVariable programRuleVariable = new ProgramRuleVariable();
     programRuleVariable.setId(uidA);
     programRuleVariable.setName(uidA);
@@ -115,6 +119,7 @@ class ProgramRuleVariableApiTest {
     programRuleVariable.setProgramRuleVariableSourceType(DATAELEMENT_NEWEST_EVENT_PROGRAM);
     programRuleVariable.setValueType(ValueType.TEXT);
     programRuleVariable.setProgram(program);
+    programRuleVariable.setDataElement(dataElement);
 
     // Create
     ObjectResponse createResp = dhis2.saveMetadataObject(programRuleVariable);

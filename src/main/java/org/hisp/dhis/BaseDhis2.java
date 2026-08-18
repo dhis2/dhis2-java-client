@@ -335,13 +335,16 @@ public class BaseDhis2 {
       URIBuilder uriBuilder, BaseQuery query, InternalQuery internalQuery) {
     Paging paging = query.getPaging();
 
-    if (paging.hasPaging()) {
+    if (paging != null && paging.hasPaging()) {
       if (paging.hasPage()) {
         uriBuilder.addParameter("page", String.valueOf(paging.getPage()));
       }
 
       if (paging.hasPageSize()) {
         uriBuilder.addParameter("pageSize", String.valueOf(paging.getPageSize()));
+      }
+      if (paging.isTotalPages()) {
+        uriBuilder.addParameter("totalPages", "true");
       }
     } else if (!internalQuery.isDefaultPaging()) {
       uriBuilder.addParameter("paging", "false");
@@ -556,7 +559,7 @@ public class BaseDhis2 {
     addParameter(uriBuilder, "idScheme", query.getIdScheme());
 
     addTrackerFilters(uriBuilder, query);
-    addPaging(uriBuilder, query, InternalQuery.instance());
+    addPaging(uriBuilder, query, InternalQuery.instance().withDefaultPaging());
     addOrder(uriBuilder, query);
 
     return HttpUtils.build(uriBuilder);
@@ -606,7 +609,7 @@ public class BaseDhis2 {
     addParameter(uriBuilder, "orgUnitIdScheme", query.getOrgUnitIdScheme());
 
     addTrackerFilters(uriBuilder, query);
-    addPaging(uriBuilder, query, InternalQuery.instance());
+    addPaging(uriBuilder, query, InternalQuery.instance().withDefaultPaging());
     addOrder(uriBuilder, query);
 
     return HttpUtils.build(uriBuilder);
@@ -661,7 +664,7 @@ public class BaseDhis2 {
     addParameter(uriBuilder, "enrolledBefore", query.getEnrolledBefore());
     addParameter(uriBuilder, "trackedEntityType", query.getTrackedEntityType());
     addParameter(uriBuilder, "trackedEntity", query.getTrackedEntity());
-    addParameterList(uriBuilder, "order", query.getOrder());
+    addOrder(uriBuilder, query);
     addParameterList(uriBuilder, "enrollments", query.getEnrollments());
     addParameter(uriBuilder, "includeDeleted", query.getIncludeDeleted());
 
@@ -1568,6 +1571,33 @@ public class BaseDhis2 {
 
     final Header locationHeader = response.getLastHeader(HttpHeaders.LOCATION);
     return isPresent(locationHeader) && locationHeader.getValue().contains("dhis-web-login");
+  }
+
+  /**
+   * Returns the fields to request for the given {@link MetadataEntity} and {@link Query}. Returns
+   * the fields specified on the query, if any. Otherwise, falls back to the extended or standard
+   * fields of the entity, based on whether the query has association expansion enabled.
+   *
+   * @param entity the {@link MetadataEntity}.
+   * @param query the {@link Query}.
+   * @return the fields to request.
+   */
+  protected String getQueryFields(MetadataEntity entity, Query query) {
+    String entityFields = query.isExpandAssociations() ? entity.getExtFields() : entity.getFields();
+    return getQueryFieldsOrDefault(query, entityFields);
+  }
+
+  /**
+   * Returns the fields specified on the given {@link BaseQuery}, or the given default fields if the
+   * query does not specify any fields.
+   *
+   * @param query the {@link BaseQuery}.
+   * @param defaultFields the default fields to use.
+   * @return the fields to request.
+   */
+  protected String getQueryFieldsOrDefault(BaseQuery query, String defaultFields) {
+    final String queryFields = query.getFields();
+    return StringUtils.isNotBlank(queryFields) ? queryFields : defaultFields;
   }
 
   /**

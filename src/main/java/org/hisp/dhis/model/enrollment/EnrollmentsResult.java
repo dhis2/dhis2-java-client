@@ -29,21 +29,21 @@ package org.hisp.dhis.model.enrollment;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
+import org.hisp.dhis.model.Pager;
 
 @Getter
-@Setter
-@NoArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PRIVATE, force = true)
 public class EnrollmentsResult implements Serializable {
   private static final long serialVersionUID = 1L;
 
-  @JsonProperty private List<Enrollment> enrollments = new ArrayList<>();
+  /** Paging information. */
+  @JsonProperty private final Pager pager;
 
-  public EnrollmentsResult(List<Enrollment> enrollments) {
-    this.enrollments = enrollments;
-  }
+  @JsonProperty private final List<Enrollment> enrollments;
 }
