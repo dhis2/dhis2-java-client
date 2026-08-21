@@ -37,6 +37,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.hisp.dhis.model.Note;
+import org.hisp.dhis.model.event.Event;
 import org.hisp.dhis.model.trackedentity.TrackedEntityAttributeValue;
 import org.locationtech.jts.geom.Geometry;
 
@@ -87,6 +88,8 @@ public class Enrollment implements Serializable {
   @JsonProperty private List<TrackedEntityAttributeValue> attributes;
 
   @JsonProperty private List<Note> notes;
+
+  @JsonProperty private List<Event> events;
 
   public Enrollment(String id) {
     this.enrollment = id;

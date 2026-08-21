@@ -42,6 +42,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.hisp.dhis.model.Note;
 import org.hisp.dhis.util.GeoUtils;
 import org.locationtech.jts.geom.Geometry;
 
@@ -123,6 +124,8 @@ public class Event implements Serializable {
   @JsonProperty private Boolean deleted;
 
   @JsonProperty private List<EventDataValue> dataValues = new ArrayList<>();
+
+  @JsonProperty private List<Note> notes = new ArrayList<>();
 
   public Event(String id) {
     this.id = id;
