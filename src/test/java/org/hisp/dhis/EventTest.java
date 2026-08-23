@@ -83,7 +83,8 @@ class EventTest {
         "event":"fq7DInE403B",\
         "status":"ACTIVE",\
         "dataValues":[],\
-        "geometry":{"type":"Point","coordinates":[10.752,59.914]}}""";
+        "geometry":{"type":"Point","coordinates":[10.752,59.914]},\
+        "notes":[]}""";
 
     assertEquals(expected, actual);
   }
@@ -141,7 +142,8 @@ class EventTest {
         "updatedAt":"2025-03-10T14:35:22.314",\
         "occurredAt":"2025-03-10T14:35:22.314",\
         "completedAt":"2025-03-10T14:35:22.314",\
-        "dataValues":[]}""";
+        "dataValues":[],\
+        "notes":[]}""";
 
     assertEquals(expected, actual);
   }
