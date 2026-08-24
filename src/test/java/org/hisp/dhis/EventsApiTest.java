@@ -27,6 +27,7 @@
  */
 package org.hisp.dhis;
 
+import static org.hisp.dhis.support.Assertions.assertNotEmpty;
 import static org.hisp.dhis.support.Assertions.assertSize;
 import static org.hisp.dhis.util.CollectionUtils.list;
 import static org.hisp.dhis.util.DateTimeUtils.toDate;
@@ -37,6 +38,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
+
+import org.hisp.dhis.model.Note;
 import org.hisp.dhis.model.event.Event;
 import org.hisp.dhis.model.event.EventDataValue;
 import org.hisp.dhis.model.event.Events;
@@ -62,6 +65,7 @@ class EventsApiTest {
 
     String uidA = UidUtils.generateUid();
     String uidB = UidUtils.generateUid();
+    String uidNoteA =  UidUtils.generateUid();
 
     List<EventDataValue> dvA =
         list(
@@ -81,6 +85,11 @@ class EventsApiTest {
     evA.setOccurredAt(toDate(2021, 7, 12));
     evA.setPointGeometry(18.066, 59.333);
     evA.setDataValues(dvA);
+    Note note = new Note();
+    note.setNote(uidNoteA);
+    note.setValue("Event note");
+    note.setStoredBy("system");
+    evA.setNotes(List.of(note));
 
     List<EventDataValue> dvB =
         list(
@@ -120,6 +129,11 @@ class EventsApiTest {
     assertEquals("eBAyeGv0exc", evA.getProgram());
     assertEquals("DiszpKrYNg8", evA.getOrgUnit());
     assertNotNull(evA.getGeometry());
+    assertNotEmpty(evA.getNotes());
+    Note noteA = evA.getNotes().get(0);
+    assertEquals(uidNoteA, noteA.getNote());
+    assertEquals(note.getValue(), noteA.getValue());
+    assertEquals(note.getStoredBy(), noteA.getStoredBy());
 
     evB = dhis2.getEvent(uidB);
 

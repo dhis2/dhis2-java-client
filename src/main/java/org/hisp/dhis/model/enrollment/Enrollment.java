@@ -89,8 +89,6 @@ public class Enrollment implements Serializable {
 
   @JsonProperty private List<Note> notes;
 
-  @JsonProperty private List<Event> events;
-
   public Enrollment(String id) {
     this.enrollment = id;
   }
