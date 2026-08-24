@@ -38,7 +38,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
-
 import org.hisp.dhis.model.Note;
 import org.hisp.dhis.model.event.Event;
 import org.hisp.dhis.model.event.EventDataValue;
@@ -65,7 +64,7 @@ class EventsApiTest {
 
     String uidA = UidUtils.generateUid();
     String uidB = UidUtils.generateUid();
-    String uidNoteA =  UidUtils.generateUid();
+    String uidNoteA = UidUtils.generateUid();
 
     List<EventDataValue> dvA =
         list(

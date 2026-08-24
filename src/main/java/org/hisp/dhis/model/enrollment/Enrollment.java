@@ -37,7 +37,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.hisp.dhis.model.Note;
-import org.hisp.dhis.model.event.Event;
 import org.hisp.dhis.model.trackedentity.TrackedEntityAttributeValue;
 import org.locationtech.jts.geom.Geometry;
 
