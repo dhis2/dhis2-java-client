@@ -104,13 +104,26 @@ public class FilterUtils {
     if (filter == null) {
       return null;
     }
+    String value = asStringValue(filter);
 
+    return filter.getProperty() + ":" + filter.getOperator().value() + ":" + value;
+  }
+
+  /**
+   * Returns the value of the given {@link Filter} as a string. For "in" type filters with an {@link
+   * Iterable} value, the values are joined with {@code ,} and wrapped in square brackets, e.g.
+   * {@code [value_a,value_b]}. For all other filters, the value is returned via {@link
+   * Object#toString()}.
+   *
+   * @param filter the {@link Filter}.
+   * @return the filter value as a string.
+   */
+  public static String asStringValue(Filter filter) {
     Object value = filter.getValue();
     if (filter.getOperator() == Operator.IN && value instanceof Iterable<?> values) {
       String listValue = StringUtils.join(values, ',');
       value = String.format("[%s]", listValue);
     }
-
-    return filter.getProperty() + ":" + filter.getOperator().value() + ":" + value;
+    return value.toString();
   }
 }

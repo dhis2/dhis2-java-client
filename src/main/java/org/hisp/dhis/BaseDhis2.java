@@ -121,6 +121,7 @@ import org.hisp.dhis.response.completedatasetregistration.CompleteDataSetRegistr
 import org.hisp.dhis.util.DateTimeUtils;
 import org.hisp.dhis.util.HttpUtils;
 import org.hisp.dhis.util.JacksonUtils;
+import org.hisp.dhis.util.query.FilterUtils;
 import tools.jackson.core.exc.StreamReadException;
 import tools.jackson.databind.json.JsonMapper;
 
@@ -284,9 +285,7 @@ public class BaseDhis2 {
   protected URI withObjectQueryParams(
       URIBuilder uriBuilder, Query query, InternalQuery internalQuery) {
     for (Filter filter : query.getFilters()) {
-      Object value = getQueryValue(filter);
-      String filterValue =
-          String.format("%s:%s:%s", filter.getProperty(), filter.getOperator().value(), value);
+      String filterValue = FilterUtils.asString(filter);
       uriBuilder.addParameter("filter", filterValue);
     }
 
@@ -934,23 +933,6 @@ public class BaseDhis2 {
     if (isNotEmpty(values)) {
       uriBuilder.addParameter(parameter, toCommaSeparated(values));
     }
-  }
-
-  /**
-   * Converts the given filter to a query value.
-   *
-   * @param filter the {@link Filter}.
-   * @return a query value.
-   */
-  protected Object getQueryValue(Filter filter) {
-    Object value = filter.getValue();
-
-    if ((filter.getOperator() == Operator.IN) && (value instanceof Iterable<?> values)) {
-      String listValue = StringUtils.join(values, ',');
-      return String.format("[%s]", listValue);
-    }
-
-    return value;
   }
 
   /**
