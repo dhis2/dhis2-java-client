@@ -1417,8 +1417,8 @@ public class BaseDhis2 {
   protected Dhis2ClientException newDhis2ClientException(IOException ex) {
     int statusCode = -1;
 
-    if (ex instanceof HttpResponseException) {
-      statusCode = ((HttpResponseException) ex).getStatusCode();
+    if (ex instanceof HttpResponseException responseException) {
+      statusCode = responseException.getStatusCode();
     }
 
     return new Dhis2ClientException(ex.getMessage(), ex.getCause(), statusCode);
