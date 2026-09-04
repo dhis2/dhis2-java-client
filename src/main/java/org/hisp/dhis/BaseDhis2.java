@@ -121,6 +121,7 @@ import org.hisp.dhis.response.completedatasetregistration.CompleteDataSetRegistr
 import org.hisp.dhis.util.DateTimeUtils;
 import org.hisp.dhis.util.HttpUtils;
 import org.hisp.dhis.util.JacksonUtils;
+import org.hisp.dhis.util.query.FilterUtils;
 import tools.jackson.core.exc.StreamReadException;
 import tools.jackson.databind.json.JsonMapper;
 
@@ -284,9 +285,7 @@ public class BaseDhis2 {
   protected URI withObjectQueryParams(
       URIBuilder uriBuilder, Query query, InternalQuery internalQuery) {
     for (Filter filter : query.getFilters()) {
-      Object value = getQueryValue(filter);
-      String filterValue =
-          String.format("%s:%s:%s", filter.getProperty(), filter.getOperator().value(), value);
+      String filterValue = FilterUtils.asString(filter);
       uriBuilder.addParameter("filter", filterValue);
     }
 
@@ -937,33 +936,16 @@ public class BaseDhis2 {
   }
 
   /**
-   * Converts the given filter to a query value.
-   *
-   * @param filter the {@link Filter}.
-   * @return a query value.
-   */
-  @SuppressWarnings("unchecked")
-  protected Object getQueryValue(Filter filter) {
-    if (Operator.IN == filter.getOperator()) {
-      Iterable<String> values = (Iterable<String>) filter.getValue();
-      String value = StringUtils.join(values, ',');
-      return String.format("[%s]", value);
-    } else {
-      return filter.getValue();
-    }
-  }
-
-  /**
    * Converts the given tracked entity filter to a query value. Note that the tracker API uses
    * <code>;</code> separated values for <code>IN</code> filters.
    *
    * @param filter the {@link Filter}.
    * @return a query value.
    */
-  @SuppressWarnings("unchecked")
   protected Object getTrackerApiQueryValue(Filter filter) {
-    if (Operator.IN == filter.getOperator()) {
-      List<String> values = (List<String>) filter.getValue();
+    Object value = filter.getValue();
+
+    if ((filter.getOperator() == Operator.IN) && (value instanceof Iterable<?> values)) {
       return StringUtils.join(values, ';');
     } else {
       return filter.getValue();
@@ -1417,8 +1399,8 @@ public class BaseDhis2 {
   protected Dhis2ClientException newDhis2ClientException(IOException ex) {
     int statusCode = -1;
 
-    if (ex instanceof HttpResponseException) {
-      statusCode = ((HttpResponseException) ex).getStatusCode();
+    if (ex instanceof HttpResponseException responseException) {
+      statusCode = responseException.getStatusCode();
     }
 
     return new Dhis2ClientException(ex.getMessage(), ex.getCause(), statusCode);

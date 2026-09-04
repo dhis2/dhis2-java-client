@@ -29,12 +29,8 @@ package org.hisp.dhis;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.List;
-import java.util.Set;
 import org.apache.hc.core5.net.URIBuilder;
-import org.hisp.dhis.query.Filter;
 import org.hisp.dhis.query.InternalQuery;
 import org.hisp.dhis.query.Query;
 import org.hisp.dhis.response.Dhis2ClientException;
@@ -48,30 +44,9 @@ class Dhis2Test {
   @Test
   void testGetInvalidUrl() {
     Dhis2 dhis2 = new Dhis2(new Dhis2Config("https://not_a_domain.abc", "username", "pw"));
+    Query query = Query.instance();
 
-    assertThrows(Dhis2ClientException.class, () -> dhis2.getOrgUnitGroups(Query.instance()));
-  }
-
-  @Test
-  void testGetQueryValueFromList() {
-    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
-
-    assertEquals("Frank", dhis2.getQueryValue(Filter.eq("w75KJ2mc4zz", "Frank")));
-    assertEquals(
-        "[Frank,Maria,Elizabeth]",
-        dhis2.getQueryValue(Filter.in("w75KJ2mc4zz", List.of("Frank", "Maria", "Elizabeth"))));
-  }
-
-  @Test
-  void testGetQueryValueFromSet() {
-    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
-    String value =
-        (String)
-            dhis2.getQueryValue(Filter.in("w75KJ2mc4zz", Set.of("Frank", "Maria", "Elizabeth")));
-
-    assertTrue(value.contains("Frank"));
-    assertTrue(value.contains("Maria"));
-    assertTrue(value.contains("Elizabeth"));
+    assertThrows(Dhis2ClientException.class, () -> dhis2.getOrgUnitGroups(query));
   }
 
   @Test
@@ -103,9 +78,10 @@ class Dhis2Test {
   @Test
   void testGetAccessDenied() {
     Dhis2 dhis2 = new Dhis2(new Dhis2Config(TestFixture.DEFAULT_URL, "notauser", "invalidpw"));
+    Query query = Query.instance();
 
     Dhis2ClientException ex =
-        assertThrows(Dhis2ClientException.class, () -> dhis2.getOrgUnitGroups(Query.instance()));
+        assertThrows(Dhis2ClientException.class, () -> dhis2.getOrgUnitGroups(query));
 
     assertEquals(401, ex.getStatusCode());
     assertEquals("Authentication failed (401)", ex.getMessage());
