@@ -942,15 +942,15 @@ public class BaseDhis2 {
    * @param filter the {@link Filter}.
    * @return a query value.
    */
-  @SuppressWarnings("unchecked")
   protected Object getQueryValue(Filter filter) {
-    if (Operator.IN == filter.getOperator()) {
-      Iterable<String> values = (Iterable<String>) filter.getValue();
-      String value = StringUtils.join(values, ',');
-      return String.format("[%s]", value);
-    } else {
-      return filter.getValue();
+    Object value = filter.getValue();
+
+    if ((filter.getOperator() == Operator.IN) && (value instanceof Iterable<?> values)) {
+      String listValue = StringUtils.join(values, ',');
+      return String.format("[%s]", listValue);
     }
+
+    return value;
   }
 
   /**
@@ -960,10 +960,10 @@ public class BaseDhis2 {
    * @param filter the {@link Filter}.
    * @return a query value.
    */
-  @SuppressWarnings("unchecked")
   protected Object getTrackerApiQueryValue(Filter filter) {
-    if (Operator.IN == filter.getOperator()) {
-      List<String> values = (List<String>) filter.getValue();
+    Object value = filter.getValue();
+
+    if ((filter.getOperator() == Operator.IN) && (value instanceof Iterable<?> values)) {
       return StringUtils.join(values, ';');
     } else {
       return filter.getValue();

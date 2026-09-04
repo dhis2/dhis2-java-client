@@ -30,6 +30,7 @@ package org.hisp.dhis.util.query;
 import static org.hisp.dhis.query.Operator.EQ;
 import static org.hisp.dhis.query.Operator.GT;
 import static org.hisp.dhis.query.Operator.ILIKE;
+import static org.hisp.dhis.query.Operator.IN;
 import static org.hisp.dhis.query.Operator.LT;
 import static org.hisp.dhis.query.Operator.TOKEN;
 import static org.hisp.dhis.util.query.FilterUtils.asFilter;
@@ -37,6 +38,7 @@ import static org.hisp.dhis.util.query.FilterUtils.asString;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.util.List;
 import org.hisp.dhis.query.Filter;
 import org.hisp.dhis.support.TestTags;
 import org.junit.jupiter.api.Tag;
@@ -65,6 +67,11 @@ class FilterUtilsTest {
     assertEquals("name", filter.getProperty());
     assertEquals(ILIKE, filter.getOperator());
     assertEquals("mae.ngo.org: Exit interview", filter.getValue());
+
+    filter = asFilter("name:in:[mae,ngo,org]");
+    assertEquals("name", filter.getProperty());
+    assertEquals(IN, filter.getOperator());
+    assertEquals("[mae,ngo,org]", filter.getValue());
   }
 
   @Test
@@ -83,6 +90,12 @@ class FilterUtilsTest {
 
     filter = new Filter("name", TOKEN, "Exit interview");
     assertEquals("name:token:Exit interview", asString(filter));
+
+    filter = new Filter("name", IN, List.of("mae", "lta"));
+    assertEquals("name:in:[mae,lta]", asString(filter));
+
+    filter = new Filter("name", IN, "[mae,lta]");
+    assertEquals("name:in:[mae,lta]", asString(filter));
   }
 
   @Test

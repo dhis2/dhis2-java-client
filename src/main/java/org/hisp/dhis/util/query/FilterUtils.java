@@ -34,6 +34,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.hisp.dhis.query.Filter;
 import org.hisp.dhis.query.Operator;
 
@@ -104,6 +105,12 @@ public class FilterUtils {
       return null;
     }
 
-    return filter.getProperty() + ":" + filter.getOperator().value() + ":" + filter.getValue();
+    Object value = filter.getValue();
+    if (filter.getOperator() == Operator.IN && value instanceof Iterable<?> values) {
+      String listValue = StringUtils.join(values, ',');
+      value = String.format("[%s]", listValue);
+    }
+
+    return filter.getProperty() + ":" + filter.getOperator().value() + ":" + value;
   }
 }

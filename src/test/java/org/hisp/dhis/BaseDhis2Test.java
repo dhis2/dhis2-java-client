@@ -47,6 +47,7 @@ import org.hisp.dhis.model.DataDomain;
 import org.hisp.dhis.model.DataElement;
 import org.hisp.dhis.model.ValueType;
 import org.hisp.dhis.model.metadata.MetadataEntity;
+import org.hisp.dhis.query.Filter;
 import org.hisp.dhis.query.InternalQuery;
 import org.hisp.dhis.query.Order;
 import org.hisp.dhis.query.Paging;
@@ -271,6 +272,154 @@ class BaseDhis2Test {
     assertEquals(
         "https://myserver.org/api/tracker/enrollments?order=enrolledAt:asc,status:desc",
         CodecUtils.decode(uri));
+  }
+
+  @Test
+  void testGetQueryValueWithEqOperatorReturnsValue() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    assertEquals("Female", dhis2.getQueryValue(Filter.eq("gender", "Female")));
+  }
+
+  @Test
+  void testGetQueryValueWithGeOperatorReturnsValue() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    assertEquals(10, dhis2.getQueryValue(Filter.ge("age", 10)));
+  }
+
+  @Test
+  void testGetQueryValueWithGtOperatorReturnsValue() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    assertEquals(10, dhis2.getQueryValue(Filter.gt("age", 10)));
+  }
+
+  @Test
+  void testGetQueryValueWithLeOperatorReturnsValue() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    assertEquals(10, dhis2.getQueryValue(Filter.le("age", 10)));
+  }
+
+  @Test
+  void testGetQueryValueWithLtOperatorReturnsValue() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    assertEquals(10, dhis2.getQueryValue(Filter.lt("age", 10)));
+  }
+
+  @Test
+  void testGetQueryValueWithLikeOperatorReturnsValue() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    assertEquals("John", dhis2.getQueryValue(Filter.like("firstName", "John")));
+  }
+
+  @Test
+  void testGetQueryValueWithIlikeOperatorReturnsValue() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    assertEquals("john", dhis2.getQueryValue(Filter.ilike("firstName", "john")));
+  }
+
+  @Test
+  void testGetQueryValueWithTokenOperatorReturnsValue() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    assertEquals("John Doe", dhis2.getQueryValue(Filter.token("name", "John Doe")));
+  }
+
+  @Test
+  void testGetQueryValueWithInOperatorReturnsBracketedCommaSeparatedValues() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    Filter filter = Filter.in("id", List.of("fbfJHSPpUQD", "cYeuwXTCPkU", "Jtf34kNZhzP"));
+
+    assertEquals("[fbfJHSPpUQD,cYeuwXTCPkU,Jtf34kNZhzP]", dhis2.getQueryValue(filter));
+  }
+
+  @Test
+  void testGetQueryValueWithInOperatorAndSingleValueReturnsBracketedValue() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    Filter filter = Filter.in("id", List.of("fbfJHSPpUQD"));
+
+    assertEquals("[fbfJHSPpUQD]", dhis2.getQueryValue(filter));
+  }
+
+  @Test
+  void testGetTrackerApiQueryValueWithEqOperatorReturnsValue() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    assertEquals("Female", dhis2.getTrackerApiQueryValue(Filter.eq("gender", "Female")));
+  }
+
+  @Test
+  void testGetTrackerApiQueryValueWithGeOperatorReturnsValue() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    assertEquals(10, dhis2.getTrackerApiQueryValue(Filter.ge("age", 10)));
+  }
+
+  @Test
+  void testGetTrackerApiQueryValueWithGtOperatorReturnsValue() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    assertEquals(10, dhis2.getTrackerApiQueryValue(Filter.gt("age", 10)));
+  }
+
+  @Test
+  void testGetTrackerApiQueryValueWithLeOperatorReturnsValue() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    assertEquals(10, dhis2.getTrackerApiQueryValue(Filter.le("age", 10)));
+  }
+
+  @Test
+  void testGetTrackerApiQueryValueWithLtOperatorReturnsValue() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    assertEquals(10, dhis2.getTrackerApiQueryValue(Filter.lt("age", 10)));
+  }
+
+  @Test
+  void testGetTrackerApiQueryValueWithLikeOperatorReturnsValue() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    assertEquals("John", dhis2.getTrackerApiQueryValue(Filter.like("firstName", "John")));
+  }
+
+  @Test
+  void testGetTrackerApiQueryValueWithIlikeOperatorReturnsValue() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    assertEquals("john", dhis2.getTrackerApiQueryValue(Filter.ilike("firstName", "john")));
+  }
+
+  @Test
+  void testGetTrackerApiQueryValueWithTokenOperatorReturnsValue() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    assertEquals("John Doe", dhis2.getTrackerApiQueryValue(Filter.token("name", "John Doe")));
+  }
+
+  @Test
+  void testGetTrackerApiQueryValueWithInOperatorReturnsSemicolonSeparatedValues() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    Filter filter = Filter.in("id", List.of("fbfJHSPpUQD", "cYeuwXTCPkU", "Jtf34kNZhzP"));
+
+    assertEquals("fbfJHSPpUQD;cYeuwXTCPkU;Jtf34kNZhzP", dhis2.getTrackerApiQueryValue(filter));
+  }
+
+  @Test
+  void testGetTrackerApiQueryValueWithInOperatorAndSingleValueReturnsValue() {
+    Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
+
+    Filter filter = Filter.in("id", List.of("fbfJHSPpUQD"));
+
+    assertEquals("fbfJHSPpUQD", dhis2.getTrackerApiQueryValue(filter));
   }
 
   @Test
