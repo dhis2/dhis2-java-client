@@ -30,6 +30,7 @@ package org.hisp.dhis.model.visualization;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -39,6 +40,7 @@ import org.hisp.dhis.model.dimension.DataDimensionItem;
 @Getter
 @Setter
 @NoArgsConstructor
+@EqualsAndHashCode(callSuper = true, onlyExplicitlyIncluded = true)
 public class Visualization extends VisualizationObject {
   private static final long serialVersionUID = 1L;
 

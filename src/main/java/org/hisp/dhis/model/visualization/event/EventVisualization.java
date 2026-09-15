@@ -30,6 +30,7 @@ package org.hisp.dhis.model.visualization.event;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -48,6 +49,7 @@ import org.hisp.dhis.model.visualization.VisualizationObject;
 @Getter
 @Setter
 @NoArgsConstructor
+@EqualsAndHashCode(callSuper = true, onlyExplicitlyIncluded = true)
 public class EventVisualization extends VisualizationObject {
   /** Display name. */
   @JsonProperty private String displayName;

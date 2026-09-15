@@ -47,7 +47,7 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 @Tag(TestTags.INTEGRATION)
-public class EventVisualizationApiTest {
+class EventVisualizationApiTest {
   @Test
   void testGetVisualization() {
     Dhis2 dhis2 = new Dhis2(TestFixture.DEFAULT_CONFIG);
