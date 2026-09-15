@@ -169,6 +169,7 @@ import org.hisp.dhis.model.validation.Period;
 import org.hisp.dhis.model.validation.Validation;
 import org.hisp.dhis.model.validation.ValidationRule;
 import org.hisp.dhis.model.visualization.Visualization;
+import org.hisp.dhis.model.visualization.event.EventVisualization;
 import org.hisp.dhis.query.Filter;
 import org.hisp.dhis.query.InternalQuery;
 import org.hisp.dhis.query.Query;
@@ -3922,6 +3923,71 @@ public class Dhis2 extends BaseDhis2 {
    */
   public ObjectResponse removeVisualization(String id) {
     return removeMetadataObject(MetadataEntity.VISUALIZATION, id);
+  }
+
+  // -------------------------------------------------------------------------
+  // EventVisualization
+  // -------------------------------------------------------------------------
+
+  /**
+   * Saves a {@link EventVisualization}.
+   *
+   * @param eventVisualization the object to save.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse saveEventVisualization(EventVisualization eventVisualization) {
+    return saveMetadataObject(eventVisualization);
+  }
+
+  /**
+   * Retrieves a {@link EventVisualization}.
+   *
+   * @param id the object identifier.
+   * @return the {@link EventVisualization}.
+   * @throws Dhis2ClientException if the object does not exist.
+   */
+  public EventVisualization getEventVisualization(String id) {
+    return getMetadataObject(MetadataEntity.EVENT_VISUALIZATION, id);
+  }
+
+  /**
+   * Indicates whether a {@link EventVisualization} exists.
+   *
+   * @param id the object identifier.
+   * @return true if the object exists.
+   */
+  public boolean isEventVisualization(String id) {
+    return objectExists(MetadataEntity.EVENT_VISUALIZATION, id);
+  }
+
+  /**
+   * Retrieves a list of {@link EventVisualization}.
+   *
+   * @param query the {@link Query}.
+   * @return list of {@link EventVisualization}.
+   */
+  public List<EventVisualization> getEventVisualizations(Query query) {
+    return getMetadataList(MetadataEntity.EVENT_VISUALIZATION, query);
+  }
+
+  /**
+   * Retrieves a {@link Metadata} of type {@link EventVisualization}.
+   *
+   * @param query the {@link Query}.
+   * @return a {@link Metadata}.
+   */
+  public Metadata<EventVisualization> getEventVisualizationsPaged(Query query) {
+    return getMetadata(MetadataEntity.EVENT_VISUALIZATION, query);
+  }
+
+  /**
+   * Removes a {@link EventVisualization}.
+   *
+   * @param id the identifier of the object to remove.
+   * @return {@link ObjectResponse} holding information about the operation.
+   */
+  public ObjectResponse removeEventVisualization(String id) {
+    return removeMetadataObject(MetadataEntity.EVENT_VISUALIZATION, id);
   }
 
   // -------------------------------------------------------------------------

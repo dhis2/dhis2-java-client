@@ -537,6 +537,21 @@ public class ApiFields {
           userOrganisationUnitChildren,userOrganisationUnitGrandChildren,organisationUnits[%2$s]""",
           NAME_EXT_FIELDS, ID_FIELDS);
 
+  /** Event Visualization fields. */
+  public static final String EVENT_VISUALIZATION_FIELDS =
+      String.format(
+          """
+          %1$s,type,program[%2$s],programStage[%2$s],outputType,\
+          columnDimensions,rowDimensions,filterDimensions,programDimensions[%2$s],\
+          dataElementDimensions[dataElement[%2$s],programStage[%2$s]],\
+          attributeDimensions[attribute[%2$s]],simpleDimensions,sorting,\
+          columns[%2$s],rows[%2$s],filters[%2$s],periods[%2$s],\
+          userOrganisationUnit,userOrganisationUnitChildren,userOrganisationUnitGrandChildren,\
+          completedOnly,skipRounding,legacy,collapseDataDimensions,hideNaData,hideEmptyRows,\
+          showHierarchy,regressionType,displayDensity,fontSize,digitGroupSeparator,\
+          hideEmptyRowItems,relativePeriods""",
+          NAME_EXT_FIELDS, ID_FIELDS);
+
   /** Period type fields. */
   public static final String PERIOD_TYPE_FIELDS = "frequencyOrder,name,isoDuration,isoFormat";
 }

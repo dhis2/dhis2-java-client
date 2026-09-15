@@ -27,17 +27,32 @@
  */
 package org.hisp.dhis.model.analytics;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hisp.dhis.model.NameableObject;
 import org.hisp.dhis.model.dimension.Dimension;
+import org.hisp.dhis.model.trackedentity.TrackedEntityAttributeDimension;
+import org.hisp.dhis.model.trackedentity.TrackedEntityDataElementDimension;
 
+@Getter
+@Setter
+@NoArgsConstructor
 public class AnalyticalObject extends NameableObject {
   private static final long serialVersionUID = 1L;
 
-  protected List<Dimension> columns = new ArrayList<>();
+  @JsonProperty protected List<Dimension> columns = new ArrayList<>();
 
-  protected List<Dimension> rows = new ArrayList<>();
+  @JsonProperty protected List<Dimension> rows = new ArrayList<>();
 
-  protected List<Dimension> filters = new ArrayList<>();
+  @JsonProperty protected List<Dimension> filters = new ArrayList<>();
+
+  @JsonProperty
+  protected List<TrackedEntityDataElementDimension> dataElementDimensions = new ArrayList<>();
+
+  @JsonProperty
+  protected List<TrackedEntityAttributeDimension> attributeDimensions = new ArrayList<>();
 }

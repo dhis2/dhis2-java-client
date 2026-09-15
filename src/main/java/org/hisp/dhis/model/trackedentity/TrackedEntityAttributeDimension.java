@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004-2024, University of Oslo
+ * Copyright (c) 2004-2026, University of Oslo
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,41 +25,23 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.hisp.dhis.model.visualization;
+package org.hisp.dhis.model.trackedentity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.Serializable;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hisp.dhis.model.OrgUnit;
-import org.hisp.dhis.model.dimension.DataDimensionItem;
+import org.hisp.dhis.model.LegendSet;
 
 @Getter
 @Setter
 @NoArgsConstructor
-public class Visualization extends VisualizationObject {
-  private static final long serialVersionUID = 1L;
+public class TrackedEntityAttributeDimension implements Serializable {
+  /** Internal numeric identifier, not the object UID. */
+  @JsonProperty private int id;
 
-  /** Type of visualization. */
-  @JsonProperty private VisualizationType type;
+  @JsonProperty private TrackedEntityAttribute attribute;
 
-  /** Data dimension items. */
-  @JsonProperty private List<DataDimensionItem> dataDimensionItems = new ArrayList<>();
-
-  /** Organisation units. */
-  @JsonProperty private List<OrgUnit> organisationUnits = new ArrayList<>();
-
-  /**
-   * Constructor.
-   *
-   * @param id the identifier.
-   * @param name the name.
-   */
-  public Visualization(String id, String name, VisualizationType type) {
-    this.id = id;
-    this.name = name;
-    this.type = type;
-  }
+  @JsonProperty private LegendSet legendSet;
 }
