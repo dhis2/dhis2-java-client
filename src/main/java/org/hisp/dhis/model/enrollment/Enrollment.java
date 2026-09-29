@@ -37,14 +37,14 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.hisp.dhis.model.Note;
-import org.hisp.dhis.model.trackedentity.TrackedEntityAttributeValue;
+import org.hisp.dhis.model.trackedentity.TrackedEntityAttributeValueObjects;
 import org.locationtech.jts.geom.Geometry;
 
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
-public class Enrollment implements Serializable {
+public class Enrollment extends TrackedEntityAttributeValueObjects implements Serializable {
   private static final long serialVersionUID = 1L;
 
   @JsonProperty private String enrollment;
@@ -83,8 +83,6 @@ public class Enrollment implements Serializable {
   @JsonProperty private String completedBy;
 
   @JsonProperty private String storedBy;
-
-  @JsonProperty private List<TrackedEntityAttributeValue> attributes;
 
   @JsonProperty private List<Note> notes;
 

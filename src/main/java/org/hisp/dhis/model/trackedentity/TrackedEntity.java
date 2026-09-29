@@ -28,8 +28,6 @@
 package org.hisp.dhis.model.trackedentity;
 
 import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
-import static org.apache.commons.lang3.StringUtils.isNotBlank;
-import static org.hisp.dhis.util.ObjectUtils.isPresent;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -44,7 +42,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.hisp.dhis.model.enrollment.Enrollment;
-import org.hisp.dhis.util.DateTimeUtils;
 import org.locationtech.jts.geom.Geometry;
 
 @Getter
@@ -60,7 +57,7 @@ import org.locationtech.jts.geom.Geometry;
   "updatedAtClient",
   "orgUnit"
 })
-public class TrackedEntity implements Serializable {
+public class TrackedEntity extends TrackedEntityAttributeValueObjects implements Serializable {
   private static final long serialVersionUID = 1L;
 
   @JsonProperty private String trackedEntity;
@@ -89,8 +86,6 @@ public class TrackedEntity implements Serializable {
 
   @JsonProperty private String storedBy;
 
-  @JsonProperty private List<TrackedEntityAttributeValue> attributes = new ArrayList<>();
-
   @JsonProperty private List<Enrollment> enrollments = new ArrayList<>();
 
   @JsonProperty private List<ProgramOwner> programOwners = new ArrayList<>();
@@ -116,78 +111,12 @@ public class TrackedEntity implements Serializable {
   }
 
   /**
-   * Indicates whether at least one attribute exists.
-   *
-   * @return true if at least one attribute exists.
-   */
-  public boolean hasAttributes() {
-    return isNotEmpty(attributes);
-  }
-
-  /**
-   * Adds an attribute value to the tracked entity by specifying the attribute identifier and value.
-   *
-   * @param attribute the attribute identifier.
-   * @param value the value of the attribute.
-   */
-  public void addAttributeValue(String attribute, String value) {
-    TrackedEntityAttributeValue existing = getTrackedEntityAttributeValue(attribute);
-
-    if (isPresent(existing)) {
-      existing.setValue(value);
-    } else {
-      attributes.add(new TrackedEntityAttributeValue(attribute, value));
-    }
-  }
-
-  /**
-   * Returns the value for the specified attribute identifier.
-   *
-   * @param attribute the attribute identifier.
-   * @return the value of the attribute, or null if not found.
-   */
-  @JsonIgnore
-  public String getAttributeValue(String attribute) {
-    return attributes.stream()
-        .filter(at -> attribute.equals(at.getAttribute()))
-        .map(TrackedEntityAttributeValue::getValue)
-        .filter(Objects::nonNull)
-        .findFirst()
-        .orElse(null);
-  }
-
-  /**
-   * Returns the {@link TrackedEntityAttributeValue} for the specified attribute identifier.
-   *
-   * @param attribute the attribute identifier.
-   * @return the {@link TrackedEntityAttributeValue}, or null if not found.
-   */
-  public TrackedEntityAttributeValue getTrackedEntityAttributeValue(String attribute) {
-    return attributes.stream()
-        .filter(at -> attribute.equals(at.getAttribute()))
-        .filter(Objects::nonNull)
-        .findFirst()
-        .orElse(null);
-  }
-
-  /**
-   * Returns the value of the specified attribute as a {@link Date}.
-   *
-   * @param attribute the attribute identifier.
-   * @return the value of the attribute as a {@link Date}, or null if not found.
-   */
-  public Date getDateAttributeValue(String attribute) {
-    String value = getAttributeValue(attribute);
-    return isNotBlank(value) ? DateTimeUtils.toDateTime(value) : null;
-  }
-
-  /**
    * Indicates whether at least one enrollment exists.
    *
    * @return true if at least one enrollment exists.
    */
   public boolean hasEnrollments() {
-    return isNotEmpty(attributes);
+    return isNotEmpty(enrollments);
   }
 
   /**
