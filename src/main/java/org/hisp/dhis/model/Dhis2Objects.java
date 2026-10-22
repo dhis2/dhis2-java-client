@@ -51,6 +51,7 @@ import org.hisp.dhis.model.user.UserGroup;
 import org.hisp.dhis.model.user.UserRole;
 import org.hisp.dhis.model.validation.ValidationRule;
 import org.hisp.dhis.model.visualization.Visualization;
+import org.hisp.dhis.model.visualization.event.EventVisualization;
 
 @Getter
 @Setter
@@ -161,6 +162,8 @@ public class Dhis2Objects implements Serializable {
   @JsonProperty private List<ValidationRule> validationRules = new ArrayList<>();
 
   @JsonProperty private List<Visualization> visualizations = new ArrayList<>();
+
+  @JsonProperty private List<EventVisualization> eventVisualizations = new ArrayList<>();
 
   @JsonProperty private Pager pager;
 }

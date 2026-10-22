@@ -1,0 +1,119 @@
+/*
+ * Copyright (c) 2004-2026, University of Oslo
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ * Redistributions of source code must retain the above copyright notice, this
+ * list of conditions and the following disclaimer.
+ *
+ * Redistributions in binary form must reproduce the above copyright notice,
+ * this list of conditions and the following disclaimer in the documentation
+ * and/or other materials provided with the distribution.
+ * Neither the name of the HISP project nor the names of its contributors may
+ * be used to endorse or promote products derived from this software without
+ * specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
+ * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+ * ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+package org.hisp.dhis.model.trackedentity;
+
+import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
+import static org.apache.commons.lang3.StringUtils.isNotBlank;
+import static org.hisp.dhis.util.ObjectUtils.isPresent;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Objects;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+import org.hisp.dhis.util.DateTimeUtils;
+
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
+public abstract class TrackedEntityAttributeValueObjects implements Serializable {
+  @JsonProperty private List<TrackedEntityAttributeValue> attributes = new ArrayList<>();
+
+  /**
+   * Indicates whether at least one attribute exists.
+   *
+   * @return true if at least one attribute exists.
+   */
+  public boolean hasAttributes() {
+    return isNotEmpty(attributes);
+  }
+
+  /**
+   * Adds an attribute value to the tracked entity by specifying the attribute identifier and value.
+   *
+   * @param attribute the attribute identifier.
+   * @param value the value of the attribute.
+   */
+  public void addAttributeValue(String attribute, String value) {
+    TrackedEntityAttributeValue existing = getTrackedEntityAttributeValue(attribute);
+
+    if (isPresent(existing)) {
+      existing.setValue(value);
+    } else {
+      attributes.add(new TrackedEntityAttributeValue(attribute, value));
+    }
+  }
+
+  /**
+   * Returns the value for the specified attribute identifier.
+   *
+   * @param attribute the attribute identifier.
+   * @return the value of the attribute, or null if not found.
+   */
+  @JsonIgnore
+  public String getAttributeValue(String attribute) {
+    return attributes.stream()
+        .filter(at -> attribute.equals(at.getAttribute()))
+        .map(TrackedEntityAttributeValue::getValue)
+        .filter(Objects::nonNull)
+        .findFirst()
+        .orElse(null);
+  }
+
+  /**
+   * Returns the {@link TrackedEntityAttributeValue} for the specified attribute identifier.
+   *
+   * @param attribute the attribute identifier.
+   * @return the {@link TrackedEntityAttributeValue}, or null if not found.
+   */
+  public TrackedEntityAttributeValue getTrackedEntityAttributeValue(String attribute) {
+    return attributes.stream()
+        .filter(at -> attribute.equals(at.getAttribute()))
+        .filter(Objects::nonNull)
+        .findFirst()
+        .orElse(null);
+  }
+
+  /**
+   * Returns the value of the specified attribute as a {@link Date}.
+   *
+   * @param attribute the attribute identifier.
+   * @return the value of the attribute as a {@link Date}, or null if not found.
+   */
+  public Date getDateAttributeValue(String attribute) {
+    String value = getAttributeValue(attribute);
+    return isNotBlank(value) ? DateTimeUtils.toDateTime(value) : null;
+  }
+}

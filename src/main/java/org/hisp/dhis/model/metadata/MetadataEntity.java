@@ -51,6 +51,7 @@ import static org.hisp.dhis.api.ApiFields.DATA_SET_FIELDS;
 import static org.hisp.dhis.api.ApiFields.DIMENSION_FIELDS;
 import static org.hisp.dhis.api.ApiFields.DOCUMENT_FIELDS;
 import static org.hisp.dhis.api.ApiFields.EVENT_FILTER_FIELDS;
+import static org.hisp.dhis.api.ApiFields.EVENT_VISUALIZATION_FIELDS;
 import static org.hisp.dhis.api.ApiFields.INDICATOR_FIELDS;
 import static org.hisp.dhis.api.ApiFields.INDICATOR_GROUP_EXT_FIELDS;
 import static org.hisp.dhis.api.ApiFields.INDICATOR_GROUP_FIELDS;
@@ -141,6 +142,7 @@ import org.hisp.dhis.model.user.User;
 import org.hisp.dhis.model.user.UserGroup;
 import org.hisp.dhis.model.user.UserRole;
 import org.hisp.dhis.model.visualization.Visualization;
+import org.hisp.dhis.model.visualization.event.EventVisualization;
 import org.hisp.dhis.response.Dhis2ClientException;
 import org.hisp.dhis.response.HttpStatus;
 
@@ -428,7 +430,13 @@ public enum MetadataEntity {
       VISUALIZATION_FIELDS,
       VISUALIZATION_FIELDS,
       "visualizations",
-      Dhis2Objects::getVisualizations);
+      Dhis2Objects::getVisualizations),
+  EVENT_VISUALIZATION(
+      EventVisualization.class,
+      EVENT_VISUALIZATION_FIELDS,
+      EVENT_VISUALIZATION_FIELDS,
+      "eventVisualizations",
+      Dhis2Objects::getEventVisualizations);
   // spotless:on
 
   /** Class type. */
@@ -538,6 +546,8 @@ public enum MetadataEntity {
       return USER_ROLE;
     } else if (object instanceof Visualization) {
       return VISUALIZATION;
+    } else if (object instanceof EventVisualization) {
+      return EVENT_VISUALIZATION;
     } else if (object instanceof ProgramRule) {
       return PROGRAM_RULE;
     } else if (object instanceof ProgramRuleAction) {

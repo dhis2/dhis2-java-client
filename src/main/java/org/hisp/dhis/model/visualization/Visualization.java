@@ -27,48 +27,28 @@
  */
 package org.hisp.dhis.model.visualization;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.apache.commons.lang3.BooleanUtils;
 import org.hisp.dhis.model.OrgUnit;
-import org.hisp.dhis.model.analytics.AnalyticalObject;
 import org.hisp.dhis.model.dimension.DataDimensionItem;
-import org.hisp.dhis.model.period.Period;
 
 @Getter
 @Setter
 @NoArgsConstructor
-public class Visualization extends AnalyticalObject {
+@EqualsAndHashCode(callSuper = true, onlyExplicitlyIncluded = true)
+public class Visualization extends VisualizationObject {
   private static final long serialVersionUID = 1L;
 
   /** Type of visualization. */
   @JsonProperty private VisualizationType type;
 
-  /** Dimensions to cross tabulate / use as columns. */
-  @JsonProperty private List<String> columnDimensions = new ArrayList<>();
-
-  /** Dimensions to use as rows. */
-  @JsonProperty private List<String> rowDimensions = new ArrayList<>();
-
   /** Data dimension items. */
   @JsonProperty private List<DataDimensionItem> dataDimensionItems = new ArrayList<>();
-
-  /** Fixed periods. */
-  @JsonProperty private List<Period> periods = new ArrayList<>();
-
-  /** Include user org unit. */
-  @JsonProperty private Boolean userOrganisationUnit;
-
-  /** Include user org unit children. */
-  @JsonProperty private Boolean userOrganisationUnitChildren;
-
-  /** Include user org unit grand children. */
-  @JsonProperty private Boolean userOrganisationUnitGrandChildren;
 
   /** Organisation units. */
   @JsonProperty private List<OrgUnit> organisationUnits = new ArrayList<>();
@@ -83,20 +63,5 @@ public class Visualization extends AnalyticalObject {
     this.id = id;
     this.name = name;
     this.type = type;
-  }
-
-  @JsonIgnore
-  public boolean isUserOrganisationUnit() {
-    return BooleanUtils.isTrue(userOrganisationUnit);
-  }
-
-  @JsonIgnore
-  public boolean isUserOrganisationUnitChildren() {
-    return BooleanUtils.isTrue(userOrganisationUnitChildren);
-  }
-
-  @JsonIgnore
-  public boolean isUserOrganisationUnitGrandChildren() {
-    return BooleanUtils.isTrue(userOrganisationUnitGrandChildren);
   }
 }
