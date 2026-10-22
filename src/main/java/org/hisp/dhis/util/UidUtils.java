@@ -30,8 +30,12 @@ package org.hisp.dhis.util;
 import static org.hisp.dhis.util.ObjectUtils.isAbsent;
 import static org.hisp.dhis.util.ObjectUtils.isPresent;
 
+import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
@@ -175,6 +179,23 @@ public class UidUtils {
 
     } catch (NoSuchAlgorithmException ex) {
       throw new IllegalArgumentFormatException("SHA-256 algorithm not found", ex);
+    }
+  }
+
+  /**
+   * Writes the given number of UIDs to a file {@code dhis2-uids} in the home directory of the
+   * current user, with one UID per line. An existing file is overwritten.
+   *
+   * @param n the number of UIDs to write.
+   * @throws UncheckedIOException if the file could not be written.
+   */
+  public static void writeUids(int n) {
+    Path path = Path.of(System.getProperty("user.home"), "dhis2-uids");
+
+    try {
+      Files.write(path, generateUids(n), StandardCharsets.UTF_8);
+    } catch (IOException ex) {
+      throw new UncheckedIOException("Failed to write UIDs to file: " + path, ex);
     }
   }
 
