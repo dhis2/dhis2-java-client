@@ -65,6 +65,7 @@ import static org.hisp.dhis.api.ApiFields.OPTION_GROUP_FIELDS;
 import static org.hisp.dhis.api.ApiFields.OPTION_SET_EXT_FIELDS;
 import static org.hisp.dhis.api.ApiFields.OPTION_SET_FIELDS;
 import static org.hisp.dhis.api.ApiFields.ORG_UNIT_FIELDS;
+import static org.hisp.dhis.api.ApiFields.ORG_UNIT_FIELDS_EXT;
 import static org.hisp.dhis.api.ApiFields.ORG_UNIT_GROUP_EXT_FIELDS;
 import static org.hisp.dhis.api.ApiFields.ORG_UNIT_GROUP_FIELDS;
 import static org.hisp.dhis.api.ApiFields.ORG_UNIT_GROUP_SET_FIELDS;
@@ -296,7 +297,7 @@ public enum MetadataEntity {
       Dhis2Objects::getIndicatorTypes),
   ORG_UNIT(OrgUnit.class,
       ORG_UNIT_FIELDS,
-      ORG_UNIT_FIELDS,
+      ORG_UNIT_FIELDS_EXT,
       "organisationUnits",
       Dhis2Objects::getOrganisationUnits),
   ORG_UNIT_GROUP(

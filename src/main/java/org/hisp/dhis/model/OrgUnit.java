@@ -32,7 +32,9 @@ import static org.hisp.dhis.util.ObjectUtils.isPresent;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -70,6 +72,8 @@ public class OrgUnit extends DimensionItem {
   @JsonProperty private String email;
 
   @JsonProperty private String phoneNumber;
+
+  @JsonProperty private List<Program> programs = new ArrayList<>();
 
   public OrgUnit(String id, String name) {
     this.id = id;
