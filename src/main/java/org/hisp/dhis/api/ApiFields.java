@@ -269,6 +269,10 @@ public class ApiFields {
           contactPerson,address,email,phoneNumber""",
           NAME_EXT_FIELDS, NAME_FIELDS);
 
+  /** Org unit extended fields */
+  public static final String ORG_UNIT_FIELDS_EXT =
+      String.format("%1$s,programs[id]", ORG_UNIT_FIELDS);
+
   /** Org unit group fields. */
   public static final String ORG_UNIT_GROUP_FIELDS = NAME_FIELDS;
 

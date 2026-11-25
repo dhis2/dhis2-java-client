@@ -72,6 +72,8 @@ class OrgUnitApiTest {
     assertEquals("O6uvpzGd5pu", ou.getParent().getId());
     assertNotNull(ou.getOpeningDate());
     assertEquals(DimensionItemType.ORGANISATION_UNIT, ou.getDimensionItemType());
+    assertNotNull(ou.getPrograms());
+    assertFalse(ou.getPrograms().isEmpty());
   }
 
   @Test
